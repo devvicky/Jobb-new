@@ -1,0 +1,22 @@
+ALTER TABLE `indusers`
+	CHANGE COLUMN `fb_id` `social_id` BIGINT(20) UNSIGNED NULL DEFAULT NULL AFTER `email_vcode`,
+	CHANGE COLUMN `fb_access_token` `access_token` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8_unicode_ci' AFTER `social_id`,
+	CHANGE COLUMN `fb_access_token_secret` `access_token_secret` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8_unicode_ci' AFTER `access_token`,
+	ADD COLUMN `avatar` VARCHAR(255) NULL DEFAULT NULL AFTER `access_token_secret`;
+
+
+
+ALTER TABLE `indusers`
+	ADD COLUMN `industry` VARCHAR(255) NULL DEFAULT NULL AFTER `role`,
+	ADD COLUMN `functional_area` VARCHAR(255) NULL DEFAULT NULL AFTER `industry`;
+
+
+ALTER TABLE `corpusers`
+	ADD COLUMN `email_show` VARCHAR(255) NULL DEFAULT NULL AFTER `firm_email_id`,
+	ADD COLUMN `phone_show` VARCHAR(255) NULL DEFAULT NULL AFTER `email_show`;
+
+
+
+ALTER TABLE `postjobs`
+	ADD COLUMN `industry` VARCHAR(255) NULL DEFAULT NULL AFTER `role`,
+	ADD COLUMN `functional_area` VARCHAR(255) NULL DEFAULT NULL AFTER `industry`;
