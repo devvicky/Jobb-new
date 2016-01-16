@@ -489,7 +489,7 @@
 									<!-- <input type="text" aria-hidden="true" id="prefered_location" value="" onblur="pref_loc_locality()"
 											name="prefered_location[]" class="form-control select2"
 											placeholder="Selected City" style="border: 0;"> -->
-									{!! Form::select('prefered_location[]', explode(', ', $user->prefered_location), null, ['id'=>'prefered_location', 'onchange'=>'pref_loc_locality()', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'city', 'multiple']) !!}		
+									{!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 'onchange'=>'pref_loc_locality()', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'city', 'multiple']) !!}		
 
 											
 								</div>
@@ -676,20 +676,35 @@
 	}
    google.maps.event.addDomListener(window, 'load', initializeCity);   
 
+var prefLocationArray = [];
+<?php $arr = explode(', ', $user->prefered_location); ?> 
+@foreach($arr as $gt)
+	prefLocationArray.push('<?php echo $gt; ?>');
+@endforeach
+
+
+
 
     // preferred loc
-    var prefLocationArray = [];
-    var plselect = $("#prefered_location").select2();
-    if(document.getElementById('prefered_location').value != null){
+    
+    var plselect = $("#prefered_location").select2({
+        		dataType: 'json',
+        		data: prefLocationArray
+        	});
+    plselect.val(prefLocationArray).trigger("change"); 
+
+    if(document.getElementById('prefered_location').value != ''){
   		prefLocationArray.push(document.getElementById('prefered_location').value);
   	}
 
   	var $eventSelect = $("#prefered_location"); 
 	$eventSelect.on("select2:unselect", function (e) {
 		console.log(e.params.data.id);
+		// console.log(e.params);
 		prefLocationArray = $.grep(prefLocationArray, function(value) {
 		  return value != e.params.data.id;
 		});
+		console.log(prefLocationArray);
 	});
 
     var prefLoc = $("#pref_loc");
@@ -702,10 +717,13 @@
 		function onPlaceChanged() {
 		  var place = autocomplete.getPlace();
 		  if (place.address_components) { 
+		  	console.log(place.address_components);
 		  	pref_loc_city = place.address_components[0].long_name;
 		  	if(place.address_components.length == 3){		  		
 		  		pref_loc_state = '('+place.address_components[1].long_name+')';
 		  	}else if(place.address_components.length == 4){
+		  		pref_loc_state = '('+place.address_components[2].long_name+')';
+		  	}else if(place.address_components.length == 5){
 		  		pref_loc_state = '('+place.address_components[2].long_name+')';
 		  	}else{
 		  		pref_loc_state = '';
@@ -721,8 +739,7 @@
 		  	}
 		  	console.log(prefLocationArray);
 		  	document.getElementById('prefered_location').value = selectedLoc;
-			
-			
+				
 		  	
 		  	$("#prefered_location").select2({
         		dataType: 'json',
@@ -744,11 +761,11 @@
 	function pref_loc_locality(){
 		var selected_pref_locations = (document.getElementById('prefered_location').value).split(',');
 		var selected_pref_locality = (document.getElementById('preferred_locality').value).split(',');
-		if(selected_pref_locations.length == 1){
+		if(prefLocationArray.length == 1){
 			document.getElementById("prefered_location").disabled = false;
 			document.getElementById("pref_locality").disabled = false;
 			document.getElementById("pref_locality").value = '';
-		}else if(selected_pref_locations.length > 1){
+		}else if(prefLocationArray.length > 1){
 			document.getElementById("prefered_location").disabled = false;
 			document.getElementById("pref_locality").disabled = true;
 			document.getElementById("preferred_locality").disabled = true;
@@ -760,7 +777,7 @@
 
 		if(document.getElementById('preferred_locality').value == ''){
 			document.getElementById("preferred_locality").disabled = true;
-		}else if(selected_pref_locality.length >= 1 && selected_pref_locations.length == 1){
+		}else if(prefLocationArray.length >= 1 && prefLocationArray.length == 1){
 			document.getElementById("preferred_locality").disabled = false;
 		}else{
 			document.getElementById("preferred_locality").disabled = true;
@@ -783,10 +800,10 @@
 		  	var selectedLocality = document.getElementById('preferred_locality').value;
 		  	if(selectedLocality == ''){
 		  		selectedLocality = selectedLocality + pref_locality;
-		  		prefLocalityArray.push(selectedLocality + pref_locality);
+		  		prefLocalityArray.push(selectedLocality);
 		  	}else{
 		  		selectedLocality = selectedLocality + ', '+pref_locality;
-		  		prefLocalityArray.push(selectedLocality + pref_locality);
+		  		prefLocalityArray.push(selectedLocality);
 		  	}	
 		  	console.log(prefLocalityArray);	  	
 		  	document.getElementById('preferred_locality').value = selectedLocality;
@@ -855,7 +872,7 @@ $(document).ready(function() {
 // $selectedSkills = $("#prefered_location").select2();
  $selectedSkills = $("#linked_skill_id").select2();
 
-console.log($selectedSkills.val());
+// console.log($selectedSkills.val());
 
 
 	// function checkOption(obj) {

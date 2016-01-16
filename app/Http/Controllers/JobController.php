@@ -649,30 +649,4 @@ class JobController extends Controller {
 		return $roles;
 	}
 
-	public function favProfile(Request $request){
-		$fav = Corpsearchprofile::where('user_id', '=', Auth::user()->id)
-							    ->first();
-		if($fav == null){
-			$fav = new Corpsearchprofile();
-			$fav->user_id = Auth::user()->id;
-			$fav->fav_post = 1;
-			$fav->fav_post_dtTime = new \DateTime();
-			$fav->save();
-			$favCount = Postactivity::where('user_id', '=', Auth::user()->id)->sum('fav_post');
-			return $favCount;
-		}elseif($fav != null && $fav->fav_post == 0){
-			$fav->fav_post = 1;
-			$fav->fav_post_dtTime = new \DateTime();
-			$fav->save();
-			$favCount = Postactivity::where('user_id', '=', Auth::user()->id)->sum('fav_post');
-			return $favCount;
-		}elseif($fav != null && $fav->fav_post == 1){
-			$fav->fav_post = 0;
-			$fav->fav_post_dtTime = new \DateTime();
-			$fav->save();
-			$favCount = Postactivity::where('user_id', '=', Auth::user()->id)->sum('fav_post');
-			return $favCount;
-		}
-
-	}
 }

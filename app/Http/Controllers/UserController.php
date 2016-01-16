@@ -249,7 +249,7 @@ class UserController extends Controller {
 			
 			$data->prefered_location = implode(', ', Input::get('prefered_location'));
 			$data->prefered_jobtype = Input::get('prefered_jobtype');
-			$data->p_locality = implode(', ', Input::get('preferred_locality'));
+			// $data->p_locality = implode(', ', Input::get('preferred_locality'));
 			$data->save();
 			return redirect('/individual/edit#privacy');
 		}else{

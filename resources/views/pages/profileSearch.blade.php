@@ -194,37 +194,49 @@
 	                               
 	                                @endif
 	                                <br>
-	                                <div class="col-md-8 col-sm-8 col-xs-12 profile-show" style="padding:0 !important;margin: 5px 0;">
+	                                @if(!$corpsearchprofile->contains('profile_id', $user->id))
+	                                @else
+	                                <div class="col-md-8 col-sm-8 col-xs-12" style="padding:0 !important;margin: 5px 0;">
 						  				<i class="fa fa-envelope"></i> : {{$user->email}}<br>
 						  				<i class="fa fa-phone-square"></i> : {{$user->mobile}}
 						  			</div>
-						  			<div class="col-md-4 col-sm-4 col-xs-12 profile-show" style="padding:0 !important;margin: 5px 0;">
+						  			<div class="col-md-4 col-sm-4 col-xs-12" style="padding:0 !important;margin: 5px 0;">
 						  				<button class="btn blue corp-profile-resume" style="">
 											<i class="glyphicon glyphicon-download"></i> Resume
 										</button>
 						  			</div>
+						  			@endif
+
+						  			<div id="profile-contacts-{{$user->id}}"></div>
+						  			
 								</div>
 								<div class="col-md-3 col-sm-4 col-xs-12 contact-small" style="padding:0;">
-									<div data-profileid="" class="view-profile">
-										<button class="btn green corp-profile-contact" style="">
-											<i class="glyphicon glyphicon-earphone" style="font-size:11px;"></i> Contact
-										</button>
-									</div>
-									<!-- <div style="margin: 5px 0;">
-										<button class="btn blue corp-profile-resume" style="">
-											<i class="glyphicon glyphicon-download"></i> Resume
-										</button>
-									</div> -->
+									@if(!$corpsearchprofile->contains('profile_id', $user->id))
+									<form action="/profile/fav" method="post" id="profile-fav-{{$user->id}}" data-id="{{$user->id}}">
+										<input type="hidden" name="_token" value="{{ csrf_token() }}">
+										<input type="hidden" name="profileid" value="{{ $user->id }}">
+										<!-- <div class="view-profile"> -->
+											<button id="profilefav-btn-{{$user->id}}" class="btn green corp-profile-contact profile-fav-btn" type="button" style="">
+												<i class="glyphicon glyphicon-earphone" style="font-size:11px;"></i> Contact
+											</button>
+										<!-- </div> -->
+									</form>
+									@else
+									<!-- <button disabled class="btn grey corp-profile-contact" type="button" style="">
+										<i class="glyphicon glyphicon-earphone" style="font-size:11px;"></i> Contacted
+									</button> -->
+									@endif
 								</div>
+								<button class="btn fav-btn" type="button" style="background-color: transparent;padding:0 10px;border:0;">			
+									<i class="fa fa-save (alias)" style="font-size: 20px;color:rgb(183, 182, 182);"></i>
+								</button>
 					  		</div>
-					  		<form action="/job/fav" method="post" id="post-fav-{{$user->id}}" data-id="{{$user->id}}">
-								<input type="hidden" name="_token" value="{{ csrf_token() }}">
-						  		<div class="fav-new">
-									<button class="btn fav-btn" type="button" style="background-color: transparent;padding:0 10px;border:0">			
-										<i class="fa fa-save (alias)" style="font-size: 20px;color:rgb(183, 182, 182);"></i>
-									</button>	
-								</div>
-							</form>
+					  		
+								
+						  		<!-- <div class="fav-new"> -->
+										
+								<!-- </div> -->
+							
 							<div class="modal fade" id="post-mod-{{$user->id}}" tabindex="-1" role="basic" aria-hidden="true">
 							<div class="modal-dialog">
 								<div class="modal-content">
@@ -318,6 +330,52 @@
            $('.view-profile').hide();
     });
    });
+
+
+    $('.profile-fav-btn').live('click',function(event){  	    
+  	event.preventDefault();
+  	var post_id = $(this).parent().data('id');
+
+  	var formData = $('#profile-fav-'+post_id).serialize(); 
+    var formAction = $('#profile-fav-'+post_id).attr('action');
+    $count = $.trim($('#profilefavcount').text());
+    if($count.length == 0 || $count == ""){
+		$count = 0;
+	}
+    $.ajaxSetup({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
+	});
+
+    $.ajax({
+      url: formAction,
+      type: "post",
+      data: formData,
+      cache : false,
+
+      success: function(data){
+     		// console.log(data);
+      	if(data.data.save_contact == 1 && data.success == 'success'){
+
+ 			var out = '<div class="col-md-8 col-sm-8 col-xs-12" style="padding:0 !important;margin: 5px 0;">';
+ 			out += '<i class="fa fa-envelope"></i> : '+data.data.email+'<br>';
+ 			out += '<i class="fa fa-phone-square"></i> : '+data.data.mobile+'</div>';
+ 			out += '<div class="col-md-4 col-sm-4 col-xs-12" style="padding:0 !important;margin: 5px 0;">';
+ 			out += '<a class="btn blue corp-profile-resume" href="'+data.data.resume+'">'
+ 			out += '<i class="glyphicon glyphicon-download"></i> Resume</a></div>';
+
+ 			$("#profile-contacts-"+post_id).html(out);
+ 			$("#profilefav-btn-"+post_id).hide();
+ 			$('#profilefav-btn-'+post_id).prop('disabled', true);
+			
+        }else {
+        	// console.log(data);
+        }
+      }
+    }); 
+    return false;
+  }); 
 </script>
 
 @stop

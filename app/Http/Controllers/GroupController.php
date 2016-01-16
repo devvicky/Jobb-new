@@ -184,28 +184,11 @@ class GroupController extends Controller {
 		// return $group;
 	}
 
-	public function addUser(Request $request){
-		$group = Group::findOrFail($request['add_group_id']);
-		$group->users()->attach($request['add_user_id']);
-		// $group->users()->attach($group, array('group_id');
-		$to_user = User::where('induser_id', '=', $request['add_user_id'])->pluck('id');
-		if($to_user != null){
-			$notification = new Notification();
-			$notification->from_user = Auth::user()->id;
-			$notification->to_user = $to_user;
-			$notification->remark = 'has added you to group: '.$group->group_name;
-			$notification->operation = 'group';
-			$notification->save();
-		}
-
-		return redirect('/group/'.$request['add_group_id']);
-	}
-
-	public function deleteUser(Request $request){
-		$groups_users = Groups_users::findOrFail($request['delete_id']);
-		$groups_users->delete();
-		return redirect('/group/'.$request['delete_group_id']);
-	}
+	// public function deleteUser(Request $request){
+	// 	$groups_users = Groups_users::findOrFail($request['delete_id']);
+	// 	$groups_users->delete();
+	// 	return redirect('/group/'.$request['delete_group_id']);
+	// }
 
 	public function leavegroup(Request $request){
 		$groups_users = Groups_users::where('user_id', '=', $request['my_id'])->where('group_id', '=', $request['my_group_id']);
@@ -249,5 +232,30 @@ class GroupController extends Controller {
 
 	}
 
+	public function addUser(Request $request){
+		$group = Group::findOrFail($request['add_group_id']);	
+		$new_group_users = explode(',', $request['add_group_users']);
+		$group->users()->attach($new_group_users);
+
+		foreach ($new_group_users as $user) {
+			$to_user = User::where('induser_id', '=',$user)->pluck('id');
+			if($to_user != null){
+				$notification = new Notification();
+				$notification->from_user = Auth::user()->id;
+				$notification->to_user = $to_user;
+				$notification->remark = 'has added you to group: '.$group->group_name;
+				$notification->operation = 'group';
+				$notification->save();
+			}
+		}
+
+		return redirect('/group/'.$request['add_group_id']);
+	}
+
+	public function deleteUser(Request $request){
+		$groups_users = Groups_users::findOrFail($request['delete_id']);
+		$groups_users->delete();
+		return redirect('/group/'.$request['delete_group_id']);
+	}
 
 }

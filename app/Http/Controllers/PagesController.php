@@ -784,41 +784,7 @@ public function homeskillFilter(){
 	public function searchProfile(){
 		if (Auth::check()) {
 			$title = 'Profile search';
-			if(Auth::user()->identifier == 2){
-				$corpsearchProfile = Corpsearchprofile::where('id', '=', Auth::user()->corpuser_id)->first();	
-				if($corpsearchProfile != null){
-					$corpsearchProfile->user_id = Auth::user()->corpuser_id;
-					$corpsearchProfile->city = Input::get('city');
-					$corpsearchProfile->name = Input::get('fullname');
-					$corpsearchProfile->role = Input::get('role');
-					$corpsearchProfile->working_at = Input::get('working_at');
-					$corpsearchProfile->mobile = Input::get('mobile');
-					$corpsearchProfile->min_exp = Input::get('min_exp');
-					$corpsearchProfile->max_exp = Input::get('max_exp');
-					$corpsearchProfile->prefered_jobtype = Input::get('job_type');
-					$corpsearchProfile->resume = Input::get('resume');
-					$corpsearchProfile->type = Input::get('type');
-					if(Input::get('linked_skill_id') != null){
-						$corpsearchProfile->skill = implode(', ', Input::get('linked_skill_id'));
-					}
-					$corpsearchProfile->save();
-				}else if($corpsearchProfile == null){
-					$corpsearchProfile = new Corpsearchprofile();
-					$corpsearchProfile->user_id = Auth::user()->corpuser_id;
-					$corpsearchProfile->city = Input::get('city');
-					$corpsearchProfile->name = Input::get('fullname');
-					$corpsearchProfile->role = Input::get('role');
-					$corpsearchProfile->working_at = Input::get('working_at');
-					$corpsearchProfile->mobile = Input::get('mobile');
-					$corpsearchProfile->min_exp = Input::get('min_exp');
-					$corpsearchProfile->max_exp = Input::get('max_exp');
-					$corpsearchProfile->prefered_jobtype = Input::get('job_type');
-					$corpsearchProfile->resume = Input::get('resume');
-					$corpsearchProfile->type = Input::get('type');
-					$corpsearchProfile->skill = implode(', ', Input::get('linked_skill_id'));
-					$corpsearchProfile->save();
-				}
-			}
+			
 			$city = Input::get('city');
 			$name = Input::get('fullname');
 			$role = Input::get('role');
@@ -833,9 +799,12 @@ public function homeskillFilter(){
 				$skills = implode(', ', Input::get('linked_skill_id'));
 			}
 			$type = Input::get('type');
+
 			if($type == 'people'){
 				$users = Induser::orderBy('id', 'desc');
-
+				$corpsearchprofile = Corpsearchprofile::where('user_id', '=', Auth::user()->id)
+													  ->where('save_contact', '=', 1)
+													  ->get(['profile_id']);
 				if($name != null){
 					$users->where('fname', 'like', '%'.$name.'%')->orWhere('lname', 'like', '%'.$name.'%')->orWhere('email', '=', $name);
 				}
@@ -891,7 +860,7 @@ public function homeskillFilter(){
 											 and connections.status=1
 								)', [Auth::user()->induser_id, Auth::user()->induser_id]);
 				$links = collect($links);
-				return view('pages.profileSearch', compact('users', 'title', 'links', 'type'));
+				return view('pages.profileSearch', compact('users', 'title', 'links', 'type', 'corpsearchprofile'));
 			}elseif($type == 'company'){
 				$users = Corpuser::orderBy('id', 'desc');
 
@@ -1654,6 +1623,63 @@ public function homeskillFilter(){
 		$user = Corpuser::where('id', '=', Auth::user()->corpuser_id)->first();
 		$skills = Skills::lists('name', 'name');
 		return view('pages.corpsearchProfile', compact('user', 'title', 'skills'));
+	}
+
+	public function favProfile(Request $request){
+		$profileFav = Corpsearchprofile::where('profile_id', '=', $request['profileid'])
+							->where('user_id', '=', Auth::user()->id)
+							->first();
+
+		if($profileFav == null){
+			$profileFav = new Corpsearchprofile();
+			$profileFav->user_id = Auth::user()->id;
+			$profileFav->profile_id = $request['profileid'];
+			$profileFav->save_contact = 1;
+			$profileFav->savecontact_dtTime = new \DateTime();
+			$profileFav->save();
+
+			$profileUser = Induser::where('id', '=', $request['profileid'])->first(['id', 'mobile', 'email', 'resume']);
+			
+			$data = [];
+			$data['profile_id'] = $profileUser->id;
+			$data['mobile'] = $profileUser->mobile;
+			$data['email'] = $profileUser->email;
+			$data['resume'] = $profileUser->resume;
+			$data['save_contact'] = $profileFav->save_contact;
+
+			if(!empty($data) && $profileFav->id > 0 && $profileUser != null){
+				return response()->json(['success'=>'success','data'=>$data]);
+				// return $data;
+			}else{
+				return response()->json(['success'=>'fail','data'=>$data]);
+				// return $profileFav;
+			}
+			
+		}
+	}
+
+	public function listFavourite(){
+		if (Auth::check()) {
+			$title = 'favourite';
+			$ProfileFav = Corpsearchprofile::orderBy('id', 'desc')							
+							->with('indUser', 'favProfile')
+							->whereRaw('id in (select post_id from corpsearchprofiles where user_id = '.Auth::user()->id.' and save_contact = 1)')
+							->paginate(15);
+
+			if(Auth::user()->corpuser_id != null){
+				$following = DB::select('select id from indusers
+										 where indusers.id in (
+											select follows.individual_id as id from follows
+											where follows.corporate_id=?
+									)', [Auth::user()->corpuser_id]);
+				$following = collect($following);
+			}
+
+			return view('pages.home', compact('ProfileFav', 'title', 'following'));
+			// return $posts;
+		}else{
+			return redirect('login');
+		}	
 	}
 
 }

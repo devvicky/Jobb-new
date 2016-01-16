@@ -186,14 +186,24 @@
 			</li>
 		</ul>
 		<div class="done-show" style="float:right;margin:10px 0;">
-			<button class="btn" style="padding: 0px 5px;background-color: darkslategrey;color: white;">
-				<i class="icon-close"></i> Remove
-			</button>
+			<form id="" action="/group/adduser" method="post">
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
+				<input type="hidden" name="delete_id"  value="{{$group->id}}">
+				<input id="removegroupusers" type="hidden" name="remove_group_users" >
+				<button class="btn" style="padding: 0px 5px;background-color: darkslategrey;color: white;">
+					<i class="icon-close"></i> Remove
+				</button>
+			</form>
 		</div>
 		<div class="add-done-show" style="float:right;margin:10px 0;">
-			<button class="btn" style="padding: 0px 5px;background-color: darkslategrey;color: white;">
-				<i class="icon-plus"></i> Add
-			</button>
+			<form id="" action="/group/adduser" method="post">
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
+				<input type="hidden" name="add_group_id"  value="{{$group->id}}">
+				<input id="addgroupusers" type="hidden" name="add_group_users" >
+				<button class="btn" style="padding: 0px 5px;background-color: darkslategrey;color: white;">
+					<i class="icon-plus"></i> Add
+				</button>
+			</form>
 		</div>
 	</div>
 	<div class="portlet-body">
@@ -241,7 +251,7 @@
 						<div class="col-md-1 col-sm-1 col-xs-1">
 						<!-- <div class="checkboxFour"> -->
 							<label>
-								<input type="checkbox" id="" class="group-done" data-checkbox="icheckbox_square-grey" onchange="valueChanged()">
+								<input type="checkbox" id="" class="remove-done" data-checkbox="icheckbox_square-grey" onchange="valueChanged({{$user->groups_users_id}})">
 							</label>
 						<!-- </div> -->
 						</div>
@@ -309,11 +319,28 @@
 <script type="text/javascript">
  $addToGroupMember = [];
  $removeFromGroupMember = [];
-function valueChanged(){
-    if($('.group-done').is(":checked"))   
-        $(".done-show").show();
-    else
-        $(".done-show").hide();
+function valueChanged($groupid){
+    if($('.remove-done').is(":checked")){
+    	$(".done-show").show();
+    	if($.inArray( ""+$groupid, $removeFromGroupMember ) < 0){
+	    	$removeFromGroupMember.push(""+$groupid);
+	    }else{
+	    	$removeFromGroupMember = $.grep($removeFromGroupMember, function(value) {
+			  return value != ""+$groupid;
+			});
+	    }
+    }else{
+    	$(".done-show").hide();
+    	if($.inArray( ""+$groupid, $removeFromGroupMember ) < 0){
+	    	$removeFromGroupMember.push(""+$groupid);
+	    }else{
+	    	$removeFromGroupMember = $.grep($removeFromGroupMember, function(value) {
+			  return value != ""+$groupid;
+			});
+	    }
+    }
+    $('#removegroupusers').val($removeFromGroupMember);
+        
 }
 
 function valueChange($userid){
@@ -336,7 +363,8 @@ function valueChange($userid){
 			});
 	    }
     }
-    	console.log($addToGroupMember);        
+    	$('#addgroupusers').val($addToGroupMember);
+    	// console.log($addToGroupMember);        
 }
 
 	jQuery(document).ready(function() { 

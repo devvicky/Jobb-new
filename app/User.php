@@ -39,6 +39,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		return $this->hasOne('App\Corpuser', 'id', 'corpuser_id');
 	}
 
+	public function corpSearchProfile(){
+		return $this->hasMany('App\Corpsearchprofile', 'user_id', 'id');
+	}
+
 	// public function getInduserAttribute(){
 	// 	if(!array_key_exists('induser', $this->relations))
 	// 		$this->load('induser');

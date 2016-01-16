@@ -46,6 +46,7 @@ Route::group(array('before' => 'auth'), function(){
 	Route::post('corporate/privacyUpdate/{id}', 'CorporateController@privacyUpdate');
 
 	Route::get('searchProfile', 'PagesController@corpsearchProfile');
+	Route::post('profile/fav', 'PagesController@favProfile');
 
 	Route::get('job/skillSearch', 'JobController@skillSearch');
 	Route::get('job', 'JobController@index');
