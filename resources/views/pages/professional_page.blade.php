@@ -710,7 +710,6 @@
 		}
 		plselect.val(prefLocationArray).trigger("change"); 
 		// updated array
-		console.log(prefLocationArray.length);
 	});
 
     var prefLoc = $("#pref_loc");
@@ -723,7 +722,7 @@
 		function onPlaceChanged() {
 		  var place = autocomplete.getPlace();
 		  if (place.address_components) { 
-		  	console.log(place.address_components);
+		  	// console.log(place.address_components);
 		  	pref_loc_city = place.address_components[0].long_name;
 		  	if(place.address_components.length == 3){		  		
 		  		pref_loc_state = '('+place.address_components[1].long_name+')';
@@ -743,7 +742,7 @@
 		  		selectedLoc = selectedLoc + ', '+pref_loc_city+pref_loc_state;
 		  		prefLocationArray.push(pref_loc_city+pref_loc_state);
 		  	}
-		  	console.log(prefLocationArray);
+
 		  	document.getElementById('prefered_location').value = selectedLoc;				
 		  	
 		  	$("#prefered_location").select2({ dataType: 'json', data: prefLocationArray });
@@ -768,7 +767,6 @@
 		@endif
 	@endforeach
 
-	console.log(prefLocalityArray);
 	var plocalselect = $("#preferred_locality").select2({ dataType: 'json', data: prefLocalityArray });
     plocalselect.val(prefLocalityArray).trigger("change"); 
     
@@ -824,7 +822,7 @@
 		  		selectedLocality = selectedLocality + ', '+pref_locality;
 		  		prefLocalityArray.push(selectedLocality);
 		  	}	
-		  	console.log(prefLocalityArray);	  	
+
 		  	document.getElementById('preferred_locality').value = selectedLocality;
 		  	pref_loc_locality();
 		  	$("#preferred_locality").select2({ dataType: 'json', data: prefLocalityArray });
@@ -851,7 +849,7 @@
 		}
 		plocalselect.val(prefLocalityArray).trigger("change"); 
 		// updated array
-		console.log(prefLocalityArray.length);
+		
 	});
 
 
