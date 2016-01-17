@@ -509,7 +509,7 @@
 									</div>
 									<!-- <input type="text" id="preferred_locality" value="{{ $user->p_locality }}" placeholder="Selected Area" style="border:0" 
 										name="p_locality" class="form-control select2" disabled > -->
-								{!! Form::select('preferred_locality[]', explode(', ', $user->p_locality), null, ['id'=>'preferred_locality', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Area', 'multiple']) !!}		
+								{!! Form::select('preferred_locality[]', [], null, ['id'=>'preferred_locality', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Area', 'multiple']) !!}		
 
 								</div>
 							</div>
@@ -663,7 +663,11 @@
 	
 	function initializeCity() {
 		var options = {	types: ['(cities)'], componentRestrictions: {country: "in"}};
-		var input = document.getElementById('city');
+		// var input = document.getElementById('city');
+
+		var form = document.getElementById('profile_validation');
+		var input = form[8];
+
 		var autocomplete = new google.maps.places.Autocomplete(input, options);
 		autocomplete.addListener('place_changed', onPlaceChanged);
 		function onPlaceChanged() {
@@ -676,35 +680,37 @@
 	}
    google.maps.event.addDomListener(window, 'load', initializeCity);   
 
-var prefLocationArray = [];
-<?php $arr = explode(', ', $user->prefered_location); ?> 
-@foreach($arr as $gt)
-	prefLocationArray.push('<?php echo $gt; ?>');
-@endforeach
+	var prefLocationArray = [];
+	<?php $arr = explode(', ', $user->prefered_location); ?> 
+	@foreach($arr as $gt)
+		prefLocationArray.push('<?php echo $gt; ?>');
+	@endforeach
 
-
-
-
-    // preferred loc
-    
-    var plselect = $("#prefered_location").select2({
-        		dataType: 'json',
-        		data: prefLocationArray
-        	});
+    // preferred loc    
+    var plselect = $("#prefered_location").select2({ dataType: 'json', data: prefLocationArray });
     plselect.val(prefLocationArray).trigger("change"); 
 
-    if(document.getElementById('prefered_location').value != ''){
+    /*if(document.getElementById('prefered_location').value != ''){
   		prefLocationArray.push(document.getElementById('prefered_location').value);
-  	}
+  	}*/
 
   	var $eventSelect = $("#prefered_location"); 
 	$eventSelect.on("select2:unselect", function (e) {
-		console.log(e.params.data.id);
-		// console.log(e.params);
+		// console.log("Removing: "+e.params.data.id);
+		// remove corresponding value from array
 		prefLocationArray = $.grep(prefLocationArray, function(value) {
 		  return value != e.params.data.id;
 		});
-		console.log(prefLocationArray);
+		// remove select option for pref loc
+		$("#prefered_location option[value='"+e.params.data.id+"']").remove();		
+		if(prefLocationArray.length == 0){
+			plselect = $("#prefered_location").select2({ dataType: 'json', data: [] });
+		}else{
+			plselect = $("#prefered_location").select2({ dataType: 'json', data: prefLocationArray });
+		}
+		plselect.val(prefLocationArray).trigger("change"); 
+		// updated array
+		console.log(prefLocationArray.length);
 	});
 
     var prefLoc = $("#pref_loc");
@@ -738,15 +744,10 @@ var prefLocationArray = [];
 		  		prefLocationArray.push(pref_loc_city+pref_loc_state);
 		  	}
 		  	console.log(prefLocationArray);
-		  	document.getElementById('prefered_location').value = selectedLoc;
-				
+		  	document.getElementById('prefered_location').value = selectedLoc;				
 		  	
-		  	$("#prefered_location").select2({
-        		dataType: 'json',
-        		data: prefLocationArray
-        	});
+		  	$("#prefered_location").select2({ dataType: 'json', data: prefLocationArray });
         	plselect.val(prefLocationArray).trigger("change"); 
-
 
 		  	// console.log(place);
 		  } else { 
@@ -758,7 +759,19 @@ var prefLocationArray = [];
    google.maps.event.addDomListener(window, 'load', initPrefLoc);
 
    	var prefLocalityArray = [];
-    var plocalselect = $("#preferred_locality").select2();
+   	<?php $arrPLocality = explode(', ', $user->p_locality); ?> 
+
+
+	@foreach($arrPLocality as $pl)
+		@if($pl != '')
+			prefLocalityArray.push('<?php echo $pl; ?>');			
+		@endif
+	@endforeach
+
+	console.log(prefLocalityArray);
+	var plocalselect = $("#preferred_locality").select2({ dataType: 'json', data: prefLocalityArray });
+    plocalselect.val(prefLocalityArray).trigger("change"); 
+    
 
 	function pref_loc_locality(){
 		var selected_pref_locations = (document.getElementById('prefered_location').value).split(',');
@@ -771,9 +784,14 @@ var prefLocationArray = [];
 			document.getElementById("prefered_location").disabled = false;
 			document.getElementById("pref_locality").disabled = true;
 			document.getElementById("preferred_locality").disabled = true;
+			prefLocalityArray = [];
+			plocalselect.val(prefLocalityArray).trigger("change");
 			document.getElementById("pref_locality").value = 'Can\'t select locality for multiple location';
 		}else if(document.getElementById('prefered_location').value == ''){
 			document.getElementById("pref_locality").disabled = true;
+			prefLocalityArray = [];
+			plocalselect.val(prefLocalityArray).trigger("change"); 
+			document.getElementById("pref_locality").value = 'Select one preferred location.';
 			document.getElementById("preferred_locality").disabled = true;
 		}
 
@@ -809,16 +827,32 @@ var prefLocationArray = [];
 		  	console.log(prefLocalityArray);	  	
 		  	document.getElementById('preferred_locality').value = selectedLocality;
 		  	pref_loc_locality();
-		  	$("#preferred_locality").select2({
-        		dataType: 'json',
-        		data: prefLocalityArray
-        	});
+		  	$("#preferred_locality").select2({ dataType: 'json', data: prefLocalityArray });
         	plocalselect.val(prefLocalityArray).trigger("change"); 
 		  	// console.log(place2);
 		  } else { document.getElementById('pref_locality').placeholder = 'select some locality'; }
 		}
 	}
    google.maps.event.addDomListener(window, 'load', initializePrefLocality); 
+
+   var $eventSelect = $("#preferred_locality"); 
+	$eventSelect.on("select2:unselect", function (e) {
+		// console.log("Removing: "+e.params.data.id);
+		// remove corresponding value from array
+		prefLocalityArray = $.grep(prefLocalityArray, function(value) {
+		  return value != e.params.data.id;
+		});
+		// remove select option for pref loc
+		$("#preferred_locality option[value='"+e.params.data.id+"']").remove();		
+		if(prefLocalityArray.length == 0){
+			plocalselect = $("#preferred_locality").select2({ dataType: 'json', data: [] });
+		}else{
+			plocalselect = $("#preferred_locality").select2({ dataType: 'json', data: prefLocalityArray });
+		}
+		plocalselect.val(prefLocalityArray).trigger("change"); 
+		// updated array
+		console.log(prefLocalityArray.length);
+	});
 
 
 </script>
