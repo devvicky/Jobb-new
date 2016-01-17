@@ -17,18 +17,18 @@
 			<div class="group-admin-title pull-right">
 				@if($group->admin->id == Auth::user()->induser_id)
 				<a id="ajax-demo" href="#edit-group" data-toggle="modal" class="badge btn btn-xs btn-info" style="" title="Edit">
-					<i class="fa fa-edit"></i><span class="hidden-sm hidden-xs font-group"> Edit</span>
+					<i class="fa fa-edit"></i><span class="hidden-xs font-group"> Edit</span>
 				</a>
 			@endif
 			@if($group->admin->id == Auth::user()->induser_id)				
 				<a id="ajax-demo" href="#delete-group" data-toggle="modal" title="Delete" 
 					class="badge btn btn-xs btn-danger" style="text-decoration: none;">
-					<i class="fa fa-trash"></i><span class="hidden-sm hidden-xs font-group"> Delete Group</span>
+					<i class="fa fa-trash"></i><span class="hidden-xs font-group"> Delete Group</span>
 				</a>				
 			@else				
 				<a id="ajax-demo" href="#leave-group" data-toggle="modal" 
 					class="badge btn btn-xs" style="text-decoration: none;">						
-					<i class="fa fa-sign-out"></i><span class="hidden-sm hidden-xs font-group"> Leave Group</span>
+					<i class="fa fa-sign-out"></i><span class="hidden-xs font-group"> Leave Group</span>
 				</a>
 			@endif
 				
@@ -182,20 +182,25 @@
 			<li>
 				<a href="#tab_5_2" class="label-new" data-toggle="tab">
 					Add <span class="hidden-xs hidden-sm">Members</span> 
+					@if(count($connections) > 0)
+						<span class="badge" style="background-color: deepskyblue;"> 
+							{{count($connections)}}
+						</span>
+					 @endif
 				</a>
 			</li>
 		</ul>
-		<div class="done-show" style="float:right;margin:10px 0;">
-			<form id="" action="/group/adduser" method="post">
+		<div class="done-show" style="float:right;margin:8px 0;">
+			<form id="" action="/group/deleteuser" method="post">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<input type="hidden" name="delete_id"  value="{{$group->id}}">
-				<input id="removegroupusers" type="hidden" name="remove_group_users" >
+				<input id="removegroupusers" type="hidden" name="remove_group_users">
 				<button class="btn" style="padding: 0px 5px;background-color: darkslategrey;color: white;">
 					<i class="icon-close"></i> Remove
 				</button>
 			</form>
 		</div>
-		<div class="add-done-show" style="float:right;margin:10px 0;">
+		<div class="add-done-show" style="float:right;margin:8px 0;">
 			<form id="" action="/group/adduser" method="post">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<input type="hidden" name="add_group_id"  value="{{$group->id}}">
@@ -231,28 +236,12 @@
 					      <br>{{ $user->working_at }}
 							 {{ $user->city }}
 						</div>
-						<div class="col-md-2 col-sm-2 col-xs-2">
-							<span class="input-group-btn btn-right">
-							 	@if($user->admin_id == Auth::user()->induser_id)
-								<form action="{{ url('/group/deleteuser') }}" method="post">
-									<input type="hidden" name="_token" value="{{ csrf_token() }}">
-									<input type="hidden" name="delete_id" value="{{$user->groups_users_id}}">
-									<input type="hidden" name="delete_group_id" value="{{$user->group_id}}">
-									<button type="submit" name="action" value="reject" class="btn apply-ignore-font" style="padding: 0px 3px; background-color: white;">
-										<i class="icon-close icon-close-css"></i>
-									</button>
-									<!-- <button type="submit" class="btn btn-sm btn-danger">
-									<i class="glyphicon glyphicon-trash" style="font-size: 12px;background-color: white;color: black;border-radius: 10px;width: 20px;height: 20px;padding-top: 3px;"></i>
-									</button> -->
-								</form>
-								@endif								
-							</span>
-						</div>
 						<div class="col-md-1 col-sm-1 col-xs-1">
-						<!-- <div class="checkboxFour"> -->
+							@if($user->admin_id == Auth::user()->induser_id)
 							<label>
-								<input type="checkbox" id="" class="remove-done" data-checkbox="icheckbox_square-grey" onchange="valueChanged({{$user->groups_users_id}})">
+								<input type="checkbox" id="" class="remove-done" data-checkbox="icheckbox_square-grey" onchange="removeUsers({{$user->groups_users_id}})">
 							</label>
+							@endif
 						<!-- </div> -->
 						</div>
 					</div>
@@ -279,21 +268,6 @@
 							     {{ $connection->working_at }}<br>
 								 {{ $connection->city }} {{ $connection->state }}
 							</div>
-							<div class="col-md-2 col-sm-2 col-xs-2">
-								<span class="input-group-btn btn-right">
-									<form action="{{ url('/group/adduser') }}" method="post">
-										<input type="hidden" name="_token" value="{{ csrf_token() }}">
-										<input type="hidden" name="add_user_id" value="{{$connection->id}}">
-										<input type="hidden" name="add_group_id" value="{{$group->id}}">
-										<button type="submit" name="action" value="accept" class="btn apply-ignore-font" style="padding: 0px 3px; background-color: white;">
-											<i class="icon-check icon-check-css" style="font-size:20px !important;"></i>
-										</button>
-										<!-- <button type="submit" class="btn btn-sm btn-success">
-										<i class="icon-plus" style="font-size: 12px;background-color: white;color: black;border-radius: 10px;width: 20px;height: 20px;padding-top: 3px;"></i>
-										</button> -->
-									</form>
-								</span>
-							</div>
 							<div class="col-md-1 col-sm-1 col-xs-1">
 							<label>
 								<input type="checkbox" id="" class="add-done" data-checkbox="icheckbox_square-grey" onchange="valueChange({{$connection->id}})">
@@ -319,9 +293,11 @@
 <script type="text/javascript">
  $addToGroupMember = [];
  $removeFromGroupMember = [];
-function valueChanged($groupid){
+function removeUsers($groupid){
     if($('.remove-done').is(":checked")){
     	$(".done-show").show();
+    	$(".add-done-show").hide();
+
     	if($.inArray( ""+$groupid, $removeFromGroupMember ) < 0){
 	    	$removeFromGroupMember.push(""+$groupid);
 	    }else{
@@ -340,12 +316,15 @@ function valueChanged($groupid){
 	    }
     }
     $('#removegroupusers').val($removeFromGroupMember);
+    // $('#groupid').val($groupuserid);
         
 }
 
 function valueChange($userid){
     if($('.add-done').is(":checked")){
     	$(".add-done-show").show();
+    	$(".done-show").hide();
+
     	if($.inArray( ""+$userid, $addToGroupMember ) < 0){
 	    	$addToGroupMember.push(""+$userid);
 	    }else{

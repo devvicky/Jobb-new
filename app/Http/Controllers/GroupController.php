@@ -184,12 +184,6 @@ class GroupController extends Controller {
 		// return $group;
 	}
 
-	// public function deleteUser(Request $request){
-	// 	$groups_users = Groups_users::findOrFail($request['delete_id']);
-	// 	$groups_users->delete();
-	// 	return redirect('/group/'.$request['delete_group_id']);
-	// }
-
 	public function leavegroup(Request $request){
 		$groups_users = Groups_users::where('user_id', '=', $request['my_id'])->where('group_id', '=', $request['my_group_id']);
 		$groups_users->delete();
@@ -253,9 +247,12 @@ class GroupController extends Controller {
 	}
 
 	public function deleteUser(Request $request){
-		$groups_users = Groups_users::findOrFail($request['delete_id']);
-		$groups_users->delete();
-		return redirect('/group/'.$request['delete_group_id']);
+		$remove_group_users = explode(',', $request['remove_group_users']);
+		foreach ($remove_group_users as $delete ) {
+			$groups_users = Groups_users::findOrFail($delete);
+			$groups_users->delete();
+		}		
+		return redirect('/group/'.$request['delete_id']);
 	}
 
 }

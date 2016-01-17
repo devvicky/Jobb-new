@@ -89,7 +89,7 @@
 
 
 									<div class="row">
-										<div class="col-md-5 col-sm-5 col-xs-12">
+										<div class="col-md-6 col-sm-6 col-xs-12">
 											<div class="form-group">
 												<label>
 													Job Role <span class="required">*</span>
@@ -108,8 +108,8 @@
 												<div id="charNum" style="text-align:right;"></div>
 											</div>
 										</div>
-										<div class="col-md-2 col-sm-2 col-xs-2"></div>
-										<div class="col-md-5 col-sm-5 col-xs-12">
+										
+										<div class="col-md-6 col-sm-6 col-xs-12">
 										<div class="form-group">
 											<label>Job Type <span class="required">
 											* </span></label>
@@ -132,7 +132,7 @@
 
 									@if(Auth::user()->identifier == 1)
 									<div class="row">
-										<div class="col-md-5 col-sm-5 col-xs-12">
+										<div class="col-md-6 col-sm-6 col-xs-12">
 											<div class="form-group">
 												<div class="input-icon right">
 														<i class="fa"></i>
@@ -146,8 +146,8 @@
 												</div>
 											</div>
 										</div>
-										<div class="col-md-2 col-sm-2 col-xs-2"></div>
-										<div class="col-md-5 col-sm-5 col-xs-12">
+										<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
+										<div class="col-md-6 col-sm-6 col-xs-12">
 											<div class="form-group">
 												<label>Reference Id</label>
 												<div class="input-group">
@@ -161,7 +161,7 @@
 									</div>	
 									@elseif(Auth::user()->identifier == 2 && Auth::user()->corpuser->firm_type == "consultancy")
 									<div class="row">
-										<div class="col-md-5 col-sm-5 col-xs-12">
+										<div class="col-md-6 col-sm-6 col-xs-12">
 											<div class="form-group">
 												<div class="input-icon right">
 														<i class="fa"></i>
@@ -175,8 +175,8 @@
 												</div>
 											</div>
 										</div>
-										<div class="col-md-2 col-sm-2 col-xs-2"></div>
-										<div class="col-md-5 col-sm-5 col-xs-12">
+										<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
+										<div class="col-md-6 col-sm-6 col-xs-12">
 											<div class="form-group">
 												<label>Reference Id</label>
 												<div class="input-group">
@@ -190,7 +190,7 @@
 									</div>	
 									@elseif(Auth::user()->identifier == 2 && Auth::user()->corpuser->firm_type == "company")
 									<div class="row">
-										<div class="col-md-5 col-sm-5 col-xs-12">
+										<div class="col-md-6 col-sm-6 col-xs-12">
 											<div class="form-group">
 												<label>Reference Id</label>
 												<div class="input-group">
@@ -206,7 +206,7 @@
 								</div>
 								<div class="tab-pane" id="tab2">
 									<div class="row">
-										<div class="col-md-5 col-sm-5 col-xs-12">
+										<div class="col-md-6 col-sm-6 col-xs-12">
 											<div class="form-group">
 												<label>Search Skills</label>
 												<div style="position:relative;">
@@ -215,8 +215,8 @@
 												</div>
 											</div>
 										</div>
-										<div class="col-md-2 col-sm-2 col-xs-2"></div>
-										<div class="col-md-5 col-sm-5 col-xs-12">
+										<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
+										<div class="col-md-6 col-sm-6 col-xs-12">
 											<div class="form-group">
 												<label>Added Skills</label><br>
 												{!! Form::select('linked_skill_id[]', $skills, null, ['id'=>'linked_skill_id', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Skills', 'multiple']) !!}
@@ -224,7 +224,7 @@
 										</div>
 									</div>
 							<div class="row">
-							<div class="col-md-5 col-sm-5">
+							<div class="col-md-6 col-sm-6 col-xs-12">
 								<div class="form-group">
 									<label>Education <span class="required">
 											* </span></label>
@@ -270,9 +270,9 @@
 								</div>
 							</div>
 							<!--/span-->
-							<div class="col-md-2 col-sm-2 col-xs-2"></div>
+							<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
 
-							<div class="col-md-5 col-sm-5">
+							<div class="col-md-6 col-sm-6 col-xs-12">
 								<div class="form-group">
 									<label>Branch <span class="required"> * </span></label>
 									<div class="input-group">
@@ -288,7 +288,7 @@
 							<!--/span-->
 						</div>
 								<div class="row">
-									<div class="col-md-5 col-sm-5 col-xs-12">
+									<div class="col-md-6 col-sm-6 col-xs-12">
 										<div class="form-group">
 											<label>Job Type <span class="required">
 											* </span></label>
@@ -309,7 +309,7 @@
 								</div>
 									<!--/span-->
 								<div class="row">
-									<div class="ccol-md-5 col-sm-5 col-xs-12">
+									<div class="col-md-6 col-sm-6 col-xs-12">
 										<div class="form-group">							
 											<label class=" control-label">Experience </label>&nbsp;: 
 													<input type="text" readonly id="slider-range-exp1" name="min_exp" class="input-exp-width" /> - 
@@ -319,9 +319,9 @@
 												
 										</div>
 									</div>
-									<div class="col-md-2 col-sm-2 col-xs-2"></div>
+									<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
 									
-									<div class="ccol-md-5 col-sm-5 col-xs-12">
+									<div class="col-md-6 col-sm-6 col-xs-12">
 										<div class="form-group">							
 											<label class=" control-label"><input type="checkbox" id="hide-check"> Salary </label>&nbsp;: 
 													<label class="hide-sal input-sal-exp-label"><i class="fa fa-rupee (alias)" style="font-size:12px;"></i></label>
@@ -355,7 +355,7 @@
 								<div class="tab-pane" id="tab3">
 									
 									<div class="row">
-										<div class="col-md-5 col-sm-5">
+										<div class="col-md-6 col-sm-6 col-xs-12">
 											<div class="form-group">
 												<label>Prefered Location <span class="required">
 														* </span></label>
@@ -376,8 +376,8 @@
 											</div>
 										</div>
 										<!--/span-->
-										<div class="col-md-2 col-sm-2 col-xs-2"></div>
-										<div class="col-md-5 col-sm-5">
+										<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
+										<div class="col-md-6 col-sm-6 col-xs-12">
 											<div class="form-group">
 												<label>Area</label>
 												<div class="input-group">
@@ -1535,8 +1535,8 @@ function formatRepo (repo) {
           "<div class='select2-result-repository__title'><b>Role</b>: " + repo.role + "</div>";
 
       markup += "<div class='select2-result-repository__statistics'>" +
-        "<div class='select2-result-repository__forks'><b>Functional area: </b> " + repo.functional_area + " Forks</div>" +
-        "<div class='select2-result-repository__stargazers'><b>Industry</b>: " + repo.industry + " Stars</div>" +
+        "<div class='select2-result-repository__forks'><b>Functional area: </b> " + repo.functional_area + "</div>" +
+        "<div class='select2-result-repository__stargazers'><b>Industry</b>: " + repo.industry + "</div>" +
       "</div>" +
       "</div></div>";
 
@@ -1544,7 +1544,10 @@ function formatRepo (repo) {
     }
 
     function formatRepoSelection (repo) {
-      return repo.role;
+    	if(repo.role != undefined){
+    		console.log(repo);
+    		return repo.role+" -"+repo.functional_area+"-"+repo.industry;
+    	}      
     }
 
 $(document).on('click', 'a', function(event, ui) {
