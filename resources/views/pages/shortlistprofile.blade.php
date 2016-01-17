@@ -233,14 +233,14 @@
 					</div>
 					@endforeach
 					@else
-					No Group Members
+					No Favourite Profile
 					@endif
 
 				</div>
 				<div class="tab-pane" id="tab_5_2">
 					@if(count($profileSave) > 0)
 					@foreach($profileSave as $user)
-					<div class="row" style="border-bottom:1px dotted lightgrey;padding: 5px 0;margin:0">
+					<div class="row saved-profile-{{$user->id}}" style="border-bottom:1px dotted lightgrey;padding: 5px 0;margin:0">
 						
 						<div class="col-md-2 col-sm-2 col-xs-3" style="padding:0 !important;">
 						      <a data-toggle="modal" class="btn resume-button-css magic-profile-match" href="#post-mod-{{$user->id}}" style="padding: 2px 8px;">
@@ -276,10 +276,17 @@
 							</button> -->
 							@endif
 						</div>
+						<form action="/profile/save" method="post" id="profile-save-{{$user->id}}" data-saveid="{{$user->id}}">
+							<input type="hidden" name="_token" value="{{ csrf_token() }}">
+							<input type="hidden" name="profileid" value="{{ $user->id }}">
+							<button id="profilesave-btn-{{$user->id}}" class="btn fav-btn profile-save-btn" type="button" style="background-color: transparent;padding:0 10px;border:0;">			
+								<i class="fa fa-save (alias)" style="font-size: 20px;color:rgb(183, 182, 182);"></i>
+							</button>
+						</form>
 					</div>
 					@endforeach
 					@else
-					No Group Members
+					No saved profile
 					@endif
 
 				</div>
@@ -290,5 +297,84 @@
 @stop
 
 @section('javascript')
+<script>
+	$('.profile-save-btn').live('click',function(event){  	    
+  	event.preventDefault();
+  	var post_id = $(this).parent().data('saveid');
 
+  	var formData = $('#profile-save-'+post_id).serialize(); 
+    var formAction = $('#profile-save-'+post_id).attr('action');
+    
+    $.ajaxSetup({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
+	});
+
+    $.ajax({
+      url: formAction,
+      type: "post",
+      data: formData,
+      cache : false,
+
+      success: function(data){
+     		// console.log(data);
+      	if(data.data.save_profile == 1){
+      		$('.profile-save-'+post_id).hide();
+			$('#profilesave-btn-'+post_id).css({'color':'#FFC823'});	
+        }else if(data.data.save_profile == 0){
+        	$('#profilesave-btn-'+post_id).css({'color':'transparent'});
+        }
+      }
+    }); 
+    return false;
+  }); 
+
+
+
+    $('.profile-fav-btn').live('click',function(event){  	    
+  	event.preventDefault();
+  	var post_id = $(this).parent().data('id');
+
+  	var formData = $('#profile-fav-'+post_id).serialize(); 
+    var formAction = $('#profile-fav-'+post_id).attr('action');
+    $count = $.trim($('#profilefavcount').text());
+    if($count.length == 0 || $count == ""){
+		$count = 0;
+	}
+    $.ajaxSetup({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
+	});
+
+    $.ajax({
+      url: formAction,
+      type: "post",
+      data: formData,
+      cache : false,
+
+      success: function(data){
+     		// console.log(data);
+      	if(data.data.save_contact == 1 && data.success == 'success'){
+
+ 			var out = '<div class="col-md-8 col-sm-8 col-xs-12" style="padding:0 !important;margin: 5px 0;">';
+ 			out += '<i class="fa fa-envelope"></i> : '+data.data.email+'<br>';
+ 			out += '<i class="fa fa-phone-square"></i> : '+data.data.mobile+'</div>';
+ 			out += '<div class="col-md-4 col-sm-4 col-xs-12" style="padding:0 !important;margin: 5px 0;">';
+ 			out += '<a class="btn blue corp-profile-resume" href="'+data.data.resume+'">'
+ 			out += '<i class="glyphicon glyphicon-download"></i> Resume</a></div>';
+
+ 			$("#profile-contacts-"+post_id).html(out);
+ 			$("#profilefav-btn-"+post_id).hide();
+ 			$('#profilefav-btn-'+post_id).prop('disabled', true);
+			
+        }else {
+        	// console.log(data);
+        }
+      }
+    }); 
+    return false;
+  });
+</script>
 @stop

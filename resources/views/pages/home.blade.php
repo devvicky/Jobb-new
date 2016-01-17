@@ -1331,7 +1331,7 @@
 																                    id="apply-btn-{{$post->id}}" type="button">Apply
 																            </button>
 																        </form> 
-																        @elseif($post->postactivity->where('user_id', Auth::user()->id)->isEmpty() && $post->website_redirect_url == null && $post->individual_id != null)
+																        @elseif($post->postactivity->where('user_id', Auth::user()->id)->isEmpty())
 																        <form action="/job/contact" method="post" id="post-contact-{{$post->id}}" data-id="{{$post->id}}">  
 																            <input type="hidden" name="_token" value="{{ csrf_token() }}">
 																            <input type="hidden" name="contact" value="{{ $post->id }}">
@@ -1358,7 +1358,7 @@
 
 																    <!-- if corporate_id is null     -->
 																    @elseif($post->post_type == 'job' && $post->individual_id != null && Auth::user()->induser_id != $post->individual_id && Auth::user()->identifier == 1)        
-																        @if($post->postactivity->where('user_id', Auth::user()->id)->isEmpty() && $post->resume_required == 1)
+																        @if($post->postactivity->where('user_id', Auth::user()->id)->isEmpty())
 																            <form action="/job/contact" method="post" id="post-contact-{{$post->id}}" data-id="{{$post->id}}">  
 																                <input type="hidden" name="_token" value="{{ csrf_token() }}">
 																                <input type="hidden" name="contact" value="{{ $post->id }}">

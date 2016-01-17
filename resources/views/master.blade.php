@@ -360,6 +360,7 @@ body.page-boxed{
 <script src="../../assets/admin/pages/scripts/form-image-crop.js"></script>
 <script src="/assets/jquery.sumoselect.js"></script>
 <script src="{{ asset('/assets/Edubranch.js') }}"></script>
+<script src="{{ asset('/assets/jquery.ui.touch-punch.min.js') }}">
 <script>
 function loader(arg){
     if(arg == 'show'){
