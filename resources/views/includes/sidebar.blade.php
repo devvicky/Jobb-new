@@ -175,8 +175,8 @@
         </span>
         </a>
       </li>
-      <li class="@if($title == 'saved_profile'){{'active'}}@endif">
-        <a class="" href="/savedProfile">
+      <li class="@if($title == 'favouriteprofile'){{'active'}}@endif">
+        <a class="" href="/favouriteProfile">
         <i class="icon-users"></i>
         <span class="title">
         Sortlisted Profile</span>

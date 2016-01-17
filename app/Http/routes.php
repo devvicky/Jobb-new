@@ -47,6 +47,8 @@ Route::group(array('before' => 'auth'), function(){
 
 	Route::get('searchProfile', 'PagesController@corpsearchProfile');
 	Route::post('profile/fav', 'PagesController@favProfile');
+	Route::get('favouriteProfile', 'PagesController@listFavourite');
+	Route::post('profile/save', 'PagesController@saveProfile');
 
 	Route::get('job/skillSearch', 'JobController@skillSearch');
 	Route::get('job', 'JobController@index');
@@ -91,8 +93,6 @@ Route::group(array('before' => 'auth'), function(){
 	Route::post('group/adduser', 'GroupController@addUser');	
 	Route::post('group/deleteuser', 'GroupController@deleteUser');
 	Route::post('group/leavegroup', 'GroupController@leavegroup');
-
-
 
 	Route::post('user/imgUpload', 'UserController@imgUpload');	
 	Route::post('corporate/imgUpload', 'CorporateController@imgUpload');	

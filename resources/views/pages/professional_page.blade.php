@@ -757,6 +757,8 @@ var prefLocationArray = [];
 	}
    google.maps.event.addDomListener(window, 'load', initPrefLoc);
 
+   	var prefLocalityArray = [];
+    var plocalselect = $("#preferred_locality").select2();
 
 	function pref_loc_locality(){
 		var selected_pref_locations = (document.getElementById('prefered_location').value).split(',');
@@ -777,14 +779,13 @@ var prefLocationArray = [];
 
 		if(document.getElementById('preferred_locality').value == ''){
 			document.getElementById("preferred_locality").disabled = true;
-		}else if(prefLocationArray.length >= 1 && prefLocationArray.length == 1){
+		}else if(prefLocalityArray.length >= 1 && prefLocationArray.length == 1){
 			document.getElementById("preferred_locality").disabled = false;
 		}else{
 			document.getElementById("preferred_locality").disabled = true;
 		}
 	}
-	var prefLocalityArray = [];
-    var plocalselect = $("#preferred_locality").select2();
+	
 	var prefLoc2 = $("#pref_locality");
 	function initializePrefLocality() {
 		var options = {	types: ['(regions)'], componentRestrictions: {country: "in"} };

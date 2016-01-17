@@ -99,7 +99,7 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
-<body class="login" style="overflow-y:scroll">
+<body class="login">
 
 <!-- BEGIN LOGO -->
 <div class="logo">
@@ -154,7 +154,7 @@ jQuery(document).ready(function() {
   Login.init();
   Demo.init(); // init demo features
   UIExtendedModals.init();
-  // FormValidation.init();
+  FormValidation.init();
 });
 </script>
 <!-- END JAVASCRIPTS -->

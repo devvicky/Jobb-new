@@ -227,9 +227,13 @@
 									</button> -->
 									@endif
 								</div>
-								<button class="btn fav-btn" type="button" style="background-color: transparent;padding:0 10px;border:0;">			
-									<i class="fa fa-save (alias)" style="font-size: 20px;color:rgb(183, 182, 182);"></i>
-								</button>
+									<form action="/profile/save" method="post" id="profile-save-{{$user->id}}" data-saveid="{{$user->id}}">
+										<input type="hidden" name="_token" value="{{ csrf_token() }}">
+										<input type="hidden" name="profileid" value="{{ $user->id }}">
+										<button id="profilesave-btn-{{$user->id}}" class="btn fav-btn profile-save-btn" type="button" style="background-color: transparent;padding:0 10px;border:0;">			
+											<i class="fa fa-save (alias)" style="font-size: 20px;color:rgb(183, 182, 182);"></i>
+										</button>
+									</form>
 					  		</div>
 					  		
 								
@@ -371,6 +375,38 @@
 			
         }else {
         	// console.log(data);
+        }
+      }
+    }); 
+    return false;
+  }); 
+
+
+ $('.profile-save-btn').live('click',function(event){  	    
+  	event.preventDefault();
+  	var post_id = $(this).parent().data('saveid');
+
+  	var formData = $('#profile-save-'+post_id).serialize(); 
+    var formAction = $('#profile-save-'+post_id).attr('action');
+    
+    $.ajaxSetup({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
+	});
+
+    $.ajax({
+      url: formAction,
+      type: "post",
+      data: formData,
+      cache : false,
+
+      success: function(data){
+     		// console.log(data);
+      	if(data.data.save_profile == 1){
+			$('#profilesave-btn-'+post_id).css({'color':'#FFC823'});	
+        }else if(data.data.save_profile == 0){
+        	$('#profilesave-btn-'+post_id).css({'color':'transparent'});
         }
       }
     }); 

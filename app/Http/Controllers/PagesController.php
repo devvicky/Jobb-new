@@ -1617,12 +1617,12 @@ public function homeskillFilter(){
 		}	
 	}
 
-	public function corpsearchProfile()
-	{
+	public function corpsearchProfile(){
 		$title = 'search_profile';
 		$user = Corpuser::where('id', '=', Auth::user()->corpuser_id)->first();
 		$skills = Skills::lists('name', 'name');
 		return view('pages.corpsearchProfile', compact('user', 'title', 'skills'));
+
 	}
 
 	public function favProfile(Request $request){
@@ -1659,27 +1659,63 @@ public function homeskillFilter(){
 	}
 
 	public function listFavourite(){
-		if (Auth::check()) {
-			$title = 'favourite';
-			$ProfileFav = Corpsearchprofile::orderBy('id', 'desc')							
-							->with('indUser', 'favProfile')
-							->whereRaw('id in (select post_id from corpsearchprofiles where user_id = '.Auth::user()->id.' and save_contact = 1)')
-							->paginate(15);
+		$title = 'favouriteprofile';
+		$users =  Corpsearchprofile::leftjoin('indusers', 'indusers.id', '=', 'corpsearchprofiles.profile_id')
+								   ->where('user_id', '=', Auth::user()->id)
+								   ->where('save_contact', '=', 1)
+								   ->get();
+		$profileSave =  Corpsearchprofile::leftjoin('indusers', 'indusers.id', '=', 'corpsearchprofiles.profile_id')
+								   ->where('user_id', '=', Auth::user()->id)
+								   ->where('save_profile', '=', 1)
+								   ->get();
+		$profileFav = Corpsearchprofile::where('user_id', '=', Auth::user()->id)
+									   ->where('save_contact', '=', 1)
+									   ->get();
+						
+		return view('pages.shortlistprofile', compact('users', 'title', 'profileFav', 'profileSave'));
+	}
 
-			if(Auth::user()->corpuser_id != null){
-				$following = DB::select('select id from indusers
-										 where indusers.id in (
-											select follows.individual_id as id from follows
-											where follows.corporate_id=?
-									)', [Auth::user()->corpuser_id]);
-				$following = collect($following);
-			}
+	public function saveProfile(Request $request){
+		$profileSave = Corpsearchprofile::where('profile_id', '=', $request['profileid'])
+							->where('user_id', '=', Auth::user()->id)
+							->first();
+		if($profileSave == null){
+			$profileSave = new Corpsearchprofile();
+			$profileSave->user_id = Auth::user()->id;
+			$profileSave->profile_id = $request['profileid'];
+			$profileSave->save_profile = 1;
+			$profileSave->saveprofile_dtTime = new \DateTime();
+			$profileSave->save();
 
-			return view('pages.home', compact('ProfileFav', 'title', 'following'));
-			// return $posts;
+		}elseif($profileSave != null && $profileSave->save_profile == 0){
+			$profileSave->save_profile = 1;
+			$profileSave->saveprofile_dtTime = new \DateTime();
+			$profileSave->save();
+
+		}elseif($profileSave != null && $profileSave->save_profile == 1){
+			$profileSave->save_profile = 0;
+			$profileSave->saveprofile_dtTime = new \DateTime();
+			$profileSave->save();
+		}
+
+		$profileUser = Induser::where('id', '=', $request['profileid'])->first(['id', 'mobile', 'email', 'resume']);
+			
+		$data = [];
+		$data['profile_id'] = $profileUser->id;
+		$data['mobile'] = $profileUser->mobile;
+		$data['email'] = $profileUser->email;
+		$data['resume'] = $profileUser->resume;
+		$data['save_contact'] = $profileSave->save_contact;
+
+		if(!empty($data) && $profileSave->id > 0 && $profileUser != null){
+			return response()->json(['success'=>'success','data'=>$data]);
+			// return $data;
 		}else{
-			return redirect('login');
-		}	
+			return response()->json(['success'=>'fail','data'=>$data]);
+			// return $profileFav;
+		}
+
 	}
 
 }
+

@@ -160,9 +160,9 @@
 					</ul>
 				</div>
 			@endif
-			<div id="corp-msg-box" style="display:none">
-					<div id="corp-msg"></div>
-				</div>
+			<!-- <div id="corp-msg-box" style="display:none">
+				<div id="corp-msg"></div>
+			</div> -->
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<div class="form-group">
 				<div class="input-icon right">
@@ -684,198 +684,208 @@ $(document).ready(function(){
 $('#corporate-login-btn').on('click',function(event){       
     event.preventDefault();
 
-    loader('show');
 
-    var formData = $('#corporate-login').serialize(); // form data as string
-    var formAction = $('#corporate-login').attr('action'); // form handler url
+    $("#corporate-login").validate();
+    if($("#corporate-login").valid()){
+	    loader('show');
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
+	    var formData = $('#corporate-login').serialize(); // form data as string
+	    var formAction = $('#corporate-login').attr('action'); // form handler url
 
-    $.ajax({
-      url: formAction,
-      type: "post",
-      data: formData,
-      cache : false,
-      success: function(data){
-        loader('hide');
-        if(data == 'login'){
-            $('#corp-msg-box').removeClass('alert alert-success');
-            $('#corp-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
-                $(this).show();
-            });
-            $('#corp-msg').text('Invalid user');
-        }else{
-            $('#corp-msg-box').removeClass('alert alert-danger');
-            $('#corp-msg-box').addClass('alert alert-success').fadeIn(1000, function(){
-                $(this).show();
-            });
-            $('#corp-msg').text('Login success');
-            redirect(data);
-        }
-      },
-      error: function(data) {
-        loader('hide');
-        $('#corp-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
-                $(this).show();
-        });
-        $('#corp-msg').text('Some error occured !');
-      }
-    }); 
+	    $.ajaxSetup({
+	        headers: {
+	            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	        }
+	    });
+
+	    $.ajax({
+	      url: formAction,
+	      type: "post",
+	      data: formData,
+	      cache : false,
+	      success: function(data){
+	        loader('hide');
+	        if(data == 'login'){
+	            $('#corp-msg-box').removeClass('alert alert-success');
+	            $('#corp-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
+	                $(this).show();
+	            });
+	            $('#corp-msg').text('Invalid user');
+	        }else{
+	            $('#corp-msg-box').removeClass('alert alert-danger');
+	            $('#corp-msg-box').addClass('alert alert-success').fadeIn(1000, function(){
+	                $(this).show();
+	            });
+	            // $('#corp-msg').text('Login success');
+	            redirect(data);
+	        }
+	      },
+	      error: function(data) {
+	        loader('hide');
+	        $('#corp-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
+	                $(this).show();
+	        });
+	        $('#corp-msg').text('Some error occured !');
+	      }
+	    }); 
+	}
     return false;
   }); 
     
 $('#individual-register-btn').on('click',function(event){       
     event.preventDefault();
 
-    loader('show');
+    $("#individual-register").validate();
+    if($("#individual-register").valid()){
+	    loader('show');
 
-    var formData = $('#individual-register').serialize(); // form data as string
-    var formAction = $('#individual-register').attr('action'); // form handler url
+	    var formData = $('#individual-register').serialize(); // form data as string
+	    var formAction = $('#individual-register').attr('action'); // form handler url
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
+	    $.ajaxSetup({
+	        headers: {
+	            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	        }
+	    });
 
-    $.ajax({
-      url: formAction,
-      type: "post",
-      data: formData,
-      cache : false,
-      success: function(data){
-        loader('hide');
-        if(data.data.page == 'login'){
-            $('#ind-msg-reg-box').removeClass('alert alert-danger');
-            $('#ind-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
-                $(this).show();
-            });
-            $('#individual-register')[0].reset();
-            $('#t-n-c').attr('checked', false); // Unchecks it
-
-            if(data.data.otp != null && data.data.vcode != null ){
-	            $('#individual-register').hide();
-	            $('#mobile-otp-form').show();
-	            $('#ind-reg-msg').html('Registration successful ! <br/>Check your mobile/email for further instruction. <br/>Your otp: <b>'+data.data.otp+'</b> to verify mobile.');  
-	            // console.log('both');
-
+	    $.ajax({
+	      url: formAction,
+	      type: "post",
+	      data: formData,
+	      cache : false,
+	      success: function(data){
+	        loader('hide');
+	        if(data.data.page == 'login'){
 	            $('#ind-msg-reg-box').removeClass('alert alert-danger');
 	            $('#ind-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
 	                $(this).show();
 	            });
+	            $('#individual-register')[0].reset();
+	            $('#t-n-c').attr('checked', false); // Unchecks it
 
-	        }else if(data.data.vcode != null && data.data.otp == null){
-	        	$('#individual-register').hide();
-	            $('#mobile-otp-form').show();
-	        	$('#ind-reg-msg').html('Registration successful ! <br/>Check your email for further instruction.');  
-	        	// console.log('email');
+	            if(data.data.otp != null && data.data.vcode != null ){
+		            $('#individual-register').hide();
+		            $('#mobile-otp-form').show();
+		            $('#ind-reg-msg').html('Registration successful ! <br/>Check your mobile/email for further instruction. <br/>Your otp: <b>'+data.data.otp+'</b> to verify mobile.');  
+		            // console.log('both');
 
-	        	$('#ind-msg-reg-box').removeClass('alert alert-danger');
-	            $('#ind-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
+		            $('#ind-msg-reg-box').removeClass('alert alert-danger');
+		            $('#ind-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
+		                $(this).show();
+		            });
+
+		        }else if(data.data.vcode != null && data.data.otp == null){
+		        	$('#individual-register').hide();
+		            $('#mobile-otp-form').show();
+		        	$('#ind-reg-msg').html('Registration successful ! <br/>Check your email for further instruction.');  
+		        	// console.log('email');
+
+		        	$('#ind-msg-reg-box').removeClass('alert alert-danger');
+		            $('#ind-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
+		                $(this).show();
+		            });
+		        }else if(data.data.otp != null && data.data.vcode == null){
+		        	$('#individual-register').hide();
+		            $('#mobile-otp-form').show();
+		        	$('#ind-reg-msg').html('Registration successful ! <br/>Check your mobile for further instruction. <br/>	        		Your otp: <b>'+data.data.otp+'</b> to verify mobile.');  
+		        	// console.log('mobile');
+
+		        	$('#ind-msg-reg-box').removeClass('alert alert-danger');
+		            $('#ind-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
+		                $(this).show();
+		            });
+		        }
+	        }else{
+	            $('#ind-msg-reg-box').removeClass('alert alert-success');
+	            $('#ind-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
 	                $(this).show();
 	            });
-	        }else if(data.data.otp != null && data.data.vcode == null){
-	        	$('#individual-register').hide();
-	            $('#mobile-otp-form').show();
-	        	$('#ind-reg-msg').html('Registration successful ! <br/>Check your mobile for further instruction. <br/>	        		Your otp: <b>'+data.data.otp+'</b> to verify mobile.');  
-	        	// console.log('mobile');
-
-	        	$('#ind-msg-reg-box').removeClass('alert alert-danger');
-	            $('#ind-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
-	                $(this).show();
-	            });
+	            $('#ind-reg-msg').text('Some errors occured during Registration!');
 	        }
-        }else{
-            $('#ind-msg-reg-box').removeClass('alert alert-success');
-            $('#ind-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
-                $(this).show();
-            });
-            $('#ind-reg-msg').text('Some errors occured during Registration!');
-        }
-      },
-      error: function(data) {
-        loader('hide');
-	    var errors = data.responseJSON;
-	    // console.log(errors);
-	    $errorsHtml = '<div class="alert alert-danger"><ul>';
-	    $.each(errors, function(index, value) {
-			 $errorsHtml += '<li>' + value[0] + '</li>';
-	    });
- 		$errorsHtml += '</ul></div>';	            
-        $( '#ind-reg-form-errors' ).html( $errorsHtml );
-        $( '#ind-reg-form-errors' ).show();
+	      },
+	      error: function(data) {
+	        loader('hide');
+		    var errors = data.responseJSON;
+		    // console.log(errors);
+		    $errorsHtml = '<div class="alert alert-danger"><ul>';
+		    $.each(errors, function(index, value) {
+				 $errorsHtml += '<li>' + value[0] + '</li>';
+		    });
+	 		$errorsHtml += '</ul></div>';	            
+	        $( '#ind-reg-form-errors' ).html( $errorsHtml );
+	        $( '#ind-reg-form-errors' ).show();
 
-        // $('#ind-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
-        //         $(this).show();
-        // });
-        // $('#ind-reg-msg').text('Some error occured !');
-      }
-    }); 
+	        // $('#ind-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
+	        //         $(this).show();
+	        // });
+	        // $('#ind-reg-msg').text('Some error occured !');
+	      }
+	    }); 
+	}
     return false;
   });
 
 $('#corporate-register-btn').on('click',function(event){       
     event.preventDefault();
 
-    loader('show');
+    $("#corporate-register").validate();
+    if($("#corporate-register").valid()){
+	    loader('show');
 
-    var formData = $('#corporate-register').serialize(); // form data as string
-    var formAction = $('#corporate-register').attr('action'); // form handler url
+	    var formData = $('#corporate-register').serialize(); // form data as string
+	    var formAction = $('#corporate-register').attr('action'); // form handler url
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    $.ajax({
-      url: formAction,
-      type: "post",
-      data: formData,
-      cache : false,
-      success: function(data){
-        loader('hide');
-        if(data.data.page == 'login'){
-            $('#corp-msg-reg-box').removeClass('alert alert-danger');
-            $('#corp-reg-form-errors').hide();
-            $('#corp-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
-                $(this).show();
-            });
-            $('#corporate-register')[0].reset();
-            $('#t-n-c').attr('checked', false); // Unchecks it
-            // $('#corporate-register').hide();
-            // $('#corporate-login').show();
-            $('#corp-reg-msg').html('Registration successful ! <br/>Check your Email for further instruction.');  
-        }else{
-            $('#corp-msg-reg-box').removeClass('alert alert-success');
-            $('#corp-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
-                $(this).show();
-            });
-            $('#corp-reg-msg').text('Some errors occured during Registration!');
-        }
-      },
-      error: function(data) {
-        loader('hide');
-	    var errors = data.responseJSON;
-	    // console.log(errors);
-	    $errorsHtml = '<div class="alert alert-danger"><ul>';
-	    $.each(errors, function(index, value) {
-			 $errorsHtml += '<li>' + value[0] + '</li>';
+	    $.ajaxSetup({
+	        headers: {
+	            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	        }
 	    });
- 		$errorsHtml += '</ul></div>';	            
-        $( '#corp-reg-form-errors' ).html( $errorsHtml );
-        $( '#corp-reg-form-errors' ).show();
 
-        // $('#ind-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
-        //         $(this).show();
-        // });
-        // $('#ind-reg-msg').text('Some error occured !');
-      }
-    }); 
+	    $.ajax({
+	      url: formAction,
+	      type: "post",
+	      data: formData,
+	      cache : false,
+	      success: function(data){
+	        loader('hide');
+	        if(data.data.page == 'login'){
+	            $('#corp-msg-reg-box').removeClass('alert alert-danger');
+	            $('#corp-reg-form-errors').hide();
+	            $('#corp-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
+	                $(this).show();
+	            });
+	            $('#corporate-register')[0].reset();
+	            $('#t-n-c').attr('checked', false); // Unchecks it
+	            // $('#corporate-register').hide();
+	            // $('#corporate-login').show();
+	            $('#corp-reg-msg').html('Registration successful ! <br/>Check your Email for further instruction.');  
+	        }else{
+	            $('#corp-msg-reg-box').removeClass('alert alert-success');
+	            $('#corp-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
+	                $(this).show();
+	            });
+	            $('#corp-reg-msg').text('Some errors occured during Registration!');
+	        }
+	      },
+	      error: function(data) {
+	        loader('hide');
+		    var errors = data.responseJSON;
+		    // console.log(errors);
+		    $errorsHtml = '<div class="alert alert-danger"><ul>';
+		    $.each(errors, function(index, value) {
+				 $errorsHtml += '<li>' + value[0] + '</li>';
+		    });
+	 		$errorsHtml += '</ul></div>';	            
+	        $( '#corp-reg-form-errors' ).html( $errorsHtml );
+	        $( '#corp-reg-form-errors' ).show();
+
+	        // $('#ind-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
+	        //         $(this).show();
+	        // });
+	        // $('#ind-reg-msg').text('Some error occured !');
+	      }
+	    }); 
+	}
     return false;
   });
 
