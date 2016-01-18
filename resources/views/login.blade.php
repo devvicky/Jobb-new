@@ -154,7 +154,6 @@ jQuery(document).ready(function() {
   Login.init();
   Demo.init(); // init demo features
   UIExtendedModals.init();
-  FormValidation.init();
 });
 </script>
 <!-- END JAVASCRIPTS -->
