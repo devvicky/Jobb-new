@@ -99,7 +99,7 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
-<body class="login">
+<body class="login" style="overflow-y:scroll">
 
 <!-- BEGIN LOGO -->
 <div class="logo">

@@ -320,7 +320,7 @@
 					</a>
 				</div>
 				<div class="col-md-4 col-xs-4 " style="padding-left:2px;">
-					<a class="btn btn-lg btn-linkedin btn-block" style="background: #00aced;color: white;border-radius:2px;">
+					<a class="btn btn-lg btn-linkedin btn-block" href="{!!URL::to('linkedin')!!}" style="background: #00aced;color: white;border-radius:2px;">
 						<i class="fa fa fa-linkedin"></i><span class="hidden-xs">&nbsp;Linkedin</span>
 					</a>
 				</div>

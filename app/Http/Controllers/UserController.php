@@ -479,18 +479,26 @@ class UserController extends Controller {
 	
 	// fb login
 	public function redirectToFacebook() {
-	  return Socialize::with('facebook')->scopes(['email', 'user_birthday'])->redirect();
+	  return Socialize::with('facebook')->scopes(['email','basic_info'])->redirect();
 	}
 
 	public function handleFacebookCallback() {
 	  $fb_user = Socialize::with('facebook')->user();
 
-	  $jtUser = Induser::where('email', '=', $fb_user->getEmail())->first();
+	  $jtIndUser = Induser::where('email', '=', $fb_user->getEmail())->first();
+	  $jtCorpUser = Corpuser::where('firm_email_id', '=', $fb_user->getEmail())->first();
+
 	  $authUser = User::where('email', '=', $fb_user->getEmail())->first();
-	  if(!empty($jtUser)){
+	  if(!empty($jtIndUser) && $fb_user->token != null){
 	  	// user exist
 	  	Auth::login($authUser);
 	  	return Redirect::to('/home')->with('message', 'Logged in with Facebook');
+	  }else if(!empty($jtIndUser) && $fb_user->token == null){
+	  	// user exist but social login failed
+	  	return Redirect::to('/login')->with('message', 'Login failed using Facebook');
+	  }else if(!empty($jtCorpUser)){
+	  	// corp user exist but social login not allowed
+	  	return Redirect::to('/login')->with('message', 'Social Login not allwoed for Corporate users');
 	  }else{
 	  	// user doesn't exist
 	  	DB::beginTransaction();
@@ -536,12 +544,20 @@ class UserController extends Controller {
 	public function handleGoogleCallback() {
 	  $gp_user = Socialize::with('google')->user();
 
-	  $jtUser = Induser::where('email', '=', $gp_user->getEmail())->first();
+	  $jtIndUser = Induser::where('email', '=', $gp_user->getEmail())->first();
+	  $jtCorpUser = Corpuser::where('firm_email_id', '=', $fb_user->getEmail())->first();
+
 	  $authUser = User::where('email', '=', $gp_user->getEmail())->first();
-	  if(!empty($jtUser)){
+	  if(!empty($jtIndUser) && $gp_user->token != null){
 	  	// user exist
 	  	Auth::login($authUser);
 	  	return Redirect::to('/home')->with('message', 'Logged in with Google');
+	  }else if(!empty($jtIndUser) && $gp_user->token == null){
+	  	// user exist but social login failed
+	  	return Redirect::to('/login')->with('message', 'Login failed using Google');
+	  }else if(!empty($jtCorpUser)){
+	  	// corp user exist but social login not allowed
+	  	return Redirect::to('/login')->with('message', 'Social Login not allwoed for Corporate users');
 	  }else{
 	  	// user doesn't exist
 	  	DB::beginTransaction();
@@ -577,6 +593,65 @@ class UserController extends Controller {
 	  }
 	  
 	  // print_r($gp_user);die;
+	}
+
+	// Linkedin login
+	public function redirectToLinkedin() {
+	  return Socialize::with('linkedin')->scopes(['r_emailaddress', 'r_basicprofile'])->redirect();
+	}
+
+	public function handleLinkedinCallback() {
+	  $li_user = Socialize::with('linkedin')->user();
+
+	  $jtIndUser = Induser::where('email', '=', $li_user->getEmail())->first();
+	  $jtCorpUser = Corpuser::where('firm_email_id', '=', $fb_user->getEmail())->first();
+
+	  $authUser = User::where('email', '=', $li_user->getEmail())->first();
+	  if(!empty($jtIndUser) && $li_user->token != null){
+	  	// user exist
+	  	Auth::login($authUser);
+	  	return Redirect::to('/home')->with('message', 'Logged in with Linkedin');
+	  }else if(!empty($jtIndUser) && $li_user->token == null){
+	  	// user exist but social login failed
+	  	return Redirect::to('/login')->with('message', 'Login failed using Linkedin');
+	  }else if(!empty($jtCorpUser)){
+	  	// corp user exist but social login not allowed
+	  	return Redirect::to('/login')->with('message', 'Social Login not allwoed for Corporate users');
+	  }else{
+	  	// user doesn't exist
+	  	DB::beginTransaction();
+		try{
+			$indUser = new Induser();
+			$indUser->fname = $li_user->user['firstName'];
+			$indUser->lname = $li_user->user['lastName'];
+			// $indUser->gender = $li_user->user['gender'];
+			$indUser->email = $li_user->getEmail();
+			$indUser->social_id = $li_user->getId();
+			$indUser->access_token = $li_user->token;
+			$indUser->avatar = $li_user->avatar;
+			$indUser->reg_via = 'linkedin';
+			$indUser->email_verify = '1';
+			$indUser->save();
+
+			$user = new User();
+			$user->name = $li_user->user['firstName'].' '.$li_user->user['lastName'];
+			$user->email = $li_user->getEmail();
+			$user->email_verify = '1';
+			$user->identifier = 1;
+
+			$indUser->user()->save($user);
+		}catch(\Exception $e){
+		   DB::rollback();
+		   throw $e;
+		}
+		
+		DB::commit();
+
+		Auth::login($user);
+		return Redirect::to('/home')->with('message', 'Logged in with Linkedin');
+	  }
+	  
+	  // print_r($li_user);die;
 	}
 		
 }

@@ -17,7 +17,17 @@ Route::get('verify', 'PagesController@verifyPage');
 Route::get('verify/{id}', 'PagesController@verifyEmail');
 Route::post('verify', 'PagesController@verifyMobile');
 
-Route::group(array('before' => 'auth'), function(){
+// Social login
+Route::get('facebook', 'UserController@redirectToFacebook');
+Route::get('user/fb', 'UserController@handleFacebookCallback');
+
+Route::get('google', 'UserController@redirectToGoogle');
+Route::get('user/gp', 'UserController@handleGoogleCallback');
+
+Route::get('linkedin', 'UserController@redirectToLinkedin');
+Route::get('user/li', 'UserController@handleLinkedinCallback');
+
+Route::group(array('middleware' => 'auth'), function(){
 
 	Route::post('home', 'PagesController@homeFilter');
 	Route::post('search/profile', 'PagesController@searchProfile');
@@ -159,12 +169,6 @@ Route::group(array('before' => 'auth'), function(){
 
 	Route::get('home/{post_type}/{sort_by}', 'PagesController@homeSorting');
 	Route::get('home/{post_type}/{sort_by_skill}', 'PagesController@homeskillSorting');
-
-	Route::get('facebook', 'UserController@redirectToFacebook');
-	Route::get('user/fb', 'UserController@handleFacebookCallback');
-
-	Route::get('google', 'UserController@redirectToGoogle');
-	Route::get('user/gp', 'UserController@handleGoogleCallback');
 
 	// Admin Controller panel
 	Route::post('admin/role/upload', 'AdminController@updateRole');
