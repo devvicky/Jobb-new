@@ -99,7 +99,7 @@
 													<span class="input-group-addon">
 														<i class="fa fa-cube" style="color:darkcyan;"></i>
 													</span>			
-													<select class="job-role-ajax form-control" name="role" id="jobrole">
+													<select class="job-role-ajax form-control new-role" name="role" id="jobrole">
 												  		<option value="0" selected="selected"></option>
 													</select>													
 												</div>
@@ -1010,28 +1010,35 @@
 	function pref_loc_locality(){
 		var selected_pref_locations = (document.getElementById('prefered_location').value).split(',');
 		var selected_pref_locality = (document.getElementById('preferred_locality').value).split(',');
-		if(selected_pref_locations.length == 1){
+		if(prefLocationArray.length == 1){
 			document.getElementById("prefered_location").disabled = false;
 			document.getElementById("pref_locality").disabled = false;
 			document.getElementById("pref_locality").value = '';
-		}else if(selected_pref_locations.length > 1){
+		}else if(prefLocationArray.length > 1){
 			document.getElementById("prefered_location").disabled = false;
 			document.getElementById("pref_locality").disabled = true;
 			document.getElementById("preferred_locality").disabled = true;
+			prefLocalityArray = [];
+			plocalselect.val(prefLocalityArray).trigger("change");
 			document.getElementById("pref_locality").value = 'Can\'t select locality for multiple location';
 		}else if(document.getElementById('prefered_location').value == ''){
 			document.getElementById("pref_locality").disabled = true;
+			prefLocalityArray = [];
+			plocalselect.val(prefLocalityArray).trigger("change"); 
+			document.getElementById("pref_locality").value = 'Select one preferred location.';
 			document.getElementById("preferred_locality").disabled = true;
 		}
 
 		if(document.getElementById('preferred_locality').value == ''){
 			document.getElementById("preferred_locality").disabled = true;
-		}else if(selected_pref_locality.length >= 1 && selected_pref_locations.length == 1){
+		}else if(prefLocalityArray.length >= 1 && prefLocationArray.length == 1){
 			document.getElementById("preferred_locality").disabled = false;
 		}else{
 			document.getElementById("preferred_locality").disabled = true;
 		}
 	}
+
+	
 	var prefLocalityArray = [];
     var plocalselect = $("#preferred_locality").select2();
 	var prefLoc2 = $("#pref_locality");
@@ -1049,10 +1056,10 @@
 		  	var selectedLocality = document.getElementById('preferred_locality').value;
 		  	if(selectedLocality == ''){
 		  		selectedLocality = selectedLocality + pref_locality;
-		  		prefLocalityArray.push(selectedLocality + pref_locality);
+		  		prefLocalityArray.push(selectedLocality);
 		  	}else{
 		  		selectedLocality = selectedLocality + ', '+pref_locality;
-		  		prefLocalityArray.push(selectedLocality + pref_locality);
+		  		prefLocalityArray.push(selectedLocality);
 		  	}	
 		  	console.log(prefLocalityArray);	  	
 		  	document.getElementById('preferred_locality').value = selectedLocality;
@@ -1497,8 +1504,6 @@ $gotit = [];
 	        }
         }
     }); 
-
-});
 </script>
 <script type="text/javascript">
 
@@ -1545,7 +1550,7 @@ function formatRepo (repo) {
 
     function formatRepoSelection (repo) {
     	if(repo.role != undefined){
-    		console.log(repo);
+    		// console.log(repo);
     		return repo.role+" -"+repo.functional_area+"-"+repo.industry;
     	}      
     }

@@ -2409,8 +2409,10 @@
 <div class="modal fade" id="myactivity-posts" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<div id="myactivity-posts-content">
-				Loading... 
+			<div id="myactivity-posts-content" >
+				
+					<img src="/assets/ellipsis.gif"><span> Please wait...</span>
+				
 			</div>
 		</div>
 		<!-- /.modal-content -->
@@ -2512,7 +2514,15 @@ jQuery(document).ready(function() {
     // FormWizard.init();
 });
 
-</script>
+
+function loader(arg){
+    if(arg == 'show'){
+        $('#loader').show();
+    }else{
+        $('#loader').hide();
+    }
+}
+</script> 
 <script type="text/javascript">
 	// var inputId_div = $("#city");
 	
@@ -2801,6 +2811,7 @@ $gotit = [];
 $('.myactivity-posts').live('click',function(event){  	    
   	event.preventDefault();
   	var post_id = $(this).parent().data('postid');
+  	
   	// console.log(post_id);
     $.ajaxSetup({
 		headers: {

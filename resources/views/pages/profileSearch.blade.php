@@ -403,7 +403,7 @@
 
       success: function(data){
      		// console.log(data);
-      	if(data.data.save_profile == 1){
+      	if(data.data.save_profile == 1 && data.success == 'success'){
 			$('#profilesave-btn-'+post_id).css({'color':'#FFC823'});	
         }else if(data.data.save_profile == 0){
         	$('#profilesave-btn-'+post_id).css({'color':'transparent'});

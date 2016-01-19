@@ -1655,6 +1655,29 @@ public function homeskillFilter(){
 				// return $profileFav;
 			}
 			
+		}else if($profileFav != null && $profileFav->save_contact == null){
+			$profileFav->save_contact = 1;
+			$profileFav->savecontact_dtTime = new \DateTime();
+			$profileFav->save_profile = 0;
+			$profileFav->saveprofile_dtTime = new \DateTime();
+			$profileFav->save();
+
+			$profileUser = Induser::where('id', '=', $request['profileid'])->first(['id', 'mobile', 'email', 'resume']);
+			
+			$data = [];
+			$data['profile_id'] = $profileUser->id;
+			$data['mobile'] = $profileUser->mobile;
+			$data['email'] = $profileUser->email;
+			$data['resume'] = $profileUser->resume;
+			$data['save_contact'] = $profileFav->save_contact;
+
+			if(!empty($data) && $profileFav->id > 0 && $profileUser != null){
+				return response()->json(['success'=>'success','data'=>$data]);
+				// return $data;
+			}else{
+				return response()->json(['success'=>'fail','data'=>$data]);
+				// return $profileFav;
+			}
 		}
 	}
 
@@ -1705,7 +1728,7 @@ public function homeskillFilter(){
 		$data['mobile'] = $profileUser->mobile;
 		$data['email'] = $profileUser->email;
 		$data['resume'] = $profileUser->resume;
-		$data['save_contact'] = $profileSave->save_contact;
+		$data['save_profile'] = $profileSave->save_profile;
 
 		if(!empty($data) && $profileSave->id > 0 && $profileUser != null){
 			return response()->json(['success'=>'success','data'=>$data]);

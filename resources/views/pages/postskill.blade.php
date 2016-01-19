@@ -537,7 +537,7 @@ jQuery(document).ready(function() {
 <script src="http://maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
 <script type="text/javascript">
 	// var inputId_div = $("#city");
-	// var preferedLocation = $("#prefered_location").select2();
+	
 	function initializeCity() {
 		var options = {	types: ['(cities)'], componentRestrictions: {country: "in"}};
 		var input = document.getElementById('city');
@@ -553,7 +553,22 @@ jQuery(document).ready(function() {
 	}
    google.maps.event.addDomListener(window, 'load', initializeCity);   
 
+
     // preferred loc
+    var prefLocationArray = [];
+    var plselect = $("#prefered_location").select2();
+    if(document.getElementById('prefered_location').value != null){
+  		prefLocationArray.push(document.getElementById('prefered_location').value);
+  	}
+
+  	var $eventSelect = $("#prefered_location"); 
+	$eventSelect.on("select2:unselect", function (e) {
+		console.log(e.params.data.id);
+		prefLocationArray = $.grep(prefLocationArray, function(value) {
+		  return value != e.params.data.id;
+		});
+	});
+
     var prefLoc = $("#pref_loc");
 	function initPrefLoc() {
 		var options = {	types: ['(cities)'], componentRestrictions: {country: "in"}};
@@ -574,13 +589,25 @@ jQuery(document).ready(function() {
 		  	}
 		  	setTimeout(function(){ prefLoc.val(''); prefLoc.focus();},0);
 		  	var selectedLoc = document.getElementById('prefered_location').value;
-		  	if(selectedLoc == ''){
+		  	if(selectedLoc == ''){	
 		  		selectedLoc = selectedLoc + pref_loc_city+pref_loc_state;
+		  		prefLocationArray.push(pref_loc_city+pref_loc_state);
 		  	}else{
-		  		selectedLoc = selectedLoc + ', ' +pref_loc_city+pref_loc_state;
+		  		selectedLoc = selectedLoc + ', '+pref_loc_city+pref_loc_state;
+		  		prefLocationArray.push(pref_loc_city+pref_loc_state);
 		  	}
-		  	
+		  	console.log(prefLocationArray);
 		  	document.getElementById('prefered_location').value = selectedLoc;
+			
+			
+		  	
+		  	$("#prefered_location").select2({
+        		dataType: 'json',
+        		data: prefLocationArray
+        	});
+        	plselect.val(prefLocationArray).trigger("change"); 
+
+
 		  	// console.log(place);
 		  } else { 
 		  	document.getElementById('autocomplete').placeholder = 'Your preferred location'; 
@@ -594,29 +621,37 @@ jQuery(document).ready(function() {
 	function pref_loc_locality(){
 		var selected_pref_locations = (document.getElementById('prefered_location').value).split(',');
 		var selected_pref_locality = (document.getElementById('preferred_locality').value).split(',');
-		if(selected_pref_locations.length == 1){
+		if(prefLocationArray.length == 1){
 			document.getElementById("prefered_location").disabled = false;
 			document.getElementById("pref_locality").disabled = false;
 			document.getElementById("pref_locality").value = '';
-		}else if(selected_pref_locations.length > 1){
+		}else if(prefLocationArray.length > 1){
 			document.getElementById("prefered_location").disabled = false;
 			document.getElementById("pref_locality").disabled = true;
 			document.getElementById("preferred_locality").disabled = true;
+			prefLocalityArray = [];
+			plocalselect.val(prefLocalityArray).trigger("change");
 			document.getElementById("pref_locality").value = 'Can\'t select locality for multiple location';
 		}else if(document.getElementById('prefered_location').value == ''){
 			document.getElementById("pref_locality").disabled = true;
+			prefLocalityArray = [];
+			plocalselect.val(prefLocalityArray).trigger("change"); 
+			document.getElementById("pref_locality").value = 'Select one preferred location.';
 			document.getElementById("preferred_locality").disabled = true;
 		}
 
 		if(document.getElementById('preferred_locality').value == ''){
 			document.getElementById("preferred_locality").disabled = true;
-		}else if(selected_pref_locality.length >= 1 && selected_pref_locations.length == 1){
+		}else if(prefLocalityArray.length >= 1 && prefLocationArray.length == 1){
 			document.getElementById("preferred_locality").disabled = false;
 		}else{
 			document.getElementById("preferred_locality").disabled = true;
 		}
 	}
 
+	
+	var prefLocalityArray = [];
+    var plocalselect = $("#preferred_locality").select2();
 	var prefLoc2 = $("#pref_locality");
 	function initializePrefLocality() {
 		var options = {	types: ['(regions)'], componentRestrictions: {country: "in"} };
@@ -632,12 +667,19 @@ jQuery(document).ready(function() {
 		  	var selectedLocality = document.getElementById('preferred_locality').value;
 		  	if(selectedLocality == ''){
 		  		selectedLocality = selectedLocality + pref_locality;
+		  		prefLocalityArray.push(selectedLocality);
 		  	}else{
 		  		selectedLocality = selectedLocality + ', '+pref_locality;
-		  	}		  	
+		  		prefLocalityArray.push(selectedLocality);
+		  	}	
+		  	console.log(prefLocalityArray);	  	
 		  	document.getElementById('preferred_locality').value = selectedLocality;
 		  	pref_loc_locality();
-
+		  	$("#preferred_locality").select2({
+        		dataType: 'json',
+        		data: prefLocalityArray
+        	});
+        	plocalselect.val(prefLocalityArray).trigger("change"); 
 		  	// console.log(place2);
 		  } else { document.getElementById('pref_locality').placeholder = 'select some locality'; }
 		}
@@ -873,8 +915,8 @@ function formatRepo (repo) {
           "<div class='select2-result-repository__title'><b>Role</b>: " + repo.role + "</div>";
 
       markup += "<div class='select2-result-repository__statistics'>" +
-        "<div class='select2-result-repository__forks'><b>Functional area: </b> " + repo.functional_area + " Forks</div>" +
-        "<div class='select2-result-repository__stargazers'><b>Industry</b>: " + repo.industry + " Stars</div>" +
+        "<div class='select2-result-repository__forks'><b>Functional area: </b> " + repo.functional_area + "</div>" +
+        "<div class='select2-result-repository__stargazers'><b>Industry</b>: " + repo.industry + "</div>" +
       "</div>" +
       "</div></div>";
 
@@ -882,7 +924,10 @@ function formatRepo (repo) {
     }
 
     function formatRepoSelection (repo) {
-      return repo.role;
+    	if(repo.role != undefined){
+    		// console.log(repo);
+    		return repo.role+" -"+repo.functional_area+"-"+repo.industry;
+    	}      
     }
 
 $(document).on('click', 'a', function(event, ui) {

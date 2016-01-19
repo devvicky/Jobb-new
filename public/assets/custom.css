@@ -1360,11 +1360,9 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     }
 }
 
-
-
-
-
-
+.ui-autocomplete {
+  z-index:2147483647;
+}
 
 
 

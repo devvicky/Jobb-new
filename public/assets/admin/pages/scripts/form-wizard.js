@@ -64,9 +64,9 @@ var FormWizard = function () {
                     education2: {
                         required: true
                     },
-                    city: {
-                        required: true
-                    },
+                    // city: {
+                    //     required: true
+                    // },
                     post_duration: {
                         required: true
                     },
@@ -119,9 +119,9 @@ var FormWizard = function () {
                 linked_skill: {
                     required: "Add Skills"
                 },
-                city: {
-                    required: "Select Job Location"
-                },
+                // city: {
+                //     required: "Select Job Location"
+                // },
                 time_for: {
                     required: "Select Job Type"
                 },
