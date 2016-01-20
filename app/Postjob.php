@@ -1,6 +1,8 @@
 <?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Auth;
+use App\Induser;
 
 class Postjob extends Model {
 
@@ -32,6 +34,8 @@ class Postjob extends Model {
 							'unique_id',
 							'resume_required'
 						   ];
+
+	protected $appends = ['magic_match'];
 
 	public function indUser(){
 		return $this->hasOne('App\Induser', 'id', 'individual_id');
@@ -85,22 +89,25 @@ class Postjob extends Model {
 		return $this->belongsTo('App\Induser');
 	}
 
-	public function magicMatch(){
-		 
-		if (array_key_exists('linked_skill', $this->attributes))
-	    {
-	        return $this->attributes['linked_skill'];
-	    }
+	public function getMagicMatchAttribute(){
+		if(Auth::user()->identifier == 1){
+			$userSkills = Induser::where('id', '=', Auth::user()->induser_id)->first(['linked_skill']);
+			$userSkills = array_map('trim', explode(',', $userSkills->linked_skill));
+			unset ($userSkills[count($userSkills)-1]);
 
-				// $postSkills = $this->indUser();
-				// $userSkills = $this->ind_user->linked_skill;
+			$postSkills = $this->attributes['linked_skill'];
+			$postSkills = array_map('trim', explode(',', $this->attributes['linked_skill']));
+			unset ($postSkills[count($postSkills)-1]);
 
-				// $postSkillCount = count($postSkills);
-				// $userSkillCount = count($userSkills);
+			$overlap = array_intersect($userSkills, $postSkills);
+			$counts  = array_count_values($overlap);
 
-				// return $postSkills;
+			$percentage = round( ( count($counts) / count($userSkills) ) * 100 );
 
-		
-	}
+			return $percentage;
+		}else{		
+        	return null;
+		}
+    }
 
 }

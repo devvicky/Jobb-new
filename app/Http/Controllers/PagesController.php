@@ -22,6 +22,8 @@ use App\ReportAbuse;
 use App\Feedback;
 use App\Notification;
 use Session;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 
 class PagesController extends Controller {
 
@@ -1381,6 +1383,23 @@ public function homeskillFilter(){
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 								   ->where('post_type', '=', 'job')
 								   ->paginate(15);
+				}elseif($sort_by == 'magic-match' && $post_type == 'job'){
+					$jobPosts = Postjob::orderBy('created_at', 'asc')
+								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
+								   ->where('post_type', '=', 'job')
+								   ->get();								   
+
+					$jobPosts = $jobPosts->sortBy(function($jobPost){ return -$jobPost->magic_match; });
+
+					$perPage = 15;
+					$pageStart = \Request::get('page', 1);
+				    // Start displaying items from this number;
+				    $offSet = ($pageStart * $perPage) - $perPage; 
+
+				    // Get only the items you need using array_slice
+				    $itemsForCurrentPage = $jobPosts->slice($offSet, $perPage)->all();
+					$jobPosts = new LengthAwarePaginator($itemsForCurrentPage, count($jobPosts), $perPage, LengthAwarePaginator::resolveCurrentPage(), array('path' => LengthAwarePaginator::resolveCurrentPath()));
+
 				}elseif($sort_by == 'individual' && $post_type == 'job'){
 					$jobPosts = Postjob::orderByRaw(DB::raw('CASE WHEN postjobs.individual_id IS NULL THEN "corp" ELSE "ind" END DESC'))
 								   ->orderBy('id', 'desc')
@@ -1483,7 +1502,7 @@ public function homeskillFilter(){
 								->lists('name', 'id');
 
 				}
-				// return $sort_by;
+				// return $jobPosts;
 				return view('pages.home', compact('jobPosts', 'skillPosts', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'linksApproval', 'linksPending', 'share_links', 'share_groups'));
 			} 
 		}

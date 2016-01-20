@@ -288,6 +288,7 @@
 
 											<div class="timeline" >
 												<!-- TIMELINE ITEM -->
+
 												@if($expired == 1)
 												<div class="timeline-item time-item-ex">
 												@else
@@ -507,7 +508,7 @@
                                                     </a></div>
 													<div class="row" style="margin: 5px 0px; border-top: 1px solid whitesmoke;">
 														<div class="col-md-12" style="margin: 3px -13px;">
-
+<span style="float: left;padding: 0 5px;margin-left: 1px;">{{$post->magic_match}} %</span>
 															@if($expired != 1)
 														
 															<div class="row" style="">	
