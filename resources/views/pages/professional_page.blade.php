@@ -32,18 +32,30 @@
 			<div id="personal" class="tab-pane active">
 				<form action="{{ url('/individual/basicupdate') }}" id="profile_validation" class="horizontal-form" method="post">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
-					<div class="form-group">
-						<label class="control-label">Full Name</label>
-						<div class="input-group">
-							<span class="input-group-addon">
-								<i class="glyphicon glyphicon-font"></i>
-							</span>
-							<input type="text" id="name" name="fullname" class="form-control" placeholder="Full Name" value="{{ $user->fname }} {{ $user->lname }}">
-							<input type="hidden"  name="fname" id="first_name" class="form-control">
-							<input type="hidden"  name="lname" id="last_name" class="form-control">
-						</div>
-					</div>
-											<!-- new column added as dob and gender	 -->
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">First Name</label>
+									<div class="input-group">
+										<span class="input-group-addon">
+											<i class="glyphicon glyphicon-font"></i>
+										</span>
+										<input type="text" name="first_name" class="form-control" placeholder="First Name" value="{{ $user->fname }}">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Last Name</label>
+									<div class="input-group">
+										<span class="input-group-addon">
+											<i class="glyphicon glyphicon-font"></i>
+										</span>
+										<input type="text" name="last_name" class="form-control" placeholder="Last Name" value=" {{ $user->lname }}">
+									</div>
+								</div>
+							</div>
+						</div>					<!-- new column added as dob and gender	 -->
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">

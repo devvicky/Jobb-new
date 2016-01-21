@@ -674,7 +674,8 @@ $(document).ready(function(){
 	        $('#ind-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
 	                $(this).show();
 	        });
-	        $('#ind-msg').text('Some error occured !');
+	        $('#ind-msg').text('Please Check your Email id or Password');
+	        // $('#ind-msg-box').hide().fadeOut(7000);
 	      }
 	    }); 
 	}

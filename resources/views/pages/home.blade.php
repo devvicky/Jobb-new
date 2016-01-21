@@ -2,6 +2,9 @@
 
 @section('content')
 <!-- BEGIN TAB PORTLET-->
+<!-- <div id="ind-msg-box">
+	<div id="ind-msg" style="background-color:black;color:white;"></div>
+</div> -->
 <div class="portlet box blue col-md-9" style="margin-top:0;border:0;background: white;">
 	<div class="portlet-title portlet-title-home" style="float:none;margin:0 auto; display:table;background: white;padding: 0;">
 		<ul class="nav nav-tabs" style="padding:0;">
@@ -470,7 +473,11 @@
 																</button>	
 															</form>
 															@endif
+															
 														</div>
+														<div id="ind-msg-box" style="position: absolute; top: 25px; right: 0; margin: 25px 0;">
+																<div id="ind-msg-{{$post->id}}" style="background-color:black;color:white;"></div>
+															</div>
 													</div>
 													@if($expired == 1)
 													<div class="post-hover-exp" data-postid="{{$post->id}}"><a class="myactivity-posts" data-toggle="modal" href="#myactivity-posts">
@@ -2983,11 +2990,18 @@ $(document).ready(function(){
  			$('#fav-btn-'+post_id).css({'color':'#FFC823'});
  			$('#myfavcount').removeClass('hide');
             $('#myfavcount').addClass('show');
+            // $('#ind-msg-box').css({'display':'block'}).fadeIn(5000);
+            $('#ind-msg-'+post_id).fadeIn(100);
+            $('#ind-msg-'+post_id).text('Post Favourite').fadeOut(5000);
+            // $('#ind-msg-box').css({'display':'none'}).fadeOut(5000);
         }else if(data < $count && data != 0){
 			$('#fav-btn-'+post_id).css({'color':'rgb(183, 182, 182)'});
 			$('#myfavcount').text(data);
 			$('#myfavcount').removeClass('hide');
             $('#myfavcount').addClass('show');
+            // $('#ind-msg-box').css({'display':'block'}).fadeIn(5000);
+            $('#ind-msg-'+post_id).fadeIn(100);
+            $('#ind-msg-'+post_id).text('Post UnFavourite').fadeOut(5000);
         }
         else if(data < $count && data == 0){
             $('#fav-btn-'+post_id).css({'color':'rgb(183, 182, 182);'});

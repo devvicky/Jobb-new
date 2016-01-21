@@ -280,6 +280,7 @@ class UserController extends Controller {
 			$data->email = Input::get('email');
 			$data->mobile = Input::get('mobile');
 			$data->save();
+			// $message = 'Personal Tab successfully Updated'
 			return redirect('/individual/edit#professional');
 		}
 	}

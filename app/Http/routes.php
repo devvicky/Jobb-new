@@ -176,9 +176,21 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::post('admin/functionalArea/upload', 'AdminController@updatefunctionalArea');
 	Route::post('admin/industryfunctionalArea/upload', 'AdminController@updateIndustryfunctional');
 	Route::post('admin/indfunctionalRole/upload', 'AdminController@updateIndfunctionalRole');
+
 	Route::get('dataUpdate', 'AdminController@create');
+
 	Route::post('roles/addroles', 'AdminController@addNewRoles');
 	Route::get('roles/rolesSearch', 'AdminController@roleSearch');
+	Route::post('roles/newrole', 'JobController@addNewRoles');
+
+	Route::post('admin/deleterole', 'AdminController@deleteRole');
+	Route::post('admin/deletefarea', 'AdminController@deletefunctionalArea');
+	Route::post('admin/deleteindustry', 'AdminController@deleteIndustry');
+	Route::post('admin/deleteifarea', 'AdminController@deleteindustryfareaMapping');
+
+	Route::post('admin/updaterole/{id}', 'AdminController@editRole');
+	Route::post('admin/updatefarea/{id}', 'AdminController@editFarea');
+	Route::post('admin/updateindustry/{id}', 'AdminController@editIndustry');
 });
 
 

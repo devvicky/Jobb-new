@@ -9,6 +9,7 @@ use Auth;
 use App\Induser;
 use App\Skills;
 use DB;
+use Input;
 use App\Corpuser;
 use App\Postactivity;
 use App\Role;
@@ -52,13 +53,27 @@ class AdminController extends Controller {
 		if(Auth::user()->identifier == 3){
 			$title = 'dataUpdate';
 			$roles = Role::lists('name', 'id');
+			$rolesShow = Role::all();
 			$functionalAreas = FunctionalAreas::lists('name', 'id');
+			$faShow = FunctionalAreas::all();
 			$industry = Industry::lists('name','id');
+			$industryShow = Industry::all();
 			$indfunctionalMapping = Industry_functional_area_mappings::leftJoin('industries', 'industry_functional_area_mappings.industry', '=', 'industries.id')
 																	 ->leftJoin('functional_areas', 'industry_functional_area_mappings.functional_area', '=', 'functional_areas.id')
 																	 ->get([DB::raw('concat(industries.name, " - ", functional_areas.name) as name'), 'industry_functional_area_mappings.id as id'])
 																	 ->lists('name', 'id');
-			return view('pages.adminUpdate', compact('title', 'roles', 'functionalAreas', 'industry', 'indfunctionalMapping'));
+			$industryfareaShow = Industry_functional_area_mappings::leftJoin('industries', 'industry_functional_area_mappings.industry', '=', 'industries.id')
+																  ->leftJoin('functional_areas', 'industry_functional_area_mappings.functional_area', '=', 'functional_areas.id')
+																  ->get(['industries.name as name', 'functional_areas.name as fareaname', 'industry_functional_area_mappings.id']);
+			
+			// $indfunctional = Industry_functional_area_mappings::leftJoin('industries', 'industry_functional_area_mappings.industry', '=', 'industries.id')
+			// 														 ->leftJoin('functional_areas', 'industry_functional_area_mappings.functional_area', '=', 'functional_areas.id')
+			// 														 ->get([DB::raw('concat(industries.name, " - ", functional_areas.name) as name'), 'industry_functional_area_mappings.id as id']);
+
+			// $industryfarearoleShow = Industry_functional_area_role_mapping::leftJoin('roles', 'industry_functional_area_role_mapping.role', '=', 'roles.id')
+			// 															  ->get(['roles.name as name', $indfunctional]);
+			
+			return view('pages.adminUpdate', compact('title', 'roles', 'functionalAreas', 'industry', 'indfunctionalMapping', 'rolesShow', 'faShow', 'industryShow', 'industryfareaShow', 'industryfarearoleShow'));
 			// return $indfunctionalMapping;
 		}else{
 			return redirect('/home');
@@ -184,6 +199,78 @@ class AdminController extends Controller {
 		    $results[] = [ 'id' => $query->id, 'value' => $query->name ];
 		}
 		return Response::json($results);
+	}
+
+
+	public function deleteRole(Request $request){
+		$delete_role = Role::findOrFail($request['role']);
+		if($delete_role != null){
+			$delete_role->delete();
+		}
+		return redirect('/dataUpdate');
+	}
+
+	public function deletefunctionalArea(Request $request){
+		$delete_fa = FunctionalAreas::findOrFail($request['f_area']);
+		if($delete_fa != null){
+			$delete_fa->delete();
+		}
+		return redirect('/dataUpdate');
+	}
+
+	public function deleteIndustry(Request $request){
+		$delete_industry = Industry::findOrFail($request['industry']);
+		if($delete_industry != null){
+			$delete_industry->delete();
+		}
+		return redirect('/dataUpdate');
+	}
+
+	public function deleteindustryfareaMapping(Request $request){
+		$delete_ifmapping = Industry_functional_area_mappings::findOrFail($request['ifareamapping']);
+		if($delete_ifmapping != null){
+			$delete_ifmapping->delete();
+		}
+		return redirect('/dataUpdate');
+	}
+
+
+
+
+	public function editRole($id)
+	{
+		$data = Role::where('id', '=', $id)->first();
+		if($data != null){
+			$data->name = Input::get('rolename');
+			$data->save();
+			return redirect('/dataUpdate');
+		}else{
+			return 'some error occured.';
+		}
+	}
+
+	public function editFarea($id)
+	{
+		$data = FunctionalAreas::where('id', '=', $id)->first();
+		if($data != null){
+			$data->name = Input::get('fareaname');
+			$data->save();
+			return redirect('/dataUpdate');
+		}else{
+			return 'some error occured.';
+		}
+	}
+
+	public function editIndustry($id)
+	{
+		$data = Industry::where('id', '=', $id)->first();
+		if($data != null){
+			$data->name = Input::get('industryname');
+			$data->save();
+			return redirect('/dataUpdate');
+		}else{
+			return 'some error occured.';
+		}
 	}
 
 }
