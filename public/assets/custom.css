@@ -955,6 +955,39 @@ div[class*='icheckbox_'], div[class*='iradio_'] {
     border-bottom: 4px solid #E6E6E6;
 }
 
+.portlet > .portlet-title-login > .nav-tabs > li.active > a, .portlet > .portlet-title-login > .nav-tabs > li:hover > a {
+    color: white;
+    font-weight: 600;
+    background: transparent;
+    border-bottom: 4px solid #f3565d;
+    font-size: 15px !important;
+}
+
+/*.portlet > .portlet-title-login > .nav-tabs > li:hover > a{
+     background: none;
+    margin: 5px 0px 0px 1px;
+    border: 0;
+    color: lightgrey;
+    padding: 8px 10px;
+    border-bottom: 4px solid #9E9E9E;
+    font-size: 15px !important;
+}*/
+
+.corporate-register-tab{
+    display: none;
+}
+
+.portlet > .portlet-title-login > .nav-tabs > li > a {
+    background: none;
+    margin: 5px 0px 0px 1px;
+    border: 0;
+    color: lightgrey;
+    padding: 8px 10px;
+    border-bottom: 4px solid #9E9E9E;
+    font-size: 15px !important;
+}
+
+
 .btn-success-new {
     color: #fff;
     background-color: #95A0A0;
@@ -1430,3 +1463,9 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   text-decoration: none;
   background-color: #F86808;
 }*/
+
+.display-toast{
+    background-color: black;
+    opacity: 0.6;
+    color: white;
+}

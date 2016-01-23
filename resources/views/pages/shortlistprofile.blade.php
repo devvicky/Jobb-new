@@ -42,9 +42,10 @@
 					<div class="row" style="border-bottom:1px dotted lightgrey;padding: 5px 0;margin:0;">
 						
 						<div class="col-md-2 col-sm-2 col-xs-3" style="padding:0 !important;">
-						      <a data-toggle="modal" class="btn resume-button-css magic-profile-match" href="#post-mod-{{$user->id}}" style="padding: 2px 8px;">
-			    			<i class="icon-speedometer" style="font-size:12px;"></i> 
-			    		</a>
+						     <a data-toggle="modal" class="btn resume-button-css magic-profile-match" href="#post-mod-{{$user->id}}" style="padding: 2px 8px;">
+			    				<i class="icon-speedometer" style="font-size:12px;"></i> 
+			    			</a>
+			    			<br><span>Match</span>
 					    </div>
 						<div class="col-md-10 col-sm-10 col-xs-9">
 							<a href="/profile/ind/{{$user->id}}" data-utype="ind">
@@ -58,7 +59,8 @@
 							 {{ $user->city }}
 							 
 						</div>
-						<div class="col-md-12 col-sm-12 col-xs-12">
+						<div class="col-md-2 col-sm-2 col-xs-3"></div>
+						<div class="col-md-10 col-sm-10 col-xs-9">
 							<div class="col-md-8 col-sm-8 col-xs-12" style="padding:0 !important;margin: 5px 0;">
 				  				<i class="fa fa-envelope"></i> : {{$user->email}}<br>
 				  				<i class="fa fa-phone-square"></i> : {{$user->mobile}}

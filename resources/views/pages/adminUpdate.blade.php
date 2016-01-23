@@ -138,15 +138,15 @@
                                 @foreach($rolesShow as $role)
                                     <tr>
                                         <td>   
-                                            <div class="col-md-12">
+                                            <div class="col-md-8">
                                                 {{$role->name}}
                                             </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-6">    
+                                            <div class="col-md-2 col-sm-2 col-xs-2">    
                                                 <a id="ajax-demo" href="#edit-role-{{$role->id}}" data-toggle="modal" class="badge btn btn-xs btn-info" style="" title="Edit">
-                                                    <i class="fa fa-edit"></i><span class="hidden-xs font-group"> Edit</span>
+                                                    <i class="fa fa-edit"></i>
                                                 </a>  
                                             </div>  
-                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <div class="col-md-2 col-sm-2 col-xs-2">
                                                 <form action="{{ url('/admin/deleterole') }}" method="post">
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                     <input type="hidden" name="role" value="{{$role->id}}">
@@ -270,15 +270,15 @@
                                 @foreach($faShow as $functionalarea)
                                     <tr>
                                         <td>   
-                                            <div class="col-md-12">
+                                            <div class="col-md-8">
                                                 {{$functionalarea->name}}  
                                             </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-6">    
+                                            <div class="col-md-2 col-sm-2 col-xs-2">    
                                                 <a id="ajax-demo" href="#edit-fa-{{$functionalarea->id}}" data-toggle="modal" class="badge btn btn-xs btn-info" style="" title="Edit">
-                                                    <i class="fa fa-edit"></i><span class="hidden-xs font-group"> Edit</span>
+                                                    <i class="fa fa-edit"></i>
                                                 </a>  
                                             </div>  
-                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <div class="col-md-2 col-sm-2 col-xs-2">
                                                 <form action="{{ url('/admin/deletefarea') }}" method="post">
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                     <input type="hidden" name="f_area" value="{{$functionalarea->id}}">
@@ -326,7 +326,10 @@
                         </div>
                         <!-- END EXAMPLE TABLE PORTLET-->
                     </div>
-                    <!-- <div class="row"> -->
+                   
+                </div>
+                <div class="row">
+                     <!-- <div class="row"> -->
                     <div class="col-md-6">
                         <!-- BEGIN EXAMPLE TABLE PORTLET-->
                         <div class="portlet box blue">
@@ -415,15 +418,15 @@
                                 @foreach($industryShow as $industries)
                                     <tr>
                                         <td>   
-                                            <div class="col-md-12">
+                                            <div class="col-md-8 col-sm-8 col-xs-8">
                                                  {{$industries->name}} 
                                             </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-6">    
+                                            <div class="col-md-2 col-sm-2 col-xs-2">    
                                                 <a id="ajax-demo" href="#edit-industry-{{$industries->id}}" data-toggle="modal" class="badge btn btn-xs btn-info" style="" title="Edit">
-                                                    <i class="fa fa-edit"></i><span class="hidden-xs font-group"> Edit</span>
+                                                    <i class="fa fa-edit"></i>
                                                 </a>  
                                             </div>  
-                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <div class="col-md-2 col-sm-2 col-xs-2">
                                                 <form action="{{ url('/admin/deleteindustry') }}" method="post">
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                     <input type="hidden" name="industry" value="{{$industries->id}}">
@@ -472,7 +475,6 @@
                         <!-- END EXAMPLE TABLE PORTLET-->
                     </div>
                 </div>
-
                 <div class="row">
                       <div class="col-md-6">
                         <!-- BEGIN EXAMPLE TABLE PORTLET-->

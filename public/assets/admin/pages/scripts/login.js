@@ -8,7 +8,8 @@ var Login = function() {
             focusInvalid: false, // do not focus the last invalid input
             rules: {
                 email: {
-                    required: true
+                    required: true,
+                    email: true
                 },
                 password: {
                     required: true,
@@ -33,34 +34,47 @@ var Login = function() {
                 $('.alert-danger', $('.login-form')).show();
             },
 
-            highlight: function(element) { // hightlight error inputs
-                $(element)
-                    .closest('.form-group').addClass('has-error'); // set error class to the control group
-            },
+             errorPlacement: function (error, element) { // render error placement for each input type
+                    var icon = $(element).parent('.input-icon').children('i');
+                    icon.removeClass('fa-check').addClass("fa-warning");  
+                    icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
+                },
 
-            success: function(label) {
-                label.closest('.form-group').removeClass('has-error');
-                label.remove();
-            },
+                highlight: function (element) { // hightlight error inputs
+                    $(element)
+                        .closest('.form-group').removeClass("has-success").addClass('has-error'); // set error class to the control group   
+                },
 
-            errorPlacement: function(error, element) {
-                error.insertAfter(element.closest('.input-icon'));
-            },
+                unhighlight: function (element) { // revert the change done by hightlight
+                    
+                },
+
+                success: function (label, element) {
+                    var icon = $(element).parent('.input-icon').children('i');
+                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                    icon.removeClass("fa-warning").addClass("fa-check");
+                },
 
             submitHandler: function(form) {
                 form.submit(); // form validation success, call ajax form submit
             }
         });
-        jQuery('.login-form-corp').hide();
-         jQuery('#logincorporate').click(function() {
-            jQuery('.login-form').hide();
-            jQuery('.login-form-corp').show();
-        });
-         jQuery('#loginindividual1').click(function() { 
+        // jQuery('.login-form-corp').hide();
+        //  jQuery('#logincorporate').click(function() {
+        //     jQuery('.login-form').hide();
+        //     jQuery('.login-form-corp').show();
+        // });
+        //  jQuery('#loginindividual1').click(function() { 
            
-            jQuery('.login-form').show();
-             jQuery('.login-form-corp').hide();
+        //     jQuery('.login-form').show();
+        //      jQuery('.login-form-corp').hide();
+        // });
+
+        jQuery('#register-btn').click(function() {
+            jQuery('.login-tag').hide();
+            jQuery('.corporate-register-tab').show();
         });
+        
         $('.login-form input').keypress(function(e) {
             if (e.which == 13) {
                 if ($('.login-form').validate().form()) {
@@ -110,20 +124,35 @@ var Login = function() {
                     .closest('.form-group').addClass('has-error'); // set error class to the control group
             },
 
-            success: function(label) {
-                label.closest('.form-group').removeClass('has-error');
-                label.remove();
-            },
+            // success: function(label) {
+            //     label.closest('.form-group').removeClass('has-error');
+            //     label.remove();
+            // },
 
-            errorPlacement: function(error, element) {
-                error.insertAfter(element.closest('.input-icon'));
-            },
+            // errorPlacement: function(error, element) {
+            //     error.insertAfter(element.closest('.input-icon'));
+            // },
+
+            errorPlacement: function (error, element) { // render error placement for each input type
+                    var icon = $(element).parent('.input-icon').children('i');
+                    icon.removeClass('fa-check').addClass("fa-warning");  
+                    icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
+                },
+            success: function (label, element) {
+                    var icon = $(element).parent('.input-icon').children('i');
+                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                    icon.removeClass("fa-warning").addClass("fa-check");
+                },
 
             submitHandler: function(form) {
                 form.submit(); // form validation success, call ajax form submit
             }
         });
-
+        
+        jQuery('#register-btn-corp').click(function() {
+            jQuery('.login-tag').hide();
+            jQuery('.corporate-register-tab').show();
+        });
        
         $('.login-form-corp input').keypress(function(e) {
             if (e.which == 13) {
@@ -277,20 +306,23 @@ var Login = function() {
                     .closest('.form-group').addClass('has-error'); // set error class to the control group
             },
 
-            success: function(label) {
-                label.closest('.form-group').removeClass('has-error');
-                label.remove();
-            },
-
-            errorPlacement: function(error, element) {
-                if (element.attr("name") == "tnc") { // insert checkbox errors after the container                  
+            errorPlacement: function (error, element) { // render error placement for each input type
+                    var icon = $(element).parent('.input-icon').children('i');
+                    icon.removeClass('fa-check').addClass("fa-warning");  
+                    icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
+                     if (element.attr("name") == "tnc") { // insert checkbox errors after the container                  
                     error.insertAfter($('#register_tnc_error'));
-                } else if (element.closest('.input-icon').size() === 1) {
-                    error.insertAfter(element.closest('.input-icon'));
-                } else {
-                    error.insertAfter(element);
-                }
-            },
+                    } else if (element.closest('.input-icon').size() === 1) {
+                        error.insertAfter(element.closest('.input-icon'));
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+            success: function (label, element) {
+                    var icon = $(element).parent('.input-icon').children('i');
+                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                    icon.removeClass("fa-warning").addClass("fa-check");
+                },
 
             submitHandler: function(form) {
                 form.submit();
@@ -307,22 +339,19 @@ var Login = function() {
             }
         });
 
-        jQuery('#register-btn').click(function() {
-            jQuery('.login-form').hide();
-            jQuery('.register-form').show();
-        });
+        
             
-            jQuery('#corporate1').click(function() {
-            jQuery('.register-corporate-form').show();
-            jQuery('.register-form').hide();
-        });
-            jQuery('#individual2').click(function() {
-            jQuery('.register-form').show();
-            jQuery('.register-corporate-form').hide();
-        });
+        //     jQuery('#corporate1').click(function() {
+        //     jQuery('.register-corporate-form').show();
+        //     jQuery('.register-form').hide();
+        // });
+        //     jQuery('#individual2').click(function() {
+        //     jQuery('.register-form').show();
+        //     jQuery('.register-corporate-form').hide();
+        // });
         jQuery('#register-back-btn').click(function() {
-            jQuery('.login-form').show();
-            jQuery('.register-form').hide();
+            jQuery('.login-tag').show();
+            jQuery('.corporate-register-tab').hide();
         });
         
     }
@@ -409,18 +438,24 @@ var Login = function() {
                 form.submit();
             }
         });
+        
+        jQuery('#register-btn').click(function() {
+            jQuery('.login-tag').hide();
+            jQuery('.corporate-register-tab').show();
+        });
 
-        jQuery('#individual2').click(function() {
-            jQuery('.register-form').show();
-            jQuery('.register-corporate-form').hide();
-        });
-         jQuery('#register-btn-corp').click(function() {
-            jQuery('.register-corporate-form').show();
-            jQuery('.login-form-corp').hide();
-        });
+        // jQuery('#individual2').click(function() {
+        //     jQuery('.register-form').show();
+        //     jQuery('.register-corporate-form').hide();
+        // });
+        //  jQuery('#register-btn-corp').click(function() {
+        //     jQuery('.register-corporate-form').show();
+        //     jQuery('.login-form-corp').hide();
+        // });
         jQuery('#register-back-btn3').click(function() {
-            jQuery('.login-form-corp').show();
-            jQuery('.register-corporate-form').hide();
+            jQuery('.login-tag').show();
+            jQuery('#Company').show();
+            jQuery('.corporate-register-tab').hide();
         });
     }
 

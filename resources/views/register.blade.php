@@ -255,6 +255,10 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 <script src="assets/admin/pages/scripts/components-form-tools.js"></script>
 <script src="assets/admin/pages/scripts/components-jqueryui-sliders.js"></script>
 <script src="assets/Edubranch.js"></script>
+
+<script src="/assets/global/plugins/bootstrap-growl/jquery.bootstrap-growl.min.js"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+<script src="/assets/admin/pages/scripts/ui-bootstrap-growl.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <script>
 jQuery(document).ready(function() {       

@@ -30,9 +30,17 @@
 <link href="{{ asset('/assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME STYLES -->
+<link href="../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+<link href="../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+<link href="../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+<link href="../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css" id="style_color"/>
+<link href="../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('/assets/custom_admin.css') }}" rel="stylesheet"/>
+
+
 <link href="{{ asset('/assets/global/css/components-rounded.css') }}" id="style_components" rel="stylesheet" type="text/css"/>
-<link href="{{ asset('/assets/admin/layout2/css/layout.css') }}" rel="stylesheet" type="text/css"/>
-<link href="{{ asset('/assets/global/plugins/icheck/skins/all.css') }}" rel="stylesheet"/>
+<!-- <link href="{{ asset('/assets/admin/layout2/css/layout.css') }}" rel="stylesheet" type="text/css"/> -->
+<!-- <link href="{{ asset('/assets/global/plugins/icheck/skins/all.css') }}" rel="stylesheet"/> -->
 <link href="{{ asset('/assets/custom.css') }}" rel="stylesheet"/>
 <link href="{{ asset('/assets/custom_new.css') }}" rel="stylesheet"/>
 <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
@@ -52,7 +60,7 @@ body{
 .decorated{
      overflow: hidden;
      text-align: center;
-	 
+   
  }
 .decorated > span{
     position: relative;
@@ -100,7 +108,55 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
 <body class="login" style="overflow-y:scroll">
+<!-- BEGIN HEADER -->
+<div class="page-header navbar navbar-fixed-top">
+  <!-- BEGIN HEADER INNER -->
+  <div class="page-header-inner">
+    <!-- BEGIN LOGO -->
+    <div class="page-logo">
+      <a href="/home">
+      <img src="/assets/new_big_logo.png" alt="logo" class="logo-default" style="width: 135px;margin-top: 0;" />
+      </a>
+      <div class="menu-toggler sidebar-toggler hide">
+        <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+      </div>
+    </div>
+    <!-- END LOGO -->
+    <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+    <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+    </a>
+    <!-- END RESPONSIVE MENU TOGGLER -->
+    <!-- BEGIN TOP NAVIGATION MENU -->
+    <div class="top-menu">
+      <ul class="nav navbar-nav pull-right">        
+        <!-- BEGIN USER LOGIN DROPDOWN -->
+        <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+        <li class="dropdown dropdown-user">
+         
+          <span class="username username-hide-on-mobile">
+          </span>
+          </a>
+        </li>
+        <!-- END USER LOGIN DROPDOWN -->
+        <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+        <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
 
+       
+        <!--  <li class="dropdown dropdown-quick-sidebar-toggler">
+          <a href="" class="dropdown-toggle">
+          <i class="icon-logout"></i>
+          </a>
+        </li> -->
+        
+        
+        <!-- END QUICK SIDEBAR TOGGLER -->
+      </ul>
+    </div>
+    <!-- END TOP NAVIGATION MENU -->
+  </div>
+  <!-- END HEADER INNER -->
+</div>
+<!-- END HEADER -->
 <!-- BEGIN LOGO -->
 <div class="logo">
 <!-- <picture>
@@ -112,7 +168,7 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 @yield('content')
 
 <div class="copyright">
-	 2015 © Jobtip.in
+   2015 © Jobtip.in
 </div>
 
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
@@ -143,6 +199,11 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 <script src="{{ asset('/assets/admin/layout2/scripts/demo.js') }}" type="text/javascript"></script>
 <script src="{{ asset('/assets/global/plugins/icheck/icheck.min.js') }}"></script>
 <script src="{{ asset('/assets/admin/pages/scripts/ui-extended-modals.js') }}"></script>
+<script src="../../assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="../../assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+<script src="../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="../../assets/admin/pages/scripts/index.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 
 @yield('javascript')
@@ -154,6 +215,7 @@ jQuery(document).ready(function() {
   Login.init();
   Demo.init(); // init demo features
   UIExtendedModals.init();
+  FormValidation.init();
 });
 </script>
 <!-- END JAVASCRIPTS -->

@@ -223,130 +223,170 @@
 											</div>
 										</div>
 									</div>
-							<div class="row">
-							<div class="col-md-6 col-sm-6 col-xs-12">
-								<div class="form-group">
-									<label>Education <span class="required">
-											* </span></label>
-									<div class="input-group">
-										<span class="input-group-addon">
-											<i class="icon-graduation"></i>
-										</span>
-										<select class="form-control" name="education" id="parent_selection" >
-											<option value="">--Please Select--</option>
-											<option value="Any Graduate">Any Graduate</option>
-											<option value="Any Post Graduate">Any Post Graduate</option>
-											<option value="twelth&above">12th & above</option>
-											<option value="tenth&above">10th & above</option>
-											<option value="twelth">12th</option>
-											<option value="tenth">10th</option>
-											<option value="BA">B.A</option>
-											<option value="BArch">B.Arch</option>
-											<option value="BCA">BCA</option>
-											<option value="BBA">BBA</option>
-											<option value="BCom">BCom</option>
-											<option value="B.Ed">B.Ed</option>
-											<option value="MTech" value="MTech">MTech</option>
-											<option value="MSc" value="MSc">MSc</option>
-											<option value="MArch" value="MArch">MArch</option>
-
-											<option value="MCA">MCA</option>
-											<option value="MS" value="MS">MS</option>
-											<option value="PGDiploma">PGDiploma</option>
-
-											<option value="MVSC">MVSC</option>
-											<option value="MCM">MCM</option>
-											<option value="BBA">BBA</option>
-											<option value="btech">B.Tech/B.E.</option>
-											<option value="MCom">MCom</option>
-											<option value="MEd">MEd</option>
-											<option value="MPharma">MPharma</option>
-											<option value="MA">MA</option>
-											<option value="twelth">12th</option>
-											<!-- <option value="10">10</option> -->
-										</select>
-										
-									</div>
-								</div>
-							</div>
-							<!--/span-->
-							<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
-
-							<div class="col-md-6 col-sm-6 col-xs-12">
-								<div class="form-group">
-									<label>Branch <span class="required"> * </span></label>
-									<div class="input-group">
-										<span class="input-group-addon">
-											<i class="icon-graduation"></i>
-										</span>
-										<select class="form-control" name="branch" id="child_selection" value="">
-											<option value=""></option>
-										</select>
-									</div>
-								</div>
-							</div>
-							<!--/span-->
-						</div>
-								<div class="row">
-									<div class="col-md-6 col-sm-6 col-xs-12">
-										<div class="form-group">
-											<label>Job Type <span class="required">
-											* </span></label>
-											<div class="input-group">
-												<span class="input-group-addon">
-													<i class="icon-hourglass" style="color:darkcyan;"></i>
-												</span>
-												<select name="time_for" class="form-control" style="z-index:0;">
-													<option value="">-- select --</option>
-													<option value="Full Time">Full Time</option>
-													<option value="Part Time">Part Time</option>
-													<option value="Freelancer">Freelancer</option>
-													<option value="Work from Home">Work from Home</option>
-												</select>
-											</div>
-										</div>
-									</div>
-								</div>
-									<!--/span-->
-								<div class="row">
-									<div class="col-md-6 col-sm-6 col-xs-12">
-										<div class="form-group">							
-											<label class=" control-label">Experience </label>&nbsp;: 
-													<input type="text" readonly id="slider-range-exp1" name="min_exp" class="input-exp-width" /> - 
-													<input type="text" readonly id="slider-range-exp2" name="max_exp" class="input-exp-width" /> Years
-											<div id="slider-range-exp" class="slider bg-gray">
-												</div>
-												
-										</div>
-									</div>
-									<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
 									
-									<div class="col-md-6 col-sm-6 col-xs-12">
-										<div class="form-group">							
-											<label class=" control-label"><input type="checkbox" id="hide-check"> Salary </label>&nbsp;: 
-													<label class="hide-sal input-sal-exp-label"><i class="fa fa-rupee (alias)" style="font-size:12px;"></i></label>
-													<input type="text" readonly id="slider-range-amount1" name="min_sal" class="input-sal-width hide-sal one" />
-													<input type="text" readonly id="slider-range-amount3" name="min_sal" class="input-sal-width hide-sal-new three" />
-													<label class="hide-sal input-sal-exp-label">- <i class="fa fa-rupee (alias)" style="font-size:12px;"></i></label>
-													<input type="text" readonly id="slider-range-amount2" name="max_sal" class="input-sal-width hide-sal two" />
-													<input type="text" readonly id="slider-range-amount4" name="max_sal" class="input-sal-width hide-sal four" />
-											<select id="salary-type"  name="salary_type" class="hide-sal-new input-sal-exp-label" style="border-top: 0px;border-left: 0;border-right: 0;width:75px">									
-												<option selected="selected" value="Monthly">Monthly</option>
-												<option value="Weekly">Weekly</option>
-												<option value="Daily">Daily</option>
-												<option value="Hourly">Hourly</option>
-												<option value="Pervisit">Per Visit</option>	
-											</select>
-											<div id="salary-old" class="hide-sal">
-												<div id="slider-range" class="slider bg-gray"></div>
+									<div class="row">
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<div class="form-group">
 												
+												<label>  Education <span class="required">
+														* </span></label> Select Multiple <input type="checkbox" id="education-check" name="multiple_education" value="1" class="form-control">
+												<div class="input-group single-education" >
+													<span class="input-group-addon">
+														<i class="icon-graduation"></i>
+													</span>
+													<select class="form-control " name="education" id="parent_selection">
+														<option value="">--Please Select--</option>
+														<option value="Any Graduate">Any Graduate</option>
+														<option value="Any Post Graduate">Any Post Graduate</option>
+														<option value="twelth&above">12th & above</option>
+														<option value="tenth&above">10th & above</option>
+														<option value="twelth">12th</option>
+														<option value="tenth">10th</option>
+														<option value="BA">B.A</option>
+														<option value="BArch">B.Arch</option>
+														<option value="BCA">BCA</option>
+														<option value="BBA">BBA</option>
+														<option value="BCom">BCom</option>
+														<option value="B.Ed">B.Ed</option>
+														<option value="MTech" value="MTech">MTech</option>
+														<option value="MSc" value="MSc">MSc</option>
+														<option value="MArch" value="MArch">MArch</option>
+
+														<option value="MCA">MCA</option>
+														<option value="MS" value="MS">MS</option>
+														<option value="PGDiploma">PGDiploma</option>
+
+														<option value="MVSC">MVSC</option>
+														<option value="MCM">MCM</option>
+														<option value="BBA">BBA</option>
+														<option value="btech">B.Tech/B.E.</option>
+														<option value="MCom">MCom</option>
+														<option value="MEd">MEd</option>
+														<option value="MPharma">MPharma</option>
+														<option value="MA">MA</option>
+														<option value="twelth">12th</option>
+														<!-- <option value="10">10</option> -->
+													</select>
+												</div>
+												<div class="input-group  multiple-education" >
+													<span class="input-group-addon">
+														<i class="icon-graduation"></i>
+													<select class="bs-select form-control " name="education" multiple>
+														<option value="">--Please Select--</option>
+														<option value="Any Graduate">Any Graduate</option>
+														<option value="Any Post Graduate">Any Post Graduate</option>
+														<option value="twelth&above">12th & above</option>
+														<option value="tenth&above">10th & above</option>
+														<option value="twelth">12th</option>
+														<option value="tenth">10th</option>
+														<option value="BA">B.A</option>
+														<option value="BArch">B.Arch</option>
+														<option value="BCA">BCA</option>
+														<option value="BBA">BBA</option>
+														<option value="BCom">BCom</option>
+														<option value="B.Ed">B.Ed</option>
+														<option value="MTech" value="MTech">MTech</option>
+														<option value="MSc" value="MSc">MSc</option>
+														<option value="MArch" value="MArch">MArch</option>
+
+														<option value="MCA">MCA</option>
+														<option value="MS" value="MS">MS</option>
+														<option value="PGDiploma">PGDiploma</option>
+
+														<option value="MVSC">MVSC</option>
+														<option value="MCM">MCM</option>
+														<option value="BBA">BBA</option>
+														<option value="btech">B.Tech/B.E.</option>
+														<option value="MCom">MCom</option>
+														<option value="MEd">MEd</option>
+														<option value="MPharma">MPharma</option>
+														<option value="MA">MA</option>
+														<option value="twelth">12th</option>
+														<!-- <option value="10">10</option> -->
+													</select>
+												</div>
 											</div>
-											<div id="salary-new">
-												<div id="slider-range-new" class="slider bg-gray"></div>
+
+										</div>
+										<!--/span-->
+										<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
+
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<div class="form-group">
+												<label>Branch <span class="required"> * </span></label>
+												<div class="input-group">
+													<span class="input-group-addon">
+														<i class="icon-graduation"></i>
+													</span>
+													<select class="form-control" name="branch" id="child_selection" value="">
+														<option value=""></option>
+													</select>
+												</div>
 											</div>
 										</div>
+										<!--/span-->
 									</div>
-								</div>
+										<div class="row">
+											
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<div class="form-group">
+													<label>Job Type <span class="required">
+													* </span></label>
+													<div class="input-group">
+														<span class="input-group-addon">
+															<i class="icon-hourglass" style="color:darkcyan;"></i>
+														</span>
+														<select name="time_for" class="form-control" style="z-index:0;">
+															<option value="">-- select --</option>
+															<option value="Full Time">Full Time</option>
+															<option value="Part Time">Part Time</option>
+															<option value="Freelancer">Freelancer</option>
+															<option value="Work from Home">Work from Home</option>
+														</select>
+													</div>
+												</div>
+											</div>
+										</div>
+											<!--/span-->
+										<div class="row">
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<div class="form-group">							
+													<label class=" control-label">Experience </label>&nbsp;: 
+															<input type="text" readonly id="slider-range-exp1" name="min_exp" class="input-exp-width" /> - 
+															<input type="text" readonly id="slider-range-exp2" name="max_exp" class="input-exp-width" /> Years
+													<div id="slider-range-exp" class="slider bg-gray" style="    z-index: 0;">
+														</div>
+														
+												</div>
+											</div>
+											<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
+											
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<div class="form-group">							
+													<label class=" control-label"><input type="checkbox" id="hide-check"> Salary </label>&nbsp;: 
+															<label class="hide-sal input-sal-exp-label"><i class="fa fa-rupee (alias)" style="font-size:12px;"></i></label>
+															<input type="text" readonly id="slider-range-amount1" name="min_sal" class="input-sal-width hide-sal one" />
+															<input type="text" readonly id="slider-range-amount3" name="min_sal" class="input-sal-width hide-sal-new three" />
+															<label class="hide-sal input-sal-exp-label">- <i class="fa fa-rupee (alias)" style="font-size:12px;"></i></label>
+															<input type="text" readonly id="slider-range-amount2" name="max_sal" class="input-sal-width hide-sal two" />
+															<input type="text" readonly id="slider-range-amount4" name="max_sal" class="input-sal-width hide-sal four" />
+													<select id="salary-type"  name="salary_type" class="hide-sal-new input-sal-exp-label" style="border-top: 0px;border-left: 0;border-right: 0;width:75px">									
+														<option selected="selected" value="Monthly">Monthly</option>
+														<option value="Weekly">Weekly</option>
+														<option value="Daily">Daily</option>
+														<option value="Hourly">Hourly</option>
+														<option value="Pervisit">Per Visit</option>	
+													</select>
+													<div id="salary-old" class="hide-sal">
+														<div id="slider-range" class="slider bg-gray"></div>
+														
+													</div>
+													<div id="salary-new">
+														<div id="slider-range-new" class="slider bg-gray"></div>
+													</div>
+												</div>
+											</div>
+										</div>
 									<!--/span-->
 									<div class="form-group">
 										
@@ -1249,6 +1289,21 @@ $('.four').hide();
             } else {
                 $(".show-apply-email").show();
                 $(".show-apply").hide();
+            }
+        });
+    });
+
+         $(function () {
+	 	$(".multiple-education").hide();
+        $("#education-check").click(function () {
+            if ($(this).is(":checked")) {
+                $(".multiple-education").show();
+                $(".single-education").hide();
+                 
+            } else {
+               
+                $(".single-education").show();
+                 $(".multiple-education").hide();
             }
         });
     });

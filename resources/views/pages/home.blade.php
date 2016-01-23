@@ -461,7 +461,8 @@
 																<input type="hidden" name="_token" value="{{ csrf_token() }}">
 																<input type="hidden" name="fav_post" value="{{ $post->id }}">
 
-																<button class="btn fav-btn" type="button" style="background-color: transparent;padding:0 10px;border:0">
+																<button class="btn fav-btn " type="button" 
+																		style="background-color: transparent;padding:0 10px;border:0">
 																	@if($post->postactivity->where('user_id', Auth::user()->id)->isEmpty())
 																	<i class="fa fa-star" id="fav-btn-{{$post->id}}" style="font-size: 20px;color:rgb(183, 182, 182);"></i>
 																	@elseif($post->postactivity->where('user_id', Auth::user()->id)->first()->fav_post == 1) 
@@ -476,8 +477,8 @@
 															
 														</div>
 														<div id="ind-msg-box" style="position: absolute; top: 25px; right: 0; margin: 25px 0;">
-																<div id="ind-msg-{{$post->id}}" style="background-color:black;color:white;"></div>
-															</div>
+															<div id="ind-msg-{{$post->id}}" style="background-color:black;color:white;"></div>
+														</div>
 													</div>
 													@if($expired == 1)
 													<div class="post-hover-exp" data-postid="{{$post->id}}"><a class="myactivity-posts" data-toggle="modal" href="#myactivity-posts">
@@ -515,7 +516,7 @@
                                                     </a></div>
 													<div class="row" style="margin: 5px 0px; border-top: 1px solid whitesmoke;">
 														<div class="col-md-12" style="margin: 3px -13px;">
-<span style="float: left;padding: 0 5px;margin-left: 1px;">{{$post->magic_match}} %</span>
+															
 															@if($expired != 1)
 														
 															<div class="row" style="">	
@@ -533,28 +534,17 @@
 															<!-- <div class="ribbon-wrapper3"> -->
 																	<!-- <div class="ribbon-front3"> -->
 																	
-															<a data-toggle="modal" class="magic-font" href="#mod-{{$post->id}}" style="color: white;line-height: 1.7;text-decoration: none;">
-															 
+															<a data-toggle="modal" class="magic-font" href="#mod-{{$post->id}}" style="color: white;line-height: 1.7;text-decoration: none;"> 
+																@if($post->magic_match == 0)
 																<button class="btn btn-success magic-match-css"><i class="icon-speedometer magic-font" style="font-size:12px;"></i> 
-													<?php
-														try{
-															if(count($postSkills) > 0){
-																$skillPer = (count($counts) / count($userSkills)) * 100;
-																if(strcasecmp($post->role, Auth::user()->induser->role) == 0){$rolePer = 100;}else{$rolePer = 0;}
-																if($post->prof_category == Auth::user()->induser->prof_category){$jobPer = 100;}else{$jobPer = 0;}
-																if($post->min_exp == Auth::user()->induser->experience){$expPer = 100;}else{$expPer = 0;}
-																if($post->education == Auth::user()->induser->education){$eduPer = 100;}else{$eduPer = 0;}
-																if($post->city == Auth::user()->induser->city){$cityPer = 100;}else{$cityPer = 0;}
-																if($post->time_for == Auth::user()->induser->prefered_jobtype){$typePer = 100;}else{$typePer = 0;}
-																$avgPer = ($skillPer + $rolePer + $jobPer + $expPer + $eduPer + $cityPer + $typePer)/7;
-																echo round($avgPer).' %';
-															}
-														}
-														catch(\Exception $e){
-
-														}
-													?>
-															</button></a>
+																	No Match
+																</button>
+																@else
+																<button class="btn btn-success magic-match-css"><i class="icon-speedometer magic-font" style="font-size:12px;"></i> 
+																	{{$post->magic_match}} %
+																</button>
+																@endif
+															</a>
 															
 														</div>
 
@@ -566,14 +556,8 @@
 																	<div class="modal-header" style="padding: 7px 10px;">
 																		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 																	   <h4 class="modal-title" style="text-align:center;">
-																	   		<i class="icon-speedometer" style="font-size:16px;"></i> Match 
-																	   		<?php
-																				try{
-																					echo round($avgPer).'%';
-																				} 
-																				catch(\Exception $e){
-																				}
-																			?>
+																	   		<i class="icon-speedometer" style="font-size:16px;"></i>{{$post->magic_match}} % Match 
+																	   		
 																	   	</h4>
 																	</div>
 																	<div class="modal-body">
@@ -619,6 +603,7 @@
 																							</td>
 																							@if(Auth::user()->induser->linked_skill != null)
 																							<td class="matching-criteria-align">
+																								
 																								@foreach($userSkills as $myskill)
 																									{{$myskill}},
 																								@endforeach												
@@ -899,28 +884,17 @@
 																$overlap = array_intersect($userSkills, $postSkills);
 																$counts  = array_count_values($overlap);
 															?>
-															<a data-toggle="modal" class="magic-font" href="#mod-{{$post->id}}" style="color: white;line-height: 1.7;text-decoration: none;">
-																 
+															<a data-toggle="modal" class="magic-font" href="#mod-{{$post->id}}" style="color: white;line-height: 1.7;text-decoration: none;"> 
+																@if($post->magic_match == 0)
 																<button class="btn btn-success magic-match-css"><i class="icon-speedometer magic-font" style="font-size:12px;"></i> 
-													<?php
-														try{
-															if(count($postSkills) > 0){
-																$skillPer = (count($counts) / count($userSkills)) * 100;
-																if(strcasecmp($post->role, Auth::user()->induser->role) == 0){$rolePer = 100;}else{$rolePer = 0;}
-																if($post->prof_category == Auth::user()->induser->prof_category){$jobPer = 100;}else{$jobPer = 0;}
-																if($post->min_exp == Auth::user()->induser->experience){$expPer = 100;}else{$expPer = 0;}
-																if($post->education == Auth::user()->induser->education){$eduPer = 100;}else{$eduPer = 0;}
-																if($post->city == Auth::user()->induser->city){$cityPer = 100;}else{$cityPer = 0;}
-																if($post->time_for == Auth::user()->induser->prefered_jobtype){$typePer = 100;}else{$typePer = 0;}
-																$avgPer = ($skillPer + $rolePer + $jobPer + $expPer + $eduPer + $cityPer + $typePer)/7;
-																echo round($avgPer).' %';
-															}
-														}
-														catch(\Exception $e){
-
-														}
-													?>
-															</button></a>
+																	No Match
+																</button>
+																@else
+																<button class="btn btn-success magic-match-css"><i class="icon-speedometer magic-font" style="font-size:12px;"></i> 
+																	{{$post->magic_match}} %
+																</button>
+																@endif
+															</a>
 														</div>
 
 														<div id="oval"></div>
@@ -931,14 +905,13 @@
 																	<div class="modal-header" style="padding: 7px 10px;">
 																		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 																	   <h4 class="modal-title" style="text-align:center;">
-																	   		<i class="icon-speedometer" style="font-size:16px;"></i> Match 
-																	   		<?php
-																				try{
-																					echo round($avgPer).'%';
-																				} 
-																				catch(\Exception $e){
-																				}
-																			?>
+																	   		<i class="icon-speedometer" style="font-size:16px;"></i>
+																	   			@if($post->magic_match == 0)
+																	   			Skill Not Match
+																	   			@else
+																		   		{{$post->magic_match}} % Skill Match 
+																		   		@endif
+																	   		
 																	   	</h4>
 																	</div>
 																	<div class="modal-body">
@@ -2519,6 +2492,7 @@ jQuery(document).ready(function() {
 	ComponentsIonSliders.init();    
 	ComponentsDropdowns.init();
 	ComponentsEditors.init();
+	 UIBootstrapGrowl.init();
     // FormWizard.init();
 });
 
@@ -2945,11 +2919,13 @@ $(document).ready(function(){
  			$('#like-'+post_id).css({'color':'darkseagreen'});
  			$('#like-count-'+post_id).removeClass('hide');
             $('#like-count-'+post_id).addClass('show');
+            displayToast("Thanks");
         }else if(data < $count && data != 0){
 			$('#like-'+post_id).css({'color':'lightslategray'});
 			$('#like-count-'+post_id).text(data);
 			$('#like-count-'+post_id).removeClass('hide');
             $('#like-count-'+post_id).addClass('show');
+            displayToast("Unthanks");
         }
         else if(data < $count && data == 0){
             $('#like-'+post_id).css({'color':'lightslategray'});
@@ -2990,18 +2966,14 @@ $(document).ready(function(){
  			$('#fav-btn-'+post_id).css({'color':'#FFC823'});
  			$('#myfavcount').removeClass('hide');
             $('#myfavcount').addClass('show');
-            // $('#ind-msg-box').css({'display':'block'}).fadeIn(5000);
-            $('#ind-msg-'+post_id).fadeIn(100);
-            $('#ind-msg-'+post_id).text('Post Favourite').fadeOut(5000);
-            // $('#ind-msg-box').css({'display':'none'}).fadeOut(5000);
+            displayToast("Favourite");
+
         }else if(data < $count && data != 0){
 			$('#fav-btn-'+post_id).css({'color':'rgb(183, 182, 182)'});
 			$('#myfavcount').text(data);
 			$('#myfavcount').removeClass('hide');
             $('#myfavcount').addClass('show');
-            // $('#ind-msg-box').css({'display':'block'}).fadeIn(5000);
-            $('#ind-msg-'+post_id).fadeIn(100);
-            $('#ind-msg-'+post_id).text('Post UnFavourite').fadeOut(5000);
+   			displayToast("Unfavourite");
         }
         else if(data < $count && data == 0){
             $('#fav-btn-'+post_id).css({'color':'rgb(183, 182, 182);'});
@@ -3306,13 +3278,28 @@ $('.contact-btn').live('click',function(event){
 	    }); 
 	    return false;
   });
-
+	
+	
  
 });
 </script>
-// <script>
-// ('#linked_skill_id').select2();
-// </script>
+ <script>
+ 	function displayToast($msg){
+ 		$.bootstrapGrowl($msg, {
+                    ele: 'body', // which element to append to
+                    type: 'display-toast', // (null, 'info', 'danger', 'success', 'warning')
+                    offset: {
+                        from: 'bottom',
+                        amount: 10
+                    }, // 'top', or 'bottom'
+                    align: 'center', // ('left', 'right', or 'center')
+                    width: 250, // (integer, or 'auto')
+                    delay: 3000, // Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
+                    allow_dismiss: false, // If true then will display a cross to close the popup.
+                    stackup_spacing: 10 // spacing between consecutively stacked growls.
+                });
+ 	}
+</script>
 <style type="text/css">
 .pagination{
 	display: none;

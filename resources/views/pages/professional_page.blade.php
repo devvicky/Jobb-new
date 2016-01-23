@@ -36,22 +36,26 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class="control-label">First Name</label>
-									<div class="input-group">
+									<!-- <div class="input-group">
 										<span class="input-group-addon">
 											<i class="glyphicon glyphicon-font"></i>
-										</span>
-										<input type="text" name="first_name" class="form-control" placeholder="First Name" value="{{ $user->fname }}">
+										</span> -->
+										<div class="input-icon right">
+													<i class="fa"></i>
+										<input type="text" name="fname" class="form-control" placeholder="First Name">
 									</div>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class="control-label">Last Name</label>
-									<div class="input-group">
+									<!-- <div class="input-group">
 										<span class="input-group-addon">
 											<i class="glyphicon glyphicon-font"></i>
-										</span>
-										<input type="text" name="last_name" class="form-control" placeholder="Last Name" value=" {{ $user->lname }}">
+										</span> -->
+										<div class="input-icon right">
+													<i class="fa"></i>
+										<input type="text" name="lname" class="form-control" placeholder="Last Name" >
 									</div>
 								</div>
 							</div>

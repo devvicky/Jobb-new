@@ -36,6 +36,15 @@ class PagesController extends Controller {
 		return view('pages.about')->with('name', $name);
 	}
 
+	public function termcondition(){
+		return view('pages.term&condition');
+	}
+
+
+	public function privacy_policy(){
+			return view('pages.privacy_policy');
+		}
+
 	public function login(){
 		if (Auth::check()) {
 			return redirect("/home");
@@ -797,9 +806,8 @@ public function homeskillFilter(){
 			$max_exp = Input::get('max_exp');
 			$prefered_jobtype = Input::get('job_type');
 			$resume = Input::get('resume');
-			if(Input::get('linked_skill_id') != null){
-				$skills = implode(', ', Input::get('linked_skill_id'));
-			}
+			// $skills = implode(", ", Input::get('linked_skill_id'));
+
 			$type = Input::get('type');
 
 			if($type == 'people'){
@@ -839,7 +847,7 @@ public function homeskillFilter(){
 					$users->whereNotNull('resume');
 				}
 				// if($skills != null){
-				// 	$users->where('linked_skill', 'like', '%'.$skills.'%');
+				// 	$users->where('linked_skill', '=', $skills);
 				// }
 
 				// if($skills != null){
@@ -849,6 +857,29 @@ public function homeskillFilter(){
 				// 	$skillsArray = explode(',', $skills);
 				// 	$users->whereIn('linked_skill', $skillsArray);
 				// }
+
+				if(Auth::user()->indentifier == 2){
+					$perPeople = 100;
+					if($city != null || $name != null || $category != null || $working_at != null || $mobile != null || $min_exp != null || $max_exp != null || $prefered_jobtype != null || $resume != null || $skills == null){
+						$perPeople = 100;
+						return $perPeople;
+					}else if($skills != null){
+						$userSkills = array_map('trim', explode(',', $skillsArray));
+						unset ($userSkills[count($userSkills)-1]);
+
+						$searchSkills = array_map('trim', explode(',', 'linked_skill'));
+						unset ($searchSkills[count($searchSkills)-1]);
+
+						$overlap = array_intersect($userSkills, $searchSkills);
+						$counts  = array_count_values($overlap);
+						if(count($counts) > 0){
+							$perpeopleSkill = round( ( count($counts) / count($searchSkills) ) * 100 );
+						}
+						
+					}
+					
+				}
+
 				$users = $users->paginate(15);
 
 				$links = DB::select('select id from indusers
@@ -862,7 +893,7 @@ public function homeskillFilter(){
 											 and connections.status=1
 								)', [Auth::user()->induser_id, Auth::user()->induser_id]);
 				$links = collect($links);
-				return view('pages.profileSearch', compact('users', 'title', 'links', 'type', 'corpsearchprofile'));
+				return view('pages.profileSearch', compact('users', 'title', 'links', 'type', 'corpsearchprofile', 'perPeople', 'perpeopleSkill'));
 			}elseif($type == 'company'){
 				$users = Corpuser::orderBy('id', 'desc');
 

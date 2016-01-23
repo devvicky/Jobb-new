@@ -101,8 +101,11 @@ class Postjob extends Model {
 
 			$overlap = array_intersect($userSkills, $postSkills);
 			$counts  = array_count_values($overlap);
-
-			$percentage = round( ( count($counts) / count($userSkills) ) * 100 );
+			if(count($counts) > 0){
+				$percentage = round( ( count($counts) / count($postSkills) ) * 100 );
+			}else{
+				$percentage = 0;
+			}
 
 			return $percentage;
 		}else{		

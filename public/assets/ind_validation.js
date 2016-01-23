@@ -3,12 +3,20 @@
     var form = $('#ind_validation');
     var error = $('.alert-danger', form);
     var success = $('.alert-success', form);
+
+
     form.validate({
         doNotHideMessage: true, //this option enables to show the error/success messages on tab switch.
         errorElement: 'span', //default input error message container
         errorClass: 'help-block help-block-error', // default input error message class
         focusInvalid: false, // do not focus the last invalid input
         ignore: [],
+        icon: {
+                required: 'fa fa-asterisk',
+                valid: 'fa fa-check',
+                invalid: 'fa fa-times',
+                validating: 'fa fa-refresh'
+            },
         rules: {
             education : {
                 required : true
@@ -108,6 +116,7 @@ $(document).ready(function () {
         errorElement: 'span', //default input error message container
         errorClass: 'help-block help-block-error', // default input error message class
         focusInvalid: false, // do not focus the last invalid input
+
         rules: {
             fname : {
                 required : true,
@@ -130,6 +139,17 @@ $(document).ready(function () {
             success.hide();
             error.show();
             Metronic.scrollTo(error, -200);
+        },
+        errorPlacement: function (error, element) { // render error placement for each input type
+            var icon = $(element).parent('.input-icon').children('i');
+            icon.removeClass('fa-check').addClass("fa-warning");  
+            icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
+        },
+
+        success: function (label, element) {
+            var icon = $(element).parent('.input-icon').children('i');
+            $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+            icon.removeClass("fa-warning").addClass("fa-check");
         },
 
              highlight: function(element) {

@@ -51,7 +51,7 @@ class JobController extends Controller {
 	public function create()
 	{
 		$title = 'job';
-		$skills = Skills::lists('name', 'name');
+		$skills = Skills::lists('name', 'id');
 		if(Auth::user()->identifier == 1){
 			$connections=Induser::whereRaw('indusers.id in (
 											select connections.user_id as id from connections
@@ -98,10 +98,10 @@ class JobController extends Controller {
 			$request['corporate_id'] = Auth::user()->corpuser_id;
 		$request['post_type'] = 'job';
 
-		$skillIds = explode(',', $request['linked_skill_id']);
-		unset ($skillIds[count($skillIds)-1]);
-		$prefered_location = explode(',', $request['prefered_location']);
-		unset ($prefered_location[count($prefered_location)-1]);
+		$skillIds = implode(',', $request['linked_skill_id']);
+		// unset ($skillIds[count($skillIds)-1]);
+		$prefered_location = implode(',', $request['prefered_location']);
+		// unset ($prefered_location[count($prefered_location)-1]);
 		$request['unique_id'] = "J".rand(111,999).rand(111,999);
 		$post = Postjob::create($request->all());
 		$post->skills()->attach($skillIds); 

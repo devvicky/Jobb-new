@@ -1110,7 +1110,7 @@ background: #26ca28;
 }
 
 .login .content .form-control {
-  border: 0 !important;
+  /*border: 0 !important;*/
 }
 
 .form-group-login-new{
@@ -1131,9 +1131,9 @@ background: #26ca28;
   border-color: transparent !important;
 }
 
-#corporate-login{
+/*#corporate-login{
   display: none;
-}
+}*/
 
 .submit-login-button{
   color: #fff !important;

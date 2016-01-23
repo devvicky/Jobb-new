@@ -25,7 +25,6 @@ class CreatePostjobRequest extends Request {
 			'post_title'	=>	'required',
 			'role'			=>	'required',
 			'prof_category'	=>	'required',
-			'city'			=>	'required',
 			'time_for'		=>	'required',
 			'alt_emailid'	=>	'email',
 			'alt_phone'		=> 	'numeric'

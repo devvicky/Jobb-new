@@ -254,7 +254,7 @@
                                                 @if($expired != 1 && Auth::user()->identifier == 1)
                                                                 <div style="margin:27px 0 0;">
                                                                     <!-- if corporate_id not null -->
-                                                                    @if($post->post_type == 'job' && Auth::user()->induser_id != $post->individual_id)     
+                                                                    @if($post->post_type == 'job' && Auth::user()->id != $post->individual_id)     
                                                                         @if($post->postactivity->where('user_id', Auth::user()->id)->isEmpty() && $post->website_redirect_url != null)
                                                                             <form action="/job/apply" method="post" id="post-apply-{{$post->id}}" data-id="{{$post->id}}">  
                                                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -272,7 +272,7 @@
                                                                                     id="apply-btn-{{$post->id}}" type="button">Apply
                                                                             </button>
                                                                         </form> 
-                                                                        @elseif($post->postactivity->where('user_id', Auth::user()->id)->isEmpty() && $post->website_redirect_url == null && $post->individual_id != null)
+                                                                        @elseif($post->postactivity->where('user_id', Auth::user()->id)->isEmpty() && $post->individual_id != null)
                                                                         <form action="/job/contact" method="post" id="post-contact-{{$post->id}}" data-id="{{$post->id}}">  
                                                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                                             <input type="hidden" name="contact" value="{{ $post->id }}">
@@ -389,7 +389,7 @@
 
  <script>
 $(document).ready(function(){
-$('.apply-btn').on('click',function(event){         
+$('.apply-btn').live('click',function(event){         
     event.preventDefault();
     var post_id = $(this).parent().data('id');
 
@@ -418,7 +418,7 @@ $('.apply-btn').on('click',function(event){
     return false;
   });
     
-$('.contact-btn').on('click',function(event){       
+$('.contact-btn').live('click',function(event){       
     event.preventDefault();
     var post_id = $(this).parent().data('id');
 

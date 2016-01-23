@@ -344,6 +344,7 @@ body.page-boxed{
 <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
 <script src="/assets/admin/pages/scripts/components-form-tools.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/bootstrap-markdown/lib/markdown.js"></script>
 {{-- <script src="/assets/searchableOptionList.js"></script> --}}
 <script src="/assets/sol.js"></script>
 <script src="/assets/multiple-select.js"></script>
@@ -360,7 +361,10 @@ body.page-boxed{
 <script src="../../assets/admin/pages/scripts/form-image-crop.js"></script>
 <script src="/assets/jquery.sumoselect.js"></script>
 <script src="{{ asset('/assets/Edubranch.js') }}"></script>
-<script src="{{ asset('/assets/jquery.ui.touch-punch.min.js') }}">
+<script src="{{ asset('/assets/jquery.ui.touch-punch.min.js') }}"></script>
+<script src="/assets/global/plugins/bootstrap-growl/jquery.bootstrap-growl.min.js"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+<script src="/assets/js/jt-toast.js"></script>
 <script>
 function loader(arg){
     if(arg == 'show'){
