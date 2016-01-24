@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFunctionalareasTable extends Migration {
+class CreateFunctionalAreasTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -13,7 +13,7 @@ class CreateFunctionalareasTable extends Migration {
 	public function up()
 	{
 		Schema::create('functional_areas', function(Blueprint $table)
-			{
+		{
 			$table->increments('id');
 			$table->string('name')->nullable();
 			$table->integer('row_status')->default(0)->unsigned();

@@ -13,7 +13,7 @@ class CreateIndustryTable extends Migration {
 	public function up()
 	{
 		Schema::create('industries', function(Blueprint $table)
-			{
+		{
 			$table->increments('id');
 			$table->string('name')->nullable();
 			$table->integer('row_status')->default(0)->unsigned();
