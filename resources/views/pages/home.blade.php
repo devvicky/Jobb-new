@@ -10,12 +10,10 @@
 		<ul class="nav nav-tabs" style="padding:0;">
 			@if(Auth::user()->identifier == 1)
 			<li class="active home-tab-width-job" >
-				<a href="#job" data-toggle="tab" class="job-skill-tab">
-				Jobs</a>
+				<a href="#job" data-toggle="tab" class="job-skill-tab">Jobs</a>
 			</li>
 			<li class="home-tab-width-skill">
-				<a href="#skill" data-toggle="tab" class="job-skill-tab">
-				Skills </a>
+				<a href="#skill" data-toggle="tab" class="job-skill-tab">Skills</a>
 			</li>
 			@elseif(Auth::user()->identifier == 2)
 			
