@@ -20,3 +20,18 @@ ALTER TABLE `corpusers`
 ALTER TABLE `postjobs`
 	ADD COLUMN `industry` VARCHAR(255) NULL DEFAULT NULL AFTER `role`,
 	ADD COLUMN `functional_area` VARCHAR(255) NULL DEFAULT NULL AFTER `industry`;
+
+
+// new one 
+ALTER TABLE `postjobs`
+	ADD COLUMN `inactive` INT(1) NOT NULL DEFAULT '0' AFTER `resume_required`;
+
+ALTER TABLE `postjobs`
+	ADD COLUMN `rowStatus` INT(1) NOT NULL DEFAULT '0' AFTER `resume_required`;
+
+ALTER TABLE `users`
+	ADD COLUMN `inactive` INT(1) NULL DEFAULT '0' AFTER `remember_token`,
+	ADD COLUMN `rowStatus` INT(1) NULL DEFAULT '0' AFTER `inactive`;
+
+ALTER TABLE `report_abuses`
+	ADD COLUMN `action_taken` INT UNSIGNED NOT NULL AFTER `reported_for`;

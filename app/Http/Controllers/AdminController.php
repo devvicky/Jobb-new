@@ -21,17 +21,6 @@ use App\Industry_functional_area_role_mapping;
 
 class AdminController extends Controller {
 
-	// public function __construct()
-	// {
-	//     $this->beforeFilter(function() {
-	//     	if(Auth::check()){
-	//         	return redirect('/home');
-	//         } else{
-	//         	return redirect('login');
-	//         }
-	//     });
-	// }
-
 	/**
 	 * Display a listing of the resource.
 	 *
