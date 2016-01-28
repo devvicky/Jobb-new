@@ -28,7 +28,12 @@ use Illuminate\Pagination\Paginator;
 class PagesController extends Controller {
 
 	public function index(){
-		return view('pages.index');
+		$title = 'Welcome';
+		$jobPosts = Postjob::orderBy('id', 'desc')
+						   ->with('indUser', 'corpUser');
+		$skillPosts = Postjob::orderBy('id', 'desc')
+						   ->with('indUser', 'corpUser');
+		return view('pages.index', compact('title', 'jobPosts', 'skillPosts'));
 	}
 
 	public function about(){
@@ -57,7 +62,7 @@ class PagesController extends Controller {
 		if (Auth::check()) {
 			$title = 'home';
 
-			if(Auth::user()->identifier == 1 || Auth::user()->identifier == 2){
+			if(Auth::user()->identifier == 1){
 
 				$skills = Skills::lists('name', 'id');
 				$jobPosts = Postjob::orderBy('id', 'desc')
@@ -148,8 +153,32 @@ class PagesController extends Controller {
 
 				}
 				return view('pages.home', compact('jobPosts', 'skillPosts', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'linksApproval', 'linksPending', 'share_links', 'share_groups'));
-			} 
-			elseif(Auth::user()->identifier == 3){
+				// return $jobPosts;
+			} elseif(Auth::user()->identifier == 2){
+				$skills = Skills::lists('name', 'id');
+				$jobPosts = Postjob::orderBy('id', 'desc')
+								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
+								   ->where('post_type', '=', 'job')
+								   ->where('post_expire', '=', '0')
+								   ->paginate(5);
+				$skillPosts = Postjob::orderBy('id', 'desc')
+									 ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
+									 ->where('post_type', '=', 'skill')
+									 ->where('post_expire', '=', '0')
+									 ->paginate(5);
+
+				if(Auth::user()->corpuser_id != null){
+					$following = DB::select('select id from indusers
+											 where indusers.id in (
+												select follows.individual_id as id from follows
+												where follows.corporate_id=?
+										)', [Auth::user()->corpuser_id]);
+					$following = collect($following);
+				}
+
+				return view('pages.home_corporate', compact('jobPosts', 'skillPosts', 'title', 'following', 'skills'));
+
+			}elseif(Auth::user()->identifier == 3){
 				$reportAbuseCount = ReportAbuse::count();
 				$feedbackCount = Feedback::count();
 				$expFeedCounts = DB::select(

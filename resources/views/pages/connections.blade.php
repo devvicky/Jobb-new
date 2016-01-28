@@ -70,9 +70,13 @@
 					                          <div class="input-group" style="margin:0 auto;">
 					                            <div class="icheck-inline">
 					                              <label>
-					                              <input id="id_radio1" type="radio" checked name="type" value="people" class="">People</label>
+					                              	<input id="id_radio1" type="radio" checked name="type" value="people" class="">
+					                              	People
+					                              </label>
 					                              <label>
-					                              <input id="id_radio2" type="radio" value="company" name="type" class="">Company</label>
+					                              	<input id="id_radio2" type="radio" value="company" name="type" class="">
+					                              	Company
+					                              </label>
 					                            </div>
 					                          </div>
 					                        </div> 
@@ -483,22 +487,34 @@ function down(){
 <script type="text/javascript">
      $(document).ready(function () {
      	$('.show-firm-type').hide();
-        $('#id_radio1').click(function () {
-           $('.show-comp').show();
-           $('.show-firm-type').hide();
-    });
-    $('#id_radio2').click(function () {
-          $('.show-comp').hide();
-          $('.show-firm-type').show();
-     });
-   });
-
-    $(document).ready(function(){
 
     jQuery('.advance-search').on('click', function(event) {
 	    jQuery('.show-adsearch').toggle('show');
 	    jQuery('.normal_search').toggle('hide');
     });
+
+    jQuery('#id_radio1').on('click', function(event) {
+	    jQuery('.show-comp').toggle('show');
+	    jQuery('.show-firm-type').toggle('hide');
+    });
+
+    jQuery('#id_radio2').on('click', function(event) {
+	    jQuery('.show-comp').toggle('hide');
+	    jQuery('.show-firm-type').toggle('show');
+    });
+
+     // $('input[type="radio"]').click(function() {
+     //     if($(this).attr('id') == 'id_radio1') {
+     //        $('.show-comp').show(); 
+     //        $('.show-firm-type').hide();          
+     //     }
+     // });
+     // $('input[type="radio"]').click(function() {
+     //     if($(this).attr('id') == 'id_radio2') {
+     //         $('.show-comp').hide();
+     //      $('.show-firm-type').show();        
+     //     }
+     // });
 });
 
 </script>

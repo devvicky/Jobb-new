@@ -17,6 +17,9 @@
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <link rel="canonical" href="http://www.alessioatzeni.com/wp-content/tutorials/jquery/simple-tooltip/index.html" />
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
+<!-- <link rel="stylesheet" type="text/css" href="{{ asset('/assets/css/jquery.mobile-1.4.5.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('/assets/css/jquery.mobile-1.4.5.min.css') }}"/> -->
+
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css">
 <link href="{{ asset('/assets/global/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
 <link href="{{ asset('/assets/global/plugins/simple-line-icons/simple-line-icons.min.css') }}" rel="stylesheet" type="text/css">
@@ -279,6 +282,8 @@ body.page-boxed{
 <script src="{{ asset('/assets/global/plugins/respond.min.js') }}"></script>
 <script src="{{ asset('/assets/global/plugins/excanvas.min.js') }}"></script> 
 <![endif]-->
+<!-- <script src="{{ asset('/assets/js/jquery.mobile-1.4.5.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/assets/js/jquery.mobile-1.4.5.min.js') }}" type="text/javascript"></script> -->
 <script src="{{ asset('/assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('/assets/global/plugins/jquery-migrate.min.js') }}" type="text/javascript"></script>
 <!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
@@ -461,13 +466,13 @@ $(document).ready(function () {
       });
 
 
-     $('input[type="radio"]').click(function() {
-         if($(this).attr('id') == 'hide-comp') {
-            $('.show-comp').hide();           
-         }else {
-            $('.show-comp').show();   
-         }
-     });
+     // $('input[type="radio"]').click(function() {
+     //     if($(this).attr('id') == 'hide-comp') {
+     //        $('.show-comp').hide();           
+     //     }else {
+     //        $('.show-comp').show();   
+     //     }
+     // });
 
     // myactivity-post
     $('.myactivity-post').on('click',function(event){       

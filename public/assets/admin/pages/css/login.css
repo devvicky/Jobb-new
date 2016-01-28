@@ -80,11 +80,12 @@ Login page
   background-color: transparent;
   height: 35px;
   color: black;
-  border: 1px solid darkcyan;
+  border: 1px solid #83ADAD;
  
 }
 .login .content .form-control:focus, .login .content .form-control:active {
-  border: 1px solid darkcyan;
+  border: 1px solid #83ADAD;
+  border-left: 0;
 }
 .login .content .form-control::-moz-placeholder {
   color: #8290a3;
@@ -213,7 +214,7 @@ Login page
 
 .login .content .create-account {
   margin: 0 -40px -40px -40px;
-  padding: 15px 0 17px 0;
+  padding: 3px 0px 17px 0;
   text-align: center;
   background-color: #6c7a8d;
   -webkit-border-radius: 0 0 7px 7px;
@@ -239,7 +240,7 @@ Login page
   text-align: center;
   margin: 0 auto 30px 0;
   padding: 10px;
-  color: #7a8ca5;
+  color: #91AFD8;
   font-size: 13px;
 }
 

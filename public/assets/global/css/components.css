@@ -1846,9 +1846,10 @@ Bootstrap Alerts
 }
 
 .alert-info {
-  background-color: #d9edf7;
+  background-color: black;
   border-color: #bce8f1;
-  color: #31708f;
+  color: whitesmoke;
+  border-radius: 15px !important;
 }
 .alert-info hr {
   border-top-color: #a6e1ec;

@@ -2,114 +2,21 @@
 
 @section('content')
 
-<div class="row ">
-	<div class="tile-position welcome-post-content" style="height:56px;">
-	<span id="changerificwordspanid" class="uppercase" style="font-size:18px;font-weight:200;">Do you know about any job openings</span>
-	</div>
-	<div class="tile-position-new">
-		<div class="tile bg-red-intense">
-			<div class="tile-body box-welcome" style="text-align:center;">
-				<img class="" src="/assets/admin/pages/media/bg/skill.png" style="width:90%;">
-				<!-- <i class="fa fa-gavel"></i> -->
-			</div>
-			<div class="tile-object" >
-				<div class="name">
-					 <a href="/login">Add Skills</a>
-				</div>
-				<div class="number">
-					 
-				</div>
-			</div>
-		</div>
-		<div class="tile bg-red-intense">
-			<div class="tile-body" style="text-align:center;">
-				<img class="" src="/assets/admin/pages/media/bg/job.png" style="width:90%;">
-			</div>
-			<div class="tile-object" >
-				<div class="name">
-					 <a href="/login"> Post Job tip</a>
-				</div>
-				<div class="number">
-					 
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="row" style="margin: 0 -10px 0 5px !important;">
-	<div class="col-md-2 col-sm-1"></div>
-		<div class="col-md-8 col-sm-10">
-		<form id="welcome-search" name="welcome_form" action="/welcome/post" method="post">
-			<input type="hidden" name="_token" value="{{ csrf_token() }}">
-			<div class="col-md-5 col-sm-5" style="padding-left:0 !important;">
-				<div class=" form-group">
-					<div class="input-group">
-						<span class="input-group-addon" style="color:#83ADAD !important;border: 1px solid #83ADAD;border-right:0;background-color:rgba(149, 152, 152, 0.22);">
-							<i class="fa fa-cogs"></i>
-						</span>
-						<input type="text" name="role" id="search-input" class="form-control" placeholder="Enter Job role" style="border-left:0;color:#83ADAD !important;border-color:#83ADAD;background-color:rgba(149, 152, 152, 0.22);">
-					</div>
-				</div>		
-			</div>
-			
-			<div id="welcome-city" class="col-md-4 col-sm-4" style="padding-left:0 !important;">
-				<div class="form-group">
-					<div class="input-group">
-						<span class="input-group-addon" style="color:#83ADAD !important;border: 1px solid #83ADAD;border-right:0;background-color:rgba(149, 152, 152, 0.22);">
-							<i class="fa fa-map-marker"></i>
-						</span>
-						<input type="text" name="location" class="form-control" placeholder="Enter Location" style="border-left:0;color:#83ADAD !important;border-color: #83ADAD;background-color:rgba(149, 152, 152, 0.22);">										
-					</div>	
-				</div>		
-			</div>
-			<div class="col-md-2 col-sm-3 col-xs-6" style="padding-left:0 !important;">
-				<div class="form-group">
-					<div class="input-group">
-						<span class="input-group-addon" style="color:#83ADAD !important;border: 1px solid #83ADAD;border-right:0;background-color:rgba(149, 152, 152, 0.22);">
-							<i class="icon-briefcase"></i>
-						</span>
-						<select class="form-control" name="experience" placeholder="Exp" style="color:#83ADAD !important;border: 1px solid #83ADAD;border-left:0;background-color:rgba(149, 152, 152, 0.22);">
-							<option value=""> Exp </option>
-							<option value="0">0</option>
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-							<option value="5">5</option>
-							<option value="6">6</option>
-							<option value="7">7</option>
-							<option value="8">8</option>
-							<option value="9">9</option>
-							<option value="10">10</option>
-							<option value="11">11</option>
-							<option value="12">12</option>
-							<option value="13">13</option>
-							<option value="14">14</option>
-							<option value="15">15</option>
-						</select>
-					</div>
-				</div>	
-			</div>
-			<div class="col-md-1 col-sm-12 col-xs-6" style="padding-left:0 !important;text-align:center;">
-				<button type="submit" class="btn btn-small-welcome btn-search-welcome">
-					<i class="fa fa-search"></i> Search
-				</button>
-			</div>
-		</form>
-	</div> 
-</div>
-@if($title == 'welcome')
 <div class="tabbable-line" style="margin:7px;">
 
-	<ul class="nav nav-tabs " style="padding:0;display:table;margin:0 auto;">
+	<ul class="nav nav-tabs " style="padding:0">
 		<li class="active">
 			<a href="#tab_job" data-toggle="tab">Job 
-				
+				@if(count($jobPosts) > 0)
+				<span class="badge" style="background-color: deepskyblue;">{{count($jobPosts)}}</span>
+				@endif
 			</a>
 		</li>
 		<li>
 			<a href="#tab_skill" data-toggle="tab">Skill
-				
+				@if(count($skillPosts) > 0)
+				<span class="badge" style="background-color: deepskyblue;">{{count($skillPosts)}}</span>
+				@endif
 			</a>
 		</li>
 	</ul>
@@ -118,8 +25,7 @@
 			<div class="search-classic">
 				@foreach($jobPosts as $post)
 				<div class="row" style="margin:10px 0;">
-					<div class="col-md-2 col-sm-1"></div>
-					<div class="col-md-8 col-sm-10" style="border-bottom:1px solid lightgrey;">
+					<div class="col-md-7" style="border-bottom:1px solid lightgrey;">
 						<div class="col-md-3 col-sm-3 col-xs-3">
 							@if($post->induser != null && !empty($post->induser->profile_pic))
 							<img class="timeline-badge-userpic welcome-userpic-box" src="/img/profile/{{ $post->induser->profile_pic }}" title="{{ $post->induser->fname }}">
@@ -191,7 +97,7 @@
                         </div>
                        
                     </div>
-				</div>
+					</div>
 
 				</div>
 				
@@ -199,7 +105,7 @@
 
 			</div>
 			@if(count($jobPosts) > 0)
-			<div style="margin: 15px 25px;text-align:center;"><a href="/login">Show more Jobs</a></div>
+			<div style="margin: 15px 25px;"><a href="/login">Show more Jobs</a></div>
 			@else
 
 			@endif
@@ -209,8 +115,7 @@
 				@foreach($skillPosts as $skill)
 				<a href="/login">
 				<div class="row" style="margin:10px 0;">
-					<div class="col-md-2 col-sm-1"></div>
-                    <div class="col-md-8 col-sm-10" style="border-bottom:1px solid lightgrey;">
+                    <div class="col-md-7" style="border-bottom:1px solid lightgrey;">
                         <div class="col-md-3 col-sm-3 col-xs-3">
                             @if($skill->induser != null && !empty($skill->induser->profile_pic))
                             <img class="timeline-badge-userpic welcome-userpic-box" src="/img/profile/{{ $skill->induser->profile_pic }}" title="{{ $skill->induser->fname }}">
@@ -287,46 +192,9 @@
             </a>
 				@endforeach
 			</div>
-			<div style="margin: 15px 25px;text-align:center;"><a href="/login">Show more Skills</a></div>
+			<div style="margin: 15px 25px;"><a href="/login">Show more Skills</a></div>
 		</div>
 	</div>
 </div>
-@endif
-@stop
-
-@section('javascript')
-
-<script type="text/javascript">
- $(document).ready(function () {
-    $('.show-city').click(function(event) {
-    	 event.stopPropagation();
-       $('#welcome-city').show();
-       $('.show-city').hide();
-    });
-   });
-
-
- (function(){
-
-    // List your words here:
-    var words = [
-        'Searching for right job',
-        'Add your skills here',
-        'Do you know about any job openings',
-        'post Job tip here',
-        'Create a group of your friends',
-        'share job info among your friends'
-        ], i = 0;
-
-    setInterval(function(){
-        $('#changerificwordspanid').fadeOut(function(){
-            $(this).html(words[i=(i+1)%words.length]).fadeIn();
-        });
-       // 2 seconds
-    }, 3000);
-
-})();
-
-</script>
 
 @stop

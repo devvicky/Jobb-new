@@ -7,6 +7,7 @@ Route::get('about', 'PagesController@about');
 
 Route::get('login/termcondition', 'PagesController@termcondition');
 Route::get('login/privacyprolicy', 'PagesController@privacy_policy');
+Route::post('welcome/post', 'WelcomeController@welcomeSearch');
 
 Route::controllers([
 	'auth'		=>	'Auth\AuthController',
@@ -172,6 +173,12 @@ Route::group(array('middleware' => 'auth'), function(){
 
 	Route::get('home/{post_type}/{sort_by}', 'PagesController@homeSorting');
 	Route::get('home/{post_type}/{sort_by_skill}', 'PagesController@homeskillSorting');
+
+	//Welcome Controller
+
+
+
+
 
 	// Admin Controller panel
 	Route::post('admin/role/upload', 'AdminController@updateRole');

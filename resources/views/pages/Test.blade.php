@@ -1,3 +1,1560 @@
+public function getMagicMatchAttribute(){
+		if(Auth::user()->identifier == 1){
+			$userSkills = Induser::where('id', '=', Auth::user()->induser_id)->first(['linked_skill']);
+			$userSkills = array_map('trim', explode(',', $userSkills->linked_skill));
+			unset ($userSkills[count($userSkills)-1]);
 
-http://jobtip.dev/%3C!DOCTYPE%20html%3E%3C!--[if%20IE%208]%3E%20%3Chtml%20lang=%22en%22%20class=%22ie8%20no-js%22%3E%20%3C![endif]--%3E%3C!--[if%20IE%209]%3E%20%3Chtml%20lang=%22en%22%20class=%22ie9%20no-js%22%3E%20%3C![endif]--%3E%3C!--[if%20!IE]%3E%3C!--%3E%3Chtml%20lang=%22en%22%3E%3C!--%3C![endif]--%3E%3C!--%20BEGIN%20HEAD%20--%3E%3Chead%3E%3Cmeta%20charset=%22utf-8%22/%3E%3Ctitle%3EJobTip%3C/title%3E%3Cmeta%20http-equiv=%22X-UA-Compatible%22%20content=%22IE=edge%22%3E%3Cmeta%20content=%22width=device-width,%20initial-scale=1.0%22%20name=%22viewport%22/%3E%3Cmeta%20http-equiv=%22Content-type%22%20content=%22text/html;%20charset=utf-8%22%3E%3Cmeta%20content=%22%22%20name=%22description%22/%3E%3Cmeta%20content=%22%22%20name=%22author%22/%3E%3C!--%20csrf_token%20--%3E%3Cmeta%20name=%22csrf-token%22%20content=%22n0BUgA12VHRMebAv0v5oz3D1uT5l8CLTmC9fGe1i%22%20/%3E%3Clink%20rel=%22canonical%22%20href=%22http://www.alessioatzeni.com/wp-content/tutorials/jquery/simple-tooltip/index.html%22%20/%3E%3C!--%20BEGIN%20GLOBAL%20MANDATORY%20STYLES%20--%3E%3Clink%20href=%22http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all%22%20rel=%22stylesheet%22%20type=%22text/css%22%3E%3Clink%20href=%22http://jobtip.dev/assets/global/plugins/font-awesome/css/font-awesome.min.css%22%20rel=%22stylesheet%22%20type=%22text/css%22%3E%3Clink%20href=%22http://jobtip.dev/assets/global/plugins/simple-line-icons/simple-line-icons.min.css%22%20rel=%22stylesheet%22%20type=%22text/css%22%3E%3Clink%20href=%22http://jobtip.dev/assets/global/plugins/bootstrap/css/bootstrap.min.css%22%20rel=%22stylesheet%22%20type=%22text/css%22%3E%3Clink%20href=%22http://jobtip.dev/assets/global/plugins/uniform/css/uniform.default.css%22%20rel=%22stylesheet%22%20type=%22text/css%22%3E%3Clink%20href=%22http://jobtip.dev/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css%22%20rel=%22stylesheet%22%20type=%22text/css%22/%3E%3C!--%20END%20GLOBAL%20MANDATORY%20STYLES%20--%3E%3C!--%20BEGIN%20PAGE%20LEVEL%20STYLES%20--%3E%3Clink%20rel=%22stylesheet%22%20type=%22text/css%22%20href=%22http://jobtip.dev/assets/global/plugins/bootstrap-select/bootstrap-select.min.css%22/%3E%3Clink%20rel=%22stylesheet%22%20type=%22text/css%22%20href=%22http://jobtip.dev/assets/global/plugins/select2/select2.css%22/%3E%3Clink%20rel=%22stylesheet%22%20type=%22text/css%22%20href=%22http://jobtip.dev/assets/global/plugins/jquery-multi-select/css/multi-select.css%22/%3E%3Clink%20rel=%22stylesheet%22%20type=%22text/css%22%20href=%22http://jobtip.dev/assets/global/plugins/select2/select2.css%22/%3E%3Clink%20rel=%22stylesheet%22%20type=%22text/css%22%20href=%22http://jobtip.dev/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css%22/%3E%3Clink%20rel=%22stylesheet%22%20type=%22text/css%22%20href=%22http://jobtip.dev/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css%22/%3E%3Clink%20rel=%22stylesheet%22%20type=%22text/css%22%20href=%22http://jobtip.dev/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css%22/%3E%3Clink%20rel=%22stylesheet%22%20type=%22text/css%22%20href=%22http://jobtip.dev/assets/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css%22%3E%3Clink%20rel=%22stylesheet%22%20type=%22text/css%22%20href=%22http://jobtip.dev/assets/global/plugins/bootstrap-summernote/summernote.css%22%3E%3Clink%20rel=%22stylesheet%22%20type=%22text/css%22%20href=%22http://jobtip.dev/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css%22/%3E%3Clink%20rel=%22stylesheet%22%20type=%22text/css%22%20href=%22http://jobtip.dev/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css%22/%3E%3Clink%20rel=%22stylesheet%22%20type=%22text/css%22%20href=%22http://jobtip.dev/assets/global/plugins/jquery-tags-input/jquery.tagsinput.css%22/%3E%3Clink%20rel=%22stylesheet%22%20type=%22text/css%22%20href=%22http://jobtip.dev/assets/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css%22%3E%3Clink%20rel=%22stylesheet%22%20type=%22text/css%22%20href=%22http://jobtip.dev/assets/global/plugins/typeahead/typeahead.css%22%3E%3Clink%20rel=%22stylesheet%22%20type=%22text/css%22%20href=%22http://jobtip.dev/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css%22/%3E%3Clink%20rel=%22stylesheet%22%20type=%22text/css%22%20href=%22http://jobtip.dev/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css%22/%3E%3Clink%20rel=%22stylesheet%22%20type=%22text/css%22%20href=%22http://jobtip.dev/assets/global/plugins/bootstrap-editable/bootstrap-editable/css/bootstrap-editable.css%22/%3E%3Clink%20rel=%22stylesheet%22%20type=%22text/css%22%20href=%22http://jobtip.dev/assets/global/plugins/bootstrap-editable/inputs-ext/address/address.css%22/%3E%3Cscript%20src=%22../../assets/global/plugins/pace/pace.min.js%22%20type=%22text/javascript%22%3E%3C/script%3E%3Clink%20href=%22../../assets/global/plugins/pace/themes/pace-theme-minimal.css%22%20rel=%22stylesheet%22%20type=%22text/css%22/%3E%3C!--%20END%20PAGE%20LEVEL%20STYLES%20--%3E%3C!--%20BEGIN%20THEME%20STYLES%20--%3E%3Clink%20href=%22http://jobtip.dev/assets/global/css/components.css%22%20id=%22style_components%22%20rel=%22stylesheet%22%20type=%22text/css%22/%3E%3Clink%20href=%22http://jobtip.dev/assets/global/css/plugins.css%22%20rel=%22stylesheet%22%20type=%22text/css%22/%3E%3Clink%20href=%22http://jobtip.dev/assets/admin/layout2/css/layout.css%22%20rel=%22stylesheet%22%20type=%22text/css%22/%3E%3Clink%20id=%22style_color%22%20href=%22http://jobtip.dev/assets/admin/layout2/css/themes/grey.css%22%20rel=%22stylesheet%22%20type=%22text/css%22/%3E%3Clink%20href=%22http://jobtip.dev/assets/admin/layout2/css/custom.css%22%20rel=%22stylesheet%22%20type=%22text/css%22/%3E%3Clink%20href=%22http://jobtip.dev/assets/admin/pages/css/timeline.css%22%20rel=%22stylesheet%22%20type=%22text/css%22/%3E%3Clink%20href=%22http://jobtip.dev/assets/global/plugins/ion.rangeslider/css/ion.rangeSlider.css%22%20rel=%22stylesheet%22/%3E%3Clink%20href=%22http://jobtip.dev/assets/global/plugins/ion.rangeslider/css/ion.rangeSlider.Metronic.css%22%20rel=%22stylesheet%22/%3E%3Clink%20href=%22http://jobtip.dev/assets/custom.css%22%20rel=%22stylesheet%22/%3E%3Clink%20href=%22http://jobtip.dev/assets/custom_new.css%22%20rel=%22stylesheet%22/%3E%3Cscript%20src=%22/assets/global/plugins/autosize/autosize.min.js%22%20type=%22text/javascript%22%3E%3C/script%3E%3C!--%20END%20PAGE%20LEVEL%20STYLES%20--%3E%3Clink%20href=%22http://jobtip.dev/assets/global/plugins/jquery-ui/jquery-ui.min.css%22%20rel=%22stylesheet%22/%3E%3C!--%20%3Clink%20href=%22/assets/admin/pages/css/profile.css%22%20rel=%22stylesheet%22%20type=%22text/css%22/%3E%20--%3E%3Clink%20href=%22/assets/admin/pages/css/tasks.css%22%20rel=%22stylesheet%22%20type=%22text/css%22/%3E%3C!--%20%3Clink%20rel=%22stylesheet%22%20type=%22text/css%22%20href=%22/assets/css/normalize.css%22%20/%3E%20--%3E%3Clink%20href=%22/assets/global/plugins/icheck/skins/all.css%22%20rel=%22stylesheet%22/%3E%3Clink%20href=%22/assets/sol.css%22%20rel=%22stylesheet%22/%3E%3Clink%20rel=%22stylesheet%22%20href=%22/assets/pqselect.dev.css%22%20/%3E%20%3Clink%20href=%22/assets/multiple-select.css%22%20rel=%22stylesheet%22/%3E%3Clink%20href=%22/assets/jquery.nstSlider.css%22%20rel=%22stylesheet%22/%3E%3Clink%20href=%22../../assets/global/plugins/jcrop/css/jquery.Jcrop.min.css%22%20rel=%22stylesheet%22/%3E%3Clink%20href=%22../../assets/admin/pages/css/image-crop.css%22%20rel=%22stylesheet%22/%3E%20%3Clink%20href=%22/assets/sumoselect.css%22%20rel=%22stylesheet%22%20/%3E%3Clink%20href=%22/assets/admin/pages/css/profile-old.css%22%20rel=%22stylesheet%22%20type=%22text/css%22/%3E%3Clink%20rel=%22shortcut%20icon%22%20href=%22/assets/images/favicon.ico%22%20type=%22image/x-icon%22%3E%3Clink%20rel=%22icon%22%20href=%22/assets/images/favicon.ico%22%20type=%22image/x-icon%22%3E%3Cstyle%20type=%22css/text%22%20rel=%22stylesheet%22%3E*%20{%20margin:%200;%20padding:%200;%20position:%20relative;%20}body.page-boxed{%20%20background-attachment:%20fixed%20!important;}.segmented-button%20{%20%20padding:%2012px%20!important;}.segmented-button%20input[type=%22radio%22]%20{%20%20width:%200px%20!important;%20%20height:%200px%20!important;%20%20display:%20none%20!important;}.segmented-button%20label%20{%20%20display:%20-moz-inline-box%20!important;%20%20-moz-box-orient:%20vertical%20!important;%20%20display:%20inline-block%20!important;%20%20vertical-align:%20middle%20!important;%20%20*vertical-align:%20auto%20!important;%20%20-moz-border-radius:%204px%20!important;%20%20-webkit-border-radius:%204px%20!important;%20%20-o-border-radius:%204px%20!important;%20%20-ms-border-radius:%204px%20!important;%20%20-khtml-border-radius:%204px%20!important;%20%20border-radius:%204px%20!important;%20%20text-shadow:%20white%20!important;%20%20background:%20-webkit-gradient(linear,%2050%%200%,%2050%%20100%,%20color-stop(0%,%20#ffffff), color-stop(100%, #e4e4e4)) !important;  background: -webkit-linear-gradient(#ffffff, #e4e4e4) !important;  background: -moz-linear-gradient(#ffffff, #e4e4e4) !important;  background: -o-linear-gradient(#ffffff, #e4e4e4) !important;  background: -ms-linear-gradient(#ffffff, #e4e4e4) !important;  background: linear-gradient(#ffffff, #e4e4e4) !important;  border: 1px solid #b2b2b2 !important;  color: #666666 !important;  padding: 5px 24px !important;  padding-bottom: 3px !important;  font-size: 12px !important;  cursor: pointer !important;  font-family: Helvetica !important;  -moz-border-radius: 0px;  -webkit-border-radius: 0px !important;  -o-border-radius: 0px !important;  -ms-border-radius: 0px !important;  -khtml-border-radius: 0px !important;  border-radius: 0px !important;  margin-right: -5px !important;}.segmented-button label {  *display: inline !important;}.segmented-button label:hover {  -moz-box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1) !important;  -webkit-box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1) !important;  -o-box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1) !important;  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1) !important;  color: #333333 !important;}.segmented-button label:active, .segmented-button label.active {  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #e4e4e4), color-stop(100%, #ffffff)) !important;  background: -webkit-linear-gradient(#e4e4e4, #ffffff) !important;  background: -moz-linear-gradient(#e4e4e4, #ffffff) !important;  background: -o-linear-gradient(#e4e4e4, #ffffff) !important;  background: -ms-linear-gradient(#e4e4e4, #ffffff) !important;  background: linear-gradient(#e4e4e4, #ffffff) !important;}.segmented-button label:disabled, .segmented-button label.disabled {  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #efefef));  background: -webkit-linear-gradient(#ffffff, #efefef) !important;  background: -moz-linear-gradient(#ffffff, #efefef) !important;  background: -o-linear-gradient(#ffffff, #efefef) !important;  background: -ms-linear-gradient(#ffffff, #efefef) !important;  background: linear-gradient(#ffffff, #efefef) !important;  cursor: default !important;  color: #b2b2b2 !important;  border-color: #cccccc !important;  -moz-box-shadow: none !important;  -webkit-box-shadow: none !important;  -o-box-shadow: none !important;  box-shadow: none !important;}.segmented-button label.first {  -moz-border-radius-topleft: 4px !important;  -webkit-border-top-left-radius: 4px !important;  -o-border-top-left-radius: 4px !important;  -ms-border-top-left-radius: 4px !important;  -khtml-border-top-left-radius: 4px !important;  border-top-left-radius: 4px !important;  -moz-border-radius-bottomleft: 4px !important;  -webkit-border-bottom-left-radius: 4px !important;  -o-border-bottom-left-radius: 4px !important;  -ms-border-bottom-left-radius: 4px !important;  -khtml-border-bottom-left-radius: 4px !important;  border-bottom-left-radius: 4px !important;}.segmented-button label.last {  -moz-border-radius-topright: 4px !important;  -webkit-border-top-right-radius: 4px !important;  -o-border-top-right-radius: 4px !important;  -ms-border-top-right-radius: 4px !important;  -khtml-border-top-right-radius: 4px !important;  border-top-right-radius: 4px !important;  -moz-border-radius-bottomright: 4px !important;  -webkit-border-bottom-right-radius: 4px !important;  -o-border-bottom-right-radius: 4px !important;  -ms-border-bottom-right-radius: 4px !important;  -khtml-border-bottom-right-radius: 4px !important;  border-bottom-right-radius: 4px !important;}.segmented-button input:checked + label, .segmented-button label.selected {  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #e4e4e4), color-stop(100%, #ffffff)) !important;  background: -webkit-linear-gradient(#e4e4e4, #ffffff) !important;  background: -moz-linear-gradient(#e4e4e4, #ffffff) !important;  background: -o-linear-gradient(#e4e4e4, #ffffff) !important;  background: -ms-linear-gradient(#e4e4e4, #ffffff) !important;  background: linear-gradient(#e4e4e4, #ffffff) !important;}.segmented-button input:disabled + label {  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #efefef)) !important;  background: -webkit-linear-gradient(#ffffff, #efefef) !important;  background: -moz-linear-gradient(#ffffff, #efefef) !important;  background: -o-linear-gradient(#ffffff, #efefef) !important;  background: -ms-linear-gradient(#ffffff, #efefef) !important;  background: linear-gradient(#ffffff, #efefef) !important;  cursor: default !important;  color: #b2b2b2!important;  border-color: #cccccc !important;  -moz-box-shadow: none !important;  -webkit-box-shadow: none !important;  -o-box-shadow: none !important;  box-shadow: none !important;}</style><!-- END THEME STYLES --></head><!-- END HEAD --><!-- BEGIN BODY --><!-- DOC: Apply "page-header-fixed-mobile" and "page-footer-fixed-mobile" class to body element to force fixed header or footer in mobile devices --><!-- DOC: Apply "page-sidebar-closed" class to the body and "page-sidebar-menu-closed" class to the sidebar menu element to hide the sidebar by default --><!-- DOC: Apply "page-sidebar-hide" class to the body to make the sidebar completely hidden on toggle --><!-- DOC: Apply "page-sidebar-closed-hide-logo" class to the body element to make the logo hidden on sidebar toggle --><!-- DOC: Apply "page-sidebar-hide" class to body element to completely hide the sidebar on sidebar toggle --><!-- DOC: Apply "page-sidebar-fixed" class to have fixed sidebar --><!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer --><!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side --><!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
-<body class="page-boxed page-header-fixed page-container-bg-solid page-sidebar-closed-hide-logo "><!-- BEGIN HEADER --><div class="page-header navbar navbar-fixed-top nav-disp" id="nav-display">  <!-- BEGIN HEADER INNER -->  <div class="page-header-inner container nav-fixed-css" style="">    <!-- BEGIN LOGO -->      <div class="page-logo active">      <a class="" href="/home"><img src="http://jobtip.dev/assets/new_big_logo.png" class="big-logo" />      <img src="http://jobtip.dev/assets/new_sm_logo.png" class="small-logo" />  </a>    </div>    <!-- END LOGO -->    <!-- BEGIN RESPONSIVE MENU TOGGLER -->    <a href="javascript:;" class="menu-toggler responsive-toggler toggle-display" data-toggle="collapse" data-target=".navbar-collapse">      <i class="fa fa-bars"></i>    </a>    <!-- END RESPONSIVE MENU TOGGLER -->    <!-- BEGIN PAGE ACTIONS -->    <!-- DOC: Remove "hide" class to enable the page header actions -->    <div class="page-actions ">      <!-- <form class="search-form search-form-expanded" action="extra_search.html" method="GET">        <div class="input-group">          <input type="text" class="form-control" placeholder="Search..." name="query">          <span class="input-group-btn">          <a href="javascript:;" class="btn submit"><i class="icon-magnifier"></i></a>          </span>        </div>      </form> -->            <div class="top-menu">        <ul class="nav navbar-nav ">          <!-- BEGIN NOTIFICATION DROPDOWN -->          <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->                    <li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar">            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"  data-close-others="true">                        <i class="icon-bell" style="color: #3DF9A2;font-size:20px;"></i>                        <span class="badge badge-notification badge-default  show " style="background-color: lightcoral !important;">4</span>            </a>            <ul class="dropdown-menu dropmenu-notification">              <li class="external" style="background-color: #1F1F1F;margin: -4px 0;">                                <h3 style="color: #D7D7FF;font-weight: 500;">4 New  Notification</h3>                                <a class=""                     href="/notify/notification/corp/1"                     data-utype="app" style="color: #D7D7FF;">view all</a>              </li>              <li>                <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283" id="notification-list">                                                      <li>                                        <a href="#" data-nid="26" data-lnkt="notification" data-anchor="links"                       style="background:#2e343b">                                          <span class="photo">                                                                                                  <img src="/img/profile/33154.jpg" class="img-circle" width="40" height="40">                                                                                                                      </span>                      <span class="subject">                                                <span class="from" style="color: #61B7FF;">                          Vicky                          </span>                                                <span class="time" style="color: aliceblue;">                          3 weeks ago                        </span>                      </span>                                            <span class="message" style="color:whitesmoke;">                      has accepted your link request. </span>                                          </a>                  </li>                                                                   <li>                                        <a href="#" data-nid="25" data-lnkt="notification" data-anchor="links"                       style="background:#2e343b">                                          <span class="photo">                                                                                                  <img src="/img/profile/33154.jpg" class="img-circle" width="40" height="40">                                                                                                                      </span>                      <span class="subject">                                                <span class="from" style="color: #61B7FF;">                          Vicky                          </span>                                                <span class="time" style="color: aliceblue;">                          3 weeks ago                        </span>                      </span>                                            <span class="message" style="color:whitesmoke;">                      has accepted your link request. </span>                                          </a>                  </li>                                                                   <li>                                        <a href="#" data-nid="19" data-lnkt="notification" data-anchor="links"                       style="background:#2e343b">                                          <span class="photo">                                                                                                  <img src="/img/profile/60706.jpg" class="img-circle" width="40" height="40">                                                                                                                      </span>                      <span class="subject">                                                <span class="from" style="color: #61B7FF;">                          Janardan Singh                          </span>                                                <span class="time" style="color: aliceblue;">                          3 weeks ago                        </span>                      </span>                                            <span class="message" style="color:whitesmoke;">                      has accepted your link request. </span>                                          </a>                  </li>                                                                   <li>                                        <a href="#" data-nid="2" data-lnkt="notification" data-anchor="home"                       style="background:#2e343b">                                          <span class="photo">                                                                                                  <img src="/img/profile/33154.jpg" class="img-circle" width="40" height="40">                                                                                                                      </span>                      <span class="subject">                                                <span class="from" style="color: #61B7FF;">                          Vicky                          </span>                                                <span class="time" style="color: aliceblue;">                          1 month ago                        </span>                      </span>                                            <span class="message" style="color:whitesmoke;">                      has applied for your post id: 5 </span>                                          </a>                  </li>                                               </ul>              </li>            </ul>          </li>          <!-- END NOTIFICATION DROPDOWN -->          <!-- BEGIN INBOX DROPDOWN -->          <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->          <li class="dropdown dropdown-extended dropdown-inbox thank-fav-icon" id="header_inbox_bar">            <a class="dropdown-toggle " href="/notify/thanks/corp/1" data-utype="thank">                        <i class="icon-like icon-color" ></i>                        <span class="badge badge-default badge-thanks   hide " id="like-count" style="background-color:lightcoral !important;">0</span>            </a>          </li>                   <!-- END INBOX DROPDOWN -->          <!-- BEGIN TODO DROPDOWN -->          <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->          <li class="dropdown dropdown-extended dropdown-tasks thank-fav-icon" id="header_task_bar">            <a href="/favourite" data-utype="fav" class="dropdown-toggle "  data-close-others="true">                             <i class="icon-star" style="color: #F7D672; font-size:20px !important;"></i>                                                        <span class="badge badge-favourite badge-default  show "                     id="myfavcount" style="background-color:lightcoral;">5              </span>                          </a>                      </li>           <!-- <li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar">                      </li> -->          <!-- END TODO DROPDOWN -->          <!-- BEGIN USER LOGIN DROPDOWN -->          <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->                    <!-- END USER LOGIN DROPDOWN -->        </ul>        <div class="btn-group" style="margin: 0px 17px;float:right">        <button type="button" class="btn btn-circle green-haze dropdown-toggle" data-toggle="dropdown">        <span class="">Post</span>        </button>        <ul class="dropdown-menu" role="menu">          <li>            <a href="/job/create">            <i class="icon-user"></i> Job</a>          </li>                   </ul>      </div>      </div>      <!-- Search -->      <form class="search-form search-form-expanded" action="/search/" method="GET">        <div class="input-group search-input-box">          <input type="text" class="form-control search-field"                  placeholder="Search..." name="query" pattern=".{3,}" required title="3 characters minimum"                 autocomplete="off">          <!-- <span class="input-group-btn as-span">            <a class="advance-search btn" data-toggle="modal" href="#advance">Advance</a>          </span> -->          <span class="input-group-btn">            <a class="btn submit"><i class="icon-magnifier"></i></a>          </span>        </div>      </form>      <!-- end Search -->            </div>    <!-- END PAGE ACTIONS -->    <!-- BEGIN PAGE TOP -->    <div class="page-top">      <!-- BEGIN HEADER SEARCH BOX -->      <!-- DOC: Apply "search-form-expanded" right after the "search-form" class to have half expanded search box -->            <!-- END HEADER SEARCH BOX -->      <!-- BEGIN TOP NAVIGATION MENU -->          <!-- END TOP NAVIGATION MENU -->    </div>    <!-- END PAGE TOP -->  </div>  <!-- END HEADER INNER --></div><!-- END HEADER --><div class="modal fade" id="myactivity-post" tabindex="-1" role="basic" aria-hidden="true">  <div class="modal-dialog-new">    <div class="modal-content">      <div id="myactivity-post-content">        My Activity Post       </div>    </div>    <!-- /.modal-content -->  </div>  <!-- /.modal-dialog --></div><!-- /.modal --><div class="clearfix"></div><div class="container">  <!-- BEGIN CONTAINER -->  <div class="page-container">        <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM--><div class="modal fade" id="profile-pic" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">  <div class="modal-dialog">    <div class="modal-content">            <form method="POST" action="http://jobtip.dev/corporate/imgUpload" accept-charset="UTF-8" enctype="multipart/form-data"><input name="_token" type="hidden" value="n0BUgA12VHRMebAv0v5oz3D1uT5l8CLTmC9fGe1i">            <div class="modal-header">        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>        <h4 class="modal-title">Add profile image</h4>      </div>      <div class="modal-body">               <input class="profile-image" id="image_file" onchange="fileSelectHandler()" name="profile_pic" type="file">        <div class="error"></div>        <div id="img-area" style="margin: 5px 0;">          <img id="preview" style="width:auto" />        </div>      </div>      <div class="modal-footer">                                                  <input type="hidden" id="crop_x" name="x"/>          <input type="hidden" id="crop_y" name="y"/>          <input type="hidden" id="crop_w" name="w"/>          <input type="hidden" id="crop_h" name="h"/>                    <input type="submit" value="Crop & Save" class="btn btn-large green cropnsave-img"/>                <button type="button" class="btn default" data-dismiss="modal">Cancel</button>      </div>      </form>    </div>    <!-- /.modal-content -->  </div>  <!-- /.modal-dialog --></div><!-- /.modal --><!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM--><!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM--><div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">  <div class="modal-dialog">    <div class="modal-content">     <div class="modal-header">        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>        <h4 class="modal-title">Modal</h4>      </div>      <div class="modal-body">      Hi ! I am a modal.      </div>      <div class="modal-footer">        <button type="button" class="btn default" data-dismiss="modal">Close</button>      </div>    </div>    <!-- /.modal-content -->  </div>  <!-- /.modal-dialog --></div><!-- /.modal --><!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM--><!-- CHANGE PASSWORD MODAL FORM--><div class="modal fade" id="change-password" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">  <div class="modal-dialog">    <div class="modal-content">     <div class="modal-header">        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>        <h4 class="modal-title">Change password</h4>      </div>      <form class="form-horizontal" role="form" method="POST" action="http://jobtip.dev/change/password">      <div class="modal-body">                              <input type="hidden" name="_token" value="n0BUgA12VHRMebAv0v5oz3D1uT5l8CLTmC9fGe1i">          <div class="form-group" style="margin-bottom:15px">            <label class="col-md-4 control-label">Old Password</label>            <div class="col-md-8">              <input type="password" class="form-control" name="old_password" required>            </div>          </div>          <div class="form-group" style="margin-bottom:15px">            <label class="col-md-4 control-label">New Password</label>            <div class="col-md-8">              <input type="password" class="form-control" name="password" required>            </div>          </div>          <div class="form-group" style="margin-bottom:15px">            <label class="col-md-4 control-label">Confirm Password</label>            <div class="col-md-8">              <input type="password" class="form-control" name="password_confirmation" required>            </div>          </div>           </div>      <div class="modal-footer">        <button type="submit" class="btn btn-sm btn-success">Change</button>        <button type="button" class="btn btn-sm default" data-dismiss="modal">Close</button>      </div>            </form>    </div>    <!-- /.modal-content -->  </div>  <!-- /.modal-dialog --></div><!-- /.modal --><!-- END CHANGE PASSWORD MODAL FORM -->        <!-- BEGIN SIDEBAR1 --><div class="page-sidebar-wrapper">  <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->  <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->  <div class="page-sidebar navbar-collapse collapse " >   <div class="navigation-bar"><a href="javascript:;" class="menu-toggler responsive-toggler toggle-disp" data-toggle="collapse" data-target=".navbar-collapse">      <i class="fa fa-bars" style="font-size: 18px;"></i>    </a>  </div>   <div class="row  nav-thank-fav" id="nav-than-fav">      <div class="col-md-4 col-sm-4 col-xs-4">        <a href="/notify/thanks/corp/1" data-utype="thank"         class="icon-btn " style="border: 0 !important;background-color: transparent !important;min-width:55px !important;">                    <i class="icon-like icon-color" ></i>                    <div style="color: whitesmoke;">             Thanks          </div>          <span class="badge badge-danger badge-thanks  hide " style="background-color:lightcoral;right:8px !important;">          0</span>        </a>      </div>      <div class="col-md-4 col-sm-4 col-xs-4">        <a href="/favourite" class="icon-btn" style="border: 0 !important;background-color: transparent !important;">          <i class="icon-star" style="color:#F7D672;font-size:20px"></i>          <div style="color: whitesmoke;">           Favourites          </div>          <span id="myfavcount" class="badge badge-danger  show " style="background-color:lightcoral;right:15px !important;">          5 </span>        </a>      </div>    </div>    <!-- BEGIN SIDEBAR MENU1 -->    <ul class="page-sidebar-menu page-sidebar-menu-compact page-sidebar-menu-hover-submenu thank-fav-icon-disp" data-slide-speed="200"  data-auto-scroll="false" data-slide-speed="200">                <!-- BEGIN USER LOGIN DROPDOWN -->      <li >        <div class="user-short-detail-container">                     <div class="profile-userpic-corp user-image">            <a id="ajax-demo" href="#profile-pic" data-toggle="modal" class="config">                                  <div class="hover-image">Add</div>                                                   </a>          </div>                    <h3 class="form-title user-name">                        <a style="color: deepskyblue;text-decoration:none;font-size:14px;" class="" href="/profile/corp/1" data-utype="corp">              jobtip private limited             </a>            <a style="color: white;text-decoration:none;" href="/corporate/edit" data-utype="ind">               <i class="fa fa-edit (alias)"></i>            </a>            <br>           <div> <label style="font-size:12px;">             <span class="badge badge-default  show " style="font-weight:500;background-color: darkseagreen !important;">              2 Followers </span></label></div>                      </h3>                  </div>      </li>            <li class="active">        <a class="" href="/home">        <i class=" icon-home"></i>        <span class="title">        Home</span>        <span class="selected">        </span>        </a>      </li>      <li class="">        <a class="" href="/mypost">        <i class=" icon-note"></i>        <span class="title">        My Activity</span>        <span class="selected">        </span>        </a>      </li>……
+			$postSkills = $this->attributes['linked_skill'];
+			$postSkills = array_map('trim', explode(',', $this->attributes['linked_skill']));
+			unset ($postSkills[count($postSkills)-1]);
+
+			$overlap = array_intersect($userSkills, $postSkills);
+			$counts  = array_count_values($overlap);
+			if(count($counts) > 0){
+				$percentage = round( ( count($counts) / count($postSkills) ) * 100 );
+			}else{
+				$percentage = 0;
+			}
+
+			return $percentage;
+		}else{		
+        	return null;
+		}
+    }
+
+
+    'magic_match',
+
+
+
+Searching for job, add your skills here
+
+do you know about any job openings post jobtip here
+
+create a group of your friends & share job info
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@extends('login')
+
+@section('content')
+
+<!-- BEGIN LOGIN -->
+<div class="content" style="background-color: #2E545D !important;padding:0;">
+	<!-- <h3 class="form-title" style="text-shadow: 0px 1px 1px blue;color: khaki;font-size: 18px;margin-bottom:0px;">Login As</h3> -->
+<div class="portlet box blue col-md-12 login-tag" style="margin-top:0;border:0;background-color: #2E545D !important;margin: 10px auto;float: none;padding:0;">
+	<div class="portlet-title portlet-title-login" style="float:none;margin:0 auto; display:table;background-color: #2E545D !important;padding: 0;">
+		<ul class="nav nav-tabs" style="padding:0;">
+			<li class="active home-tab-width-job" >
+				<a href="#people" data-toggle="tab" class="job-skill-tab">
+				<i class="icon-user" style=""></i> PEOPLE </a>
+			</li>
+			<li class="home-tab-width-skill">
+				<a href="#company" data-toggle="tab" class="job-skill-tab">
+				<i class="fa fa-university" style=""></i> COMPANY </a>
+			</li>
+		</ul>
+	</div>
+	<div class="portlet-body" style="background-color:#2E545D !important;margin:10px 0;">
+		<div class="tab-content">
+			<div class="tab-pane active" id="people">
+				<form class="login-form"  action="{{ url('/auth/login') }}" method="post" id="individual-login">
+					<input type="hidden" name="_token" value="{{ csrf_token() }}">
+					@if ( Session::has('flash_message') ) 
+					  <div class="alert {{ Session::get('flash_type') }}">
+					      <ul><li>{{ Session::get('flash_message') }}</li></ul>
+					  </div>				  
+					@endif
+
+					@if (count($errors) > 0)
+						<div class="alert alert-danger">
+							<ul>
+								@foreach ($errors->all() as $error)
+									<li>{{ $error }}</li>
+								@endforeach
+							</ul>
+						</div>
+					@endif
+					
+
+					<div id="ind-msg-box" style="display:none">
+						<div id="ind-msg"></div>
+					</div>
+
+					<div class="form-group ">
+						<div class="input-group margin-top-10 form-group-login-new">
+								<span class="input-group-addon input-group-addon-new"><i class="icon-envelope"></i></span>
+						<div class="input-icon right ">
+							<i class="fa"></i>
+								
+								<input type="text" name="email" class="form-control" value="{{ old('email') }}" placeholder="Email Id or Mobile No" autocomplete="off">
+							</div>
+						</div>
+					</div>
+					<div class="form-group ">
+						<div class="input-group margin-top-15 form-group-login-new">
+								<span class="input-group-addon input-group-addon-new"><i class="icon-lock-open"></i></span>
+						<div class="input-icon right ">
+							<i class="fa"></i>
+							
+								<input type="password" name="password" class="form-control" placeholder="Password">
+							</div>
+						</div>
+					</div>	
+					<div class="form-actions" style="border-bottom: 0 !important;">
+	                    <button id="individual-login-btn" type="submit" class="btn btn-primary btn-block uppercase" style="width:50%;background-color:#C76B6B !important;box-shadow: 0px 1px 4px #2D2C2C;border-radius:2px;">
+	                        Login
+	                    </button>
+	                </div>                                      
+	                <div class="form-actions" style="border-bottom: 0px;margin: -53px -30px 15px;">                                                             
+	                    <a href="javascript:;" id="forget-password" class="forget-password" style="font-size: 13px;color: #D2D6DA !important;text-decoration: initial;">Forgot Password ?
+	                    </a>
+	                </div>									
+				</form>
+				<h2 class="decorated" style="margin: 0px 10px 8px 10px;color: #A0AFB3;">
+					<span style="font-size: 12px;">OR</span>
+				</h2>
+				<!-- <div style="text-align: center; margin-bottom: 5px;">
+					<small style="font-size:14px;color: azure;">One click Login using</small>
+				</div> -->
+				<div class="login-options" style="margin: 20px 0px;">
+						<div class="row social">
+							<div class="col-md-4 col-xs-4 " style="padding-right:2px;">
+								<a class="btn btn-lg btn-facebook btn-block" href="{!!URL::to('facebook')!!}" style="background: #3b5998;color: white;border-radius:2px;">
+									<i class="fa fa-facebook "></i><span class="hidden-xs">&nbsp;Facebook</span>
+								</a>
+							</div>
+							
+							<div class="col-md-4 col-xs-4 " style="padding-left:2px;padding-right:0px;">
+								<a class="btn btn-lg btn-google btn-block" href="{!!URL::to('google')!!}" style="background: #c32f10;color: white;border-radius:2px;">
+									<i class="fa fa-google-plus"></i><span class="hidden-xs">&nbsp;Google+</span>
+								</a>
+							</div>
+							<div class="col-md-4 col-xs-4 " style="padding-left:2px;">
+								<a class="btn btn-lg btn-linkedin btn-block" href="{!!URL::to('linkedin')!!}" style="background: #00aced;color: white;border-radius:2px;">
+									<i class="fa fa fa-linkedin"></i><span class="hidden-xs">&nbsp;Linkedin</span>
+								</a>
+							</div>
+						</div>
+					</div>
+							
+			<div class="create-account" style="margin-top: 20px;background-color: rgb(57, 92, 101);" >
+				<p style="color:#D0D0D0;">
+					Not A Member?&nbsp;&nbsp;<a href="javascript:;" id="register-btn" class="uppercase" style="color: floralwhite;font-size: 15px;font-weight: 600;"> Register Now&nbsp;!</a> 
+				</p>
+			</div>
+			</div>
+			<div class="tab-pane" id="company">
+				<form class="login-form-corp"  action="{{ url('/auth/login') }}" method="post" id="corporate-login">
+					<div class="form-body">
+						
+						@if (count($errors) > 0)
+							<div class="alert alert-danger">
+								<ul>
+									@foreach ($errors->all() as $error)
+										<li>{{ $error }}</li>
+									@endforeach
+								</ul>
+							</div>
+						@endif
+						<!-- <div id="corp-msg-box" style="display:none">
+							<div id="corp-msg"></div>
+						</div> -->
+						<input type="hidden" name="_token" value="{{ csrf_token() }}">
+						<div class="form-group">
+							<div class="input-group margin-top-10 form-group-login-new">
+									<span class="input-group-addon input-group-addon-new"><i class="icon-envelope"></i></span>	
+							<div class="input-icon right">
+								<i class="fa"></i>
+								
+									<input type="email" name="email" class="form-control" value="{{ old('email') }}" placeholder="Email Id" autocomplete="off">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="input-group margin-top-10 form-group-login-new">
+									<span class="input-group-addon input-group-addon-new"><i class="icon-lock-open"></i></span>
+							<div class="input-icon right">
+								<i class="fa"></i>
+								
+									<input type="password" name="password" class="form-control" placeholder="Password">
+								</div>
+							</div>
+						</div> 
+						<div class="form-actions" style="border-bottom: 0 !important;">
+		                    <button id="corporate-login-btn" type="submit" class="btn btn-primary btn-block uppercase" style="width:50%;background-color:#C76B6B !important;box-shadow: 0px 1px 4px #2D2C2C;border-radius:2px;">
+		                        Login
+		                    </button>
+		                </div>                                      
+		                <div class="form-actions" style="border-bottom: 0px;margin: -53px -30px 15px;">                                                             
+		                    <a href="javascript:;" id="forget-password-corp" class="forget-password" style="font-size: 13px;color: #D2D6DA !important;text-decoration: initial;">Forgot Password ?
+		                    </a>
+		                </div>							
+						<div class="create-account" style="margin-top: 20px;background-color: rgb(57, 92, 101);">
+							<p style="color:#D0D0D0;">
+								Not A Member?&nbsp;&nbsp;<a href="javascript:;" id="register-btn-corp" class="uppercase" style="color: floralwhite;font-size: 15px;font-weight: 600;"> Register Now&nbsp;!</a> 
+							</p>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="portlet box blue col-md-12 corporate-register-tab" style="margin-top:0;border:0;background: #2E545D !important;margin: 30px auto;float: none;padding:0;">
+	<div class="portlet-title portlet-title-login" style="float:none;margin:0 auto; display:table;background: #2E545D !important;padding: 0;">
+		<ul class="nav nav-tabs" style="padding:0;">
+			<li class="active home-tab-width-job" >
+				<a href="#people-reg" data-toggle="tab" class="job-skill-tab">
+				<i class="icon-user" style=""></i> People </a>
+			</li>
+			<li class="home-tab-width-skill">
+				<a href="#company-reg" data-toggle="tab" class="job-skill-tab">
+				<i class="fa fa-university" style=""></i> Company </a>
+			</li>
+		</ul>
+	</div>
+	<div class="portlet-body" style="background-color:#2E545D !important;">
+		<div class="tab-content">
+			<div class="tab-pane active" id="people-reg">
+					<div style="text-align: center; margin: 5px;">
+						<small style="font-size:14px;color: #D8DCDC;">One click register with</small>
+					</div>
+					<div class="login-options" >
+						<div class="row social">
+							<div class="col-md-4 col-xs-4 " style="padding-right:2px;">
+								<a class="btn btn-lg btn-facebook btn-block" href="{!!URL::to('facebook')!!}" style="background: #3b5998;color: white;border-radius:2px;">
+									<i class="fa fa-facebook "></i><span class="hidden-xs">&nbsp;Facebook</span>
+								</a>
+							</div>
+							
+							<div class="col-md-4 col-xs-4 " style="padding-left:2px;padding-right:0px;">
+								<a class="btn btn-lg btn-google btn-block" href="{!!URL::to('google')!!}" style="background: #c32f10;color: white;border-radius:2px;">
+									<i class="fa fa-google-plus"></i><span class="hidden-xs">&nbsp;Google+</span>
+								</a>
+							</div>
+							<div class="col-md-4 col-xs-4 " style="padding-left:2px;">
+								<a class="btn btn-lg btn-linkedin btn-block" href="{!!URL::to('linkedin')!!}" style="background: #00aced;color: white;border-radius:2px;">
+									<i class="fa fa fa-linkedin"></i><span class="hidden-xs">&nbsp;Linkedin</span>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div style="text-align: center; margin-bottom: 5px;">
+						<small style="font-size:12px;color: #D8DCDC;">We respect your privacy, we will not post or disclose any information without your permission.</small>
+					</div>
+					<h2 class="decorated" style="margin: 10px 10px 8px 10px;color: #A0AFB3;">
+						<span style="font-size: 12px;">OR</span>
+					</h2>
+					<form class="register-form"  action="{{ url('/individual/store') }}" method="post" id="individual-register">
+						<input type="hidden" name="_token" value="{{ csrf_token() }}">
+						<!-- id="individual-register" -->
+					@if (count($errors) > 0)
+						<div class="alert alert-danger">
+							<ul>
+								@foreach ($errors->all() as $error)
+									<li>{{ $error }}</li>
+								@endforeach
+							</ul>
+						</div>
+					@endif
+
+					<div id="ind-reg-form-errors" style="display:none"></div>
+													
+					<div class="form-group">
+						<div class="input-group form-group-login-new" style="margin-top: 27px !important;">
+								<span class="input-group-addon input-group-addon-new">
+									<i class="glyphicon glyphicon-font"></i>
+								</span>	
+						<div class="input-icon right">
+							<i class="fa"></i>
+							
+								<input type="text" id="name" name="fullname" class="form-control" placeholder="Full Name" value="{{ old('fullname') }}">
+								<input type="hidden"  name="fname" id="first_name" class="form-control">
+								<input type="hidden"  name="lname" id="last_name" class="form-control">
+							</div>
+						</div>
+					</div>
+				
+					
+					
+							
+					<div class="form-group">
+						<div class="input-group margin-top-10 form-group-login-new">
+								<span class="input-group-addon input-group-addon-new">
+									<i class="icon-envelope"></i>
+								</span>	
+						<div class="input-icon right">
+							<i class="fa"></i>
+							
+								<input type="email" id="email_address" pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" name="email" class="form-control" placeholder="Email Id" value="{{ old('email') }}" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-icon right">
+							<i class="fa"></i>
+							<div class="input-group margin-top-10 form-group-login-new">
+								<span class="input-group-addon input-group-addon-new">
+									<i class="icon-call-end"></i>
+								</span>
+								<input type="text" name="mobile" maxlength="10" class="form-control" placeholder="Mobile No" 
+										value="{{ old('mobile') }}"/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group margin-top-15 form-group-login-new">
+								<span class="input-group-addon input-group-addon-new">
+									<i class="icon-lock-open"></i>
+								</span>
+						<div class="input-icon right">
+							<i class="fa"></i>
+							
+								<input type="password" id="register_password" name="password" class="form-control" placeholder="Password">
+							</div>
+						</div>
+					</div>			
+					<div class="form-group">
+						<div class="input-group margin-top-15 form-group-login-new">
+								<span class="input-group-addon input-group-addon-new">
+									<i class="icon-lock-open"></i>
+								</span>
+						<div class="input-icon right">
+							<i class="fa"></i>
+							
+								<input type="password" name="password_confirmation" class="form-control" placeholder="Re-Type Password">
+							</div>
+						</div>
+					</div>														
+					<div class="form-group margin-top-20 margin-bottom-20">
+						<label style="font-size: 13px;color: #D2C9C9 !important;">
+							<input type="checkbox" id="t-n-c" name="tnc"/> I agree to the 
+							<a href="/login/termcondition" style="">Terms of Service </a>& 
+							<a href="/login/privacyprolicy" style="">Privacy Policy </a>
+						</label>
+						<div id="register_tnc_error"></div>
+					</div>									
+					<!-- <div class="form-actions">
+						<label id="register-back-btn" style="margin-left: 39px; font-weight:400;color:lightgrey;cursor: pointer;font-size:15px;">Back</label>
+						<button type="submit" id="individual-register-btn" class="btn btn-default pull-left submit-login-button register-submit-css">
+						Submit
+						</button>
+
+
+					</div> -->
+					<div class="form-actions" style="border-bottom: 0 !important;">
+						<label id="register-back-btn" style="position: absolute; right: 36px;bottom: 12px; font-weight:400;color:lightgrey;cursor: pointer;font-size:15px;">Back</label>
+	                    <button id="individual-register-btn" type="submit" class="btn btn-primary btn-block uppercase" style="width:50%;background-color:#C76B6B !important;box-shadow: 0px 1px 4px #2D2C2C;border-radius:2px;">
+	                        Submit
+	                    </button>
+	                </div> 
+				</form>
+				<!-- END INDIVIDUAL REGISTRATION FORM -->
+			</div>
+			<div class="tab-pane" id="company-reg">
+				<form class="register-corporate-form" action="{{ url('/corporate/store') }}" method="post" >
+					<!-- id="corporate-register" -->
+					<input type="hidden" name="_token" value="{{ csrf_token() }}">
+					@if (count($errors) > 0)
+						<div class="alert alert-danger">
+							<ul>
+								@foreach ($errors->all() as $error)
+									<li>{{ $error }}</li>
+								@endforeach
+							</ul>
+						</div>
+					@endif
+					<div id="corp-reg-form-errors" style="display:none"></div>
+					<div id="corp-msg-reg-box" style="display:none">
+						<div id="corp-reg-msg"></div>
+					</div>
+					<div class="form-group">
+						<div class="input-icon right">
+							<i class="fa"></i>
+							<div class="input-group margin-top-15 form-group-login-new">
+								<span class="input-group-addon input-group-addon-new">
+								<i class="fa fa-university"></i>
+								</span>
+								<input type="text" name="firm_name" class="form-control" placeholder="Company Name" value="{{ old('cname') }}">
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-icon right">
+							<i class="fa"></i>
+							<div class="input-group margin-top-15 form-group-login-new">
+								<span class="input-group-addon input-group-addon-new">
+								<i class="icon-envelope"></i>
+								</span>
+								<input type="email" name="firm_email_id" class="form-control" placeholder="Email Id" value="{{ old('email') }}">
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-icon right">
+							<i class="fa"></i>
+							<div class="input-group margin-top-15 form-group-login-new">
+								<span class="input-group-addon input-group-addon-new">
+								<i class="icon-lock-open"></i>
+								</span>
+								<input type="password" name="firm_password" id="com_reg_password" class="form-control" placeholder="Password">
+							</div>
+						</div>
+					</div>
+					<div class="form-group" style="margin-bottom:15px;">
+						<div class="input-icon right">
+							<i class="fa"></i>
+							<div class="input-group margin-top-15 form-group-login-new">
+								<span class="input-group-addon input-group-addon-new">
+								<i class="icon-lock-open"></i>
+								</span>
+								<input type="password" name="firm_password_confirmation" class="form-control" placeholder="Re-Type Password">
+							</div>
+						</div>
+					</div>
+					<div class="form-group" style="margin-bottom:15px;" >
+						<!-- <div class="col-md-4"></div> -->
+						<label class="control-label register-firmtype-css">Firm Type</label>
+						<div class="col-md-12">
+							<div class="md-radio-inline" style="float: none;margin: 0 auto;display: table;">
+								<div class="md-radio" >
+									<input type="radio" id="radio6" name="firm_type" value="company" class="md-radiobtn">
+									<label for="radio6" style="font-weight:500 !important;font-size:13px;color: antiquewhite;">
+									<span></span>
+									<span class="check" style="background: #F1F1F1;"></span>
+									<span class="box" style="border: 2px solid #8DE8BA !important;"></span>
+									Company </label>
+								</div>
+								<div class="md-radio" >
+									<input type="radio" id="radio7" name="firm_type" value="consultancy" class="md-radiobtn" >
+									<label for="radio7" style="font-weight:500 !important;font-size:13px;color: antiquewhite;">
+									<span></span>
+									<span class="check" style="background: #F1F1F1;"></span>
+									<span class="box" style="border: 2px solid #8DE8BA !important;"></span>
+									Consultancy </label>
+								</div>
+							</div>						<!-- /input-group -->
+						</div>
+					</div>
+					<div class="form-group margin-top-20 margin-bottom-20">
+						<label style="font-size: 13px;color: #D2C9C9 !important;">
+							<input type="checkbox" name="tnc"/> I agree to the 
+							<a href="javascript:;" style="">Terms of Service </a>& 
+							<a href="javascript:;" style="">Privacy Policy </a>
+						</label>
+						<div id="register_tnc_error"></div>
+					</div>									
+					<!-- <div class="form-actions" style="border-bottom:0 !important;">
+						<label id="register-back-btn3" style="margin-left: 39px;cursor: pointer;">Back</label>
+						<button type="submit" id="corporate-register-btn" class="btn btn-default pull-left submit-login-button register-submit-css">
+						Submit
+						</button>
+					</div> -->
+					<div class="form-actions" style="border-bottom: 0 !important;">
+						<label id="register-back-btn3" style="position: absolute; right: 36px;bottom: 36px; font-weight:400;color:lightgrey;cursor: pointer;font-size:15px;">Back</label>
+	                    <button id="corporate-register-btn" type="submit" class="btn btn-primary btn-block uppercase" style="width:50%;background-color:#C76B6B !important;box-shadow: 0px 1px 4px #2D2C2C;border-radius:2px;">
+	                        Submit
+	                    </button>
+	                </div> 
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- BEGIN FORGOT PASSWORD FORM -->
+<form class="forget-form" action="/forget" method="post" id="forgot-password">
+	<h3 style="    margin-bottom: 10px;color:khaki;font-size: 20px;text-shadow: 0px 1px 1px blue;">Forgot Password ?</h3>
+	<p style="text-align: center;font-size: 17px;color: yellow;margin-bottom: 20px;">No Worries&nbsp;<i class="icon-emoticon-smile"></i></p>
+	<p style="text-align: center;font-size: 13px;    color: #F3D5D5;">
+		 Enter your E-mail iD or Mobile No. We will send you a link to reset password.
+	</p>
+	@if ( Session::has('flash_message') ) 
+	  <div class="alert {{ Session::get('flash_type') }}">
+	     <ul><li>{{ Session::get('flash_message') }}</li></ul>
+	  </div>	  
+	@endif
+	<div id="forget-box" style="display:none">
+		<div id="forget-box-msg"></div>
+	</div>
+	<div class="form-group ">
+		<div class="input-group margin-top-15 form-group-login-new">
+				<span class="input-group-addon input-group-addon-new"><i class="icon-envelope"></i></span>
+		<div class="input-icon right ">
+			<i class="fa"></i>	
+				<input type="email" name="forget_email" class="form-control" placeholder="Email Id or Mobile No">
+			</div>
+		</div>
+	</div>
+	<div class="form-actions" style="border-bottom: 0 !important;">
+		<label id="back-btn" style="position: absolute; right: 36px;bottom: 22px; font-weight:400;color:lightgrey;cursor: pointer;font-size:15px;">Back</label>
+        <button id="forget-password-btn" type="submit" class="btn btn-primary btn-block uppercase" style="width:50%;background-color:#C76B6B !important;box-shadow: 0px 1px 4px #2D2C2C;border-radius:2px;">
+            Submit
+        </button>
+    </div> 
+</form>
+<!-- END FORGOT PASSWORD FORM -->
+</div>
+
+
+
+<div id="loader" style="display:none;z-index:9999;background:white" class="page-loading">
+<img src="assets/loader.gif"><span> Please wait...</span>
+</div>
+
+@stop
+
+
+
+@section('javascript')
+
+<script type="text/javascript">
+$(document).ready(function() {
+  
+  $('#name').blur(function(){
+  
+    var nameVal = $('#name').val()
+    var nameLength = nameVal.length;
+    var nameSplit = nameVal.split(" ");
+    var lastLength = nameLength - nameSplit[0].length;
+    var lastNameLength = nameSplit[0].length + 1;
+    var lastName = nameVal.slice(lastNameLength);
+    
+    $('#first_name').val(nameSplit[0]);
+    $('#last_name').val(lastName);
+    
+    return false;
+  });
+	
+});
+</script>
+
+<script type="text/javascript">
+function loader(arg){
+    if(arg == 'show'){
+        $('#loader').show();
+    }else{
+        $('#loader').hide();
+    }
+}
+function redirect(url){
+    window.location = url;
+}
+$(document).ready(function(){
+  $('#individual-login-btn').on('click',function(event){        
+    event.preventDefault();
+
+    $("#individual-login").validate();
+    if($("#individual-login").valid()){
+	    loader('show');
+
+	    var formData = $('#individual-login').serialize(); // form data as string
+	    var formAction = $('#individual-login').attr('action'); // form handler url
+
+	    $.ajaxSetup({
+	        headers: {
+	            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	        }
+	    });
+
+	    $.ajax({
+	      url: formAction,
+	      type: "post",
+	      data: formData,
+	      cache : false,
+	      success: function(data){
+	        loader('hide');
+	        // console.log(data);
+	        if(data.data.page == 'login' && data.data.user == 'invalid'){            
+	            $('#ind-msg-box').removeClass('alert alert-success');
+	            $('#ind-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
+	                $(this).show();
+	            });
+	            $('#ind-msg').text(data.data.message);
+	        }
+	        else if(data.data.page == 'login' && data.data.user == null){            
+	            $('#ind-msg-box').removeClass('alert alert-success');
+	            $('#ind-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
+	                $(this).show();
+	            });
+	            $('#ind-msg').text('Field cannot be blank.');
+	        }
+	        else if(data.data.page == 'login' && data.data.email_verify == 0){
+	        	$('#ind-msg-box').removeClass('alert alert-success');
+	            $('#ind-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
+	                $(this).show();
+	            });
+	            $('#ind-msg').text(data.data.message);
+
+	            $('#individual-login').hide();
+	            $('#mobile-otp-form').show();
+	            $('#ind-reg-msg').html(data.data.message);
+
+	            $('#ind-msg-reg-box').removeClass('alert alert-success');
+	            $('#ind-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
+	                $(this).show();
+	            });
+	        }
+	        else if(data.data.page == 'login' && data.data.mobile_verify == 0){
+	        	$('#ind-msg-box').removeClass('alert alert-success');
+	            $('#ind-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
+	                $(this).show();
+	            });
+	            $('#ind-msg').text(data.data.message);
+
+	            $('#individual-login').hide();
+	            $('#mobile-otp-form').show();
+
+	            $('#resend-otp-form').show();
+	        	$('#otpformob').val(data.data.mobile); 
+
+	            $('#ind-reg-msg').html(data.data.message);  
+	            $('#ind-msg-reg-box').show();
+
+	            $('#ind-msg-reg-box').removeClass('alert alert-success');
+	            $('#ind-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
+	                $(this).show();
+	            });
+	        }
+	        else{          
+	            redirect(data.data.page);
+	        }
+	      },
+	      error: function(data) {
+	        loader('hide');
+	        $('#ind-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
+	                $(this).show();
+	        });
+	        $('#ind-msg').text('Please Check your Email id or Password');
+	        // $('#ind-msg-box').hide().fadeOut(7000);
+	      }
+	    }); 
+	}
+    return false;
+  }); 
+
+$('#corporate-login-btn').on('click',function(event){       
+    event.preventDefault();
+
+
+    $("#corporate-login").validate();
+    if($("#corporate-login").valid()){
+	    loader('show');
+
+	    var formData = $('#corporate-login').serialize(); // form data as string
+	    var formAction = $('#corporate-login').attr('action'); // form handler url
+
+	    $.ajaxSetup({
+	        headers: {
+	            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	        }
+	    });
+
+	    $.ajax({
+	      url: formAction,
+	      type: "post",
+	      data: formData,
+	      cache : false,
+	      success: function(data){
+	        loader('hide');
+	        if(data == 'login'){
+	            $('#corp-msg-box').removeClass('alert alert-success');
+	            $('#corp-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
+	                $(this).show();
+	            });
+	            $('#corp-msg').text('Invalid user');
+	        }else{
+	            $('#corp-msg-box').removeClass('alert alert-danger');
+	            $('#corp-msg-box').addClass('alert alert-success').fadeIn(1000, function(){
+	                $(this).show();
+	            });
+	            // $('#corp-msg').text('Login success');
+	            redirect(data);
+	        }
+	      },
+	      error: function(data) {
+	        loader('hide');
+	        $('#corp-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
+	                $(this).show();
+	        });
+	        $('#corp-msg').text('Some error occured !');
+	      }
+	    }); 
+	}
+    return false;
+  }); 
+    
+$('#individual-register-btn').on('click',function(event){       
+    event.preventDefault();
+
+    $("#individual-register").validate();
+    if($("#individual-register").valid()){
+	    loader('show');
+
+	    var formData = $('#individual-register').serialize(); // form data as string
+	    var formAction = $('#individual-register').attr('action'); // form handler url
+
+	    $.ajaxSetup({
+	        headers: {
+	            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	        }
+	    });
+
+	    $.ajax({
+	      url: formAction,
+	      type: "post",
+	      data: formData,
+	      cache : false,
+	      success: function(data){
+	        loader('hide');
+	        if(data.data.page == 'login'){
+	            $('#ind-msg-reg-box').removeClass('alert alert-danger');
+	            $('#ind-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
+	                $(this).show();
+	            });
+	            $('#individual-register')[0].reset();
+	            $('#t-n-c').attr('checked', false); // Unchecks it
+
+	            if(data.data.otp != null && data.data.vcode != null ){
+		            $('#individual-register').hide();
+		            $('#mobile-otp-form').show();
+		            $('#ind-reg-msg').html('Registration successful ! <br/>Check your mobile/email for further instruction. <br/>Your otp: <b>'+data.data.otp+'</b> to verify mobile.');  
+		            // console.log('both');
+
+		            $('#ind-msg-reg-box').removeClass('alert alert-danger');
+		            $('#ind-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
+		                $(this).show();
+		            });
+
+		        }else if(data.data.vcode != null && data.data.otp == null){
+		        	$('#individual-register').hide();
+		            $('#mobile-otp-form').show();
+		        	$('#ind-reg-msg').html('Registration successful ! <br/>Check your email for further instruction.');  
+		        	// console.log('email');
+
+		        	$('#ind-msg-reg-box').removeClass('alert alert-danger');
+		            $('#ind-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
+		                $(this).show();
+		            });
+		        }else if(data.data.otp != null && data.data.vcode == null){
+		        	$('#individual-register').hide();
+		            $('#mobile-otp-form').show();
+		        	$('#ind-reg-msg').html('Registration successful ! <br/>Check your mobile for further instruction. <br/>	        		Your otp: <b>'+data.data.otp+'</b> to verify mobile.');  
+		        	// console.log('mobile');
+
+		        	$('#ind-msg-reg-box').removeClass('alert alert-danger');
+		            $('#ind-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
+		                $(this).show();
+		            });
+		        }
+	        }else{
+	            $('#ind-msg-reg-box').removeClass('alert alert-success');
+	            $('#ind-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
+	                $(this).show();
+	            });
+	            $('#ind-reg-msg').text('Some errors occured during Registration!');
+	        }
+	      },
+	      error: function(data) {
+	        loader('hide');
+		    var errors = data.responseJSON;
+		    // console.log(errors);
+		    $errorsHtml = '<div class="alert alert-danger"><ul>';
+		    $.each(errors, function(index, value) {
+				 $errorsHtml += '<li>' + value[0] + '</li>';
+		    });
+	 		$errorsHtml += '</ul></div>';	            
+	        $( '#ind-reg-form-errors' ).html( $errorsHtml );
+	        $( '#ind-reg-form-errors' ).show();
+
+	        // $('#ind-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
+	        //         $(this).show();
+	        // });
+	        // $('#ind-reg-msg').text('Some error occured !');
+	      }
+	    }); 
+	}
+    return false;
+  });
+
+$('#corporate-register-btn').on('click',function(event){       
+    event.preventDefault();
+
+    $("#corporate-register").validate();
+    if($("#corporate-register").valid()){
+	    loader('show');
+
+	    var formData = $('#corporate-register').serialize(); // form data as string
+	    var formAction = $('#corporate-register').attr('action'); // form handler url
+
+	    $.ajaxSetup({
+	        headers: {
+	            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	        }
+	    });
+
+	    $.ajax({
+	      url: formAction,
+	      type: "post",
+	      data: formData,
+	      cache : false,
+	      success: function(data){
+	        loader('hide');
+	        if(data.data.page == 'login'){
+	            $('#corp-msg-reg-box').removeClass('alert alert-danger');
+	            $('#corp-reg-form-errors').hide();
+	            $('#corp-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
+	                $(this).show();
+	            });
+	            $('#corporate-register')[0].reset();
+	            $('#t-n-c').attr('checked', false); // Unchecks it
+	            // $('#corporate-register').hide();
+	            // $('#corporate-login').show();
+	            $('#corp-reg-msg').html('Registration successful ! <br/>Check your Email for further instruction.');  
+	        }else{
+	            $('#corp-msg-reg-box').removeClass('alert alert-success');
+	            $('#corp-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
+	                $(this).show();
+	            });
+	            $('#corp-reg-msg').text('Some errors occured during Registration!');
+	        }
+	      },
+	      error: function(data) {
+	        loader('hide');
+		    var errors = data.responseJSON;
+		    // console.log(errors);
+		    $errorsHtml = '<div class="alert alert-danger"><ul>';
+		    $.each(errors, function(index, value) {
+				 $errorsHtml += '<li>' + value[0] + '</li>';
+		    });
+	 		$errorsHtml += '</ul></div>';	            
+	        $( '#corp-reg-form-errors' ).html( $errorsHtml );
+	        $( '#corp-reg-form-errors' ).show();
+
+	        // $('#ind-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
+	        //         $(this).show();
+	        // });
+	        // $('#ind-reg-msg').text('Some error occured !');
+	      }
+	    }); 
+	}
+    return false;
+  });
+
+// $('#corporate-register-btn').on('click',function(event){        
+//     event.preventDefault();
+
+//     loader('show');
+
+//     var formData = $('#corporate-register').serialize(); // form data as string
+//     var formAction = $('#corporate-register').attr('action'); // form handler url
+
+//     $.ajaxSetup({
+//         headers: {
+//             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//         }
+//     });
+
+//     $.ajax({
+//       url: formAction,
+//       type: "post",
+//       data: formData,
+//       cache : false,
+//       success: function(data){
+//         loader('hide');
+//         if(data == 'login'){
+//             $('#corp-msg-reg-box').removeClass('alert alert-success');
+//             $('#corp-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
+//                 $(this).show();
+//             });
+//             $('#corp-reg-msg').text('Invalid user');
+//         }else{
+//             $('#corp-msg-reg-box').removeClass('alert alert-danger');
+//             $('#corp-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
+//                 $(this).show();
+//             });
+//             $('#corp-reg-msg').text('Registration success');
+//             redirect(data);
+//         }
+//       },
+//       error: function(data) {
+//         loader('hide');
+//         $('#corp-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
+//                 $(this).show();
+//         });
+//         $('#corp-reg-msg').text('Some error occured !');
+//       }
+//     }); 
+//     return false;
+//   });
+});
+
+$('#forget-password-btn').on('click',function(event){        
+    event.preventDefault();
+
+    loader('show');
+    $("#forgot-password").validate();
+    if($("#forgot-password").valid()){
+    var formData = $('#forgot-password').serialize(); // form data as string
+    var formAction = $('#forgot-password').attr('action'); // form handler url
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+      url: formAction,
+      type: "post",
+      data: formData,
+      cache : false,
+      success: function(data){
+        loader('hide');
+        if(data.data.page == 'login' && data.data.error == 'none'){
+            $('#forget-box').removeClass('alert alert-danger');
+            $('#forget-box').addClass('alert alert-success').fadeIn(1000, function(){
+                $(this).show();
+            });
+            $('#forgot-password')[0].reset();
+            $('#forget-box-msg').html('Check your mobile/email for password reset link.');  
+        }else if(data.data.page == 'login' && data.data.error != 'none'){
+            $('#forget-box').removeClass('alert alert-success');
+            $('#forget-box').addClass('alert alert-danger').fadeIn(1000, function(){
+                $(this).show();
+            });
+            $('#forget-box-msg').text(data.data.error);
+        }
+      },
+      error: function(data) {
+        loader('hide');
+        $('#forget-box').addClass('alert alert-danger').fadeIn(1000, function(){
+                $(this).show();
+        });
+        $('#forget-box-msg').text('Some error occured !');
+      }
+    }); 
+}
+    return false;
+  }); 
+
+$('#resend-otp-btn').on('click',function(event){        
+    event.preventDefault();
+
+    loader('show');
+
+    var formData = $('#resend-otp-form').serialize(); // form data as string
+    var formAction = $('#resend-otp-form').attr('action'); // form handler url
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+      url: formAction,
+      type: "post",
+      data: formData,
+      cache : false,
+      success: function(data){
+        loader('hide');
+        // console.log(data);
+        if(data.data.page == 'login' && data.data.mobile_verify == 0 && data.data.success_status){        	
+            disableOTP();
+        	$('#ind-msg-reg-box').removeClass('alert alert-danger');
+            $('#ind-reg-msg').html(data.data.message);  
+            $('#ind-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
+                $(this).show();
+            });
+        }
+        else if(data.data.page == 'login' && data.data.mobile_verify == 0 && !data.data.success_status){
+        	$('#ind-msg-reg-box').removeClass('alert alert-success');           
+            $('#ind-reg-msg').html(data.data.message);   
+            $('#ind-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
+                $(this).show();
+            });
+        }
+      },
+      error: function(data) {
+        loader('hide');
+        $('#ind-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
+                $(this).show();
+        });
+        $('#ind-reg-msg').text('Some error occured !');
+      }
+    }); 
+    return false;
+}); 
+
+$('#individual-login').bind('keydown', function(e){         
+    if (e.which == 13){
+       $('#individual-login-btn').trigger('click'); 
+       return false;  
+   }     
+});
+
+$('#corporate-login').bind('keydown', function(e){         
+    if (e.which == 13){
+       $('#corporate-login-btn').trigger('click'); 
+       return false;  
+   }
+});
+
+$('#forgot-password').bind('keydown', function(e){         
+    if (e.which == 13){
+       $('#forgot-password-btn').trigger('click'); 
+       return false;  
+   }     
+});
+
+</script>
+<script type="text/javascript">
+    setTimeout (function(){
+    document.getElementById('resend-otp-btn').disabled = null;
+    },60000);
+
+    var countdownNum = 60;
+    
+    function disableOTP(){
+    	document.getElementById('resend-otp-btn').disabled = true;
+    	incTimer();
+    	countdownNum = 60;
+    }
+
+    function incTimer(){    	    	
+	    setTimeout (function(){
+	        if(countdownNum != 0){
+		        countdownNum--;
+		        document.getElementById('resend-otp-btn').innerHTML = 'Wait for ' + countdownNum + ' seconds';
+		        incTimer();
+	        } else {
+	        	document.getElementById('resend-otp-btn').innerHTML = 'Resend OTP';
+	        	document.getElementById('resend-otp-btn').disabled = false;
+	        }
+	    },1000);
+    }
+</script>
+@stop
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var Login = function() {
+
+    var handleLogin = function() {
+        jQuery.validator.addMethod("noSpace", function(value, element) { 
+            return value.indexOf(" ") < 0 && value != ""; 
+          }, "Space are not allowed");
+        $('.login-form').validate({
+            errorElement: 'span', //default input error message container
+            errorClass: 'help-block', // default input error message class
+            focusInvalid: false, // do not focus the last invalid input
+            rules: {
+                email: {
+                    required: true,
+                    minlength: 10,
+                    noSpace: true
+                },
+                password: {
+                    required: true,
+                    minlength: 6
+                },
+                remember: {
+                    required: false
+                }
+            },
+
+            messages: {
+                email: {
+                    required: "Email or mobile no is required."
+                },
+                password: {
+                    required: "Password is required.",
+                    minlength: "Minimum 6 lenght is required."
+                }
+            },
+
+            invalidHandler: function(event, validator) { //display error alert on form submit   
+                $('.alert-danger', $('.login-form')).show();
+            },
+
+             errorPlacement: function (error, element) { // render error placement for each input type
+                    var icon = $(element).parent('.input-icon').children('i');
+                    icon.removeClass('fa-check').addClass("fa-warning");  
+                    icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                    $(element)
+                        .closest('.form-group').removeClass("has-success").addClass('has-error'); // set error class to the control group   
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    
+                },
+
+                success: function (label, element) {
+                    var icon = $(element).parent('.input-icon').children('i');
+                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                    icon.removeClass("fa-warning").addClass("fa-check");
+                },
+
+            submitHandler: function(form) {
+                form.submit(); // form validation success, call ajax form submit
+            }
+        });
+        // jQuery('.login-form-corp').hide();
+        //  jQuery('#logincorporate').click(function() {
+        //     jQuery('.login-form').hide();
+        //     jQuery('.login-form-corp').show();
+        // });
+        //  jQuery('#loginindividual1').click(function() { 
+           
+        //     jQuery('.login-form').show();
+        //      jQuery('.login-form-corp').hide();
+        // });
+
+        jQuery('#register-btn').click(function() {
+            jQuery('.login-tag').hide();
+            jQuery('.corporate-register-tab').show();
+        });
+        
+        $('.login-form input').keypress(function(e) {
+            if (e.which == 13) {
+                if ($('.login-form').validate().form()) {
+                    $('.login-form').submit(); //form validation success, call ajax form submit
+                }
+                return false;
+            }
+        });
+    }
+    
+    
+    var handleLogincorp = function() {
+        jQuery.validator.addMethod("noSpace", function(value, element) { 
+            return value.indexOf(" ") < 0 && value != ""; 
+          }, "Space are not allowed");
+        $('.login-form-corp').validate({
+            errorElement: 'span', //default input error message container
+            errorClass: 'help-block', // default input error message class
+            focusInvalid: false, // do not focus the last invalid input
+            rules: {
+                email: {
+                    required: true,
+                    noSpace: true
+                },
+                password: {
+                    required: true,
+                    minlength: 6
+                },
+                remember: {
+                    required: false
+                }
+            },
+
+            messages: {
+                email: {
+                    required: "Email is required."
+                },
+                password: {
+                    required: "Password is required.",
+                    minlength: "Minimum 6 lenght is required."
+                }
+            },
+
+            invalidHandler: function(event, validator) { //display error alert on form submit   
+                $('.alert-danger', $('.login-form-corp')).show();
+            },
+
+            highlight: function(element) { // hightlight error inputs
+                $(element)
+                    .closest('.form-group').addClass('has-error'); // set error class to the control group
+            },
+
+            // success: function(label) {
+            //     label.closest('.form-group').removeClass('has-error');
+            //     label.remove();
+            // },
+
+            // errorPlacement: function(error, element) {
+            //     error.insertAfter(element.closest('.input-icon'));
+            // },
+
+            errorPlacement: function (error, element) { // render error placement for each input type
+                    var icon = $(element).parent('.input-icon').children('i');
+                    icon.removeClass('fa-check').addClass("fa-warning");  
+                    icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
+                },
+            success: function (label, element) {
+                    var icon = $(element).parent('.input-icon').children('i');
+                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                    icon.removeClass("fa-warning").addClass("fa-check");
+                },
+
+            submitHandler: function(form) {
+                form.submit(); // form validation success, call ajax form submit
+            }
+        });
+        
+        jQuery('#register-btn-corp').click(function() {
+            jQuery('.login-tag').hide();
+            jQuery('.corporate-register-tab').show();
+        });
+       
+        $('.login-form-corp input').keypress(function(e) {
+            if (e.which == 13) {
+                if ($('.login-form-corp').validate().form()) {
+                    $('.login-form-corp').submit(); //form validation success, call ajax form submit
+                }
+                return false;
+            }
+        });
+        
+    }
+    
+    
+    var handleForgetPassword = function() {
+        jQuery.validator.addMethod("noSpace", function(value, element) { 
+            return value.indexOf(" ") < 0 && value != ""; 
+          }, "Space are not allowed");
+        $('.forget-form').validate({
+            errorElement: 'span', //default input error message container
+            errorClass: 'help-block', // default input error message class
+            focusInvalid: false, // do not focus the last invalid input
+            ignore: "",
+            rules: {
+                email: {
+                    required: true,
+                    email: true,
+                    noSpace: true
+                }
+            },
+
+            messages: {
+                email: {
+                    required: "Email is required."
+                }
+            },
+
+            invalidHandler: function(event, validator) { //display error alert on form submit   
+
+            },
+
+            highlight: function(element) { // hightlight error inputs
+                $(element)
+                    .closest('.form-group').addClass('has-error'); // set error class to the control group
+            },
+
+            errorPlacement: function (error, element) { // render error placement for each input type
+                    var icon = $(element).parent('.input-icon').children('i');
+                    icon.removeClass('fa-check').addClass("fa-warning");  
+                    icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
+                },
+            success: function (label, element) {
+                    var icon = $(element).parent('.input-icon').children('i');
+                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                    icon.removeClass("fa-warning").addClass("fa-check");
+                },
+
+            submitHandler: function(form) {
+                form.submit();
+            }
+        });
+
+        $('.forget-form input').keypress(function(e) {
+            if (e.which == 13) {
+                if ($('.forget-form').validate().form()) {
+                    $('.forget-form').submit();
+                }
+                return false;
+            }
+        });
+
+        jQuery('#forget-password').click(function() {
+            jQuery('.login-tag').hide();
+            jQuery('.forget-form').show();
+        });
+
+        jQuery('#forget-password-corp').click(function() {
+            jQuery('.login-tag').hide();
+            jQuery('.forget-form').show();
+        });
+
+        jQuery('#back-btn').click(function() {
+             jQuery('.login-tag').show();
+            jQuery('.forget-form').hide();
+        });
+
+    }
+
+    var handleRegister = function() {
+        jQuery.validator.addMethod("noSpace", function(value, element) { 
+            return value.indexOf(" ") < 0 && value != ""; 
+          }, "Space are not allowed");
+        function format(state) {
+            if (!state.id) return state.text; // optgroup
+            return "<img class='flag' src='../../assets/global/img/flags/" + state.id.toLowerCase() + ".png'/>&nbsp;&nbsp;" + state.text;
+        }
+       
+        $('.register-form').validate({
+            errorElement: 'span', //default input error message container
+            errorClass: 'help-block', // default input error message class
+            focusInvalid: false, // do not focus the last invalid input
+            ignore: "",
+            rules: {
+                fname: {
+                    required: true
+                },
+                email: {
+                    required: true,
+                    email: true,
+                    noSpace: true,
+                    remote: '/UserController.php' + $('#email_address').val()
+                },
+                mobile: {
+                    required: false,
+                    minlength: 10,
+                    maxlength: 10
+                },
+                password: {
+                    required: true,
+                    minlength: 6
+                },
+                rpassword: {
+                    equalTo: "#register_password"
+                },
+                tnc: {
+                    required: true
+                }
+            },
+
+            messages: { // custom messages for radio buttons and checkboxes
+                fname: {
+                    required: "Full name is required"
+                },
+                email: {
+                    required: "Email Id or Mobile No is required",
+                    remote: "Email Id is already Registered"
+                },
+                mobile: {
+                    required:   "Mobile no. is required",
+                    minlength:  "Minimum 10 length is required",
+                    maxlength:  "Maximum 10 length is required"
+                },
+                password: {
+                    required: "Password is required",
+                    minlength: "Minimum 6 lenght is required."
+                },
+                rpassword: {
+                    equalTo: "Please enter the same password again"
+                },
+                tnc: {
+                    required: "Please accept TNC first"
+                }
+            },
+
+            invalidHandler: function(event, validator) { //display error alert on form submit   
+
+            },
+
+            highlight: function(element) { // hightlight error inputs
+                $(element)
+                    .closest('.form-group').addClass('has-error'); // set error class to the control group
+            },
+
+            errorPlacement: function (error, element) { // render error placement for each input type
+                    var icon = $(element).parent('.input-icon').children('i');
+                    icon.removeClass('fa-check').addClass("fa-warning");  
+                    icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
+                     if (element.attr("name") == "tnc") { // insert checkbox errors after the container                  
+                    error.insertAfter($('#register_tnc_error'));
+                    } else if (element.closest('.input-icon').size() === 1) {
+                        error.insertAfter(element.closest('.input-icon'));
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+            success: function (label, element) {
+                    var icon = $(element).parent('.input-icon').children('i');
+                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                    icon.removeClass("fa-warning").addClass("fa-check");
+                },
+
+            submitHandler: function(form) {
+                form.submit();
+            }
+        });
+
+        $('.register-form input').keypress(function(e) {
+            if (e.which == 13) {
+                if ($('.register-form').validate().form()) {
+                    $('.register-form').submit();
+                    $('.register-form').reset();
+                }
+                return false;
+            }
+        });
+
+        
+            
+        //     jQuery('#corporate1').click(function() {
+        //     jQuery('.register-corporate-form').show();
+        //     jQuery('.register-form').hide();
+        // });
+        //     jQuery('#individual2').click(function() {
+        //     jQuery('.register-form').show();
+        //     jQuery('.register-corporate-form').hide();
+        // });
+        jQuery('#register-back-btn').click(function() {
+            jQuery('.login-tag').show();
+            jQuery('.corporate-register-tab').hide();
+        });
+        
+    }
+
+    var handleCorporateRegister = function() {
+        jQuery.validator.addMethod("noSpace", function(value, element) { 
+            return value.indexOf(" ") < 0 && value != ""; 
+          }, "Space are not allowed");
+        $('.register-corporate-form').validate({
+            errorElement: 'span', //default input error message container
+            errorClass: 'help-block', // default input error message class
+            focusInvalid: false, // do not focus the last invalid input
+            ignore: "",
+            rules: {
+                firm_name: {
+                    required: true
+                },
+                firm_email_id: {
+                    required: true,
+                    email: true,
+                    noSpace: true
+                },
+                firm_password: {
+                    required: true,
+                    minlength: 6
+                },
+                rpassword: {
+                    equalTo: "#com_reg_password"
+                },
+                firm_type: {
+                    required: true
+                },
+                ctnc: {
+                    required: true
+                },
+            },
+
+            messages: { // custom messages for radio buttons and checkboxes
+                firm_name: {
+                    required: "Company name is required"
+                },
+                firm_email_id: {
+                    required: "Email is required"
+                },
+                firm_password: {
+                    required: "Password is required",
+                    minlength: "Minimum 6 lenght is required."
+                },
+                rpassword: {
+                    required: "Please enter the same password again"
+                },
+                firm_type: {
+                    required: "Firm type is requied"
+                },
+                ctnc: {
+                    required: "Please accept TNC first"
+                },
+            },
+
+            invalidHandler: function(event, validator) { //display error alert on form submit   
+
+            },
+
+            highlight: function(element) { // hightlight error inputs
+                $(element)
+                    .closest('.form-group').addClass('has-error'); // set error class to the control group
+            },
+
+            success: function(label) {
+                label.closest('.form-group').removeClass('has-error');
+                label.remove();
+            },
+
+            errorPlacement: function(error, element) {
+                if (element.attr("name") == "ctnc") { // insert checkbox errors after the container                  
+                    error.insertAfter($('#register_ctnc_error'));
+                } else if (element.closest('.input-icon').size() === 1) {
+                    error.insertAfter(element.closest('.input-icon'));
+                } else if (element.attr("name") == "radio2") { // insert checkbox errors after the container                  
+                    error.insertAfter($('#radio_error'));
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+
+            submitHandler: function(form) {
+                form.submit();
+            }
+        });
+        
+        jQuery('#register-btn').click(function() {
+            jQuery('.login-tag').hide();
+            jQuery('.corporate-register-tab').show();
+        });
+
+        // jQuery('#individual2').click(function() {
+        //     jQuery('.register-form').show();
+        //     jQuery('.register-corporate-form').hide();
+        // });
+        //  jQuery('#register-btn-corp').click(function() {
+        //     jQuery('.register-corporate-form').show();
+        //     jQuery('.login-form-corp').hide();
+        // });
+        jQuery('#register-back-btn3').click(function() {
+            jQuery('.login-tag').show();
+            jQuery('#Company').show();
+            jQuery('.corporate-register-tab').hide();
+        });
+    }
+
+
+    return {
+        //main function to initiate the module
+        init: function() {
+            handleLogin();
+            handleLogincorp();
+            handleForgetPassword();
+            handleRegister();
+            handleCorporateRegister();
+        }
+    };
+
+}();

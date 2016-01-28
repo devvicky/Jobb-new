@@ -5,27 +5,22 @@
 <!-- <div id="ind-msg-box">
 	<div id="ind-msg" style="background-color:black;color:white;"></div>
 </div> -->
-<div class="portlet box blue col-md-9" style="margin-top:0;border:0;background: white;">
-	<div class="portlet-title portlet-title-home" style="float:none;margin:0 auto; display:table;background: white;padding: 0;">
-		<ul class="nav nav-tabs" style="padding:0;">
-			<li class="active home-tab-width-job" >
-				<a href="#job" data-toggle="tab" class="job-skill-tab">
-				Jobs</a>
-			</li>
-			<li class="home-tab-width-skill">
+<div class="portlet box blue col-md-9" style="margin-top:0;border:0;background: whitesmoke;">
+	<div class="portlet-title portlet-title-home" style="float:none;margin:0 auto; display:table;background: whitesmoke;padding: 0;">
+		<ul class="nav nav-tabs" style="padding:0;">		
+			<li class="active home-tab-width-skill">
 				<a href="#skill" data-toggle="tab" class="job-skill-tab">
 				Skills </a>
 			</li>
-
+			<li class=" home-tab-width-job" >
+				<a href="#job" data-toggle="tab" class="job-skill-tab">
+				Jobs</a>
+			</li>
 		</ul>
 	</div>
 	<div class="portlet-body" style="background-color:whitesmoke;">
 		<div class="tab-content">
-			@if(Auth::user()->identifier == 1)
-			<div class="tab-pane active" id="job">
-			@elseif(Auth::user()->identifier == 2)
 			<div class="tab-pane" id="job">
-			@endif
 				@if($title == 'home')
 					<!-- Jobtip Filter Start -->
 					<div class="row" style="margin: -8px -10px 10px;">
@@ -245,10 +240,7 @@
 
 						@if($post->post_type == 'job')				
 						<div class="row post-item" >
-										<?php $groupsTagged = array(); ?>
-										@foreach($post->groupTagged as $gt)
-											<?php $groupsTagged[] = $gt->group_id; ?>
-										@endforeach
+										
 										<?php 
 											$strNew = '+'.$post->post_duration.' day';
 											$strOld = $post->created_at;
@@ -264,14 +256,9 @@
 												$expired = 0;
 											}
 										?>
-										<?php
-											$crossCheck = array_intersect($groupsTagged, $groups);
-											$elements = array_count_values($crossCheck); ?>
+									
 
-										@if($post->tagged->contains('user_id', Auth::user()->induser_id) || 
-											$post->individual_id == Auth::user()->induser_id || 
-											count($elements) > 0 || 
-											(count($groupsTagged) == 0 && count($post->tagged) == 0))
+										@if($post->corporate_id == Auth::user()->induser_id)
 										<div class="col-md-12 home-post">
 
 											<div class="timeline" >
@@ -306,23 +293,7 @@
 														<div class="timeline-body-head">
 															<div class="timeline-body-head-caption" style="width:100%;margin:5px;">
 																@if(Auth::user()->induser_id == $post->individual_id && $post->individual_id != null)
-                                                                @if(count($post->groupTagged) > 0)
-                                                                @if($post->sharedGroupBy->first()->mode == 'shared')
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <!-- Post shared by user -->                        
-                                                                        
-                                                                            <div class="shared-by">
-                                                                                {{$post->sharedGroupBy->first()->mode}} by 
-                                                                                <b>{{$post->sharedGroupBy->first()->fname}} 
-                                                                                {{$post->sharedGroupBy->first()->lname}}</b>
-                                                                                to <b>{{$post->sharedToGroup->first()->group_name}}</b> group<br/>
-                                                                            </div>
-                                                                        
-                                                                    </div>
-                                                                </div>
-                                                                @endif
-                                                            @endif
+                                                                
                                                             <div class="row">
                                                                 <div class="col-md-4 col-sm-4 col-xs-12">
                                                                     <a href="/profile/ind/{{$post->individual_id}}" class="link-label " data-utype="ind">
@@ -347,27 +318,8 @@
                                                                 </div>
                                                             </div>
                                                             @elseif($post->individual_id != null)
-                                                                @if(count($post->groupTagged) > 0)
-                                                                @if($post->sharedGroupBy->first()->mode == 'shared')
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <!-- Post shared by user -->                        
-                                                                        
-                                                                            <div class="shared-by">
-                                                                                <small>{{$post->sharedGroupBy->first()->mode}} by {{$post->sharedGroupBy->first()->fname}} {{$post->sharedGroupBy->first()->lname}}</small> to <small>{{$post->sharedToGroup->first()->group_name}}</small> group<br/>
-                                                                            </div>
-                                                                        
-                                                                    </div>
-                                                                </div>
-                                                                @endif
-                                                            @endif
-                                                            @if($post->tagged->contains('user_id', Auth::user()->induser_id) && 
-                                                                $post->sharedBy->first()->mode == 'shared')
                                                                 
-                                                            <small> {{$post->sharedBy->first()->mode}} by 
-                                                                {{$post->sharedBy->first()->fname}} {{$post->sharedBy->first()->lname}}</small><br/>
-
-                                                            @endif
+                                                          
                                                             <div class="row">
                                                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                                                     <a href="/profile/ind/{{$post->individual_id}}" class="post-name-css">
@@ -505,215 +457,7 @@
 															@if($expired != 1)
 														
 															<div class="row" style="">	
-																<div class="col-md-3 col-sm-3 col-xs-3">
-																	@if(Auth::user()->identifier == 1 && $post->post_type == 'job' && Auth::user()->induser_id != $post->individual_id)
-														<div class="match" style="float: left; margin: 0px 3px;">
-															<?php $postSkills = array(); ?>
-															@foreach($post->skills as $skill)
-																<?php $postSkills[] = $skill->name; ?>
-															@endforeach
-															<?php 
-																$overlap = array_intersect($userSkills, $postSkills);
-																$counts  = array_count_values($overlap);
-															?>
-															<!-- <div class="ribbon-wrapper3"> -->
-																	<!-- <div class="ribbon-front3"> -->
-																	
-															<a data-toggle="modal" class="magic-font" href="#mod-{{$post->id}}" style="color: white;line-height: 1.7;text-decoration: none;"> 
-																@if($post->magic_match == 0)
-																<button class="btn btn-success magic-match-css"><i class="icon-speedometer magic-font" style="font-size:12px;"></i> 
-																	0 %
-																</button>
-																@else
-																<button class="btn btn-success magic-match-css"><i class="icon-speedometer magic-font" style="font-size:12px;"></i> 
-																	{{$post->magic_match}} %
-																</button>
-																@endif
-															</a>
-															
-														</div>
-
-														<div id="oval"></div>
-														<!-- Modal for Matching Percentage -->
-														<div class="modal fade" id="mod-{{$post->id}}" tabindex="-1" role="basic" aria-hidden="true">
-															<div class="modal-dialog">
-																<div class="modal-content">
-																	<div class="modal-header" style="padding: 7px 10px;">
-																		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-																	   <h4 class="modal-title" style="text-align:center;">
-																	   		<i class="icon-speedometer" style="font-size:16px;"></i>{{$post->magic_match}} % Match 
-																	   		
-																	   	</h4>
-																	</div>
-																	<div class="modal-body">
-
-																		<!-- BEGIN BORDERED TABLE PORTLET-->
-																		<div class="portlet box">
-																			<div class="portlet-body" style=" padding: 0 !important;">
-																				<div class="table-scrollable">
-																					<table class="table table-bordered table-hover">
-																					<thead style="border:0 !important;">
-																					<tr style="border:0 !important;">
-																						
-																						<th class="col-md-6 col-sm-6 col-xs-6 matching-criteria-align">
-																							 Required Profile
-																						</th>
-																						<th class="col-md-6 col-sm-6 col-xs-6 matching-criteria-align">
-																							 My Profile
-																						</th>
-																					</tr>
-																					</thead>
-
-																					<tbody>
-																						<tr class="@if(count($counts) > 0) title-bacground-color @else title-bacground-color @endif">
-																							<td colspan="2" class="matching-criteria-align">
-																								@if(count($counts) > 0)
-																								<label class="title-color">
-																									<i class="fa fa-check magic-match-icon-color"></i> Skills <i class="badge">{{count($counts)}}</i> 
-																								</label>
-																								@else
-																								<label class="title-color">
-																									<i class="fa fa-times"></i> Skills <i class="badge">{{count($counts)}}</i> 
-																								</label>
-																								@endif
-																							</td>
-																						</tr>
-																						<tr class="@if(count($counts) > 0) success @else danger-new @endif">
-																							
-																							<td class="matching-criteria-align">
-
-																								@foreach($post->skills as $skill)
-																									{{$skill->name}},
-																								@endforeach
-																							</td>
-																							@if(Auth::user()->induser->linked_skill != null)
-																							<td class="matching-criteria-align">
-																								
-																								@foreach($userSkills as $myskill)
-																									{{$myskill}},
-																								@endforeach												
-																							</td>
-																							@else
-																							<td class="matching-criteria-align"><a href="/individual/edit">Add Skills </a></td>
-																							@endif
-																						</tr>
-																						<tr class="@if(strcasecmp($post->role, Auth::user()->induser->role) == 0) title-bacground-color @else title-bacground-color @endif">
-																							<td colspan="2" class="matching-criteria-align">
-																								@if(strcasecmp($post->role, Auth::user()->induser->role) == 0)
-																								<i class="fa fa-check magic-match-icon-color"></i> <label class="title-color">Job Role</label>
-																								@else
-																								<i class="fa fa-times"></i> <label class="title-color">Job Role</label>
-																								@endif
-																							</td>
-																						</tr>
-																						<tr class="@if(strcasecmp($post->role, Auth::user()->induser->role) == 0) success @else danger-new @endif">
-																							<!-- <td>
-																								<label class="title-color">Job Role</label>
-																							</td> -->
-																							<td class="matching-criteria-align">{{ $post->role }}</td>
-																							@if(Auth::user()->induser->role != null)
-																							<td class="matching-criteria-align">{{ Auth::user()->induser->role }}</td>
-																							@else
-																							<td class="matching-criteria-align"><a href="/individual/edit">Add Job Role </a></td>
-																							@endif
-																						</tr>
-																						
-																						
-																						<tr class="@if($post->min_exp == Auth::user()->induser->experience) title-bacground-color @else title-bacground-color @endif">
-																							
-																							<td colspan="2" class="matching-criteria-align">
-																								@if($post->min_exp == Auth::user()->induser->experience)
-																								<i class="fa fa-check magic-match-icon-color"></i> <label class="title-color">Experience</label>
-																								@else
-																								<i class="fa fa-times"></i> <label class="title-color">Experience</label>
-																								@endif
-																							</td>
-																						</tr>
-																						<tr class="@if($post->min_exp == Auth::user()->induser->experience) success @else danger-new @endif">
-																							<!-- <td>
-																								<label class="title-color">Experience</label>
-																							</td> -->
-																							<td class="matching-criteria-align">{{ $post->min_exp }}-{{ $post->max_exp }}</td>
-																							@if(Auth::user()->induser->experience != null)
-																							<td class="matching-criteria-align">{{ Auth::user()->induser->experience }}</td>
-																							@else
-																							<td class="matching-criteria-align"><a href="/individual/edit">Add Experience </a></td>
-																							@endif
-																						</tr>
-																						<tr class="@if($post->education == Auth::user()->induser->education) title-bacground-color @else title-bacground-color @endif">
-																							<td colspan="2" class="matching-criteria-align">
-																								@if($post->education == Auth::user()->induser->education)
-																								<i class="fa fa-check magic-match-icon-color"></i> <label class="title-color">Education</label>
-																								@else
-																								<i class="fa fa-times"></i> <label class="title-color">Education</label>
-																								@endif
-																								
-																							</td>
-																						</tr>
-																						<tr class="@if($post->education == Auth::user()->induser->education) success @else danger-new @endif">
-																							<!-- <td>
-																								<label class="title-color">Education</label>
-																							</td> -->
-																							<td class="matching-criteria-align">{{ $post->education }}</td>
-																							@if(Auth::user()->induser->education != null)
-																							<td class="matching-criteria-align">{{ Auth::user()->induser->education }}</td>
-																							@else
-																							<td class="matching-criteria-align"><a href="/individual/edit">Add Education </a></td>
-																							@endif
-																						</tr>
-																						<tr class="@if($post->city == Auth::user()->induser->city) title-bacground-color @else title-bacground-color @endif">
-																							<td colspan="2" class="matching-criteria-align">
-																								@if($post->city == Auth::user()->induser->city)
-																								<i class="fa fa-check magic-match-icon-color"></i> <label class="title-color">Location</label>
-																								@else
-																								<i class="fa fa-times"></i> <label class="title-color">Location</label>
-																								@endif
-																							</td>
-																						</tr>
-																						<tr class="@if($post->city == Auth::user()->induser->city) success @else danger-new @endif">
-																																					
-																							<td class="matching-criteria-align">{{ $post->city }}</td>
-																							@if(Auth::user()->induser->city != null)
-																							<td class="matching-criteria-align">{{ Auth::user()->induser->city }}</td>
-																							@else
-																							<td class="matching-criteria-align"><a href="/individual/edit">Add Job Location </a></td>
-																							@endif
-																						</tr>
-																						<tr class="@if($post->time_for == Auth::user()->induser->prefered_jobtype || ($post->time_for == 'Part Time' && Auth::user()->induser->prefered_jobtype == 'Full Time')) title-bacground-color @else title-bacground-color @endif">
-																							<td colspan="2" class="matching-criteria-align">
-																								@if($post->time_for == Auth::user()->induser->prefered_jobtype || ($post->time_for == 'Part Time' && Auth::user()->induser->prefered_jobtype == 'Full Time'))
-																								<i class="fa fa-check magic-match-icon-color"></i> <label class="title-color">Job Type</label>
-																								@else
-																								<i class="fa fa-times"></i> <label class="title-color">Job Type</label>
-																								@endif
-																								
-																							</td>
-																						</tr>
-																						<tr class="@if($post->time_for == Auth::user()->induser->prefered_jobtype || ($post->time_for == 'Part Time' && Auth::user()->induser->prefered_jobtype == 'Full Time')) success @else danger-new @endif">
-																																					
-																							<td class="matching-criteria-align">{{ $post->time_for }}</td>
-																							@if(Auth::user()->induser->prefered_jobtype != null)
-																							<td class="matching-criteria-align">{{ Auth::user()->induser->prefered_jobtype }}</td>
-																							@else
-																							<td class="matching-criteria-align"><a href="/individual/edit">Add Job Type </a></td>
-																							@endif
-																						</tr>
-																					</tbody>
-																					</table>
-																				</div>
-																			</div>
-																		</div>
-																		<!-- END BORDERED TABLE PORTLET-->
-																		<!-- </div> -->	
-																	</div>
-																</div>
-																<!-- /.modal-content -->
-															</div>
-															<!-- /.modal-dialog -->
-															</div>
-															<!-- /.modal -->
-															@endif
-																</div>
+																<div class="col-md-3 col-sm-3 col-xs-3"></div>
 																<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0 8px;">
 																	<form action="/job/like" method="post" id="post-like-{{$post->id}}" data-id="{{$post->id}}">						
 																		<input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -872,7 +616,7 @@
 															<a data-toggle="modal" class="magic-font" href="#mod-{{$post->id}}" style="color: white;line-height: 1.7;text-decoration: none;"> 
 																@if($post->magic_match == 0)
 																<button class="btn btn-success magic-match-css"><i class="icon-speedometer magic-font" style="font-size:12px;"></i> 
-																	0 %
+																	No Match
 																</button>
 																@else
 																<button class="btn btn-success magic-match-css"><i class="icon-speedometer magic-font" style="font-size:12px;"></i> 
@@ -1375,24 +1119,10 @@
 																@endif
 																</div>
 																@elseif($expired == 1)
-																<div class="row" style="text-align:center;">
-																    @if(Auth::user()->induser_id != $post->individual_id && Auth::user()->identifier == 1) 
-																        @if($post->postactivity->where('user_id', Auth::user()->id)->isEmpty()) 
-																            <div class="col-md-4 col-sm-4 col-xs-4">
-																            </div>
-																        @elseif($post->postactivity->where('user_id', Auth::user()->id)->first()->apply == 1) 
-																            <div class="col-md-4 col-sm-4 col-xs-4">
-																                <i class="fa fa-check-square-o"></i><span class="hidden-sm hidden-xs"> Applied</span> 
-																            </div>
-																        @elseif($post->postactivity->where('user_id', Auth::user()->id)->first()->contact_view == 1) 
-																            <div class="col-md-4 col-sm-4 col-xs-4">
-																                <i class="fa fa-check-square-o"></i><span class="hidden-sm hidden-xs"> Contacted</span> 
-																            </div>
-																        @endif
+																<div class="row" style="text-align:center;">    
 																    <div class="col-md-4 col-sm-4 col-xs-4">
 																        <i class="glyphicon glyphicon-ban-circle"></i> Expired
 																    </div>
-																    @endif
 																</div>                                      
 																@endif
 
@@ -1423,11 +1153,8 @@
 				</div>			
 				
 			</div>
-			@if(Auth::user()->identifier == 1)
-			<div class="tab-pane " id="skill">
-			@elseif(Auth::user()->identifier == 2)
+
 			<div class="tab-pane active" id="skill">
-			@endif
 				@if($title == 'home')
 					
 					<div class="row" style="margin: -8px -10px 10px;">
@@ -1657,10 +1384,6 @@
 						@if($post->post_type == 'skill')					
 							<div class="row post-skill-item">
 
-										<?php $groupsTagged = array(); ?>
-										@foreach($post->groupTagged as $gt)
-											<?php $groupsTagged[] = $gt->group_id; ?>
-										@endforeach
 										<?php 
 											$strNew = '+'.$post->post_duration.' day';
 											$strOld = $post->created_at;
@@ -1676,21 +1399,14 @@
 												$expired = 0;
 											}
 										?>
-										<?php
-											$crossCheck = array_intersect($groupsTagged, $groups);
-											$elements = array_count_values($crossCheck); ?>
-
-										@if($post->tagged->contains('user_id', Auth::user()->induser_id) || 
-											$post->individual_id == Auth::user()->induser_id || 
-											count($elements) > 0 || 
-											(count($groupsTagged) == 0 && count($post->tagged) == 0))
+									
+										
 										<div class="col-md-12 home-post">
 
 											<div class="timeline" >
 												<!-- TIMELINE ITEM -->
-												@if($expired == 1)
-												<div class="timeline-item time-item-ex">
-												@else
+												
+												@if($expired != 1)
 												<div class="timeline-item time-item">
 													@endif
 													<div class="timeline-badge badge-margin">
@@ -1709,31 +1425,13 @@
 														@endif
 														
 													</div>
-													@if($expired == 1)
-													<div class="timeline-body new-timeline-body">
-														@else
+													
 													<div class="timeline-body ">
-														@endif
+														
 														<div class="timeline-body-head">
 															<div class="timeline-body-head-caption" style="width:100%;margin:5px;">
 																@if(Auth::user()->induser_id == $post->individual_id && $post->individual_id != null)
-                                                                @if(count($post->groupTagged) > 0)
-                                                                @if($post->sharedGroupBy->first()->mode == 'shared')
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <!-- Post shared by user -->                        
-                                                                        
-                                                                            <div class="shared-by">
-                                                                                {{$post->sharedGroupBy->first()->mode}} by 
-                                                                                <b>{{$post->sharedGroupBy->first()->fname}} 
-                                                                                {{$post->sharedGroupBy->first()->lname}}</b>
-                                                                                to <b>{{$post->sharedToGroup->first()->group_name}}</b> group<br/>
-                                                                            </div>
-                                                                        
-                                                                    </div>
-                                                                </div>
-                                                                @endif
-                                                            @endif
+                                                                
                                                             <div class="row">
                                                                 <div class="col-md-4 col-sm-4 col-xs-12">
                                                                     <a href="/profile/ind/{{$post->individual_id}}" class="link-label " data-utype="ind">
@@ -1758,60 +1456,14 @@
                                                                 </div>
                                                             </div>
                                                             @elseif($post->individual_id != null)
-                                                                @if(count($post->groupTagged) > 0)
-                                                                @if($post->sharedGroupBy->first()->mode == 'shared')
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <!-- Post shared by user -->                        
-                                                                        
-                                                                            <div class="shared-by">
-                                                                                <small>{{$post->sharedGroupBy->first()->mode}} by {{$post->sharedGroupBy->first()->fname}} {{$post->sharedGroupBy->first()->lname}}</small> to <small>{{$post->sharedToGroup->first()->group_name}}</small> group<br/>
-                                                                            </div>
-                                                                        
-                                                                    </div>
-                                                                </div>
-                                                                @endif
-                                                            @endif
-                                                            @if($post->tagged->contains('user_id', Auth::user()->induser_id) && 
-                                                                $post->sharedBy->first()->mode == 'shared')
-                                                                
-                                                            <small> {{$post->sharedBy->first()->mode}} by 
-                                                                {{$post->sharedBy->first()->fname}} {{$post->sharedBy->first()->lname}}</small><br/>
-
-                                                            @endif
+                                                           
                                                             <div class="row">
                                                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                                                     <a href="/profile/ind/{{$post->individual_id}}" class="post-name-css">
                                                                         {{ $post->induser->fname}} {{ $post->induser->lname}}
                                                                     </a>
                                                                 </div>
-                                                                <div class="col-md-4 col-md-4 col-xs-12">
-                                                                	@if($post->individual_id != null && Auth::user()->induser_id != $post->individual_id && Auth::user()->identifier == 1)
-																		<div class="" data-puid="{{$post->individual_id}}" style="margin:4px 0;">
-																			@if($links->contains('id', $post->individual_id) )
-																			<a href="#links-follow" data-toggle="modal" class="user-link" data-linked="yes" data-utype="ind">
-																				<button class="btn btn-xs link-follow-icon-css"><i class="fa fa-link (alias) icon-size" style="color:white;"></i> Linked</button>
-																			</a>
-																			@elseif($linksPending->contains('id', $post->individual_id) )
-																			<a href="#links-follow" data-toggle="modal" class="user-link" data-linked="no" data-utype="ind">
-																				<button class="btn btn-xs linkrequest-follow-icon-css"><i class="icon-hourglass (alias) " style="color:dimgrey;font-size:10px;"></i> Link Requested</button>
-																			</a>
-																			@elseif($linksApproval->contains('id', $post->individual_id) )
-																			<a href="#links-follow " data-toggle="modal" class="user-link" data-linked="no" data-utype="ind">
-																				<button class="btn btn-xs linkrequest-follow-icon-css"><i class=" icon-hourglass (alias) " style="color:dimgrey;font-size:10px;"></i> Link Requested</button>
-																			</a>
-																			@elseif($following->contains('id', $post->individual_id))
-																			<a href="#links-follow" class="user-link2" data-toggle="modal" data-linked="yes" data-utype="ind">
-																				<button class="btn btn-xs link-follow-icon-css"><i class="fa fa-link (alias) icon-size" style="color:white;"></i></button>
-																			</a>
-																			@else
-																			<a href="#links-follow" data-toggle="modal" class="user-link3" data-linked="no" data-utype="ind">
-																				<button class="btn btn-xs unlink-follow-icon-css"><i class="fa fa-unlink (alias) icon-size" style="color:dimgrey;"></i> Add Link</button>
-																			</a>
-																			@endif
-																		</div>
-																	@endif
-                                                                </div>
+                                                                
                                                                 <div class="col-md-4 col-sm-4 col-xs-12 elipsis-code">
                                                                     <i class="fa fa-clock-o post-icon-color" style="font-size: 11px;"></i> 
                                                                     <small class="post-time-css">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }}</small>
@@ -1852,7 +1504,7 @@
                                                         </div>													
 														
 														<div class="fav-dir">
-															@if(Auth::user()->induser_id != $post->individual_id )
+															@if(Auth::user()->corpuser_id != $post->corporate_id)
 															<form action="/job/fav" method="post" id="post-fav-{{$post->id}}" data-id="{{$post->id}}">
 																<input type="hidden" name="_token" value="{{ csrf_token() }}">
 																<input type="hidden" name="fav_post" value="{{ $post->id }}">
@@ -1872,11 +1524,9 @@
 														</div>
 													</div>
 
-													@if($expired == 1)
-													<div class="post-hover-exp" data-postid="{{$post->id}}"><a class="myactivity-posts" data-toggle="modal" href="#myactivity-posts">
-														@else
+													
 													<div class="post-hover-act" data-postid="{{$post->id}}"><a class="myactivity-posts" data-toggle="modal" href="#myactivity-posts">
-														@endif
+														
 														<div class="row  post-postision" style="cursor:pointer;">
 	                                                        <div class="col-md-12">
 	                                                            <div class="post-title-new">{{ $post->post_title }} </div>
@@ -1941,384 +1591,10 @@
 																		</span>
 																	</form>	
 																</div>
-																
-																@if(Auth::user()->induser_id != $post->individual_id && Auth::user()->identifier == 1)										
-																	
-																	@if($post->postactivity->where('user_id', Auth::user()->id)->isEmpty())
-																	<div class="col-md-3 col-sm-3 col-xs-3">
-																	</div>
-																	
-																	@elseif($post->postactivity->where('user_id', Auth::user()->id)->first()->contact_view == 1)
-																	<div class="col-md-3 col-sm-3 col-xs-3"  style="">													
-																		<i class="fa fa-check-square-o" style="font-size:13px;"></i><span style="font-size:12px;" class="hidden-sm hidden-xs"> Contacted</span> 
-																	</div>
-																	@else
-																	<div class="col-md-3 col-sm-3 col-xs-3">
-																	</div>
-																	@endif
-																@endif
-																
-																<div  class="col-md-3 col-sm-3 col-xs-3" style="">
-																    <div class="dropup ">											
-																		<button class="btn dropdown-toggle" type="button" 
-																				data-toggle="dropdown" title="Share" 
-																				style="background-color: transparent;border: 0;margin: 0px;">
-																			<i class="fa fa-share-square-o" 
-																				style="font-size: 19px;color: darkslateblue;"></i>
-																			<span class="badge-share" id="share-count-{{ $post->id }}">@if($post->postactivity->sum('share') > 0){{ $post->postactivity->sum('share') }}@endif</span>
-																		</button>
-																		<ul class="dropdown-menu pull-right" role="menu" 
-																			style="min-width:0;box-shadow:0 0 !important">
-																			<li style="background-color: tan;">
-																				<a href="#share-post" data-toggle="modal" class="jobtip sojt" id="sojt-{{$post->id}}" data-share-post-id="{{$post->id}}">
-																					Share on Jobtip
-																				</a>
-																			</li>
-																			<li style="background-color: #3b5998;">
-																				<a href="/" class="facebook">
-																					<i class="fa fa-facebook post-social-icon" ></i>
-																				</a>
-																			</li>
-																			<li style="background-color: #c32f10;">
-																				<a href="/" class="google-plus">
-																					<i class="fa fa-google-plus post-social-icon"></i>
-																				</a>
-																			</li>
-																			<li style="background-color: #00aced;">
-																				<a href="/" class="linkedin">
-																					<i class="fa fa-linkedin post-social-icon" ></i>
-																				</a>
-																			</li>
-																		</ul>													
-																	</div>
-																	<div class="report-css">
-															 @if($expired != 1 && Auth::user()->induser_id != $post->individual_id )
-																	<a data-toggle="modal" href="#basic-{{ $post->id }}">
-																		<button class="report-button-css">
-																			<i class="fa  fa-ellipsis-v" style="color:black;"></i>
-																		</button>
-																	</a>
-
-																@endif
-															<div class="modal fade" id="basic-{{ $post->id }}" tabindex="-1" role="basic" 
-																		 aria-hidden="true">
-																		<div class="modal-dialog" style="width: 300px;">
-																			<div class="modal-content">
-																				<div class="modal-header">
-																					<button type="button" class="close" 
-																							data-dismiss="modal" aria-hidden="true">
-																					</button>
-																					<h4 class="modal-title">Report this Post</h4>				
-																				</div>
-																				<form action="/report-abuse" method="post" id="report-abuse-form-{{ $post->id }}">
-																				<input type="hidden" name="_token" value="{{ csrf_token() }}">
-																				<input type="hidden" name="report_post_id" value="{{ $post->id }}">
-																				<div class="modal-body">
-																					<div class="icheck-list">
-																						<label>
-																							<input type="checkbox" class="icheck" 
-																									name="report-abuse-check[]"
-																									data-checkbox="icheckbox_line-grey" 
-																									data-label="Abusive post"
-																									value="Abusive post" checked>
-																						</label>												
-																						<label>
-																							<input type="checkbox" class="icheck" 
-																									name="report-abuse-check[]"
-																									data-checkbox="icheckbox_line-grey" 
-																									data-label="Abusive profile"
-																									value="Abusive profile">
-																						</label>
-																						<label>
-																							<input type="checkbox" class="icheck"
-																									name="report-abuse-check[]" 
-																									data-checkbox="icheckbox_line-grey" 
-																									data-label="Spam post"
-																									value="Spam post">
-																						</label>
-																					</div>
-																					
-																				</div>
-																				<div class="modal-footer">
-																					<button type="submit" class="btn btn-warning btn-xs">Submit</button>
-																					<button type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
-																				</div>
-																				</form>
-																			</div>
-																			<!-- /.modal-content -->
-																		</div>
-																		<!-- /.modal-dialog -->
-																	</div>
-																	<!-- /.modal -->	
-																</div>
-																</div>
-															</div>
-														
-															@else
-															<div class="row" style="">
-																
-																<div class="col-md-3 col-sm-3 col-xs-6" style="font-size:12px;text-align:center">
-																<!-- <div class="expired-css">													 -->
-																	<i class="glyphicon glyphicon-ban-circle" style="font-size:12px;color:dimgrey;"></i> Post Expired
-																<!-- </div> -->
-																</div>
-																@if(Auth::user()->induser_id != $post->individual_id && Auth::user()->identifier == 1)											
-																	@if($post->postactivity->where('user_id', Auth::user()->id)->isEmpty())
-																	
-																	@elseif($post->postactivity->where('user_id', Auth::user()->id)->first()->contact_view == 1)
-																	<div class="col-md-3 col-sm-3 col-xs-3">													
-																		<i class="fa fa-check-square-o" style="font-size:13px;color:dimgrey;"></i><span style="font-size:12px;" class="hidden-sm hidden-xs"> Contacted</span> 
-																	</div>
-																	@endif
-																@endif
-																
-																
-															</div>											
+														</div>									
 															@endif
 														</div>
 													</div>
-													<div class="portlet-body show-details">
-														<div class="panel-group accordion" id="accordion{{$var}}" style="margin-bottom: 0;">
-															<div class="panel panel-default" style=" position: relative;">
-																<div class="panel-heading">
-																	<h4 class="panel-title">
-																	<a class="accordion-toggle " 
-																	data-toggle="collapse" data-parent="#accordion{{$var}}" href=""  style="font-size: 15px;font-weight: 600;" >
-																	Details: </a>	
-																	</h4>
-																</div>
-																<div id="collapse_{{$var}}_{{$var}}" class="panel-collapse">
-																	<div class="panel-body" style="border-top: 0;padding: 4px 15px;">
-																		
-																		<div class="row">
-																			@if($post->post_type == 'job')
-																			<div class="col-md-12 col-sm-12 col-xs-12">												
-																					<label class="detail-label">Job Title :</label>					
-																					{{ $post->post_title }}														 
-																			</div>
-																			@elseif($post->post_type == 'skill')
-																			<div class="col-md-12 col-sm-12 col-xs-12">												
-																					<label class="detail-label">Skill Title :</label>					
-																					{{ $post->post_title }}													 
-																			</div>
-																			@endif
-																			@if($post->post_type == 'job')
-																			<div class="col-md-12 col-sm-12 col-xs-12">												
-																					<label class="detail-label">Education Required :</label>					
-																					{{ $post->education }}														 
-																			</div>
-																			@else
-																			<div class="col-md-12 col-sm-12 col-xs-12">												
-																					<label class="detail-label">Qualification :</label>								
-																					{{ $post->education }}													 
-																			</div>
-																			@endif
-																			<div class="col-md-12 col-sm-12 col-xs-12">												
-																					<label class="detail-label">Role :</label>										
-																					{{ $post->role }}															
-																			</div>
-																			<div class="col-md-12 col-sm-12 col-xs-12">												
-																					<label class="detail-label">Job Category :</label>								
-																					{{ $post->prof_category }}													 
-																			</div>
-																			@if( $post->min_exp != null && $post->max_exp != null)
-																			<div class="col-md-12 col-sm-12 col-xs-12">												
-																					<label class="detail-label">Experience :</label>										
-																					{{ $post->min_exp}}-{{ $post->max_exp}} Years															
-																			</div>
-																			@else
-																			<div class="col-md-12 col-sm-12 col-xs-12">												
-																					<label class="detail-label"><i class="icon-briefcase"></i> :</label>										
-																					Not Provided															
-																			</div>
-																			@endif
-																			<div class="col-md-12 col-sm-12 col-xs-12">											
-																					<label class="detail-label">Skills :</label>									
-																					@foreach($post->skills as $skill)
-																						{{$skill->name}},
-																					@endforeach																 
-																			</div>
-																			@if($post->post_type == 'job' && $post->min_sal != null && $post->max_sal != null)
-																			<div class="col-md-12 col-sm-12 col-xs-12">												
-																				<label class="detail-label">Salary (<i class="fa fa-rupee (alias)"></i>):</label>
-																				{{ $post->min_sal }}-{{ $post->max_sal }} {{ $post->salary_type }} 
-																			</div>
-																			@elseif($post->post_type == 'skill' && $post->min_sal != null && $post->max_sal != null)
-																			<div class="col-md-12 col-sm-12 col-xs-12">												
-																				<label class="detail-label">Expected Salary (<i class="fa fa-rupee (alias)"></i>):</label>
-																				{{ $post->min_sal }}-{{ $post->max_sal }} {{ $post->salary_type }} 
-																			</div>
-																			@endif
-																			
-																			<div class="col-md-12 col-sm-12 col-xs-12">
-																				<label class="detail-label">Job Type :</label>
-																				{{ $post->time_for }}
-																			</div>
-																			@if($post->locality != null && $post->city !=null)
-																			<div class="col-md-12 col-sm-12 col-xs-12">
-																				<label class="detail-label">Locality :</label>
-																				{{ $post->locality }},{{ $post->city }} 
-																			</div>
-																			@elseif($post->locality == null && $post->city !=null)
-																			<div class="col-md-12 col-sm-12 col-xs-12">
-																				<label class="detail-label">City :</label>
-																				{{ $post->city }} 
-																			</div>
-																			@endif
-																		</div>
-																		
-																		<div class="skill-display">Description : </div>
-																		{{ $post->job_detail }}
-																		
-																		@if($post->post_type == 'job' && $post->reference_id != null)
-																		<div class="skill-display">Reference Id&nbsp;: {{ $post->reference_id }} </div>	
-																		@endif
-
-																		@if($expired != 1 && $post->postactivity->where('user_id', Auth::user()->id)->isEmpty())
-																		@elseif($expired != 1 && $post->postactivity->where('user_id', Auth::user()->id)->first()->contact_view == 1)
-																		<div  class="skill-display ">Contact Details : </div> 
-																		<div id="show-hide-contacts" class="row">
-																			@if($post->post_type == 'job' && $post->website_redirect_url != null)
-																			<div class="col-md-12 col-sm-12 col-xs-12">
-																				Click on Apply, it will redirect you to Company Website.
-																			</div>
-																			@endif
-																			@if($post->post_type == 'job' && $post->website_redirect_url != null && $post->corpuser != null)
-																			<div class="col-md-12 col-sm-12 col-xs-12">												
-																				<label class="detail-label"><i class="glyphicon glyphicon-globe" style="color: deepskyblue;"></i> :</label>
-																				{{ $post->website_url }}															
-																			</div>
-																			@endif
-																			@if($post->website_redirect_url == null && $post->contact_person != null)
-																			<div class="col-md-12 col-sm-12 col-xs-12">												
-																				<label class="detail-label"><i class="glyphicon glyphicon-user"></i> :</label>
-																				{{ $post->contact_person }}															
-																			</div>
-																			@endif
-
-																			@if($post->email_id != null && $post->alt_emailid != null && $post->website_redirect_url == null)
-																			<div class="col-md-12 col-sm-12 col-xs-12">
-																				
-																					<label class="detail-label"><i class="glyphicon glyphicon-envelope"></i> :</label>																
-																					{{ $post->email_id }} - {{ $post->alt_emailid }}							
-																			</div>	
-																			
-																			@elseif($post->email_id != null && $post->alt_emailid == null && $post->website_redirect_url == null)
-																			<div class="col-md-12 col-sm-12 col-xs-12">
-																				
-																					<label class="detail-label"><i class="glyphicon glyphicon-envelope"></i> :</label>
-																					{{ $post->email_id }}
-																				
-																			</div>
-																			@elseif($post->email_id == null && $post->alt_emailid != null && $post->website_redirect_url == null)
-																			<div class="col-md-12 col-sm-12 col-xs-12">
-																				
-																					<label class="detail-label"><i class="glyphicon glyphicon-envelope"></i> :</label>
-																						{{ $post->alt_emailid }}
-																				 
-																			</div>	
-																			@endif	
-																			@if($post->phone != null && $post->alt_phone != null && $post->website_redirect_url == null)
-																			<div class="col-md-12 col-sm-12 col-xs-12">
-																				
-																					<label class="detail-label"><i class="glyphicon glyphicon-earphone"></i> :</label>
-																				
-																					
-																					{{ $post->phone }} - {{ $post->alt_phone }}
-																				 
-																			</div>	
-																			@elseif($post->phone != null && $post->alt_phone == null && $post->website_redirect_url == null)
-																			<div class="col-md-12 col-sm-12 col-xs-12">
-																				
-																					<label class="detail-label"><i class="glyphicon glyphicon-earphone"></i> :</label>
-																				
-																					
-																					{{ $post->phone }}
-																				
-																			</div>
-																			@elseif($post->phone == null && $post->alt_phone != null && $post->website_redirect_url == null)
-																			<div class="col-md-12 col-sm-12 col-xs-12">
-																				
-																					<label class="detail-label"><i class="glyphicon glyphicon-earphone"></i> :</label>
-																				
-																						{{ $post->alt_phone }}
-																				
-																			</div>	
-																			@endif										
-																		</div>
-																		@endif
-
-																		<div class="skill-display">Post Id&nbsp;: {{ $post->unique_id }} </div>
-
-
-																		@if($expired != 1)
-																			 <div class="skill-display">Post expires on: 										 
-																			 <span class="btn-success" style="padding: 2px 8px;font-size: 12px;border-radius: 20px !important;">{{$fresh->format("d M Y")}}</span>
-																			 </div>
-																		 @else
-																			 <div class="skill-display">Post expired on: 										 
-																			 <span class="btn-danger" style="padding: 2px 8px;font-size: 12px;border-radius: 20px !important;">{{$fresh->format("d M Y")}}</span>
-																			 </div>
-																		@endif
-																	</div>
-																</div>
-
-																@if($expired != 1 )
-																<div style="margin:27px 0 0;">
-																	@if($post->post_type == 'skill' && Auth::user()->induser_id != $post->individual_id)       
-																    @if($post->postactivity->where('user_id', Auth::user()->id)->isEmpty())
-																        <form action="/job/contact" method="post" id="post-contact-{{$post->id}}" data-id="{{$post->id}}">  
-																            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-																            <input type="hidden" name="contact" value="{{ $post->id }}">
-																            <button class="btn contact-btn green btn-sm apply-contact-btn show-contact" 
-																                    id="contact-btn-{{$post->id}}" type="button">Contact
-																            </button>
-																        </form> 
-																    @elseif($post->postactivity->where('user_id', Auth::user()->id)->first()->contact_view == 1) 
-																        <button type="button" class="btn btn-sm bg-grey-steel apply-contact-btn" disabled="true">
-																            <i class="glyphicon glyphicon-ok"></i> Contacted
-																        </button>
-																        <div class="center-css">
-																        	{{ date('M d, Y', strtotime($post->postactivity->where('user_id', Auth::user()->id)->first()->contact_view_dtTime)) }}
-																        </div>
-																        @else
-																    <form action="/job/contact" method="post" id="post-contact-{{$post->id}}" data-id="{{$post->id}}">  
-																        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-																        <input type="hidden" name="contact" value="{{ $post->id }}">
-																        <button class="btn contact-btn green btn-sm apply-contact-btn" 
-																                id="contact-btn-{{$post->id}}" type="button">Contact
-																        </button>
-																    </form>                         
-																    @endif  
-																@endif
-																</div>
-																@elseif($expired == 1)
-																<div class="row" style="text-align:center;">
-																    @if(Auth::user()->induser_id != $post->individual_id && Auth::user()->identifier == 1) 
-																        @if($post->postactivity->where('user_id', Auth::user()->id)->isEmpty()) 
-																            <div class="col-md-4 col-sm-4 col-xs-4">
-																            </div>
-																        @elseif($post->postactivity->where('user_id', Auth::user()->id)->first()->apply == 1) 
-																            <div class="col-md-4 col-sm-4 col-xs-4">
-																                <i class="fa fa-check-square-o"></i><span class="hidden-sm hidden-xs"> Applied</span> 
-																            </div>
-																        @elseif($post->postactivity->where('user_id', Auth::user()->id)->first()->contact_view == 1) 
-																            <div class="col-md-4 col-sm-4 col-xs-4">
-																                <i class="fa fa-check-square-o"></i><span class="hidden-sm hidden-xs"> Contacted</span> 
-																            </div>
-																        @endif
-																    <div class="col-md-4 col-sm-4 col-xs-4">
-																        <i class="glyphicon glyphicon-ban-circle"></i> Expired
-																    </div>
-																    @endif
-																</div>                                      
-																@endif
-
-															</div>
-														</div>
-														<div style="float: right; right: 15px; position: absolute; bottom: 3px;"><a class="hide-detail">Hide Details</a></div>
-													</div>
-
 												</div>
 											</div>
 											<!-- END TIMELINE ITEM -->
@@ -2326,7 +1602,7 @@
 										@endif
 									
 								</div>							
-					@endif
+					
 					<?php $var++; ?>
 				 @endforeach
 				 		</div>
@@ -2349,36 +1625,16 @@
 	</div>
 </div>
 <!-- END TAB PORTLET-->
-<div class="col-md-3">
-	<div class="portlet box red-sunglo">
-		<div class="portlet-title">
-			<div class="caption">
-				<i class="fa fa-gift"></i>Unordered Lists
-			</div>
-			<div class="tools">
-				<a href="javascript:;" class="collapse">
-				</a>
-			</div>
-		</div>
-		<div class="portlet-body">
-			<ul>
-				<li>
-					 Lorem ipsum dolor sit amet
-				</li>
-											
-			</ul>
-		</div>
-	</div>
-</div>	
+	
 <!-- END TIMELINE ITEM -->
 <!-- SHARE MODAL FORM-->
 <div class="modal fade" id="myactivity-posts" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div id="myactivity-posts-content" >
-				<div style="text-align:center;">
+				
 					<img src="/assets/ellipsis.gif"><span> Please wait...</span>
-				</div>
+				
 			</div>
 		</div>
 		<!-- /.modal-content -->
@@ -2398,73 +1654,6 @@
 	<!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-<div class="modal fade" id="share-post" tabindex="-1" role="dialog" aria-labelledby="share-post" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-        <h4 class="modal-title">Share post</h4>
-      </div>
-      <form class="form-horizontal" id="modal-post-share-form" role="form" method="POST" action="{{ url('/post/share') }}">
-      <div class="modal-body">
-                  
-          <input type="hidden" name="_token" value="{{ csrf_token() }}">
-          <input type="hidden" name="share_post_id" id="modal_share_post_id" value="">
-		@if(Auth::user()->induser)
-
-		<div id="post-share-msg-box" style="display:none">
-			<div id="post-share-msg"></div>
-		</div>
-		<div id="post-share-form-errors" style="display:none"></div>
-
-		<div class="row"> 
-            <div class="col-md-6">                      
-              <h4>Who can see this Post</h4>
-            </div>
-            <div class="col-md-6">
-              <!-- <label for="tag-group-all" style="padding: 5.5px 12px;">
-                <input type="checkbox" id="tag-group-all" name="tag-group" value="all" class="md-radiobtn">
-                Public 
-              </label> -->
-              <label for="tag-group-links" style="padding: 5.5px 12px;">
-                <input type="checkbox" id="tag-group-links" name="tag-group" value="links" class="md-radiobtn" >
-                Links 
-              </label>
-              <label for="tag-group-groups" style="padding: 5.5px 12px;">
-                <input type="checkbox" id="tag-group-groups" name="tag-group" value="groups" class="md-radiobtn" >                  
-                Groups 
-              </label>
-            </div>
-		</div>          
-
-      	<div class="row"> 
-            <div class="col-md-12" id="connections-list">
-            
-            <label>Links</label>
-            {!! Form::select('share_links[]', $share_links, null, ['id'=>'connections', 'class'=>'form-control', 'multiple']) !!}               
-            </div>    
-		</div>
-		<div class="row"> 
-			<div class="col-md-12" id="groups-list">
-	            <label>Groups</label>
-	            {!! Form::select('share_groups[]', $share_groups, null, ['id'=>'groups', 'class'=>'form-control', 'multiple']) !!}  
-	        </div>             
-		</div>
-		@endif            
-     
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-sm btn-success" id="modal-post-share-btn">Share</button>
-        <button type="button" class="btn btn-sm default" data-dismiss="modal">Close</button>
-      </div>      
-      </form>
-    </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
-<!-- END SHARE MODAL FORM -->
 
 @stop
 
@@ -2477,7 +1666,7 @@ jQuery(document).ready(function() {
 	ComponentsIonSliders.init();    
 	ComponentsDropdowns.init();
 	ComponentsEditors.init();
-	UIBootstrapGrowl.init();
+	 UIBootstrapGrowl.init();
     // FormWizard.init();
 });
 
@@ -2910,7 +2099,7 @@ $(document).ready(function(){
 			$('#like-count-'+post_id).text(data);
 			$('#like-count-'+post_id).removeClass('hide');
             $('#like-count-'+post_id).addClass('show');
-            displayToast("Thanks Removed");
+            displayToast("Unthanks");
         }
         else if(data < $count && data == 0){
             $('#like-'+post_id).css({'color':'lightslategray'});
@@ -3272,14 +2461,14 @@ $('.contact-btn').live('click',function(event){
  	function displayToast($msg){
  		$.bootstrapGrowl($msg, {
                     ele: 'body', // which element to append to
-                    type: 'info', // (null, 'info', 'danger', 'success', 'warning')
+                    type: 'display-toast', // (null, 'info', 'danger', 'success', 'warning')
                     offset: {
                         from: 'bottom',
                         amount: 10
                     }, // 'top', or 'bottom'
                     align: 'center', // ('left', 'right', or 'center')
-                    width: 'auto', // (integer, or 'auto')
-                    // delay: 3000, // Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
+                    width: 250, // (integer, or 'auto')
+                    delay: 3000, // Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
                     allow_dismiss: false, // If true then will display a cross to close the popup.
                     stackup_spacing: 10 // spacing between consecutively stacked growls.
                 });

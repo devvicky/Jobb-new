@@ -1050,12 +1050,6 @@ background: #26ca28;
 }
 
 
-.row.search-user-tool:hover {
-    background-color: #00bce4;
-    color: white;
-}
-
-
 .dropdown-menu-share {
     position: absolute;
     top: 100%;
@@ -1110,13 +1104,14 @@ background: #26ca28;
 }
 
 .login .content .form-control {
-  /*border: 0 !important;*/
+    border: 1px solid #83ADAD;
+    border-left: 0;
 }
 
-.form-group-login-new{
+/*.form-group-login-new{
   border: 1px solid #83ADAD;
   border-radius: 2px;
-}
+}*/
 
 .login .content .form-group-login-new:focus, .login .content .form-group-login-new:active{
   border-color: transparent !important;
@@ -1128,7 +1123,8 @@ background: #26ca28;
 }
 
 .input-group-addon-new{
-  border-color: transparent !important;
+  border: 1px solid #83ADAD !important;
+  border-right: 0 !important;
 }
 
 /*#corporate-login{

@@ -1,4 +1,6 @@
 <?php namespace App\Http\Controllers;
+use Input;
+use App\Postjob;
 
 class WelcomeController extends Controller {
 
@@ -30,7 +32,45 @@ class WelcomeController extends Controller {
 	 */
 	public function index()
 	{
-		return view('welcome');
+		$title = 'Welcome';
+		return view('welcome', compact('title'));
 	}
 
+	public function welcomeSearch(){
+		$title = 'welcome';
+
+		$role = Input::get('role');
+		$experience = Input::get('experience');
+		$city = Input::get('location');
+		$jobPosts = Postjob::orderBy('id', 'desc')
+						   ->with('indUser', 'corpUser')
+						   ->where('post_type', '=', 'job');
+		$skillPosts = Postjob::orderBy('id', 'desc')
+						   ->with('indUser', 'corpUser')
+						   ->where('post_type', '=', 'skill');
+		if($role != null){
+			$jobPosts->where('role', 'like', '%'.$role.'%');
+			$skillPosts->where('role', 'like', '%'.$role.'%');
+		}
+		if($city != null){
+			$pattern = '/\s*,\s*/';
+			$replace = ',';
+			$city = preg_replace($pattern, $replace, $city);
+			$cityArray = explode(',', $city);
+			$jobPosts->whereIn('city', $cityArray);
+			$skillPosts->whereIn('city', $cityArray);
+		}
+		if($experience != null){
+			$jobPosts->where('max_exp', '=', $experience)
+					 ->orWhere('min_exp', '=', $experience);
+			$skillPosts->where('max_exp', '=', $experience)
+			         ->orWhere('min_exp', '=', $experience);
+		}
+
+		$jobPosts = $jobPosts->paginate(15);
+		$skillPosts = $skillPosts->paginate(15);
+
+		return view('pages.index', compact('title', 'jobPosts', 'skillPosts'));
+		// return $jobPosts;
+	}
 }

@@ -102,6 +102,23 @@ input:focus::-webkit-input-placeholder { color:transparent !important; }
 input:focus:-moz-placeholder { color:transparent !important; } /* FF 4-18 */
 input:focus::-moz-placeholder { color:transparent !important; } /* FF 19+ */
 input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
+
+
+@media (min-width: 570px) {
+  .signup-button{
+        
+
+  }
+}
+
+@media (max-width: 570px) {
+  .signup-button{
+        position: absolute;
+      top: -27px;
+      right: 0;
+
+  }
+}
 </style>
 <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 </head>
@@ -117,24 +134,22 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
       <a href="/home">
       <img src="/assets/new_big_logo.png" alt="logo" class="logo-default" style="width: 135px;margin-top: 0;" />
       </a>
-      <div class="menu-toggler sidebar-toggler hide">
-        <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
-      </div>
+      
     </div>
     <!-- END LOGO -->
     <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-    <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
-    </a>
+   
     <!-- END RESPONSIVE MENU TOGGLER -->
     <!-- BEGIN TOP NAVIGATION MENU -->
     <div class="top-menu">
       <ul class="nav navbar-nav pull-right">        
         <!-- BEGIN USER LOGIN DROPDOWN -->
         <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-        <li class="dropdown dropdown-user">
-         
-          <span class="username username-hide-on-mobile">
-          </span>
+        <li>
+          <a href="{{ url('/login') }}" style="padding-bottom: 11px;padding-top: 11px;">
+          <button class="btn welcome-login-css signup-button" style="">
+            Sign Up
+          </button>
           </a>
         </li>
         <!-- END USER LOGIN DROPDOWN -->

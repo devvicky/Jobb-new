@@ -1,3 +1,5 @@
+
+
 @extends('login')
 
 @section('content')
@@ -102,7 +104,7 @@
 					</div>
 							
 			<div class="create-account" style="margin-top: 20px;background-color: rgb(57, 92, 101);" >
-				<p style="color:#83ADAD;">
+				<p style="color:#D0D0D0;">
 					Not A Member?&nbsp;&nbsp;<a href="javascript:;" id="register-btn" class="uppercase" style="color: floralwhite;font-size: 15px;font-weight: 600;"> Register Now&nbsp;!</a> 
 				</p>
 			</div>
@@ -154,7 +156,7 @@
 		                    </a>
 		                </div>							
 						<div class="create-account" style="margin-top: 20px;background-color: rgb(57, 92, 101);">
-							<p style="color:#83ADAD;">
+							<p style="color:#D0D0D0;">
 								Not A Member?&nbsp;&nbsp;<a href="javascript:;" id="register-btn-corp" class="uppercase" style="color: floralwhite;font-size: 15px;font-weight: 600;"> Register Now&nbsp;!</a> 
 							</p>
 						</div>
@@ -164,8 +166,6 @@
 		</div>
 	</div>
 </div>
-
-
 
 <div class="portlet box blue col-md-12 corporate-register-tab" style="margin-top:0;border:0;background: #2E545D !important;margin: 30px auto;float: none;padding:0;">
 	<div class="portlet-title portlet-title-login" style="float:none;margin:0 auto; display:table;background: #2E545D !important;padding: 0;">
@@ -184,7 +184,7 @@
 		<div class="tab-content">
 			<div class="tab-pane active" id="people-reg">
 					<div style="text-align: center; margin: 5px;">
-						<small style="font-size:14px;color: azure;">One click register with</small>
+						<small style="font-size:14px;color: #D8DCDC;">One click register with</small>
 					</div>
 					<div class="login-options" >
 						<div class="row social">
@@ -207,7 +207,7 @@
 						</div>
 					</div>
 					<div style="text-align: center; margin-bottom: 5px;">
-						<small style="font-size:12px;color: #D8DCDC;font-family: cursive;">We respect your privacy, we will not post or disclose any information without your permission.</small>
+						<small style="font-size:12px;color: #D8DCDC;">We respect your privacy, we will not post or disclose any information without your permission.</small>
 					</div>
 					<h2 class="decorated" style="margin: 10px 10px 8px 10px;color: #A0AFB3;">
 						<span style="font-size: 12px;">OR</span>
@@ -228,12 +228,13 @@
 					<div id="ind-reg-form-errors" style="display:none"></div>
 													
 					<div class="form-group">
-						<div class="input-icon right">
-							<i class="fa"></i>
-							<div class="input-group form-group-login-new" style="margin-top: 27px !important;">
+						<div class="input-group form-group-login-new" style="margin-top: 27px !important;">
 								<span class="input-group-addon input-group-addon-new">
 									<i class="glyphicon glyphicon-font"></i>
 								</span>	
+						<div class="input-icon right">
+							<i class="fa"></i>
+							
 								<input type="text" id="name" name="fullname" class="form-control" placeholder="Full Name" value="{{ old('fullname') }}">
 								<input type="hidden"  name="fname" id="first_name" class="form-control">
 								<input type="hidden"  name="lname" id="last_name" class="form-control">
@@ -245,12 +246,13 @@
 					
 							
 					<div class="form-group">
-						<div class="input-icon right">
-							<i class="fa"></i>
-							<div class="input-group margin-top-10 form-group-login-new">
+						<div class="input-group margin-top-10 form-group-login-new">
 								<span class="input-group-addon input-group-addon-new">
 									<i class="icon-envelope"></i>
 								</span>	
+						<div class="input-icon right">
+							<i class="fa"></i>
+							
 								<input type="email" id="email_address" pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" name="email" class="form-control" placeholder="Email Id" value="{{ old('email') }}" />
 							</div>
 						</div>
@@ -268,23 +270,25 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<div class="input-icon right">
-							<i class="fa"></i>
-							<div class="input-group margin-top-15 form-group-login-new">
+						<div class="input-group margin-top-15 form-group-login-new">
 								<span class="input-group-addon input-group-addon-new">
 									<i class="icon-lock-open"></i>
 								</span>
+						<div class="input-icon right">
+							<i class="fa"></i>
+							
 								<input type="password" id="register_password" name="password" class="form-control" placeholder="Password">
 							</div>
 						</div>
 					</div>			
 					<div class="form-group">
-						<div class="input-icon right">
-							<i class="fa"></i>
-							<div class="input-group margin-top-15 form-group-login-new">
+						<div class="input-group margin-top-15 form-group-login-new">
 								<span class="input-group-addon input-group-addon-new">
 									<i class="icon-lock-open"></i>
 								</span>
+						<div class="input-icon right">
+							<i class="fa"></i>
+							
 								<input type="password" name="password_confirmation" class="form-control" placeholder="Re-Type Password">
 							</div>
 						</div>
@@ -315,7 +319,7 @@
 				<!-- END INDIVIDUAL REGISTRATION FORM -->
 			</div>
 			<div class="tab-pane" id="company-reg">
-				<form class="register-corporate-form" action="{{ url('/corporate/store') }}" method="post" >
+				<form class="register-corporate-form" action="{{ url('/corporate/store') }}" method="post" id="corporate-register">
 					<!-- id="corporate-register" -->
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					@if (count($errors) > 0)
@@ -332,45 +336,48 @@
 						<div id="corp-reg-msg"></div>
 					</div>
 					<div class="form-group">
-						<div class="input-icon right">
-							<i class="fa"></i>
-							<div class="input-group margin-top-15 form-group-login-new">
+						<div class="input-group margin-top-15 form-group-login-new">
 								<span class="input-group-addon input-group-addon-new">
 								<i class="fa fa-university"></i>
 								</span>
+						<div class="input-icon right">
+							<i class="fa"></i>
 								<input type="text" name="firm_name" class="form-control" placeholder="Company Name" value="{{ old('cname') }}">
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<div class="input-icon right">
-							<i class="fa"></i>
-							<div class="input-group margin-top-15 form-group-login-new">
+						<div class="input-group margin-top-15 form-group-login-new">
 								<span class="input-group-addon input-group-addon-new">
 								<i class="icon-envelope"></i>
 								</span>
+						<div class="input-icon right">
+							<i class="fa"></i>
+							
 								<input type="email" name="firm_email_id" class="form-control" placeholder="Email Id" value="{{ old('email') }}">
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<div class="input-icon right">
-							<i class="fa"></i>
-							<div class="input-group margin-top-15 form-group-login-new">
+						<div class="input-group margin-top-15 form-group-login-new">
 								<span class="input-group-addon input-group-addon-new">
 								<i class="icon-lock-open"></i>
 								</span>
+						<div class="input-icon right">
+							<i class="fa"></i>
+							
 								<input type="password" name="firm_password" id="com_reg_password" class="form-control" placeholder="Password">
 							</div>
 						</div>
 					</div>
 					<div class="form-group" style="margin-bottom:15px;">
-						<div class="input-icon right">
-							<i class="fa"></i>
-							<div class="input-group margin-top-15 form-group-login-new">
+						<div class="input-group margin-top-15 form-group-login-new">
 								<span class="input-group-addon input-group-addon-new">
 								<i class="icon-lock-open"></i>
 								</span>
+						<div class="input-icon right">
+							<i class="fa"></i>
+							
 								<input type="password" name="firm_password_confirmation" class="form-control" placeholder="Re-Type Password">
 							</div>
 						</div>
@@ -424,10 +431,46 @@
 		</div>
 	</div>
 </div>
+
+
+<!-- BEGIN FORGOT PASSWORD FORM -->
+<form class="forget-form" action="/forget" method="post" id="forgot-password">
+	<h3 style="    margin-bottom: 10px;color:khaki;font-size: 20px;text-shadow: 0px 1px 1px blue;">Forgot Password ?</h3>
+	<p style="text-align: center;font-size: 17px;color: yellow;margin-bottom: 20px;">No Worries&nbsp;<i class="icon-emoticon-smile"></i></p>
+	<p style="text-align: center;font-size: 13px;    color: #F3D5D5;">
+		 Enter your E-mail iD or Mobile No. We will send you a link to reset password.
+	</p>
+	@if ( Session::has('flash_message') ) 
+	  <div class="alert {{ Session::get('flash_type') }}">
+	     <ul><li>{{ Session::get('flash_message') }}</li></ul>
+	  </div>	  
+	@endif
+	<div id="forget-box" style="display:none">
+		<div id="forget-box-msg"></div>
+	</div>
+	<div class="form-group ">
+		<div class="input-group margin-top-15 form-group-login-new">
+				<span class="input-group-addon input-group-addon-new"><i class="icon-envelope"></i></span>
+		<div class="input-icon right ">
+			<i class="fa"></i>	
+				<input type="email" name="forget_email" class="form-control" placeholder="Email Id or Mobile No">
+			</div>
+		</div>
+	</div>
+	<div class="form-actions" style="border-bottom: 0 !important;">
+		<label id="back-btn" style="position: absolute; right: 36px;bottom: 22px; font-weight:400;color:lightgrey;cursor: pointer;font-size:15px;">Back</label>
+        <button id="forget-password-btn" type="submit" class="btn btn-primary btn-block uppercase" style="width:50%;background-color:#C76B6B !important;box-shadow: 0px 1px 4px #2D2C2C;border-radius:2px;">
+            Submit
+        </button>
+    </div> 
+</form>
+<!-- END FORGOT PASSWORD FORM -->
 </div>
 
+
+
 <div id="loader" style="display:none;z-index:9999;background:white" class="page-loading">
-	<img src="assets/loader.gif"><span> Please wait...</span>
+<img src="assets/loader.gif"><span> Please wait...</span>
 </div>
 
 @stop
@@ -821,7 +864,8 @@ $('#forget-password-btn').on('click',function(event){
     event.preventDefault();
 
     loader('show');
-
+    $("#forgot-password").validate();
+    if($("#forgot-password").valid()){
     var formData = $('#forgot-password').serialize(); // form data as string
     var formAction = $('#forgot-password').attr('action'); // form handler url
 
@@ -861,6 +905,7 @@ $('#forget-password-btn').on('click',function(event){
         $('#forget-box-msg').text('Some error occured !');
       }
     }); 
+}
     return false;
   }); 
 
@@ -962,3 +1007,5 @@ $('#forgot-password').bind('keydown', function(e){
     }
 </script>
 @stop
+
+

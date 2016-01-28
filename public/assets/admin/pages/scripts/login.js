@@ -1,7 +1,9 @@
 var Login = function() {
 
     var handleLogin = function() {
-
+        jQuery.validator.addMethod("noSpace", function(value, element) { 
+            return value.indexOf(" ") < 0 && value != ""; 
+          }, "Space are not allowed");
         $('.login-form').validate({
             errorElement: 'span', //default input error message container
             errorClass: 'help-block', // default input error message class
@@ -9,7 +11,8 @@ var Login = function() {
             rules: {
                 email: {
                     required: true,
-                    email: true
+                    minlength: 10,
+                    noSpace: true
                 },
                 password: {
                     required: true,
@@ -87,14 +90,17 @@ var Login = function() {
     
     
     var handleLogincorp = function() {
-
+        jQuery.validator.addMethod("noSpace", function(value, element) { 
+            return value.indexOf(" ") < 0 && value != ""; 
+          }, "Space are not allowed");
         $('.login-form-corp').validate({
             errorElement: 'span', //default input error message container
             errorClass: 'help-block', // default input error message class
             focusInvalid: false, // do not focus the last invalid input
             rules: {
                 email: {
-                    required: true
+                    required: true,
+                    noSpace: true
                 },
                 password: {
                     required: true,
@@ -167,6 +173,9 @@ var Login = function() {
     
     
     var handleForgetPassword = function() {
+        jQuery.validator.addMethod("noSpace", function(value, element) { 
+            return value.indexOf(" ") < 0 && value != ""; 
+          }, "Space are not allowed");
         $('.forget-form').validate({
             errorElement: 'span', //default input error message container
             errorClass: 'help-block', // default input error message class
@@ -175,7 +184,8 @@ var Login = function() {
             rules: {
                 email: {
                     required: true,
-                    email: true
+                    email: true,
+                    noSpace: true
                 }
             },
 
@@ -194,14 +204,16 @@ var Login = function() {
                     .closest('.form-group').addClass('has-error'); // set error class to the control group
             },
 
-            success: function(label) {
-                label.closest('.form-group').removeClass('has-error');
-                label.remove();
-            },
-
-            errorPlacement: function(error, element) {
-                error.insertAfter(element.closest('.input-icon'));
-            },
+            errorPlacement: function (error, element) { // render error placement for each input type
+                    var icon = $(element).parent('.input-icon').children('i');
+                    icon.removeClass('fa-check').addClass("fa-warning");  
+                    icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
+                },
+            success: function (label, element) {
+                    var icon = $(element).parent('.input-icon').children('i');
+                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                    icon.removeClass("fa-warning").addClass("fa-check");
+                },
 
             submitHandler: function(form) {
                 form.submit();
@@ -218,24 +230,26 @@ var Login = function() {
         });
 
         jQuery('#forget-password').click(function() {
-            jQuery('.login-form').hide();
+            jQuery('.login-tag').hide();
             jQuery('.forget-form').show();
         });
 
         jQuery('#forget-password-corp').click(function() {
-            jQuery('.login-form-corp').hide();
+            jQuery('.login-tag').hide();
             jQuery('.forget-form').show();
         });
 
         jQuery('#back-btn').click(function() {
-            jQuery('.login-form').show();
+             jQuery('.login-tag').show();
             jQuery('.forget-form').hide();
         });
 
     }
 
     var handleRegister = function() {
-
+        jQuery.validator.addMethod("noSpace", function(value, element) { 
+            return value.indexOf(" ") < 0 && value != ""; 
+          }, "Space are not allowed");
         function format(state) {
             if (!state.id) return state.text; // optgroup
             return "<img class='flag' src='../../assets/global/img/flags/" + state.id.toLowerCase() + ".png'/>&nbsp;&nbsp;" + state.text;
@@ -247,12 +261,14 @@ var Login = function() {
             focusInvalid: false, // do not focus the last invalid input
             ignore: "",
             rules: {
-                fname: {
-                    required: true
+                fullname: {
+                    required: true,
+                    minlength: 5
                 },
                 email: {
                     required: true,
                     email: true,
+                    noSpace: true,
                     remote: '/UserController.php' + $('#email_address').val()
                 },
                 mobile: {
@@ -264,8 +280,8 @@ var Login = function() {
                     required: true,
                     minlength: 6
                 },
-                rpassword: {
-                    equalTo: "#register_password",
+                password_confirmation: {
+                    equalTo: "#register_password"
                 },
                 tnc: {
                     required: true
@@ -273,8 +289,10 @@ var Login = function() {
             },
 
             messages: { // custom messages for radio buttons and checkboxes
-                fname: {
-                    required: "Full name is required"
+                fullname: {
+                    required: "Full name is required",
+                    minlength: "Enter Minimum 5 Character"
+
                 },
                 email: {
                     required: "Email Id or Mobile No is required",
@@ -289,7 +307,7 @@ var Login = function() {
                     required: "Password is required",
                     minlength: "Minimum 6 lenght is required."
                 },
-                rpassword: {
+                password_confirmation: {
                     equalTo: "Please enter the same password again"
                 },
                 tnc: {
@@ -310,13 +328,7 @@ var Login = function() {
                     var icon = $(element).parent('.input-icon').children('i');
                     icon.removeClass('fa-check').addClass("fa-warning");  
                     icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
-                     if (element.attr("name") == "tnc") { // insert checkbox errors after the container                  
-                    error.insertAfter($('#register_tnc_error'));
-                    } else if (element.closest('.input-icon').size() === 1) {
-                        error.insertAfter(element.closest('.input-icon'));
-                    } else {
-                        error.insertAfter(element);
-                    }
+                   
                 },
             success: function (label, element) {
                     var icon = $(element).parent('.input-icon').children('i');
@@ -357,7 +369,9 @@ var Login = function() {
     }
 
     var handleCorporateRegister = function() {
-
+        jQuery.validator.addMethod("noSpace", function(value, element) { 
+            return value.indexOf(" ") < 0 && value != ""; 
+          }, "Space are not allowed");
         $('.register-corporate-form').validate({
             errorElement: 'span', //default input error message container
             errorClass: 'help-block', // default input error message class
@@ -369,13 +383,14 @@ var Login = function() {
                 },
                 firm_email_id: {
                     required: true,
-                    email: true
+                    email: true,
+                    noSpace: true
                 },
                 firm_password: {
                     required: true,
                     minlength: 6
                 },
-                rpassword: {
+                firm_password_confirmation: {
                     equalTo: "#com_reg_password"
                 },
                 firm_type: {
@@ -397,7 +412,7 @@ var Login = function() {
                     required: "Password is required",
                     minlength: "Minimum 6 lenght is required."
                 },
-                rpassword: {
+                firm_password_confirmation: {
                     required: "Please enter the same password again"
                 },
                 firm_type: {
@@ -417,22 +432,17 @@ var Login = function() {
                     .closest('.form-group').addClass('has-error'); // set error class to the control group
             },
 
-            success: function(label) {
-                label.closest('.form-group').removeClass('has-error');
-                label.remove();
-            },
-
-            errorPlacement: function(error, element) {
-                if (element.attr("name") == "ctnc") { // insert checkbox errors after the container                  
-                    error.insertAfter($('#register_ctnc_error'));
-                } else if (element.closest('.input-icon').size() === 1) {
-                    error.insertAfter(element.closest('.input-icon'));
-                } else if (element.attr("name") == "radio2") { // insert checkbox errors after the container                  
-                    error.insertAfter($('#radio_error'));
-                } else {
-                    error.insertAfter(element);
-                }
-            },
+            errorPlacement: function (error, element) { // render error placement for each input type
+                    var icon = $(element).parent('.input-icon').children('i');
+                    icon.removeClass('fa-check').addClass("fa-warning");  
+                    icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
+                   
+                },
+            success: function (label, element) {
+                    var icon = $(element).parent('.input-icon').children('i');
+                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                    icon.removeClass("fa-warning").addClass("fa-check");
+                },
 
             submitHandler: function(form) {
                 form.submit();
