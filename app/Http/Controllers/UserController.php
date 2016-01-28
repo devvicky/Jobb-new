@@ -8,6 +8,7 @@ use DB;
 use Auth;
 use Image;
 use App\Induser;
+use App\Corpuser;
 use App\Skills;
 use App\User;
 use Illuminate\Http\Request;

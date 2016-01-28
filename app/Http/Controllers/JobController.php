@@ -21,6 +21,7 @@ use App\User;
 use App\Notification;
 use App\Industry;
 use App\FunctionalAreas;
+use App\ReportAbuseAction;
 
 class JobController extends Controller {
 
@@ -503,8 +504,13 @@ class JobController extends Controller {
 	}
 
 	public function reportAbusePage(){
-		$reportAbuses = ReportAbuse::with('user', 'postuser')->get();
-		return view('pages.report-abuse', compact('reportAbuses'));
+		$reportedPosts = ReportAbuse::with('post')
+									->groupBy('post_id')
+									->having(DB::raw('count(*)'), '>', 1)     					    
+									->get([DB::raw('count(*) as total, post_id')]);
+
+		$reportAbuses = ReportAbuse::orderBy('id', 'desc')->with('user', 'post')->get();
+		return view('pages.report-abuse', compact('reportAbuses', 'reportedPosts'));
 	}
 
 	public function feedbacks(){		
@@ -647,6 +653,158 @@ class JobController extends Controller {
 							where r.name like ?
 							order by id'), ["%".Input::get('q')."%"]);
 		return $roles;
+	}
+
+	/* Report abuse actions */
+	// check post existence
+	public function postExist($post_id){
+		$post = Postjob::where('id', '=', $post_id)->pluck('id');
+		if($post == $post_id){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	// check action taken or not
+	public function postAbuseActionTaken($post_id){
+		$actionTakenId = ReportAbuseAction::where('post', '=', $post_id)->pluck('id');
+		if($actionTakenId != null){
+			return $actionTakenId;
+		}else{
+			return false;
+		}
+	}
+
+	public function hidePostForAbuse($post_id){
+		if($post_id != null){
+			if($this->postExist($post_id)){
+				// post exist
+				Postjob::where('id', '=', $post_id)->update(['inactive' => 1]);  // post inactive
+				
+				if($this->postAbuseActionTaken($post_id) == false){
+					$action = new ReportAbuseAction();
+					$action->post = $post_id;
+					$action->action_taken_by = Auth::user()->id;
+					$action->post_inactive = 1;
+					$tz = new \DateTimeZone('Asia/Kolkata');
+					$today = \Carbon\Carbon::now($tz);
+					$action->post_inactivity_dtTime = $today;
+					$action->save();
+
+					ReportAbuse::where('post_id', '=', $post_id)->update(['action_taken' => $action->id]);
+				}else{
+					$tz = new \DateTimeZone('Asia/Kolkata');
+					$today = \Carbon\Carbon::now($tz);
+					ReportAbuseAction::where('id', '=', $this->postAbuseActionTaken($post_id))
+								 	 ->update(['post_inactive' => 1, 'post_inactivity_dtTime' => $today]);
+				}
+			}
+		}
+		return redirect('/report-abuse');
+	}
+
+	public function blockUserForAbuse($post_id){
+		if($post_id != null){
+			if($this->postExist($post_id)){
+				
+				$user = Postjob::where('id', '=', $post_id)->first(['id', 'individual_id', 'corporate_id']);
+				if($user->individual_id != null){
+					$userId = User::where('induser_id', '=', $user->individual_id)->pluck('id');
+					User::where('induser_id', '=', $userId)->update(['inactive'=>1]);
+				}elseif($user->corporate_id != null){
+					$userId = User::where('corpuser_id', '=', $user->corporate_id)->pluck('id');
+					User::where('corpuser_id', '=', $userId)->update(['inactive'=>1]);
+				}
+				
+				if($this->postAbuseActionTaken($post_id) == false){
+					$action = new ReportAbuseAction();
+					$action->post = $post_id;
+					$action->action_taken_by = Auth::user()->id;
+					$action->post_user_blocked = 1;
+					$tz = new \DateTimeZone('Asia/Kolkata');
+					$today = \Carbon\Carbon::now($tz);
+					$action->user_blocked_dtTime = $today;
+					$action->save();
+
+					ReportAbuse::where('post_id', '=', $post_id)->update(['action_taken' => $action->id]);
+				}else{
+					$tz = new \DateTimeZone('Asia/Kolkata');
+					$today = \Carbon\Carbon::now($tz);
+					ReportAbuseAction::where('id', '=', $this->postAbuseActionTaken($post_id))
+								 	 ->update(['post_user_blocked' => 1, 'user_blocked_dtTime' => $today]);
+				}
+			}
+		}
+		return redirect('/report-abuse');
+	}
+
+	public function warningEmailForAbuse($post_id){
+		if($post_id != null){
+			if($this->postExist($post_id)){
+
+				if($this->postAbuseActionTaken($post_id) == false){
+					$action = new ReportAbuseAction();
+					$action->post = $post_id;
+					$action->action_taken_by = Auth::user()->id;
+					$action->warning_email_sent = 1;
+					$tz = new \DateTimeZone('Asia/Kolkata');
+					$today = \Carbon\Carbon::now($tz);
+					$action->email_dtTime = $today;
+					$action->save();
+
+					ReportAbuse::where('post_id', '=', $post_id)->update(['action_taken' => $action->id]);
+				}else{
+					$tz = new \DateTimeZone('Asia/Kolkata');
+					$today = \Carbon\Carbon::now($tz);
+					ReportAbuseAction::where('id', '=', $this->postAbuseActionTaken($post_id))
+								 	 ->update(['warning_email_sent' => 1, 'email_dtTime' => $today]);
+				}
+			}
+		}
+		return redirect('/report-abuse');
+	}
+
+	public function showPostAfterAbuse($post_id){
+		if($post_id != null){
+			if($this->postExist($post_id)){
+				if($this->postAbuseActionTaken($post_id) != false){
+					$tz = new \DateTimeZone('Asia/Kolkata');
+					$today = \Carbon\Carbon::now($tz);
+					ReportAbuseAction::where('id', '=', $this->postAbuseActionTaken($post_id))
+									 	 ->update(['post_inactive' => 0, 'post_inactivity_dtTime' => $today]);
+
+					Postjob::where('id', '=', $post_id)->update(['inactive' => 0]);
+				}				
+			}
+		}
+		return redirect('/report-abuse');
+	}
+
+	public function unblockUserAfterAbuse($post_id){
+		if($post_id != null){
+			if($this->postExist($post_id)){
+
+				$user = Postjob::where('id', '=', $post_id)->first(['id', 'individual_id', 'corporate_id']);
+				if($user->individual_id != null){
+					$userId = User::where('induser_id', '=', $user->individual_id)->pluck('id');
+					User::where('induser_id', '=', $userId)->update(['inactive'=>0]);
+				}elseif($user->corporate_id != null){
+					$userId = User::where('corpuser_id', '=', $user->corporate_id)->pluck('id');
+					User::where('corpuser_id', '=', $userId)->update(['inactive'=>0]);
+				}
+
+				if($this->postAbuseActionTaken($post_id) != false){
+					$tz = new \DateTimeZone('Asia/Kolkata');
+					$today = \Carbon\Carbon::now($tz);
+					ReportAbuseAction::where('id', '=', $this->postAbuseActionTaken($post_id))
+									 	 ->update(['post_user_blocked' => 0, 'user_blocked_dtTime' => $today]);
+
+				}
+
+			}
+		}
+		return redirect('/report-abuse');
 	}
 
 }

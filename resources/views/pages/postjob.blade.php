@@ -1575,6 +1575,7 @@ $(".job-role-ajax").select2({
       };
     },
     processResults: function (data, params) {
+      console.log(data);
       return {
         results: data
       };

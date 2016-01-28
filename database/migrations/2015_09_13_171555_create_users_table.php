@@ -32,6 +32,9 @@ class CreateUsersTable extends Migration {
 			$table->dateTime('mobile_otp_expiry');
 			$table->dateTime('email_vcode_expiry');
 
+			$table->unsignedInteger('inactive')->default(0);
+			$table->unsignedInteger('rowStatus')->default(0);
+
             $table->rememberToken();
 			$table->timestamps();		
 			$table->foreign('corpuser_id')->references('id')->on('corpusers');

@@ -8,8 +8,13 @@ class ReportAbuse extends Model {
 		return $this->belongsTo('App\Induser', 'reported_by', 'id')->select('id', 'fname', 'lname');
 	}
 
-	public function postuser(){
+	public function post(){
 		return $this->belongsTo('App\Postjob', 'post_id', 'id');
+	}
+
+	public function getActionAttribute(){
+		$action = ReportAbuseAction::where('post', '=', $this->attributes['post_id'])->get();
+		return $action;
 	}
 
 }

@@ -9,12 +9,10 @@
 	<div class="portlet-title portlet-title-home" style="float:none;margin:0 auto; display:table;background: white;padding: 0;">
 		<ul class="nav nav-tabs" style="padding:0;">
 			<li class="active home-tab-width-job" >
-				<a href="#job" data-toggle="tab" class="job-skill-tab">
-				Jobs</a>
+				<a href="#job" data-toggle="tab" class="job-skill-tab">Jobs</a>
 			</li>
 			<li class="home-tab-width-skill">
-				<a href="#skill" data-toggle="tab" class="job-skill-tab">
-				Skills </a>
+				<a href="#skill" data-toggle="tab" class="job-skill-tab">Skills</a>
 			</li>
 
 		</ul>

@@ -28,6 +28,7 @@ class CreateCorpsearchProfileTable extends Migration {
 			$table->string('type')->nullable();
             $table->string('skills')->nullable();
 			$table->timestamps();
+        });
     }
 
     /**

@@ -157,16 +157,11 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::get('report-abuse', 'JobController@reportAbusePage');
 
 	Route::post('post/share', 'JobController@sharePost');
-
 	Route::post('/resendOTP', 'PagesController@resendOTP');
 
 	Route::post('/notification/mark-as-read/{id}', 'NotificationController@update');
-
-
 	Route::get('post/expire', 'JobController@expiringToday');
-
 	Route::post('jobcategory/roles', 'JobRoleController@roleByCategories');
-
 	Route::get('post/jobroles', 'JobController@jobRoles');
 
 	Route::get('search/', 'PagesController@search');
@@ -201,6 +196,14 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::post('admin/updaterole/{id}', 'AdminController@editRole');
 	Route::post('admin/updatefarea/{id}', 'AdminController@editFarea');
 	Route::post('admin/updateindustry/{id}', 'AdminController@editIndustry');
+
+	// report abuse
+	Route::get('report-abuse/action/hidepost/{post_id}', 'JobController@hidePostForAbuse');
+	Route::get('report-abuse/action/showpost/{post_id}', 'JobController@showPostAfterAbuse');
+	Route::get('report-abuse/action/blockuser/{post_id}', 'JobController@blockUserForAbuse');
+	Route::get('report-abuse/action/unblockuser/{post_id}', 'JobController@unblockUserAfterAbuse');
+	Route::get('report-abuse/action/warningemail/{post_id}', 'JobController@warningEmailForAbuse');
+
 });
 
 
