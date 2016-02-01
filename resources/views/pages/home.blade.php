@@ -797,16 +797,6 @@
 <!-- Go to www.addthis.com/dashboard to customize your tools -->
 <div class="addthis_sharing_toolbox" data-url="http://jobtip.in/home" data-title="{{$post->post_title}}"></div>
 </li>
-									{{-- <li style="background-color: #c32f10;">
-										<a href="/" class="google-plus">
-											<i class="fa fa-google-plus post-social-icon"></i>
-										</a>
-									</li>
-									<li style="background-color: #00aced;">
-										<a href="/" class="linkedin">
-											<i class="fa fa-linkedin post-social-icon" ></i>
-										</a>
-									</li> --}}
 								</ul>													
 																	</div>
 																	<div class="report-css">
@@ -1954,16 +1944,7 @@
 <!-- Go to www.addthis.com/dashboard to customize your tools -->
 <div class="addthis_sharing_toolbox" data-url="http://jobtip.in/home" data-title="{{$post->post_title}}"></div>
 </li>
-																			{{-- <li style="background-color: #c32f10;">
-																				<a href="/" class="google-plus">
-																					<i class="fa fa-google-plus post-social-icon"></i>
-																				</a>
-																			</li>
-																			<li style="background-color: #00aced;">
-																				<a href="/" class="linkedin">
-																					<i class="fa fa-linkedin post-social-icon" ></i>
-																				</a>
-																			</li> --}}
+																			
 																		</ul>													
 																	</div>
 																	<div class="report-css">
