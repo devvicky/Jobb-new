@@ -793,12 +793,11 @@
 											Share on Jobtip
 										</a>
 									</li>
-									<li style="background-color: #3b5998;">
-										<a href="javascript:fbShare('http://jobtip.in', 'Fb Share', 'Facebook share popup', 'http://jobtip.in/assets/new_big_logo.png', 520, 350)" class="facebook">
-											<i class="fa fa-facebook post-social-icon" ></i>
-										</a>
-									</li>
-									<li style="background-color: #c32f10;">
+<li style="padding: 8px 0 0px;margin: auto;display: table;">		
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<div class="addthis_sharing_toolbox" data-url="http://jobtip.in/home" data-title="{{$post->post_title}}"></div>
+</li>
+									{{-- <li style="background-color: #c32f10;">
 										<a href="/" class="google-plus">
 											<i class="fa fa-google-plus post-social-icon"></i>
 										</a>
@@ -807,7 +806,7 @@
 										<a href="/" class="linkedin">
 											<i class="fa fa-linkedin post-social-icon" ></i>
 										</a>
-									</li>
+									</li> --}}
 								</ul>													
 																	</div>
 																	<div class="report-css">
@@ -1951,12 +1950,11 @@
 																					Share on Jobtip
 																				</a>
 																			</li>
-																			<li style="background-color: #3b5998;">
-																				<a href="/" class="facebook">
-																					<i class="fa fa-facebook post-social-icon" ></i>
-																				</a>
-																			</li>
-																			<li style="background-color: #c32f10;">
+<li style="padding: 8px 0 0px;margin: auto;display: table;">		
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<div class="addthis_sharing_toolbox" data-url="http://jobtip.in/home" data-title="{{$post->post_title}}"></div>
+</li>
+																			{{-- <li style="background-color: #c32f10;">
 																				<a href="/" class="google-plus">
 																					<i class="fa fa-google-plus post-social-icon"></i>
 																				</a>
@@ -1965,7 +1963,7 @@
 																				<a href="/" class="linkedin">
 																					<i class="fa fa-linkedin post-social-icon" ></i>
 																				</a>
-																			</li>
+																			</li> --}}
 																		</ul>													
 																	</div>
 																	<div class="report-css">
@@ -2446,6 +2444,9 @@
 @stop
 
 @section('javascript')
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-528ddbdf4d9dd13d" async="async"></script>
 
 <script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
 <script src="http://maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
@@ -3251,13 +3252,6 @@ $('.contact-btn').live('click',function(event){
 	
  
 });
-
-// Facebook Share button popup
-    function fbShare(url, title, descr, image, winWidth, winHeight) {
-        var winTop = (screen.height / 2) - (winHeight / 2);
-        var winLeft = (screen.width / 2) - (winWidth / 2);
-        window.open('http://www.facebook.com/sharer.php?s=100&p[title]=' + title + '&p[summary]=' + descr + '&p[url]=' + url + '&p[images][0]=' + image, 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width=' + winWidth + ',height=' + winHeight);
-    }
 
 </script>
  <script>
