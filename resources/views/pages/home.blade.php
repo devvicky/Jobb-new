@@ -784,29 +784,31 @@
 																				style="font-size: 19px;color: darkslateblue;"></i>
 																			<span class="badge-share" id="share-count-{{ $post->id }}">@if($post->postactivity->sum('share') > 0){{ $post->postactivity->sum('share') }}@endif</span>
 																		</button>
-																		<ul class="dropdown-menu pull-right" role="menu" 
-																			style="min-width:0;box-shadow:0 0 !important">
-																			<li style="background-color: tan;">
-																				<a href="#share-post" data-toggle="modal" class="jobtip sojt" id="sojt-{{$post->id}}" data-share-post-id="{{$post->id}}">
-																					Share on Jobtip
-																				</a>
-																			</li>
-																			<li style="background-color: #3b5998;">
-																				<a href="/" class="facebook">
-																					<i class="fa fa-facebook post-social-icon" ></i>
-																				</a>
-																			</li>
-																			<li style="background-color: #c32f10;">
-																				<a href="/" class="google-plus">
-																					<i class="fa fa-google-plus post-social-icon"></i>
-																				</a>
-																			</li>
-																			<li style="background-color: #00aced;">
-																				<a href="/" class="linkedin">
-																					<i class="fa fa-linkedin post-social-icon" ></i>
-																				</a>
-																			</li>
-																		</ul>													
+								<ul class="dropdown-menu pull-right" role="menu" 
+									style="min-width:0;box-shadow:0 0 !important">
+									<li style="background-color: tan;">
+										<a href="#share-post" data-toggle="modal" 
+										   class="jobtip sojt" id="sojt-{{$post->id}}" 
+										   data-share-post-id="{{$post->id}}">
+											Share on Jobtip
+										</a>
+									</li>
+									<li style="background-color: #3b5998;">
+										<a href="javascript:fbShare('http://jobtip.in', 'Fb Share', 'Facebook share popup', 'http://jobtip.in/assets/new_big_logo.png', 520, 350)" class="facebook">
+											<i class="fa fa-facebook post-social-icon" ></i>
+										</a>
+									</li>
+									<li style="background-color: #c32f10;">
+										<a href="/" class="google-plus">
+											<i class="fa fa-google-plus post-social-icon"></i>
+										</a>
+									</li>
+									<li style="background-color: #00aced;">
+										<a href="/" class="linkedin">
+											<i class="fa fa-linkedin post-social-icon" ></i>
+										</a>
+									</li>
+								</ul>													
 																	</div>
 																	<div class="report-css">
 															 @if($expired != 1 && Auth::user()->induser_id != $post->individual_id )
@@ -3249,6 +3251,14 @@ $('.contact-btn').live('click',function(event){
 	
  
 });
+
+// Facebook Share button popup
+    function fbShare(url, title, descr, image, winWidth, winHeight) {
+        var winTop = (screen.height / 2) - (winHeight / 2);
+        var winLeft = (screen.width / 2) - (winWidth / 2);
+        window.open('http://www.facebook.com/sharer.php?s=100&p[title]=' + title + '&p[summary]=' + descr + '&p[url]=' + url + '&p[images][0]=' + image, 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width=' + winWidth + ',height=' + winHeight);
+    }
+
 </script>
  <script>
  	function displayToast($msg){
