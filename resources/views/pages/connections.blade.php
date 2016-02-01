@@ -64,8 +64,8 @@
 						          	<div class="show-adsearch">
 						          		<form id="search-profile" action="/search/profile" method="post">
 					                      <input type="hidden" name="_token" value="{{ csrf_token() }}">
-					                      <div class="row-md-2"></div>
-					                      <div class="row-md-6" style="margin-bottom: 20px;margin-top: 10px;">
+					                      <!-- <div class="row-md-2"></div> -->
+					                      <div class="row" style="margin-bottom: 20px;margin-top: 10px;">
 					                        <div class="col-md-12 col-sm-12 col-xs-12 advance-len" style="margin:10px 0;">
 					                          <div class="input-group" style="margin:0 auto;">
 					                            <div class="icheck-inline">

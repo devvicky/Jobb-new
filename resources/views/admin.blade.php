@@ -282,6 +282,8 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="../../assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 {{-- <script src="../../assets/admin/pages/scripts/charts-flotcharts.js"></script> --}}
+<script type="text/javascript" src="../../assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js"></script>
+<script src="../../assets/admin/pages/scripts/components-dropdowns.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <script>
 jQuery(document).ready(function() {    
@@ -289,6 +291,7 @@ jQuery(document).ready(function() {
 	Layout.init(); // init layout
 	QuickSidebar.init(); // init quick sidebar
 	Demo.init(); // init demo features
+	ComponentsDropdowns.init();
 });
 </script>
 

@@ -76,20 +76,20 @@ body{
 }
 
 *::-webkit-input-placeholder {
-color:#83ADAD !important;
+color:#A7D6D6 !important;
 font-family: !important;
 font-size:14px !important;
 }
 *:-moz-placeholder {
-color:#83ADAD!important;
+color:#A7D6D6 !important;
 font-size:14px !important;
 }
 *::-moz-placeholder {
-color:#83ADAD !important;
+color:#A7D6D6 !important;
 font-size:14px !important;
 }
 *:-ms-input-placeholder !important{
-color:#83ADAD !important;
+color:#A7D6D6 !important;
 font-size:14px !important;
 }
 
@@ -163,7 +163,7 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 	<![endif]-->
 </head>
 <body>
-	<div class="page-header navbar navbar-fixed-top">
+	<div class="page-header navbar navbar-fixed-top" style="background-color: transparent !important;">
   <!-- BEGIN HEADER INNER -->
   <div class="page-header-inner">
     <!-- BEGIN LOGO -->
@@ -212,7 +212,6 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 <script src="../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <script src="../../assets/admin/pages/scripts/index.js" type="text/javascript"></script>
 <script src="../../assets/global/scripts/metronic.js" type="text/javascript"></script>
-
 <script src="../../assets/admin/pages/scripts/login-soft.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 

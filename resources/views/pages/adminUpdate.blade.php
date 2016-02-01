@@ -24,7 +24,11 @@
                    <div class="col-md-5 col-sm-5" style="border: 1px solid lightgrey;">
                     <div class="form-group">
                         <label>Functional Area</label><br>         
-                            {!! Form::select('FunctionalAreas', $functionalAreas) !!}
+                            <select multiple="multiple" class="multi-select" id="my_multi_select2" name="farea[]">
+                            @foreach($faShow as $role)
+                            <option value="{{$role->id}}">{{$role->name}}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-2" style="margin: 15px 0px;">
@@ -53,8 +57,16 @@
             <div class="form-group">
                 <label>Role</label><br>
                 
-                     {!! Form::select('role', $roles) !!}
-               
+                     
+               <div class="form-group">
+                    <div class="col-md-9">
+                        <select multiple="multiple" class="multi-select" id="my_multi_select1" name="role[]">
+                            @foreach($rolesShow as $role)
+                            <option value="{{$role->id}}">{{$role->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
             </div>
         </div>
            <div class="col-md-2 col-sm-2" style="margin: 15px 0px;">

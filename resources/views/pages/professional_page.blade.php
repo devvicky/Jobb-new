@@ -42,7 +42,7 @@
 										</span> -->
 										<div class="input-icon right">
 													<i class="fa"></i>
-										<input type="text" name="fname" class="form-control" placeholder="First Name">
+										<input type="text" name="fname" value="{{$user->fname}}" class="form-control" placeholder="First Name">
 									</div>
 								</div>
 							</div>
@@ -55,7 +55,7 @@
 										</span> -->
 										<div class="input-icon right">
 													<i class="fa"></i>
-										<input type="text" name="lname" class="form-control" placeholder="Last Name" >
+										<input type="text" name="lname" value="{{$user->lname}}" class="form-control" placeholder="Last Name" >
 									</div>
 								</div>
 							</div>

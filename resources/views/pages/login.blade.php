@@ -5,10 +5,10 @@
 @section('content')
 
 <!-- BEGIN LOGIN -->
-<div class="content" style="background-color: #2E545D !important;padding:0;">
+<div class="content" style="background-color: transparent !important;padding:0;">
 	<!-- <h3 class="form-title" style="text-shadow: 0px 1px 1px blue;color: khaki;font-size: 18px;margin-bottom:0px;">Login As</h3> -->
-<div class="portlet box blue col-md-12 login-tag" style="margin-top:0;border:0;background-color: #2E545D !important;margin: 10px auto;float: none;padding:0;">
-	<div class="portlet-title portlet-title-login" style="float:none;margin:0 auto; display:table;background-color: #2E545D !important;padding: 0;">
+<div class="portlet box blue col-md-12 login-tag" style="margin-top:0;border:0;background-color: transparent !important;margin: 10px auto;float: none;padding:0;">
+	<div class="portlet-title portlet-title-login" style="float:none;margin:0 auto; display:table;background-color: transparent !important;padding: 0;">
 		<ul class="nav nav-tabs" style="padding:0;">
 			<li class="active home-tab-width-job" >
 				<a href="#people" data-toggle="tab" class="job-skill-tab">
@@ -20,7 +20,7 @@
 			</li>
 		</ul>
 	</div>
-	<div class="portlet-body" style="background-color:#2E545D !important;margin:10px 0;">
+	<div class="portlet-body" style="background-color:transparent !important;margin:10px 0;">
 		<div class="tab-content">
 			<div class="tab-pane active" id="people">
 				<form class="login-form"  action="{{ url('/auth/login') }}" method="post" id="individual-login">
@@ -48,21 +48,21 @@
 
 					<div class="form-group ">
 						<div class="input-group margin-top-10 form-group-login-new">
-								<span class="input-group-addon input-group-addon-new"><i class="icon-envelope"></i></span>
+								<span class="input-group-addon input-group-addon-new login-input-bg-color"><i class="icon-envelope"></i></span>
 						<div class="input-icon right ">
 							<i class="fa"></i>
 								
-								<input type="text" name="email" class="form-control" value="{{ old('email') }}" placeholder="Email Id or Mobile No" autocomplete="off">
+								<input type="text" name="email" class="form-control login-input-bg-color" value="{{ old('email') }}" placeholder="Email Id or Mobile No" autocomplete="off">
 							</div>
 						</div>
 					</div>
 					<div class="form-group ">
 						<div class="input-group margin-top-15 form-group-login-new">
-								<span class="input-group-addon input-group-addon-new"><i class="icon-lock-open"></i></span>
+								<span class="input-group-addon input-group-addon-new login-input-bg-color"><i class="icon-lock-open"></i></span>
 						<div class="input-icon right ">
 							<i class="fa"></i>
 							
-								<input type="password" name="password" class="form-control" placeholder="Password">
+								<input type="password" name="password" class="form-control login-input-bg-color" placeholder="Password">
 							</div>
 						</div>
 					</div>	
@@ -127,22 +127,22 @@
 						</div> -->
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 						<div class="form-group">
-							<div class="input-group margin-top-10 form-group-login-new">
-									<span class="input-group-addon input-group-addon-new"><i class="icon-envelope"></i></span>	
+							<div class="input-group margin-top-10 form-group-login-new ">
+									<span class="input-group-addon input-group-addon-new login-input-bg-color"><i class="icon-envelope"></i></span>	
 							<div class="input-icon right">
 								<i class="fa"></i>
 								
-									<input type="email" name="email" class="form-control" value="{{ old('email') }}" placeholder="Email Id" autocomplete="off">
+									<input type="email" name="email" class="form-control login-input-bg-color" value="{{ old('email') }}" placeholder="Email Id" autocomplete="off">
 								</div>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="input-group margin-top-10 form-group-login-new">
-									<span class="input-group-addon input-group-addon-new"><i class="icon-lock-open"></i></span>
+									<span class="input-group-addon input-group-addon-new login-input-bg-color"><i class="icon-lock-open"></i></span>
 							<div class="input-icon right">
 								<i class="fa"></i>
 								
-									<input type="password" name="password" class="form-control" placeholder="Password">
+									<input type="password" name="password" class="form-control login-input-bg-color" placeholder="Password">
 								</div>
 							</div>
 						</div> 
@@ -152,7 +152,7 @@
 		                    </button>
 		                </div>                                      
 		                <div class="form-actions" style="border-bottom: 0px;margin: -53px -30px 15px;">                                                             
-		                    <a href="javascript:;" id="forget-password-corp" class="forget-password" style="font-size: 13px;color: #D2D6DA !important;text-decoration: initial;">Forgot Password ?
+		                    <a href="javascript:;" id="forget-password-corp" class="forget-password " style="font-size: 13px;color: #D2D6DA !important;text-decoration: initial;">Forgot Password ?
 		                    </a>
 		                </div>							
 						<div class="create-account" style="margin-top: 20px;background-color: rgb(57, 92, 101);">
@@ -167,8 +167,8 @@
 	</div>
 </div>
 
-<div class="portlet box blue col-md-12 corporate-register-tab" style="margin-top:0;border:0;background: #2E545D !important;margin: 30px auto;float: none;padding:0;">
-	<div class="portlet-title portlet-title-login" style="float:none;margin:0 auto; display:table;background: #2E545D !important;padding: 0;">
+<div class="portlet box blue col-md-12 corporate-register-tab" style="margin-top:0;border:0;background: transparent !important;margin: 30px auto;float: none;padding:0;">
+	<div class="portlet-title portlet-title-login" style="float:none;margin:0 auto; display:table;background: transparent !important;padding: 0;">
 		<ul class="nav nav-tabs" style="padding:0;">
 			<li class="active home-tab-width-job" >
 				<a href="#people-reg" data-toggle="tab" class="job-skill-tab">
@@ -180,7 +180,7 @@
 			</li>
 		</ul>
 	</div>
-	<div class="portlet-body" style="background-color:#2E545D !important;">
+	<div class="portlet-body" style="background-color:transparent !important;">
 		<div class="tab-content">
 			<div class="tab-pane active" id="people-reg">
 					<div style="text-align: center; margin: 5px;">
@@ -229,13 +229,13 @@
 													
 					<div class="form-group">
 						<div class="input-group form-group-login-new" style="margin-top: 27px !important;">
-								<span class="input-group-addon input-group-addon-new">
+								<span class="input-group-addon input-group-addon-new login-input-bg-color">
 									<i class="glyphicon glyphicon-font"></i>
 								</span>	
 						<div class="input-icon right">
 							<i class="fa"></i>
 							
-								<input type="text" id="name" name="fullname" class="form-control" placeholder="Full Name" value="{{ old('fullname') }}">
+								<input type="text" id="name" name="fullname" class="form-control login-input-bg-color" placeholder="Full Name" value="{{ old('fullname') }}">
 								<input type="hidden"  name="fname" id="first_name" class="form-control">
 								<input type="hidden"  name="lname" id="last_name" class="form-control">
 							</div>
@@ -247,49 +247,50 @@
 							
 					<div class="form-group">
 						<div class="input-group margin-top-10 form-group-login-new">
-								<span class="input-group-addon input-group-addon-new">
+								<span class="input-group-addon input-group-addon-new login-input-bg-color">
 									<i class="icon-envelope"></i>
 								</span>	
 						<div class="input-icon right">
 							<i class="fa"></i>
 							
-								<input type="email" id="email_address" pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" name="email" class="form-control" placeholder="Email Id" value="{{ old('email') }}" />
+								<input type="email" id="email_address" name="email" class="form-control group login-input-bg-color" placeholder="Email Id" value="{{ old('email') }}" />
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<div class="input-icon right">
-							<i class="fa"></i>
-							<div class="input-group margin-top-10 form-group-login-new">
-								<span class="input-group-addon input-group-addon-new">
+						<div class="input-group margin-top-10 form-group-login-new">
+								<span class="input-group-addon input-group-addon-new login-input-bg-color">
 									<i class="icon-call-end"></i>
 								</span>
-								<input type="text" name="mobile" maxlength="10" class="form-control" placeholder="Mobile No" 
+						<div class="input-icon right">
+							<i class="fa"></i>
+							
+								<input type="text" id="mobile_no" name="mobile" maxlength="10" class="form-control group login-input-bg-color" placeholder="Mobile No" 
 										value="{{ old('mobile') }}"/>
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="input-group margin-top-15 form-group-login-new">
-								<span class="input-group-addon input-group-addon-new">
+								<span class="input-group-addon input-group-addon-new login-input-bg-color">
 									<i class="icon-lock-open"></i>
 								</span>
 						<div class="input-icon right">
 							<i class="fa"></i>
 							
-								<input type="password" id="register_password" name="password" class="form-control" placeholder="Password">
+								<input type="password" id="register_password" name="password" class="form-control login-input-bg-color" placeholder="Password">
 							</div>
 						</div>
 					</div>			
 					<div class="form-group">
 						<div class="input-group margin-top-15 form-group-login-new">
-								<span class="input-group-addon input-group-addon-new">
+								<span class="input-group-addon input-group-addon-new login-input-bg-color">
 									<i class="icon-lock-open"></i>
 								</span>
 						<div class="input-icon right">
 							<i class="fa"></i>
 							
-								<input type="password" name="password_confirmation" class="form-control" placeholder="Re-Type Password">
+								<input type="password" name="password_confirmation" class="form-control login-input-bg-color" placeholder="Re-Type Password">
 							</div>
 						</div>
 					</div>														
@@ -337,48 +338,48 @@
 					</div>
 					<div class="form-group">
 						<div class="input-group margin-top-15 form-group-login-new">
-								<span class="input-group-addon input-group-addon-new">
+								<span class="input-group-addon input-group-addon-new login-input-bg-color">
 								<i class="fa fa-university"></i>
 								</span>
 						<div class="input-icon right">
 							<i class="fa"></i>
-								<input type="text" name="firm_name" class="form-control" placeholder="Company Name" value="{{ old('cname') }}">
+								<input type="text" name="firm_name" class="form-control login-input-bg-color" placeholder="Company Name" value="{{ old('cname') }}">
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="input-group margin-top-15 form-group-login-new">
-								<span class="input-group-addon input-group-addon-new">
+								<span class="input-group-addon input-group-addon-new login-input-bg-color">
 								<i class="icon-envelope"></i>
 								</span>
 						<div class="input-icon right">
 							<i class="fa"></i>
 							
-								<input type="email" name="firm_email_id" class="form-control" placeholder="Email Id" value="{{ old('email') }}">
+								<input type="email" name="firm_email_id" class="form-control login-input-bg-color" placeholder="Email Id" value="{{ old('email') }}">
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="input-group margin-top-15 form-group-login-new">
-								<span class="input-group-addon input-group-addon-new">
+								<span class="input-group-addon input-group-addon-new login-input-bg-color">
 								<i class="icon-lock-open"></i>
 								</span>
 						<div class="input-icon right">
 							<i class="fa"></i>
 							
-								<input type="password" name="firm_password" id="com_reg_password" class="form-control" placeholder="Password">
+								<input type="password" name="firm_password" id="com_reg_password" class="form-control login-input-bg-color" placeholder="Password">
 							</div>
 						</div>
 					</div>
 					<div class="form-group" style="margin-bottom:15px;">
 						<div class="input-group margin-top-15 form-group-login-new">
-								<span class="input-group-addon input-group-addon-new">
+								<span class="input-group-addon input-group-addon-new login-input-bg-color">
 								<i class="icon-lock-open"></i>
 								</span>
 						<div class="input-icon right">
 							<i class="fa"></i>
 							
-								<input type="password" name="firm_password_confirmation" class="form-control" placeholder="Re-Type Password">
+								<input type="password" name="firm_password_confirmation" class="form-control login-input-bg-color" placeholder="Re-Type Password">
 							</div>
 						</div>
 					</div>
@@ -408,9 +409,9 @@
 					</div>
 					<div class="form-group margin-top-20 margin-bottom-20">
 						<label style="font-size: 13px;color: #D2C9C9 !important;">
-							<input type="checkbox" name="tnc"/> I agree to the 
-							<a href="javascript:;" style="">Terms of Service </a>& 
-							<a href="javascript:;" style="">Privacy Policy </a>
+							<input type="checkbox" name="ctnc"/> I agree to the 
+							<a href="/login/termcondition" style="">Terms of Service </a>& 
+							<a href="/login/privacyprolicy" style="">Privacy Policy </a>
 						</label>
 						<div id="register_tnc_error"></div>
 					</div>									
@@ -450,10 +451,10 @@
 	</div>
 	<div class="form-group ">
 		<div class="input-group margin-top-15 form-group-login-new">
-				<span class="input-group-addon input-group-addon-new"><i class="icon-envelope"></i></span>
+				<span class="input-group-addon input-group-addon-new login-input-bg-color"><i class="icon-envelope"></i></span>
 		<div class="input-icon right ">
 			<i class="fa"></i>	
-				<input type="email" name="forget_email" class="form-control" placeholder="Email Id or Mobile No">
+				<input type="text" name="forget_email" class="form-control login-input-bg-color" placeholder="Email Id or Mobile No">
 			</div>
 		</div>
 	</div>
@@ -467,7 +468,48 @@
 <!-- END FORGOT PASSWORD FORM -->
 </div>
 
-
+<!-- BEGIN OTP VERIFICATIO FORM -->
+	<form class="otp-verify-form" action="/verify" method="post" id="mobile-otp-form" style="display:none" id="verify-otp">
+	<input type="hidden" name="_token" value="{{ csrf_token() }}">
+		<div class="row">
+			<div class="col-md-2 col-sm-2"></div>
+			<div class="col-md-6 col-sm-6">
+			<h3 style="margin-bottom: 18px;color:khaki;font-size: 27px;text-shadow: 0px 1px 1px blue;">Email or Mobile Verification</h3>
+			<p style="text-align: center;font-size: 15px;">
+				 Enter OTP received to verify your mobile.
+			</p>
+			@if ( Session::has('flash_message') ) 
+			  <div class="alert {{ Session::get('flash_type') }}">
+			     <ul><li>{{ Session::get('flash_message') }}</li></ul>
+			  </div>	  
+			@endif
+			<div id="ind-msg-reg-box" style="display:none">
+				<div id="ind-reg-msg"></div>
+			</div>
+			<div class="form-group ">
+				<div class="input-group margin-top-10 form-group-login-new">
+						<span class="input-group-addon input-group-addon-new login-input-bg-color"><i class="icon-envelope"></i></span>
+				<div class="input-icon right ">
+					<i class="fa"></i>
+						<input type="password" name="mobileOTP" class="form-control login-input-bg-color" maxlength="5" placeholder="Enter OTP here"  required>
+						
+					</div>
+				</div>
+			</div>
+			<div class="form-actions" style="margin-top:25px;border-bottom: none;">			
+				 <button type="submit" class="btn btn-primary btn-block uppercase" style="width:50%;background-color:#C76B6B !important;box-shadow: 0px 1px 4px #2D2C2C;border-radius:2px;">
+                    Submit <i class="m-icon-swapright"></i>
+                </button>
+			</div>
+		</div>
+		</div>
+	</form>
+	<form id="resend-otp-form" action="/resendOTP" method="post" style="display:none">
+		<input type="hidden" name="_token" value="{{ csrf_token() }}">
+		<input type="hidden" name="otp_mob" id="otpformob">
+		<button type="submit" id="resend-otp-btn" class="btn btn-default pull-right" style="margin-left: 39px;cursor: pointer;color:#C76B6B">Resend OTP</button>
+	</form>
+	<!-- END OTP VERIFICATIO FORM -->
 
 <div id="loader" style="display:none;z-index:9999;background:white" class="page-loading">
 <img src="assets/loader.gif"><span> Please wait...</span>
@@ -543,13 +585,6 @@ $(document).ready(function(){
 	            });
 	            $('#ind-msg').text(data.data.message);
 	        }
-	        else if(data.data.page == 'login' && data.data.user == null){            
-	            $('#ind-msg-box').removeClass('alert alert-success');
-	            $('#ind-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
-	                $(this).show();
-	            });
-	            $('#ind-msg').text('Field cannot be blank.');
-	        }
 	        else if(data.data.page == 'login' && data.data.email_verify == 0){
 	        	$('#ind-msg-box').removeClass('alert alert-success');
 	            $('#ind-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
@@ -557,7 +592,7 @@ $(document).ready(function(){
 	            });
 	            $('#ind-msg').text(data.data.message);
 
-	            $('#individual-login').hide();
+	            $('.login-tag').hide();
 	            $('#mobile-otp-form').show();
 	            $('#ind-reg-msg').html(data.data.message);
 
@@ -573,7 +608,7 @@ $(document).ready(function(){
 	            });
 	            $('#ind-msg').text(data.data.message);
 
-	            $('#individual-login').hide();
+	            $('.login-tag').hide();
 	            $('#mobile-otp-form').show();
 
 	            $('#resend-otp-form').show();
@@ -863,9 +898,10 @@ $('#corporate-register-btn').on('click',function(event){
 $('#forget-password-btn').on('click',function(event){        
     event.preventDefault();
 
-    loader('show');
+    
     $("#forgot-password").validate();
     if($("#forgot-password").valid()){
+    	loader('show');
     var formData = $('#forgot-password').serialize(); // form data as string
     var formAction = $('#forgot-password').attr('action'); // form handler url
 
@@ -882,14 +918,20 @@ $('#forget-password-btn').on('click',function(event){
       cache : false,
       success: function(data){
         loader('hide');
-        if(data.data.page == 'login' && data.data.error == 'none'){
+        console.log(data);
+        if(data.data.page == 'login' && data.data.error == null){
             $('#forget-box').removeClass('alert alert-danger');
             $('#forget-box').addClass('alert alert-success').fadeIn(1000, function(){
                 $(this).show();
             });
             $('#forgot-password')[0].reset();
-            $('#forget-box-msg').html('Check your mobile/email for password reset link.');  
-        }else if(data.data.page == 'login' && data.data.error != 'none'){
+
+            if(data.data.medium == 'mobile'){
+            	$('#forget-box-msg').html("Click here to reset your password:  <a href='/reset/password/"+data.data.reset_code+"'>click here</a>");
+            }else if(data.data.medium == 'email'){
+            	$('#forget-box-msg').html(data.data.msg);
+            }  
+        }else if(data.data.page == 'login' && data.data.error != null){
             $('#forget-box').removeClass('alert alert-success');
             $('#forget-box').addClass('alert alert-danger').fadeIn(1000, function(){
                 $(this).show();

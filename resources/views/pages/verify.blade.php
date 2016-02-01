@@ -27,6 +27,7 @@
 			</div>
 		</div>
 		<div class="form-actions" style="margin-top:25px">
+			<a class="btn btn-warning" href="/login">Back</a>
 			<button type="submit" class="btn btn-default pull-right" style="margin-left: 0px; ">Submit <i class="m-icon-swapright"></i></button>
 		</div>
 	</form>

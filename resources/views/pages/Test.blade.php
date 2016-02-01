@@ -39,1033 +39,6 @@ create a group of your friends & share job info
 
 
 
-
-
-
-
-
-
-
-@extends('login')
-
-@section('content')
-
-<!-- BEGIN LOGIN -->
-<div class="content" style="background-color: #2E545D !important;padding:0;">
-	<!-- <h3 class="form-title" style="text-shadow: 0px 1px 1px blue;color: khaki;font-size: 18px;margin-bottom:0px;">Login As</h3> -->
-<div class="portlet box blue col-md-12 login-tag" style="margin-top:0;border:0;background-color: #2E545D !important;margin: 10px auto;float: none;padding:0;">
-	<div class="portlet-title portlet-title-login" style="float:none;margin:0 auto; display:table;background-color: #2E545D !important;padding: 0;">
-		<ul class="nav nav-tabs" style="padding:0;">
-			<li class="active home-tab-width-job" >
-				<a href="#people" data-toggle="tab" class="job-skill-tab">
-				<i class="icon-user" style=""></i> PEOPLE </a>
-			</li>
-			<li class="home-tab-width-skill">
-				<a href="#company" data-toggle="tab" class="job-skill-tab">
-				<i class="fa fa-university" style=""></i> COMPANY </a>
-			</li>
-		</ul>
-	</div>
-	<div class="portlet-body" style="background-color:#2E545D !important;margin:10px 0;">
-		<div class="tab-content">
-			<div class="tab-pane active" id="people">
-				<form class="login-form"  action="{{ url('/auth/login') }}" method="post" id="individual-login">
-					<input type="hidden" name="_token" value="{{ csrf_token() }}">
-					@if ( Session::has('flash_message') ) 
-					  <div class="alert {{ Session::get('flash_type') }}">
-					      <ul><li>{{ Session::get('flash_message') }}</li></ul>
-					  </div>				  
-					@endif
-
-					@if (count($errors) > 0)
-						<div class="alert alert-danger">
-							<ul>
-								@foreach ($errors->all() as $error)
-									<li>{{ $error }}</li>
-								@endforeach
-							</ul>
-						</div>
-					@endif
-					
-
-					<div id="ind-msg-box" style="display:none">
-						<div id="ind-msg"></div>
-					</div>
-
-					<div class="form-group ">
-						<div class="input-group margin-top-10 form-group-login-new">
-								<span class="input-group-addon input-group-addon-new"><i class="icon-envelope"></i></span>
-						<div class="input-icon right ">
-							<i class="fa"></i>
-								
-								<input type="text" name="email" class="form-control" value="{{ old('email') }}" placeholder="Email Id or Mobile No" autocomplete="off">
-							</div>
-						</div>
-					</div>
-					<div class="form-group ">
-						<div class="input-group margin-top-15 form-group-login-new">
-								<span class="input-group-addon input-group-addon-new"><i class="icon-lock-open"></i></span>
-						<div class="input-icon right ">
-							<i class="fa"></i>
-							
-								<input type="password" name="password" class="form-control" placeholder="Password">
-							</div>
-						</div>
-					</div>	
-					<div class="form-actions" style="border-bottom: 0 !important;">
-	                    <button id="individual-login-btn" type="submit" class="btn btn-primary btn-block uppercase" style="width:50%;background-color:#C76B6B !important;box-shadow: 0px 1px 4px #2D2C2C;border-radius:2px;">
-	                        Login
-	                    </button>
-	                </div>                                      
-	                <div class="form-actions" style="border-bottom: 0px;margin: -53px -30px 15px;">                                                             
-	                    <a href="javascript:;" id="forget-password" class="forget-password" style="font-size: 13px;color: #D2D6DA !important;text-decoration: initial;">Forgot Password ?
-	                    </a>
-	                </div>									
-				</form>
-				<h2 class="decorated" style="margin: 0px 10px 8px 10px;color: #A0AFB3;">
-					<span style="font-size: 12px;">OR</span>
-				</h2>
-				<!-- <div style="text-align: center; margin-bottom: 5px;">
-					<small style="font-size:14px;color: azure;">One click Login using</small>
-				</div> -->
-				<div class="login-options" style="margin: 20px 0px;">
-						<div class="row social">
-							<div class="col-md-4 col-xs-4 " style="padding-right:2px;">
-								<a class="btn btn-lg btn-facebook btn-block" href="{!!URL::to('facebook')!!}" style="background: #3b5998;color: white;border-radius:2px;">
-									<i class="fa fa-facebook "></i><span class="hidden-xs">&nbsp;Facebook</span>
-								</a>
-							</div>
-							
-							<div class="col-md-4 col-xs-4 " style="padding-left:2px;padding-right:0px;">
-								<a class="btn btn-lg btn-google btn-block" href="{!!URL::to('google')!!}" style="background: #c32f10;color: white;border-radius:2px;">
-									<i class="fa fa-google-plus"></i><span class="hidden-xs">&nbsp;Google+</span>
-								</a>
-							</div>
-							<div class="col-md-4 col-xs-4 " style="padding-left:2px;">
-								<a class="btn btn-lg btn-linkedin btn-block" href="{!!URL::to('linkedin')!!}" style="background: #00aced;color: white;border-radius:2px;">
-									<i class="fa fa fa-linkedin"></i><span class="hidden-xs">&nbsp;Linkedin</span>
-								</a>
-							</div>
-						</div>
-					</div>
-							
-			<div class="create-account" style="margin-top: 20px;background-color: rgb(57, 92, 101);" >
-				<p style="color:#D0D0D0;">
-					Not A Member?&nbsp;&nbsp;<a href="javascript:;" id="register-btn" class="uppercase" style="color: floralwhite;font-size: 15px;font-weight: 600;"> Register Now&nbsp;!</a> 
-				</p>
-			</div>
-			</div>
-			<div class="tab-pane" id="company">
-				<form class="login-form-corp"  action="{{ url('/auth/login') }}" method="post" id="corporate-login">
-					<div class="form-body">
-						
-						@if (count($errors) > 0)
-							<div class="alert alert-danger">
-								<ul>
-									@foreach ($errors->all() as $error)
-										<li>{{ $error }}</li>
-									@endforeach
-								</ul>
-							</div>
-						@endif
-						<!-- <div id="corp-msg-box" style="display:none">
-							<div id="corp-msg"></div>
-						</div> -->
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
-						<div class="form-group">
-							<div class="input-group margin-top-10 form-group-login-new">
-									<span class="input-group-addon input-group-addon-new"><i class="icon-envelope"></i></span>	
-							<div class="input-icon right">
-								<i class="fa"></i>
-								
-									<input type="email" name="email" class="form-control" value="{{ old('email') }}" placeholder="Email Id" autocomplete="off">
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="input-group margin-top-10 form-group-login-new">
-									<span class="input-group-addon input-group-addon-new"><i class="icon-lock-open"></i></span>
-							<div class="input-icon right">
-								<i class="fa"></i>
-								
-									<input type="password" name="password" class="form-control" placeholder="Password">
-								</div>
-							</div>
-						</div> 
-						<div class="form-actions" style="border-bottom: 0 !important;">
-		                    <button id="corporate-login-btn" type="submit" class="btn btn-primary btn-block uppercase" style="width:50%;background-color:#C76B6B !important;box-shadow: 0px 1px 4px #2D2C2C;border-radius:2px;">
-		                        Login
-		                    </button>
-		                </div>                                      
-		                <div class="form-actions" style="border-bottom: 0px;margin: -53px -30px 15px;">                                                             
-		                    <a href="javascript:;" id="forget-password-corp" class="forget-password" style="font-size: 13px;color: #D2D6DA !important;text-decoration: initial;">Forgot Password ?
-		                    </a>
-		                </div>							
-						<div class="create-account" style="margin-top: 20px;background-color: rgb(57, 92, 101);">
-							<p style="color:#D0D0D0;">
-								Not A Member?&nbsp;&nbsp;<a href="javascript:;" id="register-btn-corp" class="uppercase" style="color: floralwhite;font-size: 15px;font-weight: 600;"> Register Now&nbsp;!</a> 
-							</p>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="portlet box blue col-md-12 corporate-register-tab" style="margin-top:0;border:0;background: #2E545D !important;margin: 30px auto;float: none;padding:0;">
-	<div class="portlet-title portlet-title-login" style="float:none;margin:0 auto; display:table;background: #2E545D !important;padding: 0;">
-		<ul class="nav nav-tabs" style="padding:0;">
-			<li class="active home-tab-width-job" >
-				<a href="#people-reg" data-toggle="tab" class="job-skill-tab">
-				<i class="icon-user" style=""></i> People </a>
-			</li>
-			<li class="home-tab-width-skill">
-				<a href="#company-reg" data-toggle="tab" class="job-skill-tab">
-				<i class="fa fa-university" style=""></i> Company </a>
-			</li>
-		</ul>
-	</div>
-	<div class="portlet-body" style="background-color:#2E545D !important;">
-		<div class="tab-content">
-			<div class="tab-pane active" id="people-reg">
-					<div style="text-align: center; margin: 5px;">
-						<small style="font-size:14px;color: #D8DCDC;">One click register with</small>
-					</div>
-					<div class="login-options" >
-						<div class="row social">
-							<div class="col-md-4 col-xs-4 " style="padding-right:2px;">
-								<a class="btn btn-lg btn-facebook btn-block" href="{!!URL::to('facebook')!!}" style="background: #3b5998;color: white;border-radius:2px;">
-									<i class="fa fa-facebook "></i><span class="hidden-xs">&nbsp;Facebook</span>
-								</a>
-							</div>
-							
-							<div class="col-md-4 col-xs-4 " style="padding-left:2px;padding-right:0px;">
-								<a class="btn btn-lg btn-google btn-block" href="{!!URL::to('google')!!}" style="background: #c32f10;color: white;border-radius:2px;">
-									<i class="fa fa-google-plus"></i><span class="hidden-xs">&nbsp;Google+</span>
-								</a>
-							</div>
-							<div class="col-md-4 col-xs-4 " style="padding-left:2px;">
-								<a class="btn btn-lg btn-linkedin btn-block" href="{!!URL::to('linkedin')!!}" style="background: #00aced;color: white;border-radius:2px;">
-									<i class="fa fa fa-linkedin"></i><span class="hidden-xs">&nbsp;Linkedin</span>
-								</a>
-							</div>
-						</div>
-					</div>
-					<div style="text-align: center; margin-bottom: 5px;">
-						<small style="font-size:12px;color: #D8DCDC;">We respect your privacy, we will not post or disclose any information without your permission.</small>
-					</div>
-					<h2 class="decorated" style="margin: 10px 10px 8px 10px;color: #A0AFB3;">
-						<span style="font-size: 12px;">OR</span>
-					</h2>
-					<form class="register-form"  action="{{ url('/individual/store') }}" method="post" id="individual-register">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
-						<!-- id="individual-register" -->
-					@if (count($errors) > 0)
-						<div class="alert alert-danger">
-							<ul>
-								@foreach ($errors->all() as $error)
-									<li>{{ $error }}</li>
-								@endforeach
-							</ul>
-						</div>
-					@endif
-
-					<div id="ind-reg-form-errors" style="display:none"></div>
-													
-					<div class="form-group">
-						<div class="input-group form-group-login-new" style="margin-top: 27px !important;">
-								<span class="input-group-addon input-group-addon-new">
-									<i class="glyphicon glyphicon-font"></i>
-								</span>	
-						<div class="input-icon right">
-							<i class="fa"></i>
-							
-								<input type="text" id="name" name="fullname" class="form-control" placeholder="Full Name" value="{{ old('fullname') }}">
-								<input type="hidden"  name="fname" id="first_name" class="form-control">
-								<input type="hidden"  name="lname" id="last_name" class="form-control">
-							</div>
-						</div>
-					</div>
-				
-					
-					
-							
-					<div class="form-group">
-						<div class="input-group margin-top-10 form-group-login-new">
-								<span class="input-group-addon input-group-addon-new">
-									<i class="icon-envelope"></i>
-								</span>	
-						<div class="input-icon right">
-							<i class="fa"></i>
-							
-								<input type="email" id="email_address" pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" name="email" class="form-control" placeholder="Email Id" value="{{ old('email') }}" />
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="input-icon right">
-							<i class="fa"></i>
-							<div class="input-group margin-top-10 form-group-login-new">
-								<span class="input-group-addon input-group-addon-new">
-									<i class="icon-call-end"></i>
-								</span>
-								<input type="text" name="mobile" maxlength="10" class="form-control" placeholder="Mobile No" 
-										value="{{ old('mobile') }}"/>
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="input-group margin-top-15 form-group-login-new">
-								<span class="input-group-addon input-group-addon-new">
-									<i class="icon-lock-open"></i>
-								</span>
-						<div class="input-icon right">
-							<i class="fa"></i>
-							
-								<input type="password" id="register_password" name="password" class="form-control" placeholder="Password">
-							</div>
-						</div>
-					</div>			
-					<div class="form-group">
-						<div class="input-group margin-top-15 form-group-login-new">
-								<span class="input-group-addon input-group-addon-new">
-									<i class="icon-lock-open"></i>
-								</span>
-						<div class="input-icon right">
-							<i class="fa"></i>
-							
-								<input type="password" name="password_confirmation" class="form-control" placeholder="Re-Type Password">
-							</div>
-						</div>
-					</div>														
-					<div class="form-group margin-top-20 margin-bottom-20">
-						<label style="font-size: 13px;color: #D2C9C9 !important;">
-							<input type="checkbox" id="t-n-c" name="tnc"/> I agree to the 
-							<a href="/login/termcondition" style="">Terms of Service </a>& 
-							<a href="/login/privacyprolicy" style="">Privacy Policy </a>
-						</label>
-						<div id="register_tnc_error"></div>
-					</div>									
-					<!-- <div class="form-actions">
-						<label id="register-back-btn" style="margin-left: 39px; font-weight:400;color:lightgrey;cursor: pointer;font-size:15px;">Back</label>
-						<button type="submit" id="individual-register-btn" class="btn btn-default pull-left submit-login-button register-submit-css">
-						Submit
-						</button>
-
-
-					</div> -->
-					<div class="form-actions" style="border-bottom: 0 !important;">
-						<label id="register-back-btn" style="position: absolute; right: 36px;bottom: 12px; font-weight:400;color:lightgrey;cursor: pointer;font-size:15px;">Back</label>
-	                    <button id="individual-register-btn" type="submit" class="btn btn-primary btn-block uppercase" style="width:50%;background-color:#C76B6B !important;box-shadow: 0px 1px 4px #2D2C2C;border-radius:2px;">
-	                        Submit
-	                    </button>
-	                </div> 
-				</form>
-				<!-- END INDIVIDUAL REGISTRATION FORM -->
-			</div>
-			<div class="tab-pane" id="company-reg">
-				<form class="register-corporate-form" action="{{ url('/corporate/store') }}" method="post" >
-					<!-- id="corporate-register" -->
-					<input type="hidden" name="_token" value="{{ csrf_token() }}">
-					@if (count($errors) > 0)
-						<div class="alert alert-danger">
-							<ul>
-								@foreach ($errors->all() as $error)
-									<li>{{ $error }}</li>
-								@endforeach
-							</ul>
-						</div>
-					@endif
-					<div id="corp-reg-form-errors" style="display:none"></div>
-					<div id="corp-msg-reg-box" style="display:none">
-						<div id="corp-reg-msg"></div>
-					</div>
-					<div class="form-group">
-						<div class="input-icon right">
-							<i class="fa"></i>
-							<div class="input-group margin-top-15 form-group-login-new">
-								<span class="input-group-addon input-group-addon-new">
-								<i class="fa fa-university"></i>
-								</span>
-								<input type="text" name="firm_name" class="form-control" placeholder="Company Name" value="{{ old('cname') }}">
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="input-icon right">
-							<i class="fa"></i>
-							<div class="input-group margin-top-15 form-group-login-new">
-								<span class="input-group-addon input-group-addon-new">
-								<i class="icon-envelope"></i>
-								</span>
-								<input type="email" name="firm_email_id" class="form-control" placeholder="Email Id" value="{{ old('email') }}">
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="input-icon right">
-							<i class="fa"></i>
-							<div class="input-group margin-top-15 form-group-login-new">
-								<span class="input-group-addon input-group-addon-new">
-								<i class="icon-lock-open"></i>
-								</span>
-								<input type="password" name="firm_password" id="com_reg_password" class="form-control" placeholder="Password">
-							</div>
-						</div>
-					</div>
-					<div class="form-group" style="margin-bottom:15px;">
-						<div class="input-icon right">
-							<i class="fa"></i>
-							<div class="input-group margin-top-15 form-group-login-new">
-								<span class="input-group-addon input-group-addon-new">
-								<i class="icon-lock-open"></i>
-								</span>
-								<input type="password" name="firm_password_confirmation" class="form-control" placeholder="Re-Type Password">
-							</div>
-						</div>
-					</div>
-					<div class="form-group" style="margin-bottom:15px;" >
-						<!-- <div class="col-md-4"></div> -->
-						<label class="control-label register-firmtype-css">Firm Type</label>
-						<div class="col-md-12">
-							<div class="md-radio-inline" style="float: none;margin: 0 auto;display: table;">
-								<div class="md-radio" >
-									<input type="radio" id="radio6" name="firm_type" value="company" class="md-radiobtn">
-									<label for="radio6" style="font-weight:500 !important;font-size:13px;color: antiquewhite;">
-									<span></span>
-									<span class="check" style="background: #F1F1F1;"></span>
-									<span class="box" style="border: 2px solid #8DE8BA !important;"></span>
-									Company </label>
-								</div>
-								<div class="md-radio" >
-									<input type="radio" id="radio7" name="firm_type" value="consultancy" class="md-radiobtn" >
-									<label for="radio7" style="font-weight:500 !important;font-size:13px;color: antiquewhite;">
-									<span></span>
-									<span class="check" style="background: #F1F1F1;"></span>
-									<span class="box" style="border: 2px solid #8DE8BA !important;"></span>
-									Consultancy </label>
-								</div>
-							</div>						<!-- /input-group -->
-						</div>
-					</div>
-					<div class="form-group margin-top-20 margin-bottom-20">
-						<label style="font-size: 13px;color: #D2C9C9 !important;">
-							<input type="checkbox" name="tnc"/> I agree to the 
-							<a href="javascript:;" style="">Terms of Service </a>& 
-							<a href="javascript:;" style="">Privacy Policy </a>
-						</label>
-						<div id="register_tnc_error"></div>
-					</div>									
-					<!-- <div class="form-actions" style="border-bottom:0 !important;">
-						<label id="register-back-btn3" style="margin-left: 39px;cursor: pointer;">Back</label>
-						<button type="submit" id="corporate-register-btn" class="btn btn-default pull-left submit-login-button register-submit-css">
-						Submit
-						</button>
-					</div> -->
-					<div class="form-actions" style="border-bottom: 0 !important;">
-						<label id="register-back-btn3" style="position: absolute; right: 36px;bottom: 36px; font-weight:400;color:lightgrey;cursor: pointer;font-size:15px;">Back</label>
-	                    <button id="corporate-register-btn" type="submit" class="btn btn-primary btn-block uppercase" style="width:50%;background-color:#C76B6B !important;box-shadow: 0px 1px 4px #2D2C2C;border-radius:2px;">
-	                        Submit
-	                    </button>
-	                </div> 
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-<!-- BEGIN FORGOT PASSWORD FORM -->
-<form class="forget-form" action="/forget" method="post" id="forgot-password">
-	<h3 style="    margin-bottom: 10px;color:khaki;font-size: 20px;text-shadow: 0px 1px 1px blue;">Forgot Password ?</h3>
-	<p style="text-align: center;font-size: 17px;color: yellow;margin-bottom: 20px;">No Worries&nbsp;<i class="icon-emoticon-smile"></i></p>
-	<p style="text-align: center;font-size: 13px;    color: #F3D5D5;">
-		 Enter your E-mail iD or Mobile No. We will send you a link to reset password.
-	</p>
-	@if ( Session::has('flash_message') ) 
-	  <div class="alert {{ Session::get('flash_type') }}">
-	     <ul><li>{{ Session::get('flash_message') }}</li></ul>
-	  </div>	  
-	@endif
-	<div id="forget-box" style="display:none">
-		<div id="forget-box-msg"></div>
-	</div>
-	<div class="form-group ">
-		<div class="input-group margin-top-15 form-group-login-new">
-				<span class="input-group-addon input-group-addon-new"><i class="icon-envelope"></i></span>
-		<div class="input-icon right ">
-			<i class="fa"></i>	
-				<input type="email" name="forget_email" class="form-control" placeholder="Email Id or Mobile No">
-			</div>
-		</div>
-	</div>
-	<div class="form-actions" style="border-bottom: 0 !important;">
-		<label id="back-btn" style="position: absolute; right: 36px;bottom: 22px; font-weight:400;color:lightgrey;cursor: pointer;font-size:15px;">Back</label>
-        <button id="forget-password-btn" type="submit" class="btn btn-primary btn-block uppercase" style="width:50%;background-color:#C76B6B !important;box-shadow: 0px 1px 4px #2D2C2C;border-radius:2px;">
-            Submit
-        </button>
-    </div> 
-</form>
-<!-- END FORGOT PASSWORD FORM -->
-</div>
-
-
-
-<div id="loader" style="display:none;z-index:9999;background:white" class="page-loading">
-<img src="assets/loader.gif"><span> Please wait...</span>
-</div>
-
-@stop
-
-
-
-@section('javascript')
-
-<script type="text/javascript">
-$(document).ready(function() {
-  
-  $('#name').blur(function(){
-  
-    var nameVal = $('#name').val()
-    var nameLength = nameVal.length;
-    var nameSplit = nameVal.split(" ");
-    var lastLength = nameLength - nameSplit[0].length;
-    var lastNameLength = nameSplit[0].length + 1;
-    var lastName = nameVal.slice(lastNameLength);
-    
-    $('#first_name').val(nameSplit[0]);
-    $('#last_name').val(lastName);
-    
-    return false;
-  });
-	
-});
-</script>
-
-<script type="text/javascript">
-function loader(arg){
-    if(arg == 'show'){
-        $('#loader').show();
-    }else{
-        $('#loader').hide();
-    }
-}
-function redirect(url){
-    window.location = url;
-}
-$(document).ready(function(){
-  $('#individual-login-btn').on('click',function(event){        
-    event.preventDefault();
-
-    $("#individual-login").validate();
-    if($("#individual-login").valid()){
-	    loader('show');
-
-	    var formData = $('#individual-login').serialize(); // form data as string
-	    var formAction = $('#individual-login').attr('action'); // form handler url
-
-	    $.ajaxSetup({
-	        headers: {
-	            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	        }
-	    });
-
-	    $.ajax({
-	      url: formAction,
-	      type: "post",
-	      data: formData,
-	      cache : false,
-	      success: function(data){
-	        loader('hide');
-	        // console.log(data);
-	        if(data.data.page == 'login' && data.data.user == 'invalid'){            
-	            $('#ind-msg-box').removeClass('alert alert-success');
-	            $('#ind-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
-	                $(this).show();
-	            });
-	            $('#ind-msg').text(data.data.message);
-	        }
-	        else if(data.data.page == 'login' && data.data.user == null){            
-	            $('#ind-msg-box').removeClass('alert alert-success');
-	            $('#ind-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
-	                $(this).show();
-	            });
-	            $('#ind-msg').text('Field cannot be blank.');
-	        }
-	        else if(data.data.page == 'login' && data.data.email_verify == 0){
-	        	$('#ind-msg-box').removeClass('alert alert-success');
-	            $('#ind-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
-	                $(this).show();
-	            });
-	            $('#ind-msg').text(data.data.message);
-
-	            $('#individual-login').hide();
-	            $('#mobile-otp-form').show();
-	            $('#ind-reg-msg').html(data.data.message);
-
-	            $('#ind-msg-reg-box').removeClass('alert alert-success');
-	            $('#ind-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
-	                $(this).show();
-	            });
-	        }
-	        else if(data.data.page == 'login' && data.data.mobile_verify == 0){
-	        	$('#ind-msg-box').removeClass('alert alert-success');
-	            $('#ind-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
-	                $(this).show();
-	            });
-	            $('#ind-msg').text(data.data.message);
-
-	            $('#individual-login').hide();
-	            $('#mobile-otp-form').show();
-
-	            $('#resend-otp-form').show();
-	        	$('#otpformob').val(data.data.mobile); 
-
-	            $('#ind-reg-msg').html(data.data.message);  
-	            $('#ind-msg-reg-box').show();
-
-	            $('#ind-msg-reg-box').removeClass('alert alert-success');
-	            $('#ind-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
-	                $(this).show();
-	            });
-	        }
-	        else{          
-	            redirect(data.data.page);
-	        }
-	      },
-	      error: function(data) {
-	        loader('hide');
-	        $('#ind-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
-	                $(this).show();
-	        });
-	        $('#ind-msg').text('Please Check your Email id or Password');
-	        // $('#ind-msg-box').hide().fadeOut(7000);
-	      }
-	    }); 
-	}
-    return false;
-  }); 
-
-$('#corporate-login-btn').on('click',function(event){       
-    event.preventDefault();
-
-
-    $("#corporate-login").validate();
-    if($("#corporate-login").valid()){
-	    loader('show');
-
-	    var formData = $('#corporate-login').serialize(); // form data as string
-	    var formAction = $('#corporate-login').attr('action'); // form handler url
-
-	    $.ajaxSetup({
-	        headers: {
-	            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	        }
-	    });
-
-	    $.ajax({
-	      url: formAction,
-	      type: "post",
-	      data: formData,
-	      cache : false,
-	      success: function(data){
-	        loader('hide');
-	        if(data == 'login'){
-	            $('#corp-msg-box').removeClass('alert alert-success');
-	            $('#corp-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
-	                $(this).show();
-	            });
-	            $('#corp-msg').text('Invalid user');
-	        }else{
-	            $('#corp-msg-box').removeClass('alert alert-danger');
-	            $('#corp-msg-box').addClass('alert alert-success').fadeIn(1000, function(){
-	                $(this).show();
-	            });
-	            // $('#corp-msg').text('Login success');
-	            redirect(data);
-	        }
-	      },
-	      error: function(data) {
-	        loader('hide');
-	        $('#corp-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
-	                $(this).show();
-	        });
-	        $('#corp-msg').text('Some error occured !');
-	      }
-	    }); 
-	}
-    return false;
-  }); 
-    
-$('#individual-register-btn').on('click',function(event){       
-    event.preventDefault();
-
-    $("#individual-register").validate();
-    if($("#individual-register").valid()){
-	    loader('show');
-
-	    var formData = $('#individual-register').serialize(); // form data as string
-	    var formAction = $('#individual-register').attr('action'); // form handler url
-
-	    $.ajaxSetup({
-	        headers: {
-	            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	        }
-	    });
-
-	    $.ajax({
-	      url: formAction,
-	      type: "post",
-	      data: formData,
-	      cache : false,
-	      success: function(data){
-	        loader('hide');
-	        if(data.data.page == 'login'){
-	            $('#ind-msg-reg-box').removeClass('alert alert-danger');
-	            $('#ind-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
-	                $(this).show();
-	            });
-	            $('#individual-register')[0].reset();
-	            $('#t-n-c').attr('checked', false); // Unchecks it
-
-	            if(data.data.otp != null && data.data.vcode != null ){
-		            $('#individual-register').hide();
-		            $('#mobile-otp-form').show();
-		            $('#ind-reg-msg').html('Registration successful ! <br/>Check your mobile/email for further instruction. <br/>Your otp: <b>'+data.data.otp+'</b> to verify mobile.');  
-		            // console.log('both');
-
-		            $('#ind-msg-reg-box').removeClass('alert alert-danger');
-		            $('#ind-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
-		                $(this).show();
-		            });
-
-		        }else if(data.data.vcode != null && data.data.otp == null){
-		        	$('#individual-register').hide();
-		            $('#mobile-otp-form').show();
-		        	$('#ind-reg-msg').html('Registration successful ! <br/>Check your email for further instruction.');  
-		        	// console.log('email');
-
-		        	$('#ind-msg-reg-box').removeClass('alert alert-danger');
-		            $('#ind-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
-		                $(this).show();
-		            });
-		        }else if(data.data.otp != null && data.data.vcode == null){
-		        	$('#individual-register').hide();
-		            $('#mobile-otp-form').show();
-		        	$('#ind-reg-msg').html('Registration successful ! <br/>Check your mobile for further instruction. <br/>	        		Your otp: <b>'+data.data.otp+'</b> to verify mobile.');  
-		        	// console.log('mobile');
-
-		        	$('#ind-msg-reg-box').removeClass('alert alert-danger');
-		            $('#ind-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
-		                $(this).show();
-		            });
-		        }
-	        }else{
-	            $('#ind-msg-reg-box').removeClass('alert alert-success');
-	            $('#ind-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
-	                $(this).show();
-	            });
-	            $('#ind-reg-msg').text('Some errors occured during Registration!');
-	        }
-	      },
-	      error: function(data) {
-	        loader('hide');
-		    var errors = data.responseJSON;
-		    // console.log(errors);
-		    $errorsHtml = '<div class="alert alert-danger"><ul>';
-		    $.each(errors, function(index, value) {
-				 $errorsHtml += '<li>' + value[0] + '</li>';
-		    });
-	 		$errorsHtml += '</ul></div>';	            
-	        $( '#ind-reg-form-errors' ).html( $errorsHtml );
-	        $( '#ind-reg-form-errors' ).show();
-
-	        // $('#ind-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
-	        //         $(this).show();
-	        // });
-	        // $('#ind-reg-msg').text('Some error occured !');
-	      }
-	    }); 
-	}
-    return false;
-  });
-
-$('#corporate-register-btn').on('click',function(event){       
-    event.preventDefault();
-
-    $("#corporate-register").validate();
-    if($("#corporate-register").valid()){
-	    loader('show');
-
-	    var formData = $('#corporate-register').serialize(); // form data as string
-	    var formAction = $('#corporate-register').attr('action'); // form handler url
-
-	    $.ajaxSetup({
-	        headers: {
-	            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	        }
-	    });
-
-	    $.ajax({
-	      url: formAction,
-	      type: "post",
-	      data: formData,
-	      cache : false,
-	      success: function(data){
-	        loader('hide');
-	        if(data.data.page == 'login'){
-	            $('#corp-msg-reg-box').removeClass('alert alert-danger');
-	            $('#corp-reg-form-errors').hide();
-	            $('#corp-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
-	                $(this).show();
-	            });
-	            $('#corporate-register')[0].reset();
-	            $('#t-n-c').attr('checked', false); // Unchecks it
-	            // $('#corporate-register').hide();
-	            // $('#corporate-login').show();
-	            $('#corp-reg-msg').html('Registration successful ! <br/>Check your Email for further instruction.');  
-	        }else{
-	            $('#corp-msg-reg-box').removeClass('alert alert-success');
-	            $('#corp-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
-	                $(this).show();
-	            });
-	            $('#corp-reg-msg').text('Some errors occured during Registration!');
-	        }
-	      },
-	      error: function(data) {
-	        loader('hide');
-		    var errors = data.responseJSON;
-		    // console.log(errors);
-		    $errorsHtml = '<div class="alert alert-danger"><ul>';
-		    $.each(errors, function(index, value) {
-				 $errorsHtml += '<li>' + value[0] + '</li>';
-		    });
-	 		$errorsHtml += '</ul></div>';	            
-	        $( '#corp-reg-form-errors' ).html( $errorsHtml );
-	        $( '#corp-reg-form-errors' ).show();
-
-	        // $('#ind-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
-	        //         $(this).show();
-	        // });
-	        // $('#ind-reg-msg').text('Some error occured !');
-	      }
-	    }); 
-	}
-    return false;
-  });
-
-// $('#corporate-register-btn').on('click',function(event){        
-//     event.preventDefault();
-
-//     loader('show');
-
-//     var formData = $('#corporate-register').serialize(); // form data as string
-//     var formAction = $('#corporate-register').attr('action'); // form handler url
-
-//     $.ajaxSetup({
-//         headers: {
-//             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//         }
-//     });
-
-//     $.ajax({
-//       url: formAction,
-//       type: "post",
-//       data: formData,
-//       cache : false,
-//       success: function(data){
-//         loader('hide');
-//         if(data == 'login'){
-//             $('#corp-msg-reg-box').removeClass('alert alert-success');
-//             $('#corp-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
-//                 $(this).show();
-//             });
-//             $('#corp-reg-msg').text('Invalid user');
-//         }else{
-//             $('#corp-msg-reg-box').removeClass('alert alert-danger');
-//             $('#corp-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
-//                 $(this).show();
-//             });
-//             $('#corp-reg-msg').text('Registration success');
-//             redirect(data);
-//         }
-//       },
-//       error: function(data) {
-//         loader('hide');
-//         $('#corp-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
-//                 $(this).show();
-//         });
-//         $('#corp-reg-msg').text('Some error occured !');
-//       }
-//     }); 
-//     return false;
-//   });
-});
-
-$('#forget-password-btn').on('click',function(event){        
-    event.preventDefault();
-
-    loader('show');
-    $("#forgot-password").validate();
-    if($("#forgot-password").valid()){
-    var formData = $('#forgot-password').serialize(); // form data as string
-    var formAction = $('#forgot-password').attr('action'); // form handler url
-
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    $.ajax({
-      url: formAction,
-      type: "post",
-      data: formData,
-      cache : false,
-      success: function(data){
-        loader('hide');
-        if(data.data.page == 'login' && data.data.error == 'none'){
-            $('#forget-box').removeClass('alert alert-danger');
-            $('#forget-box').addClass('alert alert-success').fadeIn(1000, function(){
-                $(this).show();
-            });
-            $('#forgot-password')[0].reset();
-            $('#forget-box-msg').html('Check your mobile/email for password reset link.');  
-        }else if(data.data.page == 'login' && data.data.error != 'none'){
-            $('#forget-box').removeClass('alert alert-success');
-            $('#forget-box').addClass('alert alert-danger').fadeIn(1000, function(){
-                $(this).show();
-            });
-            $('#forget-box-msg').text(data.data.error);
-        }
-      },
-      error: function(data) {
-        loader('hide');
-        $('#forget-box').addClass('alert alert-danger').fadeIn(1000, function(){
-                $(this).show();
-        });
-        $('#forget-box-msg').text('Some error occured !');
-      }
-    }); 
-}
-    return false;
-  }); 
-
-$('#resend-otp-btn').on('click',function(event){        
-    event.preventDefault();
-
-    loader('show');
-
-    var formData = $('#resend-otp-form').serialize(); // form data as string
-    var formAction = $('#resend-otp-form').attr('action'); // form handler url
-
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    $.ajax({
-      url: formAction,
-      type: "post",
-      data: formData,
-      cache : false,
-      success: function(data){
-        loader('hide');
-        // console.log(data);
-        if(data.data.page == 'login' && data.data.mobile_verify == 0 && data.data.success_status){        	
-            disableOTP();
-        	$('#ind-msg-reg-box').removeClass('alert alert-danger');
-            $('#ind-reg-msg').html(data.data.message);  
-            $('#ind-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
-                $(this).show();
-            });
-        }
-        else if(data.data.page == 'login' && data.data.mobile_verify == 0 && !data.data.success_status){
-        	$('#ind-msg-reg-box').removeClass('alert alert-success');           
-            $('#ind-reg-msg').html(data.data.message);   
-            $('#ind-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
-                $(this).show();
-            });
-        }
-      },
-      error: function(data) {
-        loader('hide');
-        $('#ind-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
-                $(this).show();
-        });
-        $('#ind-reg-msg').text('Some error occured !');
-      }
-    }); 
-    return false;
-}); 
-
-$('#individual-login').bind('keydown', function(e){         
-    if (e.which == 13){
-       $('#individual-login-btn').trigger('click'); 
-       return false;  
-   }     
-});
-
-$('#corporate-login').bind('keydown', function(e){         
-    if (e.which == 13){
-       $('#corporate-login-btn').trigger('click'); 
-       return false;  
-   }
-});
-
-$('#forgot-password').bind('keydown', function(e){         
-    if (e.which == 13){
-       $('#forgot-password-btn').trigger('click'); 
-       return false;  
-   }     
-});
-
-</script>
-<script type="text/javascript">
-    setTimeout (function(){
-    document.getElementById('resend-otp-btn').disabled = null;
-    },60000);
-
-    var countdownNum = 60;
-    
-    function disableOTP(){
-    	document.getElementById('resend-otp-btn').disabled = true;
-    	incTimer();
-    	countdownNum = 60;
-    }
-
-    function incTimer(){    	    	
-	    setTimeout (function(){
-	        if(countdownNum != 0){
-		        countdownNum--;
-		        document.getElementById('resend-otp-btn').innerHTML = 'Wait for ' + countdownNum + ' seconds';
-		        incTimer();
-	        } else {
-	        	document.getElementById('resend-otp-btn').innerHTML = 'Resend OTP';
-	        	document.getElementById('resend-otp-btn').disabled = false;
-	        }
-	    },1000);
-    }
-</script>
-@stop
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 var Login = function() {
 
     var handleLogin = function() {
@@ -1557,4 +530,840 @@ var Login = function() {
         }
     };
 
-}();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+public function homeskillFilter(){
+		if (Auth::check()) {
+			$title = 'home';
+			$skills = Skills::lists('name', 'id');
+			$post_type = Input::get('post_type');
+			if(Auth::user()->identifier == 1 && $post_type == 'skill'){
+				$filter= Filter::where('id', '=', Auth::user()->id)->first();
+				if($filter != null && $post_type == 'skill'){
+					$filter->city = Input::get('city');
+					$filter->post_type = Input::get('post_type');
+					$filter->from_user = Auth::user()->id;
+					$filter->posted_by = Input::get('posted_by');
+					$filter->job_title = Input::get('post_title');
+					$filter->city = Input::get('city');
+					$filter->prof_category = Input::get('prof_category');
+					$filter->experience = Input::get('experience');
+					$filter->time_for = Input::get('time_for');
+					$filter->unique_id = Input::get('unique_id');
+					$filter->role = Input::get('role');
+					$filter->save();
+				}elseif($filter == null && $post_type == 'skill'){
+					$filter = new Filter();
+					$filter->from_user = Auth::user()->id;
+					$filter->posted_by = Input::get('posted_by');
+					$filter->post_type = Input::get('post_type');
+					$filter->job_title = Input::get('post_title');
+					$filter->city = Input::get('city');
+					$filter->prof_category = Input::get('prof_category');
+					$filter->experience = Input::get('experience');
+					$filter->time_for = Input::get('time_for');
+					$filter->unique_id = Input::get('unique_id');
+					$filter->role = Input::get('role');
+					$filter->save();
+				}
+
+			}elseif(Auth::user()->identifier == 2){
+			$filter = Filter::where('id', '=', Auth::user()->corpuser_id)->first();	
+				if($filter != null && $post_type == 'skill'){
+					$filter->city = Input::get('city');
+					$post_type = Input::get('post_type');
+					$filter->from_user = Auth::user()->id;
+					$filter->posted_by = Input::get('posted_by');
+					$filter->job_title = Input::get('post_title');
+					$filter->city = Input::get('city');
+					$filter->prof_category = Input::get('prof_category');
+					$filter->experience = Input::get('experience');
+					$filter->time_for = Input::get('time_for');
+					$filter->unique_id = Input::get('unique_id');
+					$filter->role = Input::get('role');
+					$filter->save();
+				}elseif($filter == null && $post_type == 'skill'){
+					$filter = new Filter();
+					$filter->from_user = Auth::user()->id;
+					$filter->posted_by = Input::get('posted_by');
+					$filter->job_title = Input::get('post_title');
+					$filter->city = Input::get('city');
+					$filter->prof_category = Input::get('prof_category');
+					$filter->experience = Input::get('experience');
+					$filter->time_for = Input::get('time_for');
+					$filter->unique_id = Input::get('unique_id');
+					$filter->role = Input::get('role');
+					$filter->save();
+				}
+			}
+			$post_type = Input::get('post_type');
+			$posted_by = Input::get('posted_by');
+			$post_title = Input::get('post_title');
+			$city = Input::get('city');
+			$prof_category = Input::get('prof_category');
+			$experience = Input::get('experience');
+			$time_for = Input::get('time_for');
+			$unique_id = Input::get('unique_id');
+			$role = Input::get('role');
+			if($post_type == 'job'){
+			$skillPosts = Postjob::orderBy('id', 'desc')->with('indUser', 'corpUser', 'postActivity');
+
+			if($role != null){
+				$skillPosts->where('role', 'like', '%'.$role.'%');
+			}
+			if($unique_id != null){
+				$skillPosts->where('unique_id', 'like', '%'.$unique_id.'%');
+			}
+			if($post_title != null){
+				$skillPosts->where('post_title', 'like', '%'.$post_title.'%');
+			}
+			if($city != null){
+				$pattern = '/\s*,\s*/';
+				$replace = ',';
+				$city = preg_replace($pattern, $replace, $city);
+				$cityArray = explode(',', $city);
+				$skillPosts->whereIn('city', $cityArray);
+			}
+			if($prof_category != null){
+				$skillPosts->where('prof_category', 'like', '%'.$prof_category.'%');
+			}
+			if($experience != null){
+				$skillPosts->whereRaw("$experience between min_exp and max_exp");
+			}
+			if($time_for != null){
+				$skillPosts->where('time_for', '=', $time_for);
+			}
+			// if(count($post_type) > 0){
+			// 	if(in_array("job", $post_type)){
+			// 		$jobPosts->where('post_type', '=', $post_type[0]);
+			// 	}elseif(in_array("skill", $post_type)){
+			// 		$jobPosts->where('post_type', '=', $post_type[0]);
+			// 	}
+			// }
+			if($post_type == 'skill'){
+				$skillPosts->where('post_type', '=', $post_type);
+			}
+			// if(count($posted_by) > 0) {
+			// 	if(in_array("individual", $posted_by)) {
+			// 	    $jobPosts->where('individual_id', '!=', 0);
+			// 	}elseif(in_array("company", $posted_by)) {
+			// 	    $jobPosts->where('corporate_id', '!=', 0);
+			// 	}
+			// }
+
+			$skillPosts = $skillPosts->paginate(15);
+			if(Auth::user()->identifier == 1){
+				$userSkills = Induser::where('id', '=', Auth::user()->induser_id)->first(['linked_skill']);
+				$userSkills = array_map('trim', explode(',', $userSkills->linked_skill));
+				unset ($userSkills[count($userSkills)-1]); 
+			}
+			$links = DB::select('select id from indusers
+									where indusers.id in (
+											select connections.user_id as id from connections
+											where connections.connection_user_id=?
+											 and connections.status=1
+											union 
+											select connections.connection_user_id as id from connections
+											where connections.user_id=?
+											 and connections.status=1
+								)', [Auth::user()->induser_id, Auth::user()->induser_id]);
+			$links = collect($links);
+			$linksApproval = DB::select('select id from indusers
+											where indusers.id in (
+													select connections.user_id as id from connections
+													where connections.connection_user_id=?
+													 and connections.status=0
+											)', [Auth::user()->induser_id]);
+				$linksApproval = collect($linksApproval);
+
+				$linksPending = DB::select('select id from indusers
+											where indusers.id in (
+													select connections.connection_user_id as id from connections
+													where connections.user_id=?
+													 and connections.status=0
+											)', [Auth::user()->induser_id]);
+				$linksPending = collect($linksPending);
+			$groups = Group::leftjoin('groups_users', 'groups_users.group_id', '=', 'groups.id')					
+						->where('groups.admin_id', '=', Auth::user()->induser_id)
+						->orWhere('groups_users.user_id', '=', Auth::user()->induser_id)
+						->groupBy('groups.id')
+						->get(['groups.id as id'])
+						->lists('id');
+
+			if(Auth::user()->induser_id != null){
+				$following = DB::select('select id from corpusers 
+										 where corpusers.id in (
+											select follows.corporate_id as id from follows
+											where follows.individual_id=?
+									)', [Auth::user()->induser_id]);
+				$following = collect($following);
+			}
+			if(Auth::user()->corpuser_id != null){
+				$following = DB::select('select id from indusers
+										 where indusers.id in (
+											select follows.individual_id as id from follows
+											where follows.corporate_id=?
+									)', [Auth::user()->corpuser_id]);
+				$following = collect($following);
+			}
+
+			if(Auth::user()->identifier == 1){
+				$share_links=Induser::whereRaw('indusers.id in (
+												select connections.user_id as id from connections
+												where connections.connection_user_id=?
+												 and connections.status=1
+												union 
+												select connections.connection_user_id as id from connections
+												where connections.user_id=?
+												 and connections.status=1
+									)', [Auth::user()->induser_id, Auth::user()->induser_id])
+								->get(['id','fname'])
+								->lists('fname','id');
+
+				$share_groups = Group::leftjoin('groups_users', 'groups_users.group_id', '=', 'groups.id')					
+							->where('groups.admin_id', '=', Auth::user()->induser_id)
+							->orWhere('groups_users.user_id', '=', Auth::user()->induser_id)
+							->groupBy('groups.id')
+							->get(['groups.id as id', 'groups.group_name as name'])
+							->lists('name', 'id');
+
+			}
+			$jobPosts = Postjob::orderBy('id', 'desc')
+									 ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
+									 ->where('post_type', '=', 'job')
+									 ->paginate(15);
+			}
+			return view('pages.home', compact('jobPosts', 'skillPosts', 'linksApproval', 'linksPending', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'share_links', 'share_groups'));
+		}else{
+			return redirect('login');
+		}	
+	}
+
+
+
+
+
+
+
+
+    <div class="modal fade" id="myactivity-posts" tabindex="-1" role="basic" aria-hidden="true">
+                    <div class="modal-dialog ">
+                        <div class="modal-content">
+                            <div id="myactivity-posts-content" >
+                                <div >
+                                    <div class="row" style="margin: 6px 0px;">
+                                        <div class="col-md-12" style="text-align: center;background: lightblue;">
+                                            @if($post->post_type == 'job')
+                                            <label style="margin:2px 0;"> Job Details </label>
+                                            @else($post->post_type == 'skill')
+                                            <label style="margin:2px 0;"> Skill Details </label>
+                                            @endif
+                                        </div>
+                                    </div>
+                                        <div class="row"> 
+                                                <div class="timeline" >
+                                                    <!-- TIMELINE ITEM -->
+                                                    <div class="timeline-item">
+                                                       
+                                                         <div class="timeline-body" style=" margin-top:-9px;margin-left:13px;">
+                                                            <div class="timeline-body-head">
+                                                                @if(  $post->individual_id != null)
+                                                                    <div class="timeline-body-head-caption" data-puid="{{  $post->individual_id}}">
+                                                                        
+                                                                            
+                                                                            
+                                                                            <a href="/profile/ind/{{  $post->individual_id}}" style="font-size: 15px;text-decoration:none;font-weight:600;">
+                                                                                {{   $post->induser->fname}} {{   $post->induser->lname}}
+                                                                            </a>
+                                                                        
+                                                                           
+                                                                           
+                                                                        <span class="timeline-body-time font-grey-cascade">Posted at 
+                                                                            {{ date('M d, Y', strtotime(  $post->created_at)) }}
+                                                                        </span>
+                                                                    </div>
+                                                                @elseif(  $post->corporate_id != null)
+                                                                    <div class="timeline-body-head-caption" data-puid="{{  $post->corporate_id}}">
+                                                                        
+                                                                                                                               
+                                                                            <a href="/profile/corp/{{  $post->corporate_id}}" style="font-size: 15px;text-decoration:none;font-weight:600;">
+                                                                                {{   $post->corpuser->firm_name}}
+                                                                            </a>
+                                                                        
+                                                                        <span class="timeline-body-time font-grey-cascade">Posted at 
+                                                                            {{ date('M d, Y', strtotime(  $post->created_at)) }}
+                                                                        </span>
+                                                                    </div>
+                                                                @endif
+                                                            </div>
+                                                            
+                                                        </div>
+                                                                <div class="portlet-body" style="margin: 0 -5px;">
+                                                                    <div class="panel-group accordion" id="accordion1" style="margin-bottom: 0;">
+                                                                        <div class="panel panel-default" style=" position: relative;border:0 !important;">
+                                                                            <div class="panel-heading" style="background-color: white;margin: 5px 0px;">
+                                                                               <!--  <h4 class="panel-title">
+                                                                                <a class="" 
+                                                                                data-toggle="collapse" data-parent="#accordion1" href="#collapse_1_1"  style="font-size: 15px;font-weight: 600;padding:0 16px;" >
+                                                                                Details: </a>   
+                                                                                </h4> -->
+                                                                            </div>
+                                                                            <div id="collapse_1_1" class="panel-collapse">
+                                                                                <div class="panel-body" style="border-top: 0;padding: 4px 15px;">
+                                                                                    
+                                                                                    <div class="row">
+                                                                                         @if($post->post_type == 'job')
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                                                <label class="detail-label">Job Title :</label>     
+                                                                                        </div>
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                                                 {{ $post->post_title }}     
+                                                                                        </div>
+                                                                                        @elseif($post->post_type == 'skill')
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                                                <label class="detail-label">Skill Title :</label>     
+                                                                                        </div>
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                                                 {{ $post->post_title }}     
+                                                                                        </div>
+                                                                                        @endif
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                                                <label class="detail-label">Education :</label>     
+                                                                                        </div>
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                                                {{ $post->education }}     
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    @if( $post->job_role != null)
+                                                                                     <div class="row">
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6"> 
+                                                                                                <label class="detail-label">Job Industry :</label>
+                                                                                        </div>
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                                                {{ $post->job_role->first()->industry }}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6"> 
+                                                                                                <label class="detail-label">Job Functional Area :</label>
+                                                                                        </div>
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                                                {{ $post->job_role->first()->functional_area }}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6"> 
+                                                                                                <label class="detail-label">Job Role :</label>
+                                                                                        </div>
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                                                {{ $post->job_role->first()->role }}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    @endif
+                                                                                    <div class="row"> 
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">                                                           
+                                                                                                <label class="detail-label">Skills :</label>                                                                  
+                                                                                        </div>
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
+                                                                                                @foreach($post->skills as $skill)
+                                                                                                    {{$skill->name}}
+                                                                                                @endforeach
+                                                                                             
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row"> 
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">                                                           
+                                                                                                <label class="detail-label">Job Type :</label>                                                                  
+                                                                                        </div>
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
+                                                                                                {{ $post->time_for }}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row"> 
+                                                                                        @if($post->locality != null && $post->city !=null)
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">                                                           
+                                                                                                <label class="detail-label">Locality :</label>                                                                  
+                                                                                        </div>
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
+                                                                                                {{ $post->locality }},{{ $post->city }} 
+                                                                                        </div>
+                                                                                        @elseif($post->locality == null && $post->city !=null)
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">                                                           
+                                                                                                <label class="detail-label">Locality :</label>                                                                  
+                                                                                        </div>
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
+                                                                                                {{ $post->city }} 
+                                                                                        </div>
+                                                                                        @endif
+                                                                                    </div>
+                                                                                    
+                                                                                     <div class="row">
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                                                <label class="detail-label">Salary (<i class="fa fa-rupee (alias)"></i>):</label>
+                                                                                        </div>
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                                                {{ $post->min_sal }}-{{ $post->max_sal }} {{ $post->salary_type }}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <?php 
+                                                                                        $strNew = '+'.$post->post_duration.' day';
+                                                                                        $strOld = $post->created_at;
+                                                                                        $fresh = $strOld->modify($strNew);
+
+                                                                                        $currentDate = new \DateTime();
+                                                                                        $expiryDate = new \DateTime($fresh);
+                                                                                        // $difference = $expiryDate->diff($currentDate);
+                                                                                        // $remainingDays = $difference->format('%d');
+                                                                                        if($currentDate >= $fresh){
+                                                                                            $expired = 1;
+                                                                                        }else{
+                                                                                            $expired = 0;
+                                                                                        }
+                                                                                    ?>
+                                                                                    <div class="skill-display">Description : </div>
+                                                                                    {{ $post->job_detail }}
+                                                                                    
+                                                                                    @if($post->post_type == 'job')
+                                                                                    <div class="skill-display">Reference Id&nbsp;: {{ $post->reference_id }} </div> 
+                                                                                    @endif
+
+                                                                                    <div style="margin:27px 0 0;">
+                                                                                        <!-- if corporate_id not null -->
+                                                                                    <!-- <form action="/job/apply" method="post" id="post-apply-{{$post->id}}" data-id="{{$post->id}}">   -->
+                                                                                        
+                                                                                            <a class="btn apply-btn blue btn-sm apply-contact-btn show-contact" target="_blank" 
+                                                                                                href="/login" type="button"><i class="icon-globe"></i> Apply
+                                                                                            </a>    
+                                                                                    <!-- </form>  -->
+
+                                                                                    </div>
+                                                                                   @if($expired != 1 && $post->postactivity->where('user_id', Auth::user()->id)->isEmpty())
+                                                                                    @elseif($expired != 1 && $post->postactivity->where('user_id', Auth::user()->id)->first()->contact_view == 1)
+                                                                                    <div  class="skill-display ">Contact Details : </div> 
+                                                                                    <div id="show-hide-contacts" class="row">
+                                                                                        @if($post->post_type == 'job' && $post->website_redirect_url != null)
+                                                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                                            Click on Apply, it will redirect you to Company Website.
+                                                                                        </div>
+                                                                                        @endif
+                                                                                        @if($post->post_type == 'job' && $post->website_redirect_url != null && $post->corpuser != null)
+                                                                                        <div class="col-md-12 col-sm-12 col-xs-12">                                             
+                                                                                            <label class="detail-label"><i class="glyphicon glyphicon-globe" style="color: deepskyblue;"></i> :</label>
+                                                                                            {{ $post->website_url }}                                                            
+                                                                                        </div>
+                                                                                        @endif
+                                                                                        @if($post->website_redirect_url == null && $post->contact_person != null)
+                                                                                        <div class="col-md-12 col-sm-12 col-xs-12">                                             
+                                                                                            <label class="detail-label"><i class="glyphicon glyphicon-user"></i> :</label>
+                                                                                            {{ $post->contact_person }}                                                         
+                                                                                        </div>
+                                                                                        @endif
+
+                                                                                        @if($post->email_id != null && $post->alt_emailid != null && $post->website_redirect_url == null)
+                                                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                                            
+                                                                                                <label class="detail-label"><i class="glyphicon glyphicon-envelope"></i> :</label>                                                              
+                                                                                                {{ $post->email_id }} - {{ $post->alt_emailid }}                            
+                                                                                        </div>  
+                                                                                        
+                                                                                        @elseif($post->email_id != null && $post->alt_emailid == null && $post->website_redirect_url == null)
+                                                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                                            
+                                                                                                <label class="detail-label"><i class="glyphicon glyphicon-envelope"></i> :</label>
+                                                                                                {{ $post->email_id }}
+                                                                                            
+                                                                                        </div>
+                                                                                        @elseif($post->email_id == null && $post->alt_emailid != null && $post->website_redirect_url == null)
+                                                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                                            
+                                                                                                <label class="detail-label"><i class="glyphicon glyphicon-envelope"></i> :</label>
+                                                                                                    {{ $post->alt_emailid }}
+                                                                                             
+                                                                                        </div>  
+                                                                                        @endif  
+                                                                                        @if($post->phone != null && $post->alt_phone != null && $post->website_redirect_url == null)
+                                                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                                            
+                                                                                                <label class="detail-label"><i class="glyphicon glyphicon-earphone"></i> :</label>
+                                                                                            
+                                                                                                
+                                                                                                {{ $post->phone }} - {{ $post->alt_phone }}
+                                                                                             
+                                                                                        </div>  
+                                                                                        @elseif($post->phone != null && $post->alt_phone == null && $post->website_redirect_url == null)
+                                                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                                            
+                                                                                                <label class="detail-label"><i class="glyphicon glyphicon-earphone"></i> :</label>
+                                                                                            
+                                                                                                
+                                                                                                {{ $post->phone }}
+                                                                                            
+                                                                                        </div>
+                                                                                        @elseif($post->phone == null && $post->alt_phone != null && $post->website_redirect_url == null)
+                                                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                                            
+                                                                                                <label class="detail-label"><i class="glyphicon glyphicon-earphone"></i> :</label>
+                                                                                            
+                                                                                                    {{ $post->alt_phone }}
+                                                                                            
+                                                                                        </div>  
+                                                                                        @endif                                      
+                                                                                    </div>
+                                                                                    @endif
+                                                                                    <div class="skill-display">Post Id&nbsp;: {{ $post->unique_id }} </div>
+
+                                                                                    @if($expired != 1)
+                                                                                         <div class="skill-display">Post expires on:                                         
+                                                                                         <span class="btn-success" style="padding: 2px 8px;font-size: 12px;border-radius: 20px !important;">{{$fresh->format("d M Y")}}</span>
+                                                                                         </div>
+                                                                                     @else
+                                                                                         <div class="skill-display">Post expired on:                                         
+                                                                                         <span class="btn-danger" style="padding: 2px 8px;font-size: 12px;border-radius: 20px !important;">{{$fresh->format("d M Y")}}</span>
+                                                                                         </div>
+                                                                                    @endif
+                                                                                </div>
+                                                                            </div>
+                                                                           
+                                                                            
+                                                                                           
+                                                                            
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                    </div>
+                                                </div>
+                                                
+                                         </div>
+                                    </div>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal -->
+
+
+
+
+
+
+
+
+
+
+                <div class="modal fade" id="welcome-posts" tabindex="-1" role="basic" aria-hidden="true">
+                    <div class="modal-dialog ">
+                        <div class="modal-content">
+                            <div id="myactivity-posts-content" >
+                                <div >
+                                    <div class="row" style="margin: 6px 0px;">
+                                        <div class="col-md-12" style="text-align: center;background: lightblue;">
+                                            @if($post->post_type == 'job')
+                                            <label style="margin:2px 0;"> Job Details </label>
+                                            @else($post->post_type == 'skill')
+                                            <label style="margin:2px 0;"> Skill Details </label>
+                                            @endif
+                                        </div>
+                                    </div>
+                                        <div class="row"> 
+                                                <div class="timeline" >
+                                                    <!-- TIMELINE ITEM -->
+                                                    <div class="timeline-item">
+                                                       
+                                                         <div class="timeline-body" style=" margin-top:-9px;margin-left:13px;">
+                                                            <div class="timeline-body-head">
+                                                                @if(  $post->individual_id != null)
+                                                                    <div class="timeline-body-head-caption" data-puid="{{  $post->individual_id}}">
+                                                                        
+                                                                            
+                                                                            
+                                                                            <a href="/profile/ind/{{  $post->individual_id}}" style="font-size: 15px;text-decoration:none;font-weight:600;">
+                                                                                {{   $post->induser->fname}} {{   $post->induser->lname}}
+                                                                            </a>
+                                                                        
+                                                                           
+                                                                           
+                                                                        <span class="timeline-body-time font-grey-cascade">Posted at 
+                                                                            {{ date('M d, Y', strtotime(  $post->created_at)) }}
+                                                                        </span>
+                                                                    </div>
+                                                                @elseif(  $post->corporate_id != null)
+                                                                    <div class="timeline-body-head-caption" data-puid="{{  $post->corporate_id}}">
+                                                                        
+                                                                                                                               
+                                                                            <a href="/profile/corp/{{  $post->corporate_id}}" style="font-size: 15px;text-decoration:none;font-weight:600;">
+                                                                                {{   $post->corpuser->firm_name}}
+                                                                            </a>
+                                                                        
+                                                                        <span class="timeline-body-time font-grey-cascade">Posted at 
+                                                                            {{ date('M d, Y', strtotime(  $post->created_at)) }}
+                                                                        </span>
+                                                                    </div>
+                                                                @endif
+                                                            </div>
+                                                            
+                                                        </div>
+                                                                <div class="portlet-body" style="margin: 0 -5px;">
+                                                                    <div class="panel-group accordion" id="accordion1" style="margin-bottom: 0;">
+                                                                        <div class="panel panel-default" style=" position: relative;border:0 !important;">
+                                                                            <div class="panel-heading" style="background-color: white;margin: 5px 0px;">
+                                                                               <!--  <h4 class="panel-title">
+                                                                                <a class="" 
+                                                                                data-toggle="collapse" data-parent="#accordion1" href="#collapse_1_1"  style="font-size: 15px;font-weight: 600;padding:0 16px;" >
+                                                                                Details: </a>   
+                                                                                </h4> -->
+                                                                            </div>
+                                                                            <div id="collapse_1_1" class="panel-collapse">
+                                                                                <div class="panel-body" style="border-top: 0;padding: 4px 15px;">
+                                                                                    
+                                                                                    <div class="row">
+                                                                                         @if($post->post_type == 'job')
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                                                <label class="detail-label">Job Title :</label>     
+                                                                                        </div>
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                                                 {{ $post->post_title }}     
+                                                                                        </div>
+                                                                                        @elseif($post->post_type == 'skill')
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                                                <label class="detail-label">Skill Title :</label>     
+                                                                                        </div>
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                                                 {{ $post->post_title }}     
+                                                                                        </div>
+                                                                                        @endif
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                                                <label class="detail-label">Education :</label>     
+                                                                                        </div>
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                                                {{ $post->education }}     
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    @if( $post->job_role != null)
+                                                                                     <div class="row">
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6"> 
+                                                                                                <label class="detail-label">Job Industry :</label>
+                                                                                        </div>
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                                                {{ $post->job_role->first()->industry }}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6"> 
+                                                                                                <label class="detail-label">Job Functional Area :</label>
+                                                                                        </div>
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                                                {{ $post->job_role->first()->functional_area }}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6"> 
+                                                                                                <label class="detail-label">Job Role :</label>
+                                                                                        </div>
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                                                {{ $post->job_role->first()->role }}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    @endif
+                                                                                    <div class="row"> 
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">                                                           
+                                                                                                <label class="detail-label">Skills :</label>                                                                  
+                                                                                        </div>
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
+                                                                                                @foreach($post->skills as $skill)
+                                                                                                    {{$skill->name}}
+                                                                                                @endforeach
+                                                                                             
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row"> 
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">                                                           
+                                                                                                <label class="detail-label">Job Type :</label>                                                                  
+                                                                                        </div>
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
+                                                                                                {{ $post->time_for }}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row"> 
+                                                                                        @if($post->locality != null && $post->city !=null)
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">                                                           
+                                                                                                <label class="detail-label">Locality :</label>                                                                  
+                                                                                        </div>
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
+                                                                                                {{ $post->locality }},{{ $post->city }} 
+                                                                                        </div>
+                                                                                        @elseif($post->locality == null && $post->city !=null)
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">                                                           
+                                                                                                <label class="detail-label">Locality :</label>                                                                  
+                                                                                        </div>
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
+                                                                                                {{ $post->city }} 
+                                                                                        </div>
+                                                                                        @endif
+                                                                                    </div>
+                                                                                    
+                                                                                     <div class="row">
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                                                <label class="detail-label">Salary (<i class="fa fa-rupee (alias)"></i>):</label>
+                                                                                        </div>
+                                                                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                                                {{ $post->min_sal }}-{{ $post->max_sal }} {{ $post->salary_type }}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <?php 
+                                                                                        $strNew = '+'.$post->post_duration.' day';
+                                                                                        $strOld = $post->created_at;
+                                                                                        $fresh = $strOld->modify($strNew);
+
+                                                                                        $currentDate = new \DateTime();
+                                                                                        $expiryDate = new \DateTime($fresh);
+                                                                                        // $difference = $expiryDate->diff($currentDate);
+                                                                                        // $remainingDays = $difference->format('%d');
+                                                                                        if($currentDate >= $fresh){
+                                                                                            $expired = 1;
+                                                                                        }else{
+                                                                                            $expired = 0;
+                                                                                        }
+                                                                                    ?>
+                                                                                    <div class="skill-display">Description : </div>
+                                                                                    {{ $post->job_detail }}
+                                                                                    
+                                                                                    @if($post->post_type == 'job')
+                                                                                    <div class="skill-display">Reference Id&nbsp;: {{ $post->reference_id }} </div> 
+                                                                                    @endif
+
+                                                                                    <div style="margin:27px 0 0;">
+                                                                                        <!-- if corporate_id not null -->
+                                                                                    <!-- <form action="/job/apply" method="post" id="post-apply-{{$post->id}}" data-id="{{$post->id}}">   -->
+                                                                                        
+                                                                                            <a class="btn apply-btn blue btn-sm apply-contact-btn show-contact" target="_blank" 
+                                                                                                href="/login" type="button"><i class="icon-globe"></i> Apply
+                                                                                            </a>    
+                                                                                    <!-- </form>  -->
+
+                                                                                    </div>
+                                                                                   @if($expired != 1 && $post->postactivity->where('user_id', Auth::user()->id)->isEmpty())
+                                                                                    @elseif($expired != 1 && $post->postactivity->where('user_id', Auth::user()->id)->first()->contact_view == 1)
+                                                                                    <div  class="skill-display ">Contact Details : </div> 
+                                                                                    <div id="show-hide-contacts" class="row">
+                                                                                        @if($post->post_type == 'job' && $post->website_redirect_url != null)
+                                                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                                            Click on Apply, it will redirect you to Company Website.
+                                                                                        </div>
+                                                                                        @endif
+                                                                                        @if($post->post_type == 'job' && $post->website_redirect_url != null && $post->corpuser != null)
+                                                                                        <div class="col-md-12 col-sm-12 col-xs-12">                                             
+                                                                                            <label class="detail-label"><i class="glyphicon glyphicon-globe" style="color: deepskyblue;"></i> :</label>
+                                                                                            {{ $post->website_url }}                                                            
+                                                                                        </div>
+                                                                                        @endif
+                                                                                        @if($post->website_redirect_url == null && $post->contact_person != null)
+                                                                                        <div class="col-md-12 col-sm-12 col-xs-12">                                             
+                                                                                            <label class="detail-label"><i class="glyphicon glyphicon-user"></i> :</label>
+                                                                                            {{ $post->contact_person }}                                                         
+                                                                                        </div>
+                                                                                        @endif
+
+                                                                                        @if($post->email_id != null && $post->alt_emailid != null && $post->website_redirect_url == null)
+                                                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                                            
+                                                                                                <label class="detail-label"><i class="glyphicon glyphicon-envelope"></i> :</label>                                                              
+                                                                                                {{ $post->email_id }} - {{ $post->alt_emailid }}                            
+                                                                                        </div>  
+                                                                                        
+                                                                                        @elseif($post->email_id != null && $post->alt_emailid == null && $post->website_redirect_url == null)
+                                                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                                            
+                                                                                                <label class="detail-label"><i class="glyphicon glyphicon-envelope"></i> :</label>
+                                                                                                {{ $post->email_id }}
+                                                                                            
+                                                                                        </div>
+                                                                                        @elseif($post->email_id == null && $post->alt_emailid != null && $post->website_redirect_url == null)
+                                                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                                            
+                                                                                                <label class="detail-label"><i class="glyphicon glyphicon-envelope"></i> :</label>
+                                                                                                    {{ $post->alt_emailid }}
+                                                                                             
+                                                                                        </div>  
+                                                                                        @endif  
+                                                                                        @if($post->phone != null && $post->alt_phone != null && $post->website_redirect_url == null)
+                                                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                                            
+                                                                                                <label class="detail-label"><i class="glyphicon glyphicon-earphone"></i> :</label>
+                                                                                            
+                                                                                                
+                                                                                                {{ $post->phone }} - {{ $post->alt_phone }}
+                                                                                             
+                                                                                        </div>  
+                                                                                        @elseif($post->phone != null && $post->alt_phone == null && $post->website_redirect_url == null)
+                                                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                                            
+                                                                                                <label class="detail-label"><i class="glyphicon glyphicon-earphone"></i> :</label>
+                                                                                            
+                                                                                                
+                                                                                                {{ $post->phone }}
+                                                                                            
+                                                                                        </div>
+                                                                                        @elseif($post->phone == null && $post->alt_phone != null && $post->website_redirect_url == null)
+                                                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                                            
+                                                                                                <label class="detail-label"><i class="glyphicon glyphicon-earphone"></i> :</label>
+                                                                                            
+                                                                                                    {{ $post->alt_phone }}
+                                                                                            
+                                                                                        </div>  
+                                                                                        @endif                                      
+                                                                                    </div>
+                                                                                    @endif
+                                                                                    <div class="skill-display">Post Id&nbsp;: {{ $post->unique_id }} </div>
+
+                                                                                    @if($expired != 1)
+                                                                                         <div class="skill-display">Post expires on:                                         
+                                                                                         <span class="btn-success" style="padding: 2px 8px;font-size: 12px;border-radius: 20px !important;">{{$fresh->format("d M Y")}}</span>
+                                                                                         </div>
+                                                                                     @else
+                                                                                         <div class="skill-display">Post expired on:                                         
+                                                                                         <span class="btn-danger" style="padding: 2px 8px;font-size: 12px;border-radius: 20px !important;">{{$fresh->format("d M Y")}}</span>
+                                                                                         </div>
+                                                                                    @endif
+                                                                                </div>
+                                                                            </div>
+                                                                           
+                                                                            
+                                                                                           
+                                                                            
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                    </div>
+                                                </div>
+                                                
+                                         </div>
+                                    </div>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal -->

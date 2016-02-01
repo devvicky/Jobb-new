@@ -31,11 +31,15 @@ Route::get('user/gp', 'UserController@handleGoogleCallback');
 Route::get('linkedin', 'UserController@redirectToLinkedin');
 Route::get('user/li', 'UserController@handleLinkedinCallback');
 
+Route::post('forget', 'UserController@forgetPassword');
+Route::get('reset/password/{token}', 'UserController@resetPassword');
+Route::post('reset/password', 'UserController@postResetPassword');
+
 Route::group(array('middleware' => 'auth'), function(){
 
 	Route::post('home', 'PagesController@homeFilter');
 	Route::post('search/profile', 'PagesController@searchProfile');
-	Route::post('home#skill', 'PagesController@homeskillFilter');
+	Route::post('home/skill', 'PagesController@homeskillFilter');
 
 	Route::get('master', 'PagesController@master');
 	Route::get('mypost', 'PagesController@myPost');
@@ -147,10 +151,6 @@ Route::group(array('middleware' => 'auth'), function(){
 
 	Route::get('favourite', 'PagesController@favourite');
 	Route::get('postbyuser/{utype}/{id}', 'PagesController@postByUser');
-
-	Route::post('forget', 'UserController@forgetPassword');
-	Route::get('reset/password/{token}', 'UserController@resetPassword');
-	Route::post('reset/password', 'UserController@postResetPassword');
 
 	Route::post('change/password', 'UserController@postChangePassword');
 	Route::post('report-abuse', 'JobController@reportAbuse');

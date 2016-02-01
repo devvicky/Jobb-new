@@ -64,7 +64,7 @@ class PagesController extends Controller {
 
 			if(Auth::user()->identifier == 1){
 
-				$skills = Skills::lists('name', 'id');
+				$skills = Skills::lists('name', 'name');
 				$jobPosts = Postjob::orderBy('id', 'desc')
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 								   ->where('post_type', '=', 'job')
@@ -437,8 +437,8 @@ class PagesController extends Controller {
 			$skills = Skills::lists('name', 'id');
 			$post_type = Input::get('post_type');
 			if(Auth::user()->identifier == 1 && $post_type == 'job'){
-				$filter= Filter::where('id', '=', Auth::user()->id)->first();
-				if($filter != null && $post_type == 'job'){
+				$filter= Filter::where('id', '=', Auth::user()->id)->where('post_type', '=', 'job')->first();
+				if($filter != null){
 					$filter->city = Input::get('city');
 					$filter->post_type = Input::get('post_type');
 					$filter->from_user = Auth::user()->id;
@@ -451,7 +451,7 @@ class PagesController extends Controller {
 					$filter->unique_id = Input::get('unique_id');
 					$filter->role = Input::get('role');
 					$filter->save();
-				}elseif($filter == null && $post_type == 'job'){
+				}elseif($filter == null){
 					$filter = new Filter();
 					$filter->from_user = Auth::user()->id;
 					$filter->posted_by = Input::get('posted_by');
@@ -467,7 +467,34 @@ class PagesController extends Controller {
 				}
 
 			}elseif(Auth::user()->identifier == 2){
-			$filter = Filter::where('id', '=', Auth::user()->corpuser_id)->first();	
+				$filter= Filter::where('id', '=', Auth::user()->id)->where('post_type', '=', 'job')->first();
+				if($filter != null){
+					$filter->city = Input::get('city');
+					$filter->post_type = Input::get('post_type');
+					$filter->from_user = Auth::user()->id;
+					$filter->posted_by = Input::get('posted_by');
+					$filter->job_title = Input::get('post_title');
+					$filter->city = Input::get('city');
+					$filter->prof_category = Input::get('prof_category');
+					$filter->experience = Input::get('experience');
+					$filter->time_for = Input::get('time_for');
+					$filter->unique_id = Input::get('unique_id');
+					$filter->role = Input::get('role');
+					$filter->save();
+				}elseif($filter == null){
+					$filter = new Filter();
+					$filter->from_user = Auth::user()->id;
+					$filter->posted_by = Input::get('posted_by');
+					$filter->post_type = Input::get('post_type');
+					$filter->job_title = Input::get('post_title');
+					$filter->city = Input::get('city');
+					$filter->prof_category = Input::get('prof_category');
+					$filter->experience = Input::get('experience');
+					$filter->time_for = Input::get('time_for');
+					$filter->unique_id = Input::get('unique_id');
+					$filter->role = Input::get('role');
+					$filter->save();
+				}
 			}
 			$post_type = Input::get('post_type');
 			$posted_by = Input::get('posted_by');
@@ -614,131 +641,116 @@ class PagesController extends Controller {
 
 	
 public function homeskillFilter(){
-		if (Auth::check()) {
-			$title = 'home';
-			$skills = Skills::lists('name', 'id');
-			$post_type = Input::get('post_type');
-			if(Auth::user()->identifier == 1 && $post_type == 'skill'){
-				$filter= Filter::where('id', '=', Auth::user()->id)->first();
-				if($filter != null && $post_type == 'skill'){
-					$filter->city = Input::get('city');
-					$filter->post_type = Input::get('post_type');
-					$filter->from_user = Auth::user()->id;
-					$filter->posted_by = Input::get('posted_by');
-					$filter->job_title = Input::get('post_title');
-					$filter->city = Input::get('city');
-					$filter->prof_category = Input::get('prof_category');
-					$filter->experience = Input::get('experience');
-					$filter->time_for = Input::get('time_for');
-					$filter->unique_id = Input::get('unique_id');
-					$filter->role = Input::get('role');
-					$filter->save();
-				}elseif($filter == null && $post_type == 'skill'){
-					$filter = new Filter();
-					$filter->from_user = Auth::user()->id;
-					$filter->posted_by = Input::get('posted_by');
-					$filter->post_type = Input::get('post_type');
-					$filter->job_title = Input::get('post_title');
-					$filter->city = Input::get('city');
-					$filter->prof_category = Input::get('prof_category');
-					$filter->experience = Input::get('experience');
-					$filter->time_for = Input::get('time_for');
-					$filter->unique_id = Input::get('unique_id');
-					$filter->role = Input::get('role');
-					$filter->save();
-				}
-
-			}elseif(Auth::user()->identifier == 2){
-			$filter = Filter::where('id', '=', Auth::user()->corpuser_id)->first();	
-				if($filter != null && $post_type == 'skill'){
-					$filter->city = Input::get('city');
-					$post_type = Input::get('post_type');
-					$filter->from_user = Auth::user()->id;
-					$filter->posted_by = Input::get('posted_by');
-					$filter->job_title = Input::get('post_title');
-					$filter->city = Input::get('city');
-					$filter->prof_category = Input::get('prof_category');
-					$filter->experience = Input::get('experience');
-					$filter->time_for = Input::get('time_for');
-					$filter->unique_id = Input::get('unique_id');
-					$filter->role = Input::get('role');
-					$filter->save();
-				}elseif($filter == null && $post_type == 'skill'){
-					$filter = new Filter();
-					$filter->from_user = Auth::user()->id;
-					$filter->posted_by = Input::get('posted_by');
-					$filter->job_title = Input::get('post_title');
-					$filter->city = Input::get('city');
-					$filter->prof_category = Input::get('prof_category');
-					$filter->experience = Input::get('experience');
-					$filter->time_for = Input::get('time_for');
-					$filter->unique_id = Input::get('unique_id');
-					$filter->role = Input::get('role');
-					$filter->save();
-				}
+	if (Auth::check()) {
+		$title = 'home';
+		$skills = Skills::lists('name', 'id');
+		$post_type = Input::get('post_type');
+		if(Auth::user()->identifier == 1 && $post_type == 'skill'){
+			$filter= Filter::where('id', '=', Auth::user()->id)
+							->where('post_type', '=', 'skill')
+							->first();
+			if($filter != null){
+				$filter->city = Input::get('city');
+				$filter->post_type = Input::get('post_type');
+				$filter->from_user = Auth::user()->id;
+				$filter->posted_by = Input::get('posted_by');
+				$filter->job_title = Input::get('post_title');
+				$filter->city = Input::get('city');
+				$filter->prof_category = Input::get('prof_category');
+				$filter->experience = Input::get('experience');
+				$filter->time_for = Input::get('time_for');
+				$filter->unique_id = Input::get('unique_id');
+				$filter->role = Input::get('role');
+				$filter->save();
+			}elseif($filter == null){
+				$filter = new Filter();
+				$filter->from_user = Auth::user()->id;
+				$filter->posted_by = Input::get('posted_by');
+				$filter->post_type = Input::get('post_type');
+				$filter->job_title = Input::get('post_title');
+				$filter->city = Input::get('city');
+				$filter->prof_category = Input::get('prof_category');
+				$filter->experience = Input::get('experience');
+				$filter->time_for = Input::get('time_for');
+				$filter->unique_id = Input::get('unique_id');
+				$filter->role = Input::get('role');
+				$filter->save();
 			}
-			$post_type = Input::get('post_type');
-			$posted_by = Input::get('posted_by');
-			$post_title = Input::get('post_title');
-			$city = Input::get('city');
-			$prof_category = Input::get('prof_category');
-			$experience = Input::get('experience');
-			$time_for = Input::get('time_for');
-			$unique_id = Input::get('unique_id');
-			$role = Input::get('role');
-			if($post_type == 'job'){
+		}elseif(Auth::user()->identifier == 2){
+			$filter = Filter::where('id', '=', Auth::user()->corpuser_id)->where('post_type', '=', 'skill')->first();	
+			if($filter != null){
+				$filter->city = Input::get('city');
+				$post_type = Input::get('post_type');
+				$filter->from_user = Auth::user()->id;
+				$filter->posted_by = Input::get('posted_by');
+				$filter->job_title = Input::get('post_title');
+				$filter->city = Input::get('city');
+				$filter->prof_category = Input::get('prof_category');
+				$filter->experience = Input::get('experience');
+				$filter->time_for = Input::get('time_for');
+				$filter->unique_id = Input::get('unique_id');
+				$filter->role = Input::get('role');
+				$filter->save();
+			}elseif($filter == null){
+				$filter = new Filter();
+				$filter->from_user = Auth::user()->id;
+				$filter->posted_by = Input::get('posted_by');
+				$filter->job_title = Input::get('post_title');
+				$filter->city = Input::get('city');
+				$filter->prof_category = Input::get('prof_category');
+				$filter->experience = Input::get('experience');
+				$filter->time_for = Input::get('time_for');
+				$filter->unique_id = Input::get('unique_id');
+				$filter->role = Input::get('role');
+				$filter->save();
+			}
+		}
+
+		$post_type = Input::get('post_type');
+		$posted_by = Input::get('posted_by');
+		$post_title = Input::get('post_title');
+		$city = Input::get('city');
+		$prof_category = Input::get('prof_category');
+		$experience = Input::get('experience');
+		$time_for = Input::get('time_for');
+		$unique_id = Input::get('unique_id');
+		$role = Input::get('role');
+
+		if($post_type == 'skill'){
 			$skillPosts = Postjob::orderBy('id', 'desc')->with('indUser', 'corpUser', 'postActivity');
 
-			if($role != null){
-				$skillPosts->where('role', 'like', '%'.$role.'%');
-			}
-			if($unique_id != null){
-				$skillPosts->where('unique_id', 'like', '%'.$unique_id.'%');
-			}
-			if($post_title != null){
-				$skillPosts->where('post_title', 'like', '%'.$post_title.'%');
-			}
-			if($city != null){
-				$pattern = '/\s*,\s*/';
-				$replace = ',';
-				$city = preg_replace($pattern, $replace, $city);
-				$cityArray = explode(',', $city);
-				$skillPosts->whereIn('city', $cityArray);
-			}
-			if($prof_category != null){
-				$skillPosts->where('prof_category', 'like', '%'.$prof_category.'%');
-			}
-			if($experience != null){
-				$skillPosts->whereRaw("$experience between min_exp and max_exp");
-			}
-			if($time_for != null){
-				$skillPosts->where('time_for', '=', $time_for);
-			}
-			// if(count($post_type) > 0){
-			// 	if(in_array("job", $post_type)){
-			// 		$jobPosts->where('post_type', '=', $post_type[0]);
-			// 	}elseif(in_array("skill", $post_type)){
-			// 		$jobPosts->where('post_type', '=', $post_type[0]);
-			// 	}
-			// }
-			if($post_type == 'skill'){
-				$skillPosts->where('post_type', '=', $post_type);
-			}
-			// if(count($posted_by) > 0) {
-			// 	if(in_array("individual", $posted_by)) {
-			// 	    $jobPosts->where('individual_id', '!=', 0);
-			// 	}elseif(in_array("company", $posted_by)) {
-			// 	    $jobPosts->where('corporate_id', '!=', 0);
-			// 	}
-			// }
-
-			$skillPosts = $skillPosts->paginate(15);
-			if(Auth::user()->identifier == 1){
-				$userSkills = Induser::where('id', '=', Auth::user()->induser_id)->first(['linked_skill']);
-				$userSkills = array_map('trim', explode(',', $userSkills->linked_skill));
-				unset ($userSkills[count($userSkills)-1]); 
-			}
-			$links = DB::select('select id from indusers
+		if($role != null){
+			$skillPosts->where('role', 'like', '%'.$role.'%');
+		}
+		if($unique_id != null){
+			$skillPosts->where('unique_id', 'like', '%'.$unique_id.'%');
+		}
+		if($post_title != null){
+			$skillPosts->where('post_title', 'like', '%'.$post_title.'%');
+		}
+		if($city != null){
+			$pattern = '/\s*,\s*/';
+			$replace = ',';
+			$city = preg_replace($pattern, $replace, $city);
+			$cityArray = explode(',', $city);
+			$skillPosts->whereIn('city', $cityArray);
+		}
+		if($prof_category != null){
+			$skillPosts->where('prof_category', 'like', '%'.$prof_category.'%');
+		}
+		if($experience != null){
+			$skillPosts->whereRaw("$experience between min_exp and max_exp");
+		}
+		if($time_for != null){
+			$skillPosts->where('time_for', '=', $time_for);
+		}
+		$skillPosts = $skillPosts->paginate(15);
+		if(Auth::user()->identifier == 1){
+			$userSkills = Induser::where('id', '=', Auth::user()->induser_id)->first(['linked_skill']);
+			$userSkills = array_map('trim', explode(',', $userSkills->linked_skill));
+			unset ($userSkills[count($userSkills)-1]); 
+		}
+		$links = DB::select('select id from indusers
 									where indusers.id in (
 											select connections.user_id as id from connections
 											where connections.connection_user_id=?
@@ -748,30 +760,29 @@ public function homeskillFilter(){
 											where connections.user_id=?
 											 and connections.status=1
 								)', [Auth::user()->induser_id, Auth::user()->induser_id]);
-			$links = collect($links);
-			$linksApproval = DB::select('select id from indusers
-											where indusers.id in (
-													select connections.user_id as id from connections
-													where connections.connection_user_id=?
-													 and connections.status=0
-											)', [Auth::user()->induser_id]);
-				$linksApproval = collect($linksApproval);
+		$links = collect($links);
+		$linksApproval = DB::select('select id from indusers
+										where indusers.id in (
+												select connections.user_id as id from connections
+												where connections.connection_user_id=?
+												 and connections.status=0
+										)', [Auth::user()->induser_id]);
+			$linksApproval = collect($linksApproval);
 
-				$linksPending = DB::select('select id from indusers
-											where indusers.id in (
-													select connections.connection_user_id as id from connections
-													where connections.user_id=?
-													 and connections.status=0
-											)', [Auth::user()->induser_id]);
-				$linksPending = collect($linksPending);
-			$groups = Group::leftjoin('groups_users', 'groups_users.group_id', '=', 'groups.id')					
-						->where('groups.admin_id', '=', Auth::user()->induser_id)
-						->orWhere('groups_users.user_id', '=', Auth::user()->induser_id)
-						->groupBy('groups.id')
-						->get(['groups.id as id'])
-						->lists('id');
-
-			if(Auth::user()->induser_id != null){
+			$linksPending = DB::select('select id from indusers
+										where indusers.id in (
+												select connections.connection_user_id as id from connections
+												where connections.user_id=?
+												 and connections.status=0
+										)', [Auth::user()->induser_id]);
+			$linksPending = collect($linksPending);
+		$groups = Group::leftjoin('groups_users', 'groups_users.group_id', '=', 'groups.id')					
+					->where('groups.admin_id', '=', Auth::user()->induser_id)
+					->orWhere('groups_users.user_id', '=', Auth::user()->induser_id)
+					->groupBy('groups.id')
+					->get(['groups.id as id'])
+					->lists('id');
+		if(Auth::user()->induser_id != null){
 				$following = DB::select('select id from corpusers 
 										 where corpusers.id in (
 											select follows.corporate_id as id from follows
@@ -779,7 +790,7 @@ public function homeskillFilter(){
 									)', [Auth::user()->induser_id]);
 				$following = collect($following);
 			}
-			if(Auth::user()->corpuser_id != null){
+		if(Auth::user()->corpuser_id != null){
 				$following = DB::select('select id from indusers
 										 where indusers.id in (
 											select follows.individual_id as id from follows
@@ -788,37 +799,39 @@ public function homeskillFilter(){
 				$following = collect($following);
 			}
 
-			if(Auth::user()->identifier == 1){
-				$share_links=Induser::whereRaw('indusers.id in (
-												select connections.user_id as id from connections
-												where connections.connection_user_id=?
-												 and connections.status=1
-												union 
-												select connections.connection_user_id as id from connections
-												where connections.user_id=?
-												 and connections.status=1
-									)', [Auth::user()->induser_id, Auth::user()->induser_id])
-								->get(['id','fname'])
-								->lists('fname','id');
+		if(Auth::user()->identifier == 1){
+			$share_links=Induser::whereRaw('indusers.id in (
+											select connections.user_id as id from connections
+											where connections.connection_user_id=?
+											 and connections.status=1
+											union 
+											select connections.connection_user_id as id from connections
+											where connections.user_id=?
+											 and connections.status=1
+								)', [Auth::user()->induser_id, Auth::user()->induser_id])
+							->get(['id','fname'])
+							->lists('fname','id');
 
-				$share_groups = Group::leftjoin('groups_users', 'groups_users.group_id', '=', 'groups.id')					
-							->where('groups.admin_id', '=', Auth::user()->induser_id)
-							->orWhere('groups_users.user_id', '=', Auth::user()->induser_id)
-							->groupBy('groups.id')
-							->get(['groups.id as id', 'groups.group_name as name'])
-							->lists('name', 'id');
+			$share_groups = Group::leftjoin('groups_users', 'groups_users.group_id', '=', 'groups.id')					
+						->where('groups.admin_id', '=', Auth::user()->induser_id)
+						->orWhere('groups_users.user_id', '=', Auth::user()->induser_id)
+						->groupBy('groups.id')
+						->get(['groups.id as id', 'groups.group_name as name'])
+						->lists('name', 'id');
 
-			}
-			$jobPosts = Postjob::orderBy('id', 'desc')
+		}
+		$jobPosts = Postjob::orderBy('id', 'desc')
 									 ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 									 ->where('post_type', '=', 'job')
 									 ->paginate(15);
-			}
-			return view('pages.home', compact('jobPosts', 'skillPosts', 'linksApproval', 'linksPending', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'share_links', 'share_groups'));
-		}else{
-			return redirect('login');
-		}	
+
 	}
+	
+	return view('pages.home', compact('jobPosts', 'skillPosts', 'linksApproval', 'linksPending', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'share_links', 'share_groups'));
+	}else{
+		return redirect('login');
+	}
+}
 
 
 	public function searchProfile(){
@@ -888,9 +901,9 @@ public function homeskillFilter(){
 				// }
 
 				if(Auth::user()->indentifier == 2){
-					$perPeople = 100;
+					$perPeople = '100';
 					if($city != null || $name != null || $category != null || $working_at != null || $mobile != null || $min_exp != null || $max_exp != null || $prefered_jobtype != null || $resume != null || $skills == null){
-						$perPeople = 100;
+						$perPeople = '100';
 						return $perPeople;
 					}else if($skills != null){
 						$userSkills = array_map('trim', explode(',', $skillsArray));
@@ -1817,6 +1830,105 @@ public function homeskillFilter(){
 			// return $profileFav;
 		}
 
+	}
+
+
+	public function postInGroup($utype, $id){
+		if (Auth::check()) {
+			$title = 'postInGroup';
+			$groups = array();
+				$groupUser = Induser::find($id);
+				$jobPosts = Postjob::orderBy('id', 'desc')->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
+							->where('post_type', '=', 'job')
+							->where('postjobs.individual_id', '=', $id)
+							->paginate(15);
+				$skillPosts = Postjob::orderBy('id', 'desc')->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
+							->where('post_type', '=', 'skill')
+							->where('postjobs.individual_id', '=', $id)
+							->paginate(15);
+				$links = DB::select('select id from indusers
+									where indusers.id in (
+											select connections.user_id as id from connections
+											where connections.connection_user_id=?
+											 and connections.status=1
+											union 
+											select connections.connection_user_id as id from connections
+											where connections.user_id=?
+											 and connections.status=1
+								)', [Auth::user()->induser_id, Auth::user()->induser_id]);
+				$links = collect($links);
+				$linksPending = DB::select('select id from indusers
+											where indusers.id in (
+													select connections.connection_user_id as id from connections
+													where connections.user_id=?
+													 and connections.status=0
+											)', [Auth::user()->induser_id]);
+				$linksPending = collect($linksPending);
+
+				$linksApproval = DB::select('select id from indusers
+											where indusers.id in (
+													select connections.user_id as id from connections
+													where connections.connection_user_id=?
+													 and connections.status=0
+											)', [Auth::user()->induser_id]);
+				$linksApproval = collect($linksApproval);
+				if(Auth::user()->identifier == 1){
+				$share_links=Induser::whereRaw('indusers.id in (
+												select connections.user_id as id from connections
+												where connections.connection_user_id=?
+												 and connections.status=1
+												union 
+												select connections.connection_user_id as id from connections
+												where connections.user_id=?
+												 and connections.status=1
+									)', [Auth::user()->induser_id, Auth::user()->induser_id])
+								->get(['id','fname'])
+								->lists('fname','id');
+
+				$share_groups = Group::leftjoin('groups_users', 'groups_users.group_id', '=', 'groups.id')					
+							->where('groups.admin_id', '=', Auth::user()->induser_id)
+							->orWhere('groups_users.user_id', '=', Auth::user()->induser_id)
+							->groupBy('groups.id')
+							->get(['groups.id as id', 'groups.group_name as name'])
+							->lists('name', 'id');
+
+				}
+				$groups = Group::leftjoin('groups_users', 'groups_users.group_id', '=', 'groups.id')					
+							->where('groups.admin_id', '=', Auth::user()->induser_id)
+							->orWhere('groups_users.user_id', '=', Auth::user()->induser_id)
+							->groupBy('groups.id')
+							->get(['groups.id as id'])
+							->lists('id');
+			
+			$skills = Skills::lists('name', 'id');			
+
+			if(Auth::user()->induser_id != null){
+				$following = DB::select('select id from corpusers 
+										 where corpusers.id in (
+											select follows.corporate_id as id from follows
+											where follows.individual_id=?
+									)', [Auth::user()->induser_id]);
+				$following = collect($following);
+			}
+			if(Auth::user()->corpuser_id != null){
+				$following = DB::select('select id from indusers
+										 where indusers.id in (
+											select follows.individual_id as id from follows
+											where follows.corporate_id=?
+									)', [Auth::user()->corpuser_id]);
+				$following = collect($following);
+			}
+			if(Auth::user()->identifier == 1){
+				$userSkills = Induser::where('id', '=', Auth::user()->induser_id)->first(['linked_skill']);
+				$userSkills = array_map('trim', explode(',', $userSkills->linked_skill));
+				unset ($userSkills[count($userSkills)-1]); 
+			}
+			
+			return view('pages.home', compact('jobPosts', 'share_links', 'share_groups', 'skillPosts', 'linksPending', 'linksApproval', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'groupUser'));
+			// return $userSkills;
+		}else{
+			return redirect('login');
+		}	
 	}
 
 }

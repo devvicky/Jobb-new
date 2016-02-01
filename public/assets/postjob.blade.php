@@ -294,7 +294,7 @@
 							<i class="icon-envelope" style="color:darkcyan;"></i>
 							
 							</span>
-							<input type="text" name="email_id" value="{{ Auth::user()->email }}" class="form-control" placeholder="">
+							<input type="text" name="email_id" value="{{ Auth::user()->email }}" class="form-control group" placeholder="">
 							<span class="input-group-addon" style="width: 55px;">
 								Public
 							</span>
@@ -310,7 +310,7 @@
 							<span class="input-group-addon">
 							<i class="icon-call-end" style="color:darkcyan;"></i>
 							</span>
-							<input type="text" name="phone" value="{{ Auth::user()->mobile }}"  class="form-control" placeholder="">
+							<input type="text" name="phone" value="{{ Auth::user()->mobile }}"  class="form-control group" placeholder="">
 							<span class="input-group-addon" style="width: 55px;">
 								Private
 							</span>

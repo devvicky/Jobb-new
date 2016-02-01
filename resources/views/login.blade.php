@@ -82,20 +82,20 @@ body{
 }
 
 *::-webkit-input-placeholder {
-color:#83ADAD !important;
+color:#A7D6D6 !important;
 font-family: !important;
 font-size:14px !important;
 }
 *:-moz-placeholder {
-color:#83ADAD!important;
+color:#A7D6D6!important;
 font-size:14px !important;
 }
 *::-moz-placeholder {
-color:#83ADAD !important;
+color:#A7D6D6 !important;
 font-size:14px !important;
 }
 *:-ms-input-placeholder !important{
-color:#83ADAD !important;
+color:#A7D6D6 !important;
 font-size:14px !important;
 }
 input:focus::-webkit-input-placeholder { color:transparent !important; }
@@ -103,7 +103,9 @@ input:focus:-moz-placeholder { color:transparent !important; } /* FF 4-18 */
 input:focus::-moz-placeholder { color:transparent !important; } /* FF 19+ */
 input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 
-
+.login-input-bg-color{
+    background-color: rgba(149, 152, 152, 0.22) !important;
+}
 @media (min-width: 570px) {
   .signup-button{
         
@@ -126,7 +128,7 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 <!-- BEGIN BODY -->
 <body class="login" style="overflow-y:scroll">
 <!-- BEGIN HEADER -->
-<div class="page-header navbar navbar-fixed-top">
+<div class="page-header navbar navbar-fixed-top" style="background-color: transparent !important;">
   <!-- BEGIN HEADER INNER -->
   <div class="page-header-inner">
     <!-- BEGIN LOGO -->
@@ -180,7 +182,10 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 </picture> -->
 </div>
 
-@yield('content')
+<div class="container display-content">
+    <img class="login-bg" src="/assets/admin/pages/media/bg/3.jpg">
+  @yield('content')
+</div>
 
 <div class="copyright">
    2015 © Jobtip.in

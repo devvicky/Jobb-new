@@ -183,9 +183,6 @@
                                                         <div class="skill-display">Reference Id&nbsp;: {{ $post->reference_id }} </div> 
                                                         @endif
 
-
-
-
                                                         <div style="margin:27px 0 0;">
                                                             <!-- if corporate_id not null -->
                                                              
@@ -207,8 +204,6 @@
 
                                                                 @endif
 
-                                                          
-                                                        
                                                         </div>
                                                        @if($expired != 1 && $post->postactivity->where('user_id', Auth::user()->id)->isEmpty())
                                                         @elseif($expired != 1 && $post->postactivity->where('user_id', Auth::user()->id)->first()->contact_view == 1)
@@ -305,11 +300,6 @@
                                     </div>
                         </div>
                     </div>
-
-
-
-                   
-
                     
              </div>
         </div>

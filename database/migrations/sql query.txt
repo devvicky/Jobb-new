@@ -35,3 +35,8 @@ ALTER TABLE `users`
 
 ALTER TABLE `report_abuses`
 	ADD COLUMN `action_taken` INT UNSIGNED NOT NULL AFTER `reported_for`;
+
+
+ALTER TABLE `postjobs`
+	ADD COLUMN `inactive` INT UNSIGNED NULL DEFAULT '0' AFTER `resume_required`,
+	ADD COLUMN `rowStatus` INT UNSIGNED NULL DEFAULT '0' AFTER `inactive`;

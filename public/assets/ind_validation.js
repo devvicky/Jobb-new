@@ -198,11 +198,7 @@ $(document).ready(function () {
         messages: {
             name: {
                 required: 'Please enter name'
-            },
-            // namenew: {
-            //     require_from_group: { range: "Enter Name or Mobile Number" },
-            //     minlength: "Enter minimum 3 character"
-            // }
+            }
         },
             invalidHandler: function (event, validator) { //display error alert on form submit   
             success.hide();
@@ -225,5 +221,55 @@ $(document).ready(function () {
                 error.insertAfter(element);
             }
          },
+    });
+});
+
+
+
+  $(document).ready(function () {            
+//validation rules
+    var form = $('#welcome-search');
+    var error = $('.alert-danger', form);
+    var success = $('.alert-success', form);
+    form.validate({
+        doNotHideMessage: true, //this option enables to show the error/success messages on tab switch.
+        errorElement: 'span', //default input error message container
+        errorClass: 'help-block help-block-error', // default input error message class
+        focusInvalid: false, // do not focus the last invalid input
+        rules: {
+            role: {
+                required: true
+                }
+        },
+        messages: {
+            role: {
+                required: 'Enter some crediential'
+            }
+        },
+            invalidHandler: function (event, validator) { //display error alert on form submit   
+            success.hide();
+            error.show();
+            Metronic.scrollTo(error, -200);
+        },
+
+             highlight: function(element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+            unhighlight: function(element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) { // render error placement for each input type
+                    var icon = $(element).parent('.input-icon').children('i');
+                    icon.removeClass('fa-check').addClass("fa-warning");  
+                    icon.attr("data-original-title", error.text()).tooltip({'placement': 'left'});
+                   
+                },
+            success: function (label, element) {
+                    var icon = $(element).parent('.input-icon').children('i');
+                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                    icon.removeClass("fa-warning").addClass("fa-check");
+                },
     });
 });

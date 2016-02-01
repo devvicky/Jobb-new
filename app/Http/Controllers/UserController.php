@@ -389,29 +389,45 @@ class UserController extends Controller {
 
 	public function forgetPassword(){
 		$emailOrMobile = Input::get('forget_email');
-		$user = User::where('email','=',$emailOrMobile)->orWhere('mobile','=',$emailOrMobile)->first();
-		if($user != null && ($user->email == $emailOrMobile || $user->mobile == $emailOrMobile)){
+		$field = filter_var($emailOrMobile, FILTER_VALIDATE_EMAIL) ? 'email' : 'mobile';
+		if($field == 'email'){
+			$user = User::where('email','=',$emailOrMobile)->first();
+		}elseif($field == 'mobile'){
+			$user = User::where('mobile','=',$emailOrMobile)->first();
+		}
+		$data = [];
+		if($user != null){
 			$resetCode = md5(rand(11111,99999));
 			$user->reset_code = $resetCode;
 			$user->save();
+			
 
-			if($user->email != null){
+			if($field == 'email'){
 				$email = $user->email;
 				$fname = $user->induser->fname;
 				Mail::send('emails.auth.reminder', array('fname'=>$fname, 'token'=>$resetCode), function($message) use ($email,$fname){
 			        $message->to($email, $fname)->subject('Jobtip - Password Reset!')->from('admin@jobtip.in', 'JobTip');
 			    });
-			}elseif($user->mobile != null){
+			    $data['msg'] = 'Check your email for password reset link.';
+			    $data['medium'] = 'email';
+			}elseif($field == 'mobile'){
 				$mobile = $user->mobile;
 				$fname = $user->induser->fname;
-				// $data['reset_code'] = $resetCode;		
+				$data['reset_code'] = $resetCode;
+				$data['msg'] = 'Check your mobile for password reset link.';
+				$data['medium'] = 'mobile';		
 			}
 
-			$data = ['page'=>'login', 'error'=>'none'];
+			$data['page'] = 'login';
 			return response()->json(['success'=>true,'data'=>$data]);
 
 		}else{
-			$data = ['page'=>'login', 'error'=>'Invalid email/mobile'];
+			if($field == 'email'){
+				$data['error'] = 'Invalid Email Id';
+			}elseif($field == 'mobile'){
+				$data['error'] = 'Invalid Mobile';
+			}
+			$data['page'] = 'login';
 			return response()->json(['success'=>true,'data'=>$data]);
 		}
 	}

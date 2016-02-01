@@ -11,8 +11,7 @@ var Login = function() {
             rules: {
                 email: {
                     required: true,
-                    minlength: 10,
-                    noSpace: true
+                    minlength: 10
                 },
                 password: {
                     required: true,
@@ -40,7 +39,7 @@ var Login = function() {
              errorPlacement: function (error, element) { // render error placement for each input type
                     var icon = $(element).parent('.input-icon').children('i');
                     icon.removeClass('fa-check').addClass("fa-warning");  
-                    icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
+                    icon.attr("data-original-title", error.text()).tooltip({'placement': 'left'});
                 },
 
                 highlight: function (element) { // hightlight error inputs
@@ -142,7 +141,7 @@ var Login = function() {
             errorPlacement: function (error, element) { // render error placement for each input type
                     var icon = $(element).parent('.input-icon').children('i');
                     icon.removeClass('fa-check').addClass("fa-warning");  
-                    icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
+                    icon.attr("data-original-title", error.text()).tooltip({'placement': 'left'});
                 },
             success: function (label, element) {
                     var icon = $(element).parent('.input-icon').children('i');
@@ -182,16 +181,15 @@ var Login = function() {
             focusInvalid: false, // do not focus the last invalid input
             ignore: "",
             rules: {
-                email: {
+                forget_email: {
                     required: true,
-                    email: true,
                     noSpace: true
                 }
             },
 
             messages: {
-                email: {
-                    required: "Email is required."
+                forget_email: {
+                    required: "Email or Mobile no is required."
                 }
             },
 
@@ -207,7 +205,7 @@ var Login = function() {
             errorPlacement: function (error, element) { // render error placement for each input type
                     var icon = $(element).parent('.input-icon').children('i');
                     icon.removeClass('fa-check').addClass("fa-warning");  
-                    icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
+                    icon.attr("data-original-title", error.text()).tooltip({'placement': 'left'});
                 },
             success: function (label, element) {
                     var icon = $(element).parent('.input-icon').children('i');
@@ -266,13 +264,11 @@ var Login = function() {
                     minlength: 5
                 },
                 email: {
-                    required: true,
                     email: true,
                     noSpace: true,
                     remote: '/UserController.php' + $('#email_address').val()
                 },
                 mobile: {
-                    required: false,
                     minlength: 10,
                     maxlength: 10
                 },
@@ -327,7 +323,7 @@ var Login = function() {
             errorPlacement: function (error, element) { // render error placement for each input type
                     var icon = $(element).parent('.input-icon').children('i');
                     icon.removeClass('fa-check').addClass("fa-warning");  
-                    icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
+                    icon.attr("data-original-title", error.text()).tooltip({'placement': 'left'});
                    
                 },
             success: function (label, element) {
@@ -435,7 +431,7 @@ var Login = function() {
             errorPlacement: function (error, element) { // render error placement for each input type
                     var icon = $(element).parent('.input-icon').children('i');
                     icon.removeClass('fa-check').addClass("fa-warning");  
-                    icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
+                    icon.attr("data-original-title", error.text()).tooltip({'placement': 'left'});
                    
                 },
             success: function (label, element) {

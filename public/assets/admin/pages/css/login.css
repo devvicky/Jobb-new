@@ -84,18 +84,18 @@ Login page
  
 }
 .login .content .form-control:focus, .login .content .form-control:active {
-  border: 1px solid #83ADAD;
+  border: 1px solid #A7D6D6;
   border-left: 0;
 }
 .login .content .form-control::-moz-placeholder {
-  color: #8290a3;
+  color: #A7D6D6;
   opacity: 1;
 }
 .login .content .form-control:-ms-input-placeholder {
-  color: #8290a3;
+  color: #A7D6D6;
 }
 .login .content .form-control::-webkit-input-placeholder {
-  color: #8290a3;
+  color: #A7D6D6;
 }
 
 .login .content select.form-control {

@@ -81,111 +81,120 @@
 									<div class="modal-body">
 										<div class="scroller scroller-filter" style="height:300px" data-always-visible="1" data-rail-visible1="1">
 											<input type="hidden" name="post_type" value="job">
-											<div class="col-md-12 col-sm-12 col-xs-12" style="margin:-5px 0;padding:0 10px;">
-												<label style="font-size:13px;font-weight:500;">Title or Role</label>
-												<div class="form-group">
-													<input type="text" id="title" name="post_title" class="form-control filter-input " placeholder="Job Title, Role" style="border: 1px solid darkcyan !important;margin: 7px 0px;">
+											<div class="row" style="margin:0;">
+												<div class="col-md-12 col-sm-12 col-xs-12" style="margin:-5px 0;padding:0 10px;">
+													<label style="font-size:13px;font-weight:500;">Title or Role</label>
+													<div class="form-group">
+														<!-- <input type="text" id="title" name="post_title" class="form-control filter-input " placeholder="Job Title, Role" style="border: 1px solid darkcyan !important;margin: 7px 0px;"> -->
+														<input type="text" id="title" name="pref_loc" 
+															class="form-control select2" placeholder="Select preferred location">
+													</div>
 												</div>
 											</div>
-											<div class="col-md-6 col-sm-6 col-xs-12" style="margin:-5px 0;padding:0 10px;">
-												<label style="font-size:13px;font-weight:500;">Job Type</label>
-												<div class="form-group">
-													<select multiple="multiple" name="time_for"  placeholder="Select" class="SlectBox">
-												       <option selected value="Full Time">Full Time</option>
-														<option selected value="Part Time">Part Time</option>
-														<option selected value="Freelancer">Freelancer</option>
-														<option selected value="Work from Home">Work from Home</option>
-												    </select>		
+											<div class="row" style="margin:0;">
+												<div class="col-md-6 col-sm-6 col-xs-12" style="margin:-5px 0;padding:0 10px;">
+													<label style="font-size:13px;font-weight:500;">Job Type</label>
+													<div class="form-group">
+														<select multiple="multiple" name="time_for"  placeholder="Select" class="SlectBox">
+													       <option selected value="Full Time">Full Time</option>
+															<option selected value="Part Time">Part Time</option>
+															<option selected value="Freelancer">Freelancer</option>
+															<option selected value="Work from Home">Work from Home</option>
+													    </select>		
+													</div>
+										         </div>
+												<div class="col-md-6 col-sm-6 col-xs-12" style="margin:-5px 0;padding:0 10px;">
+													<label style="font-size:13px;font-weight:500;">Experience</label>
+													<div class="form-group">	
+														<select name="experience" placeholder="Select" class="SlectBox">
+										                	
+										                	<option value="0">Fresher</option>
+															<option value="1">1 Year</option>
+															<option value="2">2 Years</option>
+															<option value="3">3 Years</option>
+															<option value="4">4 Years</option>
+															<option value="5">5 Years</option>
+															<option value="6">6 Years</option>
+															<option value="7">7 Years</option>
+															<option value="8">8 Years</option>
+															<option value="9">9 Years</option>
+															<option value="10">10 Years</option>
+															<option value="11">11 Years</option>
+															<option value="12">12 Years</option>
+															<option value="13">13 Years</option>
+															<option value="14">14 Years</option>
+															<option value="15">15 Years</option>
+										                </select>		
+														<!-- <input type="text" id="exp" name="experience" class="form-control filter-input" placeholder="Exp" style="height: 25px;margin: 7px 0px;">				 -->
+													</div>	
 												</div>
-									         </div>
-											<div class="col-md-6 col-sm-6 col-xs-12" style="margin:-5px 0;padding:0 10px;">
-												<label style="font-size:13px;font-weight:500;">Experience</label>
-												<div class="form-group">	
-													<select name="experience" placeholder="Select" class="SlectBox">
-									                	
-									                	<option value="0">Fresher</option>
-														<option value="1">1 Year</option>
-														<option value="2">2 Years</option>
-														<option value="3">3 Years</option>
-														<option value="4">4 Years</option>
-														<option value="5">5 Years</option>
-														<option value="6">6 Years</option>
-														<option value="7">7 Years</option>
-														<option value="8">8 Years</option>
-														<option value="9">9 Years</option>
-														<option value="10">10 Years</option>
-														<option value="11">11 Years</option>
-														<option value="12">12 Years</option>
-														<option value="13">13 Years</option>
-														<option value="14">14 Years</option>
-														<option value="15">15 Years</option>
-									                </select>		
-													<!-- <input type="text" id="exp" name="experience" class="form-control filter-input" placeholder="Exp" style="height: 25px;margin: 7px 0px;">				 -->
-												</div>	
 											</div>
-											<div class="col-md-6 col-sm-12" style="margin:-5px 0;padding:0 10px;">
-												<div class="form-group">
-													<label style="font-size:13px;font-weight:500;">Prefered Location <span class="required">
-															* </span></label>
-													<div class="input-group">
-														<span class="input-group-addon">
-															<i class="fa fa-map-marker"></i>
-														</span>
+											<div class="row" style="margin:0;">
+												<div class="col-md-6 col-sm-12" style="margin:-5px 0;padding:0 10px;">
+													<div class="form-group">
+														<label style="font-size:13px;font-weight:500;">Prefered Location <span class="required">
+																* </span></label>
+														<div class="input-group">
+															<span class="input-group-addon">
+																<i class="fa fa-map-marker"></i>
+															</span>
 
-														<input type="text" id="pref_loc" name="pref_loc" 
-														class="form-control select2" placeholder="Select preferred location"
-														onblur="pref_loc_locality()">									
-														
+															<input type="text" id="pref_loc" name="pref_loc" 
+																class="form-control" placeholder="Select preferred location"
+																onblur="pref_loc_locality()">									
+															
+														</div>
+														{!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 'onchange'=>'pref_loc_locality()', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'city', 'multiple']) !!}		
 													</div>
-													<input type="text" id="prefered_location" onblur="pref_loc_locality()"
-															name="prefered_location" class="form-control select2"
-															 style="border: 0;">
 												</div>
-											</div>
-											<div class="col-md-6 col-sm-12" style="margin:-5px 0;padding:0 10px;">
-												<div class="form-group">
-													<label style="font-size:13px;font-weight:500;">Area </label>
-													<div class="input-group">
-														<span class="input-group-addon">
-														<i class="fa fa-map-marker"></i>
-														</span>
-														<input type="text" id="pref_locality"
-														onblur="pref_loc_locality()" 
-														name="p_locality" class="form-control" placeholder="Select locality" disabled>
-														
-													</div>
-													<input type="text" id="preferred_locality" style="border:0" 
-														name="p_locality" class="form-control">
-												</div>
-											</div>
-											<div class="col-md-12 col-sm-12 col-xs-12" style="margin:-5px 0;padding:0 10px;">
-												<div class="form-group">
-													<label style="font-size:13px;font-weight:500;">Skills</label>
-													<div>
-														<div style="position:relative;">
-																	<input type="text" name="name" id="newskill" class="form-control" placeholder="Search for skill...">
-																	<button id="add-new-skill" style="position:absolute;right:0;top:0;" class="btn btn-success" type="button"><i class="icon-plus"></i> Add</button>		
-																</div>
-														{!! Form::select('linked_skill_id[]', $skills, null, ['id'=>'linked_skill_id', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Skills', 'multiple']) !!}
+												<div class="col-md-6 col-sm-12" style="margin:-5px 0;padding:0 10px;">
+													<div class="form-group">
+														<label style="font-size:13px;font-weight:500;">Area </label>
+														<div class="input-group">
+															<span class="input-group-addon">
+															<i class="fa fa-map-marker"></i>
+															</span>
+															<input type="text" id="pref_locality"
+													onblur="pref_loc_locality()" 
+													name="p_localiy" class="form-control" placeholder="Select Local Area" disabled>
+															
+														</div>
+														{!! Form::select('preferred_locality[]', [], null, ['id'=>'preferred_locality', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Area', 'multiple']) !!}		
 													</div>
 												</div>
 											</div>
-											<div class="col-md-6 col-sm-6 col-xs-6" style="margin:-5px 0;padding:0 10px;">
-												<label style="font-size:13px;font-weight:500;">Post Id</label>
-												<div class="form-group">				
-													<input type="text" name="unique_id" class="form-control " placeholder="Post Id" style="border: 1px solid darkcyan !important;"> 				
-												</div>	
-											</div> 
-											<div class="col-md-6 col-sm-6 col-xs-12" style="padding:0 10px;">
-												<label style="font-size:13px;font-weight:500;">Posted by</label>
-												<div class="form-group">
-													<select multiple="multiple" name="posted_by" placeholder="Select" class="SlectBox">
-														<option selected value="individual">Individual</option>
-														<option selected value="company">Company</option>
-														<option selected value="consultancy">Consultancy</option>
-												    </select>		
+											<div class="row" style="margin:0;">
+												<div class="col-md-12 col-sm-12 col-xs-12" style="margin:-5px 0;padding:0 10px;">
+													<div class="form-group">
+														<label style="font-size:13px;font-weight:500;">Skills</label>
+														<div>
+															<div style="position:relative;">
+																		<input type="text" name="name" id="newskill" class="form-control" placeholder="Search for skill...">
+																		<button id="add-new-skill" style="position:absolute;right:0;top:0;" class="btn btn-success" type="button"><i class="icon-plus"></i> Add</button>		
+																	</div>
+															{!! Form::select('linked_skill_id[]', $skills, null, ['id'=>'linked_skill_id', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Skills', 'multiple']) !!}
+														</div>
+													</div>
 												</div>
-									        </div>
+											</div>
+											<div class="row" style="margin:0;">
+												<div class="col-md-6 col-sm-6 col-xs-6" style="margin:-5px 0;padding:0 10px;">
+													<label style="font-size:13px;font-weight:500;">Post Id</label>
+													<div class="form-group">				
+														<input type="text" name="unique_id" class="form-control " placeholder="Post Id" style="border: 1px solid darkcyan !important;"> 				
+													</div>	
+												</div> 
+												<div class="col-md-6 col-sm-6 col-xs-12" style="padding:0 10px;">
+													<label style="font-size:13px;font-weight:500;">Posted by</label>
+													<div class="form-group">
+														<select multiple="multiple" name="posted_by" placeholder="Select" class="SlectBox">
+															<option selected value="individual">Individual</option>
+															<option selected value="company">Company</option>
+															<option selected value="consultancy">Consultancy</option>
+													    </select>		
+													</div>
+										        </div>
+										    </div>
 											<div class="row" style="margin:0;">
 												<div class="col-md-6 col-sm-6 col-xs-12" style="margin:-5px 0;padding:0 10px;">
 										         	<div class="form-group">
@@ -198,11 +207,12 @@
 										</div>
 									</div>
 									<div class="modal-footer left">
+										
+									</div>
+									<div class="modal-footer right">
 										<label style="font-size:13px;">
 											<input type="checkbox" name="save filter" checked class="icheck" data-checkbox="icheckbox_square-grey">Save Filter
 										</label>
-									</div>
-									<div class="modal-footer right">
 										<button type="button" data-dismiss="modal" class="btn default">Close</button>
 										<button type="submit" class="btn green">Filter</button>
 									</div>
@@ -221,6 +231,15 @@
 						<!-- </div>
 					</div> -->
 					@elseif($title == 'postByUser')
+					<!-- <div class="portlet light bordered col-md-9">
+						<div class="portlet-title"> -->
+							<div class="links-title" style="text-align: center; margin: 10px 0;">
+								<i class=""></i>
+								<span class="caption-subject font-blue-hoki bold capitalize">Posts by "<span style="color: dimgrey;"> {{$postuser->firm_name}}{{$postuser->fname}} {{$postuser->lname}} </span>"</span>
+							</div>
+						<!-- </div>
+					</div> -->
+					@elseif($title == 'postInGroup')
 					<!-- <div class="portlet light bordered col-md-9">
 						<div class="portlet-title"> -->
 							<div class="links-title" style="text-align: center; margin: 10px 0;">
@@ -1477,9 +1496,9 @@
 							<div class="modal-content">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-									<h4 class="modal-title">Filter Job Posts</h4>
+									<h4 class="modal-title">Filter SKill Posts</h4>
 								</div>
-								<form name="filter_form" action="/home" method="post">
+								<form name="filter_form" action="home/skill" method="post">
 									<input type="hidden" name="_token" value="{{ csrf_token() }}">
 									<div class="modal-body">
 										<div class="scroller scroller-filter" style="height:300px" data-always-visible="1" data-rail-visible1="1">
@@ -1526,50 +1545,8 @@
 													<!-- <input type="text" id="exp" name="experience" class="form-control filter-input" placeholder="Exp" style="height: 25px;margin: 7px 0px;">				 -->
 												</div>	
 											</div>
-											<div class="col-md-6 col-sm-12" style="margin:-5px 0;padding:0 10px;">
-												<div class="form-group">
-													<label style="font-size:13px;font-weight:500;">Prefered Location <span class="required">
-															* </span></label>
-													<div class="input-group">
-														<span class="input-group-addon">
-															<i class="fa fa-map-marker"></i>
-														</span>
-
-														<input type="text" id="pref_loc" name="pref_loc" 
-														class="form-control select2" placeholder="Select preferred location"
-														onblur="pref_loc_locality()">									
-														
-													</div>
-													<input type="text" id="prefered_location" onblur="pref_loc_locality()"
-															name="prefered_location" class="form-control select2"
-															 style="border: 0;">
-												</div>
-											</div>
-											<div class="col-md-6 col-sm-12" style="margin:-5px 0;padding:0 10px;">
-												<div class="form-group">
-													<label style="font-size:13px;font-weight:500;">Area </label>
-													<div class="input-group">
-														<span class="input-group-addon">
-														<i class="fa fa-map-marker"></i>
-														</span>
-														<input type="text" id="pref_locality"
-														onblur="pref_loc_locality()" 
-														name="p_locality" class="form-control" placeholder="Select locality" disabled>
-														
-													</div>
-													<input type="text" id="preferred_locality" style="border:0" 
-														name="p_locality" class="form-control">
-												</div>
-											</div>
-											<div class="col-md-12 col-sm-12 col-xs-12" style="margin:-5px 0;padding:0 10px;">
-												<div class="form-group">
-													<label style="font-size:13px;font-weight:500;">Skills</label>
-													<div>
-														<input type="text" name="name" id="newskill" class="form-control" placeholder="Search for skill...">
-														{!! Form::select('linked_skill_id[]', $skills, null, ['id'=>'linked_skill_id', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Skills', 'multiple']) !!}
-													</div>
-												</div>
-											</div>
+											
+											
 											<div class="col-md-6 col-sm-6 col-xs-6" style="margin:-5px 0;padding:0 10px;">
 												<label style="font-size:13px;font-weight:500;">Post Id</label>
 												<div class="form-group">				
@@ -2574,28 +2551,35 @@ function loader(arg){
 	function pref_loc_locality(){
 		var selected_pref_locations = (document.getElementById('prefered_location').value).split(',');
 		var selected_pref_locality = (document.getElementById('preferred_locality').value).split(',');
-		if(selected_pref_locations.length == 1){
+		if(prefLocationArray.length == 1){
 			document.getElementById("prefered_location").disabled = false;
 			document.getElementById("pref_locality").disabled = false;
 			document.getElementById("pref_locality").value = '';
-		}else if(selected_pref_locations.length > 1){
+		}else if(prefLocationArray.length > 1){
 			document.getElementById("prefered_location").disabled = false;
 			document.getElementById("pref_locality").disabled = true;
 			document.getElementById("preferred_locality").disabled = true;
+			prefLocalityArray = [];
+			// plocalselect.val(prefLocalityArray).trigger("change");
 			document.getElementById("pref_locality").value = 'Can\'t select locality for multiple location';
 		}else if(document.getElementById('prefered_location').value == ''){
 			document.getElementById("pref_locality").disabled = true;
+			prefLocalityArray = [];
+			// plocalselect.val(prefLocalityArray).trigger("change"); 
+			document.getElementById("pref_locality").value = 'Select one preferred location.';
 			document.getElementById("preferred_locality").disabled = true;
 		}
 
 		if(document.getElementById('preferred_locality').value == ''){
 			document.getElementById("preferred_locality").disabled = true;
-		}else if(selected_pref_locality.length >= 1 && selected_pref_locations.length == 1){
+		}else if(prefLocalityArray.length >= 1 && prefLocationArray.length == 1){
 			document.getElementById("preferred_locality").disabled = false;
 		}else{
 			document.getElementById("preferred_locality").disabled = true;
 		}
 	}
+
+	
 	var prefLocalityArray = [];
     var plocalselect = $("#preferred_locality").select2();
 	var prefLoc2 = $("#pref_locality");
@@ -2613,10 +2597,10 @@ function loader(arg){
 		  	var selectedLocality = document.getElementById('preferred_locality').value;
 		  	if(selectedLocality == ''){
 		  		selectedLocality = selectedLocality + pref_locality;
-		  		prefLocalityArray.push(selectedLocality + pref_locality);
+		  		prefLocalityArray.push(selectedLocality);
 		  	}else{
 		  		selectedLocality = selectedLocality + ', '+pref_locality;
-		  		prefLocalityArray.push(selectedLocality + pref_locality);
+		  		prefLocalityArray.push(selectedLocality);
 		  	}	
 		  	console.log(prefLocalityArray);	  	
 		  	document.getElementById('preferred_locality').value = selectedLocality;
@@ -2625,7 +2609,7 @@ function loader(arg){
         		dataType: 'json',
         		data: prefLocalityArray
         	});
-        	plocalselect.val(prefLocalityArray).trigger("change"); 
+        	// plocalselect.val(prefLocalityArray).trigger("change"); 
 		  	// console.log(place2);
 		  } else { document.getElementById('pref_locality').placeholder = 'select some locality'; }
 		}

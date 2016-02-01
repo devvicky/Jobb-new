@@ -89,7 +89,7 @@
 
 
 									<div class="row">
-										<div class="col-md-6 col-sm-6 col-xs-12">
+										<div class="col-md-12 col-sm-12 col-xs-12">
 											<div class="form-group">
 												<label>
 													Job Role <span class="required">*</span>
@@ -109,7 +109,7 @@
 											</div>
 										</div>
 										
-										<div class="col-md-6 col-sm-6 col-xs-12">
+										<div class="col-md-12 col-sm-12 col-xs-12">
 										<div class="form-group">
 											<label>Job Type <span class="required">
 											* </span></label>
@@ -326,28 +326,6 @@
 										</div>
 										<!--/span-->
 									</div>
-										<div class="row">
-											
-											<div class="col-md-6 col-sm-6 col-xs-12">
-												<div class="form-group">
-													<label>Job Type <span class="required">
-													* </span></label>
-													<div class="input-group">
-														<span class="input-group-addon">
-															<i class="icon-hourglass" style="color:darkcyan;"></i>
-														</span>
-														<select name="time_for" class="form-control" style="z-index:0;">
-															<option value="">-- select --</option>
-															<option value="Full Time">Full Time</option>
-															<option value="Part Time">Part Time</option>
-															<option value="Freelancer">Freelancer</option>
-															<option value="Work from Home">Work from Home</option>
-														</select>
-													</div>
-												</div>
-											</div>
-										</div>
-											<!--/span-->
 										<div class="row">
 											<div class="col-md-6 col-sm-6 col-xs-12">
 												<div class="form-group">							

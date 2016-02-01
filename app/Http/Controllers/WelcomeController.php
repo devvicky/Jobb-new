@@ -49,8 +49,15 @@ class WelcomeController extends Controller {
 						   ->with('indUser', 'corpUser')
 						   ->where('post_type', '=', 'skill');
 		if($role != null){
-			$jobPosts->where('role', 'like', '%'.$role.'%');
-			$skillPosts->where('role', 'like', '%'.$role.'%');
+			$jobPosts->where('role', 'like', '%'.$role.'%')
+					 ->orWhere('post_title', 'like', '%'.$role.'%')
+					 ->orWhere('education', 'like', '%'.$role.'%');
+			$skillPosts->where('role', 'like', '%'.$role.'%')
+					   ->orWhere('post_title', 'like', '%'.$role.'%')
+					   ->orWhere('education', 'like', '%'.$role.'%');
+			// $jobPosts->leftJoin('roles', 'roles.name', 'like', '%'.$role.'%')
+			// 		 ->leftJoin('industry_functional_area_role_mappings', 'industry_functional_area_role_mappings.role', '=', 'roles.id')
+			// 		 ->where('industry_functional_area_role_mappings.id', '=', 'role');
 		}
 		if($city != null){
 			$pattern = '/\s*,\s*/';
@@ -70,7 +77,7 @@ class WelcomeController extends Controller {
 		$jobPosts = $jobPosts->paginate(15);
 		$skillPosts = $skillPosts->paginate(15);
 
-		return view('pages.index', compact('title', 'jobPosts', 'skillPosts'));
+		return view('pages.index', compact('title', 'jobPosts', 'skillPosts', 'role', 'experience', 'city'));
 		// return $jobPosts;
 	}
 }

@@ -983,7 +983,7 @@ div[class*='icheckbox_'], div[class*='iradio_'] {
     border: 0;
     color: lightgrey;
     padding: 8px 10px;
-    border-bottom: 4px solid #41656D;
+    border-bottom: 4px solid #506669;
     font-size: 15px !important;
 }
 
@@ -1475,16 +1475,24 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     display: none;
 }
 
-#id_radio1
-    {
+#id_radio1{
          cursor: pointer;
     }
 
-#id_radio2
-    {
+#id_radio2{
          cursor: pointer;
     }
 
+
+
+.login-bg {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 900px;
+    opacity: 0.5;
+}
 
 /*Welcome css*/
 
@@ -1519,7 +1527,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     right: 0;
     top: 0;
     width: 100%;
-    height: 100%;
+    height: 2500px;
     opacity: 0.5;
 }
 
@@ -1670,4 +1678,23 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     color: #3b9c96;
     background-color: #fff;
     border-color: #307f7a;
+}
+
+.tabbable-line > .nav-tabs-welcome > li.active > a {
+    background-color: transparent !important;
+    color: white !important;
+}
+
+.tabbable-line > .nav-tabs-welcome > li > a {
+    border: 0;
+    margin-right: 0;
+    color: #5A5959;
+}
+
+.welcome-search-type{
+    color: white !important;
+}
+
+.welcome-detail{
+    display: none;
 }

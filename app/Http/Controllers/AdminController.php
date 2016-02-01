@@ -151,20 +151,18 @@ class AdminController extends Controller {
 
 	public function updateIndustryfunctional(Request $request)
 	{
-		$fiUser = new Industry_functional_area_mappings();
-		$fiUser->industry = $request['Industry'];
-		$fiUser->functional_area = $request['FunctionalAreas'];
-		$fiUser->save();
+		$fiUser = Industry::findOrFail($request['Industry']);
+		$fiUser->ifmapping()->attach($request['farea']);
 		return redirect("/dataUpdate");
 	}
 
-	public function updateIndfunctionalRole(Request $request)
-	{
-		$fiUser = new Industry_functional_area_role_mapping();
-		$fiUser->industry_functional_area = $request['Industry_functional_area_mappings'];
-		$fiUser->role = $request['role'];
-		$fiUser->save();
+	public function updateIndfunctionalRole(Request $request){
+
+		$fiUser = Industry_functional_area_mappings::findOrFail($request['Industry_functional_area_mappings']);
+		$fiUser->ifrmapping()->attach($request['role']);
+		// $fiUser->save();
 		return redirect("/dataUpdate");
+		// return $request['Industry_functional_area_mappings'];
 	}
 
 	public function addNewRoles(Request $request){
