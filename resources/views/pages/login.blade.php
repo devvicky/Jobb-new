@@ -722,7 +722,7 @@ $('#individual-register-btn').on('click',function(event){
 	            $('#t-n-c').attr('checked', false); // Unchecks it
 
 	            if(data.data.otp != null && data.data.vcode != null ){
-		            $('#individual-register').hide();
+		            $('.corporate-register-tab').hide();
 		            $('#mobile-otp-form').show();
 		            $('#ind-reg-msg').html('Registration successful ! <br/>Check your mobile/email for further instruction. <br/>Your otp: <b>'+data.data.otp+'</b> to verify mobile.');  
 		            // console.log('both');
@@ -733,7 +733,7 @@ $('#individual-register-btn').on('click',function(event){
 		            });
 
 		        }else if(data.data.vcode != null && data.data.otp == null){
-		        	$('#individual-register').hide();
+		        	$('.corporate-register-tab').hide();
 		            $('#mobile-otp-form').show();
 		        	$('#ind-reg-msg').html('Registration successful ! <br/>Check your email for further instruction.');  
 		        	// console.log('email');
@@ -743,7 +743,7 @@ $('#individual-register-btn').on('click',function(event){
 		                $(this).show();
 		            });
 		        }else if(data.data.otp != null && data.data.vcode == null){
-		        	$('#individual-register').hide();
+		        	$('.corporate-register-tab').hide();
 		            $('#mobile-otp-form').show();
 		        	$('#ind-reg-msg').html('Registration successful ! <br/>Check your mobile for further instruction. <br/>	        		Your otp: <b>'+data.data.otp+'</b> to verify mobile.');  
 		        	// console.log('mobile');

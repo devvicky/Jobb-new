@@ -244,7 +244,7 @@
 						<div class="portlet-title"> -->
 							<div class="links-title" style="text-align: center; margin: 10px 0;">
 								<i class=""></i>
-								<span class="caption-subject font-blue-hoki bold capitalize">Posts by "<span style="color: dimgrey;"> {{$postuser->firm_name}}{{$postuser->fname}} {{$postuser->lname}} </span>"</span>
+								<span class="caption-subject font-blue-hoki bold capitalize">Posts in Group "<span style="color: dimgrey;"> {{$groupUser->group_name}} </span>"</span>
 							</div>
 						<!-- </div>
 					</div> -->
@@ -1603,6 +1603,15 @@
 							<div class="links-title" style="text-align: center; margin: 10px 0;">
 								<i class=""></i>
 								<span class="caption-subject font-blue-hoki bold capitalize">Posts by "<span style="color: dimgrey;"> {{$postuser->firm_name}}{{$postuser->fname}} {{$postuser->lname}} </span>"</span>
+							</div>
+						<!-- </div>
+					</div> -->
+					@elseif($title == 'postInGroup')
+					<!-- <div class="portlet light bordered col-md-9">
+						<div class="portlet-title"> -->
+							<div class="links-title" style="text-align: center; margin: 10px 0;">
+								<i class=""></i>
+								<span class="caption-subject font-blue-hoki bold capitalize">Posts in Group "<span style="color: dimgrey;"> {{$groupUser->group_name}} </span>"</span>
 							</div>
 						<!-- </div>
 					</div> -->

@@ -151,6 +151,7 @@ Route::group(array('middleware' => 'auth'), function(){
 
 	Route::get('favourite', 'PagesController@favourite');
 	Route::get('postbyuser/{utype}/{id}', 'PagesController@postByUser');
+	Route::get('postingroup/{id}', 'PagesController@postInGroup');
 
 	Route::post('change/password', 'UserController@postChangePassword');
 	Route::post('report-abuse', 'JobController@reportAbuse');
@@ -168,11 +169,6 @@ Route::group(array('middleware' => 'auth'), function(){
 
 	Route::get('home/{post_type}/{sort_by}', 'PagesController@homeSorting');
 	Route::get('home/{post_type}/{sort_by_skill}', 'PagesController@homeskillSorting');
-
-	//Welcome Controller
-
-
-
 
 
 	// Admin Controller panel

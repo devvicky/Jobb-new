@@ -27,13 +27,13 @@
 						</a>
 						@if($group->posts_count == 1)
 						<button class="btn btn-success" style="padding: 0 8px;    border-radius: 15px !important; background-color: deepskyblue;border-color: deepskyblue;">
-							<a href="/home" style="color:white;">
+							<a href="/postingroup/{{$group->id}}" style="color:white;">
 								{{$group->posts_count}} Post
 							</a>
 						</button>
 						@elseif($group->posts_count > 1)
 						<button class="btn btn-success" style="padding: 0 8px;    border-radius: 15px !important; background-color: deepskyblue;border-color: deepskyblue;">
-							<a href="/home" style="color:white;">
+							<a href="/postingroup/{{$group->id}}" style="color:white;">
 								{{$group->posts_count}} Posts
 							</a>
 						</button>

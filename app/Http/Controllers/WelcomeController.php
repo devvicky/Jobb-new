@@ -55,9 +55,10 @@ class WelcomeController extends Controller {
 			$skillPosts->where('role', 'like', '%'.$role.'%')
 					   ->orWhere('post_title', 'like', '%'.$role.'%')
 					   ->orWhere('education', 'like', '%'.$role.'%');
-			// $jobPosts->leftJoin('roles', 'roles.name', 'like', '%'.$role.'%')
+			// $jobPosts->leftJoin('roles', 'roles.id', '=', 'role')
+			// 		 ->where('roles.name', 'like', '%'.$role.'%')
 			// 		 ->leftJoin('industry_functional_area_role_mappings', 'industry_functional_area_role_mappings.role', '=', 'roles.id')
-			// 		 ->where('industry_functional_area_role_mappings.id', '=', 'role');
+			// 		 ->where('postjobs.role', '=', 'industry_functional_area_role_mappings.id');
 		}
 		if($city != null){
 			$pattern = '/\s*,\s*/';

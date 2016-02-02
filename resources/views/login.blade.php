@@ -208,7 +208,7 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 <script src="{{ asset('/assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('/assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js') }}" type="text/javascript"></script>
 <script src="{{ asset('/assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js') }}" type="text/javascript"></script>
-<script src="{{ asset('/assets/admin/pages/scripts/form-validation.js') }}"></script>
+<!-- <script src="{{ asset('/assets/admin/pages/scripts/form-validation.js') }}"></script> -->
 <script src="{{ asset('/assets/global/plugins/bootstrap-tabdrop/js/bootstrap-tabdrop.js') }}" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
@@ -235,7 +235,7 @@ jQuery(document).ready(function() {
   Login.init();
   Demo.init(); // init demo features
   UIExtendedModals.init();
-  FormValidation.init();
+  // FormValidation.init();
 });
 </script>
 <!-- END JAVASCRIPTS -->

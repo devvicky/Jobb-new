@@ -900,11 +900,10 @@ public function homeskillFilter(){
 				// 	$users->whereIn('linked_skill', $skillsArray);
 				// }
 
-				if(Auth::user()->indentifier == 2){
-					$perPeople = '100';
+				// if(Auth::user()->indentifier == 2){
+					// $perPeople = '100';
 					if($city != null || $name != null || $category != null || $working_at != null || $mobile != null || $min_exp != null || $max_exp != null || $prefered_jobtype != null || $resume != null || $skills == null){
 						$perPeople = '100';
-						return $perPeople;
 					}else if($skills != null){
 						$userSkills = array_map('trim', explode(',', $skillsArray));
 						unset ($userSkills[count($userSkills)-1]);
@@ -920,7 +919,7 @@ public function homeskillFilter(){
 						
 					}
 					
-				}
+				// }
 
 				$users = $users->paginate(15);
 
@@ -1833,19 +1832,23 @@ public function homeskillFilter(){
 	}
 
 
-	public function postInGroup($utype, $id){
+	public function postInGroup($id){
 		if (Auth::check()) {
 			$title = 'postInGroup';
 			$groups = array();
-				$groupUser = Induser::find($id);
-				$jobPosts = Postjob::orderBy('id', 'desc')->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
+				$groupUser = Group::find($id);
+
+				$jobPosts = Postjob::orderBy('id', 'desc')							
+							->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 							->where('post_type', '=', 'job')
-							->where('postjobs.individual_id', '=', $id)
+							->whereRaw('id in (select post_id from post_group_taggings where group_id ='.$id.')')
 							->paginate(15);
-				$skillPosts = Postjob::orderBy('id', 'desc')->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
+				$skillPosts = Postjob::orderBy('id', 'desc')							
+							->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 							->where('post_type', '=', 'skill')
-							->where('postjobs.individual_id', '=', $id)
+							->whereRaw('id in (select post_id from post_group_taggings where group_id ='.$id.')')
 							->paginate(15);
+
 				$links = DB::select('select id from indusers
 									where indusers.id in (
 											select connections.user_id as id from connections
