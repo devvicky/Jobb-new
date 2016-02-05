@@ -563,7 +563,7 @@ class UserController extends Controller {
 	  $gp_user = Socialize::with('google')->user();
 
 	  $jtIndUser = Induser::where('email', '=', $gp_user->getEmail())->first();
-	  $jtCorpUser = Corpuser::where('firm_email_id', '=', $fb_user->getEmail())->first();
+	  $jtCorpUser = Corpuser::where('firm_email_id', '=', $gp_user->getEmail())->first();
 
 	  $authUser = User::where('email', '=', $gp_user->getEmail())->first();
 	  if(!empty($jtIndUser) && $gp_user->token != null){
@@ -622,7 +622,7 @@ class UserController extends Controller {
 	  $li_user = Socialize::with('linkedin')->user();
 
 	  $jtIndUser = Induser::where('email', '=', $li_user->getEmail())->first();
-	  $jtCorpUser = Corpuser::where('firm_email_id', '=', $fb_user->getEmail())->first();
+	  $jtCorpUser = Corpuser::where('firm_email_id', '=', $li_user->getEmail())->first();
 
 	  $authUser = User::where('email', '=', $li_user->getEmail())->first();
 	  if(!empty($jtIndUser) && $li_user->token != null){
