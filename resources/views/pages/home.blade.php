@@ -793,29 +793,20 @@
 																				style="font-size: 19px;color: darkslateblue;"></i>
 																			<span class="badge-share" id="share-count-{{ $post->id }}">@if($post->postactivity->sum('share') > 0){{ $post->postactivity->sum('share') }}@endif</span>
 																		</button>
-																		<ul class="dropdown-menu pull-right" role="menu" 
-																			style="min-width:0;box-shadow:0 0 !important">
-																			<li style="background-color: tan;">
-																				<a href="#share-post" data-toggle="modal" class="jobtip sojt" id="sojt-{{$post->id}}" data-share-post-id="{{$post->id}}">
-																					Share on Jobtip
-																				</a>
-																			</li>
-																			<li style="background-color: #3b5998;">
-																				<a href="/" class="facebook">
-																					<i class="fa fa-facebook post-social-icon" ></i>
-																				</a>
-																			</li>
-																			<li style="background-color: #c32f10;">
-																				<a href="/" class="google-plus">
-																					<i class="fa fa-google-plus post-social-icon"></i>
-																				</a>
-																			</li>
-																			<li style="background-color: #00aced;">
-																				<a href="/" class="linkedin">
-																					<i class="fa fa-linkedin post-social-icon" ></i>
-																				</a>
-																			</li>
-																		</ul>													
+								<ul class="dropdown-menu pull-right" role="menu" 
+									style="min-width:0;box-shadow:0 0 !important">
+									<li style="background-color: tan;">
+										<a href="#share-post" data-toggle="modal" 
+										   class="jobtip sojt" id="sojt-{{$post->id}}" 
+										   data-share-post-id="{{$post->id}}">
+											Share on Jobtip
+										</a>
+									</li>
+<li style="padding: 8px 0 0px;margin: auto;display: table;">		
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<div class="addthis_sharing_toolbox" data-url="http://jobtip.in/home" data-title="{{$post->post_title}}"></div>
+</li>
+								</ul>													
 																	</div>
 																	<div class="report-css">
 															 @if($expired != 1 && Auth::user()->induser_id != $post->individual_id )
@@ -1961,21 +1952,11 @@
 																					Share on Jobtip
 																				</a>
 																			</li>
-																			<li style="background-color: #3b5998;">
-																				<a href="/" class="facebook">
-																					<i class="fa fa-facebook post-social-icon" ></i>
-																				</a>
-																			</li>
-																			<li style="background-color: #c32f10;">
-																				<a href="/" class="google-plus">
-																					<i class="fa fa-google-plus post-social-icon"></i>
-																				</a>
-																			</li>
-																			<li style="background-color: #00aced;">
-																				<a href="/" class="linkedin">
-																					<i class="fa fa-linkedin post-social-icon" ></i>
-																				</a>
-																			</li>
+<li style="padding: 8px 0 0px;margin: auto;display: table;">		
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<div class="addthis_sharing_toolbox" data-url="http://jobtip.in/home" data-title="{{$post->post_title}}"></div>
+</li>
+																			
 																		</ul>													
 																	</div>
 																	<div class="report-css">
@@ -2458,6 +2439,9 @@
 @stop
 
 @section('javascript')
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<!-- <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-528ddbdf4d9dd13d" async="async"></script> -->
 
 <script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
 <script src="/assets/js/home-js.js"></script>

@@ -15,6 +15,13 @@
 <meta content="" name="author"/>
 <!-- csrf_token -->
 <meta name="csrf-token" content="{{ csrf_token() }}" />
+
+<!-- fb -->
+<meta property="og:image" content="http://jobtip.in/assets/new_big_logo.png" itemprop="thumbnailUrl">
+<meta property="og:title" content="Jobtip">
+<meta property="og:url" content="http://jobtip.in">
+<meta property="og:site_name" content="Jobtip">
+
 <link rel="canonical" href="http://www.alessioatzeni.com/wp-content/tutorials/jquery/simple-tooltip/index.html" />
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
 <!-- <link rel="stylesheet" type="text/css" href="{{ asset('/assets/css/jquery.mobile-1.4.5.css') }}"/>
