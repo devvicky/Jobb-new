@@ -21,7 +21,7 @@ Route::get('verify', 'PagesController@verifyPage');
 Route::get('verify/{id}', 'PagesController@verifyEmail');
 Route::post('verify', 'PagesController@verifyMobile');
 
-Route::get('post/{id}/social', 'PagesController@postId');
+Route::get('post/{id}/social', 'PagesController@publicPost');
 
 // Social login
 Route::get('facebook', 'UserController@redirectToFacebook');

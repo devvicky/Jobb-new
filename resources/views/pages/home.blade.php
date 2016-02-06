@@ -805,7 +805,7 @@
 									</li>
 <li style="padding: 8px 0 0px;margin: auto;display: table;">		
 <!-- Go to www.addthis.com/dashboard to customize your tools -->
-<div class="addthis_sharing_toolbox" data-url="http://jobtip.in/home" data-title="{{$post->post_title}}"></div>
+<div class="addthis_sharing_toolbox" data-url="http://jobtip.in/post/{{$post->unique_id}}/social" data-title="{{$post->post_title}}"></div>
 </li>
 								</ul>													
 																	</div>

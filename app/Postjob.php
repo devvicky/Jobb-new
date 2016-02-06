@@ -93,24 +93,26 @@ class Postjob extends Model {
 
 
 	public function getMagicMatchAttribute(){
-		if(Auth::user()->identifier == 1){
-			$userSkills = Induser::where('id', '=', Auth::user()->induser_id)->first(['linked_skill']);
-			$userSkills = array_map('trim', explode(',', $userSkills->linked_skill));
-			unset ($userSkills[count($userSkills)-1]);
+		if(Auth::check()){
+			if(Auth::user()->identifier == 1){
+				$userSkills = Induser::where('id', '=', Auth::user()->induser_id)->first(['linked_skill']);
+				$userSkills = array_map('trim', explode(',', $userSkills->linked_skill));
+				unset ($userSkills[count($userSkills)-1]);
 
-			$postSkills = $this->attributes['linked_skill'];
-			$postSkills = array_map('trim', explode(',', $this->attributes['linked_skill']));
-			unset ($postSkills[count($postSkills)-1]);
+				$postSkills = $this->attributes['linked_skill'];
+				$postSkills = array_map('trim', explode(',', $this->attributes['linked_skill']));
+				unset ($postSkills[count($postSkills)-1]);
 
-			$overlap = array_intersect($userSkills, $postSkills);
-			$counts  = array_count_values($overlap);
-			if(count($counts) > 0){
-				$percentage = round( ( count($counts) / count($postSkills) ) * 100 );
-			}else{
-				$percentage = 0;
+				$overlap = array_intersect($userSkills, $postSkills);
+				$counts  = array_count_values($overlap);
+				if(count($counts) > 0){
+					$percentage = round( ( count($counts) / count($postSkills) ) * 100 );
+				}else{
+					$percentage = 0;
+				}
+
+				return $percentage;
 			}
-
-			return $percentage;
 		}else{		
         	return null;
 		}
