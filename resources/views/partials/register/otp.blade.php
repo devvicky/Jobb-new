@@ -1,9 +1,10 @@
 <!-- BEGIN OTP VERIFICATIO FORM -->
-<form class="otp-verify-form" action="/verify" method="post" id="mobile-otp-form" style="display:none" id="verify-otp">
+<form class="otp-verify-form" action="/verify" method="post" id="mobile-otp-form" 
+		style="display:none" id="verify-otp">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	<div class="row">
 		<div class="col-md-2 col-sm-2"></div>
-		<div class="col-md-6 col-sm-6">
+		<div class="col-md-12 col-sm-6">
 			<h3 style="margin-bottom: 18px;color:khaki;font-size: 27px;text-shadow: 0px 1px 1px blue;">
 				Email or Mobile Verification
 			</h3>

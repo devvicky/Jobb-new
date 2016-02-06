@@ -137,7 +137,6 @@ $(document).ready(function(){
 $('#corporate-login-btn').on('click',function(event){       
     event.preventDefault();
 
-
     $("#corporate-login").validate();
     if($("#corporate-login").valid()){
 	    loader('show');
@@ -158,7 +157,7 @@ $('#corporate-login-btn').on('click',function(event){
 	      cache : false,
 	      success: function(data){
 	        loader('hide');
-	        if(data == 'login'){
+	        if(data.data.page == 'login'){
 	            $('#corp-msg-box').removeClass('alert alert-success');
 	            $('#corp-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
 	                $(this).show();
@@ -169,14 +168,13 @@ $('#corporate-login-btn').on('click',function(event){
 	            $('#corp-msg-box').addClass('alert alert-success').fadeIn(1000, function(){
 	                $(this).show();
 	            });
-	            // $('#corp-msg').text('Login success');
-	            redirect(data);
+	            redirect(data.data.page);
 	        }
 	      },
 	      error: function(data) {
 	        loader('hide');
 	        $('#corp-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
-	                $(this).show();
+                $(this).show();
 	        });
 	        $('#corp-msg').text('Some error occured !');
 	      }
