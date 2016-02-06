@@ -3600,7 +3600,7 @@ label {
   background-color: #dff0d8;
 }
 .has-success .input-group-addon > i {
-  color: #3c763d;
+  color: #45B6AF;
 }
 .has-success .form-control-feedback {
   color: #3c763d;
@@ -3662,7 +3662,7 @@ label {
   background-color: #f2dede;
 }
 .has-error .input-group-addon > i {
-  color: #a94442;
+  color: #F3565D;
 }
 .has-error .form-control-feedback {
   color: #a94442;

@@ -63,15 +63,18 @@ class PagesController extends Controller {
 			$title = 'home';
 
 			if(Auth::user()->identifier == 1){
-
+				$sort_by =" ";
+				$sort_by_skill = " ";
 				$skills = Skills::lists('name', 'name');
 				$jobPosts = Postjob::orderBy('id', 'desc')
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 								   ->where('post_type', '=', 'job')
+								   ->where('individual_id', '!=', Auth::user()->induser_id)
 								   ->paginate(5);
 				$skillPosts = Postjob::orderBy('id', 'desc')
 									 ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 									 ->where('post_type', '=', 'skill')
+									 ->where('individual_id', '!=', Auth::user()->induser_id)
 									 ->paginate(5);
 
 				$links = DB::select('select id from indusers
@@ -152,9 +155,11 @@ class PagesController extends Controller {
 								->lists('name', 'id');
 
 				}
-				return view('pages.home', compact('jobPosts', 'skillPosts', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'linksApproval', 'linksPending', 'share_links', 'share_groups'));
+				return view('pages.home', compact('jobPosts', 'skillPosts', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'linksApproval', 'linksPending', 'share_links', 'share_groups', 'sort_by', 'sort_by_skill'));
 				// return $jobPosts;
 			} elseif(Auth::user()->identifier == 2){
+				$sort_by = " ";
+				$sort_by_skill = " ";
 				$skills = Skills::lists('name', 'id');
 				$jobPosts = Postjob::orderBy('id', 'desc')
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
@@ -176,7 +181,7 @@ class PagesController extends Controller {
 					$following = collect($following);
 				}
 
-				return view('pages.home_corporate', compact('jobPosts', 'skillPosts', 'title', 'following', 'skills'));
+				return view('pages.home_corporate', compact('jobPosts', 'skillPosts', 'title', 'following', 'skills', 'sort_by', 'sort_by_skill'));
 
 			}elseif(Auth::user()->identifier == 3){
 				$reportAbuseCount = ReportAbuse::count();
@@ -324,7 +329,7 @@ class PagesController extends Controller {
 		return view('pages.notification_view', compact('user', 'thanks', 'title'));
 	}
 	
-	public function profile($utype,$id)
+	public function profile($name,$utype,$id)
 	{		
 		$title = 'profile';
 		if($utype == 'ind'){
@@ -1449,7 +1454,7 @@ public function homeskillFilter(){
 			if(Auth::user()->identifier == 1 || Auth::user()->identifier == 2){
 
 				$skills = Skills::lists('name', 'id');
-
+				$sort_by_skill = " ";
 				if($sort_by == 'date' && $post_type == 'job'){
 					$jobPosts = Postjob::orderBy('created_at', 'asc')
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
@@ -1575,7 +1580,7 @@ public function homeskillFilter(){
 
 				}
 				// return $jobPosts;
-				return view('pages.home', compact('jobPosts', 'skillPosts', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'linksApproval', 'linksPending', 'share_links', 'share_groups'));
+				return view('pages.home', compact('jobPosts', 'skillPosts', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'linksApproval', 'linksPending', 'share_links', 'share_groups', 'sort_by', 'sort_by_skill'));
 			} 
 		}
 		else{
@@ -1591,7 +1596,7 @@ public function homeskillFilter(){
 			if(Auth::user()->identifier == 1 || Auth::user()->identifier == 2){
 
 				$skills = Skills::lists('name', 'id');
-
+				$sort_by = " ";
 				if($sort_by_skill == 'date' && $post_type == 'skill'){
 					$skillPosts = Postjob::orderBy('created_at', 'asc')
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
@@ -1700,7 +1705,7 @@ public function homeskillFilter(){
 
 				}
 				// return $sort_by;
-				return view('pages.home', compact('jobPosts', 'skillPosts', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'linksApproval', 'linksPending', 'share_links', 'share_groups'));
+				return view('pages.home', compact('jobPosts', 'skillPosts', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'linksApproval', 'linksPending', 'share_links', 'share_groups', 'sort_by', 'sort_by_skill'));
 			} 
 		}
 		else{
@@ -1913,12 +1918,99 @@ public function homeskillFilter(){
 									)', [Auth::user()->induser_id]);
 				$following = collect($following);
 			}
-			if(Auth::user()->corpuser_id != null){
-				$following = DB::select('select id from indusers
-										 where indusers.id in (
-											select follows.individual_id as id from follows
-											where follows.corporate_id=?
-									)', [Auth::user()->corpuser_id]);
+			if(Auth::user()->identifier == 1){
+				$userSkills = Induser::where('id', '=', Auth::user()->induser_id)->first(['linked_skill']);
+				$userSkills = array_map('trim', explode(',', $userSkills->linked_skill));
+				unset ($userSkills[count($userSkills)-1]); 
+			}
+			
+			return view('pages.home', compact('jobPosts', 'share_links', 'share_groups', 'skillPosts', 'linksPending', 'linksApproval', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'groupUser'));
+			// return $userSkills;
+		}else{
+			return redirect('login');
+		}	
+	}
+
+
+	public function postId($id){
+		if (Auth::check()) {
+			$title = 'postId';
+			$groups = array();
+				$postid = Postjob::find($id);
+
+				$jobPosts = Postjob::orderBy('id', 'desc')							
+							->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
+							->where('post_type', '=', 'job')
+							->where('unique_id', '=', $id)
+							->paginate(1);
+				$skillPosts = Postjob::orderBy('id', 'desc')							
+							->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
+							->where('post_type', '=', 'skill')
+							->where('unique_id', '=', $id)
+							->paginate(1);
+
+				$links = DB::select('select id from indusers
+									where indusers.id in (
+											select connections.user_id as id from connections
+											where connections.connection_user_id=?
+											 and connections.status=1
+											union 
+											select connections.connection_user_id as id from connections
+											where connections.user_id=?
+											 and connections.status=1
+								)', [Auth::user()->induser_id, Auth::user()->induser_id]);
+				$links = collect($links);
+				$linksPending = DB::select('select id from indusers
+											where indusers.id in (
+													select connections.connection_user_id as id from connections
+													where connections.user_id=?
+													 and connections.status=0
+											)', [Auth::user()->induser_id]);
+				$linksPending = collect($linksPending);
+
+				$linksApproval = DB::select('select id from indusers
+											where indusers.id in (
+													select connections.user_id as id from connections
+													where connections.connection_user_id=?
+													 and connections.status=0
+											)', [Auth::user()->induser_id]);
+				$linksApproval = collect($linksApproval);
+				if(Auth::user()->identifier == 1){
+				$share_links=Induser::whereRaw('indusers.id in (
+												select connections.user_id as id from connections
+												where connections.connection_user_id=?
+												 and connections.status=1
+												union 
+												select connections.connection_user_id as id from connections
+												where connections.user_id=?
+												 and connections.status=1
+									)', [Auth::user()->induser_id, Auth::user()->induser_id])
+								->get(['id','fname'])
+								->lists('fname','id');
+
+				$share_groups = Group::leftjoin('groups_users', 'groups_users.group_id', '=', 'groups.id')					
+							->where('groups.admin_id', '=', Auth::user()->induser_id)
+							->orWhere('groups_users.user_id', '=', Auth::user()->induser_id)
+							->groupBy('groups.id')
+							->get(['groups.id as id', 'groups.group_name as name'])
+							->lists('name', 'id');
+
+				}
+				$groups = Group::leftjoin('groups_users', 'groups_users.group_id', '=', 'groups.id')					
+							->where('groups.admin_id', '=', Auth::user()->induser_id)
+							->orWhere('groups_users.user_id', '=', Auth::user()->induser_id)
+							->groupBy('groups.id')
+							->get(['groups.id as id'])
+							->lists('id');
+			
+			$skills = Skills::lists('name', 'id');			
+
+			if(Auth::user()->induser_id != null){
+				$following = DB::select('select id from corpusers 
+										 where corpusers.id in (
+											select follows.corporate_id as id from follows
+											where follows.individual_id=?
+									)', [Auth::user()->induser_id]);
 				$following = collect($following);
 			}
 			if(Auth::user()->identifier == 1){
@@ -1927,7 +2019,7 @@ public function homeskillFilter(){
 				unset ($userSkills[count($userSkills)-1]); 
 			}
 			
-			return view('pages.home', compact('jobPosts', 'share_links', 'share_groups', 'skillPosts', 'linksPending', 'linksApproval', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'groupUser'));
+			return view('pages.home', compact('jobPosts', 'share_links', 'share_groups', 'skillPosts', 'linksPending', 'linksApproval', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'postid'));
 			// return $userSkills;
 		}else{
 			return redirect('login');

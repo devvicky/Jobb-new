@@ -35,10 +35,10 @@
 								<div class="col-md-12">
 									<div class="btn-group">
 										<button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" style="border: 0;color:#8c8c8c;background:transparent;">
-										<i class="glyphicon glyphicon-sort"></i> Sort by <i class="fa fa-angle-down"></i>
+										<i class="glyphicon glyphicon-sort"></i> Sort by {{$sort_by}}<i class="fa fa-angle-down"></i>
 										</button>
 										<ul class="dropdown-menu dropdown-menu-sort" role="menu" style="min-width: 130px;margin: 4px -25px;">
-											<li >
+											<li>
 												<a href="/home/job/date">Date</a>
 											</li>
 											<li>
@@ -248,6 +248,15 @@
 							</div>
 						<!-- </div>
 					</div> -->
+					@elseif($title == 'postId')
+					<!-- <div class="portlet light bordered col-md-9">
+						<div class="portlet-title"> -->
+							<div class="links-title" style="text-align: center; margin: 10px 0;">
+								<i class=""></i>
+								<span class="caption-subject font-blue-hoki bold capitalize">Posts Id "<span style="color: dimgrey;"> </span>"</span>
+							</div>
+						<!-- </div>
+					</div> -->
 					@endif
 					
 
@@ -387,7 +396,7 @@
                                                             @endif
                                                             <div class="row">
                                                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                                                    <a href="/profile/ind/{{$post->individual_id}}" class="post-name-css">
+                                                                    <a href="/profile/{{ $post->induser->fname}}/ind/{{$post->individual_id}}" class="post-name-css">
                                                                         {{ $post->induser->fname}} {{ $post->induser->lname}}
                                                                     </a>
                                                                 </div>
@@ -1457,20 +1466,14 @@
 								<div class="col-md-12">
 									<div class="btn-group">
 										<button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" style="border: 0;color:#8c8c8c;background:transparent;">
-										<i class="glyphicon glyphicon-sort"></i> Sort by <i class="fa fa-angle-down"></i>
+										<i class="glyphicon glyphicon-sort"></i> Sort by {{$sort_by_skill}}<i class="fa fa-angle-down"></i>
 										</button>
 										<ul class="dropdown-menu dropdown-menu-sort" role="menu" style="min-width: 130px;margin: 4px -25px;">
 											<li >
-												<a href="/home/job/date">Date</a>
+												<a href="/home/type/skill/date">Date</a>
 											</li>
 											<li>
-												<a href="/home/job/magic-match">Magic Match</a>
-											</li>
-											<li>
-												<a href="/home/job/individual">Individual Post</a>
-											</li>
-											<li>
-												<a href="/home/job/corporate">corporate Post</a>
+												<a href="/home/type/skill/individual">Individual Post</a>
 											</li>
 										</ul>
 									</div>
@@ -2361,7 +2364,7 @@
 		<div class="modal-content">
 			<div id="myactivity-posts-content" >
 				<div style="text-align:center;">
-					<img src="/assets/ellipsis.gif"><span> Please wait...</span>
+					<img src="/assets/global/img/loading.gif"><span> Please wait...</span>
 				</div>
 			</div>
 		</div>
@@ -2374,7 +2377,9 @@
 	<div class="modal-dialog modal-sm">
 		<div class="modal-content" id="links-follow">
 			<div id="links-follow-content">
-				Links Follow
+				<div style="text-align:center;">
+					<img src="/assets/global/img/loading.gif"><span> Please wait...</span>
+				</div>
 			</div>
 		</div>
 		<!-- /.modal-content -->
@@ -2455,41 +2460,34 @@
 @section('javascript')
 
 <script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
+<script src="/assets/js/home-js.js"></script>
 <script src="http://maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
-<script type="text/javascript">
+
+<script>
 jQuery(document).ready(function() {       
-	ComponentsIonSliders.init();    
-	ComponentsDropdowns.init();
-	ComponentsEditors.init();
-	UIBootstrapGrowl.init();
+  ComponentsIonSliders.init();    
+  ComponentsDropdowns.init();
+  ComponentsEditors.init();
+  UIBootstrapGrowl.init();
     // FormWizard.init();
-});
+}); 
 
 
-function loader(arg){
-    if(arg == 'show'){
-        $('#loader').show();
-    }else{
-        $('#loader').hide();
+//Auto Complete city 
+
+function initializeCity() {
+    var options = { types: ['(cities)'], componentRestrictions: {country: "in"}};
+    var input = document.getElementById('city');
+    var autocomplete = new google.maps.places.Autocomplete(input, options);
+    autocomplete.addListener('place_changed', onPlaceChanged);
+    function onPlaceChanged() {
+      var place = autocomplete.getPlace();
+      if (place.address_components) { 
+        city = place.address_components[0];
+        document.getElementById('city').value = city.long_name;
+      } else { document.getElementById('autocomplete').placeholder = 'Enter a city'; }
     }
-}
-</script> 
-<script type="text/javascript">
-	// var inputId_div = $("#city");
-	
-	function initializeCity() {
-		var options = {	types: ['(cities)'], componentRestrictions: {country: "in"}};
-		var input = document.getElementById('city');
-		var autocomplete = new google.maps.places.Autocomplete(input, options);
-		autocomplete.addListener('place_changed', onPlaceChanged);
-		function onPlaceChanged() {
-		  var place = autocomplete.getPlace();
-		  if (place.address_components) { 
-		  	city = place.address_components[0];
-		  	document.getElementById('city').value = city.long_name;
-		  } else { document.getElementById('autocomplete').placeholder = 'Enter a city'; }
-		}
-	}
+  }
    google.maps.event.addDomListener(window, 'load', initializeCity);   
 
 
@@ -2497,784 +2495,264 @@ function loader(arg){
     var prefLocationArray = [];
     var plselect = $("#prefered_location").select2();
     if(document.getElementById('prefered_location').value != null){
-  		prefLocationArray.push(document.getElementById('prefered_location').value);
-  	}
+      prefLocationArray.push(document.getElementById('prefered_location').value);
+    }
 
-  	var $eventSelect = $("#prefered_location"); 
-	$eventSelect.on("select2:unselect", function (e) {
-		console.log(e.params.data.id);
-		prefLocationArray = $.grep(prefLocationArray, function(value) {
-		  return value != e.params.data.id;
-		});
-	});
+    var $eventSelect = $("#prefered_location"); 
+  $eventSelect.on("select2:unselect", function (e) {
+    console.log(e.params.data.id);
+    prefLocationArray = $.grep(prefLocationArray, function(value) {
+      return value != e.params.data.id;
+    });
+  });
 
     var prefLoc = $("#pref_loc");
-	function initPrefLoc() {
-		var options = {	types: ['(cities)'], componentRestrictions: {country: "in"}};
-		var input = document.getElementById('pref_loc');
-		var autocomplete = new google.maps.places.Autocomplete(input, options);
-		autocomplete.addListener('place_changed', onPlaceChanged);
+  function initPrefLoc() {
+    var options = { types: ['(cities)'], componentRestrictions: {country: "in"}};
+    var input = document.getElementById('pref_loc');
+    var autocomplete = new google.maps.places.Autocomplete(input, options);
+    autocomplete.addListener('place_changed', onPlaceChanged);
 
-		function onPlaceChanged() {
-		  var place = autocomplete.getPlace();
-		  if (place.address_components) { 
-		  	pref_loc_city = place.address_components[0].long_name;
-		  	if(place.address_components.length == 3){		  		
-		  		pref_loc_state = '('+place.address_components[1].long_name+')';
-		  	}else if(place.address_components.length == 4){
-		  		pref_loc_state = '('+place.address_components[2].long_name+')';
-		  	}else{
-		  		pref_loc_state = '';
-		  	}
-		  	setTimeout(function(){ prefLoc.val(''); prefLoc.focus();},0);
-		  	var selectedLoc = document.getElementById('prefered_location').value;
-		  	if(selectedLoc == ''){	
-		  		selectedLoc = selectedLoc + pref_loc_city+pref_loc_state;
-		  		prefLocationArray.push(pref_loc_city+pref_loc_state);
-		  	}else{
-		  		selectedLoc = selectedLoc + ', '+pref_loc_city+pref_loc_state;
-		  		prefLocationArray.push(pref_loc_city+pref_loc_state);
-		  	}
-		  	console.log(prefLocationArray);
-		  	document.getElementById('prefered_location').value = selectedLoc;
-			
-			
-		  	
-		  	$("#prefered_location").select2({
-        		dataType: 'json',
-        		data: prefLocationArray
-        	});
-        	plselect.val(prefLocationArray).trigger("change"); 
+    function onPlaceChanged() {
+      var place = autocomplete.getPlace();
+      if (place.address_components) { 
+        pref_loc_city = place.address_components[0].long_name;
+        if(place.address_components.length == 3){         
+          pref_loc_state = '('+place.address_components[1].long_name+')';
+        }else if(place.address_components.length == 4){
+          pref_loc_state = '('+place.address_components[2].long_name+')';
+        }else{
+          pref_loc_state = '';
+        }
+        setTimeout(function(){ prefLoc.val(''); prefLoc.focus();},0);
+        var selectedLoc = document.getElementById('prefered_location').value;
+        if(selectedLoc == ''){  
+          selectedLoc = selectedLoc + pref_loc_city+pref_loc_state;
+          prefLocationArray.push(pref_loc_city+pref_loc_state);
+        }else{
+          selectedLoc = selectedLoc + ', '+pref_loc_city+pref_loc_state;
+          prefLocationArray.push(pref_loc_city+pref_loc_state);
+        }
+        console.log(prefLocationArray);
+        document.getElementById('prefered_location').value = selectedLoc;
+      
+      
+        
+        $("#prefered_location").select2({
+            dataType: 'json',
+            data: prefLocationArray
+          });
+          plselect.val(prefLocationArray).trigger("change"); 
 
 
-		  	// console.log(place);
-		  } else { 
-		  	document.getElementById('autocomplete').placeholder = 'Your preferred location'; 
-		  }
-		}
+        // console.log(place);
+      } else { 
+        document.getElementById('autocomplete').placeholder = 'Your preferred location'; 
+      }
+    }
 
-	}
+  }
    google.maps.event.addDomListener(window, 'load', initPrefLoc);
 
 
-	function pref_loc_locality(){
-		var selected_pref_locations = (document.getElementById('prefered_location').value).split(',');
-		var selected_pref_locality = (document.getElementById('preferred_locality').value).split(',');
-		if(prefLocationArray.length == 1){
-			document.getElementById("prefered_location").disabled = false;
-			document.getElementById("pref_locality").disabled = false;
-			document.getElementById("pref_locality").value = '';
-		}else if(prefLocationArray.length > 1){
-			document.getElementById("prefered_location").disabled = false;
-			document.getElementById("pref_locality").disabled = true;
-			document.getElementById("preferred_locality").disabled = true;
-			prefLocalityArray = [];
-			// plocalselect.val(prefLocalityArray).trigger("change");
-			document.getElementById("pref_locality").value = 'Can\'t select locality for multiple location';
-		}else if(document.getElementById('prefered_location').value == ''){
-			document.getElementById("pref_locality").disabled = true;
-			prefLocalityArray = [];
-			// plocalselect.val(prefLocalityArray).trigger("change"); 
-			document.getElementById("pref_locality").value = 'Select one preferred location.';
-			document.getElementById("preferred_locality").disabled = true;
-		}
+  function pref_loc_locality(){
+    var selected_pref_locations = (document.getElementById('prefered_location').value).split(',');
+    var selected_pref_locality = (document.getElementById('preferred_locality').value).split(',');
+    if(prefLocationArray.length == 1){
+      document.getElementById("prefered_location").disabled = false;
+      document.getElementById("pref_locality").disabled = false;
+      document.getElementById("pref_locality").value = '';
+    }else if(prefLocationArray.length > 1){
+      document.getElementById("prefered_location").disabled = false;
+      document.getElementById("pref_locality").disabled = true;
+      document.getElementById("preferred_locality").disabled = true;
+      prefLocalityArray = [];
+      // plocalselect.val(prefLocalityArray).trigger("change");
+      document.getElementById("pref_locality").value = 'Can\'t select locality for multiple location';
+    }else if(document.getElementById('prefered_location').value == ''){
+      document.getElementById("pref_locality").disabled = true;
+      prefLocalityArray = [];
+      // plocalselect.val(prefLocalityArray).trigger("change"); 
+      document.getElementById("pref_locality").value = 'Select one preferred location.';
+      document.getElementById("preferred_locality").disabled = true;
+    }
 
-		if(document.getElementById('preferred_locality').value == ''){
-			document.getElementById("preferred_locality").disabled = true;
-		}else if(prefLocalityArray.length >= 1 && prefLocationArray.length == 1){
-			document.getElementById("preferred_locality").disabled = false;
-		}else{
-			document.getElementById("preferred_locality").disabled = true;
-		}
-	}
+    if(document.getElementById('preferred_locality').value == ''){
+      document.getElementById("preferred_locality").disabled = true;
+    }else if(prefLocalityArray.length >= 1 && prefLocationArray.length == 1){
+      document.getElementById("preferred_locality").disabled = false;
+    }else{
+      document.getElementById("preferred_locality").disabled = true;
+    }
+  }
 
-	
-	var prefLocalityArray = [];
+  
+  var prefLocalityArray = [];
     var plocalselect = $("#preferred_locality").select2();
-	var prefLoc2 = $("#pref_locality");
-	function initializePrefLocality() {
-		var options = {	types: ['(regions)'], componentRestrictions: {country: "in"} };
-		var input = document.getElementById('pref_locality');
-		var autocomplete = new google.maps.places.Autocomplete(input, options);
-		autocomplete.addListener('place_changed', onPlaceChanged);
-		function onPlaceChanged() {
-		  var place2 = autocomplete.getPlace();
-		  if (place2.address_components) { 
-		  	var pref_locality = place2.address_components[0].long_name;
+  var prefLoc2 = $("#pref_locality");
+  function initializePrefLocality() {
+    var options = { types: ['(regions)'], componentRestrictions: {country: "in"} };
+    var input = document.getElementById('pref_locality');
+    var autocomplete = new google.maps.places.Autocomplete(input, options);
+    autocomplete.addListener('place_changed', onPlaceChanged);
+    function onPlaceChanged() {
+      var place2 = autocomplete.getPlace();
+      if (place2.address_components) { 
+        var pref_locality = place2.address_components[0].long_name;
 
-		  	setTimeout(function(){ prefLoc2.val(''); prefLoc2.focus();},0);
-		  	var selectedLocality = document.getElementById('preferred_locality').value;
-		  	if(selectedLocality == ''){
-		  		selectedLocality = selectedLocality + pref_locality;
-		  		prefLocalityArray.push(selectedLocality);
-		  	}else{
-		  		selectedLocality = selectedLocality + ', '+pref_locality;
-		  		prefLocalityArray.push(selectedLocality);
-		  	}	
-		  	console.log(prefLocalityArray);	  	
-		  	document.getElementById('preferred_locality').value = selectedLocality;
-		  	pref_loc_locality();
-		  	$("#preferred_locality").select2({
-        		dataType: 'json',
-        		data: prefLocalityArray
-        	});
-        	// plocalselect.val(prefLocalityArray).trigger("change"); 
-		  	// console.log(place2);
-		  } else { document.getElementById('pref_locality').placeholder = 'select some locality'; }
-		}
-	}
+        setTimeout(function(){ prefLoc2.val(''); prefLoc2.focus();},0);
+        var selectedLocality = document.getElementById('preferred_locality').value;
+        if(selectedLocality == ''){
+          selectedLocality = selectedLocality + pref_locality;
+          prefLocalityArray.push(selectedLocality);
+        }else{
+          selectedLocality = selectedLocality + ', '+pref_locality;
+          prefLocalityArray.push(selectedLocality);
+        } 
+        console.log(prefLocalityArray);     
+        document.getElementById('preferred_locality').value = selectedLocality;
+        pref_loc_locality();
+        $("#preferred_locality").select2({
+            dataType: 'json',
+            data: prefLocalityArray
+          });
+          // plocalselect.val(prefLocalityArray).trigger("change"); 
+        // console.log(place2);
+      } else { document.getElementById('pref_locality').placeholder = 'select some locality'; }
+    }
+  }
    google.maps.event.addDomListener(window, 'load', initializePrefLocality); 
 
 
-</script>
-<script>
+// Skill Tag list
 
-$('#skill-list').select2();
-$('#category-list').select2();
-function resetFilter() {
-    document.getElementById("home-filter").reset();
-}
-</script>
-<script>
 $selectedSkills = $("#linked_skill_id").select2();
 $gotit = [];
-	$(function(){
+  $(function(){
 
-	 	function split( val ) {
-	      return val.split( /,\s*/ );
-	    }
-	    function extractLast( term ) {
-	      return split( term ).pop();
-	    }
-
-		$( "#newskill" )
-		.bind( "keydown", function( event ) {
-			if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
-			  event.preventDefault();
-			}
-		})
-		.autocomplete({
-			source: function( request, response ) {
-
-				$.ajax({
-					url: '/job/skillSearch',
-					dataType: "json",
-					data: { term: extractLast( request.term ) },
-					success: function(data) {
-					if (data.length === 0) {
-						$('#add-new-skill').removeClass('hide');
-						$('#add-new-skill').addClass('show');
-					}else{
-						$('#add-new-skill').removeClass('show');
-						$('#add-new-skill').addClass('hide');
-					}
-					response(data);
-					}
-				});
-
-			},
-			search: function() {
-				var term = extractLast( this.value );
-				if ( term.length < 2 ) {
-					return false;
-				}
-			},
-			focus: function() {
-				return false;
-			},
-			select: function(event, ui) {
-				var termsId = [];
-
-				if($selectedSkills.val() != null){
-					termsId = $selectedSkills.val();
-				}
-
-				if(termsId.length != null){
-
-				}
-				termsId.push( ui.item.value );
-				$gotit.push( ui.item.value );
-
-				termsId.push( "" );
-				$selectedSkills.val(termsId).trigger("change"); 
-				$(this).val("");
-				return false;
-			}
-		});
-	});
-
-
-	$(document).ready(function(){
-		$('#add-new-skill').live('click',function(event){  	    
-		  	event.preventDefault();
-		  	if (!$('#newskill').val()) {
-		  		alert('Please enter some skill to add.');
-		  		return false;
-		  	}else{
-			  	var name = $('#newskill').val(); 
-			    $.ajaxSetup({
-					headers: {
-						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-					}
-				});
-			    $.ajax({
-			      url: "{{ url('job/newskill') }}",
-			      type: "POST",
-			      data: { name: name },
-			      cache : false,
-			      success: function(data){
-			        if(data > 0){
-			        	$newSkillList = new Array();
-
-			        	<?php $newSkillList = array(); ?>
-						@foreach($skills as $skill)
-							$newSkillList.push('<?php echo $skill; ?>');
-						@endforeach
-
-			        	$newSkillList.push($('#newskill').val());
-			        	// console.log($newSkillList);
-			        	$("#linked_skill_id").select2({
-			        		dataType: 'json',
-			        		data: $newSkillList
-			        	});
-
-			        	var selectedSkillId = [];
-			        	$newSkill = $('#newskill').val();
-			        	$newSkillId = data;
-			        	// $selectedSkill = $('#linked_skill').val();
-			        	// console.log($gotit);
-			        	if($gotit != null){
-							selectedSkillId = $gotit;
-						}
-						
-			        	selectedSkillId.push($newSkill);
-			        	// console.log(selectedSkillId);
-			        	// $('#linked_skill').val($selectedSkill+""+$newSkill+", ");
-			        	$selectedSkills.val(selectedSkillId).trigger("change"); 
-			        	$('#newskill').val("");
-			        }
-			      },
-			      error: function(data) {
-			      	alert('some error occured...');
-			      }
-			    }); 
-			    return false;
-			}
-		});
-		});
-</script>
-<script type="text/javascript">
-  $(document).ready(function(){
-	// myactivity-post
-$('.myactivity-posts').live('click',function(event){  	    
-  	event.preventDefault();
-  	var post_id = $(this).parent().data('postid');
-  	
-  	// console.log(post_id);
-    $.ajaxSetup({
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		}
-	});
-
-    $.ajax({
-      url: "/postdetail/detail",
-      type: "post",
-      data: {postid: post_id},
-      cache : false,
-      success: function(data){
-    	$('#myactivity-posts-content').html(data);
-    	$('#myactivity-posts').modal('show');
+    function split( val ) {
+        return val.split( /,\s*/ );
       }
-    }); 
-    return false;
-});
-});
-  </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            window.asd = $('.SlectBox').SumoSelect({ csvDispCount: 3 });
-            window.test = $('.testsel').SumoSelect({okCancelInMulti:true });
-            window.testSelAll = $('.testSelAll').SumoSelect({okCancelInMulti:true, selectAll:true });
-            window.testSelAll2 = $('.testSelAll2').SumoSelect({selectAll:true });
+      function extractLast( term ) {
+        return split( term ).pop();
+      }
+
+    $( "#newskill" )
+    .bind( "keydown", function( event ) {
+      if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
+        event.preventDefault();
+      }
+    })
+    .autocomplete({
+      source: function( request, response ) {
+
+        $.ajax({
+          url: '/job/skillSearch',
+          dataType: "json",
+          data: { term: extractLast( request.term ) },
+          success: function(data) {
+          if (data.length === 0) {
+            $('#add-new-skill').removeClass('hide');
+            $('#add-new-skill').addClass('show');
+          }else{
+            $('#add-new-skill').removeClass('show');
+            $('#add-new-skill').addClass('hide');
+          }
+          response(data);
+          }
         });
-    </script>
-<script type="text/javascript">
-$(document).ready(function(){
-	
-    jQuery('.hide-show-filter').on('click', function(event) {
-	    jQuery('.show-filter').toggle('show');
-	    jQuery('.hide-label').toggle('hide');
-    });
 
-    jQuery('.show-more').on('click', function(event) {
-	    jQuery('.extra-show').toggle('show');
-    });
-
-    // jQuery('.hide-details').on('click', function(event) {
-    //     jQuery('.show-details').toggle('show');
-    //     jQuery('.hide-details').toggle('hide');
-    // });
-
-    jQuery('.new-hide').on('click', function(event) {
-    	
-        jQuery('.show-details').toggle('show');
-        jQuery('.hide-details').toggle('hide');
-    });
-
-    jQuery('.hide-detail').on('click', function(event) {
-        jQuery('.show-details').toggle('hide');
-        jQuery('.hide-details').toggle('show');
-    });
-
-    $("#category-list").change(function () {
-	    $("#category-label-exp").val($(this).val());
-	    //alert($(this).val()) 
-	})
-         $("#exp").change(function () {
-	    $("#label-exp").val($(this).val());
-	    //alert($(this).val()) 
-	})
-         $("#title").change(function () {
-	    $("#label-title").val($(this).val());
-	    //alert($(this).val()) 
-	})
-         $("#max-sal").change(function () {
-	    $("#max-label-sal").val($(this).val());
-	    //alert($(this).val()) 
-	})
-    var displayConfirm = function() {
-        $('#filter .form-control-static', form).each(function(){
-            var input = $('[name="'+$(this).attr("data-display")+'"]', form);
-            if (input.is(":radio")) {
-                input = $('[name="'+$(this).attr("data-display")+'"]:checked', form);
-            }
-            if (input.is(":text") || input.is("textarea")) {
-                $(this).html(input.val());
-            } else if (input.is("select")) {
-                $(this).html(input.find('option:selected').text());
-            } else if (input.is(":radio") && input.is(":checked")) {
-                $(this).html(input.attr("data-title"));
-            } else if ($(this).attr("data-display") == 'payment[]') {
-                var payment = [];
-                $('[name="payment[]"]:checked', form).each(function(){ 
-                    payment.push($(this).attr('data-title'));
-                });
-                $(this).html(payment.join("<br>"));
-            }
-        });
-    }
-
-
-
-  $('.like-btn').live('click',function(event){  	    
-  	event.preventDefault();
-  	var post_id = $(this).parent().data('id');
-	
-  	var formData = $('#post-like-'+post_id).serialize(); 
-    var formAction = $('#post-like-'+post_id).attr('action');
-
-	$count = $.trim($('#like-count-'+post_id).text());
-	if($count.length == 0 || $count == ""){
-		$count = 0;
-	}
-    $.ajaxSetup({
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		}
-	});
-
-    $.ajax({
-      url: formAction,
-      type: "post",
-      data: formData,
-      cache : false,
-      success: function(data){
-        if(data > $count){
- 			$('#like-count-'+post_id).text(data);
- 			$('#like-'+post_id).css({'color':'darkseagreen'});
- 			$('#like-count-'+post_id).removeClass('hide');
-            $('#like-count-'+post_id).addClass('show');
-            displayToast("Thanks");
-        }else if(data < $count && data != 0){
-			$('#like-'+post_id).css({'color':'lightslategray'});
-			$('#like-count-'+post_id).text(data);
-			$('#like-count-'+post_id).removeClass('hide');
-            $('#like-count-'+post_id).addClass('show');
-            displayToast("Thanks Removed");
-        }
-        else if(data < $count && data == 0){
-            $('#like-'+post_id).css({'color':'lightslategray'});
-            $('#like-count-'+post_id).removeClass('show');
-            $('#like-count-'+post_id).addClass('hide');
-            $('#like-count-'+post_id).text(data);
-        }
-      }
-    }); 
-    return false;
-  }); 
-
-  $('.fav-btn').live('click',function(event){  	    
-  	event.preventDefault();
-  	var post_id = $(this).parent().data('id');
-
-  	var formData = $('#post-fav-'+post_id).serialize(); 
-    var formAction = $('#post-fav-'+post_id).attr('action');
-    $count = $.trim($('#myfavcount').text());
-    if($count.length == 0 || $count == ""){
-		$count = 0;
-	}
-    $.ajaxSetup({
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		}
-	});
-
-    $.ajax({
-      url: formAction,
-      type: "post",
-      data: formData,
-      cache : false,
-
-      success: function(data){
-      	if(data > $count){
- 			$('#myfavcount').text(data);
- 			$('#fav-btn-'+post_id).css({'color':'#FFC823'});
- 			$('#myfavcount').removeClass('hide');
-            $('#myfavcount').addClass('show');
-            displayToast("Favourite");
-
-        }else if(data < $count && data != 0){
-			$('#fav-btn-'+post_id).css({'color':'rgb(183, 182, 182)'});
-			$('#myfavcount').text(data);
-			$('#myfavcount').removeClass('hide');
-            $('#myfavcount').addClass('show');
-   			displayToast("Unfavourite");
-        }
-        else if(data < $count && data == 0){
-            $('#fav-btn-'+post_id).css({'color':'rgb(183, 182, 182);'});
-            $('#myfavcount').removeClass('show');
-            $('#myfavcount').addClass('hide');
-            $('#myfavcount').text(data);
-        }
-      }
-    }); 
-    return false;
-  }); 
-
-$('.apply-btn').live('click',function(event){  	    
-  	event.preventDefault();
-  	var post_id = $(this).parent().data('id');
-
-  	var formData = $('#post-apply-'+post_id).serialize(); 
-    var formAction = $('#post-apply-'+post_id).attr('action');
-
-    $.ajaxSetup({
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		}
-	});
-
-    $.ajax({
-      url: formAction,
-      type: "post",
-      data: formData,
-      cache : false,
-      success: function(data){
-        if(data == "applied"){
-        	$('#apply-btn-'+post_id).prop('disabled', true);
- 			$('#apply-btn-'+post_id).text('Applied');
- 			$('#show-hide-contacts').addClass('show-hide-new');
-        }
-      }
-    }); 
-    return false;
-  });
-	
-$('.contact-btn').live('click',function(event){  	    
-  	event.preventDefault();
-  	var post_id = $(this).parent().data('id');
-
-  	var formData = $('#post-contact-'+post_id).serialize(); 
-    var formAction = $('#post-contact-'+post_id).attr('action');
-	// console.log(post_id);
-    $.ajaxSetup({
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		}
-	});
-
-    $.ajax({
-      url: formAction,
-      type: "post",
-      data: formData,
-      cache : false,
-      success: function(data){
-      	// console.log("s:"+data);
-        if(data.data.contact_status == "contacted"){
-        	$('#contact-btn-'+post_id).prop('disabled', true);
- 			$('#contact-btn-'+post_id).text('Contacted');
- 			$('#show-hide-contacts').addClass('show-hide-new');
+      },
+      search: function() {
+        var term = extractLast( this.value );
+        if ( term.length < 2 ) {
+          return false;
         }
       },
-      error: function(data) {
-	        console.log("e:"+data);
-	   }
-    }); 
-    return false;
-  });
+      focus: function() {
+        return false;
+      },
+      select: function(event, ui) {
+        var termsId = [];
 
-	// user-link
-	$('.user-link').live('click',function(event){  	    
-	  	event.preventDefault();
-	  	var post_user_id = $(this).parent().data('puid');
-	  	var post_user_linked = $(this).data('linked');
-	  	var post_user_type = $(this).data('utype');
-
-	  	// var formData = $('#post-apply-'+post_id).serialize(); 
-	   //  var formAction = $('#post-apply-'+post_id).attr('action');
-
-	    $.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			}
-		});
-
-	    $.ajax({
-	      url: "/follow-modal",
-	      type: "post",
-	      data: {puid: post_user_id, linked: post_user_linked, utype: post_user_type},
-	      cache : false,
-	      success: function(data){
-	    	$('#links-follow-content').html(data);
-	    	$('#links-follow').modal('show');
-	      }
-	    }); 
-	    return false;
-  });
-
-	$('.user-link2').live('click',function(event){  	    
-	  	event.preventDefault();
-	  	var post_user_id = $(this).parent().data('puid');
-	  	var post_user_linked = $(this).data('linked');
-	  	var post_user_type = $(this).data('utype');
-
-	  	// var formData = $('#post-apply-'+post_id).serialize(); 
-	   //  var formAction = $('#post-apply-'+post_id).attr('action');
-
-	    $.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			}
-		});
-
-	    $.ajax({
-	      url: "/follow-modal",
-	      type: "post",
-	      data: {puid: post_user_id, linked: post_user_linked, utype: post_user_type},
-	      cache : false,
-	      success: function(data){
-	    	$('#links-follow-content').html(data);
-	    	$('#links-follow').modal('show');
-	      }
-	    }); 
-	    return false;
-  });
-
-	$('.user-link3').live('click',function(event){  	    
-	  	event.preventDefault();
-	  	var post_user_id = $(this).parent().data('puid');
-	  	var post_user_linked = $(this).data('linked');
-	  	var post_user_type = $(this).data('utype');
-
-	  	// var formData = $('#post-apply-'+post_id).serialize(); 
-	   //  var formAction = $('#post-apply-'+post_id).attr('action');
-
-	    $.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			}
-		});
-
-	    $.ajax({
-	      url: "/follow-modal",
-	      type: "post",
-	      data: {puid: post_user_id, linked: post_user_linked, utype: post_user_type},
-	      cache : false,
-	      success: function(data){
-	    	$('#links-follow-content').html(data);
-	    	$('#links-follow').modal('show');
-	      }
-	    }); 
-	    return false;
-  });
-
-	// user post sharing
-	/*$("#connections-list").hide();
-    $("#groups-list").hide();*/
-   /* $("#connections").prop('required',false);
-    $("#groups").prop('required',false);*/
-	$("#connections").prop('disabled',true);
-    $("#groups").prop('disabled',true);
-    // $("#tag-group-all").prop('checked', true);
-	$("input[name$='tag-group']").click(function() {
-        var selected = $(this).val();
-        // if(selected == 'all' && $(this).prop('checked')){
-        	/*$("#connections-list").hide();
-        	$("#groups-list").hide();
-        	$("#connections").hide();
-        	$("#groups").hide();*/
-        // 	$("#connections").prop('required',false);
-        // 	$("#groups").prop('required',false);
-        // 	$("#connections").prop('disabled',true);
-        // 	$("#groups").prop('disabled',true);
-        // 	$("#tag-group-links").prop('checked', false);
-        // 	$("#tag-group-groups").prop('checked', false);
-        // }
-        if(selected == 'links' && $(this).prop('checked')){
-        	/*$("#connections-list").show();
-        	$("#groups-list").show();
-        	$("#connections").show();
-        	$("#groups").show();*/
-        	$("#connections").prop('required',true);
-        	$("#connections").prop('disabled',false);
-        	if ($("#groups").prop('disabled') === false) {
-	        	$("#groups").prop('disabled',false);
-	        }else{
-	        	$("#groups").prop('disabled',true);
-	        }
-	        if ($("#groups").prop('required') === false) {
-	        	$("#groups").prop('required',false);
-	        }else{
-	        	$("#groups").prop('required',true);
-	        }
-        	// $("#tag-group-all").prop('checked', false);
-        }else if(selected == 'groups' && $(this).prop('checked')){
-        	/*$("#connections-list").show();
-        	$("#groups-list").show();
-        	$("#connections").show();
-        	$("#groups").show();*/
-        	$("#groups").prop('required',true);
-        	$("#groups").prop('disabled',false);
-        	if ($("#connections").prop('disabled') === false) {	        	
-        		$("#connections").prop('disabled',false);
-	        }else{
-	        	$("#connections").prop('disabled',true);
-	        }
-	        if ($("#connections").prop('required') === false) {	        	
-        		$("#connections").prop('required',false);
-	        }else{
-	        	$("#connections").prop('required',true);
-	        }
-        	// $("#tag-group-all").prop('checked', false);
-        }else if(selected == 'links' && $(this).prop('checked') === false){
-        	$("#connections").prop('disabled',true);
-        	// if($("#tag-group-groups").prop('checked') === false){
-	        // 	$("#tag-group-all").prop('checked', true);
-	        // }
-        }else if(selected == 'groups' && $(this).prop('checked') === false){
-        	$("#groups").prop('disabled',true);
-        	// if($("#tag-group-links").prop('checked') === false){
-	        // 	$("#tag-group-all").prop('checked', true);
-	        // }
+        if($selectedSkills.val() != null){
+          termsId = $selectedSkills.val();
         }
-    }); 
 
-	// get post id for post share
-	$('.sojt').on('click',function(event){
-	  	var share_post_id = $(this).data('share-post-id');
-	  	$('#modal_share_post_id').val(share_post_id);
-	});
-	
-	$('#connections').select2({
-            placeholder: "Select links to share"
-        });
-    $('#groups').select2({
-            placeholder: "Select groups to share"
-        });
+        if(termsId.length != null){
 
-    // share post 
-    $('#modal-post-share-btn').live('click',function(event){       
-	    event.preventDefault();
-		loader('show');
+        }
+        termsId.push( ui.item.value );
+        $gotit.push( ui.item.value );
 
-		var share_post_id = $("#modal_share_post_id").val();
-	    var formData = $('#modal-post-share-form').serialize(); // form data as string
-	    var formAction = $('#modal-post-share-form').attr('action'); // form handler url
-	    // console.log(share_post_id);
-	    $.ajaxSetup({
-	        headers: {
-	            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	        }
-	    });
-
-	    $.ajax({
-	      url: formAction,
-	      type: "post",
-	      data: formData,
-	      cache : false,
-	      success: function(data){
-	      	loader('hide');
-	        if(data.data.page == 'home'){
-	            $('#post-share-msg-box').removeClass('alert alert-danger');
-	            $('#post-share-form-errors').hide();
-	            $('#post-share-msg-box').addClass('alert alert-success').fadeIn(1000, function(){
-	                $(this).show();
-	            });
-	            $('#share-count-'+share_post_id).text(data.data.sharecount);
-	            // console.log(data.data.sharecount+" - "+share_post_id);
-	            $('#modal-post-share-form')[0].reset();
-	            $("#connections").select2("val", "");
-	            $("#groups").select2("val", "");
-	            $("#connections").prop('disabled',true);
-               	$("#groups").prop('disabled',true);
-	            $('#post-share-msg').html('Post shared successfully ! <br/>');  
-	            $("#share-post").fadeTo(2000, 500).slideUp(500, function(){	            	
-               		 $('#share-post').modal('hide');
-               		 $('#post-share-msg-box').hide();
-               		 $('#post-share-msg-box').removeClass('alert alert-success');
-               		 $('#post-share-msg-box').removeClass('alert alert-danger');               		 
-                });   
-	           
-	        }
-	      },
-	      error: function(data) {
-	        loader('hide');
-		    var errors = data.responseJSON;
-		    // console.log(errors);
-		    $errorsHtml = '<div class="alert alert-danger"><ul>';
-		    $.each(errors.errors, function(index, value) {
-		    	console.log(value);
-				 $errorsHtml += '<li>' + value[0] + '</li>';
-		    });
-	 		$errorsHtml += '</ul></div>';	            
-	        $( '#post-share-form-errors' ).html( $errorsHtml );
-	        $( '#post-share-form-errors' ).show();
-	      }
-	    }); 
-	    return false;
+        termsId.push( "" );
+        $selectedSkills.val(termsId).trigger("change"); 
+        $(this).val("");
+        return false;
+      }
+    });
   });
-	
-	
- 
-});
-</script>
- <script>
- 	function displayToast($msg){
- 		$.bootstrapGrowl($msg, {
-                    ele: 'body', // which element to append to
-                    type: 'info', // (null, 'info', 'danger', 'success', 'warning')
-                    offset: {
-                        from: 'bottom',
-                        amount: 10
-                    }, // 'top', or 'bottom'
-                    align: 'center', // ('left', 'right', or 'center')
-                    width: 'auto', // (integer, or 'auto')
-                    // delay: 3000, // Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
-                    allow_dismiss: false, // If true then will display a cross to close the popup.
-                    stackup_spacing: 10 // spacing between consecutively stacked growls.
+
+
+  $(document).ready(function(){
+    $('#add-new-skill').live('click',function(event){       
+        event.preventDefault();
+        if (!$('#newskill').val()) {
+          alert('Please enter some skill to add.');
+          return false;
+        }else{
+          var name = $('#newskill').val(); 
+          $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+          $.ajax({
+            url: "{{ url('job/newskill') }}",
+            type: "POST",
+            data: { name: name },
+            cache : false,
+            success: function(data){
+              if(data > 0){
+                $newSkillList = new Array();
+
+                <?php $newSkillList = array(); ?>
+            @foreach($skills as $skill)
+              $newSkillList.push('<?php echo $skill; ?>');
+            @endforeach
+
+                $newSkillList.push($('#newskill').val());
+                // console.log($newSkillList);
+                $("#linked_skill_id").select2({
+                  dataType: 'json',
+                  data: $newSkillList
                 });
- 	}
+
+                var selectedSkillId = [];
+                $newSkill = $('#newskill').val();
+                $newSkillId = data;
+                // $selectedSkill = $('#linked_skill').val();
+                // console.log($gotit);
+                if($gotit != null){
+              selectedSkillId = $gotit;
+            }
+            
+                selectedSkillId.push($newSkill);
+                // console.log(selectedSkillId);
+                // $('#linked_skill').val($selectedSkill+""+$newSkill+", ");
+                $selectedSkills.val(selectedSkillId).trigger("change"); 
+                $('#newskill').val("");
+              }
+            },
+            error: function(data) {
+              alert('some error occured...');
+            }
+          }); 
+          return false;
+      }
+    });
+  });
+
 </script>
 <style type="text/css">
 .pagination{

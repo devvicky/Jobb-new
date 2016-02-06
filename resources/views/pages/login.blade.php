@@ -404,8 +404,10 @@
 									<span class="box" style="border: 2px solid #8DE8BA !important;"></span>
 									Consultancy </label>
 								</div>
+								<div id="radio_error"></div>
 							</div>						<!-- /input-group -->
 						</div>
+
 					</div>
 					<div class="form-group margin-top-20 margin-bottom-20">
 						<label style="font-size: 13px;color: #D2C9C9 !important;">
@@ -413,7 +415,7 @@
 							<a href="/login/termcondition" style="">Terms of Service </a>& 
 							<a href="/login/privacyprolicy" style="">Privacy Policy </a>
 						</label>
-						<div id="register_tnc_error"></div>
+						<div id="register_ctnc_error"></div>
 					</div>									
 					<!-- <div class="form-actions" style="border-bottom:0 !important;">
 						<label id="register-back-btn3" style="margin-left: 39px;cursor: pointer;">Back</label>

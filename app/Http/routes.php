@@ -135,7 +135,7 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::get('notify/{type}/{utype}/{id}', 'PagesController@notification');
 	// Route::get('notification/notification', 'PagesController@notification');
 	// Route::get('notification/notificationThanks', 'PagesController@notificationThanks');
-	Route::get('profile/{utype}/{id}', 'PagesController@profile');
+	Route::get('profile/{name}/{utype}/{id}', 'PagesController@profile');
 
 	// corporate follow/unfollow
 	Route::post('follow-modal', 'PagesController@followModal');
@@ -152,6 +152,8 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::get('favourite', 'PagesController@favourite');
 	Route::get('postbyuser/{utype}/{id}', 'PagesController@postByUser');
 	Route::get('postingroup/{id}', 'PagesController@postInGroup');
+	Route::get('postid/{id}', 'PagesController@postId');
+
 
 	Route::post('change/password', 'UserController@postChangePassword');
 	Route::post('report-abuse', 'JobController@reportAbuse');
@@ -168,7 +170,7 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::get('search/', 'PagesController@search');
 
 	Route::get('home/{post_type}/{sort_by}', 'PagesController@homeSorting');
-	Route::get('home/{post_type}/{sort_by_skill}', 'PagesController@homeskillSorting');
+	Route::get('home/type/{post_type}/{sort_by_skill}', 'PagesController@homeskillSorting');
 
 
 	// Admin Controller panel
