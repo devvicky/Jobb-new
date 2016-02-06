@@ -27,7 +27,7 @@ class CreateCorpRequest extends Request {
 			'firm_password'		=>	'required|min:6|confirmed',
 			'firm_password_confirmation' => 'required|min:6',
 			'firm_type'			=>	'required',
-			'tnc'		=> 'required'
+			'ctnc'		=> 'required'
 		];
 	}
 

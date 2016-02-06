@@ -159,6 +159,7 @@
 							    <div class="col-md-1 col-sm-2 col-xs-2" style="padding:0 !important;">
 								      <a data-toggle="modal" class="btn resume-button-css magic-profile-match" href="#post-mod-{{$user->id}}" style="padding: 2px 8px;">
 	                    			<i class="icon-speedometer" style="font-size:12px;"></i>
+	                    			{{$perPeople}} %
 	                    		</a>
 							    </div>
 						    	<div class="col-md-7 col-sm-6 col-xs-8" style="">

@@ -50,12 +50,10 @@
 <style type="text/css" rel="stylesheet">
 body{
   background-color: #2E545D;
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3c3d2f', endColorstr='#b7ad70',GradientType=0 ); /* IE6-9 */
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+
   background-attachment: fixed;
+  background-image: url('/assets/admin/pages/media/bg/2.jpg');
+  background-repeat: no-repeat;
 }
 .decorated{
      overflow: hidden;
@@ -183,7 +181,7 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 </div>
 
 <div class="container display-content">
-    <img class="login-bg" src="/assets/admin/pages/media/bg/3.jpg">
+   
   @yield('content')
 </div>
 
@@ -208,7 +206,7 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 <script src="{{ asset('/assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('/assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js') }}" type="text/javascript"></script>
 <script src="{{ asset('/assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js') }}" type="text/javascript"></script>
-<script src="{{ asset('/assets/admin/pages/scripts/form-validation.js') }}"></script>
+<!-- <script src="{{ asset('/assets/admin/pages/scripts/form-validation.js') }}"></script> -->
 <script src="{{ asset('/assets/global/plugins/bootstrap-tabdrop/js/bootstrap-tabdrop.js') }}" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
@@ -235,7 +233,7 @@ jQuery(document).ready(function() {
   Login.init();
   Demo.init(); // init demo features
   UIExtendedModals.init();
-  FormValidation.init();
+  // FormValidation.init();
 });
 </script>
 <!-- END JAVASCRIPTS -->

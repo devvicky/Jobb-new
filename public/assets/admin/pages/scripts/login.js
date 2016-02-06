@@ -265,8 +265,7 @@ var Login = function() {
                 },
                 email: {
                     email: true,
-                    noSpace: true,
-                    remote: '/UserController.php' + $('#email_address').val()
+                    minlength: 8
                 },
                 mobile: {
                     minlength: 10,
@@ -283,7 +282,7 @@ var Login = function() {
                     required: true
                 }
             },
-
+            
             messages: { // custom messages for radio buttons and checkboxes
                 fullname: {
                     required: "Full name is required",
@@ -324,6 +323,9 @@ var Login = function() {
                     var icon = $(element).parent('.input-icon').children('i');
                     icon.removeClass('fa-check').addClass("fa-warning");  
                     icon.attr("data-original-title", error.text()).tooltip({'placement': 'left'});
+                    if (element.attr("name") == "tnc") { // insert checkbox errors after the container                  
+                        error.insertAfter($('#register_tnc_error'));
+                    } 
                    
                 },
             success: function (label, element) {
@@ -347,16 +349,7 @@ var Login = function() {
             }
         });
 
-        
-            
-        //     jQuery('#corporate1').click(function() {
-        //     jQuery('.register-corporate-form').show();
-        //     jQuery('.register-form').hide();
-        // });
-        //     jQuery('#individual2').click(function() {
-        //     jQuery('.register-form').show();
-        //     jQuery('.register-corporate-form').hide();
-        // });
+
         jQuery('#register-back-btn').click(function() {
             jQuery('.login-tag').show();
             jQuery('.corporate-register-tab').hide();
@@ -394,7 +387,7 @@ var Login = function() {
                 },
                 ctnc: {
                     required: true
-                },
+                }
             },
 
             messages: { // custom messages for radio buttons and checkboxes
@@ -416,7 +409,7 @@ var Login = function() {
                 },
                 ctnc: {
                     required: "Please accept TNC first"
-                },
+                }
             },
 
             invalidHandler: function(event, validator) { //display error alert on form submit   
@@ -432,7 +425,11 @@ var Login = function() {
                     var icon = $(element).parent('.input-icon').children('i');
                     icon.removeClass('fa-check').addClass("fa-warning");  
                     icon.attr("data-original-title", error.text()).tooltip({'placement': 'left'});
-                   
+                   if (element.attr("name") == "ctnc") { // insert checkbox errors after the container                  
+                        error.insertAfter($('#register_ctnc_error'));
+                    } else if (element.attr("name") == "firm_type") { // insert checkbox errors after the container                  
+                        error.insertAfter($('#radio_error'));
+                    }
                 },
             success: function (label, element) {
                     var icon = $(element).parent('.input-icon').children('i');

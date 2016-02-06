@@ -42,22 +42,21 @@ class WelcomeController extends Controller {
 		$role = Input::get('role');
 		$experience = Input::get('experience');
 		$city = Input::get('location');
-		$jobPosts = Postjob::orderBy('id', 'desc')
-						   ->with('indUser', 'corpUser')
-						   ->where('post_type', '=', 'job');
-		$skillPosts = Postjob::orderBy('id', 'desc')
-						   ->with('indUser', 'corpUser')
-						   ->where('post_type', '=', 'skill');
+		$jobPosts = Postjob::orderBy('postjobs.id', 'desc')
+						   ->with('indUser', 'corpUser');
+		$skillPosts = Postjob::orderBy('postjobs.id', 'desc')
+						   ->with('indUser', 'corpUser');
 		if($role != null){
-			$jobPosts->where('role', 'like', '%'.$role.'%')
-					 ->orWhere('post_title', 'like', '%'.$role.'%')
-					 ->orWhere('education', 'like', '%'.$role.'%');
-			$skillPosts->where('role', 'like', '%'.$role.'%')
-					   ->orWhere('post_title', 'like', '%'.$role.'%')
-					   ->orWhere('education', 'like', '%'.$role.'%');
-			// $jobPosts->leftJoin('roles', 'roles.name', 'like', '%'.$role.'%')
-			// 		 ->leftJoin('industry_functional_area_role_mappings', 'industry_functional_area_role_mappings.role', '=', 'roles.id')
-			// 		 ->where('industry_functional_area_role_mappings.id', '=', 'role');
+			$jobPosts->leftJoin('industry_functional_area_role_mappings', 'industry_functional_area_role_mappings.id', '=', 'postjobs.role')
+					 ->leftJoin('roles', 'roles.id', '=', 'industry_functional_area_role_mappings.role')
+					 ->where('roles.name', 'like', '%'.$role.'%')
+					 ->where('postjobs.post_type', '=', 'job')
+					 ->orWhere('postjobs.post_title', 'like', '%'.$role.'%');
+			$skillPosts->leftJoin('industry_functional_area_role_mappings', 'industry_functional_area_role_mappings.id', '=', 'postjobs.role')
+					   ->leftJoin('roles', 'roles.id', '=', 'industry_functional_area_role_mappings.role')
+					   ->where('roles.name', 'like', '%'.$role.'%')
+					   ->where('postjobs.post_type', '=', 'skill')
+					   ->orWhere('postjobs.post_title', 'like', '%'.$role.'%');
 		}
 		if($city != null){
 			$pattern = '/\s*,\s*/';

@@ -63,7 +63,7 @@ var UIBlockUI = function() {
             }, 2000);
         });
 
-        $('#blockui_sample_2_4').click(function() {
+        $('#links-follow').click(function() {
             Metronic.startPageLoading({animate: true});
 
             window.setTimeout(function() {

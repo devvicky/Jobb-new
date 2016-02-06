@@ -58,7 +58,7 @@
             </a>
         </div>
 
-		<div class="create-account" style="margin-top: 20px;background-color: rgb(57, 92, 101);">
+		<div class="create-account" style="margin: 20px 0 0;background-color: rgb(57, 92, 101);padding: 6px 0px 3px;">
 			<p style="color:#D0D0D0;">
 				Not A Member?&nbsp;&nbsp;<a href="javascript:;" id="register-btn-corp" class="uppercase" style="color: floralwhite;font-size: 15px;font-weight: 600;"> Register Now&nbsp;!</a> 
 			</p>
