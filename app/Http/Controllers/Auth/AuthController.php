@@ -57,6 +57,7 @@ class AuthController extends Controller {
 	    		$data['page'] = 'home';
 	    		$data['email_verify'] = 1;
 	    	}else{
+	    		$data['page'] = 'login';
 	    		$emailObj = User::where('email', '=', $request->input('email'))->first(['name', 'email_verify', 'email_vcode', 'email_vcode_expiry']);
 	    		if($emailObj != null && $emailObj->email_verify == 0){
 	    			$email_vcode_expiry = new \Carbon\Carbon($emailObj->email_vcode_expiry, 'Asia/Kolkata');
@@ -66,7 +67,7 @@ class AuthController extends Controller {
 					/*$data['now'] = $now;
 					$data['email_vcode_expiry'] = $email_vcode_expiry;
 					$data['diff'] = $difference;*/
-
+			    	
 					if($difference < 1){
 						/*$vcode = $emailObj->email_vcode;
 						$fname = $emailObj->name;
@@ -76,7 +77,6 @@ class AuthController extends Controller {
 					    });*/
 						
 						$data['email_verify'] = 0;
-			    		$data['page'] = 'login';
 			    		$data['message'] = 'Your email is not verified. Please check your email for verification code.';
 					}else if($difference >= 1){
 						$vcode = "";
@@ -95,7 +95,6 @@ class AuthController extends Controller {
 					    });
 
 					    $data['email_verify'] = 0;
-			    		$data['page'] = 'login';
 			    		$data['message'] = 'We have sent you an email for verification.';
 					}
 
@@ -113,7 +112,8 @@ class AuthController extends Controller {
 	    		$credentials = array_add($credentials, 'mobile_verify', '1');
 	    		$data['page'] = 'home';
 	    		$data['mobile_verify'] = 1;
-	    	}else{
+	    	}else{	    		
+				$data['page'] = 'login';
 	    		$userForMobile = User::where('mobile', '=', $request->input('email'))->first(['name', 'mobile_verify', 'mobile_otp', 'mobile_otp_expiry', 'mobile_otp_attempt']);
 	    		if($userForMobile != null && $userForMobile->mobile_verify == 0){
 	    			$mobile_otp_expiry = new \Carbon\Carbon($userForMobile->mobile_otp_expiry, 'Asia/Kolkata');
@@ -130,7 +130,6 @@ class AuthController extends Controller {
 						User::where('mobile', '=', $request->input('email'))->update(['mobile_otp_attempt' => $mobile_otp_attemptInc]);
 
 						$data['mobile_verify'] = 0;
-			    		$data['page'] = 'login';
 			    		$data['message'] = 'Mobile number not yet verified. Please check your mobile for OTP. '.$userForMobile->mobile_otp;
 					}else if($difference >= 15 && $userForMobile->mobile_otp_attempt < 3){
 						// regenerate otp, update otp, reset attempt n mobile_otp_expiry
@@ -140,14 +139,12 @@ class AuthController extends Controller {
 						Induser::where('mobile', '=', $request->input('email'))->update(['mobile_otp' => $otp]);
 
 						$data['mobile_verify'] = 0;
-			    		$data['page'] = 'login';
 			    		$data['message'] = 'OTP sent to your registered mobile number. '.$otp;
 					}else if($userForMobile->mobile_otp_attempt == 3){
 						if($difference >= 30){
 							User::where('mobile', '=', $request->input('email'))->update(['mobile_otp_attempt' => 0]);
 						}
 						$data['mobile_verify'] = 0;
-			    		$data['page'] = 'login';
 			    		$data['message'] = 'You have reached to maximum limit. Try after sometime.';
 					}
 	    		}
