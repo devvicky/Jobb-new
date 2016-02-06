@@ -298,7 +298,7 @@
                     </div>
 				</div>
 
-				</div>
+			</div>
 				<div class="modal fade" id="myactivity-posts" tabindex="-1" role="basic" aria-hidden="true">
 					<div class="modal-dialog ">
 						<div class="modal-content">
