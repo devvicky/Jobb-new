@@ -47,3 +47,4 @@ Temporary Items
 .apdisk
 *.jpg
 .env
+config/services.php
