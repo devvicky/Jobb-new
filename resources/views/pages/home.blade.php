@@ -6,7 +6,8 @@
 	<div id="ind-msg" style="background-color:black;color:white;"></div>
 </div> -->
 <div class="portlet box blue col-md-9" style="margin-top:0;border:0;background: white;">
-	<div class="portlet-title portlet-title-home" style="float:none;margin:0 auto; display:table;background: white;padding: 0;">
+	<div class="portlet-title portlet-title-home" 
+		style="float:none;margin:0 auto; display:table;background: white;padding: 0;">
 		<ul class="nav nav-tabs" style="padding:0;">
 			<li class="active home-tab-width-job" >
 				<a href="#job" data-toggle="tab" class="job-skill-tab">Jobs</a>

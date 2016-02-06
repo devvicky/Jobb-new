@@ -36,16 +36,19 @@
 	</div>
 	<div class="form-group ">
 		<div class="input-group margin-top-15 form-group-login-new">
-				<span class="input-group-addon input-group-addon-new login-input-bg-color"><i class="icon-lock-open"></i></span>
-		<div class="input-icon right ">
-			<i class="fa"></i>
-			
-				<input type="password" name="password" class="form-control login-input-bg-color" placeholder="Password">
+			<span class="input-group-addon input-group-addon-new login-input-bg-color">
+				<i class="icon-lock-open"></i>
+			</span>
+			<div class="input-icon right ">
+				<i class="fa"></i>			
+				<input type="password" name="password" class="form-control login-input-bg-color" 
+						placeholder="Password">
 			</div>
 		</div>
 	</div>	
 	<div class="form-actions" style="border-bottom: 0 !important;">
-	    <button id="individual-login-btn" type="submit" class="btn btn-primary btn-block uppercase" style="width:50%;background-color:#C76B6B !important;box-shadow: 0px 1px 4px #2D2C2C;border-radius:2px;">
+	    <button id="individual-login-btn" type="submit" class="btn btn-primary btn-block uppercase" 
+	    		style="width:50%;background-color:#C76B6B !important;box-shadow: 0px 1px 4px #2D2C2C;border-radius:2px;">
 	        Login
 	    </button>
 	</div>                                      
@@ -88,7 +91,11 @@
 				
 <div class="create-account" style="margin: 20px 0 0;background-color: rgb(57, 92, 101);padding: 6px 0px 3px;">
 	<p style="color:#D0D0D0;">
-		Not A Member?&nbsp;&nbsp;<a href="javascript:;" id="register-btn" class="uppercase" style="color: floralwhite;font-size: 15px;font-weight: 600;"> Register Now&nbsp;!</a> 
+		Not A Member?&nbsp;&nbsp;
+		<a href="javascript:;" id="register-btn" class="uppercase" 
+			style="color: floralwhite;font-size: 15px;font-weight: 600;"> 
+			Register Now&nbsp;!
+		</a> 
 	</p>
 </div>
 <!-- END INDIVIDUAL LOGIN FORM -->
