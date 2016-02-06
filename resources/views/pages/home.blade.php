@@ -6,8 +6,7 @@
 	<div id="ind-msg" style="background-color:black;color:white;"></div>
 </div> -->
 <div class="portlet box blue col-md-9" style="margin-top:0;border:0;background: white;">
-	<div class="portlet-title portlet-title-home" 
-		style="float:none;margin:0 auto; display:table;background: white;padding: 0;">
+	<div class="portlet-title portlet-title-home" style="float:none;margin:0 auto; display:table;background: white;padding: 0;">
 		<ul class="nav nav-tabs" style="padding:0;">
 			<li class="active home-tab-width-job" >
 				<a href="#job" data-toggle="tab" class="job-skill-tab">Jobs</a>
@@ -794,20 +793,24 @@
 																				style="font-size: 19px;color: darkslateblue;"></i>
 																			<span class="badge-share" id="share-count-{{ $post->id }}">@if($post->postactivity->sum('share') > 0){{ $post->postactivity->sum('share') }}@endif</span>
 																		</button>
-								<ul class="dropdown-menu pull-right" role="menu" 
-									style="min-width:0;box-shadow:0 0 !important">
-									<li style="background-color: tan;">
-										<a href="#share-post" data-toggle="modal" 
-										   class="jobtip sojt" id="sojt-{{$post->id}}" 
-										   data-share-post-id="{{$post->id}}">
-											Share on Jobtip
-										</a>
-									</li>
-<li style="padding: 8px 0 0px;margin: auto;display: table;">		
-<!-- Go to www.addthis.com/dashboard to customize your tools -->
-<div class="addthis_sharing_toolbox" data-url="http://jobtip.in/post/{{$post->unique_id}}/social" data-title="{{$post->post_title}}"></div>
-</li>
-								</ul>													
+																		<ul class="dropdown-menu pull-right" role="menu" 
+																			style="min-width:0;box-shadow:0 0 !important">
+																			<li style="background-color: tan;">
+																				<a href="#share-post" data-toggle="modal" 
+																				   class="jobtip sojt" id="sojt-{{$post->id}}" 
+																				   data-share-post-id="{{$post->id}}">
+																					Share on Jobtip
+																				</a>
+																			</li>
+		<li style="padding: 8px 0 0px;margin: auto;display: table;">		
+			<!-- Go to www.addthis.com/dashboard to customize your tools -->
+			<div class="addthis_sharing_toolbox" 
+					data-url="http://jobtip.in/post/{{$post->unique_id}}/social" 
+					data-title="{{$post->post_title}}"
+					data-description="{{ $post->job_detail }}">
+			</div>
+		</li>
+																		</ul>													
 																	</div>
 																	<div class="report-css">
 															 @if($expired != 1 && Auth::user()->induser_id != $post->individual_id )
@@ -1955,7 +1958,10 @@
 																			</li>
 <li style="padding: 8px 0 0px;margin: auto;display: table;">		
 <!-- Go to www.addthis.com/dashboard to customize your tools -->
-<div class="addthis_sharing_toolbox" data-url="http://jobtip.in/home" data-title="{{$post->post_title}}"></div>
+<div class="addthis_sharing_toolbox" 
+		data-url="http://jobtip.in/post/{{$post->unique_id}}/social" 
+		data-title="{{$post->post_title}}"
+		data-description="{{ $post->job_detail }}"></div>
 </li>
 																			
 																		</ul>													
@@ -2442,7 +2448,7 @@
 @section('javascript')
 
 <!-- Go to www.addthis.com/dashboard to customize your tools -->
-<!-- <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-528ddbdf4d9dd13d" async="async"></script> -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-56afb9b6a3affa13" async="async"></script>
 
 <script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
 <script src="/assets/js/home-js.js"></script>
