@@ -329,7 +329,7 @@ class PagesController extends Controller {
 		return view('pages.notification_view', compact('user', 'thanks', 'title'));
 	}
 	
-	public function profile($name,$utype,$id)
+	public function profile($utype,$id)
 	{		
 		$title = 'profile';
 		if($utype == 'ind'){

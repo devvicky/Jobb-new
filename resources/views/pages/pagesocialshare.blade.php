@@ -1,7 +1,56 @@
-@extends('login')
+<html>
+<head>
+<title>Jobtip</title>
 
-@section('content')
+<meta property="og:title" content="{{$post->post_title}}"/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="http://jobtip.in/post/{{$post->unique_id}}/social"/>
+<meta property="og:image" content="http://jobtip.in/jt_logo.png"/>
+<meta property="og:site_name" content="Jobtip"/>
+<meta property="og:description" content="{{$post->job_detail}}"/>
 
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('/assets/global/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('/assets/global/plugins/simple-line-icons/simple-line-icons.min.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('/assets/global/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('/assets/global/plugins/uniform/css/uniform.default.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css') }}" rel="stylesheet" type="text/css"/>
+<!-- END GLOBAL MANDATORY STYLES -->
+<!-- BEGIN PAGE LEVEL STYLES -->
+<link href="{{ asset('/assets/admin/pages/css/login.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('/assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('/assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('/assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
+<!-- END PAGE LEVEL SCRIPTS -->
+<!-- BEGIN THEME STYLES -->
+<link href="../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+<link href="../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+<link href="../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+<link href="../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css" id="style_color"/>
+<link href="../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('/assets/custom_admin.css') }}" rel="stylesheet"/>
+
+
+<link href="{{ asset('/assets/global/css/components-rounded.css') }}" id="style_components" rel="stylesheet" type="text/css"/>
+<!-- <link href="{{ asset('/assets/admin/layout2/css/layout.css') }}" rel="stylesheet" type="text/css"/> -->
+<!-- <link href="{{ asset('/assets/global/plugins/icheck/skins/all.css') }}" rel="stylesheet"/> -->
+<link href="{{ asset('/assets/custom.css') }}" rel="stylesheet"/>
+<link href="{{ asset('/assets/custom_new.css') }}" rel="stylesheet"/>
+<link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+<!-- END THEME STYLES -->
+<link rel="shortcut icon" href="favicon.ico"/>
+<style type="text/css" rel="stylesheet">
+body{
+  background-color: #2E545D;
+
+  background-attachment: fixed;
+  background-image: url('/assets/admin/pages/media/bg/2.jpg');
+  background-repeat: no-repeat;
+}
+</style>
+</head>
+<body>
     <div class="row" style="display:table; margin: 10% auto;">
         <div class="col-md-12" style="margin: 10% auto;padding: 0;">
             @if($post != null)
@@ -101,5 +150,5 @@
             @endif
         </div>
     </div>
-
-@stop
+</body>
+</html>

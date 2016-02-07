@@ -147,7 +147,7 @@
               <i class="icon-star icon-color" ></i>
               @endif
                             
-              <span class="badge badge-favourite badge-default @if(count($favourites) > 0) show @else hide @endif" 
+              <span class="myfavcount badge badge-favourite badge-default @if(count($favourites) > 0) show @else hide @endif" 
                     id="myfavcount" style="background-color:lightcoral;">{{count($favourites)}}
               </span>              
             </a>            

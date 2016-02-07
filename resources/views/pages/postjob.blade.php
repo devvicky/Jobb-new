@@ -413,19 +413,7 @@
 											</div>
 										</div>
 									</div>
-<!-- 									$(function () {
-										 	$(".show-apply").hide();
-									        $("#hide-apply").click(function () {
-									            if ($(this).is(":checked")) {
-									                $(".show-apply").show();
-									                $(".show-apply-email").hide();
-									                 
-									            } else {
-									                $(".show-apply-email").show();
-									                $(".show-apply").hide();
-									            }
-									        });
-									    }); -->
+
 									<div class="row">
 										<div class="col-md-5 col-sm-5 col-xs-12">
 											<div class="form-group">
@@ -443,7 +431,7 @@
 											<div class="form-group">
 											<!-- <label>Job Title</label> -->
 												<div class="input-group">
-													<input type="checkbox" id="resume-check" name="resume_required" value="1" class="form-control">
+													<label><input type="checkbox" id="resume-check" name="resume_required" value="1" class="form-control"></label>
 													<label>Resume Required to apply for this Job</label>
 												</div>
 											</div>

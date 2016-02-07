@@ -30,8 +30,10 @@
           <div style="color: whitesmoke;">
            Favourites
           </div>
-          <span id="myfavcount" class="badge badge-danger @if(count($favouritesCount) > 0) show @else hide @endif" style="background-color:lightcoral;right:15px !important;">
-          {{count($favouritesCount)}} </span>
+
+          <span class="myfavcount badge badge-favourite badge-default @if(count($favourites) > 0) show @else hide @endif" 
+                    id="myfavcount" style="background-color:lightcoral;right:15px !important;">{{count($favourites)}}
+              </span>
         </a>
       </div>
     </div>

@@ -52,8 +52,22 @@ class GroupController extends Controller {
 	{
 		$title = 'group';		
 		$groups = Group::where('admin_id', '=', Auth::id())->get();
-		$users = Induser::join('groups_users', 'groups_users.user_id', '=', 'indusers.id')
-						->join('groups', 'groups.id', '=', 'groups_users.group_id')
+		// $users = Induser::join('groups_users', 'groups_users.user_id', '=', 'indusers.id')
+		// 				->join('groups', 'groups.id', '=', 'groups_users.group_id')
+		// 				->get(['indusers.id', 
+		// 					   'indusers.fname', 
+		// 					   'indusers.lname', 
+		// 					   'indusers.working_at', 
+		// 					   'indusers.city', 
+		// 					   'indusers.state', 
+		// 					   'indusers.profile_pic',
+		// 					   'groups.id As group_id',
+		// 					   'groups.group_name',
+		// 					   'groups.admin_id'
+		// 					]);	
+		$users = Induser::leftjoin('groups_users', 'indusers.id', '=', 'groups_users.user_id')
+						->leftjoin('groups', 'groups.admin_id', '=', 'indusers.id')
+						->join('groups as g', 'g.id', '=', 'groups_users.group_id')
 						->get(['indusers.id', 
 							   'indusers.fname', 
 							   'indusers.lname', 
@@ -64,8 +78,7 @@ class GroupController extends Controller {
 							   'groups.id As group_id',
 							   'groups.group_name',
 							   'groups.admin_id'
-							]);	
-
+							]);
 		return view('pages.group_create', compact('groups', 'title', 'users'));
 	}
 

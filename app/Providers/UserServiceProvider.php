@@ -23,10 +23,9 @@ class UserServiceProvider extends ServiceProvider {
 			$followCount = 0;
 			if(Auth::user()->identifier == 1){
 				$user = Induser::where('id', '=', Auth::user()->induser_id)->first();
-
-				$favouritesCount = Postactivity::with('user')
+				$favourites = Postactivity::with('user')
 									      ->where('fav_post', '=', 1)
-									      ->where('user_id', '=', Auth::user()->id)
+									      ->where('user_id', '=', Auth::user()->induser_id)
 									      ->orderBy('id', 'desc')
 								          ->get(['id', 'fav_post', 'fav_post_dtTime', 'user_id', 'post_id']);
 				$thanksCount = Postactivity::with('user', 'post')
@@ -41,13 +40,13 @@ class UserServiceProvider extends ServiceProvider {
 				$followCount = Follow::where('corporate_id', '=', 1)
 								->orWhere('individual_id', '=', 1)
 								->count('id');
-				$favouritesCount = Postactivity::with('user')
+				$favourites = Postactivity::with('user')
 									      ->where('fav_post', '=', 1)
 									      ->where('user_id', '=', Auth::user()->id)
 									      ->orderBy('id', 'desc')
 								          ->get(['id', 'fav_post', 'fav_post_dtTime', 'user_id', 'post_id']);
 			}
-			$view->with('session_user', $user)->with('favouritesCount', $favouritesCount)
+			$view->with('session_user', $user)->with('favourites', $favourites)
 											  ->with('thanksCount', $thanksCount)
 											  ->with('followCount', $followCount);
 		});

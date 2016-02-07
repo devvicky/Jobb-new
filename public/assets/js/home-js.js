@@ -105,7 +105,7 @@ $('.fav-btn').live('click',function(event){
 
   var formData = $('#post-fav-'+post_id).serialize(); 
   var formAction = $('#post-fav-'+post_id).attr('action');
-  $count = $.trim($('#myfavcount').text());
+  $count = $.trim($('.myfavcount').text());
   if($count.length == 0 || $count == ""){
   $count = 0;
 }
@@ -123,24 +123,24 @@ $('.fav-btn').live('click',function(event){
 
     success: function(data){
       if(data > $count){
-    $('#myfavcount').text(data);
+    $('.myfavcount').text(data);
     $('#fav-btn-'+post_id).css({'color':'#FFC823'});
-    $('#myfavcount').removeClass('hide');
-          $('#myfavcount').addClass('show');
-          displayToast("Favourite");
+    $('.myfavcount').removeClass('hide');
+    $('.myfavcount').addClass('show');
+    displayToast("Favourite");
 
       }else if(data < $count && data != 0){
     $('#fav-btn-'+post_id).css({'color':'rgb(183, 182, 182)'});
-    $('#myfavcount').text(data);
-    $('#myfavcount').removeClass('hide');
-          $('#myfavcount').addClass('show');
-      displayToast("Unfavourite");
+    $('.myfavcount').text(data);
+    $('.myfavcount').removeClass('hide');
+    $('.myfavcount').addClass('show');
+    displayToast("Unfavourite");
       }
       else if(data < $count && data == 0){
           $('#fav-btn-'+post_id).css({'color':'rgb(183, 182, 182);'});
-          $('#myfavcount').removeClass('show');
-          $('#myfavcount').addClass('hide');
-          $('#myfavcount').text(data);
+          $('.myfavcount').removeClass('show');
+          $('.myfavcount').addClass('hide');
+          $('.myfavcount').text(data);
       }
     }
   }); 
