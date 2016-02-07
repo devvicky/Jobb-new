@@ -26,7 +26,7 @@
 				</span>	
 				<div class="input-icon right">
 					<i class="fa"></i>				
-					<input type="email" name="email" class="form-control login-input-bg-color" 
+					<input type="text" name="email" class="form-control login-input-bg-color" 
 						   value="{{ old('email') }}" placeholder="Email Id" autocomplete="off">
 				</div>
 			</div>

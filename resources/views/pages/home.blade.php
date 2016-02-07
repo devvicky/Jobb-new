@@ -802,10 +802,16 @@
 																					Share on Jobtip
 																				</a>
 																			</li>
-																			<li style="padding: 8px 0 0px;margin: auto;display: table;">		
-																			<!-- Go to www.addthis.com/dashboard to customize your tools -->
-																			<div class="addthis_sharing_toolbox" data-url="http://jobtip.in/post/{{$post->unique_id}}/social" data-title="{{$post->post_title}}"></div>
-																			</li>
+
+		<li style="padding: 8px 0 0px;margin: auto;display: table;">		
+			<!-- Go to www.addthis.com/dashboard to customize your tools -->
+			<div class="addthis_sharing_toolbox" 
+					data-url="http://jobtip.in/post/{{$post->unique_id}}/social" 
+					data-title="{{$post->post_title}}"
+					data-description="{{ $post->job_detail }}">
+			</div>
+		</li>
+
 																		</ul>													
 																	</div>
 																	<div class="report-css">
@@ -1954,7 +1960,10 @@
 																			</li>
 <li style="padding: 8px 0 0px;margin: auto;display: table;">		
 <!-- Go to www.addthis.com/dashboard to customize your tools -->
-<div class="addthis_sharing_toolbox" data-url="http://jobtip.in/home" data-title="{{$post->post_title}}"></div>
+<div class="addthis_sharing_toolbox" 
+		data-url="http://jobtip.in/post/{{$post->unique_id}}/social" 
+		data-title="{{$post->post_title}}"
+		data-description="{{ $post->job_detail }}"></div>
 </li>
 																			
 																		</ul>													
@@ -2441,7 +2450,11 @@
 @section('javascript')
 
 <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<<<<<<< HEAD
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-528ddbdf4d9dd13d" async="async"></script>
+=======
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-56afb9b6a3affa13" async="async"></script>
+>>>>>>> origin/master
 
 <script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
 <script src="/assets/js/home-js.js"></script>

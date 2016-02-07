@@ -157,13 +157,51 @@ $('#corporate-login-btn').on('click',function(event){
 	      cache : false,
 	      success: function(data){
 	        loader('hide');
-	        if(data.data.page == 'login'){
+	        if(data.data.page == 'login' && data.data.user == 'invalid'){
 	            $('#corp-msg-box').removeClass('alert alert-success');
 	            $('#corp-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
 	                $(this).show();
 	            });
 	            $('#corp-msg').text('Invalid user');
-	        }else{
+	        }
+	        else if(data.data.page == 'login' && data.data.email_verify == 0){
+	        	$('#corp-msg-box').removeClass('alert alert-success');
+	            $('#corp-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
+	                $(this).show();
+	            });
+	            $('#corp-msg').text(data.data.message);
+
+	            $('.login-tag').hide();
+	            $('#mobile-otp-form').show();
+	            $('#ind-reg-msg').html(data.data.message);
+
+	            $('#ind-msg-reg-box').removeClass('alert alert-success');
+	            $('#ind-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
+	                $(this).show();
+	            });
+	        }
+	         else if(data.data.page == 'login' && data.data.mobile_verify == 0){
+	        	$('#corp-msg-box').removeClass('alert alert-success');
+	            $('#corp-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
+	                $(this).show();
+	            });
+	            $('#corp-msg').text(data.data.message);
+
+	            $('.login-tag').hide();
+	            $('#mobile-otp-form').show();
+
+	            $('#resend-otp-form').show();
+	        	$('#otpformob').val(data.data.mobile); 
+
+	            $('#ind-reg-msg').html(data.data.message);  
+	            $('#ind-msg-reg-box').show();
+
+	            $('#ind-msg-reg-box').removeClass('alert alert-success');
+	            $('#ind-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
+	                $(this).show();
+	            });
+	        }
+	        else{
 	            $('#corp-msg-box').removeClass('alert alert-danger');
 	            $('#corp-msg-box').addClass('alert alert-success').fadeIn(1000, function(){
 	                $(this).show();

@@ -2,6 +2,9 @@
 <head>
 <title>Jobtip</title>
 
+
+<meta property="fb:app_id" content="1676295885993366"/>
+
 <meta property="og:title" content="{{$post->post_title}}"/>
 <meta property="og:type" content="article"/>
 <meta property="og:url" content="http://jobtip.in/post/{{$post->unique_id}}/social"/>
@@ -43,16 +46,45 @@
 <style type="text/css" rel="stylesheet">
 body{
   background-color: #2E545D;
-
   background-attachment: fixed;
   background-image: url('/assets/admin/pages/media/bg/2.jpg');
   background-repeat: no-repeat;
 }
 </style>
 </head>
+<body style="overflow-y:scroll">
+
+<!-- BEGIN HEADER -->
+<div class="page-header navbar navbar-fixed-top" style="background-color: transparent !important;">
+  <!-- BEGIN HEADER INNER -->
+  <div class="page-header-inner">
+    <!-- BEGIN LOGO -->
+    <div class="page-logo">
+      <a href="/home">
+      <img src="/assets/new_big_logo.png" alt="logo" class="logo-default" style="width: 135px;margin-top: 0;" />
+      </a>      
+    </div>
+    <!-- END LOGO -->
+    <div class="top-menu">
+      <ul class="nav navbar-nav pull-right">
+        <li>
+          <a href="{{ url('/login') }}">
+          <button class="btn welcome-login-css signup-button" style="">
+            Sign Up
+          </button>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- END HEADER INNER -->
+</div>
+<!-- END HEADER -->
+</head>
 <body>
     <div class="row" style="display:table; margin: 10% auto;">
-        <div class="col-md-12" style="margin: 10% auto;padding: 0;">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
             @if($post != null)
             <div class="portlet-body" id="chats">
                 <div class="scroller" data-always-visible="1" data-rail-visible1="1">
@@ -71,68 +103,70 @@ body{
                             <img class="avatar" src="/assets/images/ab.png">
                             
                             @endif
-                            <div class="message">
-                                <span class="arrow">
-                                </span>
-                                <a href="javascript:;" class="name">
-                               {{$post->post_title}} </a>
+                            <div class="message" style="padding: 10px 0;">
+                                <span class="arrow"></span>
+                                <a href="javascript:;" class="name" style="margin: 0 16px;">
+                                    {{$post->post_title}} 
+                                </a>
                                 <span class="datetime">
-                                <i class="fa fa-clock-o" style="font-size: 11px;"></i> 
-                                 {{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }} </span>
+                                    <i class="fa fa-clock-o" style="font-size: 11px;"></i> 
+                                    {{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }} 
+                                 </span>
                                 @if($post->induser != null)
                                 <span class="body">
-                                    <div class="row" style="margin:15px -5px;">
+                                    <div class="row" style="margin:12px 0px;">
                                         <div class="col-md-12">
-                                            <a style="font-size:13px;"> {{$post->induser->fname}} {{$post->induser->lname}}</a>
+                                            <a style="font-size:13px;"> 
+                                            {{$post->induser->fname}} {{$post->induser->lname}}
+                                            </a>
                                         </div>
                                     </div>
-                                    <div class="row" style="margin:15px -5px;">
+                                    <div class="row" style="margin:12px 0px;">
                                         
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                           <i class="glyphicon glyphicon-map-marker post-icon-color"></i>&nbsp;: {{$post->city}}
+                                           <i class="glyphicon glyphicon-map-marker post-icon-color"></i>&nbsp;: 
+                                           {{$post->city or 'Unspecified'}}
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                           <i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: {{$post->min_exp}}-{{$post->max_exp}}
+                                           <i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: 
+                                           {{$post->min_exp  or 'Unspecified'}} - {{$post->max_exp}} year
                                         </div>
                                     </div>
-                                    <div class="row" style="margin:15px -5px;">  
+
+                                    <div class="row" style="margin:12px 0px;">  
                                         <div class="col-md-6 col-sm-6 col-xs-6">
-                                                <label class="" style="font-size:13px;font-weight:400;">Education :</label>     
+                                            <label class="" style="font-size:13px;font-weight:400;">
+                                                Education: {{ $post->education  or 'Unspecified' }} 
+                                            </label>     
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-6">
-                                                {{ $post->education }}     
+                                            <label class="" style="font-size:13px;font-weight:400;">
+                                                Job Type: {{ $post->time_for  or 'Unspecified' }}
+                                            </label>
                                         </div>
                                     </div>
-                                    <div class="row" style="margin:15px -5px;"> 
-                                        <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-                                                <label class="" style="font-size:13px;font-weight:400;">Job Type :</label>                                                                  
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-                                                {{ $post->time_for }}
-                                        </div>
-                                    </div>
-                                    <div class="row" style="margin:15px -5px;">
+                                   
+                                    <div class="row" style="margin:12px 0px;">
                                         <div class="col-md-12">
                                             <div class="skill-display">Description : </div>
                                             {{ $post->job_detail }}
                                         </div>
                                     </div>
-                                    <div class="row" style="margin: 0 0px;">
-                                        <div class="col-md-3 col-sm-3 col-xs-2" style="padding:0;margin: 5px 0px;">
-                                             <i class="fa fa-thumbs-up thanks-icon" style="color:darkseagreen;"></i>
+                                    <div class="row" style="margin: 0 12px;">
+                                        <div class="col-md-3 col-sm-3 col-xs-2" style="padding:0;margin: 0px;">
+                                             <i class="fa fa-thumbs-up thanks-icon" style="line-height:28px"></i>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-8" style="padding:0;text-align: center;">
                                              <a class="btn apply-btn blue btn-sm show-contact"
                                                 href="/login" type="button"><i class="icon-globe"></i> Apply</a>
                                         </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-2" style="padding:0;margin: 8px 0px;">
+                                        <div class="col-md-3 col-sm-3 col-xs-2" 
+                                             style="padding:0;margin: 3px 0 0;text-align: right;">
                                             <i class="fa fa-share-square-o" 
-                                            style="font-size: 19px;color: darkslateblue;"></i>
+                                            style="font-size: 19px;color: darkslateblue;line-height:25px;margin-top:3px"></i>
                                         </div>
-                                    </div>
-                                   
-                                    
-                                    </a>    
+                                    </div>                                   
+                                     
                                 </span>
                                 @endif
                                 @if($post->corpuser != null)

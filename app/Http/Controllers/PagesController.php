@@ -1152,11 +1152,12 @@ public function homeskillFilter(){
 
 	public function verifyEmail($id){
 		if($id != null){
-			$user = Induser::where('email_vcode', '=', $id)->first(['id']);
+			$user = User::where('email_vcode', '=', $id)->first(['id']);
 		}
 		if($user != null){
-			Induser::where('email_vcode', '=', $id)->update(['email_verify' => 1, 'email_vcode' => null]);
-			User::where('induser_id', '=', $user->id)->update(['email_verify' => 1, 'email_vcode' => null]);
+			// Induser::where('email_vcode', '=', $id)->update(['email_verify' => 1, 'email_vcode' => null]);
+			User::where('id', '=', $user->id)
+				->update(['email_verify' => 1, 'email_vcode' => null]);
 			$msg = 'Email verified successfully. Now you can login with your registered email id.';
 
 			return redirect('/login')
@@ -1172,21 +1173,23 @@ public function homeskillFilter(){
 
 	public function verifyMobile(){
 		if(Input::get('mobileOTP') != null){
-			$user = Induser::where('mobile_otp', '=', Input::get('mobileOTP'))
-						   ->orWhere('email_vcode', '=', Input::get('mobileOTP'))
-						   ->first(['id']);
+			$user = User::where('mobile_otp', '=', Input::get('mobileOTP'))
+					    ->orWhere('email_vcode', '=', Input::get('mobileOTP'))
+					    ->first(['id']);
 		}
 		if($user != null && strlen(trim(Input::get('mobileOTP'))) == 4){
-			Induser::where('mobile_otp', '=', Input::get('mobileOTP'))->update(['mobile_verify' => 1, 'mobile_otp' => null]);
-			User::where('induser_id', '=', $user->id)->update(['mobile_verify' => 1, 'mobile_otp' => null, 'mobile_otp_attempt' => 0, 'mobile_otp_expiry' => null]);
+			// Induser::where('mobile_otp', '=', Input::get('mobileOTP'))->update(['mobile_verify' => 1, 'mobile_otp' => null]);
+			User::where('id', '=', $user->id)
+				->update(['mobile_verify' => 1, 'mobile_otp' => null, 'mobile_otp_attempt' => 0, 'mobile_otp_expiry' => null]);
 			$msg = 'Mobile no. verified successfully. Now you can login with your mobile no.';
 
 			return redirect('/login')
 					->with('flash_message', $msg)
 					->with('flash_type', 'alert-success');
 		}else if($user != null && strlen(trim(Input::get('mobileOTP'))) == 5){
-			Induser::where('email_vcode', '=', Input::get('mobileOTP'))->update(['email_verify' => 1, 'email_vcode' => null]);
-			User::where('induser_id', '=', $user->id)->update(['email_verify' => 1, 'email_vcode' => null, 'email_vcode_expiry' => null]);
+			// Induser::where('email_vcode', '=', Input::get('mobileOTP'))->update(['email_verify' => 1, 'email_vcode' => null]);
+			User::where('id', '=', $user->id)
+				->update(['email_verify' => 1, 'email_vcode' => null, 'email_vcode_expiry' => null]);
 			$msg = 'Email verified successfully. Now you can login with your email.';
 
 			return redirect('/login')

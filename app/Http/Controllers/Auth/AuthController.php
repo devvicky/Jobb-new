@@ -83,7 +83,7 @@ class AuthController extends Controller {
 						if($request->input('email') != null){
 							$vcode = 'A'.rand(1111,9999);
 							$nowPlusOne = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'))->addHours(1);
-							Induser::where('email', '=', $request->input('email'))->update(['email_vcode' => $vcode]);
+							// Induser::where('email', '=', $request->input('email'))->update(['email_vcode' => $vcode]);
 							User::where('email', '=', $request->input('email'))->update(['email_vcode' => $vcode, 'email_vcode_expiry'=> $nowPlusOne]);
 						}
 
@@ -136,7 +136,7 @@ class AuthController extends Controller {
 						$otp = rand(1111,9999);
 						$new_mobile_otp_expiry = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'))->addMinutes(15);
 						User::where('mobile', '=', $request->input('email'))->update(['mobile_otp' => $otp,'mobile_otp_attempt' => 0, 'mobile_otp_expiry' => $new_mobile_otp_expiry]);
-						Induser::where('mobile', '=', $request->input('email'))->update(['mobile_otp' => $otp]);
+						// Induser::where('mobile', '=', $request->input('email'))->update(['mobile_otp' => $otp]);
 
 						$data['mobile_verify'] = 0;
 			    		$data['message'] = 'OTP sent to your registered mobile number. '.$otp;
