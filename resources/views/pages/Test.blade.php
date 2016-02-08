@@ -1,3 +1,27 @@
+<meta property="fb:app_id" content="1676295885993366"/>
+
+<option @if($experience=="0") {{ $selected }} @endif value="0">0</option>
+                            <option @if($experience=="1") {{ $selected }} @endif value="1">1</option>
+                            <option @if($experience=="2") {{ $selected }} @endif value="2">2</option>
+                            <option @if($experience=="3") {{ $selected }} @endif value="3">3</option>
+                            <option @if($experience=="4") {{ $selected }} @endif value="4">4</option>
+                            <option @if($experience=="5") {{ $selected }} @endif value="5">5</option>
+                            <option @if($experience=="6") {{ $selected }} @endif value="6">6</option>
+                            <option @if($experience=="7") {{ $selected }} @endif value="7">7</option>
+                            <option @if($experience=="8") {{ $selected }} @endif value="8">8</option>
+                            <option @if($experience=="9") {{ $selected }} @endif value="9">9</option>
+                            <option @if($experience=="10") {{ $selected }} @endif value="10">10</option>
+                            <option @if($experience=="11") {{ $selected }} @endif value="11">11</option>
+                            <option @if($experience=="12") {{ $selected }} @endif value="12">12</option>
+                            <option @if($experience=="13") {{ $selected }} @endif value="13">13</option>
+                            <option @if($experience=="14") {{ $selected }} @endif value="14">14</option>
+                            <option @if($experience=="15") {{ $selected }} @endif value="15">15</option>
+
+
+
+
+
+
 public function getMagicMatchAttribute(){
 		if(Auth::user()->identifier == 1){
 			$userSkills = Induser::where('id', '=', Auth::user()->induser_id)->first(['linked_skill']);

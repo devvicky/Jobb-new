@@ -1071,11 +1071,22 @@ button.btn.btn-xs.linkrequest-follow-icon-css {
     border: 1px solid lightgrey;
 }
 
-.report-css{
-    float: right;
-    position: absolute;
-    right: 10px;
-    bottom: 8px;
+@media (min-width: 570px) {
+    .report-css{
+        float: right;
+        position: absolute;
+        right: -10px;
+        bottom: 8px;
+    }
+}
+
+@media (max-width: 570px) {
+    .report-css{
+        float: right;
+        position: absolute;
+        right: 10px;
+        bottom: 8px;
+    }
 }
 
 .job-type-skill-css{
@@ -1697,4 +1708,17 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 
 .welcome-detail{
     display: none;
+}
+
+.welcome-inputbox{
+    border-left:0 !important;
+    color:white !important;
+    border-color:#A7D6D6 !important;
+    background-color:dimgrey !important;
+}
+
+.welcome-icon{
+    border: 1px solid #A7D6D6 !important;
+    border-right:0 !important;
+    background-color:dimgrey !important;
 }

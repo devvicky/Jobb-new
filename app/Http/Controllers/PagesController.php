@@ -1462,11 +1462,13 @@ public function homeskillFilter(){
 					$jobPosts = Postjob::orderBy('created_at', 'asc')
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 								   ->where('post_type', '=', 'job')
+								   ->where('individual_id', '!=', Auth::user()->induser_id)
 								   ->paginate(15);
 				}elseif($sort_by == 'magic-match' && $post_type == 'job'){
 					$jobPosts = Postjob::orderBy('created_at', 'asc')
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 								   ->where('post_type', '=', 'job')
+								   ->where('individual_id', '!=', Auth::user()->induser_id)
 								   ->get();								   
 
 					$jobPosts = $jobPosts->sortBy(function($jobPost){ return -$jobPost->magic_match; });
@@ -1485,23 +1487,27 @@ public function homeskillFilter(){
 								   ->orderBy('id', 'desc')
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 								   ->where('post_type', '=', 'job')
+								   ->where('individual_id', '!=', Auth::user()->induser_id)
 								   ->paginate(15);
 				}elseif($sort_by == 'corporate' && $post_type == 'job'){
 					$jobPosts = Postjob::orderByRaw(DB::raw('CASE WHEN postjobs.corporate_id IS NULL THEN "ind" ELSE "corp" END ASC'))
 								   ->orderBy('id', 'desc')
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 								   ->where('post_type', '=', 'job')
+								   ->where('individual_id', '!=', Auth::user()->induser_id)
 								   ->paginate(15);
 				}else{
 					$jobPosts = Postjob::orderBy('created_at', 'desc')
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 								   ->where('post_type', '=', 'job')
+								   ->where('individual_id', '!=', Auth::user()->induser_id)
 								   ->paginate(15);
 				}
 				
 				$skillPosts = Postjob::orderBy('id', 'desc')
 									 ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 									 ->where('post_type', '=', 'skill')
+									 ->where('individual_id', '!=', Auth::user()->induser_id)
 									 ->paginate(15);
 
 				$links = DB::select('select id from indusers
@@ -1604,29 +1610,34 @@ public function homeskillFilter(){
 					$skillPosts = Postjob::orderBy('created_at', 'asc')
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 								   ->where('post_type', '=', 'skill')
+								   ->where('individual_id', '!=', Auth::user()->induser_id)
 								   ->paginate(15);
 				}elseif($sort_by_skill == 'individual' && $post_type == 'skill'){
 					$skillPosts = Postjob::orderByRaw(DB::raw('CASE WHEN postjobs.individual_id IS NULL THEN "corp" ELSE "ind" END DESC'))
 								   ->orderBy('id', 'desc')
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 								   ->where('post_type', '=', 'skill')
+								   ->where('individual_id', '!=', Auth::user()->induser_id)
 								   ->paginate(15);
 				}elseif($sort_by_skill == 'corporate' && $post_type == 'skill'){
 					$skillPosts = Postjob::orderByRaw(DB::raw('CASE WHEN postjobs.corporate_id IS NULL THEN "ind" ELSE "corp" END ASC'))
 								   ->orderBy('id', 'desc')
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 								   ->where('post_type', '=', 'skill')
+								   ->where('individual_id', '!=', Auth::user()->induser_id)
 								   ->paginate(15);
 				}else{
 					$skillPosts = Postjob::orderBy('created_at', 'desc')
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 								   ->where('post_type', '=', 'skill')
+								   ->where('individual_id', '!=', Auth::user()->induser_id)
 								   ->paginate(15);
 				}
 				
 				$jobPosts = Postjob::orderBy('id', 'desc')
 									 ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 									 ->where('post_type', '=', 'job')
+									 ->where('individual_id', '!=', Auth::user()->induser_id)
 									 ->paginate(15);
 
 				$links = DB::select('select id from indusers

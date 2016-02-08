@@ -56,7 +56,7 @@ class WelcomeController extends Controller {
 					   ->leftJoin('roles', 'roles.id', '=', 'industry_functional_area_role_mappings.role')
 					   ->where('roles.name', 'like', '%'.$role.'%')
 					   ->where('postjobs.post_type', '=', 'skill')
-					   ->orWhere('postjobs.post_title', 'like', '%'.$role.'%');
+					   ->orWhere('postjobs.post_title', 'like', '%'.$role.'%');;
 		}
 		if($city != null){
 			$pattern = '/\s*,\s*/';
@@ -78,5 +78,12 @@ class WelcomeController extends Controller {
 
 		return view('pages.index', compact('title', 'jobPosts', 'skillPosts', 'role', 'experience', 'city'));
 		// return $jobPosts;
+	}
+
+	public function postDetails(){		
+			$post = Postjob::with('indUser', 'corpUser', 'postActivity')->where('id', '=', Input::get('postid'))->first();
+			
+			return view('pages.welcome_postdetails', compact('post'));
+			// return $post;
 	}
 }

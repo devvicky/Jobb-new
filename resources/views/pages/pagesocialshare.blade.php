@@ -46,44 +46,16 @@
 <style type="text/css" rel="stylesheet">
 body{
   background-color: #2E545D;
+
   background-attachment: fixed;
   background-image: url('/assets/admin/pages/media/bg/2.jpg');
   background-repeat: no-repeat;
 }
 </style>
 </head>
-<body style="overflow-y:scroll">
-
-<!-- BEGIN HEADER -->
-<div class="page-header navbar navbar-fixed-top" style="background-color: transparent !important;">
-  <!-- BEGIN HEADER INNER -->
-  <div class="page-header-inner">
-    <!-- BEGIN LOGO -->
-    <div class="page-logo">
-      <a href="/home">
-      <img src="/assets/new_big_logo.png" alt="logo" class="logo-default" style="width: 135px;margin-top: 0;" />
-      </a>      
-    </div>
-    <!-- END LOGO -->
-    <div class="top-menu">
-      <ul class="nav navbar-nav pull-right">
-        <li>
-          <a href="{{ url('/login') }}">
-          <button class="btn welcome-login-css signup-button" style="">
-            Sign Up
-          </button>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <!-- END HEADER INNER -->
-</div>
-<!-- END HEADER -->
-</head>
 <body>
-    <div class="row" style="display:table; margin: 10% auto;">
-        <div class="col-md-3"></div>
+    <div class="row" style="margin: 10% auto;">
+      <div class="col-md-3"></div>
         <div class="col-md-6">
             @if($post != null)
             <div class="portlet-body" id="chats">

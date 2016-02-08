@@ -10,146 +10,136 @@
 	</div>
 	<div class="portlet-body form">
 		
-			<div class="form-body" style="padding:0;">
-				<div class="normal_search">
-					<label style="font-size: 16px;text-align: center;width: 100%;">Invite Your Friends on JobTip & Share Job Information</label>
-				</div>
-				<div class="row">
-					<div class="col-md-12 normal_search" style="margin-bottom:15px;">
-						<div class="portlet light col-md-12 clearfix" style="background-color: transparent;">
-							<div class="row social" style="margin: 5px auto;display: table;">
-								@if($user->reg_via == 'facebook')
-								<div class="col-md-4 col-xs-4 ">
-									<a  class="btn btn-lg btn-facebook btn-block share-media-icon" disabled href="" style="background: #3b5998;color: white;border-radius: 25px !important;">
-									<i class="fa fa-facebook "></i><span class="hidden-xs" style="font-size:14px"> &nbsp;Facebook</span></a>	
-								</div>
-								@else
-								<div class="col-md-4 col-xs-4 ">
-									<a  class="btn btn-lg btn-facebook btn-block share-media-icon" href="" style="background: #3b5998;color: white;border-radius: 25px !important;">
-									<i class="fa fa-facebook "></i><span class="hidden-xs" style="font-size:14px"> &nbsp;Facebook</span></a>	
-								</div>
-								@endif
-								@if($user->reg_via == 'google')
-								<div class="col-md-4 col-xs-4 ">
-									  <a  class="btn btn-lg btn-google btn-block share-media-icon" disabled href="" style="background: #c32f10;color: white;border-radius: 25px !important;">
-									  <i class="fa fa-google-plus"></i><span class="hidden-xs"style="font-size:14px"> &nbsp;Google+</span></a>
-								</div>
-								@else
-								<div class="col-md-4 col-xs-4 ">
-									  <a  class="btn btn-lg btn-google btn-block share-media-icon" href="" style="background: #c32f10;color: white;border-radius: 25px !important;">
-									  <i class="fa fa-google-plus"></i><span class="hidden-xs"style="font-size:14px"> &nbsp;Google+</span></a>
-								</div>
-								@endif
-								@if($user->reg_via == 'linkedin')
-								<div class="col-md-4 col-xs-4 ">
-									  <a class="btn btn-lg btn-linkedin btn-block share-media-icon" disabled style="background: #00aced;color: white;border-radius: 25px !important;">
-									  <i class="fa fa fa-linkedin"></i><span class="hidden-xs"style="font-size:14px"> &nbsp;Linkedin</span></a>
-								</div>
-								@else
-								<div class="col-md-4 col-xs-4 ">
-									  <a class="btn btn-lg btn-linkedin btn-block share-media-icon" style="background: #00aced;color: white;border-radius: 25px !important;">
-									  <i class="fa fa fa-linkedin"></i><span class="hidden-xs"style="font-size:14px"> &nbsp;Linkedin</span></a>
-								</div>
-								@endif
-							</div>
-						</div>
-					</div>	
-					<div class="form-group col-md-12 col-sm-12 col-xs-12 clearfix" style="margin-bottom:10px">	
-							<!-- BEGIN FORM-->
-							<!-- <form action="searchConnections" class="horizontal-form" method="post">
-								<input type="hidden" name="_token" value="{{ csrf_token() }}">	 -->			
-								<!--  <span class="">
-						            <a class="advance-search btn">Click for Advance Search</a>
-						          </span> -->
-						          	<div class="show-adsearch">
-						          		<form id="search-profile" action="/search/profile" method="post">
-					                      <input type="hidden" name="_token" value="{{ csrf_token() }}">
-					                      <!-- <div class="row-md-2"></div> -->
-					                      <div class="row" style="margin-bottom: 20px;margin-top: 10px;">
-					                        <div class="col-md-12 col-sm-12 col-xs-12 advance-len" style="margin:10px 0;">
-					                          <div class="input-group" style="margin:0 auto;">
-					                            <div class="icheck-inline">
-					                              <label>
-					                              	<input id="id_radio1" type="radio" checked name="type" value="people" class="">
-					                              	People
-					                              </label>
-					                              <label>
-					                              	<input id="id_radio2" type="radio" value="company" name="type" class="">
-					                              	Company
-					                              </label>
-					                            </div>
-					                          </div>
-					                        </div> 
-					                      </div>
-					                      <div class="row show-firm-type" style="margin: 0px auto; float: none; display: table;">
-					                      	<div class="btn-group col-md-12 col-sm-12 col-xs-12" style="margin:10px;" data-toggle="buttons">
-												<label class="btn btn-default color-button check-font-size active" >
-												<input type="checkbox" name="firm_type[]" value="Company" class="toggle"> Company </label>
-												<label class="btn btn-default color-button check-font-size">
-												<input type="checkbox" name="firm_type[]" value="Consultancy" class="toggle"> Consultancy </label>
-											</div>
-					                      </div>
-					                      <div class="row">
-					                        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">
-					                          <div class="form-group">              
-					                              <input type="text" name="name" class="form-control filter-input group" placeholder="Enter Name or Company name or Email Id">
-					                          </div>  
-					                        </div>
-					                        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">
-					                          <div class="form-group">              
-					                              <input type="text" name="city" class="form-control filter-input" placeholder="Location: Pune, Hyderabad">
-					                          </div>  
-					                        </div>
-					                      </div>
-					                      <div class="row">
-					                        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">
-					                          <div class="form-group">              
-					                              <input type="text" name="role" class="form-control filter-input" placeholder="Job Role">
-					                          </div>  
-					                        </div>
-					                        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">
-					                          <div class="form-group">              
-					                              <input type="text" name="category" class="form-control filter-input" placeholder="Job Category">
-					                          </div>  
-					                        </div>
-					                      </div>
-					                      <div class="row show-comp">
-					                        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">
-					                          <div class="form-group">              
-					                              <input type="text" name="working_at" class="form-control filter-input" placeholder="Working at">
-					                          </div>  
-					                        </div>
-					                        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">
-					                          <div class="form-group">              
-					                              <input type="text" name="mobile" class="form-control filter-input group" placeholder="Mobile No">
-					                          </div>  
-					                        </div>
-					                      </div>
-					                      <div class="row" style="margin-bottom: 10px;">
-					                        <div class="col-md-12 col-sm-12 col-xs-12">
- 					                          <div class="footer links-title center-css">              
-					                              <button type="submit" class="btn blue "><i class="glyphicon glyphicon-search"></i> Search</button>
-					                          		
-					                          </div> 
-					                          <div class="advance-search group-back-position">
-				                              		<button type="button" class="btn" style="background-color:transparent;"><i class="glyphicon glyphicon-chevron-left"></i> Back</button>
-					                          </div>
-					                        </div>
-					                        
-					                      </div>
-					                    </form>
-						          </div>
-
-							<!-- </form> -->
-							<!-- <div class="col-md-1"></div> -->
-								
-						</div>
-
-							
-				</div>
-					
+		<div class="form-body" style="padding:0;">
+			<div class="normal_search">
+				<label style="font-size: 16px;text-align: center;width: 100%;">Invite Your Friends on JobTip & Share Job Information</label>
 			</div>
+			<div class="row">
+				<div class="col-md-12 normal_search" style="margin-bottom:15px;">
+					<div class="portlet light col-md-12 clearfix" style="background-color: transparent;">
+						<div class="row social" style="margin: 5px auto;display: table;">
+							@if($user->reg_via == 'facebook')
+							<div class="col-md-4 col-xs-4 ">
+								<a  class="btn btn-lg btn-facebook btn-block share-media-icon" disabled href="" style="background: #3b5998;color: white;border-radius: 25px !important;">
+								<i class="fa fa-facebook "></i><span class="hidden-xs" style="font-size:14px"> &nbsp;Facebook</span></a>	
+							</div>
+							@else
+							<div class="col-md-4 col-xs-4 ">
+								<a  class="btn btn-lg btn-facebook btn-block share-media-icon" href="" style="background: #3b5998;color: white;border-radius: 25px !important;">
+								<i class="fa fa-facebook "></i><span class="hidden-xs" style="font-size:14px"> &nbsp;Facebook</span></a>	
+							</div>
+							@endif
+							@if($user->reg_via == 'google')
+							<div class="col-md-4 col-xs-4 ">
+								  <a  class="btn btn-lg btn-google btn-block share-media-icon" disabled href="" style="background: #c32f10;color: white;border-radius: 25px !important;">
+								  <i class="fa fa-google-plus"></i><span class="hidden-xs"style="font-size:14px"> &nbsp;Google+</span></a>
+							</div>
+							@else
+							<div class="col-md-4 col-xs-4 ">
+								  <a  class="btn btn-lg btn-google btn-block share-media-icon" href="" style="background: #c32f10;color: white;border-radius: 25px !important;">
+								  <i class="fa fa-google-plus"></i><span class="hidden-xs"style="font-size:14px"> &nbsp;Google+</span></a>
+							</div>
+							@endif
+							@if($user->reg_via == 'linkedin')
+							<div class="col-md-4 col-xs-4 ">
+								  <a class="btn btn-lg btn-linkedin btn-block share-media-icon" disabled style="background: #00aced;color: white;border-radius: 25px !important;">
+								  <i class="fa fa fa-linkedin"></i><span class="hidden-xs"style="font-size:14px"> &nbsp;Linkedin</span></a>
+							</div>
+							@else
+							<div class="col-md-4 col-xs-4 ">
+								  <a class="btn btn-lg btn-linkedin btn-block share-media-icon" style="background: #00aced;color: white;border-radius: 25px !important;">
+								  <i class="fa fa fa-linkedin"></i><span class="hidden-xs"style="font-size:14px"> &nbsp;Linkedin</span></a>
+							</div>
+							@endif
+						</div>
+					</div>
+				</div>			
+			</div>	
+		</div>
 	</div>
+</div>
+<div class="row clearfix" style="margin-bottom:10px">	
+<!-- BEGIN FORM-->
+	<div class="col-md-7 col-sm-8">
+		<div class="show-adsearch">
+			<form id="search-profile" action="/search/profile" method="post">
+	      <input type="hidden" name="_token" value="{{ csrf_token() }}">
+	      <!-- <div class="row-md-2"></div> -->
+	      <div class="row" style="margin-bottom: 20px;margin-top: 10px;">
+	        <div class="col-md-12 col-sm-12 col-xs-12 advance-len" style="margin:10px 0;">
+	          <div class="input-group" style="margin:0 auto;">
+	            <div class="icheck-inline">
+	              <label>
+	              	<input id="id_radio1" type="radio" checked name="type" value="people" class="">
+	              	People
+	              </label>
+	              <label>
+	              	<input id="id_radio2" type="radio" value="company" name="type" class="">
+	              	Company
+	              </label>
+	            </div>
+	          </div>
+	        </div> 
+	      </div>
+	      <div class="row show-firm-type" style="margin: 0px auto; float: none; display: table;">
+	      	<div class="btn-group col-md-12 col-sm-12 col-xs-12" style="margin:10px;" data-toggle="buttons">
+				<label class="btn btn-default color-button check-font-size active" >
+				<input type="checkbox" name="firm_type[]" value="Company" class="toggle"> Company </label>
+				<label class="btn btn-default color-button check-font-size">
+				<input type="checkbox" name="firm_type[]" value="Consultancy" class="toggle"> Consultancy </label>
+			</div>
+	      </div>
+	      <div class="row" style="margin:0;">
+	        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">
+	          <div class="form-group">              
+	              <input type="text" name="name" class="form-control filter-input group" placeholder="Enter Name or Company name or Email Id">
+	          </div>  
+	        </div>
+	        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">
+	          <div class="form-group">              
+	              <input type="text" name="city" class="form-control filter-input" placeholder="Location: Pune, Hyderabad">
+	          </div>  
+	        </div>
+	      </div>
+	      <div class="row" style="margin:0;">
+	        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">
+	          <div class="form-group">              
+	              <input type="text" name="role" class="form-control filter-input" placeholder="Job Role">
+	          </div>  
+	        </div>
+	        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">
+	          <div class="form-group">              
+	              <input type="text" name="category" class="form-control filter-input" placeholder="Job Category">
+	          </div>  
+	        </div>
+	      </div>
+	      <div class="row show-comp" style="margin:0;">
+	        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">
+	          <div class="form-group">              
+	              <input type="text" name="working_at" class="form-control filter-input" placeholder="Working at">
+	          </div>  
+	        </div>
+	        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">
+	          <div class="form-group">              
+	              <input type="text" name="mobile" class="form-control filter-input group" placeholder="Mobile No">
+	          </div>  
+	        </div>
+	      </div>
+	      <div class="row" style="margin-bottom: 10px;">
+	        <div class="col-md-12 col-sm-12 col-xs-12">
+	              <div class="footer links-title center-css">              
+	              <button type="submit" class="btn blue "><i class="glyphicon glyphicon-search"></i> Search</button>
+	          		
+	          </div> 
+	          <div class="advance-search group-back-position">
+	          		<button type="button" class="btn" style="background-color:transparent;"><i class="glyphicon glyphicon-chevron-left"></i> Back</button>
+	          </div>
+	        </div>
+	        
+	      </div>
+	    </form>
+	</div>
+</div>
 </div>
 <div class="row" style="margin:0 !important;">
 	<div class="col-md-7" style="padding-left:0 !important;margin:10px 0;">
@@ -195,7 +185,7 @@
 			
 			<div class="tab-content">
 				<div class="tab-pane active" id="tab_5_1">
-					@if(count(Auth::user()->induser->friends) > 0)
+
 					@foreach(Auth::user()->induser->friends as $connection)
 						 @if($connection->pivot->status == 1)
 					<div class="row search-user-tool" style="margin:0;">					
@@ -254,13 +244,7 @@
 					</div>
 					@endif	
 					 @endforeach
-					@else
-						<div class="row">
-							<div class="col-md-12">
-								<i class="fa fa-frown-o" style="font-size: 16px !important;"></i> You have no Links
-							</div>
-						</div>
-					@endif								
+								
 				</div>
 				<div class="tab-pane" id="tab_5_2">
 					@if($linkrequestCount > 0)

@@ -9,12 +9,14 @@
 	<div class="tile-position-new">
 		<div class="tile bg-red-intense">
 			<div class="tile-body box-welcome" style="text-align:center;">
-				<img class="" src="/assets/admin/pages/media/bg/skill.png" style="width:90%;">
+				<a href="/login">
+					<img class="" src="/assets/admin/pages/media/bg/skill.png" style="width:90%;">
+				</a>
 				<!-- <i class="fa fa-gavel"></i> -->
 			</div>
 			<div class="tile-object" >
 				<div class="name">
-					 <a href="/login">Add Skills</a>
+					 <a href="/login"></a>
 				</div>
 				<div class="number">
 					 
@@ -23,11 +25,13 @@
 		</div>
 		<div class="tile bg-red-intense">
 			<div class="tile-body" style="text-align:center;">
-				<img class="" src="/assets/admin/pages/media/bg/job.png" style="width:90%;">
+				<a href="/login">
+					<img class="" src="/assets/admin/pages/media/bg/job.png" style="width:90%;">
+				</a>
 			</div>
 			<div class="tile-object" >
 				<div class="name">
-					 <a href="/login"> Post Job tip</a>
+					 <a href="/login"></a>
 				</div>
 				<div class="number">
 					 
@@ -45,32 +49,32 @@
 			<div class="col-md-5 col-sm-5" style="padding-left:0 !important;">
 				<div class=" form-group">
 					<div class="input-group">
-						<span class="input-group-addon" style="color:#A7D6D6 !important;border: 1px solid #A7D6D6;border-right:0;background-color:rgba(149, 152, 152, 0.22);">
+						<span class="input-group-addon welcome-icon">
 							<i class="fa fa-cogs"></i>
 						</span>
-						<input type="text" required name="role" id="search-input" class="form-control" placeholder="Enter Job role" style="border-left:0;color:#A7D6D6 !important;border-color:#A7D6D6;background-color:rgba(149, 152, 152, 0.22);">
+						<input type="text" required name="role" id="search-input" class="form-control welcome-inputbox" placeholder="Enter Job role">
 					</div>
 				</div>		
 			</div>
 			
-			<div id="welcome-city" class="col-md-4 col-sm-4" style="padding-left:0 !important;">
+			<div id="welcome-city" class="col-md-4 col-sm-4 col-xs-12" style="padding-left:0 !important;">
 				<div class="form-group">
 					<div class="input-group">
-						<span class="input-group-addon" style="color:#A7D6D6 !important;border: 1px solid #A7D6D6;border-right:0;background-color:rgba(149, 152, 152, 0.22);">
+						<span class="input-group-addon welcome-icon">
 							<i class="fa fa-map-marker"></i>
 						</span>
-						<input type="text" name="location" class="form-control" placeholder="Enter Location" style="border-left:0;color:#A7D6D6 !important;border-color: #A7D6D6;background-color:rgba(149, 152, 152, 0.22);">										
+						<input type="text" name="location" class="form-control welcome-inputbox" placeholder="Enter Location">										
 					</div>	
 				</div>		
 			</div>
-			<div class="col-md-2 col-sm-3 col-xs-6" style="padding-left:0 !important;">
+			<div class="col-md-2 col-sm-3 col-xs-12" style="padding-left:0 !important;">
 				<div class="form-group">
 					<div class="input-group">
-						<span class="input-group-addon" style="color:#A7D6D6 !important;border: 1px solid #A7D6D6;border-right:0;background-color:rgba(149, 152, 152, 0.22);">
+						<span class="input-group-addon welcome-icon">
 							<i class="icon-briefcase"></i>
 						</span>
-						<select class="form-control" name="experience" placeholder="Exp" style="color:#A7D6D6 !important;border: 1px solid #A7D6D6;border-left:0;background-color:rgba(149, 152, 152, 0.22);">
-							<option value=""> Exp </option>
+						<select class="form-control welcome-inputbox" name="experience" placeholder="Experience">
+							<option value=""> Experience </option>
 							<option value="0">0</option>
 							<option value="1">1</option>
 							<option value="2">2</option>
@@ -91,8 +95,8 @@
 					</div>
 				</div>	
 			</div>
-			<div class="col-md-1 col-sm-12 col-xs-6" style="padding-left:0 !important;text-align:center;">
-				<button type="submit" class="btn btn-small-welcome btn-search-welcome">
+			<div class="col-md-1 col-sm-12 col-xs-12" style="padding-left:0 !important;text-align:center;">
+				<button type="submit" class="btn btn-small-welcome btn-search-welcome search-button-size" style="margin: -1px;">
 					<i class="fa fa-search"></i> Search
 				</button>
 			</div>
@@ -101,47 +105,47 @@
 </div>
 @endif
 @if($title == 'welcome')
-<div class="row " style="margin: 0px 0 10px 0;">
-	<div class="col-md-3 col-sm-4 col-xs-4 show-welcome-detail" style="padding:0;">
-		<button class="btn btn-sm blue">Modify</button>
-	</div>
+<div class="row show-credential" style="margin: 10px auto;display:table;">
 	@if($role != null)
-	<div class="col-md-3 col-sm-4 col-xs-8 capitalize " style="height:28px;padding:0;">
+	<div class="col-md-12 col-sm-12 col-xs-12 capitalize " style="height:28px;padding:0;">
 		<div class="welcome-search-type">
 			<i class="fa fa-cogs"></i> : {{$role}}
 		</div>
 	</div>
 	@endif
-<!-- </div>
-<div class="row " style="margin: 0px 0 10px 0;"> -->
 	@if($experience != null)
-	<div class="col-md-3 col-sm-4 col-xs-4 capitalize " style="padding:0;">
+	<div class="col-md-12 col-sm-12 col-xs-12 capitalize " style="padding:0;">
 		<div class="welcome-search-type">
 			<i class="icon-briefcase"></i> : {{$experience}} Years
 		</div>
 	</div>
 	@endif
 	@if($city != null)
-	<div class="col-md-3 col-sm-4 col-xs-8 capitalize " style="padding:0;">
+	<div class="col-md-12 col-sm-12 col-xs-12 capitalize " style="padding:0;">
 		<div class="welcome-search-type">
 			<i class="fa fa-map-marker"></i> : {{$city}} 
 		</div>
 	</div>
 	@endif
-	
 </div>
+<div class="row " style="margin: 10px auto;display:table;">
+	<div class="col-md-12 col-sm-12 col-xs-12 show-welcome-detail" style="padding:0;">
+		<button class="btn btn-sm blue" style="padding: 8px 28px;">Modify Search</button>
+	</div>
+</div>
+<?php $selected = 'selected'; ?>
 <div class="row welcome-detail" style="margin: 0 -10px 0 5px !important;">
 	<div class="col-md-2 col-sm-1"></div>
 		<div class="col-md-8 col-sm-10" style="padding:0;">
-		<form id="welcome-search" name="welcome_form" action="/welcome/post" method="post">
+		<form id="welcome-searchs" name="welcome_form" action="/welcome/post" method="post">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<div class="col-md-5 col-sm-5" style="padding-left:0 !important;">
 				<div class=" form-group">
 					<div class="input-group">
-						<span class="input-group-addon" style="color:#83ADAD !important;border: 1px solid #83ADAD;border-right:0;background-color:rgba(149, 152, 152, 0.22);">
+						<span class="input-group-addon welcome-icon">
 							<i class="fa fa-cogs"></i>
 						</span>
-						<input type="text" required name="role" id="search-input" class="form-control" placeholder="Enter Job role" style="border-left:0;color:#83ADAD !important;border-color:#83ADAD;background-color:rgba(149, 152, 152, 0.22);">
+						<input type="text" required name="role" value="{{$role}}" id="search-input" class="form-control welcome-inputbox" placeholder="Enter Job role">
 					</div>
 				</div>		
 			</div>
@@ -149,43 +153,43 @@
 			<div id="welcome-city" class="col-md-4 col-sm-4" style="padding-left:0 !important;">
 				<div class="form-group">
 					<div class="input-group">
-						<span class="input-group-addon" style="color:#83ADAD !important;border: 1px solid #83ADAD;border-right:0;background-color:rgba(149, 152, 152, 0.22);">
+						<span class="input-group-addon welcome-icon">
 							<i class="fa fa-map-marker"></i>
 						</span>
-						<input type="text" name="location" class="form-control" placeholder="Enter Location" style="border-left:0;color:#83ADAD !important;border-color: #83ADAD;background-color:rgba(149, 152, 152, 0.22);">										
+						<input type="text" name="location" class="form-control welcome-inputbox" value="{{$city}}" placeholder="Enter Location">
 					</div>	
 				</div>		
 			</div>
-			<div class="col-md-2 col-sm-3 col-xs-6" style="padding-left:0 !important;">
+			<div class="col-md-2 col-sm-3 col-xs-12" style="padding-left:0 !important;">
 				<div class="form-group">
 					<div class="input-group">
-						<span class="input-group-addon" style="color:#83ADAD !important;border: 1px solid #83ADAD;border-right:0;background-color:rgba(149, 152, 152, 0.22);">
+						<span class="input-group-addon welcome-icon">
 							<i class="icon-briefcase"></i>
 						</span>
-						<select class="form-control" name="experience" placeholder="Exp" style="color:#83ADAD !important;border: 1px solid #83ADAD;border-left:0;background-color:rgba(149, 152, 152, 0.22);">
-							<option value=""> Exp </option>
-							<option value="0">0</option>
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-							<option value="5">5</option>
-							<option value="6">6</option>
-							<option value="7">7</option>
-							<option value="8">8</option>
-							<option value="9">9</option>
-							<option value="10">10</option>
-							<option value="11">11</option>
-							<option value="12">12</option>
-							<option value="13">13</option>
-							<option value="14">14</option>
-							<option value="15">15</option>
+						<select class="form-control welcome-inputbox" name="experience" placeholder="Exp" value="{{$experience}}">
+							<option value="">Experience</option>
+							<option @if($experience=="0") {{ $selected }} @endif value="0">0</option>
+							<option @if($experience=="1") {{ $selected }} @endif value="1">1</option>
+							<option @if($experience=="2") {{ $selected }} @endif value="2">2</option>
+							<option @if($experience=="3") {{ $selected }} @endif value="3">3</option>
+							<option @if($experience=="4") {{ $selected }} @endif value="4">4</option>
+							<option @if($experience=="5") {{ $selected }} @endif value="5">5</option>
+							<option @if($experience=="6") {{ $selected }} @endif value="6">6</option>
+							<option @if($experience=="7") {{ $selected }} @endif value="7">7</option>
+							<option @if($experience=="8") {{ $selected }} @endif value="8">8</option>
+							<option @if($experience=="9") {{ $selected }} @endif value="9">9</option>
+							<option @if($experience=="10") {{ $selected }} @endif value="10">10</option>
+							<option @if($experience=="11") {{ $selected }} @endif value="11">11</option>
+							<option @if($experience=="12") {{ $selected }} @endif value="12">12</option>
+							<option @if($experience=="13") {{ $selected }} @endif value="13">13</option>
+							<option @if($experience=="14") {{ $selected }} @endif value="14">14</option>
+							<option @if($experience=="15") {{ $selected }} @endif value="15">15</option>
 						</select>
 					</div>
 				</div>	
 			</div>
-			<div class="col-md-1 col-sm-12 col-xs-6" style="padding-left:0 !important;text-align:center;">
-				<button type="submit" class="btn btn-small-welcome btn-search-welcome">
+			<div class="col-md-1 col-sm-12 col-xs-12" style="padding-left:0 !important;text-align:center;">
+				<button type="submit" class="btn btn-small-welcome btn-search-welcome search-button-size" style="margin: -1px;">
 					<i class="fa fa-search"></i> Search
 				</button>
 			</div>
@@ -210,12 +214,12 @@
 	</ul>
 	<div class="tab-content" style="background-color:transparent;">
 		<div class="tab-pane active" id="tab_job">
-			<div class="search-classic" style="background: rgba(229, 229, 229, 0.51);">
+			<div class="search-classic" style="">
 				@foreach($jobPosts as $post)
 				<div class="row" style="margin:10px 0;">
 					<div class="col-md-2 col-sm-1"></div>
-					<div class="col-md-8 col-sm-10" style="border-bottom:1px solid lightgrey;">
-						<div class="col-md-3 col-sm-3 col-xs-3">
+					<div class="col-md-7 col-sm-10" style="border-bottom:1px solid lightgrey;background: rgba(229, 229, 229, 0.51);">
+						<div class="col-md-2 col-sm-3 col-xs-3">
 							@if($post->induser != null && !empty($post->induser->profile_pic))
 							<img class="timeline-badge-userpic welcome-userpic-box" src="/img/profile/{{ $post->induser->profile_pic }}" title="{{ $post->induser->fname }}">
 							
@@ -229,7 +233,7 @@
 							<img class="timeline-badge-userpic welcome-userpic-box" src="/assets/images/ab.png">
 							@endif
 						</div>
-						<div class="col-md-9 col-sm-9 col-xs-9">
+						<div class="col-md-6 col-sm-6 col-xs-9">
 							@if($post->individual_id != null)
 							<div class="row">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -241,11 +245,14 @@
                                     <i class="fa fa-clock-o job-icon-color" style="font-size: 11px;"></i> 
                                     <small class="job-time-css" style="color:#676565 !important;">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }}</small>
                                 </div>
-                                <a class="myactivity-posts" data-toggle="modal" href="#myactivity-posts">
+                               <!--  <a class="myactivity-posts" data-toggle="modal" href="#myactivity-posts">
 			                        <div class="col-md-6 col-sm-6 col-xs-4" style="#676565 !important;">
-			                           Details
+			                           
 			                        </div>
-			                    </a>
+			                    </a> -->
+			                     <div class="post-hover-act col-md-6" data-wpostid="{{$post->id}}"><a class="welcome-posts" data-toggle="modal" href="#welcome-posts">
+			                     		Details
+	                    		</div>
                             </div>
                             @elseif($post->corporate_id != null)
                             <div class="row">
@@ -262,11 +269,7 @@
                                     <i class="fa fa-clock-o job-icon-color" style="font-size: 11px;"></i> 
                                     <small class="job-time-css" style="color:#676565 !important;">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }}</small>
                                 </div>
-                                 <a class="myactivity-posts" data-toggle="modal" href="#myactivity-posts">
-			                        <div class="col-md-6 col-sm-6 col-xs-4" style="#676565 !important;">
-			                           Details
-			                        </div>
-			                    </a>
+                                 
                             </div>
                             @endif
 						</div>
@@ -299,26 +302,7 @@
 				</div>
 
 			</div>
-				<div class="modal fade bs-modal-lg" id="myactivity-posts" tabindex="-1" role="basic" aria-hidden="true">
-					<div class="modal-dialog ">
-						<div class="modal-content">
-							<div id="myactivity-posts-content" >
-								<div class="row" >
-					                <div class="col-md-12" style="background: lightblue;">
-					                    @if($post->post_type == 'job')
-					                    <label style="margin:2px 0;"> Job Details </label>
-					                    @else($post->post_type == 'skill')
-					                    <label style="margin:2px 0;"> Skill Details </label>
-					                    @endif
-					                </div>
-					            </div>
-							</div>
-						</div>
-						<!-- /.modal-content -->
-					</div>
-					<!-- /.modal-dialog -->
-				</div>
-				<!-- /.modal -->
+				
 				@endforeach
 
 			</div>
@@ -401,18 +385,12 @@
 	                        <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code elipsis-city-code" style="padding:0 12px;">
 	                        <small style="font-size:13px;color:#BDBCBC !important"> <i class="glyphicon glyphicon-map-marker post-icon-color"></i>&nbsp;: {{ $skill->city }}</small>
 	                        </div>
-	                        <div class="post-hover-act" data-postid="{{$post->id}}">
-	                        	<a class="myactivity-posts" data-toggle="modal" href="#welcome-posts">
-			                        <div class="col-md-4 col-sm-4 col-xs-4 hide-details" style="float: right;right: -40px;bottom: 16px;">
-			                           Details
-			                        </div>
-		                       </a>
-	                    </div>
+	                       
 	                </div>
                     </div>
 
                 </div>
-                <div class="modal fade" id="welcome-posts" tabindex="-1" role="basic" aria-hidden="true">
+                <div class="modal fade" id="" tabindex="-1" role="basic" aria-hidden="true">
 					<div class="modal-dialog ">
 						<div class="modal-content">
 							<div id="myactivity-posts-content" >
@@ -694,8 +672,22 @@
 	</div>
 </div>
 
-
 @endif
+
+<div class="modal fade" id="welcome-posts" tabindex="-1" aria-hidden="true" style="padding-right:0;width:auto;margin-left:-300px;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div id="welcome-posts-content" >
+				<div style="text-align:center;">
+					loading...
+				</div>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 @stop
 
 @section('javascript')
@@ -705,8 +697,9 @@
 $(document).ready(function(){
 	
     jQuery('.show-welcome-detail').on('click', function(event) {
-	    jQuery('.welcome-detail').toggle('show');
-	    jQuery('.criteria-hide').toggle('hide');
+	    jQuery('.welcome-detail').show();
+	    jQuery('.show-welcome-detail').hide();
+	    jQuery('.show-credential').hide();
     });
 });
 
@@ -730,6 +723,34 @@ $(document).ready(function(){
     }, 3000);
 
 })();
+
+// Myactivity-post
+
+$(document).ready(function(){
+  $('.welcome-posts').on('click',function(event){  	    
+    	event.preventDefault();
+    	var post_id = $(this).parent().data('wpostid');
+    	
+    	// console.log(post_id);
+      $.ajaxSetup({
+  		headers: {
+  			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  		}
+  	});
+
+      $.ajax({
+        url: "/welcome/postdetails",
+        type: "post",
+        data: {postid: post_id},
+        cache : false,
+        success: function(data){
+      	$('#welcome-posts-content').html(data);
+      	$('#welcome-posts').modal('show');
+        }
+      }); 
+      return false;
+  });
+});
 
 </script>
 

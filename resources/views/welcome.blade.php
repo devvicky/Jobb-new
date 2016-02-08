@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
 	<title>Welcome</title>
 
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
@@ -76,20 +77,20 @@ body{
 }
 
 *::-webkit-input-placeholder {
-color:#A7D6D6 !important;
+color:white !important;
 font-family: !important;
 font-size:14px !important;
 }
 *:-moz-placeholder {
-color:#A7D6D6 !important;
+color:white !important;
 font-size:14px !important;
 }
 *::-moz-placeholder {
-color:#A7D6D6 !important;
+color:white !important;
 font-size:14px !important;
 }
 *:-ms-input-placeholder !important{
-color:#A7D6D6 !important;
+color:white !important;
 font-size:14px !important;
 }
 
@@ -127,6 +128,10 @@ font-size:14px !important;
     margin:0px 0;
     width:auto;
   }
+
+  .search-button-size{
+    padding:8px 97px;
+  }
 }
 
 @media (min-width: 570px) {
@@ -148,6 +153,10 @@ font-size:14px !important;
     margin:80px 0;
     width:auto;
   }
+
+  .search-button-size{
+    padding:8px 28px;
+  }
 }
 
 input:focus::-webkit-input-placeholder { color:transparent !important; }
@@ -163,7 +172,7 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 	<![endif]-->
 </head>
 <body>
-	<div class="page-header navbar navbar-fixed-top" style="background-color: transparent !important;">
+	<div class="page-header navbar navbar-fixed-top" style="">
   <!-- BEGIN HEADER INNER -->
   <div class="page-header-inner">
     <!-- BEGIN LOGO -->
@@ -224,9 +233,7 @@ jQuery(document).ready(function() {
    Metronic.init(); // init metronic core components
 Layout.init(); // init current layout
 Demo.init(); // init demo features
-  $("#draggable").draggable({
-      handle: ".modal-header"
-  });
+
 });
 </script>
 @yield('javascript')
