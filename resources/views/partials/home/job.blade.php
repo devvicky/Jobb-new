@@ -386,14 +386,15 @@
 																</a>
 															</li>
 
-<li style="padding: 8px 0 0px;margin: auto;display: table;">		
-<!-- Go to www.addthis.com/dashboard to customize your tools -->
-<div class="addthis_sharing_toolbox" 
-	data-url="http://jobtip.in/post/{{$post->unique_id}}/social" 
-	data-title="{{$post->post_title}}"
-	data-description="{{ $post->job_detail }}">
-</div>
-</li>
+												<li style="padding: 8px 0 0px;margin: auto;display: table;">		
+												<!-- Go to www.addthis.com/dashboard to customize your tools -->
+												<div class="addthis_sharing_toolbox" 
+													data-url="http://jobtip.in/post/{{$post->unique_id}}/social" 
+													data-title="{{$post->post_title}}"
+													data-description="{{ $post->job_detail }}"
+													data-media="http://jobtip.in/jt_logo.png">
+												</div>
+												</li>
 
 														</ul>													
 													</div>

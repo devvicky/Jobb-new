@@ -22,6 +22,7 @@ use App\Notification;
 use App\Industry;
 use App\FunctionalAreas;
 use App\ReportAbuseAction;
+use Mail;
 
 class JobController extends Controller {
 
@@ -734,26 +735,50 @@ class JobController extends Controller {
 		if($post_id != null){
 			if($this->postExist($post_id)){
 
-				if($this->postAbuseActionTaken($post_id) == false){
-					$action = new ReportAbuseAction();
-					$action->post = $post_id;
-					$action->action_taken_by = Auth::user()->id;
-					$action->warning_email_sent = 1;
-					$tz = new \DateTimeZone('Asia/Kolkata');
-					$today = \Carbon\Carbon::now($tz);
-					$action->email_dtTime = $today;
-					$action->save();
+				$post = Postjob::with('induser', 'corpuser')
+				               ->where('id', '=', $post_id)
+							   ->first();
 
-					ReportAbuse::where('post_id', '=', $post_id)->update(['action_taken' => $action->id]);
-				}else{
-					$tz = new \DateTimeZone('Asia/Kolkata');
-					$today = \Carbon\Carbon::now($tz);
-					ReportAbuseAction::where('id', '=', $this->postAbuseActionTaken($post_id))
-								 	 ->update(['warning_email_sent' => 1, 'email_dtTime' => $today]);
+				$fname = null;
+				$email = null;
+
+				if($post->induser != null){
+					$fname = $post->induser->fname;
+					$email = $post->induser->email;
+				}else if($post->corpuser != null){
+					$fname = $post->corpuser->firm_name;
+					$email = $post->corpuser->firm_email;
 				}
+
+				if($fname != null && $email != null){
+					if($this->postAbuseActionTaken($post_id) == false){
+						Mail::send('emails.report-abuse-warning', array('fname'=>$fname, 'post'=>$post), function($message) use ($email,$fname){
+					        $message->to($email, $fname)->subject('Warning Email for Abusive post!')->from('admin@jobtip.in', 'JobTip');
+					    });				
+
+						$action = new ReportAbuseAction();
+						$action->post = $post_id;
+						$action->action_taken_by = Auth::user()->id;
+						$action->warning_email_sent = 1;
+						$tz = new \DateTimeZone('Asia/Kolkata');
+						$today = \Carbon\Carbon::now($tz);
+						$action->email_dtTime = $today;
+						$action->save();
+
+						ReportAbuse::where('post_id', '=', $post_id)->update(['action_taken' => $action->id]);
+
+					}else{
+						$tz = new \DateTimeZone('Asia/Kolkata');
+						$today = \Carbon\Carbon::now($tz);
+						ReportAbuseAction::where('id', '=', $this->postAbuseActionTaken($post_id))
+									 	 ->update(['warning_email_sent' => 1, 'email_dtTime' => $today]);
+					}
+				}
+				
 			}
 		}
 		return redirect('/report-abuse');
+		// return $post;
 	}
 
 	public function showPostAfterAbuse($post_id){
