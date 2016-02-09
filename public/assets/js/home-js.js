@@ -345,9 +345,9 @@ $('#connections').select2({
   // share post 
   $('#modal-post-share-btn').live('click',function(event){       
     event.preventDefault();
-  loader('show');
+    loader('show');
 
-  var share_post_id = $("#modal_share_post_id").val();
+    var share_post_id = $("#modal_share_post_id").val();
     var formData = $('#modal-post-share-form').serialize(); // form data as string
     var formAction = $('#modal-post-share-form').attr('action'); // form handler url
     // console.log(share_post_id);
@@ -438,5 +438,67 @@ $(document).ready(function () {
     window.testSelAll2 = $('.testSelAll2').SumoSelect({selectAll:true });
 });
 
+function setPostId(postId){
+  $("#modal_share_post_email_id").val(postId);
+  console.log(postId);
+}
 
+// share post by email
+$('#modal-post-share-email-btn').live('click',function(event){       
+  event.preventDefault();
+  loader('show');
+
+    var share_post_id = $("#modal_share_post_email_id").val();
+    var formData = $('#modal-post-share-email-form').serialize(); // form data as string
+    var formAction = $('#modal-post-share-email-form').attr('action'); // form handler url
+    console.log("111:"+share_post_id);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+      url: formAction,
+      type: "post",
+      data: formData,
+      cache : false,
+      success: function(data){
+        loader('hide');
+        if(data.data.page == 'home'){
+            $('#post-share-email-msg-box').removeClass('alert alert-danger');
+            $('#post-share-email-form-errors').hide();
+            $('#post-share-email-msg-box').addClass('alert alert-success').fadeIn(1000, function(){
+                $(this).show();
+            });
+            $('#share-count-'+share_post_id).text(data.data.sharecount);
+            // console.log(data.data.sharecount+" - "+share_post_id);
+            $('#modal-post-share-email-form')[0].reset();
+            $('#post-share-email-msg').html('Post shared successfully ! <br/>');  
+            $("#share-post-email").fadeTo(2000, 500).slideUp(500, function(){               
+                 $('#share-post-email').modal('hide');
+                 $('#post-share-email-msg-box').hide();
+                 $('#post-share-email-msg-box').removeClass('alert alert-success');
+                 $('#post-share-email-msg-box').removeClass('alert alert-danger');                   
+              });   
+           
+        }
+      },
+      error: function(data) {
+        console.log(data);
+        loader('hide');
+        var errors = data.responseJSON;
+        // console.log(errors);
+        $errorsHtml = '<div class="alert alert-danger"><ul>';
+        $.each(errors.errors, function(index, value) {
+          console.log(value);
+         $errorsHtml += '<li>' + value[0] + '</li>';
+        });
+        $errorsHtml += '</ul></div>';             
+          $( '#post-share-form-email-errors' ).html( $errorsHtml );
+          $( '#post-share-form-email-errors' ).show();
+      }
+    }); 
+    return false;
+});
 

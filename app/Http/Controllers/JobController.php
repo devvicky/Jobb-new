@@ -823,4 +823,86 @@ class JobController extends Controller {
 		return redirect('/report-abuse');
 	}
 
+	public function sharePostByEmail(Request $request){
+		if($request->ajax()){
+			$validator = Validator::make(
+											[ 'post_id' => $request['share_post_email_id'], 
+											  'email' => $request['sharetoemail'] ],
+										    [ 'post_id' => 'required', 
+										      'email' => 'required' ],
+										    [ 'post_id' => 'Invalid post id.',
+										      'email' => 'Please enter email id to share.' ]
+										);
+			if ($validator->fails()) {
+		        return response()->json(array(
+										        'success' => false,
+										        'errors' => $validator->getMessageBag()->toArray()
+										    ), 500);
+		    }else{
+				$isShared = 0;
+				$sharePostId = $request['share_post_email_id'];
+				
+				$post = Postjob::findOrFail($sharePostId);
+				$data = [];
+				$data['email'] = '';
+				if($post!=null){
+
+					// share to link
+					if($request['sharetoemail'] != null){
+						$emails = $request['sharetoemail'];
+
+						$emailArray = explode(', ', $emails);
+						// $data['emails'] = $emailArray;
+						foreach($emailArray as $email){
+						    $to_user = $email;
+
+						    if(Auth::user()->identifier == 1){
+						    	$from_user = Auth::user()->induser->fname;
+						    }elseif(Auth::user()->identifier == 2){
+						        $from_user = Auth::user()->corpuser->firm_name;
+						    }
+
+							if($to_user != null){
+								Mail::send('emails.post-sharing', array('from_user'=>$from_user, 'post'=>$post), function($message) use ($to_user, $from_user){
+							        $message->to($to_user, 'User')->subject($from_user+': Shared a post from Jobtip!')->from('admin@jobtip.in', 'JobTip');
+							    });	
+							    $data['email'] = $data['email'] . $to_user.' - ';
+							}
+						}
+
+						$isShared++;
+					}
+
+					// myactivity update
+					if($isShared > 0){
+						/*if($postActivity == null){
+							$postActivity = new Postactivity();
+							$postActivity->post_id = $sharePostId;
+							$postActivity->user_id = Auth::user()->id;
+							$postActivity->share = 1;
+							$postActivity->share_dtTime = new \DateTime();
+							$postActivity->save();
+						}elseif($postActivity != null && $postActivity->share == 0){
+							$postActivity->share = 1;
+							$postActivity->share_dtTime = new \DateTime();
+							$postActivity->save();
+						}
+
+						$sharecount = Postactivity::where('post_id', '=', $sharePostId)->sum('share');*/
+						// $data['sharecount'] = $sharecount;
+
+						$data['page'] = 'home';
+
+					}
+
+				}	
+				return response()->json(['success'=>true,'data'=>$data]);
+				
+			}
+
+		}else{
+			return redirect("/home");
+		}
+	}
+
 }

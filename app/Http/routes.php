@@ -204,6 +204,8 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::get('report-abuse/action/unblockuser/{post_id}', 'JobController@unblockUserAfterAbuse');
 	Route::get('report-abuse/action/warningemail/{post_id}', 'JobController@warningEmailForAbuse');
 
+	Route::post('post/sharebyemail', 'JobController@sharePostByEmail');
+
 });
 
 

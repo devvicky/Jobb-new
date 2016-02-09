@@ -121,25 +121,32 @@
 										<span class="badge-share" id="share-count-{{ $post->id }}">share count</span>
 									</button>
 									<ul class="dropdown-menu pull-right" role="menu" 
-										style="min-width:0;box-shadow:0 0 !important">
-										<li style="background-color: tan;">
-											<a href="#share-post" data-toggle="modal" 
-											   class="jobtip sojt" id="sojt-{{$post->id}}" 
+										style="min-width:0;box-shadow:0 0 !important;padding: 0;">
+										<li style="border-bottom: 1px solid #ddd;">
+											<a href="#share-post" 
+											   data-toggle="modal" 
+											   class="jobtip sojt" 
+											   id="sojt-{{$post->id}}" 
 											   data-share-post-id="{{$post->id}}">
 												Share on Jobtip
 											</a>
 										</li>
-
-							<li style="padding: 8px 0 0px;margin: auto;display: table;">		
-							<!-- Go to www.addthis.com/dashboard to customize your tools -->
-							<div class="addthis_sharing_toolbox" 
-								data-url="http://jobtip.in/post/{{$post->unique_id}}/social" 
-								data-title="{{$post->post_title}}"
-								data-description="{{ $post->job_detail }}"
-								data-media="http://jobtip.in/jt_logo.png">
-							</div>
-							</li>
-
+										<li style="border-bottom: 1px solid #ddd;">
+											<a href="#share-by-email" data-toggle="modal" onclick="setPostId({{$post->id}})" 
+											   class="jobtip sbmail" id="sbmail-{{$post->id}}" 
+											   data-share-post-id="{{$post->id}}">
+												Share by email
+											</a>
+										</li>
+										<li style="padding: 4px 0 0px;margin: auto;display: table;">		
+											<!-- Go to www.addthis.com/dashboard to customize your tools -->
+											<div class="addthis_sharing_toolbox" 
+												data-url="http://jobtip.in/post/{{$post->unique_id}}/social" 
+												data-title="{{$post->post_title}}"
+												data-description="{{ $post->job_detail }}"
+												data-media="http://jobtip.in/jt_logo.png">
+											</div>
+										</li>
 									</ul>													
 								</div>
 								<div class="report-css">
@@ -149,56 +156,56 @@
 										<i class="fa  fa-ellipsis-v" style="color:black;"></i>
 									</button>
 								</a>
-						<div class="modal fade" id="basic-{{ $post->id }}" tabindex="-1" role="basic" 
+								<div class="modal fade" id="basic-{{ $post->id }}" tabindex="-1" role="basic" 
 									 aria-hidden="true">
-									<div class="modal-dialog" style="width: 300px;">
-										<div class="modal-content">
-											<div class="modal-header">
-												<button type="button" class="close" 
-														data-dismiss="modal" aria-hidden="true">
-												</button>
-												<h4 class="modal-title">Report this Post</h4>				
-											</div>
-											<form action="/report-abuse" method="post" id="report-abuse-form-{{ $post->id }}">
-											<input type="hidden" name="_token" value="{{ csrf_token() }}">
-											<input type="hidden" name="report_post_id" value="{{ $post->id }}">
-											<div class="modal-body">
-												<div class="icheck-list">
-													<label>
-														<input type="checkbox" class="icheck" 
-																name="report-abuse-check[]"
-																data-checkbox="icheckbox_line-grey" 
-																data-label="Abusive post"
-																value="Abusive post" checked>
-													</label>												
-													<label>
-														<input type="checkbox" class="icheck" 
-																name="report-abuse-check[]"
-																data-checkbox="icheckbox_line-grey" 
-																data-label="Abusive profile"
-																value="Abusive profile">
-													</label>
-													<label>
-														<input type="checkbox" class="icheck"
-																name="report-abuse-check[]" 
-																data-checkbox="icheckbox_line-grey" 
-																data-label="Spam post"
-																value="Spam post">
-													</label>
+										<div class="modal-dialog" style="width: 300px;">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" 
+															data-dismiss="modal" aria-hidden="true">
+													</button>
+													<h4 class="modal-title">Report this Post</h4>				
 												</div>
-												
+												<form action="/report-abuse" method="post" id="report-abuse-form-{{ $post->id }}">
+												<input type="hidden" name="_token" value="{{ csrf_token() }}">
+												<input type="hidden" name="report_post_id" value="{{ $post->id }}">
+												<div class="modal-body">
+													<div class="icheck-list">
+														<label>
+															<input type="checkbox" class="icheck" 
+																	name="report-abuse-check[]"
+																	data-checkbox="icheckbox_line-grey" 
+																	data-label="Abusive post"
+																	value="Abusive post" checked>
+														</label>												
+														<label>
+															<input type="checkbox" class="icheck" 
+																	name="report-abuse-check[]"
+																	data-checkbox="icheckbox_line-grey" 
+																	data-label="Abusive profile"
+																	value="Abusive profile">
+														</label>
+														<label>
+															<input type="checkbox" class="icheck"
+																	name="report-abuse-check[]" 
+																	data-checkbox="icheckbox_line-grey" 
+																	data-label="Spam post"
+																	value="Spam post">
+														</label>
+													</div>
+													
+												</div>
+												<div class="modal-footer">
+													<button type="submit" class="btn btn-warning btn-xs">Submit</button>
+													<button type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
+												</div>
+												</form>
 											</div>
-											<div class="modal-footer">
-												<button type="submit" class="btn btn-warning btn-xs">Submit</button>
-												<button type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
-											</div>
-											</form>
+											<!-- /.modal-content -->
 										</div>
-										<!-- /.modal-content -->
+										<!-- /.modal-dialog -->
 									</div>
-									<!-- /.modal-dialog -->
-								</div>
-								<!-- /.modal -->	
+									<!-- /.modal -->	
 								</div>
 							</div>
 							

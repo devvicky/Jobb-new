@@ -126,7 +126,6 @@
 
 <!-- Home Modal -->
 <!-- SHARE MODAL FORM-->
-
 <div class="modal fade" id="myactivity-posts" tabindex="-1" role="basic" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -143,7 +142,6 @@
 <!-- /.modal -->
 
 <!-- Link Follow Modal Form -->
-
 <div class="modal fade bs-modal-sm" id="links-follow" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content" id="links-follow">
@@ -158,7 +156,6 @@
   <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-
 
 <!-- Magic Match MODAL FORM-->
 <div class="modal fade" id="magicmatch-posts" tabindex="-1" role="basic" aria-hidden="true">
@@ -175,4 +172,114 @@
   <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+
+<!-- SHARE MODAL FORM-->
+<div class="modal fade" id="share-by-email" tabindex="-1" role="basic" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title">Share post by email</h4>
+      </div>
+      <div id="myactivity-posts-content" >
+        <form role="form" id="modal-post-share-email-form" method="POST" action="{{ url('/post/sharebyemail') }}" class="form-horizontal" >
+          <div class="modal-body">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="share_post_email_id" id="modal_share_post_email_id" value="">
+
+            <div id="post-share-email-msg-box" style="display:none">
+              <div id="post-share-email-msg"></div>
+            </div>
+            <div id="post-share-form-email-errors" style="display:none"></div>
+
+            <div class="row"> 
+              <div class="col-md-12" id="groups-list">
+                <label>Email</label>
+                <input type="text" name="sharetoemail" class="form-control" id="modal_share_email_id">
+              </div>             
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-sm btn-success" id="modal-post-share-email-btn">Share</button>
+            <button type="button" class="btn btn-sm default" data-dismiss="modal">Close</button>
+          </div>   
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="share-post" tabindex="-1" role="dialog" aria-labelledby="share-post" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+     <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title">Share post</h4>
+      </div>
+      <form class="form-horizontal" id="modal-post-share-form" role="form" method="POST" action="{{ url('/post/share') }}">
+        <div class="modal-body">
+                  
+          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+          <input type="hidden" name="share_post_id" id="modal_share_post_id" value="">
+          @if(Auth::user()->induser)
+
+          <div id="post-share-msg-box" style="display:none">
+            <div id="post-share-msg"></div>
+          </div>
+          <div id="post-share-form-errors" style="display:none"></div>
+
+          <div class="row"> 
+            <div class="col-md-6">                      
+              <h4>Who can see this Post</h4>
+            </div>
+            <div class="col-md-6">
+              <!-- <label for="tag-group-all" style="padding: 5.5px 12px;">
+                <input type="checkbox" id="tag-group-all" name="tag-group" value="all" class="md-radiobtn">
+                Public 
+              </label> -->
+              <label for="tag-group-links" style="padding: 5.5px 12px;">
+                <input type="checkbox" id="tag-group-links" name="tag-group" value="links" class="md-radiobtn" >
+                Links 
+              </label>
+              <label for="tag-group-groups" style="padding: 5.5px 12px;">
+                <input type="checkbox" id="tag-group-groups" name="tag-group" value="groups" class="md-radiobtn" >            
+                Groups 
+              </label>
+            </div>
+          </div>          
+
+          <div class="row"> 
+              <div class="col-md-12" id="connections-list">
+              
+              <label>Links</label>
+              {!! Form::select('share_links[]', $share_links, null, ['id'=>'connections', 'class'=>'form-control', 'multiple']) !!}               
+              </div>    
+          </div>
+          <div class="row"> 
+            <div class="col-md-12" id="groups-list">
+              <label>Groups</label>
+              {!! Form::select('share_groups[]', $share_groups, null, ['id'=>'groups', 'class'=>'form-control', 'multiple']) !!}  
+            </div>             
+          </div>
+          @endif            
+     
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-sm btn-success" id="modal-post-share-btn">Share</button>
+          <button type="button" class="btn btn-sm default" data-dismiss="modal">Close</button>
+        </div>      
+      </form>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- END SHARE MODAL FORM -->
+
 <!-- End Home Modal -->
