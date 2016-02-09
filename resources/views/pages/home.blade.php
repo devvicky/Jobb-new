@@ -6,35 +6,6 @@
 
 <!-- Home Modal -->
 
-<!-- SHARE MODAL FORM-->
-<div class="modal fade" id="myactivity-posts" tabindex="-1" role="basic" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div id="myactivity-posts-content" >
-        <div style="text-align:center;">
-          <img src="/assets/global/img/loading.gif"><span> Please wait...</span>
-        </div>
-      </div>
-    </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
-<div class="modal fade bs-modal-sm" id="links-follow" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content" id="links-follow">
-      <div id="links-follow-content">
-        <div style="text-align:center;">
-          <img src="/assets/global/img/loading.gif"><span> Please wait...</span>
-        </div>
-      </div>
-    </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
 <div class="modal fade" id="share-post" tabindex="-1" role="dialog" aria-labelledby="share-post" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

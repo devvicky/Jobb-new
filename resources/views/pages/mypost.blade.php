@@ -179,7 +179,7 @@
 												
 													@if($post->post_duration_extend == 0)
 														<a href="#extend-job-expiry-{{ $post->id }}" data-toggle="modal" 
-														class="btn btn-sm btn-info">
+														class="btn btn-sm blue">
 														 Extend <i class="glyphicon glyphicon-arrow-right" style="font-size:12px;"></i></a>
 												   @else
 												   	<a href="" disabled class="btn btn-sm btn-info">Extended</a>
@@ -191,7 +191,7 @@
 												
 													@if($post->post_duration_extend == 0)
 													<a href="#extend-job-expiry-{{ $post->id }}" data-toggle="modal" 
-													   class="btn btn-sm btn-info">
+													   class="btn btn-sm blue">
 													    Extend <i class="glyphicon glyphicon-arrow-right" style="font-size:12px;"></i></a>
 													@else
 												   	<a href="" disabled class="btn btn-sm btn-info">Extended</a>
@@ -203,7 +203,7 @@
 												
 													@if($post->post_duration_extend == 0)
 													<a href="#extend-job-expiry-{{ $post->id }}" data-toggle="modal" 
-													   class="btn btn-sm btn-info">
+													   class="btn btn-sm blue">
 													    Extend <i class="glyphicon glyphicon-arrow-right" style="font-size:12px;"></i></a>
 													@else
 												   	<a href="" disabled class="btn btn-sm btn-info">Extended</a>   

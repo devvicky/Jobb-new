@@ -21,7 +21,7 @@ class UserServiceProvider extends ServiceProvider {
 			
 			$thanksCount = 0;
 			$followCount = 0;
-			if(Auth::user()->identifier == 1){
+			if(Auth::user()->identifier == 1 || Auth::user()->identifier == 3){
 				$user = Induser::where('id', '=', Auth::user()->induser_id)->first();
 				$favourites = Postactivity::with('user')
 									      ->where('fav_post', '=', 1)
@@ -35,7 +35,7 @@ class UserServiceProvider extends ServiceProvider {
 								      ->orderBy('postactivities.id', 'desc')
 								      ->sum('postactivities.thanks');
 
-			}else if(Auth::user()->identifier == 2){
+			}else if(Auth::user()->identifier == 2 || Auth::user()->identifier == 3){
 				$user = Corpuser::where('id', '=', Auth::user()->corpuser_id)->first();
 				$followCount = Follow::where('corporate_id', '=', 1)
 								->orWhere('individual_id', '=', 1)
@@ -52,7 +52,7 @@ class UserServiceProvider extends ServiceProvider {
 		});
 
 		view()->composer('includes.header', function($view){
-			if(Auth::user()->identifier == 1 || Auth::user()->identifier == 2){
+			if(Auth::user()->identifier == 1 || Auth::user()->identifier == 2 || Auth::user()->identifier == 3){
 				$applications = Postactivity::with('user', 'post')
 											->join('postjobs', 'postjobs.id', '=', 'postactivities.post_id')
 											->where('postjobs.individual_id', '=', Auth::user()->induser_id)

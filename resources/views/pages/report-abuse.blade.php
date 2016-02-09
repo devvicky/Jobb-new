@@ -30,13 +30,13 @@
 					<div class="caption">
 						<i class="icon-globe font-green-sharp"></i>
 						<span class="caption-subject font-green-sharp bold uppercase">
-							Post reported</span>
+							Abusive Post Report</span>
 					</div>
 				</div>
 				<div class="portlet-body">
 					@foreach($reportedPosts as $rp)
 						<div class="row">
-							<div class="col-md-7 user-info">
+							<div class="col-md-12 user-info">
 							@if($rp->post->induser != null)
 								<img title="{{$rp->post->induser->fname}}" 
 									 src="../../img/profile/{{$rp->post->induser->profile_pic}}" 
@@ -56,7 +56,17 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-5 user-info">
+							<div class="col-md-12 user-info">
+								<a href="/report-abuse/action/warningemail/{{$rp->post->id}}">
+									<button class="btn btn-success">Warning Email</button>
+								</a>
+								<button class="btn btn-success">Warning SMS</button>
+								<a href="/report-abuse/action/hidepost/{{$rp->post->id}}">
+									<button class="btn btn-success">Hide Post</button>
+								</a>
+								<a href="/report-abuse/action/blockuser/{{$rp->post->id}}">
+									<button class="btn btn-success">Block User</button>
+								</a>
 								<div class="actions">
 									
 								<div class="btn-group">

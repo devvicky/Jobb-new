@@ -1958,5 +1958,16 @@ public function homeskillFilter(){
 		// return $posts;	
 	}
 
+	public function magicMatch(){
+		if (Auth::check()) {		
+			$post = Postjob::with('induser', 'corpuser', 'postActivity')->where('id', '=', Input::get('postid'))->first();
+			
+			return view('partials.home.magicmatch', compact('post'));
+			// return $post;
+		}else{
+			return redirect('login');
+		}	
+	}
+
 }
 

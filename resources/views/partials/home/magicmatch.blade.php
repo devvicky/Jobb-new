@@ -4,6 +4,7 @@
     <div class="portlet light bordered" style="border: none !important;background:transparent;padding:0 !important;">                                     
         <div class="portlet-body form">
             <div class="form-body" style="padding: 1px 0;">
+
                 <!-- BEGIN BORDERED TABLE PORTLET-->
                     <div class="portlet box">
                         <div class="portlet-body" style=" padding: 0 !important;">
@@ -21,38 +22,7 @@
                                 </thead>
 
                                 <tbody>
-                                    <tr class="@if(count($counts) > 0) title-bacground-color @else title-bacground-color @endif">
-                                        <td colspan="2" class="matching-criteria-align">
-                                            @if(count($counts) > 0)
-                                            <label class="title-color">
-                                                <i class="fa fa-check magic-match-icon-color"></i> Skills <i class="badge">{{count($counts)}}</i> 
-                                            </label>
-                                            @else
-                                            <label class="title-color">
-                                                <i class="fa fa-times"></i> Skills <i class="badge">{{count($counts)}}</i> 
-                                            </label>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                    <tr class="@if(count($counts) > 0) success @else danger-new @endif">
-                                        
-                                        <td class="matching-criteria-align">
-
-                                            @foreach($post->skills as $skill)
-                                                {{$skill->name}},
-                                            @endforeach
-                                        </td>
-                                        @if(Auth::user()->induser->linked_skill != null)
-                                        <td class="matching-criteria-align">
-                                            
-                                            @foreach($userSkills as $myskill)
-                                                {{$myskill}},
-                                            @endforeach                                             
-                                        </td>
-                                        @else
-                                        <td class="matching-criteria-align"><a href="/individual/edit">Add Skills </a></td>
-                                        @endif
-                                    </tr>
+                                    
                                     <tr class="@if(strcasecmp($post->role, Auth::user()->induser->role) == 0) title-bacground-color @else title-bacground-color @endif">
                                         <td colspan="2" class="matching-criteria-align">
                                             @if(strcasecmp($post->role, Auth::user()->induser->role) == 0)

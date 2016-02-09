@@ -57,24 +57,24 @@
 				</div>		
 			</div>
 			
-			<div id="welcome-city" class="col-md-4 col-sm-4 col-xs-12" style="padding-left:0 !important;">
+			<div id="welcome-city" class="col-md-4 col-sm-4 col-xs-6" style="padding-left:0 !important;">
 				<div class="form-group">
 					<div class="input-group">
 						<span class="input-group-addon welcome-icon">
 							<i class="fa fa-map-marker"></i>
 						</span>
-						<input type="text" name="location" class="form-control welcome-inputbox" placeholder="Enter Location">										
+						<input type="text" name="location" class="form-control welcome-inputbox" placeholder="City">										
 					</div>	
 				</div>		
 			</div>
-			<div class="col-md-2 col-sm-3 col-xs-12" style="padding-left:0 !important;">
+			<div class="col-md-2 col-sm-3 col-xs-6" style="padding-left:0 !important;">
 				<div class="form-group">
 					<div class="input-group">
 						<span class="input-group-addon welcome-icon">
 							<i class="icon-briefcase"></i>
 						</span>
 						<select class="form-control welcome-inputbox" name="experience" placeholder="Experience">
-							<option value=""> Experience </option>
+							<option value=""> Exp</option>
 							<option value="0">0</option>
 							<option value="1">1</option>
 							<option value="2">2</option>
@@ -97,7 +97,7 @@
 			</div>
 			<div class="col-md-1 col-sm-12 col-xs-12" style="padding-left:0 !important;text-align:center;">
 				<button type="submit" class="btn btn-small-welcome btn-search-welcome search-button-size" style="margin: -1px;">
-					<i class="fa fa-search"></i> Search
+					<i class="fa fa-search"></i><span class="search-icon"> Search</span>
 				</button>
 			</div>
 		</form>
@@ -105,25 +105,11 @@
 </div>
 @endif
 @if($title == 'welcome')
-<div class="row show-credential" style="margin: 10px auto;display:table;">
+<div class="row show-credential" style="text-align:center;margin:0;">
 	@if($role != null)
-	<div class="col-md-12 col-sm-12 col-xs-12 capitalize " style="height:28px;padding:0;">
-		<div class="welcome-search-type">
-			<i class="fa fa-cogs"></i> : {{$role}}
-		</div>
-	</div>
-	@endif
-	@if($experience != null)
 	<div class="col-md-12 col-sm-12 col-xs-12 capitalize " style="padding:0;">
 		<div class="welcome-search-type">
-			<i class="icon-briefcase"></i> : {{$experience}} Years
-		</div>
-	</div>
-	@endif
-	@if($city != null)
-	<div class="col-md-12 col-sm-12 col-xs-12 capitalize " style="padding:0;">
-		<div class="welcome-search-type">
-			<i class="fa fa-map-marker"></i> : {{$city}} 
+			 {{$role}} | {{$experience}} Years | {{$city}} 
 		</div>
 	</div>
 	@endif
@@ -150,24 +136,24 @@
 				</div>		
 			</div>
 			
-			<div id="welcome-city" class="col-md-4 col-sm-4" style="padding-left:0 !important;">
+			<div id="welcome-city" class="col-md-4 col-sm-4 col-xs-6" style="padding-left:0 !important;">
 				<div class="form-group">
 					<div class="input-group">
 						<span class="input-group-addon welcome-icon">
 							<i class="fa fa-map-marker"></i>
 						</span>
-						<input type="text" name="location" class="form-control welcome-inputbox" value="{{$city}}" placeholder="Enter Location">
+						<input type="text" name="location" class="form-control welcome-inputbox" value="{{$city}}" placeholder="City">
 					</div>	
 				</div>		
 			</div>
-			<div class="col-md-2 col-sm-3 col-xs-12" style="padding-left:0 !important;">
+			<div class="col-md-2 col-sm-3 col-xs-6" style="padding-left:0 !important;">
 				<div class="form-group">
 					<div class="input-group">
 						<span class="input-group-addon welcome-icon">
 							<i class="icon-briefcase"></i>
 						</span>
 						<select class="form-control welcome-inputbox" name="experience" placeholder="Exp" value="{{$experience}}">
-							<option value="">Experience</option>
+							<option value="">Exp</option>
 							<option @if($experience=="0") {{ $selected }} @endif value="0">0</option>
 							<option @if($experience=="1") {{ $selected }} @endif value="1">1</option>
 							<option @if($experience=="2") {{ $selected }} @endif value="2">2</option>

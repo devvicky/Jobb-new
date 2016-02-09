@@ -130,7 +130,12 @@ font-size:14px !important;
   }
 
   .search-button-size{
-    padding:8px 97px;
+    max-width:600px !important;
+    width:100% !important;
+  }
+
+  .search-icon{
+    display: block;
   }
 }
 
@@ -155,7 +160,12 @@ font-size:14px !important;
   }
 
   .search-button-size{
-    padding:8px 28px;
+    max-width:600px !important;
+    width:100% !important;
+  }
+
+  .search-icon{
+    display: none;
   }
 }
 

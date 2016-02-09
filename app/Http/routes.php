@@ -50,6 +50,7 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::post('/matching_criteria', 'PagesController@matching');
 	Route::post('viewcontact/view', 'PagesController@viewContact');
 	Route::post('postdetail/detail', 'PagesController@postDetail');
+	Route::post('magicmatch/detail', 'PagesController@magicMatch');
 
 	Route::get('individual', 'UserController@index');
 	Route::get('individual/create', 'UserController@create');

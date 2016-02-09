@@ -45,6 +45,34 @@ $(document).ready(function(){
   });
 });
 
+// Magicmatch-post
+
+$(document).ready(function(){
+  $('.magicmatch-posts').live('click',function(event){        
+      event.preventDefault();
+      var post_id = $(this).parent().data('mpostid');
+      
+      // console.log(post_id);
+      $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+
+      $.ajax({
+        url: "/magicmatch/detail",
+        type: "post",
+        data: {postid: post_id},
+        cache : false,
+        success: function(data){
+        $('#magicmatch-posts-content').html(data);
+        $('#magicmatch-posts').modal('show');
+        }
+      }); 
+      return false;
+  });
+});
+
 
 
 // like-button
