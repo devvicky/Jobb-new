@@ -243,6 +243,8 @@ body.page-boxed{
 <!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
 <body class="page-boxed page-header-fixed page-container-bg-solid page-sidebar-closed-hide-logo ">
 
+@include('includes.analyticstracking')
+
 @include('includes.header')
 
 <div class="clearfix"></div>

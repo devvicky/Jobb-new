@@ -182,6 +182,9 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 	<![endif]-->
 </head>
 <body>
+
+@include('includes.analyticstracking')
+
 	<div class="page-header navbar navbar-fixed-top" style="">
   <!-- BEGIN HEADER INNER -->
   <div class="page-header-inner">

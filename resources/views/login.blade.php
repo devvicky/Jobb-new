@@ -125,6 +125,9 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
 <body class="login" style="overflow-y:scroll">
+
+@include('includes.analyticstracking')
+
 <!-- BEGIN HEADER -->
 <div class="page-header navbar navbar-fixed-top" style="background-color: transparent !important;">
   <!-- BEGIN HEADER INNER -->
