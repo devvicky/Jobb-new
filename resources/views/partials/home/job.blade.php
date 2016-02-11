@@ -31,7 +31,7 @@
 				<?php
 				$crossCheck = array_intersect($groupsTagged, $groups);
 				$elements = array_count_values($crossCheck); ?>
-				
+
 				@if($post->induser != null)	
 					@include('partials.home.post', ['userImgPath'	=>	$post->induser->profile_pic, 
 													'userName'		=>	$post->induser->fname,
@@ -45,7 +45,8 @@
 													'userId'		=>	$post->individual_id,
 													'postId'		=>	$post->id])
 				@elseif($post->corpuser != null)
-					@include('partials.home.post', ['userImgPath'=>$post->corpuser->logo_status, 'userName'=>$post->corpuser->firm_name ])
+					@include('partials.home.post', ['userImgPath'	=>	$post->corpuser->logo_status, 
+													'userName'		=>	$post->corpuser->firm_name ])
 				@endif
 			@endforeach					 			
 			</div>
