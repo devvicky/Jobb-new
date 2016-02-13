@@ -1,11 +1,27 @@
 @extends('welcome')
 
 @section('content')
-
-<div class="row ">
-	<div class="tile-position welcome-post-content" style="height:56px;">
-	<span id="changerificwordspanid" class="uppercase" style="font-size:18px;font-weight:200;">Do you know about any job openings</span>
+<div class="row" style="margin:0 auto;display:table;">
+	<div class='con'>
+	  <div class='visible'>
+	    <ul class="new-visible-ul">
+	      <li class="new-visible">Do you know about any job openings</li>
+	      <li class="new-visible">Searching for right job</li>
+	      <li class="new-visible">Add your skills here</li>
+	      <li class="new-visible">post Job tip here</li>
+	      <li class="new-visible">Create a group of your friends</li>
+	      <li class="new-visible">share job info among your friends</li>
+	      <li class="new-visible">Add your skills here</li>
+	    </ul>
+	  </div>
 	</div>
+</div>
+<div class="row ">
+<!-- 	<div class="tile-position welcome-post-content" style="height:56px;">
+	<span id="changerificwordspanid" class="uppercase" style="font-size:18px;font-weight:200;">Do you know about any job openings</span>
+	</div> -->
+
+	
 	<div class="tile-position-new">
 		<div class="tile bg-red-intense">
 			<div class="tile-body box-welcome" style="text-align:center;">
@@ -74,7 +90,7 @@
 							<i class="icon-briefcase"></i>
 						</span>
 						<select class="form-control welcome-inputbox" name="experience" placeholder="Experience">
-							<option value=""> Exp</option>
+							<option value=""> Exp (in Years)</option>
 							<option value="0">0</option>
 							<option value="1">1</option>
 							<option value="2">2</option>
@@ -97,7 +113,10 @@
 			</div>
 			<div class="col-md-1 col-sm-12 col-xs-12" style="padding-left:0 !important;text-align:center;">
 				<button type="submit" class="btn btn-small-welcome btn-search-welcome search-button-size" style="margin: -1px;">
-					<i class="fa fa-search"></i><span class="search-icon"> Search</span>
+					<i class="fa fa-search"></i>
+					
+						<!-- Search -->
+					
 				</button>
 			</div>
 		</form>
@@ -153,7 +172,7 @@
 							<i class="icon-briefcase"></i>
 						</span>
 						<select class="form-control welcome-inputbox" name="experience" placeholder="Exp" value="{{$experience}}">
-							<option value="">Exp</option>
+							<option value="">Exp (in Years)</option>
 							<option @if($experience=="0") {{ $selected }} @endif value="0">0</option>
 							<option @if($experience=="1") {{ $selected }} @endif value="1">1</option>
 							<option @if($experience=="2") {{ $selected }} @endif value="2">2</option>

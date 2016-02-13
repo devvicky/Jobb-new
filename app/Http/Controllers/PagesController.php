@@ -853,7 +853,7 @@ public function homeskillFilter(){
 			$max_exp = Input::get('max_exp');
 			$prefered_jobtype = Input::get('job_type');
 			$resume = Input::get('resume');
-			// $skills = implode(", ", Input::get('linked_skill_id'));
+			$skills = explode(", ", Input::get('linked_skill_id'));
 
 			$type = Input::get('type');
 
@@ -905,7 +905,7 @@ public function homeskillFilter(){
 				// 	$users->whereIn('linked_skill', $skillsArray);
 				// }
 
-				// if(Auth::user()->indentifier == 2){
+				if(Auth::user()->indentifier == 2){
 					// $perPeople = '100';
 					if($city != null || $name != null || $category != null || $working_at != null || $mobile != null || $min_exp != null || $max_exp != null || $prefered_jobtype != null || $resume != null || $skills == null){
 						$perPeople = '100';
@@ -924,7 +924,7 @@ public function homeskillFilter(){
 						
 					}
 					
-				// }
+				}
 
 				$users = $users->paginate(15);
 

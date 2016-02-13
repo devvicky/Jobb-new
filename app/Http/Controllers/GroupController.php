@@ -93,6 +93,12 @@ class GroupController extends Controller {
 		$group->group_name = $request['group_name'];
 		$group->admin_id =  Auth::user()->induser_id;
 		$group->save();
+
+		$groupuser = new Groups_users();
+		$groupuser->group_id = $group->id;
+		$groupuser->user_id = Auth::user()->induser_id;
+		$group->adminUser()->save($groupuser);
+		
 		return redirect('/group/'.$group->id);	
 		// return $group;
 	}
@@ -266,6 +272,18 @@ class GroupController extends Controller {
 			$groups_users->delete();
 		}		
 		return redirect('/group/'.$request['delete_id']);
+	}
+
+	public function changeAdmin($id)
+	{
+		$data = Group::where('id', '=', $id)->first();
+		if($data != null){
+			$data->admin_id = Input::get('admin_id');
+			$data->save();
+			return redirect('/group/'.$id);
+		}else{
+			return 'some error occured.';
+		}
 	}
 
 }

@@ -16,22 +16,26 @@
 
 			<div class="group-admin-title pull-right">
 				@if($group->admin->id == Auth::user()->induser_id)
-				<a id="ajax-demo" href="#edit-group" data-toggle="modal" class="badge btn btn-xs btn-info" style="" title="Edit">
-					<i class="fa fa-edit"></i><span class="hidden-xs font-group"> Edit</span>
-				</a>
-			@endif
-			@if($group->admin->id == Auth::user()->induser_id)				
-				<a id="ajax-demo" href="#delete-group" data-toggle="modal" title="Delete" 
-					class="badge btn btn-xs btn-danger" style="text-decoration: none;">
-					<i class="fa fa-trash"></i><span class="hidden-xs font-group"> Delete Group</span>
-				</a>				
-			@else				
-				<a id="ajax-demo" href="#leave-group" data-toggle="modal" 
-					class="badge btn btn-xs" style="text-decoration: none;">						
-					<i class="fa fa-sign-out"></i><span class="hidden-xs font-group"> Leave Group</span>
-				</a>
-			@endif
-				
+					<a id="ajax-demo" href="#edit-group" data-toggle="modal" class="badge btn btn-xs btn-info" style="" title="Edit">
+						<i class="fa fa-edit"></i><span class="hidden-xs font-group"> Edit</span>
+					</a>
+				@endif
+				@if($group->admin->id == Auth::user()->induser_id)				
+					<a id="ajax-demo2" href="#delete-group" data-toggle="modal" title="Delete" 
+						class="badge btn btn-xs btn-danger" style="text-decoration: none;">
+						<i class="fa fa-trash"></i><span class="hidden-xs font-group"> Delete Group</span>
+					</a>				
+				@else				
+					<a id="ajax-demo3" href="#leave-group" data-toggle="modal" 
+						class="badge btn btn-xs" style="text-decoration: none;">						
+						<i class="fa fa-sign-out"></i><span class="hidden-xs font-group"> Leave Group</span>
+					</a>
+				@endif
+				@if($group->admin->id == Auth::user()->induser_id)
+					<a id="ajax-demo4" href="#change-admin" data-toggle="modal" class="badge btn btn-xs btn-info" style="" title="Edit">
+						<i class="fa fa-edit"></i><span class="hidden-xs font-group"> Change Admin</span>
+					</a>
+				@endif
 			</div>
 		</div>		
 	</div>
@@ -39,7 +43,37 @@
 
 	<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 	<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
-
+<div class="modal fade" id="change-admin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  	<div class="modal-dialog" style="width: 300px;">
+	    <div class="modal-content">
+	    	<form action="{{ url('/group/adminchange', $group->id) }}" class="horizontal-form" method="post">
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
+		     	<div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+			        <h4 class="modal-title">{{$group->group_name}}</h4>
+			     </div>
+				<div class="modal-body">
+					<div class="form-group">
+						<!-- <div class="input-group"> -->
+							<select class="form-control" name="admin_id">
+								@foreach($users as $user)
+									<option value="{{$user->id}}">{{$user->fname}} {{$user->lname}}</option>
+								@endforeach
+							</select>
+						<!-- </div> -->
+					</div>	      		
+	     		</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-success">Change</button>
+					<button type="button" class="btn default" data-dismiss="modal">Close</button>
+				</div>
+			</form>
+		</div>
+	    <!-- /.modal-content -->
+ 	</div>
+  	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 <div class="modal fade" id="edit-group" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   	<div class="modal-dialog" style="width: 300px;">
 	    <div class="modal-content">

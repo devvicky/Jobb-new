@@ -6,8 +6,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}" />
 	<title>Welcome</title>
-
-<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
+<link href="http://fonts.googleapis.com/css?family=Muli" rel="stylesheet" type="text/css" />
+<!-- <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/> -->
 <link href="{{ asset('/assets/global/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css"/>
 <link href="{{ asset('/assets/global/plugins/simple-line-icons/simple-line-icons.min.css') }}" rel="stylesheet" type="text/css"/>
 <link href="{{ asset('/assets/global/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
@@ -103,9 +103,10 @@ font-size:14px !important;
 @media (max-width: 570px) {
   .big-logo {
     display: block;
-    width: 125px;
-    padding: 0px;
-    margin: 3px;
+    width: 145px;
+    margin-top: 5px;
+    margin-right: 0;
+    float: left;
 }
 
   .btn-small-welcome{
@@ -142,8 +143,8 @@ font-size:14px !important;
 @media (min-width: 570px) {
   .big-logo {
     display: block;
-    width: 125px;
-    margin-top: 3px;
+    width: 145px;
+    margin-top: 5px;
     margin-right: 0;
     float: left;
 }
@@ -190,7 +191,7 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
   <div class="page-header-inner">
     <!-- BEGIN LOGO -->
     <div class="page-logo">
-      <a class="" href="/home"><img src="{{ asset('/assets/new_big_logo.png') }}" class="big-logo" />
+      <a class="" href="/home"><img src="{{ asset('/assets/logo.png') }}" class="big-logo" />
      <!--  <div class="menu-toggler sidebar-toggler hide"> -->
         <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
       <!-- </div> -->

@@ -6230,7 +6230,7 @@ Custom tabs
 .tabbable-custom {
   margin-bottom: 15px;
   padding: 0px;
-  overflow: hidden;
+  /*overflow: hidden;*/
   /* justified tabs */
   /* boxless tabs */
   /* below justified tabs */

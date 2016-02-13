@@ -162,21 +162,10 @@
           <!-- END USER LOGIN DROPDOWN -->
         </ul>
         <div class="btn-group" style="margin: 0px 17px;float:right">
-        <button type="button" class="btn btn-circle green-haze dropdown-toggle" data-toggle="dropdown">
-        <span class="">Post</span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-          <li>
-            <a href="/job/create">
-            <i class="icon-user"></i> Job</a>
-          </li>
-           @if (Auth::user()->identifier == 1)
-          <li>
-            <a href="/skill/create">
-            <i class="icon-basket"></i> Skill</a>
-          </li>
-          @endif
-        </ul>
+          <a class="btn btn-circle" style="background-color:#45b6af !important;color:white;" 
+          data-toggle="modal" href="#job-skill-post">
+             Post
+          </a>
       </div>
       </div>
       <!-- Search -->

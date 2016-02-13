@@ -12,7 +12,27 @@
 
 				</div>
 
-				@include('partials.home.favourite')
+				<div class="fav-dir">
+					@if(Auth::user()->induser_id != $post->individual_id )
+					<form action="/job/fav" method="post" id="post-fav-{{$post->id}}" data-id="{{$post->id}}">
+						<input type="hidden" name="_token" value="{{ csrf_token() }}">
+						<input type="hidden" name="fav_post" value="{{ $post->id }}">
+
+						<button class="btn fav-btn " type="button" 
+								style="background-color: transparent;padding:0 10px;border:0">
+							@if($post->postactivity->where('user_id', Auth::user()->id)->isEmpty())
+							<i class="fa fa-star" id="fav-btn-{{$post->id}}" style="font-size: 20px;color:rgb(183, 182, 182);"></i>
+							@elseif($post->postactivity->where('user_id', Auth::user()->id)->first()->fav_post == 1) 
+
+							<i class="fa fa-star" id="fav-btn-{{$post->id}}" style="font-size: 20px;color:#FFC823;"></i>
+							@else
+							<i class="fa fa-star" id="fav-btn-{{$post->id}}" style="font-size: 20px;color:rgb(183, 182, 182);"></i>
+							@endif	
+						</button>	
+					</form>
+					@endif
+					
+				</div>
 				@include('partials.home.image-linked')
 
 				<div class="post-hover-act" data-postid="{{$post->id}}">
@@ -118,7 +138,7 @@
 											style="background-color: transparent;border: 0;margin: 0px;">
 										<i class="fa fa-share-square-o" 
 											style="font-size: 19px;color: darkslateblue;"></i>
-										<span class="badge-share" id="share-count-{{ $post->id }}">share count</span>
+										<span class="badge-share" id="share-count-{{ $post->id }}">share</span>
 									</button>
 									<ul class="dropdown-menu pull-right" role="menu" 
 										style="min-width:0;box-shadow:0 0 !important;padding: 0;">
@@ -166,7 +186,7 @@
 													</button>
 													<h4 class="modal-title">Report this Post</h4>				
 												</div>
-												<form action="/report-abuse" method="post" id="report-abuse-form-{{ $post->id }}">
+												<form action="/report-abuse" method="post" id="report-abuse-form-{{ $post->id }}" class="report-validation">
 												<input type="hidden" name="_token" value="{{ csrf_token() }}">
 												<input type="hidden" name="report_post_id" value="{{ $post->id }}">
 												<div class="modal-body">
@@ -176,21 +196,21 @@
 																	name="report-abuse-check[]"
 																	data-checkbox="icheckbox_line-grey" 
 																	data-label="Abusive post"
-																	value="Abusive post" checked>
+																	value="1" checked>
 														</label>												
 														<label>
 															<input type="checkbox" class="icheck" 
 																	name="report-abuse-check[]"
 																	data-checkbox="icheckbox_line-grey" 
 																	data-label="Abusive profile"
-																	value="Abusive profile">
+																	value="2">
 														</label>
 														<label>
 															<input type="checkbox" class="icheck"
 																	name="report-abuse-check[]" 
 																	data-checkbox="icheckbox_line-grey" 
 																	data-label="Spam post"
-																	value="Spam post">
+																	value="3">
 														</label>
 													</div>
 													

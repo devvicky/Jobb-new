@@ -115,6 +115,7 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::post('group/adduser', 'GroupController@addUser');	
 	Route::post('group/deleteuser', 'GroupController@deleteUser');
 	Route::post('group/leavegroup', 'GroupController@leavegroup');
+	Route::post('group/adminchange/{id}', 'GroupController@changeAdmin');
 
 	Route::post('user/imgUpload', 'UserController@imgUpload');	
 	Route::post('corporate/imgUpload', 'CorporateController@imgUpload');	
@@ -174,6 +175,8 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::get('home/{post_type}/{sort_by}', 'PagesController@homeSorting');
 	Route::get('home/{post_type}/{sort_by_skill}', 'PagesController@homeskillSorting');
 
+	Route::get('home/contactus', 'PagesController@contactUs');
+	Route::get('login/aboutme', 'PagesController@aboutMe');
 
 	// Admin Controller panel
 	Route::post('admin/role/upload', 'AdminController@updateRole');

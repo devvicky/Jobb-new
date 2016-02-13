@@ -9,51 +9,67 @@
 	<!-- END PAGE HEADER-->
 
 	<div class="clearfix"></div>
+	
+
 	<div class="row">
-		<div class="col-md-12">
-			<div class="portlet box grey-cascade">
-				<div class="portlet-title">
-					<div class="caption">
-						<i class="fa fa-globe"></i>Feedback Table
-					</div>
-					<div class="tools">
-						<a href="javascript:;" class="collapse">
+	<div class="col-md-12">
+		<!-- Begin: life time stats -->
+		<div class="portlet" style="overflow-x:scroll;">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-shopping-cart"></i>Feedback Report
+				</div>
+				<div class="actions">
+					<a href="javascript:;" class="btn default yellow-stripe">
+					<i class="fa fa-plus"></i>
+					<span class="hidden-480">
+					New Order </span>
+					</a>
+					<div class="btn-group">
+						<a class="btn default yellow-stripe" href="javascript:;" data-toggle="dropdown">
+						<i class="fa fa-share"></i>
+						<span class="hidden-480">
+						Tools </span>
+						<i class="fa fa-angle-down"></i>
 						</a>
-						<a href="#portlet-config" data-toggle="modal" class="config">
-						</a>
-						<a href="javascript:;" class="reload">
-						</a>
-						<a href="javascript:;" class="remove">
-						</a>
+						<ul class="dropdown-menu pull-right">
+							<li>
+								<a href="javascript:;">
+								Export to Excel </a>
+							</li>
+							<li>
+								<a href="javascript:;">
+								Export to CSV </a>
+							</li>
+							<li>
+								<a href="javascript:;">
+								Export to XML </a>
+							</li>
+							<li class="divider">
+							</li>
+							<li>
+								<a href="javascript:;">
+								Print Invoices </a>
+							</li>
+						</ul>
 					</div>
 				</div>
-				<div class="portlet-body">
-					<div class="table-toolbar">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="btn-group pull-right">
-									<button class="btn dropdown-toggle" data-toggle="dropdown">Tools <i class="fa fa-angle-down"></i>
-									</button>
-									<ul class="dropdown-menu pull-right">
-										<li>
-											<a href="javascript:;">
-											Print </a>
-										</li>
-										<li>
-											<a href="javascript:;">
-											Save as PDF </a>
-										</li>
-										<li>
-											<a href="javascript:;">
-											Export to Excel </a>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
+			</div>
+			<div class="portlet-body">
+				<div class="table-container">
+					<div class="table-actions-wrapper">
+						<span>
+						</span>
+						<select class="table-group-action-input form-control input-inline input-small input-sm">
+							<option value="">Select...</option>
+							<option value="Cancel">Cancel</option>
+							<option value="Cancel">Hold</option>
+							<option value="Cancel">On Hold</option>
+							<option value="Close">Close</option>
+						</select>
+						<button class="btn btn-sm yellow table-group-action-submit"><i class="fa fa-check"></i> Submit</button>
 					</div>
-					
-					<table class="table table-striped table-bordered table-hover" id="sample_1">
+					<table class="table table-striped table-bordered table-hover" id="datatable_ajax">
 					<thead>
 					<tr>
 						<th class="table-checkbox">
@@ -130,12 +146,13 @@
 					</tbody>
 					@endforeach
 					</table>
-					
 				</div>
 			</div>
-			<!-- END EXAMPLE TABLE PORTLET-->
 		</div>
+		<!-- End: life time stats -->
 	</div>
+</div>
+<!-- END PAGE CONTENT-->
 	<div class="row" style="margin: 15px -15px;">
 		<div class="col-md-12 col-sm-12">
 			<ul class="feeds">
