@@ -496,13 +496,37 @@ class JobController extends Controller {
 	}
 
 	public function reportAbusePage(){
-		$reportedPosts = ReportAbuse::with('post')
+		$reportedAbusivePosts = ReportAbuse::with('post')
 									->groupBy('post_id')
-									->having(DB::raw('count(*)'), '>', 1)     					    
+									->having(DB::raw('count(*)'), '>', 1)
+									->where('reported_for', 'like', '%1%')    					    
 									->get([DB::raw('count(*) as total, post_id')]);
-
-		$reportAbuses = ReportAbuse::orderBy('id', 'desc')->with('user', 'post')->get();
-		return view('pages.report-abuse', compact('reportAbuses', 'reportedPosts'));
+		$reportedProfile = ReportAbuse::with('post', 'user')
+									->groupBy('post_id')
+									->having(DB::raw('count(*)'), '>', 1)
+									->where('reported_for', 'like', '%2%')    					    
+									->get([DB::raw('count(*) as total, post_id')]);
+		$reportedSpam = ReportAbuse::with('post')
+									->groupBy('post_id')
+									->having(DB::raw('count(*)'), '>', 1)
+									->where('reported_for', 'like', '%3%')    					    
+									->get([DB::raw('count(*) as total, post_id')]);
+		$reportAbuses = ReportAbuse::orderBy('id', 'desc')
+								   ->with('user', 'post')
+								   ->where('reported_for', 'like', '%1%')
+								   ->get();
+		$reportProfileAbuses = ReportAbuse::orderBy('id', 'desc')
+								   ->with('user', 'post')
+								   ->where('reported_for', 'like', '%2%') 
+								   ->get();
+		$reportSpamAbuses = ReportAbuse::orderBy('id', 'desc')
+								   ->with('user', 'post')
+								   ->where('reported_for', 'like', '%3%') 
+								   ->get();
+		$profileDetail = ReportAbuse::with('post', 'user')
+									->first();
+		return view('pages.report-abuse', compact('reportAbuses','reportProfileAbuses','reportSpamAbuses', 'reportedAbusivePosts', 'reportedProfile', 'reportedSpam', 'profileDetail'));
+		// return $reportAbuses;
 	}
 
 	public function feedbacks(){		

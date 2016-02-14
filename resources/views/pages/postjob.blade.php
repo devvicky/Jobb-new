@@ -89,7 +89,7 @@
 
 
 									<div class="row">
-										<div class="col-md-12 col-sm-12 col-xs-12">
+										<div class="col-md-12 col-sm-12 col-xs-12 hide-role">
 											<div class="form-group">
 												<label>
 													Job Role <span class="required">*</span>
@@ -103,30 +103,69 @@
 												  		<option value="0" selected="selected"></option>
 													</select>													
 												</div>
-												example: manager, admin, secretory <a href="#all-roles" data-toggle="modal" >see all</a>
+												example: manager, admin, secretory <a class="hide-far">see all</a>
 
 												<div id="charNum" style="text-align:right;"></div>
 											</div>
 										</div>
-										
-										<div class="col-md-12 col-sm-12 col-xs-12">
-										<div class="form-group">
-											<label>Job Type <span class="required">
-											* </span></label>
-											<div class="input-group">
-												<span class="input-group-addon">
-													<i class="icon-hourglass" style="color:darkcyan;"></i>
-												</span>
-												<select name="time_for" class="form-control" style="z-index:0;">
-													<option value="">-- select --</option>
-													<option value="Full Time">Full Time</option>
-													<option value="Part Time">Part Time</option>
-													<option value="Freelancer">Freelancer</option>
-													<option value="Work from Home">Work from Home</option>
-												</select>
+										<div class="col-md-6 col-sm-6 col-xs-12 show-far">
+											<div class="form-group">
+												<label>Functional Area <span class="required">
+												* </span></label>
+												<div class="input-group">
+													<span class="input-group-addon">
+														<i class="icon-hourglass" style="color:darkcyan;"></i>
+													</span>
+													<select name="time_for" class="form-control" style="z-index:0;">
+														@foreach($functionalAreas as $farea)
+												      		<option>
+												      			<li><a href="#" data-jrole="{{$farea}}">{{$farea}}</a></li>
+												      		</option>
+											      		@endforeach
+													</select>
+												</div>
 											</div>
 										</div>
+										<div class="col-md-6 col-sm-6 col-xs-12 show-far">
+											<div class="form-group">
+												<label>Role <span class="required">
+												* </span></label>
+												<div class="input-group">
+													<span class="input-group-addon">
+														<i class="icon-hourglass" style="color:darkcyan;"></i>
+													</span>
+													<select name="time_for" class="form-control" style="z-index:0;">
+														@foreach($roles as $role)
+												      		<option>
+												      			<li><a href="#" data-jrole="{{$role->name}}">{{$role->name}}</a></li>
+												      		</option>
+											      		@endforeach
+													</select>
+												</div>
+												<a class="back-role">Back</a>
+											</div>
+										</div>
+										
 									</div>
+									<div class="row">
+										<div class="col-md-12 col-sm-12 col-xs-12">
+											<div class="form-group">
+												<label>Job Type <span class="required">
+												* </span></label>
+												<div class="input-group">
+													<span class="input-group-addon">
+														<i class="icon-hourglass" style="color:darkcyan;"></i>
+													</span>
+													<select name="time_for" class="form-control" style="z-index:0;">
+														<option value="">-- select --</option>
+														<option value="Full Time">Full Time</option>
+														<option value="Part Time">Part Time</option>
+														<option value="Freelancer">Freelancer</option>
+														<option value="Work from Home">Work from Home</option>
+													</select>
+												</div>
+											</div>
+										</div>
 									</div>
 									<input type="hidden" name="prof_category" value="prof_category">
 
@@ -697,115 +736,7 @@
 																</div>		
 																
 															</div>
-															<!-- <div class="portlet-body" style="margin: 0;">
-															<div class="panel-group accordion" id="accordion{{$var}}" style="margin-bottom: 0;">
-																<div class="panel panel-default" style=" position: relative;">
-																	<div class="panel-heading">
-																		<h4 class="panel-title">
-																		<a class="accordion-toggle accordion-toggle-styled" 
-																		data-toggle="collapse" data-parent="#accordion{{$var}}" href="#collapse_{{$var}}_{{$var}}"  style="font-size: 15px;font-weight: 600;">
-																		Details:</a>	
-																		</h4>
-																	</div>
-																	<div id="collapse_{{$var}}_{{$var}}" class="panel-collapse">
-																		<div class="panel-body" style="border-top: 0;padding: 4px 15px;">
-																			<div class="row">
-					                                                            
-					                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-					                                                                    <label class="detail-label">Job Title :</label>     
-					                                                            </div>
-					                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-					                                                                    <p class="form-control-static" data-display="post_title" style="margin: -5px 0;"></p>      
-					                                                            </div>
-					                                                            
-					                                                        </div>
-					                                                        <div class="row">
-					                                                            
-					                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-					                                                                    <label class="detail-label">Education :</label>     
-					                                                            </div>
-					                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-					                                                                         <p class="form-control-static" data-display="education" style="margin: -5px 0;"></p>
-					                                                            </div>
-					                                                        </div>
-					                                                         <div class="row">
-					                                                            <div class="col-md-6 col-sm-6 col-xs-6"> 
-					                                                                    <label class="detail-label">Job Role :</label>
-					                                                            </div>
-					                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-					                                                                   <p class="form-control-static" data-display="role" style="margin: -5px 0;"></p>
-					                                                            </div>
-					                                                            </div>
-					                                                            <div class="row"> 
-					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-					                                                                        <label class="detail-label">Skills :</label>                                                                  
-					                                                                </div>
-					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                 
-					                                                                        <p class="form-control-static" data-display="linked_skill_id" style="margin: -5px 0;"></p>
-					                                                                     
-					                                                                </div>
-					                                                            </div>
-					                                                            <div class="row"> 
-					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-					                                                                        <label class="detail-label">Job Type :</label>                                                                  
-					                                                                </div>
-					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-					                                                                        <p class="form-control-static" data-display="time_for" style="margin: -5px 0;"></p>
-					                                                                </div>
-					                                                            </div>
-					                                                            
-					                                                            
-					                                                             <div class="row">
-					                                                                <div class="col-md-6 col-sm-6 col-xs-6">
-					                                                                        <label class="detail-label">Salary (<i class="fa fa-rupee (alias)"></i>):</label>
-					                                                                </div>
-					                                                                <div class="col-md-6 col-sm-6 col-xs-6">
-					                                                                        <p class="form-control-static" data-display="min_sal"></p>-<p class="form-control-static" data-display="max_sal"></p> <p class="form-control-static" data-display="salary_type"></p>
-					                                                                </div>
-					                                                            </div>
-					                                                            <div class="row"> 
-					                                                                
-					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-					                                                                        <label class="detail-label">Prefered Location :</label>                                                                  
-					                                                                </div>
-					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-					                                                                         <p class="form-control-static" data-display="prefered_location" style="margin: -5px 0;"></p>
-					                                                                </div>
-					                                                            </div>
-					                                                            <div class="row"> 
-					                                                                
-					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-					                                                                        <label class="detail-label">Area :</label>                                                                  
-					                                                                </div>
-					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-					                                                                         <p class="form-control-static" data-display="p_locality" style="margin: -5px 0;"></p>
-					                                                                </div>
-					                                                            </div>
-					                                                            <div class="skill-display">Description : </div>
-					                                                            	<p class="form-control-static" data-display="job_detail"></p>
-
-					                                                            <div class="">Reference Id&nbsp;:<p class="form-control-static" data-display="reference_id"></p> </div> 
-
-																			
-																			<div >Post Duration: <p class="form-control-static" data-display="post_duration"></p></div>
-																			<div class="skill-display">Contact Details:<br> </div>
-																			<div class="show-apply">Apply on Company Website:<p class="form-control-static" data-display="website_redirect_url"></p></div><br>
-																			<div id="con" class="show-apply-email">
-																			Contact Person: <p class="form-control-static" data-display="contact_person"></p><br>
-
-																				<i class="glyphicon glyphicon-envelope" style="color: #13B8D4;font-size: 16px;"></i>&nbsp;:<p class="form-control-static" data-display="email_id"></p>
-																				 
-																			<br>
-																				<i class="glyphicon glyphicon-earphone" style="color: green;font-size: 16px;"></i>&nbsp;:<p class="form-control-static" data-display="phone"></p>
-																				</div> 
-																			<div class="skill-display">Post Id&nbsp;:  </div> 
-
-																		</div>
-																	</div>
-																	
-																</div>
-															</div>
-														</div> -->
+															
 														</div>
 
 														<!-- END TIMELINE ITEM -->
@@ -855,23 +786,6 @@
         <h4 class="modal-title">Roles</h4>
       </div>
       <div class="modal-body">
-      	<div class="col-md-12 col-sm-12 col-xs-12">
-			<div class="form-group new-margin-formgroup">
-				<label>Industry</label>
-				<div class="input-group">
-					<span class="input-group-addon">
-					<i class="icon-clock" style=" color: darkcyan;"></i>
-					</span>
-					<select name="industry" class="form-control" >
-						@foreach($industry as $industries)
-			      		<option>
-			      			<li><a href="#" data-jrole="{{$industries}}">{{$industries}}</a></li>
-			      		</option>
-			      		@endforeach
-					</select>
-				</div>
-			</div>
-		</div>
 		<div class="col-md-12 col-sm-12 col-xs-12">
 			<div class="form-group new-margin-formgroup">
 				<label>Functional Area</label>
@@ -1275,6 +1189,19 @@ $('.four').hide();
     });
 	  
 
+	  $(document).ready(function () {
+     	$('.show-far').hide();
+	    jQuery('.hide-far').on('click', function(event) {
+		    jQuery('.show-far').show();
+		    jQuery('.hide-role').hide();
+	    });
+
+	    jQuery('.back-role').on('click', function(event) {
+		    jQuery('.show-far').hide();
+		    jQuery('.hide-role').show();
+	    });
+	});
+
     $('#connections').select2({
     placeholder: "Enter Name"
 });
@@ -1563,7 +1490,6 @@ function formatRepo (repo) {
 
       markup += "<div class='select2-result-repository__statistics'>" +
         "<div class='select2-result-repository__forks'><b>Functional area: </b> " + repo.functional_area + "</div>" +
-        "<div class='select2-result-repository__stargazers'><b>Industry</b>: " + repo.industry + "</div>" +
       "</div>" +
       "</div></div>";
 

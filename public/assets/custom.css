@@ -1505,6 +1505,49 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     opacity: 0.5;
 }
 
+
+.job-skill-create{
+    background-color: rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 0 !important;
+    border: 0 !important;
+}
+
+
+.connection-css{
+    padding: 6px 25px;
+    background-color: transparent !important;
+    border: 0;
+    color: #555 !important;
+    font-size: 12px;
+}
+/*
+.login_content-new h1:before {
+    background: rgb(126,126,126);
+    background: -moz-linear-gradient(right, rgba(126,126,126,1) 0%, rgba(255,255,255,1) 100%);
+    background: -webkit-linear-gradient(right, rgba(126,126,126,1) 0%,rgba(255,255,255,1) 100%);
+    background: -o-linear-gradient(right, rgba(126,126,126,1) 0%,rgba(255,255,255,1) 100%);
+    background: -ms-linear-gradient(right, rgba(126,126,126,1) 0%,rgba(255,255,255,1) 100%);
+    background: linear-gradient(right, rgba(126,126,126,1) 0%,rgba(255,255,255,1) 100%);
+    left: 0;
+}
+.login_content-new h1:before, .login_content-new h1:after {
+    content: "";
+    height: 1px;
+    position: absolute;
+    top: 10px;
+    width: 20%;
+}
+
+.login_content-new h1:before {
+    background: rgb(126,126,126);
+    background: -moz-linear-gradient(right, rgba(126,126,126,1) 0%, rgba(255,255,255,1) 100%);
+    background: -webkit-linear-gradient(right, rgba(126,126,126,1) 0%,rgba(255,255,255,1) 100%);
+    background: -o-linear-gradient(right, rgba(126,126,126,1) 0%,rgba(255,255,255,1) 100%);
+    background: -ms-linear-gradient(right, rgba(126,126,126,1) 0%,rgba(255,255,255,1) 100%);
+    background: linear-gradient(right, rgba(126,126,126,1) 0%,rgba(255,255,255,1) 100%);
+    left: 0;
+}*/
+
 /*Welcome css*/
 
 .welcome-login-css {
@@ -1513,9 +1556,20 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     color: whitesmoke !important;
     border: 0;
     border-radius: 4px !important;
-    box-shadow: 0 1px 2px #D25A5A;
+    /*box-shadow: 0 1px 2px #441B1B !important;*/
     padding: 3px 10px;
     font-weight: 300;
+}
+
+.welcome-signup-css{
+    margin: -10px 0;
+    background-color: #45b6af !important;
+    color: white !important;
+    border: 0;
+    border-radius: 4px !important;
+    /*box-shadow: 0 1px 2px #441B1B !important;*/
+    padding: 3px 10px;
+    font-weight: 500;
 }
 
 .welcome-searchbox{
@@ -1546,7 +1600,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     display: block;
     letter-spacing: 0.02em;
     float: left;
-    height: 135px;
+    height: 140px;
     width: 135px !important;
     cursor: pointer;
     text-decoration: none;
@@ -1703,7 +1757,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 }
 
 .welcome-search-type{
-    color: white !important;
+    /*color: white !important;*/
 }
 
 .welcome-detail{
@@ -1722,3 +1776,79 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     border-right:0 !important;
     background-color:dimgrey !important;
 }
+
+
+
+.con {
+  width:auto;
+  font-size:20px;
+  line-height:40px;
+  font-family:'Muli';
+  color:#ecf0f1;
+}
+
+.visible {
+  float:left;
+  font-weight:600;
+  overflow:hidden;
+  height:40px;   
+}
+
+/*p {
+  display:inline;
+  float:left;
+  margin:0;
+}*/
+
+.new-visible-ul {
+  margin-top:0;
+  padding-left:0px;
+  text-align:center;
+  list-style:none;
+  animation:6s linear 1s normal none infinite change;
+  -webkit-animation:6s linear 0s normal none infinite change;
+  -moz-animation:6s linear 0s normal none infinite change;
+  -o-animation:6s linear 0s normal none infinite change;
+}
+
+.new-visible {
+  line-height:40px;
+  margin:0;
+}
+
+@-webkit-keyframes opacity {
+  0%   {opacity:0;}
+  50%  {opacity:1;}
+  100% {opacity:0;}
+}
+@keyframes opacity {
+  0%   {opacity:0;}
+  50%  {opacity:1;}
+  100% {opacity:0;}
+}
+
+@-webkit-keyframes change {
+  0%   {margin-top:0;}
+  15%  {margin-top:0;}
+  25%  {margin-top:-40px;}
+  40%  {margin-top:-40px;}
+  50%  {margin-top:-80px;}
+  65%  {margin-top:-80px;}
+  75%  {margin-top:-40px;}
+  85%  {margin-top:-40px;}
+  100% {margin-top:0;}
+}
+@keyframes change {
+  0%   {margin-top:0;}
+  15%  {margin-top:0;}
+  25%  {margin-top:-40px;}
+  40%  {margin-top:-40px;}
+  50%  {margin-top:-80px;}
+  65%  {margin-top:-80px;}
+  75%  {margin-top:-40px;}
+  85%  {margin-top:-40px;}
+  100% {margin-top:0;}
+}
+
+
+

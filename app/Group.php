@@ -11,6 +11,10 @@ class Group extends Model {
         return $this->belongsToMany('App\Induser', 'groups_users', 'group_id', 'user_id')->withPivot('id');
     }
 
+    public function adminUser(){
+        return $this->hasOne('app\groups_users', 'group_id', 'id');
+    }
+
     public function admin()
     {
         return $this->belongsTo('App\Induser', 'admin_id', 'id')->select('id', 'fname', 'lname');

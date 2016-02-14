@@ -4,6 +4,75 @@
 
   @include('partials.home.home')
 
+
+<div class="modal fade" id="share-post" tabindex="-1" role="dialog" aria-labelledby="share-post" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+     <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title">Share post</h4>
+      </div>
+      <form class="form-horizontal" id="modal-post-share-form" role="form" method="POST" action="{{ url('/post/share') }}">
+        <div class="modal-body">
+                  
+          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+          <input type="hidden" name="share_post_id" id="modal_share_post_id" value="">
+          @if(Auth::user()->induser)
+
+          <div id="post-share-msg-box" style="display:none">
+            <div id="post-share-msg"></div>
+          </div>
+          <div id="post-share-form-errors" style="display:none"></div>
+
+          <div class="row"> 
+            <div class="col-md-6">                      
+              <h4>Who can see this Post</h4>
+            </div>
+            <div class="col-md-6">
+              <!-- <label for="tag-group-all" style="padding: 5.5px 12px;">
+                <input type="checkbox" id="tag-group-all" name="tag-group" value="all" class="md-radiobtn">
+                Public 
+              </label> -->
+              <label for="tag-group-links" style="padding: 5.5px 12px;">
+                <input type="checkbox" id="tag-group-links" name="tag-group" value="links" class="md-radiobtn" >
+                Links 
+              </label>
+              <label for="tag-group-groups" style="padding: 5.5px 12px;">
+                <input type="checkbox" id="tag-group-groups" name="tag-group" value="groups" class="md-radiobtn" >            
+                Groups 
+              </label>
+            </div>
+          </div>          
+
+          <div class="row"> 
+              <div class="col-md-12" id="connections-list">
+              
+              <label>Links</label>
+              {!! Form::select('share_links[]', $share_links, null, ['id'=>'connections', 'class'=>'form-control', 'multiple']) !!}               
+              </div>    
+          </div>
+          <div class="row"> 
+            <div class="col-md-12" id="groups-list">
+              <label>Groups</label>
+              {!! Form::select('share_groups[]', $share_groups, null, ['id'=>'groups', 'class'=>'form-control', 'multiple']) !!}  
+            </div>             
+          </div>
+          @endif            
+     
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-sm btn-success" id="modal-post-share-btn">Share</button>
+          <button type="button" class="btn btn-sm default" data-dismiss="modal">Close</button>
+        </div>      
+      </form>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- END SHARE MODAL FORM -->
+
 @stop
 
 @section('javascript')
@@ -34,7 +103,11 @@ jQuery(document).ready(function() {
 //Auto Complete city 
 function initializeCity() {
     var options = { types: ['(cities)'], componentRestrictions: {country: "in"}};
-    var input = document.getElementById('city');
+    // var input = document.getElementById('city');
+
+    var form = document.getElementById('#home-filter');
+    var input = form[7];
+
     var autocomplete = new google.maps.places.Autocomplete(input, options);
     autocomplete.addListener('place_changed', onPlaceChanged);
     function onPlaceChanged() {
@@ -183,6 +256,10 @@ function initializeCity() {
 
 // Skill Tag list
 
+
+</script>
+
+<script>
 $selectedSkills = $("#linked_skill_id").select2();
 $gotit = [];
   $(function(){
@@ -202,6 +279,9 @@ $gotit = [];
     })
     .autocomplete({
       source: function( request, response ) {
+        // $.getJSON( "/job/skillSearch", {
+        //  term: extractLast( request.term )
+        // }, response );
 
         $.ajax({
           url: '/job/skillSearch',
@@ -252,7 +332,7 @@ $gotit = [];
 
 
   $(document).ready(function(){
-    $('#add-new-skill').live('click',function(event){       
+    $('#add-new-skill').on('click',function(event){       
         event.preventDefault();
         if (!$('#newskill').val()) {
           alert('Please enter some skill to add.');
@@ -308,8 +388,7 @@ $gotit = [];
           return false;
       }
     });
-  });
-
+    });
 </script>
 <style type="text/css">
 .pagination{

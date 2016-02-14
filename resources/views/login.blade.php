@@ -150,8 +150,8 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
         <!-- BEGIN USER LOGIN DROPDOWN -->
         <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
         <li>
-          <a href="{{ url('/login') }}" style="padding-bottom: 11px;padding-top: 11px;">
-          <button class="btn welcome-login-css signup-button" style="">
+          <a href="{{ url('/login') }}" style="padding-bottom: 11px;padding-top: 11px;background-color: transparent;">
+          <button class="btn welcome-signup-css signup-button" style="">
             Sign Up
           </button>
           </a>

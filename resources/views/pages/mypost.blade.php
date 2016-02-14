@@ -455,25 +455,7 @@
 																		  		
 														                    	<div class="col-md-4 col-sm-4 col-xs-4" style="font-size:12px;">
 														                    		<a data-toggle="modal" href="#post-mod-{{$post->id}}">
-														                    			<i class="icon-speedometer" style="font-size:12px;"></i> 
-																						<?php
-																						try{
-																							if(count($postSkills) > 0){
-																								$skillPer = (count($counts) / count($postSkills)) * 100;
-																								if(strcasecmp($post->role, $pa->user->induser->role) == 0){$rolePer = 100;}else{$rolePer = 0;}
-																								if($post->prof_category == $pa->user->induser->prof_category){$jobPer = 100;}else{$jobPer = 0;}
-																								if($post->min_exp == $pa->user->induser->experience){$expPer = 100;}else{$expPer = 0;}
-																								if($post->education == $pa->user->induser->education){$eduPer = 100;}else{$eduPer = 0;}
-																								if($post->city == $pa->user->induser->city){$cityPer = 100;}else{$cityPer = 0;}
-																								if($post->time_for == $pa->user->induser->prefered_jobtype){$typePer = 100;}else{$typePer = 0;}
-																								$avgPer = ($skillPer + $rolePer + $jobPer + $expPer + $eduPer + $cityPer + $typePer)/7;
-																								echo round($avgPer).' %';
-																							}
-																						}
-																						catch(\Exception $e){}
-																						?>
-
-
+														                    			<i class="icon-speedometer" style="font-size:12px;"></i> {{$post->magic_match}} %  
 														                    		</a>
 														                    	</div>
 														                    	
@@ -524,14 +506,8 @@
 													<div class="modal-header">
 														<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 													   <h4 class="modal-title" style="text-align:center;">
-													   		<i class="icon-speedometer" style="font-size:16px;"></i> Match 
-													   		<?php
-																try{
-																	echo round($avgPer).'%';
-																} 
-																catch(\Exception $e){
-																}
-															?>
+													   		<i class="icon-speedometer" style="font-size:16px;"></i> {{$post->magic_match}} % Match 
+													   		
 													   	</h4>
 													</div>
 													<div class="modal-body">
@@ -861,14 +837,8 @@
 														<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 													   <h4 class="modal-title" style="text-align:center;">
 													   		<i class="icon-speedometer" style="font-size:16px;"></i>  
-													   		<?php
-																try{
-																	echo round($avgPer).'%';
-																} 
-																catch(\Exception $e){
-																}
-															?>
-															Match
+													   		
+															{{$post->magic_match}} % Match 
 													   	</h4>
 													</div>
 													<div class="modal-body">

@@ -232,13 +232,26 @@
                                 @endif
 							      </small>
 							</div>
-							<div class="col-md-3 col-sm-3 col-xs-2" style="margin:7px 0">
-								<form action="{{ url('/connections/destroy', $connection->pivot->id) }}" method="post">
-									<input type="hidden" name="_token" value="{{ csrf_token() }}">
-									<button type="submit" class="btn btn-success btn-responsive apply-ignore-font" style="padding:2px 5px;">
-									Linked
+							<div class="col-md-3 col-sm-3 col-xs-2" style="margin:7px 0">	
+								<div class="btn-group">
+									<button class="btn blue dropdown-toggle link-icon-css" type="button" data-toggle="dropdown">
+									<i class="fa  fa-ellipsis-v"></i> 
 									</button>
-								</form>	
+									<ul class="dropdown-menu dropdown-menu-link" role="menu" style="text-align:center;border: 1px solid #ECECEC;">
+										<li style="border-bottom:1px solid lightgrey;">
+											<a href="/profile/ind/{{$connection->id}}" style="padding:5px 14px !important;">
+											<button class="btn btn-success connection-css">View Profile </button></a>
+										</li>
+										
+										<li style="margin:5px 0;">
+											<form action="{{ url('/connections/destroy', $connection->pivot->id) }}" method="post">
+											<input type="hidden" name="_token" value="{{ csrf_token() }}">
+											<button type="submit" name="action" class="btn btn-success connection-css">Remove Link</button>		
+											</form>
+										</li>
+										
+									</ul>
+								</div>
 							</div>
 						 				    
 					</div>
@@ -336,12 +349,27 @@
 								
 							</div>
 							<div class="col-md-3 col-sm-3 col-xs-3" style="margin:7px -7px;">
-								<form action="{{ url('links/corporate/unfollow', $follow->id) }}" method="post">
-									<input type="hidden" name="_token" value="{{ csrf_token() }}">
-									<button type="submit" name="action" value="accept" class="btn btn-success apply-ignore-font" style="padding:2px 7px;" >
-										Following
+								
+								<div class="btn-group">
+									<button class="btn blue dropdown-toggle link-icon-css" type="button" data-toggle="dropdown">
+									<i class="fa  fa-ellipsis-v"></i> 
 									</button>
-								</form>
+									<ul class="dropdown-menu dropdown-menu-link" role="menu" style="text-align:center;">
+										<li style="border-bottom:1px solid lightgrey;">
+											<a href="/profile/corp/{{$follow->id}}" style="padding:5px 14px !important;">
+											<button class="btn btn-success connection-css">View Profile </button></a>
+										</li>
+										<li style="margin:5px 0;">
+											<form action="{{ url('links/corporate/unfollow', $follow->id) }}" method="post">
+											<input type="hidden" name="_token" value="{{ csrf_token() }}">
+												<button type="submit" name="action" class="btn btn-success connection-css">
+													Un-Follow
+												</button>
+											</form>
+										</li>
+										
+									</ul>
+								</div>
 							</div>
 					    
 					</div>
