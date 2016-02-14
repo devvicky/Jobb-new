@@ -142,9 +142,7 @@
 								<label style="font-size:13px;font-weight:500;">Skills</label>
 								<div>
 									<div style="position:relative;" id="job-skill-wrapper">
-										<input type="text" name="name" id="newskill-job" class="form-control" placeholder="Search for skill...">
-										<button id="add-new-skill" style="position:absolute;right:0;top:0;" class="btn btn-success" type="button">
-										<i class="icon-plus"></i> Add</button>		
+										<input type="text" name="name" id="newskill-job" class="form-control" placeholder="Search for skill...">		
 									</div>
 									{!! Form::select('linked_skill_id[]', $skills, null, ['id'=>'linked_skill_id', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Skills', 'multiple']) !!}
 								</div>
