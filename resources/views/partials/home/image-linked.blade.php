@@ -1,6 +1,3 @@
-
-
-
 <div class="timeline-body ">
 	<div class="timeline-body-head">
 		<div class="timeline-body-head-caption" style="width:100%;margin:5px;">
@@ -11,12 +8,12 @@
                 <div class="col-md-12">
                     <!-- Post shared by user -->                        
                     
-                        <div class="shared-by">
-                            {{$post->sharedGroupBy->first()->mode}} by 
-                            <b>{{$post->sharedGroupBy->first()->fname}} 
-                            {{$post->sharedGroupBy->first()->lname}}</b>
-                            to <b>{{$post->sharedToGroup->first()->group_name}}</b> group<br/>
-                        </div>
+                    <div class="shared-by">
+                        {{$post->sharedGroupBy->first()->mode}} by 
+                        <b>{{$post->sharedGroupBy->first()->fname}} 
+                        {{$post->sharedGroupBy->first()->lname}}</b>
+                        to <b>{{$post->sharedToGroup->first()->group_name}}</b> group<br/>
+                    </div>
                     
                 </div>
             </div>
@@ -30,7 +27,9 @@
             </div>
             <div class="col-md-4 col-sm-4 col-xs-12 elipsis-code">
                 <i class="fa fa-clock-o" style="font-size: 11px;"></i> 
-                <small>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }}</small>
+                <small>
+                    {{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }}
+                </small>
             </div>
         </div>
         @elseif(Auth::user()->corpuser_id == $post->corporate_id && $post->corporate_id != null)
@@ -52,7 +51,10 @@
                 <div class="col-md-12">
                     <!-- Post shared by user -->                        
                     <div class="shared-by">
-                        <small>{{$post->sharedGroupBy->first()->mode}} by {{$post->sharedGroupBy->first()->fname}} {{$post->sharedGroupBy->first()->lname}}</small> to <small>{{$post->sharedToGroup->first()->group_name}}</small> group<br/>
+                        <small>
+                            {{$post->sharedGroupBy->first()->mode}} by {{$post->sharedGroupBy->first()->fname}} {{$post->sharedGroupBy->first()->lname}}
+                        </small> to 
+                        <small>{{$post->sharedToGroup->first()->group_name}}</small> group<br/>
                     </div>   
                 </div>
             </div>
@@ -61,13 +63,13 @@
         @if($post->tagged->contains('user_id', Auth::user()->induser_id) && 
             $post->sharedBy->first()->mode == 'shared')
             
-        <small> {{$post->sharedBy->first()->mode}} by 
-            {{$post->sharedBy->first()->fname}} {{$post->sharedBy->first()->lname}}</small><br/>
+        <small>{{$post->sharedBy->first()->mode}} by {{$post->sharedBy->first()->fname}} {{$post->sharedBy->first()->lname}}</small>
+        <br/>
 
         @endif
         <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <a href="/profile/ind/{{$post->individual_id}}" class="post-name-css">
+            <div class="col-md-12 col-sm-12 col-xs-12" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a href="/profile/ind/{{$post->individual_id}}" class="post-name-css" itemprop="name">
                     {{ $post->induser->fname}} {{ $post->induser->lname}}
                 </a>
             </div>
@@ -97,13 +99,15 @@
             </div>
             <div class="col-md-4 col-sm-4 col-xs-12 elipsis-code">
                 <i class="fa fa-clock-o post-icon-color" style="font-size: 11px;"></i> 
-                <small class="post-time-css">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }}</small>
+                <small class="post-time-css" itemprop="datePublished" content="{{$post->created_at}}">
+                {{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }}
+                </small>
             </div>
         </div>
         @elseif($post->corporate_id != null)
         <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <a href="/profile/corp/{{$post->corporate_id}}" class="post-name-css">
+            <div class="col-md-12 col-sm-12 col-xs-12" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a href="/profile/corp/{{$post->corporate_id}}" class="post-name-css" itemprop="name">
                     {{ $post->corpuser->firm_name}}
                 </a>
             </div>
@@ -123,7 +127,9 @@
             </div>
             <div class="col-md-4 col-sm-4 col-xs-12 elipsis-code">
                 <i class="fa fa-clock-o post-icon-color" style="font-size: 11px;"></i> 
-                <small class="post-time-css">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }}</small>
+                <small class="post-time-css" itemprop="datePublished" content="{{$post->created_at}}">
+                {{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }}
+                </small>
             </div>
         </div>
         @endif
