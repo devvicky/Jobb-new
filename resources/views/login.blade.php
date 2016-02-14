@@ -135,7 +135,7 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
     <!-- BEGIN LOGO -->
     <div class="page-logo">
       <a href="/home">
-      <img src="/assets/new_big_logo.png" alt="logo" class="logo-default" style="width: 135px;margin-top: 0;" />
+      <img src="/assets/logo.png" alt="logo" class="logo-default" style="width: 135px;margin-top: 0;" />
       </a>
       
     </div>

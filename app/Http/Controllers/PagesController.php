@@ -21,6 +21,7 @@ use App\Group;
 use App\ReportAbuse;
 use App\Feedback;
 use App\Notification;
+use App\PostUserTagging;
 use Session;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
@@ -219,7 +220,7 @@ class PagesController extends Controller {
 		if (Auth::check()) {
 			$title = 'mypost';
 			if(Auth::user()->identifier == 1){
-				$posts = Postjob::with('induser', 'postActivity', 'postactivity.user')
+				$posts = Postjob::with('induser', 'postActivity', 'postactivity.user', 'taggedUser', 'taggedGroup')
 								->where('individual_id', '=', Auth::user()->induser_id)
 								->orderBy('id', 'desc')->get();
 				$myActivities = DB::select('(select pa.id,pa.user_id,pa.post_id,"Thanks" as identifier,pa.thanks as activity, pa.thanks_dtTime as time,pj.unique_id, pj.post_title, pj.post_compname
@@ -370,6 +371,16 @@ class PagesController extends Controller {
 				$connectionStatus = 'friend';
 			}
 
+			// $linkSharePost = PostUserTagging::with('post')
+			// 						   ->leftjoin('connections', 'connections.user_id', '=', Auth::user()->induser_id)
+			// 						   ->where('connections.status', '=', 1)
+			// 						   ->orWhere('connections.connection_user_id', '=', Auth::user()->induser_id)
+			// 						   ->where('connections.status', '=', 1)
+			// 						   ->where('post_user_taggings.post_id', '=', Auth::user()->induser_id)
+			// 						   ->where('post_user_taggings.tag_share_by', '=', 'connections.user_id')
+			// 						   ->orWhere('post_user_taggings.tag_share_by', '=', 'connections.connection_user_id')
+			// 						   ->get();
+
 		}elseif($utype == 'corp'){
 			$user = Corpuser::findOrFail($id);
 			$thanks = Postactivity::with('user', 'post')
@@ -390,7 +401,7 @@ class PagesController extends Controller {
                 $connectionId = $followStatus->id;
             }
 		}	
-		return view('pages.profile_indview', compact('title','thanks','posts','linksCount','user','connectionStatus','utype','connectionId', 'followCount'));
+		return view('pages.profile_indview', compact('title','thanks','posts','linksCount','user','connectionStatus','utype','connectionId', 'followCount', 'linkSharePost'));
 	}
 
 	public function follow($id){

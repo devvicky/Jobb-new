@@ -1044,6 +1044,14 @@
 	</div>
 </div>
 @endif
+
+@if(Auth::user()->induser_id == $user->id)
+<div class="row">
+	<div class="col-md-7">
+		
+	</div>
+</div>
+@endif
 @stop
 
 @javascript
