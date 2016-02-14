@@ -504,19 +504,16 @@ $('#modal-post-share-email-btn').live('click',function(event){
 
 
 // Report Validation
-
-<script>
 $(document).ready(function() {
-    $(".report-validation").validate({ 
-    rules: { 
-            " report-abuse-check[]": { 
-                    required: true, 
-                    minlength: 1 
-            } 
-    }, 
-    messages: { 
-            "spam[]": "Please select at least two types of spam."
-    } 
-}); 
+  $(".report-validation").validate({ 
+      rules: { 
+              " report-abuse-check[]": { 
+                      required: true, 
+                      minlength: 1 
+              } 
+      }, 
+      messages: { 
+              "spam[]": "Please select at least two types of spam."
+      } 
+  }); 
 });
-</script> 
