@@ -38,24 +38,21 @@
 									
 									<div class="timeline-body-head-caption">
 										@if(count($post->groupTagged) > 0)
-                                        @if($post->sharedGroupBy->first()->mode == 'shared')
+                                        @if($post->sharedGroupBy->first()->mode == 'tagged')
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <!-- Post shared by user -->                        
                                                 
-                                                    <div class="shared-by">
-                                                        {{$post->sharedGroupBy->first()->mode}} by 
-                                                        <b>{{$post->sharedGroupBy->first()->fname}} 
-                                                        {{$post->sharedGroupBy->first()->lname}}</b>
-                                                        to <b>{{$post->sharedToGroup->first()->group_name}}</b> group<br/>
-                                                    </div>
+	                                            <div class="shared-by">
+	                                                You have shared to <b>{{$post->sharedToGroup->first()->group_name}}</b> group<br/>
+	                                            </div>
                                                 
                                             </div>
                                         </div>
                                         @endif
                                     @endif
                                      @if($post->tagged->contains('user_id', Auth::user()->induser_id) && 
-                                        $post->sharedBy->first()->mode == 'shared')
+                                        $post->sharedBy->first()->mode == 'tagged')
                                         
                                     <small> {{$post->sharedBy->first()->mode}} by 
                                         {{$post->sharedBy->first()->fname}} {{$post->sharedBy->first()->lname}}</small>

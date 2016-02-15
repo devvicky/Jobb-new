@@ -1046,9 +1046,17 @@
 @endif
 
 @if(Auth::user()->induser_id == $user->id)
-<div class="row">
-	<div class="col-md-7">
-		
+<div class="row" style="margin:15px;">
+	<div class="col-md-7 usertagged-title">Link Tagged and Shared List</div>
+	<div class="col-md-7" style="border:1px solid lightblue;">
+		@foreach($taggedPosts as $tp)
+		<div class="row usertagged-css">
+			<div class="col-md-12">
+				{{$tp->fname}} has {{$tp->mode}} the postid - {{$tp->unique_id}}
+			</div>
+		</div>
+		@endforeach
+		<!-- Salim has shared the post id J328493 @datetime -->
 	</div>
 </div>
 @endif

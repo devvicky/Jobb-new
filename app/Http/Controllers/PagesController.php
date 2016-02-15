@@ -371,16 +371,8 @@ class PagesController extends Controller {
 				$connectionStatus = 'friend';
 			}
 
-			// $linkSharePost = PostUserTagging::with('post')
-			// 						   ->leftjoin('connections', 'connections.user_id', '=', Auth::user()->induser_id)
-			// 						   ->where('connections.status', '=', 1)
-			// 						   ->orWhere('connections.connection_user_id', '=', Auth::user()->induser_id)
-			// 						   ->where('connections.status', '=', 1)
-			// 						   ->where('post_user_taggings.post_id', '=', Auth::user()->induser_id)
-			// 						   ->where('post_user_taggings.tag_share_by', '=', 'connections.user_id')
-			// 						   ->orWhere('post_user_taggings.tag_share_by', '=', 'connections.connection_user_id')
-			// 						   ->get();
-
+			$taggedPosts = $this->usersPost();
+			
 		}elseif($utype == 'corp'){
 			$user = Corpuser::findOrFail($id);
 			$thanks = Postactivity::with('user', 'post')
@@ -401,7 +393,7 @@ class PagesController extends Controller {
                 $connectionId = $followStatus->id;
             }
 		}	
-		return view('pages.profile_indview', compact('title','thanks','posts','linksCount','user','connectionStatus','utype','connectionId', 'followCount', 'linkSharePost'));
+		return view('pages.profile_indview', compact('title','thanks','posts','linksCount','user','connectionStatus','utype','connectionId', 'followCount', 'linkSharePost', 'taggedPosts'));
 	}
 
 	public function follow($id){
@@ -1980,5 +1972,24 @@ public function homeskillFilter(){
 		}	
 	}
 
+	public function usersPost(){
+		$posts = DB::select('select p.unique_id, p.id, gu.user_id, pgt.group_id as poe, pgt.tag_share_by, indg.fname, pgt.mode
+								from postjobs p
+								LEFT JOIN post_group_taggings pgt on pgt.post_id = p.id
+								left join groups_users gu on gu.group_id = pgt.group_id
+								left join indusers ind on ind.id = gu.user_id 
+								left join indusers indg on indg.id = pgt.tag_share_by
+								where ind.id = ?
+								union
+								select p.unique_id, put.post_id, ind.id, put.user_id as poe, put.tag_share_by, inds.fname, put.mode
+								from postjobs p
+								left join post_user_taggings put on put.post_id = p.id 
+								left join indusers ind on ind.id = put.user_id
+								left join indusers inds on inds.id = put.tag_share_by
+								where ind.id = ?', [Auth::user()->induser_id, Auth::user()->induser_id]);
+		return $posts;
+	}
+
 }
+
 

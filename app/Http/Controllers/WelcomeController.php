@@ -76,7 +76,7 @@ class WelcomeController extends Controller {
 		$jobPosts = $jobPosts->paginate(15);
 		$skillPosts = $skillPosts->paginate(15);
 
-		return view('pages.index', compact('title', 'jobPosts', 'skillPosts', 'role', 'experience', 'city'));
+		return view('pages.welcome_postshow', compact('title', 'jobPosts', 'skillPosts', 'role', 'experience', 'city'));
 		// return $jobPosts;
 	}
 
