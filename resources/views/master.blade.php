@@ -7,20 +7,15 @@
 <!-- BEGIN HEAD -->
 <head>
 <meta charset="utf-8"/>
-<title>JobTip</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Jobtip - where jobs follow you</title>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-<meta content="" name="description"/>
-<meta content="" name="author"/>
+<meta name="keywords" content="job, jobs,skill, skills, opening, job opening, vacancy, requirement, naukri, monster, job search, searching job, post job for free, free job posting, work, refer job, job reference, promote skill, jobs in..., hire, fresher, experience, job info, hiring, recruitment, walk in jobs" />  
+<meta name="Description" CONTENT="Jobtip - home">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <!-- csrf_token -->
 <meta name="csrf-token" content="{{ csrf_token() }}" />
-
-<!-- fb -->
-<meta property="og:image" content="http://jobtip.in/assets/new_big_logo.png" itemprop="thumbnailUrl">
-<meta property="og:title" content="Jobtip">
-<meta property="og:url" content="http://jobtip.in">
-<meta property="og:site_name" content="Jobtip">
 
 <link rel="canonical" href="http://www.alessioatzeni.com/wp-content/tutorials/jquery/simple-tooltip/index.html" />
 <!-- BEGIN GLOBAL MANDATORY STYLES -->

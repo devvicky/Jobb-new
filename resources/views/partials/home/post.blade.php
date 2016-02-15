@@ -5,11 +5,9 @@
 
 		<div class="timeline" >
 			<!-- TIMELINE ITEM -->
-			<div class="timeline-item time-item">
+			<div class="timeline-item time-item" itemscope itemtype="http://schema.org/Article">
 				<div class="timeline-badge badge-margin">
-
 					<img class="timeline-badge-userpic userpic-box" src="img/profile/{{ $userImgPath }}" title="{{ $userName }}">
-
 				</div>
 
 				<div class="fav-dir">
@@ -40,7 +38,7 @@
 				
 					<div class="row post-postision" style="cursor:pointer;">
 	                    <div class="col-md-12">
-	                        <div class="post-title-new capitalize">{{ $postTitle }}</div>
+	                        <div class="post-title-new capitalize" itemprop="name">{{ $postTitle }}</div>
 	                    </div>
 	                    @if($company != null)
 	                    <div class="col-md-12">

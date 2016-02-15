@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+	<meta charset="utf-8">
+  <title>Jobtip - where jobs follow you</title>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+  <meta name="keywords" content="job, jobs,skill, skills, opening, job opening, vacancy, requirement, naukri, monster, job search, searching job, post job for free, free job posting, work, refer job, job reference, promote skill, jobs in..., hire, fresher, experience, job info, hiring, recruitment, walk in jobs" />
+  <meta name="Description" CONTENT="India's first website allows people to build network and post job requirements within their closed groups and friends. It empowers people to promote their skills.">
+  
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="csrf-token" content="{{ csrf_token() }}" />
-  <title>Welcome</title>
+
+  <!-- csrf_token -->
+  <meta name="csrf-token" content="{{ csrf_token() }}" />	
+
 <link href="http://fonts.googleapis.com/css?family=Muli" rel="stylesheet" type="text/css" />
 <!-- <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/> -->
 <link href="{{ asset('/assets/global/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css"/>
@@ -286,16 +293,10 @@ input:focus:-moz-placeholder { color:transparent !important; } /* FF 4-18 */
 input:focus::-moz-placeholder { color:transparent !important; } /* FF 19+ */
 input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 </style>
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 
-@include('includes.analyticstracking')
+  @include('includes.analyticstracking')
 
   <div class="page-header navbar navbar-fixed-top" style="">
   <!-- BEGIN HEADER INNER -->
