@@ -9,6 +9,7 @@ Route::get('login/termcondition', 'PagesController@termcondition');
 Route::get('login/privacyprolicy', 'PagesController@privacy_policy');
 Route::post('welcome/post', 'WelcomeController@welcomeSearch');
 Route::post('welcome/postdetails', 'WelcomeController@postDetails');
+Route::post('/contact', 'WelcomeController@contactUs');
 
 Route::controllers([
 	'auth'		=>	'Auth\AuthController',

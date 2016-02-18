@@ -126,12 +126,24 @@
 						      </small>
 						</div>
 						<div class="col-md-3 col-sm-3 col-xs-3" style="margin:7px 0">
-								<form action="" method="job">
-									<input type="hidden" name="_token" value="{{ csrf_token() }}">
-									<button type="submit" name="action" value="accept" class="btn btn-success apply-ignore-font" style="padding:2px 7px;" >
-										Add Link
-									</button>
-								</form>
+								@if($links->contains('id', $ind->individual_id) )
+								<a href="#links-follow" data-toggle="modal" class="user-link" data-linked="yes" data-utype="ind">
+									<button class="btn btn-xs link-follow-icon-css"><i class="fa fa-link (alias) icon-size" style="color:white;"></i> Linked</button>
+								</a>
+								@elseif($linksPending->contains('id', $ind->individual_id) )
+								<a href="#links-follow" data-toggle="modal" class="user-link" data-linked="no" data-utype="ind">
+									<button class="btn btn-xs linkrequest-follow-icon-css"><i class="icon-hourglass (alias) " style="color:dimgrey;font-size:10px;"></i> Link Requested</button>
+								</a>
+								@elseif($linksApproval->contains('id', $ind->individual_id) )
+								<a href="#links-follow " data-toggle="modal" class="user-link" data-linked="no" data-utype="ind">
+									<button class="btn btn-xs linkrequest-follow-icon-css"><i class=" icon-hourglass (alias) " style="color:dimgrey;font-size:10px;"></i> Link Requested</button>
+								</a>
+								
+								@else
+								<a href="#links-follow" data-toggle="modal" class="user-link3" data-linked="no" data-utype="ind">
+									<button class="btn btn-xs unlink-follow-icon-css"><i class="fa fa-unlink (alias) icon-size" style="color:dimgrey;"></i> Add Link</button>
+								</a>
+								@endif
 							</div>	    
 					</div>
 				</div>
@@ -163,12 +175,7 @@
 								
 							</div>
 							<div class="col-md-3 col-sm-3 col-xs-3" style="margin:7px 0">
-								<form action="{{ url('links/corporate/uncorp', $corp->id) }}" method="job">
-									<input type="hidden" name="_token" value="{{ csrf_token() }}">
-									<button type="submit" name="action" value="accept" class="btn btn-success apply-ignore-font" style="padding:2px 7px;" >
-										Follow
-									</button>
-								</form>
+						 		
 							</div>
 					   </div> 
 					</div>
@@ -289,15 +296,290 @@
                         <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code elipsis-city-code" style="padding:0 12px;">
                         <small style="font-size:13px;color:dimgrey !important;"> <i class="glyphicon glyphicon-map-marker post-icon-color"></i>&nbsp;: {{ $job->city }}</small>
                         </div>
-                        <div class="col-md-4 col-sm-4 col-xs-4 hide-details" style="float: right;right: -40px;bottom: 16px;">
-                           Details
-                        </div>
+                        <a class="" data-toggle="modal" href="#search-post">
+	                        <div class="col-md-6 col-sm-6 col-xs-4" style="#676565 !important;">
+	                           Details
+	                        </div>
+	                    </a>
                        
                     </div>
 					</div>
 
 				</div>
-				
+				<div class="modal fade" id="search-post" tabindex="-1" role="basic" aria-hidden="true">
+					<div class="modal-dialog ">
+						<div class="modal-content">
+							<div id="myactivity-posts-content" >
+								<div >
+									<div class="row" style="margin: 6px 0px;">
+						                <div class="col-md-12" style="text-align: center;background: lightblue;">
+						                    @if($job->post_type == 'job')
+						                    <label style="margin:2px 0;"> Job Details </label>
+						                    @else($job->post_type == 'skill')
+						                    <label style="margin:2px 0;"> Skill Details </label>
+						                    @endif
+						                </div>
+						            </div>
+							            <div class="row" style="margin:0;"> 
+							                    <div class= "timeline" >
+							                        <!-- TIMELINE ITEM -->
+							                        <div class="timeline-item">
+							                           
+							                             <div class="timeline-body" style=" margin-top:-9px;margin-left:13px;">
+							                                <div class="timeline-body-head">
+							                                    @if(  $job->individual_id != null)
+							                                        <div class="timeline-body-head-caption" data-puid="{{  $job->individual_id}}">
+							                                            
+							                                                
+							                                                
+							                                                <a href="/profile/ind/{{  $job->individual_id}}" style="font-size: 15px;text-decoration:none;font-weight:600;">
+							                                                    {{   $job->induser->fname}} {{   $job->induser->lname}}
+							                                                </a>
+							                                            
+							                                               
+							                                               
+							                                            <span class="timeline-body-time font-grey-cascade">Posted at 
+							                                                {{ date('M d, Y', strtotime(  $job->created_at)) }}
+							                                            </span>
+							                                        </div>
+							                                    @elseif(  $job->corporate_id != null)
+							                                        <div class="timeline-body-head-caption" data-puid="{{  $job->corporate_id}}">
+							                                            
+							                                                                                                   
+							                                                <a href="/profile/corp/{{  $job->corporate_id}}" style="font-size: 15px;text-decoration:none;font-weight:600;">
+							                                                    {{   $job->corpuser->firm_name}}
+							                                                </a>
+							                                            
+							                                            <span class="timeline-body-time font-grey-cascade">Posted at 
+							                                                {{ date('M d, Y', strtotime(  $job->created_at)) }}
+							                                            </span>
+							                                        </div>
+							                                    @endif
+							                                </div>
+							                                
+							                            </div>
+							                                    <div class="portlet-body" style="margin: 0 -5px;">
+							                                        <div class="panel-group accordion" id="accordion1" style="margin-bottom: 0;">
+							                                            <div class="panel panel-default" style=" position: relative;border:0 !important;">
+							                                                <div class="panel-heading" style="background-color: white;margin: 5px 0px;">
+							                                                   <!--  <h4 class="panel-title">
+							                                                    <a class="" 
+							                                                    data-toggle="collapse" data-parent="#accordion1" href="#collapse_1_1"  style="font-size: 15px;font-weight: 600;padding:0 16px;" >
+							                                                    Details: </a>   
+							                                                    </h4> -->
+							                                                </div>
+							                                                <div id="collapse_1_1" class="panel-collapse">
+							                                                    <div class="panel-body" style="border-top: 0;padding: 4px 15px;">
+							                                                        
+							                                                        <div class="row">
+							                                                             @if($job->post_type == 'job')
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+							                                                                    <label class="detail-label">Job Title :</label>     
+							                                                            </div>
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+							                                                                     {{ $job->post_title }}     
+							                                                            </div>
+							                                                            @elseif($job->post_type == 'skill')
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+							                                                                    <label class="detail-label">Skill Title :</label>     
+							                                                            </div>
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+							                                                                     {{ $job->post_title }}     
+							                                                            </div>
+							                                                            @endif
+							                                                        </div>
+							                                                        <div class="row">
+							                                                            
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+							                                                                    <label class="detail-label">Education :</label>     
+							                                                            </div>
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+							                                                                    {{ $job->education }}     
+							                                                            </div>
+							                                                        </div>
+							                                                        
+							                                                        <div class="row"> 
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                           
+							                                                                    <label class="detail-label">Skills :</label>                                                                  
+							                                                            </div>
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
+							                                                                    @foreach($job->skills as $skill)
+							                                                                        {{$skill->name}}
+							                                                                    @endforeach
+							                                                                 
+							                                                            </div>
+							                                                        </div>
+							                                                        <div class="row"> 
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                           
+							                                                                    <label class="detail-label">Job Type :</label>                                                                  
+							                                                            </div>
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
+							                                                                    {{ $job->time_for }}
+							                                                            </div>
+							                                                        </div>
+							                                                        <div class="row"> 
+							                                                            @if($job->locality != null && $job->city !=null)
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                           
+							                                                                    <label class="detail-label">Locality :</label>                                                                  
+							                                                            </div>
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
+							                                                                    {{ $job->locality }},{{ $job->city }} 
+							                                                            </div>
+							                                                            @elseif($job->locality == null && $job->city !=null)
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                           
+							                                                                    <label class="detail-label">Locality :</label>                                                                  
+							                                                            </div>
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
+							                                                                    {{ $job->city }} 
+							                                                            </div>
+							                                                            @endif
+							                                                        </div>
+							                                                        
+							                                                         <div class="row">
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+							                                                                    <label class="detail-label">Salary (<i class="fa fa-rupee (alias)"></i>):</label>
+							                                                            </div>
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+							                                                                    {{ $job->min_sal }}-{{ $job->max_sal }} {{ $job->salary_type }}
+							                                                            </div>
+							                                                        </div>
+							                                                        <?php 
+							                                                            $strNew = '+'.$job->post_duration.' day';
+							                                                            $strOld = $job->created_at;
+							                                                            $fresh = $strOld->modify($strNew);
+
+							                                                            $currentDate = new \DateTime();
+							                                                            $expiryDate = new \DateTime($fresh);
+							                                                            // $difference = $expiryDate->diff($currentDate);
+							                                                            // $remainingDays = $difference->format('%d');
+							                                                            if($currentDate >= $fresh){
+							                                                                $expired = 1;
+							                                                            }else{
+							                                                                $expired = 0;
+							                                                            }
+							                                                        ?>
+							                                                        <div class="skill-display">Description : </div>
+							                                                        {{ $job->job_detail }}
+							                                                        
+							                                                        @if($job->post_type == 'job')
+							                                                        <div class="skill-display">Reference Id&nbsp;: {{ $job->reference_id }} </div> 
+							                                                        @endif
+
+							                                                        <div style="margin:27px 0 0;">
+							                                                            <!-- if corporate_id not null -->
+						                                                            <!-- <form action="/job/apply" method="post" id="post-apply-{{$job->id}}" data-id="{{$job->id}}">   -->
+						                                                                
+						                                                                    <a class="btn apply-btn blue btn-sm apply-contact-btn show-contact" target="_blank" 
+						                                                                        href="/home" type="button"><i class="icon-globe"></i> Apply
+						                                                                    </a>    
+						                                                            <!-- </form>  -->
+
+							                                                        </div>
+							                                                       @if($expired != 1 && $job->postactivity->where('user_id', Auth::user()->id)->isEmpty())
+							                                                        @elseif($expired != 1 && $job->postactivity->where('user_id', Auth::user()->id)->first()->contact_view == 1)
+							                                                        <div  class="skill-display ">Contact Details : </div> 
+							                                                        <div id="show-hide-contacts" class="row">
+							                                                            @if($job->post_type == 'job' && $job->website_redirect_url != null)
+							                                                            <div class="col-md-12 col-sm-12 col-xs-12">
+							                                                                Click on Apply, it will redirect you to Company Website.
+							                                                            </div>
+							                                                            @endif
+							                                                            @if($job->post_type == 'job' && $job->website_redirect_url != null && $job->corpuser != null)
+							                                                            <div class="col-md-12 col-sm-12 col-xs-12">                                             
+							                                                                <label class="detail-label"><i class="glyphicon glyphicon-globe" style="color: deepskyblue;"></i> :</label>
+							                                                                {{ $job->website_url }}                                                            
+							                                                            </div>
+							                                                            @endif
+							                                                            @if($job->website_redirect_url == null && $job->contact_person != null)
+							                                                            <div class="col-md-12 col-sm-12 col-xs-12">                                             
+							                                                                <label class="detail-label"><i class="glyphicon glyphicon-user"></i> :</label>
+							                                                                {{ $job->contact_person }}                                                         
+							                                                            </div>
+							                                                            @endif
+
+							                                                            @if($job->email_id != null && $job->alt_emailid != null && $job->website_redirect_url == null)
+							                                                            <div class="col-md-12 col-sm-12 col-xs-12">
+							                                                                
+							                                                                    <label class="detail-label"><i class="glyphicon glyphicon-envelope"></i> :</label>                                                              
+							                                                                    {{ $job->email_id }} - {{ $job->alt_emailid }}                            
+							                                                            </div>  
+							                                                            
+							                                                            @elseif($job->email_id != null && $job->alt_emailid == null && $job->website_redirect_url == null)
+							                                                            <div class="col-md-12 col-sm-12 col-xs-12">
+							                                                                
+							                                                                    <label class="detail-label"><i class="glyphicon glyphicon-envelope"></i> :</label>
+							                                                                    {{ $job->email_id }}
+							                                                                
+							                                                            </div>
+							                                                            @elseif($job->email_id == null && $job->alt_emailid != null && $job->website_redirect_url == null)
+							                                                            <div class="col-md-12 col-sm-12 col-xs-12">
+							                                                                
+							                                                                    <label class="detail-label"><i class="glyphicon glyphicon-envelope"></i> :</label>
+							                                                                        {{ $job->alt_emailid }}
+							                                                                 
+							                                                            </div>  
+							                                                            @endif  
+							                                                            @if($job->phone != null && $job->alt_phone != null && $job->website_redirect_url == null)
+							                                                            <div class="col-md-12 col-sm-12 col-xs-12">
+							                                                                
+							                                                                    <label class="detail-label"><i class="glyphicon glyphicon-earphone"></i> :</label>
+							                                                                
+							                                                                    
+							                                                                    {{ $job->phone }} - {{ $job->alt_phone }}
+							                                                                 
+							                                                            </div>  
+							                                                            @elseif($job->phone != null && $job->alt_phone == null && $job->website_redirect_url == null)
+							                                                            <div class="col-md-12 col-sm-12 col-xs-12">
+							                                                                
+							                                                                    <label class="detail-label"><i class="glyphicon glyphicon-earphone"></i> :</label>
+							                                                                
+							                                                                    
+							                                                                    {{ $job->phone }}
+							                                                                
+							                                                            </div>
+							                                                            @elseif($job->phone == null && $job->alt_phone != null && $job->website_redirect_url == null)
+							                                                            <div class="col-md-12 col-sm-12 col-xs-12">
+							                                                                
+							                                                                    <label class="detail-label"><i class="glyphicon glyphicon-earphone"></i> :</label>
+							                                                                
+							                                                                        {{ $job->alt_phone }}
+							                                                                
+							                                                            </div>  
+							                                                            @endif                                      
+							                                                        </div>
+							                                                        @endif
+							                                                        <div class="skill-display">Post Id&nbsp;: {{ $job->unique_id }} </div>
+
+							                                                        @if($expired != 1)
+							                                                             <div class="skill-display">Post expires on:                                         
+							                                                             <span class="btn-success" style="padding: 2px 8px;font-size: 12px;border-radius: 20px !important;">{{$fresh->format("d M Y")}}</span>
+							                                                             </div>
+							                                                         @else
+							                                                             <div class="skill-display">Post expired on:                                         
+							                                                             <span class="btn-danger" style="padding: 2px 8px;font-size: 12px;border-radius: 20px !important;">{{$fresh->format("d M Y")}}</span>
+							                                                             </div>
+							                                                        @endif
+							                                                    </div>
+							                                                </div>
+							                                               
+							                                                
+							                                                               
+							                                                
+							                                            </div>
+							                                        </div>
+							                                    </div>
+							                        </div>
+							                    </div>
+							                    
+							             </div>
+									</div>
+							</div>
+						</div>
+						<!-- /.modal-content -->
+					</div>
+					<!-- /.modal-dialog -->
+				</div>
+				<!-- /.modal -->
 				@endforeach
 
 				<?php echo $searchResultForJob->fragment('tab_tab_job')->render(); ?>
@@ -413,14 +695,276 @@
                         <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code elipsis-city-code" style="padding:0 12px;">
                         <small style="font-size:13px;color:dimgrey !important;"> <i class="glyphicon glyphicon-map-marker post-icon-color"></i>&nbsp;: {{ $skill->city }}</small>
                         </div>
-                        <div class="col-md-4 col-sm-4 col-xs-4 hide-details" style="float: right;right: -40px;bottom: 16px;">
-                           Details
-                        </div>
+                        <a class="" data-toggle="modal" href="#search-skill-post">
+	                        <div class="col-md-6 col-sm-6 col-xs-4" style="#676565 !important;">
+	                           Details
+	                        </div>
+	                    </a>
                        
                     </div>
                     </div>
 
                 </div>
+                <div class="modal fade" id="search-skill-post" tabindex="-1" role="basic" aria-hidden="true">
+					<div class="modal-dialog ">
+						<div class="modal-content">
+							<div id="myactivity-posts-content" >
+								<div >
+									<div class="row" style="margin: 6px 0px;">
+						                <div class="col-md-12" style="text-align: center;background: lightblue;">
+						                    @if($skill->post_type == 'job')
+						                    <label style="margin:2px 0;"> Job Details </label>
+						                    @else($skill->post_type == 'skill')
+						                    <label style="margin:2px 0;"> Skill Details </label>
+						                    @endif
+						                </div>
+						            </div>
+							            <div class="row" style="margin:0;"> 
+							                    <div class="timeline" >
+							                        <!-- TIMELINE ITEM -->
+							                        <div class="timeline-item">
+							                           
+							                             <div class="timeline-body" style=" margin-top:-9px;margin-left:13px;">
+							                                <div class="timeline-body-head">
+							                                    @if(  $skill->individual_id != null)
+							                                        <div class="timeline-body-head-caption" data-puid="{{  $skill->individual_id}}">
+							                                            
+							                                                
+							                                                
+							                                                <a href="/profile/ind/{{  $skill->individual_id}}" style="font-size: 15px;text-decoration:none;font-weight:600;">
+							                                                    {{   $skill->induser->fname}} {{   $skill->induser->lname}}
+							                                                </a>
+							                                            
+							                                               
+							                                               
+							                                            <span class="timeline-body-time font-grey-cascade">Posted at 
+							                                                {{ date('M d, Y', strtotime(  $skill->created_at)) }}
+							                                            </span>
+							                                        </div>
+							                                    @elseif(  $skill->corporate_id != null)
+							                                        <div class="timeline-body-head-caption" data-puid="{{  $skill->corporate_id}}">
+							                                            
+							                                                                                                   
+							                                                <a href="/profile/corp/{{  $skill->corporate_id}}" style="font-size: 15px;text-decoration:none;font-weight:600;">
+							                                                    {{   $skill->corpuser->firm_name}}
+							                                                </a>
+							                                            
+							                                            <span class="timeline-body-time font-grey-cascade">Posted at 
+							                                                {{ date('M d, Y', strtotime(  $skill->created_at)) }}
+							                                            </span>
+							                                        </div>
+							                                    @endif
+							                                </div>
+							                                
+							                            </div>
+							                                    <div class="portlet-body" style="margin: 0 -5px;">
+							                                        <div class="panel-group accordion" id="accordion1" style="margin-bottom: 0;">
+							                                            <div class="panel panel-default" style=" position: relative;border:0 !important;">
+							                                                <div class="panel-heading" style="background-color: white;margin: 5px 0px;">
+							                                                   <!--  <h4 class="panel-title">
+							                                                    <a class="" 
+							                                                    data-toggle="collapse" data-parent="#accordion1" href="#collapse_1_1"  style="font-size: 15px;font-weight: 600;padding:0 16px;" >
+							                                                    Details: </a>   
+							                                                    </h4> -->
+							                                                </div>
+							                                                <div id="collapse_1_1" class="panel-collapse">
+							                                                    <div class="panel-body" style="border-top: 0;padding: 4px 15px;">
+							                                                        
+							                                                        <div class="row">
+							                                                             @if($skill->post_type == 'job')
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+							                                                                    <label class="detail-label">Job Title :</label>     
+							                                                            </div>
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+							                                                                     {{ $skill->post_title }}     
+							                                                            </div>
+							                                                            @elseif($skill->post_type == 'skill')
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+							                                                                    <label class="detail-label">Skill Title :</label>     
+							                                                            </div>
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+							                                                                     {{ $skill->post_title }}     
+							                                                            </div>
+							                                                            @endif
+							                                                        </div>
+							                                                        <div class="row">
+							                                                            
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+							                                                                    <label class="detail-label">Education :</label>     
+							                                                            </div>
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+							                                                                    {{ $skill->education }}     
+							                                                            </div>
+							                                                        </div>
+							                                                        
+							                                                        <div class="row"> 
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                           
+							                                                                    <label class="detail-label">Skills :</label>                                                                  
+							                                                            </div>
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
+							                                                                    @foreach($skill->skills as $skill)
+							                                                                        {{$skill->name}}
+							                                                                    @endforeach
+							                                                                 
+							                                                            </div>
+							                                                        </div>
+							                                                        <div class="row"> 
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                           
+							                                                                    <label class="detail-label">Job Type :</label>                                                                  
+							                                                            </div>
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
+							                                                                    {{ $skill->time_for }}
+							                                                            </div>
+							                                                        </div>
+							                                                        <div class="row"> 
+							                                                            @if($skill->locality != null && $skill->city !=null)
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                           
+							                                                                    <label class="detail-label">Locality :</label>                                                                  
+							                                                            </div>
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
+							                                                                    {{ $skill->locality }},{{ $skill->city }} 
+							                                                            </div>
+							                                                            @elseif($skill->locality == null && $skill->city !=null)
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                           
+							                                                                    <label class="detail-label">Locality :</label>                                                                  
+							                                                            </div>
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
+							                                                                    {{ $skill->city }} 
+							                                                            </div>
+							                                                            @endif
+							                                                        </div>
+							                                                        
+							                                                         <div class="row">
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+							                                                                    <label class="detail-label">Salary (<i class="fa fa-rupee (alias)"></i>):</label>
+							                                                            </div>
+							                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+							                                                                    {{ $skill->min_sal }}-{{ $skill->max_sal }} {{ $skill->salary_type }}
+							                                                            </div>
+							                                                        </div>
+							                                                        
+							                                                        <div class="skill-display">Description : </div>
+							                                                        {{ $skill->job_detail }}
+							                                                        
+							                                                        @if($skill->post_type == 'job')
+							                                                        <div class="skill-display">Reference Id&nbsp;: {{ $skill->reference_id }} </div> 
+							                                                        @endif
+
+							                                                        <div style="margin:27px 0 0;">
+							                                                            <!-- if corporate_id not null -->
+						                                                            <!-- <form action="/job/apply" method="post" id="post-apply-{{$skill->id}}" data-id="{{$skill->id}}">   -->
+						                                                                
+						                                                                    <a class="btn apply-btn blue btn-sm apply-contact-btn show-contact" target="_blank" 
+						                                                                        href="/login" type="button"><i class="icon-globe"></i> Apply
+						                                                                    </a>    
+						                                                            <!-- </form>  -->
+
+							                                                        </div>
+							                                                       @if($expired != 1 && $skill->postactivity->where('user_id', Auth::user()->id)->isEmpty())
+							                                                        @elseif($expired != 1 && $skill->postactivity->where('user_id', Auth::user()->id)->first()->contact_view == 1)
+							                                                        <div  class="skill-display ">Contact Details : </div> 
+							                                                        <div id="show-hide-contacts" class="row">
+							                                                            @if($skill->post_type == 'job' && $skill->website_redirect_url != null)
+							                                                            <div class="col-md-12 col-sm-12 col-xs-12">
+							                                                                Click on Apply, it will redirect you to Company Website.
+							                                                            </div>
+							                                                            @endif
+							                                                            @if($skill->post_type == 'job' && $skill->website_redirect_url != null && $skill->corpuser != null)
+							                                                            <div class="col-md-12 col-sm-12 col-xs-12">                                             
+							                                                                <label class="detail-label"><i class="glyphicon glyphicon-globe" style="color: deepskyblue;"></i> :</label>
+							                                                                {{ $skill->website_url }}                                                            
+							                                                            </div>
+							                                                            @endif
+							                                                            @if($skill->website_redirect_url == null && $skill->contact_person != null)
+							                                                            <div class="col-md-12 col-sm-12 col-xs-12">                                             
+							                                                                <label class="detail-label"><i class="glyphicon glyphicon-user"></i> :</label>
+							                                                                {{ $skill->contact_person }}                                                         
+							                                                            </div>
+							                                                            @endif
+
+							                                                            @if($skill->email_id != null && $skill->alt_emailid != null && $skill->website_redirect_url == null)
+							                                                            <div class="col-md-12 col-sm-12 col-xs-12">
+							                                                                
+							                                                                    <label class="detail-label"><i class="glyphicon glyphicon-envelope"></i> :</label>                                                              
+							                                                                    {{ $skill->email_id }} - {{ $skill->alt_emailid }}                            
+							                                                            </div>  
+							                                                            
+							                                                            @elseif($skill->email_id != null && $skill->alt_emailid == null && $skill->website_redirect_url == null)
+							                                                            <div class="col-md-12 col-sm-12 col-xs-12">
+							                                                                
+							                                                                    <label class="detail-label"><i class="glyphicon glyphicon-envelope"></i> :</label>
+							                                                                    {{ $skill->email_id }}
+							                                                                
+							                                                            </div>
+							                                                            @elseif($skill->email_id == null && $skill->alt_emailid != null && $skill->website_redirect_url == null)
+							                                                            <div class="col-md-12 col-sm-12 col-xs-12">
+							                                                                
+							                                                                    <label class="detail-label"><i class="glyphicon glyphicon-envelope"></i> :</label>
+							                                                                        {{ $skill->alt_emailid }}
+							                                                                 
+							                                                            </div>  
+							                                                            @endif  
+							                                                            @if($skill->phone != null && $skill->alt_phone != null && $skill->website_redirect_url == null)
+							                                                            <div class="col-md-12 col-sm-12 col-xs-12">
+							                                                                
+							                                                                    <label class="detail-label"><i class="glyphicon glyphicon-earphone"></i> :</label>
+							                                                                
+							                                                                    
+							                                                                    {{ $skill->phone }} - {{ $skill->alt_phone }}
+							                                                                 
+							                                                            </div>  
+							                                                            @elseif($skill->phone != null && $skill->alt_phone == null && $skill->website_redirect_url == null)
+							                                                            <div class="col-md-12 col-sm-12 col-xs-12">
+							                                                                
+							                                                                    <label class="detail-label"><i class="glyphicon glyphicon-earphone"></i> :</label>
+							                                                                
+							                                                                    
+							                                                                    {{ $skill->phone }}
+							                                                                
+							                                                            </div>
+							                                                            @elseif($skill->phone == null && $skill->alt_phone != null && $skill->website_redirect_url == null)
+							                                                            <div class="col-md-12 col-sm-12 col-xs-12">
+							                                                                
+							                                                                    <label class="detail-label"><i class="glyphicon glyphicon-earphone"></i> :</label>
+							                                                                
+							                                                                        {{ $skill->alt_phone }}
+							                                                                
+							                                                            </div>  
+							                                                            @endif                                      
+							                                                        </div>
+							                                                        @endif
+							                                                        <div class="skill-display">Post Id&nbsp;: {{ $skill->unique_id }} </div>
+
+							                                                        @if($expired != 1)
+							                                                             <div class="skill-display">Post expires on:                                         
+							                                                             <span class="btn-success" style="padding: 2px 8px;font-size: 12px;border-radius: 20px !important;">{{$fresh->format("d M Y")}}</span>
+							                                                             </div>
+							                                                         @else
+							                                                             <div class="skill-display">Post expired on:                                         
+							                                                             <span class="btn-danger" style="padding: 2px 8px;font-size: 12px;border-radius: 20px !important;">{{$fresh->format("d M Y")}}</span>
+							                                                             </div>
+							                                                        @endif
+							                                                    </div>
+							                                                </div>
+							                                               
+							                                                
+							                                                               
+							                                                
+							                                            </div>
+							                                        </div>
+							                                    </div>
+							                        </div>
+							                    </div>
+							                    
+							             </div>
+									</div>
+							</div>
+						</div>
+						<!-- /.modal-content -->
+					</div>
+					<!-- /.modal-dialog -->
+				</div>
+				<!-- /.modal -->
 				@endforeach
 
 				<?php echo $searchResultForSkill->fragment('tab_tab_skill')->render(); ?>

@@ -1592,28 +1592,10 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     right: 0;
     top: 0;
     width: 100%;
-    height:555px;
-    opacity: 0.5;
+    height:120%;
+    opacity: 1;
 }
 
-.tile{
-    display: block;
-    letter-spacing: 0.02em;
-    float: left;
-    height: 140px;
-    width: 135px !important;
-    cursor: pointer;
-    text-decoration: none;
-    color: #ffffff;
-    position: relative;
-    font-weight: 300;
-    font-size: 12px;
-    letter-spacing: 0.02em;
-    line-height: 20px;
-    overflow: hidden;
-    border: 4px solid transparent;
-    margin: 0 10px 10px 0;
-}
 
 .tile .tile-body {
     height: 100%;
@@ -1682,7 +1664,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 }
 
 .tile-position-new{
-    margin: 20px auto;
+    margin: 0px auto;
     float: none;
     display: table;
 }
@@ -1777,22 +1759,28 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     background-color:dimgrey !important;
 }
 
-
-
 .con {
-  width:auto;
-  font-size:20px;
-  line-height:40px;
-  font-family:'Muli';
-  color:#ecf0f1;
+ /* width:auto;
+font-size:20px;
+line-height:40px;
+font-family:'Muli';*/
+color: white;
+z-index: 9999999;
+position: relative;
+text-shadow: 0 1px #484848;
+/*position: absolute;
+    top: 200px;
+    right: 400px;*/
 }
+
+/*
 
 .visible {
   float:left;
   font-weight:600;
   overflow:hidden;
   height:40px;   
-}
+}*/
 
 /*p {
   display:inline;
@@ -1800,7 +1788,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   margin:0;
 }*/
 
-.new-visible-ul {
+/*.new-visible-ul {
   margin-top:0;
   padding-left:0px;
   text-align:center;
@@ -1848,7 +1836,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   75%  {margin-top:-40px;}
   85%  {margin-top:-40px;}
   100% {margin-top:0;}
-}
+}*/
 
 .usertagged-css{
     border-bottom: 1px dotted lightgrey;
@@ -1862,4 +1850,28 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     text-transform: capitalize;
     font-size: 15px;
     border-bottom: 1px solid lightblue;
+}
+
+@media (max-width: 570px) {
+   .job-skill-modal{
+        width: 145px !important;
+    height: 145px !important;
+    }
+
+    .job-skill-font{
+        font-size:15px;
+        font-weight:600;
+    }
+}
+
+@media (min-width: 570px) {
+    
+    .job-skill-modal{
+        width:180px !important;
+        height: 160px !important;
+    }
+    .job-skill-font{
+        font-size:20px;
+        font-weight:600;
+    }
 }

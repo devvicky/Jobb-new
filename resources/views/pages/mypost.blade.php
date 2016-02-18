@@ -44,7 +44,7 @@
                                                 <!-- Post shared by user -->                        
                                                 
 	                                            <div class="shared-by">
-	                                                You have shared to <b>{{$post->sharedToGroup->first()->group_name}}</b> group<br/>
+	                                                You have tagged to <b>{{$post->sharedToGroup->first()->group_name}}</b> group<br/>
 	                                            </div>
                                                 
                                             </div>

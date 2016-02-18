@@ -222,20 +222,30 @@
       <div id="magicmatch-posts-content" >
         <div style="text-align:center;">
           <div class="tile-position-new">
-            <div class="tile bg-red-intense">
+            <div class="tile bg-red-intense job-skill-modal" style="">
               <div class="tile-body box-welcome" style="text-align:center;">
                 <a href="/skill/create">
-                  <img class="" src="/assets/admin/pages/media/bg/skill.png" style="width:90%;">
+                  <img class="" src="/assets/admin/pages/media/bg/job.png" style="width:70%;">
                 </a>
                 <!-- <i class="fa fa-gavel"></i> -->
               </div>
+              <div class="tile-object">
+                <div class='con'>
+                  <span id="" class="uppercase job-skill-font" style="">Post Job tip</span>
+                </div>
+              </div>
             </div>
              @if (Auth::user()->identifier == 1)
-            <div class="tile bg-red-intense">
+            <div class="tile bg-red-intense job-skill-modal">
               <div class="tile-body" style="text-align:center;">
                 <a href="/job/create">
-                  <img class="" src="/assets/admin/pages/media/bg/job.png" style="width:90%;">
+                  <img class="" src="/assets/admin/pages/media/bg/skill.png" style="width:70%;">
                 </a>
+              </div>
+              <div class="tile-object">
+                <div class='con'>
+                  <span id="" class="uppercase job-skill-font">Promote Skills</span>
+                </div>
               </div>
             </div>
             @endif

@@ -1,6 +1,9 @@
 <?php namespace App\Http\Controllers;
 use Input;
 use App\Postjob;
+use App\Contact_us;
+use App\Http\Requests;
+use Illuminate\Http\Request;
 
 class WelcomeController extends Controller {
 
@@ -85,5 +88,15 @@ class WelcomeController extends Controller {
 			
 			return view('pages.welcome_postdetails', compact('post'));
 			// return $post;
+	}
+
+	public function contactUs(Request $request){
+		$contact = new Contact_us();
+		$contact->name = $request['name'];
+		$contact->email = $request['email'];
+		$contact->phone = $request['phone'];
+		$contact->message = $request['message'];
+		$contact->save();
+		return redirect('/');
 	}
 }

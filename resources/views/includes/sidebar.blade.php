@@ -190,7 +190,7 @@
       
       @if (Auth::user()->identifier == 1 || Auth::user()->identifier == 2)
       <li>
-        <a href="javascript:;">
+        <a href="/home">
         <i class="icon-eye"></i>
         <span class="title">
         Related Jobs </span>
@@ -198,7 +198,7 @@
         </span>
         
         </a>
-        <ul class="sub-menu">
+        <!-- <ul class="sub-menu">
           <li>
             <a class="ajaxify" href="layout_ajax_content_2.html">
             Ajax Link Sample 1 </a>
@@ -215,9 +215,9 @@
             <a class="ajaxify" href="layout_ajax_content_3.html">
             Ajax Link Sample 4 </a>
           </li>
-        </ul>
+        </ul> -->
       </li>
-      <li>
+      <!-- <li>
         <a href="javascript:;">
         <i class="icon-shuffle"></i>
         <span class="title">
@@ -244,7 +244,7 @@
             Ajax Link Sample 4 </a>
           </li>
         </ul>
-      </li>
+      </li> -->
       @endif
       <li>
         <a href="javascript:;">
@@ -261,7 +261,7 @@
               <i class="icon-user"></i>&nbsp;Change password 
             </a>
           </li>
-          <li>
+         <!--  <li>
             <a class="ajaxify" href="accountsetting.html">
               <i class="icon-user"></i>&nbsp;Account 
             </a>
@@ -270,7 +270,7 @@
             <a class="ajaxify" href="notification.html">
               <i class="icon-bulb"></i>&nbsp;Notification 
             </a>
-          </li>
+          </li> -->
           <li>
             <a href="/feedback/create">
               <i class="icon-star"></i>&nbsp;Feedback
