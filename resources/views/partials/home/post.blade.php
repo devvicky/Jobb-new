@@ -32,9 +32,9 @@
 					
 				</div>
 				@include('partials.home.image-linked')
-
+				@include('partials.home.favourite')
 				<div class="post-hover-act" data-postid="{{$post->id}}">
-					<a class="myactivity-posts" data-toggle="modal" href="#myactivity-posts">
+					<!-- <a class="myactivity-posts" data-toggle="modal" href="#myactivity-posts"> -->
 				
 					<div class="row post-postision" style="cursor:pointer;">
 	                    <div class="col-md-12">
@@ -49,6 +49,11 @@
 	                        </div>
 	                    </div>
 	                    @endif
+	                    <div class="col-md-12">
+	                        <div class=" capitalize" itemprop="name" style="font-size:13px;color:dimgrey !important;">
+	                        	Skills : {{$skill}}
+	                        </div>
+	                    </div>
 	               	</div>
 	               
 	               	<div class="row post-postision" style="">
@@ -64,12 +69,21 @@
 	                    		<i class="glyphicon glyphicon-map-marker post-icon-color"></i>&nbsp;: {{ $city or 'Unspecified' }}
 	                    	</small>
 	                    </div>
+	                    @if($postType == 'job')
+	                    <a href="/jobpost/{{$postId}}" target="_blank">
 	                    <div class="col-md-4 col-sm-4 col-xs-4 hide-details" style="float: right;right: -40px;bottom: 16px;">
 	                       Details
 	                    </div>
-	                   
+	                   </a>
+	                   @elseif($postType == 'skill')
+	                   <a href="/skillpost/{{$postId}}" target="_blank">
+	                    <div class="col-md-4 col-sm-4 col-xs-4 hide-details" style="float: right;right: -40px;bottom: 16px;">
+	                       Details
+	                    </div>
+	                   </a>
+	                   @endif
 	                </div>
-	                </a>
+	                <!-- </a> -->
 	            </div>
 				<div class="row" style="margin: 5px 0px; border-top: 1px solid whitesmoke;">
 					<div class="col-md-12" style="margin: 3px -13px;">
@@ -136,7 +150,7 @@
 											style="background-color: transparent;border: 0;margin: 0px;">
 										<i class="fa fa-share-square-o" 
 											style="font-size: 19px;color: darkslateblue;"></i>
-										<span class="badge-share" id="share-count-{{ $post->id }}">share</span>
+										<span class="badge-share" id="share-count-{{ $post->id }}">@if($post->postactivity->sum('share') > 0){{ $post->postactivity->sum('share') }}@endif</span>
 									</button>
 									<ul class="dropdown-menu pull-right" role="menu" 
 										style="min-width:0;box-shadow:0 0 !important;padding: 0;">

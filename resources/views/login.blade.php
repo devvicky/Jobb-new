@@ -136,7 +136,7 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
     <!-- BEGIN LOGO -->
     <div class="page-logo">
       <a href="/home">
-      <img src="/assets/logo.png" alt="logo" class="logo-default" style="width: 135px;margin-top: 0;" />
+      <img src="/assets/logo.png" alt="logo" class="logo-default" style="width: 150px;margin: 5px 0;" />
       </a>
       
     </div>
@@ -150,25 +150,12 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
         <!-- BEGIN USER LOGIN DROPDOWN -->
         <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
         <li>
-          <a href="{{ url('/login') }}" style="padding-bottom: 11px;padding-top: 11px;background-color: transparent;">
+          <a id="signup-tabopen" style="padding-bottom: 11px;padding-top: 11px;background-color: transparent;">
           <button class="btn welcome-signup-css signup-button" style="">
             Sign Up
           </button>
           </a>
         </li>
-        <!-- END USER LOGIN DROPDOWN -->
-        <!-- BEGIN QUICK SIDEBAR TOGGLER -->
-        <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-
-       
-        <!--  <li class="dropdown dropdown-quick-sidebar-toggler">
-          <a href="" class="dropdown-toggle">
-          <i class="icon-logout"></i>
-          </a>
-        </li> -->
-        
-        
-        <!-- END QUICK SIDEBAR TOGGLER -->
       </ul>
     </div>
     <!-- END TOP NAVIGATION MENU -->
@@ -177,13 +164,6 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 </div>
 <!-- END HEADER -->
 <!-- BEGIN LOGO -->
-<div class="logo">
-<!-- <picture>
-    <source srcset="assets/admin/layout/img/new_big_logo.png">
-    <img srcset="assets/new_big_logo.png" alt="My default image"  style="max-width:215px;margin-top: -10px;margin-bottom: -13px;">
-</picture> -->
-</div>
-
 <div class="container display-content">
    
   @yield('content')
@@ -239,6 +219,15 @@ jQuery(document).ready(function() {
   UIExtendedModals.init();
   // FormValidation.init();
 });
+
+
+$(document).ready(function() {
+
+    jQuery('#signup-tabopen').on('click', function(event) {
+        jQuery('.corporate-register-tab').toggle('show');
+        jQuery('.login-tag').toggle('hide');
+    });
+  });
 </script>
 <!-- END JAVASCRIPTS -->
 </body>

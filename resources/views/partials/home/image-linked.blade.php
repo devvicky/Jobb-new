@@ -1,4 +1,9 @@
-<div class="timeline-body ">
+
+@if($post->expired == 1)
+    <div class="timeline-body new-timeline-body">
+@elseif($post->expired == 0)
+    <div class="timeline-body ">
+@endif
 	<div class="timeline-body-head">
 		<div class="timeline-body-head-caption" style="width:100%;margin:5px;">
 			@if(Auth::user()->induser_id == $post->individual_id && $post->individual_id != null)

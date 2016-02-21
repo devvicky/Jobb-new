@@ -56,53 +56,136 @@
 					<input type="hidden" name="post_type" value="job">
 					<div class="row" style="margin:0;">
 						<div class="col-md-12 col-sm-12 col-xs-12" style="margin:-5px 0;padding:0 10px;">
-							<label style="font-size:13px;font-weight:500;">Title or Role</label>
+							<!-- <label style="font-size:13px;font-weight:500;">Title or Role</label> -->
 							<div class="form-group">
 								<!-- <input type="text" id="title" name="post_title" class="form-control filter-input " placeholder="Job Title, Role" style="border: 1px solid darkcyan !important;margin: 7px 0px;"> -->
 								<input type="text" id="title" name="pref_loc" 
-									class="form-control select2" placeholder="Enter Title or Role">
+									class="form-control select2" placeholder="Enter Keywords">
 							</div>
 						</div>
 					</div>
 					<div class="row" style="margin:0;">
-						<div class="col-md-6 col-sm-6 col-xs-12" style="margin:-5px 0;padding:0 10px;">
-							<label style="font-size:13px;font-weight:500;">Job Type</label>
+						<div class="col-md-12" style="margin:-5px 0;padding:0 10px;">
+							<label style="font-size:13px;font-weight:500;">Experience</label> : <span id="slider-range-max-amount"> </span> Years
+							<div class="">
+								<div id="slider-range-max" class="slider bg-purple">
+								</div>
+								<div class="slider-value">
+									  
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row" style="margin: 15px 0 0 0;">
+						<div class="col-md-12 col-sm-12 col-xs-12" style="margin:-5px 0;padding:0 10px;">
 							<div class="form-group">
-								<select multiple="multiple" name="time_for"  placeholder="Select" class="SlectBox">
-							       <option selected value="Full Time">Full Time</option>
-									<option selected value="Part Time">Part Time</option>
-									<option selected value="Freelancer">Freelancer</option>
-									<option selected value="Work from Home">Work from Home</option>
-							    </select>		
+								<!-- <label style="font-size:13px;font-weight:500;">Skills</label> -->
+								<div>
+									<div style="position:relative;" id="job-skill-wrapper">
+										<input type="text" name="name" id="newskill-job" class="form-control" placeholder="Search skill...">		
+									</div>
+									{!! Form::select('linked_skill_id[]', $skills, null, ['id'=>'linked_skill_id', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Skills', 'multiple']) !!}
+								</div>
 							</div>
-				         </div>
-						<div class="col-md-6 col-sm-6 col-xs-12" style="margin:-5px 0;padding:0 10px;">
-							<label style="font-size:13px;font-weight:500;">Experience</label>
-							<div class="form-group">	
-								<select name="experience" placeholder="Select" class="SlectBox">
-				                	
-				                	<option value="0">Fresher</option>
-									<option value="1">1 Year</option>
-									<option value="2">2 Years</option>
-									<option value="3">3 Years</option>
-									<option value="4">4 Years</option>
-									<option value="5">5 Years</option>
-									<option value="6">6 Years</option>
-									<option value="7">7 Years</option>
-									<option value="8">8 Years</option>
-									<option value="9">9 Years</option>
-									<option value="10">10 Years</option>
-									<option value="11">11 Years</option>
-									<option value="12">12 Years</option>
-									<option value="13">13 Years</option>
-									<option value="14">14 Years</option>
-									<option value="15">15 Years</option>
-				                </select>		
-								<!-- <input type="text" id="exp" name="experience" class="form-control filter-input" placeholder="Exp" style="height: 25px;margin: 7px 0px;">				 -->
-							</div>	
 						</div>
 					</div>
 					<div class="row" style="margin:0;">
+						<div class="col-md-12">
+							<div class="col-md-3 col-sm-3 col-xs-3">
+								 <div class="btn-group" data-toggle="buttons">
+					                <label class="btn default active ">
+					                    <input type="checkbox" class="toggle">
+					                    <a href="javascript:;" class="icon-btn">
+						                    <i class="fa fa-group"></i>
+						                    <div>
+						                         Full<br/> Time
+						                    </div> 
+						                </a>
+					                </label>
+					            </div>
+							</div>
+							<div class="col-md-3 col-sm-3 col-xs-3">
+								<div class="btn-group" data-toggle="buttons">
+					                <label class="btn default active ">
+					                    <input type="checkbox" class="toggle">
+					                    <a href="javascript:;" class="icon-btn">
+						                    <i class="fa fa-group"></i>
+						                    <div>
+						                         Part<br/> Time
+						                    </div> 
+						                </a>
+					                </label>
+					            </div>
+							</div>
+							<div class="col-md-3 col-sm-3 col-xs-3">
+								<div class="btn-group" data-toggle="buttons">
+					                <label class="btn default active ">
+					                    <input type="checkbox" class="toggle">
+					                    <a href="javascript:;" class="icon-btn">
+						                    <i class="fa fa-group"></i>
+						                    <div>
+						                         Freelancer
+						                    </div> 
+						                </a>
+					                </label>
+					            </div>
+							</div>
+							<div class="col-md-3 col-sm-3 col-xs-3">
+								<div class="btn-group" data-toggle="buttons">
+					                <label class="btn default active ">
+					                    <input type="checkbox" class="toggle">
+					                    <a href="javascript:;" class="icon-btn">
+						                    <i class="fa fa-group"></i>
+						                    <div>
+						                         Work<br/>From Home
+						                    </div> 
+						                </a>
+					                </label>
+					            </div>
+							</div>
+							<!-- <div class="clearfix">
+					            <div class="btn-group" data-toggle="buttons">
+					                <label class="btn default active ">
+					                    <input type="checkbox" class="toggle">
+					                    <a href="javascript:;" class="icon-btn">
+						                    <i class="fa fa-group"></i>
+						                    <div>
+						                         Full<br/> Time
+						                    </div> 
+						                </a>
+					                </label>
+					                <label class="btn default active ">
+					                    <input type="checkbox" class="toggle">
+					                    <a href="javascript:;" class="icon-btn">
+					                    <i class="fa fa-group"></i>
+					                    <div>
+					                         Part<br/> Time
+					                    </div> 
+					                    </a>
+					                </label>
+					                <label class="btn default active ">
+					                    <input type="checkbox" class="toggle">
+					                    <a href="javascript:;" class="icon-btn">
+					                    <i class="fa fa-group"></i>
+					                    <div>
+					                         Freelancer
+					                    </div> 
+					                    </a>
+					                </label>
+					                <label class="btn default active ">
+					                    <input type="checkbox" class="toggle">
+					                    <a href="javascript:;" class="icon-btn">
+					                    <i class="fa fa-group"></i>
+					                    <div>
+					                         Work<br/> From Home
+					                    </div>
+					                    </a> 
+					                </label>
+					            </div>
+					        </div> -->
+						</div>
+					</div>
+					<div class="row" style="margin: 15px 0 0 0;">
 						<div class="col-md-6 col-sm-12" style="margin:-5px 0;padding:0 10px;">
 							<div class="form-group">
 								<label style="font-size:13px;font-weight:500;">Prefered Location <span class="required">
@@ -136,26 +219,9 @@
 							</div>
 						</div>
 					</div>
+					
 					<div class="row" style="margin:0;">
-						<div class="col-md-12 col-sm-12 col-xs-12" style="margin:-5px 0;padding:0 10px;">
-							<div class="form-group">
-								<label style="font-size:13px;font-weight:500;">Skills</label>
-								<div>
-									<div style="position:relative;" id="job-skill-wrapper">
-										<input type="text" name="name" id="newskill-job" class="form-control" placeholder="Search for skill...">		
-									</div>
-									{!! Form::select('linked_skill_id[]', $skills, null, ['id'=>'linked_skill_id', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Skills', 'multiple']) !!}
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row" style="margin:0;">
-						<div class="col-md-6 col-sm-6 col-xs-12" style="margin:-5px 0;padding:0 10px;">
-							<label style="font-size:13px;font-weight:500;">Post Id</label>
-							<div class="form-group">				
-								<input type="text" name="unique_id" class="form-control " placeholder="Post Id" style="border: 1px solid darkcyan !important;"> 				
-							</div>	
-						</div> 
+						
 						<div class="col-md-6 col-sm-6 col-xs-12" style="padding:0 10px;">
 							<label style="font-size:13px;font-weight:500;">Posted by</label>
 							<div class="form-group">
@@ -166,8 +232,15 @@
 							    </select>		
 							</div>
 				        </div>
+				        <div class="col-md-6 col-sm-6 col-xs-12" style="margin:-5px 0;padding:0 10px;">
+				         	<div class="form-group">
+					         	 <label style="font-size:13px;">
+									<input type="checkbox" name="expired" checked class="icheck" data-checkbox="icheckbox_square-grey"> Do not include Expired Post
+								</label>
+							</div>
+						</div>
 				    </div>
-					<div class="row" style="margin:0;">
+					<!-- <div class="row" style="margin:0;">
 						<div class="col-md-6 col-sm-6 col-xs-12" style="margin:-5px 0;padding:0 10px;">
 				         	<div class="form-group">
 					         	 <label style="font-size:13px;">
@@ -175,7 +248,7 @@
 								</label>
 							</div>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 			<div class="modal-footer right">

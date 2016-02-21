@@ -65,13 +65,16 @@ class SkillController extends Controller {
 			$request['corporate_id'] = Auth::user()->corpuser_id;
 		$request['post_type'] = 'skill';
 		
-		$skillIds = explode(',', $request['linked_skill_id']);
-		unset ($skillIds[count($skillIds)-1]);
-		$request['unique_id'] = "S".rand(111,999).rand(111,999);
+		// $skillIds = explode(',', $request['linked_skill_id']);
+		$request['linked_skill'] = implode(',', $request['linked_skill_id']);
+        $request['city'] = implode(',', $request['prefered_location']);
+        $request['locality'] = implode(',', $request['preferred_locality']);
+        $request['unique_id'] = "S".rand(111,999).rand(111,999);
+
 
 		$post = Postjob::create($request->all());
 
-		$post->skills()->attach($skillIds);
+		// $post->skills()->attach($skillIds);
 
 		return redirect("/home");
 	}

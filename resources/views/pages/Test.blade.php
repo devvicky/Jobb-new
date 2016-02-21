@@ -1,3 +1,57 @@
+<div class="row" style="margin:0;">
+    <div class="col-md-12">
+        <div class="clearfix">
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn default active ">
+                    <input type="checkbox" class="toggle">
+                    <a href="javascript:;" class="icon-btn">
+                    <i class="fa fa-group"></i>
+                    <div>
+                         Full Time
+                    </div> 
+                </label>
+                <label class="btn default active ">
+                    <input type="checkbox" class="toggle">
+                    <a href="javascript:;" class="icon-btn">
+                    <i class="fa fa-group"></i>
+                    <div>
+                         Part Time
+                    </div> 
+                </label>
+                <label class="btn default active ">
+                    <input type="checkbox" class="toggle">
+                    <a href="javascript:;" class="icon-btn">
+                    <i class="fa fa-group"></i>
+                    <div>
+                         Freelancer
+                    </div> 
+                </label>
+                <label class="btn default active ">
+                    <input type="checkbox" class="toggle">
+                    <a href="javascript:;" class="icon-btn">
+                    <i class="fa fa-group"></i>
+                    <div>
+                         Work From Home
+                    </div> 
+                </label>
+            </div>
+        </div>  
+    </div> 
+</div>
+
+
+$request['linked_skill'] = implode(',', $request['linked_skill_id']);
+        $request['city'] = implode(',', $request['prefered_location']);
+        $request['locality'] = implode(',', $request['preferred_locality']);
+        $request['unique_id'] = "S".rand(111,999).rand(111,999);
+
+
+
+
+
+
+
+
 
 @include('partials.home.job-filter')
 
@@ -956,3 +1010,27 @@ $(document).ready(function()
 });
 </script>
 @stop
+
+
+
+
+Tag Job Tip
+
+Why opportunities should be always announced publicly?
+
+Create professional links and closed groups and share job vacancies among them.
+
+ Promote skills
+
+Fed up of not getting job opportunities for your matching skills?
+Post your skills here for free and get direct call from thousands of startups, companies and recruitment agencies.
+
+ Search Talents
+
+Planning to start a business/startup and stuck due to resource unavailability?
+Lacs of highly talented people looking for Free Lancers, Work From Home, Full/Part Time jobs here.
+
+ Post Job Tips
+
+Dependent on companies/Job consulting firms to post job openings?
+If you know about any Job openings/referral, Post Job Tip here for free and help your friends, colleagues to find a suitable job.

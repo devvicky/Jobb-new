@@ -40,10 +40,10 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('/assets/startup/extras/owl/owl.transitions.css') }}">
 <style type="text/css">
 
-input:focus::-webkit-input-placeholder { color:white !important; }
-input:focus:-moz-placeholder { color:white !important; } /* FF 4-18 */
-input:focus::-moz-placeholder { color:white !important; } /* FF 19+ */
-input:focus:-ms-input-placeholder { color:white !important; } /* IE 10+ */
+input::-webkit-input-placeholder { color:white !important; }
+input:-moz-placeholder { color:white !important; } /* FF 4-18 */
+input::-moz-placeholder { color:white !important; } /* FF 19+ */
+input:-ms-input-placeholder { color:white !important; } /* IE 10+ */
 </style>
 </head>
 <body>

@@ -1,4 +1,6 @@
-@extends('master') @section('content') @include('partials.home.home')
+@extends('master')
+ @section('content')
+  @include('partials.home.home')
 <div class="modal fade" id="share-post" tabindex="-1" role="dialog" aria-labelledby="share-post" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -76,6 +78,7 @@ jQuery(document).ready(function() {
     ComponentsDropdowns.init();
     ComponentsEditors.init();
     UIBootstrapGrowl.init();
+    ComponentsjQueryUISliders.init();
     // FormWizard.init();
 });
 

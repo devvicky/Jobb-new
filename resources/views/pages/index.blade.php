@@ -179,60 +179,57 @@
     <!-- Start Services Section -->
     <section id="services">
       <div class="container">
-        <h1 class="section-title wow fadeIn" data-wow-delay=".2s"><span>Our</span> Services</h1>
+        <h1 class="section-title wow fadeIn" data-wow-delay=".2s"><span>Why</span> Jobtip</h1>
         <div class="row">
           <div class="col-sm-6 col-md-3 wow fadeInUp">
             <div class="service-box">
-              <div class="content">
+              <div class="content" style="height: 288px;">
                 <div class="icon-wrapper">
-                <i class="fa fa-user"></i>
+                <i class="fa fa-users"></i>
                 </div>
-                <h2>Create Link</h2>
-                <p>Lorem ipsum is simply dummy text of the printin and typesetting industry. Lorem ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                <h2>Tag Job Tip</h2>
+                <p>Why opportunities should be always announced publicly?<br/><br/>
+                  Create professional links and closed groups and share job vacancies among them.
+                </p>
               </div>
             </div>
           </div>
           <div class="col-sm-6 col-md-3 wow fadeInUp">
             <div class="service-box">
-              <div class="content">
+              <div class="content" style="height: 288px;">
                 <div class="icon-wrapper">
-                <i class="fa fa-users"></i>
+                <i class="fa fa-cogs"></i>
                 </div>
-                <h2>Create Group</h2>
-                <p>Lorem ipsum is simply dummy text of the printin and typesetting industry. Lorem ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                <h2>Promote skills</h2>
+                <p>Fed up of not getting job opportunities for your matching skills?<br/><br/>
+                  Post your skills here for free and get direct call from thousands of startups, companies and recruitment agencies.
+                </p>
               </div>
             </div>
           </div>
           <div class="col-sm-6 col-md-3 wow fadeInUp" data-wow-delay=".2s" data-wow-offset="10">
             <div class="service-box">
-              <div class="content">
+              <div class="content" style="height: 288px;">
                 <div class="icon-wrapper">
-                <i class="fa fa-heart"></i>
+                <i class="fa fa-search"></i>
                 </div>
-                <h2>Post Job</h2>
-                <p>Lorem ipsum is simply dummy text of the printin and typesetting industry. Lorem ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                <h2>Search Talents</h2>
+                <p>Planning to start a business/startup and stuck due to resource unavailability?<br/><br/>
+                  Lacs of highly talented people looking for Free Lancers, Work From Home, Full/Part Time jobs here.
+                </p>
               </div>
             </div>
           </div>
           <div class="col-sm-6 col-md-3 wow fadeInUp" data-wow-delay=".4s" data-wow-offset="10">
             <div class="service-box">
-              <div class="content">
+              <div class="content" style="height: 288px;">
                 <div class="icon-wrapper">
-                <i class="fa fa-child"></i>
+                <i class="fa fa-edit"></i>
                 </div>
-                <h2>Promote Skills</h2>
-                <p>Lorem ipsum is simply dummy text of the printin and typesetting industry. Lorem ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-3 wow fadeInUp" data-wow-delay=".6s" data-wow-offset="10">
-            <div class="service-box">
-              <div class="content">
-                <div class="icon-wrapper">
-                <i class="fa fa-mobile-phone"></i>
-                </div>
-                <h2>Search Profile</h2>
-                <p>Lorem ipsum is simply dummy text of the printin and typesetting industry. Lorem ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                <h2>Post Job Tips</h2>
+                <p>Dependent on companies/Job consulting firms to post job openings?<br/><br/>
+                  If you know about any Job openings/referral, Post Job Tip here for free and help your friends, colleagues to find a suitable job.
+                </p>
               </div>
             </div>
           </div>
@@ -253,7 +250,7 @@
                   <p>
                   Jobtip.in is India's first website allows people to build network and post job requirements within their closed groups, professional/social friends or with public absolutely for free. We have a huge networking of start-up firms, companies, consulting agencies and recruitment agencies of India who post job vacancies and follow people who apply for the jobs matching their skill set.
 
-          This website empowers people to register and promote their skills and get noticed by lacs of job providers, referral candidates seekers to approach you for hiring.
+         <br/> This website empowers people to register and promote their skills and get noticed by lacs of job providers, referral candidates seekers to approach you for hiring.
 
           Jobtip.in respects individuals data privacy and ensures data protection and data security of its user data.</p>
                   <!-- <a href="#" class="btn btn-border"><i class="fa fa-shopping-cart"></i> Hire Me</a>
@@ -268,9 +265,9 @@
     <!-- End About Us Section -->   
 
     <!-- Start About Us Section -->
-    <section id="search" class="about-section" style="height:650px;">
+    <section id="search" class="about-section" style="height:650px; background-color:darkcyan;">
       <div class="container">
-      <h1 class="section-title wow fadeIn" data-wow-delay=".2s">Search <span>Jobtip</span></h1>
+      <h1 class="section-title wow fadeIn search-header-css" data-wow-delay=".2s" >Search <span>Job tip</span></h1>
         <div class="row">
          <!--  <div id="slider" class="owl-carousel">
             <div class="item"> -->
@@ -286,7 +283,7 @@
                         <div class=" form-group">
                           <div class="input-group">
                             <span class="input-group-addon welcome-icon">
-                              <i class="fa fa-cogs"></i>
+                              <i class="fa fa-cogs" style="color:white;"></i>
                             </span>
                             <input type="text" required name="role" id="search-input" class="form-control welcome-inputbox" placeholder="Enter Job role">
                           </div>
@@ -297,7 +294,7 @@
                         <div class="form-group">
                           <div class="input-group">
                             <span class="input-group-addon welcome-icon">
-                              <i class="fa fa-map-marker"></i>
+                              <i class="fa fa-map-marker" style="color:white;"></i>
                             </span>
                             <input type="text" name="location" class="form-control welcome-inputbox" placeholder="City">                    
                           </div>  
@@ -307,7 +304,7 @@
                         <div class="form-group">
                           <div class="input-group">
                             <span class="input-group-addon welcome-icon">
-                              <i class="icon-briefcase"></i>
+                              <i class="fa fa-briefcase" style="color:white;"></i>
                             </span>
                             <select class="form-control welcome-inputbox" name="experience" placeholder="Experience">
                               <option value=""> Exp (in Years)</option>
@@ -332,7 +329,7 @@
                         </div>  
                       </div>
                       <div class="col-md-1 col-sm-12 col-xs-12" style="padding-left:0 !important;text-align:center;">
-                        <button type="submit" class="btn btn-small-welcome btn-search-welcome search-button-size" style="margin: -1px;">
+                        <button type="submit" class="btn btn-small-welcome btn-search-welcome search-button-size" style="margin: -1px;padding: 7px 10px;width: 100%;">
                           <i class="fa fa-search"></i>
                           
                             <!-- Search -->
@@ -518,7 +515,7 @@
  (function(){
 
     // List your words here:
-    var words = [
+ /*   var words = [
         'know about any job openings ?',
         'looking skilled people for startup'.
         'looking for job change ?',
@@ -529,14 +526,12 @@
         $('#changerificwordspanid').fadeOut(function(){
             $(this).html(words[i=(i+1)%words.length]).fadeIn();
         });
-       // 2 seconds
     }, 3000);
 
 })();
 
 (function(){
 
-    // List your words here:
     var beloWords = [
         'help your friends to get a job',
         'hire right talent to grow business',
@@ -548,14 +543,12 @@
         $('#changerificwordspanbelowid').fadeOut(function(){
             $(this).html(beloWords[i=(i+1)%beloWords.length]).fadeIn();
         });
-       // 2 seconds
     }, 3000);
 
 })();
 
 (function(){
 
-    // List your words here:
     var imageWords = [
         'post job tip',
         'promote skills'
@@ -565,20 +558,22 @@
         $('#imageid').fadeOut(function(){
             $(this).html(imageWords[i=(i+1)%imageWords.length]).fadeIn();
         });
-       // 2 seconds
     }, 3000);
 
 })();
-
+*/
 </script>
 <script>
-$(document).ready(function()
-{
-    $('.img-f:gt(0)').hide();
-    setInterval(function() {
-        $(".img-f:first-child").fadeOut(1000).next(".img-f").fadeIn(1000).end().appendTo("#show-case")
-}, 3000);
-       
-});
+
+// $(document).ready(function () {
+//     $(".nav a, .navbar-nav a").click(function(event) {
+//         // check if window is small enough so dropdown is created
+//     $("#nav-collapse").removeClass("in").addClass("collapse");
+//     });
+// });
+
+// $('.nav').click('li', function() {
+//     $('.nav').collapse('hide');
+// });
 </script>
 @stop

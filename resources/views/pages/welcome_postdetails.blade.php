@@ -136,21 +136,7 @@
                                                                         {{ $post->min_sal }}-{{ $post->max_sal }} {{ $post->salary_type }}
                                                                 </div>
                                                             </div>
-                                                            <?php 
-                                                                $strNew = '+'.$post->post_duration.' day';
-                                                                $strOld = $post->created_at;
-                                                                $fresh = $strOld->modify($strNew);
-
-                                                                $currentDate = new \DateTime();
-                                                                $expiryDate = new \DateTime($fresh);
-                                                                // $difference = $expiryDate->diff($currentDate);
-                                                                // $remainingDays = $difference->format('%d');
-                                                                if($currentDate >= $fresh){
-                                                                    $expired = 1;
-                                                                }else{
-                                                                    $expired = 0;
-                                                                }
-                                                            ?>
+                                                        
                                                             <div class="skill-display">Description : </div>
                                                             {{ $post->job_detail }}
                                                             
@@ -159,8 +145,7 @@
                                                             @endif
 
                                                             
-                                                           @if($expired != 1 && $post->postactivity->where('user_id', Auth::user()->id)->isEmpty())
-                                                            @elseif($expired != 1 && $post->postactivity->where('user_id', Auth::user()->id)->first()->contact_view == 1)
+                                                           
                                                             <div  class="skill-display ">Contact Details : </div> 
                                                             <div id="show-hide-contacts" class="row">
                                                                 @if($post->post_type == 'job' && $post->website_redirect_url != null)
@@ -231,11 +216,9 @@
                                                                 </div>  
                                                                 @endif                                      
                                                             </div>
-                                                            @endif
+                                                            
                                                             <div class="skill-display">Post Id&nbsp;: {{ $post->unique_id }} </div>
-                                                                 <div class="skill-display">Post expires on:                                         
-                                                                 <span class="btn-success" style="padding: 2px 8px;font-size: 12px;border-radius: 20px !important;">{{$fresh->format("d M Y")}}</span>
-                                                                 </div>
+                                                                 
                                                             <div style="margin:27px 0 0;">
                                                                     <a class="btn apply-btn blue btn-sm apply-contact-btn show-contact" target="_blank" 
                                                                         href="/login" type="button"><i class="icon-globe"></i> Apply

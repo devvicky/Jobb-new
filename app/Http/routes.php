@@ -53,6 +53,9 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::post('postdetail/detail', 'PagesController@postDetail');
 	Route::post('magicmatch/detail', 'PagesController@magicMatch');
 
+	Route::get('jobpost/{id}', 'PagesController@singleJobPost');
+	Route::get('skillpost/{id}', 'PagesController@singleSkillPost');
+
 	Route::get('individual', 'UserController@index');
 	Route::get('individual/create', 'UserController@create');
 	Route::get('individual/edit', 'UserController@edit');

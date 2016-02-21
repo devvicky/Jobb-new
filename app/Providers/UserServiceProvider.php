@@ -25,7 +25,7 @@ class UserServiceProvider extends ServiceProvider {
 				$user = Induser::where('id', '=', Auth::user()->induser_id)->first();
 				$favourites = Postactivity::with('user')
 									      ->where('fav_post', '=', 1)
-									      ->where('user_id', '=', Auth::user()->induser_id)
+									      ->where('user_id', '=', Auth::user()->id)
 									      ->orderBy('id', 'desc')
 								          ->get(['id', 'fav_post', 'fav_post_dtTime', 'user_id', 'post_id']);
 				$thanksCount = Postactivity::with('user', 'post')

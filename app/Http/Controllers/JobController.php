@@ -44,7 +44,7 @@ class JobController extends Controller {
 	public function create()
 	{
 		$title = 'job';
-		$skills = Skills::lists('name', 'id');
+		$skills = Skills::lists('name', 'name');
 		if(Auth::user()->identifier == 1){
 			$connections=Induser::whereRaw('indusers.id in (
 											select connections.user_id as id from connections
@@ -91,13 +91,18 @@ class JobController extends Controller {
 			$request['corporate_id'] = Auth::user()->corpuser_id;
 		$request['post_type'] = 'job';
 
-		$skillIds = implode(',', $request['linked_skill_id']);
-		// unset ($skillIds[count($skillIds)-1]);
+		/*$skillIds = implode(',', $request['linked_skill_id']);
+		unset ($skillIds[count($skillIds)-1]);
 		$prefered_location = implode(',', $request['prefered_location']);
-		// unset ($prefered_location[count($prefered_location)-1]);
-		$request['unique_id'] = "J".rand(111,999).rand(111,999);
+		unset ($prefered_location[count($prefered_location)-1]);
+		$request['unique_id'] = "J".rand(111,999).rand(111,999);*/
+
+		$request['linked_skill'] = implode(',', $request['linked_skill_id']);
+        $request['city'] = implode(',', $request['prefered_location']);
+        // $request['locality'] = implode(',', $request['preferred_locality']);
+        $request['unique_id'] = "J".rand(111,999).rand(111,999);
 		$post = Postjob::create($request->all());
-		$post->skills()->attach($skillIds); 
+		// $post->skills()->attach($skillIds); 
 
 		if($request['connections'] != null){
 			$taggedUsers = $request['connections'];

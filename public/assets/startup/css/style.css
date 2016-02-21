@@ -111,11 +111,11 @@ img {
   margin: 0 0 0 24px;
 }
 #header .nav li a {
-  text-transform: uppercase;
-  padding: 5px 0;
-  color: #0BAFA0;
-  font-weight: 300;
-  position: relative;
+    text-transform: uppercase;
+    padding: 5px 0;
+    color: white;
+    font-weight: 300;
+    position: relative;
 }
 #header .nav li a:after {
   position: absolute;
@@ -139,7 +139,7 @@ img {
 #header .nav li a:focus {
   background: none;
   opacity: 1;
-  color: #0BAFA0;
+  color: #00fbe4;
   -webkit-transform: translateY(0px);
   -moz-transform: translateY(0px);
   transform: translateY(0px);
@@ -304,18 +304,18 @@ img {
   width: 54px;
 }
 #services .icon-wrapper i {
-  background: #ffffff;
-  color: #0BAFA0;
-  border: 2px solid #0BAFA0;
-  border-radius: 50%;
-  font-size: 30px;
-  height: 48px;
-  line-height: 48px;
-  text-align: center;
-  width: 48px;
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  transition: all 0.5s ease;
+    background: #ffffff;
+    color: #0BAFA0;
+    border: 2px solid #0BAFA0;
+    border-radius: 50%;
+    font-size: 27px;
+    height: 48px;
+    line-height: 47px;
+    text-align: center;
+    width: 48px;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }
 #services .service-box:hover i {
   background: #0BAFA0;
@@ -360,7 +360,7 @@ img {
   padding: 0px 20px;
   font-weight: 300;
   font-size: 16px;
-  text-align: justify;
+  text-align: center;
 }
 #about .owl-theme .owl-controls .owl-page span {
   background: none;
@@ -1115,4 +1115,8 @@ img {
 }
 .color-container .color-4 {
   background: #34495e;
+}
+
+.search-header-css{
+  color:white !important;
 }

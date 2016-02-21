@@ -265,7 +265,7 @@
 												</div>
 												<div class="tab-pane" id="tab3">
 													<div class="row">
-														<div class="col-md-5 col-sm-5">
+														<div class="col-md-6 col-sm-6 col-xs-12">
 															<div class="form-group">
 																<label>Prefered Location <span class="required">
 																		* </span></label>
@@ -279,14 +279,12 @@
 																	onblur="pref_loc_locality()">									
 																	
 																</div>
-																<input type="text" id="prefered_location" onblur="pref_loc_locality()"
-																		name="prefered_location" class="form-control select2" disabled
-																		placeholder="Selected preferred location" style="border: 0;">
+																
+															{!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 'onchange'=>'pref_loc_locality()', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'city', 'multiple']) !!}		
 															</div>
 														</div>
-														<!--/span-->
-														<div class="col-md-2 col-sm-2 col-xs-2"></div>
-														<div class="col-md-5 col-sm-5">
+														
+														<div class="col-md-6 col-sm-6 col-xs-12">
 															<div class="form-group">
 																<label>Area</label>
 																<div class="input-group">
@@ -295,11 +293,11 @@
 																	</span>
 																	<input type="text" id="pref_locality"
 																	onblur="pref_loc_locality()" 
-																	name="p_locality" class="form-control" placeholder="Select Local Area" disabled>
+																	name="p_localiy" class="form-control" placeholder="Select Local Area" disabled>
 																	
 																</div>
-																<input type="text" id="preferred_locality" placeholder="Selected Local Area" style="border:0" 
-																	name="p_locality" class="form-control select2" disabled >
+																
+																{!! Form::select('preferred_locality[]', [], null, ['id'=>'preferred_locality', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Area', 'multiple']) !!}		
 															</div>
 														</div>
 													</div>
@@ -322,7 +320,7 @@
 															</div>
 														</div>
 													</div>
-													<!-- <label style="margin-left: -5px;"><input id="hide-apply" type="checkbox">DO you want to show the bellow Field</label> -->
+													
 													<div class="row">
 													<div class="show-apply">
 														<div class="col-md-5 col-sm-5 col-xs-12">
@@ -414,7 +412,7 @@
 					                                                                        <label class="detail-label">Skills :</label>                                                                  
 					                                                                </div>
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                 
-					                                                                        <p class="form-control-static" data-display="skills" style="margin: -5px 0;"></p>
+					                                                                        <p class="form-control-static" data-display="linked_skill_id[]" style="margin: -5px 0;"></p>
 					                                                                     
 					                                                                </div>
 					                                                            </div>
@@ -442,7 +440,7 @@
 					                                                                        <label class="detail-label">Prefered Location :</label>                                                                  
 					                                                                </div>
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-					                                                                         <p class="form-control-static" data-display="prefered_location" style="margin: -5px 0;"></p>
+					                                                                         <p class="form-control-static" data-display="prefered_location[]" style="margin: -5px 0;"></p>
 					                                                                </div>
 					                                                            </div>
 					                                                            <div class="row"> 
@@ -451,7 +449,7 @@
 					                                                                        <label class="detail-label">Area :</label>                                                                  
 					                                                                </div>
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-					                                                                         <p class="form-control-static" data-display="p_locality" style="margin: -5px 0;"></p>
+					                                                                         <p class="form-control-static" data-display="preferred_locality[]" style="margin: -5px 0;"></p>
 					                                                                </div>
 					                                                            </div>
 																				<div >Post Duration: <p class="form-control-static" data-display="post_duration"></p></div>

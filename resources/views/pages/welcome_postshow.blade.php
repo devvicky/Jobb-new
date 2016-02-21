@@ -3,7 +3,7 @@
 @section('content')
 
 @if($title == 'welcome')
-<div class="row show-credential" style="text-align:center;margin:0;">
+<div class="row show-credential" style="text-align:center;margin: 35px 0 0px 0;">
 	@if($role != null)
 	<div class="col-md-12 col-sm-12 col-xs-12 capitalize " style="padding:0;">
 		<div class="welcome-search-type">
@@ -14,7 +14,12 @@
 </div>
 <div class="row " style="margin: 10px auto;display:table;">
 	<div class="col-md-12 col-sm-12 col-xs-12 show-welcome-detail" style="padding:0;">
-		<button class="btn btn-sm blue" style="padding: 8px 28px;">Modify Search</button>
+		<button class="btn btn-sm blue" style="padding: 5px 10px;
+    background-color: #00DA89;
+    font-size: 15px;
+    color: white;">
+			Modify Search
+		</button>
 	</div>
 </div>
 <?php $selected = 'selected'; ?>
@@ -121,7 +126,7 @@
 							@if($post->individual_id != null)
 							<div class="row">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <a href="/profile/ind/{{$post->individual_id}}" class="job-name-css" style="color: whitesmoke;">
+                                    <a href="/profile/ind/{{$post->individual_id}}" class="job-name-css" style="color: ;">
                                         {{ $post->induser->fname}} {{ $post->induser->lname}}
                                     </a>
                                 </div> 
@@ -159,7 +164,7 @@
 						</div>
 						<div class="row post-postision" style="cursor:pointer;">
                         <div class="col-md-12">
-                            <div class="post-title-new capitalize" style="color: whitesmoke;">{{ $post->post_title }} </div>
+                            <div class="post-title-new capitalize" style="color:;">{{ $post->post_title }} </div>
                         </div>
                         @if($post->post_compname != null && $post->post_type == 'job')
                         <div class="col-md-12">
@@ -411,21 +416,7 @@
 							                                                                    {{ $post->min_sal }}-{{ $post->max_sal }} {{ $post->salary_type }}
 							                                                            </div>
 							                                                        </div>
-							                                                        <?php 
-							                                                            $strNew = '+'.$post->post_duration.' day';
-							                                                            $strOld = $post->created_at;
-							                                                            $fresh = $strOld->modify($strNew);
-
-							                                                            $currentDate = new \DateTime();
-							                                                            $expiryDate = new \DateTime($fresh);
-							                                                            // $difference = $expiryDate->diff($currentDate);
-							                                                            // $remainingDays = $difference->format('%d');
-							                                                            if($currentDate >= $fresh){
-							                                                                $expired = 1;
-							                                                            }else{
-							                                                                $expired = 0;
-							                                                            }
-							                                                        ?>
+							                                                        
 							                                                        <div class="skill-display">Description : </div>
 							                                                        {{ $post->job_detail }}
 							                                                        
@@ -443,8 +434,7 @@
 						                                                            <!-- </form>  -->
 
 							                                                        </div>
-							                                                       @if($expired != 1 && $post->postactivity->where('user_id', Auth::user()->id)->isEmpty())
-							                                                        @elseif($expired != 1 && $post->postactivity->where('user_id', Auth::user()->id)->first()->contact_view == 1)
+							                                                      
 							                                                        <div  class="skill-display ">Contact Details : </div> 
 							                                                        <div id="show-hide-contacts" class="row">
 							                                                            @if($post->post_type == 'job' && $post->website_redirect_url != null)
@@ -515,18 +505,10 @@
 							                                                            </div>  
 							                                                            @endif                                      
 							                                                        </div>
-							                                                        @endif
+							                                                        
 							                                                        <div class="skill-display">Post Id&nbsp;: {{ $post->unique_id }} </div>
 
-							                                                        @if($expired != 1)
-							                                                             <div class="skill-display">Post expires on:                                         
-							                                                             <span class="btn-success" style="padding: 2px 8px;font-size: 12px;border-radius: 20px !important;">{{$fresh->format("d M Y")}}</span>
-							                                                             </div>
-							                                                         @else
-							                                                             <div class="skill-display">Post expired on:                                         
-							                                                             <span class="btn-danger" style="padding: 2px 8px;font-size: 12px;border-radius: 20px !important;">{{$fresh->format("d M Y")}}</span>
-							                                                             </div>
-							                                                        @endif
+							                                                        
 							                                                    </div>
 							                                                </div>
 							                                               
@@ -629,7 +611,7 @@ $(document).ready(function(){
         cache : false,
         success: function(data){
       	$('#welcome-posts-content').html(data);
-      	$('#welcome-posts').modal('show');
+      	// $('#welcome-posts').modal('show');
         }
       }); 
       return false;
