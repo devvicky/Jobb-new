@@ -32,8 +32,8 @@
           </div>
 
           <span class="myfavcount badge badge-favourite badge-default @if(count($favourites) > 0) show @else hide @endif" 
-                    id="myfavcount" style="background-color:lightcoral;right:15px !important;">{{count($favourites)}}
-              </span>
+                id="myfavcount" style="background-color:lightcoral;right:15px !important;">{{count($favourites)}}
+          </span>
         </a>
       </div>
     </div>
