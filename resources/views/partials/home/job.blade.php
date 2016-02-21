@@ -9,44 +9,45 @@
 	<div class="form-body" id="post-items" style="padding:0;">
 				
 			@foreach($jobPosts as $post)
-				<?php $groupsTagged = array(); ?>
-				@foreach($post->groupTagged as $gt)
-					<?php $groupsTagged[] = $gt->group_id; ?>
-				@endforeach
-				<?php 
-					$strNew = '+'.$post->post_duration.' day';
-					$strOld = $post->created_at;
-					$fresh = $strOld->modify($strNew);
-
-					$currentDate = new \DateTime();
-					$expiryDate = new \DateTime($fresh);
-					// $difference = $expiryDate->diff($currentDate);
-					// $remainingDays = $difference->format('%d');
-					if($currentDate >= $fresh){
-						$expired = 1;
-					}else{
-						$expired = 0;
-					}
-				?>
-				<?php
-				$crossCheck = array_intersect($groupsTagged, $groups);
-				$elements = array_count_values($crossCheck); ?>
-
-				@if($post->induser != null)	
-					@include('partials.home.post', ['userImgPath'	=>	$post->induser->profile_pic, 
-													'userName'		=>	$post->induser->fname,
-													'postTitle'		=>	$post->post_title,
-													'expMin'		=>	$post->min_exp,
-													'expMax'		=>	$post->max_exp,
-													'city'			=>	$post->city,
-													'company'		=>	$post->post_compname,
-													'magicMatch'	=>	$post->magic_match,
-													'userType'		=>	'ind',
-													'userId'		=>	$post->individual_id,
-													'postId'		=>	$post->id])
-				@elseif($post->corpuser != null)
-					@include('partials.home.post', ['userImgPath'	=>	$post->corpuser->logo_status, 
-													'userName'		=>	$post->corpuser->firm_name ])
+				
+				@if($post->expired == 0)
+					@if($post->induser != null)	
+						@include('partials.home.post', ['userImgPath'	=>	$post->induser->profile_pic, 
+														'userName'		=>	$post->induser->fname,
+														'postTitle'		=>	$post->post_title,
+														'expMin'		=>	$post->min_exp,
+														'expMax'		=>	$post->max_exp,
+														'city'			=>	$post->city,
+														'company'		=>	$post->post_compname,
+														'magicMatch'	=>	$post->magic_match,
+														'userType'		=>	'ind',
+														'userId'		=>	$post->individual_id,
+														'postId'		=>	$post->unique_id,
+														'postType'		=>	$post->post_type,
+														'skill'			=>	$post->linked_skill])
+					@elseif($post->corpuser != null)
+						@include('partials.home.post', ['userImgPath'	=>	$post->corpuser->logo_status, 
+														'userName'		=>	$post->corpuser->firm_name ])
+					@endif
+				@elseif($post->expired == 1)
+					@if($post->induser != null)	
+						@include('partials.home.post-expired', ['userImgPath'	=>	$post->induser->profile_pic, 
+														'userName'		=>	$post->induser->fname,
+														'postTitle'		=>	$post->post_title,
+														'expMin'		=>	$post->min_exp,
+														'expMax'		=>	$post->max_exp,
+														'city'			=>	$post->city,
+														'company'		=>	$post->post_compname,
+														'magicMatch'	=>	$post->magic_match,
+														'userType'		=>	'ind',
+														'userId'		=>	$post->individual_id,
+														'postId'		=>	$post->unique_id,
+														'postType'		=>	$post->post_type,
+														'skill'			=>	$post->linked_skill])
+					@elseif($post->corpuser != null)
+						@include('partials.home.post-expired', ['userImgPath'	=>	$post->corpuser->logo_status, 
+														'userName'		=>	$post->corpuser->firm_name ])
+					@endif
 				@endif
 			@endforeach					 			
 			</div>

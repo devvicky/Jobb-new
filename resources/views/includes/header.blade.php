@@ -4,8 +4,8 @@
   <div class="page-header-inner container nav-fixed-css" style="">
     <!-- BEGIN LOGO -->
       <div class="page-logo @if($title == 'home'){{'active'}}@endif">
-      <a class="" href="/home"><img src="{{ asset('/assets/new_big_logo.png') }}" class="big-logo" />
-      <img src="{{ asset('/assets/new_sm_logo.png') }}" class="small-logo" />  </a>
+      <a class="" href="/home"><img src="{{ asset('/assets/logo.png') }}" class="big-logo" />
+      <img src="{{ asset('/assets/small-logo.png') }}" class="small-logo" />  </a>
     </div>
     <!-- END LOGO -->
     <!-- BEGIN RESPONSIVE MENU TOGGLER -->

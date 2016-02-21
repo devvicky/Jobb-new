@@ -135,7 +135,7 @@ var ComponentsjQueryUISliders = function () {
                 range: "max",
                 min: 0,
                 max: 15,
-                step: 0.5,
+                step: 1,
                 slide: function (event, ui) {
                     $("#slider-range-max-amount").text(ui.value);
                 }

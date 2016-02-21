@@ -216,25 +216,40 @@
 
 
 <!-- POST JOB & SKILL MODAL FORM-->
-<div class="modal fade" id="job-skill-post" tabindex="-1" role="basic" aria-hidden="true">
+<div class="modal fade" id="job-skill-post" tabindex="-1" role="basic" aria-hidden="true" style="background-color: black;
+    opacity: 0.7;">
   <div class="modal-dialog">
     <div class="modal-content job-skill-create">
       <div id="magicmatch-posts-content" >
         <div style="text-align:center;">
           <div class="tile-position-new">
-            <div class="tile bg-red-intense">
+            <div class="tileo bg-red-intense job-skill-modal" style="">
               <div class="tile-body box-welcome" style="text-align:center;">
-                <a href="/skill/create">
-                  <img class="" src="/assets/admin/pages/media/bg/skill.png" style="width:90%;">
+                <a href="/job/create">
+                  <img class="" src="/assets/admin/pages/media/bg/job.png" style="width:70%;">
                 </a>
                 <!-- <i class="fa fa-gavel"></i> -->
               </div>
+              <div class="tile-object" style="    margin: 10px 0;">
+                <a href="/job/create" style="text-decoration: none;">
+                  <div class='con'>
+                    <span id="" class="uppercase job-skill-font" style="">Post Job tip</span>
+                  </div>
+                </a>
+              </div>
             </div>
              @if (Auth::user()->identifier == 1)
-            <div class="tile bg-red-intense">
+            <div class="tileo bg-red-intense job-skill-modal">
               <div class="tile-body" style="text-align:center;">
-                <a href="/job/create">
-                  <img class="" src="/assets/admin/pages/media/bg/job.png" style="width:90%;">
+                <a href="/skill/create" >
+                  <img class="" src="/assets/admin/pages/media/bg/skill.png" style="width:70%;">
+                </a>
+              </div>
+              <div class="tile-object" style="    margin: 10px 0;">
+                <a href="/skill/create" style="text-decoration: none;">
+                  <div class='con'>
+                    <span id="" class="uppercase job-skill-font">Promote Skills</span>
+                  </div>
                 </a>
               </div>
             </div>

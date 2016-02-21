@@ -9,6 +9,7 @@ Route::get('login/termcondition', 'PagesController@termcondition');
 Route::get('login/privacyprolicy', 'PagesController@privacy_policy');
 Route::post('welcome/post', 'WelcomeController@welcomeSearch');
 Route::post('welcome/postdetails', 'WelcomeController@postDetails');
+Route::post('/contact', 'WelcomeController@contactUs');
 
 Route::controllers([
 	'auth'		=>	'Auth\AuthController',
@@ -51,6 +52,9 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::post('viewcontact/view', 'PagesController@viewContact');
 	Route::post('postdetail/detail', 'PagesController@postDetail');
 	Route::post('magicmatch/detail', 'PagesController@magicMatch');
+
+	Route::get('jobpost/{id}', 'PagesController@singleJobPost');
+	Route::get('skillpost/{id}', 'PagesController@singleSkillPost');
 
 	Route::get('individual', 'UserController@index');
 	Route::get('individual/create', 'UserController@create');

@@ -73,19 +73,14 @@
 	      <div class="row">
 			<div class="col-md-6 col-sm-6 col-xs-12">
 				<div class="form-group">
-					<label>Select skillset</label>
+					<label>Enter Skill</label>
 					<div style="position:relative;">
-						<input type="text" name="name" id="newskill" class="form-control" placeholder="Search for skill...">
+						<input type="text" name="linked_skill_id" id="" class="form-control" placeholder="Search for skill...">
 						<!-- <button id="add-new-skill" style="position:absolute;right:0;top:0;" class="btn btn-success" type="button"><i class="icon-plus"></i> Add</button>		 -->
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6 col-sm-6 col-xs-12">
-				<div class="form-group">
-					<label>Added Skills</label><br>
-					{!! Form::select('linked_skill_id[]', $skills, null, ['id'=>'linked_skill_id', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Skills', 'multiple']) !!}
-				</div>
-			</div>
+			
 		</div>
 		<div class="row">
 	        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">   

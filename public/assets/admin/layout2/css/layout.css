@@ -2523,13 +2523,13 @@ Page Loading
 }
 
 @media (min-width: 570px) {
-  .big-logo {
+ .big-logo {
     display: block;
-    width: 155px;
-    margin-top: 0px;
+    width: 150px;
+    margin-top: 10px;
     margin-right: 0;
     float: left;
-  }
+}
   .small-logo{
     display: none;
   }

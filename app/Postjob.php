@@ -37,7 +37,7 @@ class Postjob extends Model {
 							'resume_required'
 						   ];
 
-	protected $appends = ['magic_match', 'job_role'];
+	protected $appends = ['magic_match', 'job_role', 'expired'];
 
 	public function indUser(){
 		return $this->hasOne('App\Induser', 'id', 'individual_id');
@@ -134,6 +134,33 @@ class Postjob extends Model {
     		return null;
     	}
     	
+    }
+
+    public function getExpiredAttribute(){
+    	$duration = $this->attributes['post_duration'];
+		$createdAt = new \Carbon\Carbon($this->attributes['created_at'], 'Asia/Kolkata');
+		$expireAt = $createdAt->addDays($duration);
+
+		$currentDate = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'));
+
+		/*$strNew = '+'.$duration.' day';
+		$strOld = $post->created_at;
+		$fresh = $strOld->modify($strNew);
+
+		$currentDate = new \DateTime();
+		$expiryDate = new \DateTime($fresh);*/
+
+		// $difference = $expiryDate->diff($currentDate);
+		// $remainingDays = $difference->format('%d');
+
+		if($currentDate >= $expireAt){
+			// $expired = 1;
+			return 1;
+		}else{
+			// $expired = 0;
+			return 0;
+		}
+
     }
 
 }

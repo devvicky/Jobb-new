@@ -33,7 +33,7 @@
 				@endif
 				@if($group->admin->id == Auth::user()->induser_id)
 					<a id="ajax-demo4" href="#change-admin" data-toggle="modal" class="badge btn btn-xs btn-info" style="" title="Edit">
-						<i class="fa fa-edit"></i><span class="hidden-xs font-group"> Change Admin</span>
+						<i class="fa fa-sign-out"></i><span class="hidden-xs font-group">Leave Group</span>
 					</a>
 				@endif
 			</div>
@@ -50,9 +50,12 @@
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 		     	<div class="modal-header">
 			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-			        <h4 class="modal-title">{{$group->group_name}}</h4>
+			        <h4 class="modal-title" style="text-align:center;">
+			        	<label class="admin-change-css">You are admin of the group<br/> "{{$group->group_name}}"</label>
+					</h4>
 			     </div>
 				<div class="modal-body">
+					<label class="admin-change-css">Select another admin.</label>
 					<div class="form-group">
 						<!-- <div class="input-group"> -->
 							<select class="form-control" name="admin_id">
@@ -64,7 +67,7 @@
 					</div>	      		
 	     		</div>
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-success">Change</button>
+					<button type="submit" class="btn btn-success">Submit</button>
 					<button type="button" class="btn default" data-dismiss="modal">Close</button>
 				</div>
 			</form>

@@ -9,7 +9,6 @@
 			@if($post->postactivity->where('user_id', Auth::user()->id)->isEmpty())
 			<i class="fa fa-star" id="fav-btn-{{$post->id}}" style="font-size: 20px;color:rgb(183, 182, 182);"></i>
 			@elseif($post->postactivity->where('user_id', Auth::user()->id)->first()->fav_post == 1) 
-
 			<i class="fa fa-star" id="fav-btn-{{$post->id}}" style="font-size: 20px;color:#FFC823;"></i>
 			@else
 			<i class="fa fa-star" id="fav-btn-{{$post->id}}" style="font-size: 20px;color:rgb(183, 182, 182);"></i>

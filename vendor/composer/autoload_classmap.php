@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'ContactUsTable' => $baseDir . '/database/migrations/2016_02_16_004527_contact_us_table.php',
     'CreateConnectionsTable' => $baseDir . '/database/migrations/2015_09_22_145032_create_connections_table.php',
     'CreateCorpsearchProfileTable' => $baseDir . '/database/migrations/2016_01_14_043910_create_corpsearchProfile_table.php',
     'CreateCorpusersTable' => $baseDir . '/database/migrations/2015_09_13_171553_create_corpusers_table.php',
@@ -27,7 +28,7 @@ return array(
     'CreatePostactivitiesTable' => $baseDir . '/database/migrations/2015_09_13_171856_create_postactivities_table.php',
     'CreatePostjobSkillsTable' => $baseDir . '/database/migrations/2015_09_28_182423_create_postjob_skills_table.php',
     'CreatePostjobsTable' => $baseDir . '/database/migrations/2015_09_13_171750_create_postjobs_table.php',
-    'CreateReportAbuseActionsTable' => $baseDir . '/database/migrations/2016_01_25_043910_create_report_abuse_actions_table.php',
+    'CreateReportAbuseActionsTable' => $baseDir . '/database/migrations/2016_01_25_212408_create_report_abuse_actions_table.php',
     'CreateReportAbusesTable' => $baseDir . '/database/migrations/2015_11_29_181526_create_report_abuses_table.php',
     'CreateReportsTable' => $baseDir . '/database/migrations/2015_11_05_063837_create_reports_table.php',
     'CreateRolesTable' => $baseDir . '/database/migrations/2016_01_04_164758_create_roles_table.php',

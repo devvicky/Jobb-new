@@ -268,7 +268,7 @@
 											<div class="form-group">
 												
 												<label>  Education <span class="required">
-														* </span></label> Select Multiple <input type="checkbox" id="education-check" name="multiple_education" value="1" class="form-control">
+														* </span></label> <!-- Select Multiple <input type="checkbox" id="education-check" name="multiple_education" value="1" class="form-control"> -->
 												<div class="input-group single-education" >
 													<span class="input-group-addon">
 														<i class="icon-graduation"></i>
@@ -277,10 +277,10 @@
 														<option value="">--Please Select--</option>
 														<option value="Any Graduate">Any Graduate</option>
 														<option value="Any Post Graduate">Any Post Graduate</option>
-														<option value="twelth&above">12th & above</option>
-														<option value="tenth&above">10th & above</option>
-														<option value="twelth">12th</option>
-														<option value="tenth">10th</option>
+														<option value="12th & above">12th & above</option>
+														<option value="10th & above">10th & above</option>
+														<option value="12th">12th</option>
+														<option value="10th">10th</option>
 														<option value="BA">B.A</option>
 														<option value="BArch">B.Arch</option>
 														<option value="BCA">BCA</option>
@@ -307,7 +307,7 @@
 														<!-- <option value="10">10</option> -->
 													</select>
 												</div>
-												<div class="input-group  multiple-education" >
+												<!-- <div class="input-group  multiple-education" >
 													<span class="input-group-addon">
 														<i class="icon-graduation"></i>
 													<select class="bs-select form-control " name="education" multiple>
@@ -341,9 +341,9 @@
 														<option value="MPharma">MPharma</option>
 														<option value="MA">MA</option>
 														<option value="twelth">12th</option>
-														<!-- <option value="10">10</option> -->
+														
 													</select>
-												</div>
+												</div> -->
 											</div>
 
 										</div>
@@ -383,10 +383,10 @@
 													<label class=" control-label"><input type="checkbox" id="hide-check"> Salary </label>&nbsp;: 
 															<label class="hide-sal input-sal-exp-label"><i class="fa fa-rupee (alias)" style="font-size:12px;"></i></label>
 															<input type="text" readonly id="slider-range-amount1" name="min_sal" class="input-sal-width hide-sal one" />
-															<input type="text" readonly id="slider-range-amount3" name="min_sal" class="input-sal-width hide-sal-new three" />
+															<!-- <input type="text" readonly id="slider-range-amount3" name="min_sal" class="input-sal-width hide-sal-new three" /> -->
 															<label class="hide-sal input-sal-exp-label">- <i class="fa fa-rupee (alias)" style="font-size:12px;"></i></label>
 															<input type="text" readonly id="slider-range-amount2" name="max_sal" class="input-sal-width hide-sal two" />
-															<input type="text" readonly id="slider-range-amount4" name="max_sal" class="input-sal-width hide-sal four" />
+															<!-- <input type="text" readonly id="slider-range-amount4" name="max_sal" class="input-sal-width hide-sal four" /> -->
 													<select id="salary-type"  name="salary_type" class="hide-sal-new input-sal-exp-label" style="border-top: 0px;border-left: 0;border-right: 0;width:75px">									
 														<option selected="selected" value="Monthly">Monthly</option>
 														<option value="Weekly">Weekly</option>
@@ -398,9 +398,9 @@
 														<div id="slider-range" class="slider bg-gray"></div>
 														
 													</div>
-													<div id="salary-new">
+													<!-- <div id="salary-new">
 														<div id="slider-range-new" class="slider bg-gray"></div>
-													</div>
+													</div> -->
 												</div>
 											</div>
 										</div>
@@ -663,25 +663,25 @@
 					                                                            </div>
 					                                                        </div>
 					                                                         <div class="row">
-					                                                            <div class="col-md-6 col-sm-6 col-xs-6"> 
+					                                                            <!-- <div class="col-md-6 col-sm-6 col-xs-6"> 
 					                                                                    <label class="detail-label">Job Role :</label>
 					                                                            </div>
 					                                                            <div class="col-md-6 col-sm-6 col-xs-6">
 					                                                                   <p class="form-control-static" data-display="role" style="margin: -5px 0;"></p>
 					                                                            </div>
-					                                                            </div>
+					                                                            </div> -->
 					                                                            <div class="row"> 
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                           
 					                                                                        <label class="detail-label">Skills :</label>                                                                  
 					                                                                </div>
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                 
-					                                                                        <p class="form-control-static" data-display="skills" style="margin: -5px 0;"></p>
+					                                                                        <p class="form-control-static" data-display="linked_skill_id[]" style="margin: -5px 0;"></p>
 					                                                                     
 					                                                                </div>
 					                                                            </div>
 					                                                            <div class="row"> 
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-					                                                                        <label class="detail-label">Job Type :</label>                                                                  
+					                                                                        <label class="detail-label">Role :</label>                                                                  
 					                                                                </div>
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
 					                                                                        <p class="form-control-static" data-display="time_for" style="margin: -5px 0;"></p>
@@ -703,7 +703,7 @@
 					                                                                        <label class="detail-label">Prefered Location :</label>                                                                  
 					                                                                </div>
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-					                                                                         <p class="form-control-static" data-display="prefered_location" style="margin: -5px 0;"></p>
+					                                                                         <p class="form-control-static" data-display="prefered_location[]" style="margin: -5px 0;"></p>
 					                                                                </div>
 					                                                            </div>
 					                                                            <div class="row"> 
@@ -712,7 +712,7 @@
 					                                                                        <label class="detail-label">Area :</label>                                                                  
 					                                                                </div>
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-					                                                                         <p class="form-control-static" data-display="p_locality" style="margin: -5px 0;"></p>
+					                                                                         <p class="form-control-static" data-display="preferred_locality[]" style="margin: -5px 0;"></p>
 					                                                                </div>
 					                                                            </div>
 					                                                            <div class="skill-display">Description : </div>
@@ -1042,32 +1042,32 @@ function loader(arg){
 }
 
 
-$(document).ready(function () {
-$('#salary-new').hide();
-$('.three').hide();
-$('.four').hide();
-toggleFields();
-$('#salary-type').change(function () {
-toggleFields();
-});
-});
-function toggleFields() {
-if ($('#salary-type').val() == 'Daily' || $('#salary-type').val() == 'Hourly' || $('#salary-type').val() == 'Pervisit'){
-$('#salary-new').show();
-$('#salary-old').hide();
-$('.one').hide();
-$('.two').hide();
-$('.three').show();
-$('.four').show();
-}else{
-$('#salary-new').hide();
-$('#salary-old').show();
-$('.one').show();
-$('.two').show();
-$('.three').hide();
-$('.four').hide();
-}
-}
+// $(document).ready(function () {
+// $('#salary-new').hide();
+// $('.three').hide();
+// $('.four').hide();
+// toggleFields();
+// $('#salary-type').change(function () {
+// toggleFields();
+// });
+// });
+// function toggleFields() {
+// if ($('#salary-type').val() == 'Daily' || $('#salary-type').val() == 'Hourly' || $('#salary-type').val() == 'Pervisit'){
+// $('#salary-new').show();
+// $('#salary-old').hide();
+// $('.one').hide();
+// $('.two').hide();
+// $('.three').show();
+// $('.four').show();
+// }else{
+// $('#salary-new').hide();
+// $('#salary-old').show();
+// $('.one').show();
+// $('.two').show();
+// $('.three').hide();
+// $('.four').hide();
+// }
+// }
 
 
 
