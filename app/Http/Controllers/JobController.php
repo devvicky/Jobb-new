@@ -2,18 +2,15 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 use App\Postjob;
 use App\Skills;
 use App\Http\Requests\CreatePostjobRequest;
-use Auth;
 use App\Connections;
 use App\Postactivity;
-use Input;
-use DB;
-use Response;
 use App\Group;
 use App\Induser;
 use App\ReportAbuse;
@@ -22,7 +19,13 @@ use App\Notification;
 use App\Industry;
 use App\FunctionalAreas;
 use App\ReportAbuseAction;
+use App\PostPreferredLocation;
+
+use Auth;
 use Mail;
+use Input;
+use DB;
+use Response;
 
 class JobController extends Controller {
 
@@ -99,10 +102,26 @@ class JobController extends Controller {
 
 		$request['linked_skill'] = implode(',', $request['linked_skill_id']);
         $request['city'] = implode(',', $request['prefered_location']);
+
+        $pref_locations = $request['prefered_location'];
+
         // $request['locality'] = implode(',', $request['preferred_locality']);
         $request['unique_id'] = "J".rand(111,999).rand(111,999);
+        
 		$post = Postjob::create($request->all());
 		// $post->skills()->attach($skillIds); 
+
+		foreach ($pref_locations as $loc) {
+        	$tempArr = explode('-', $loc);
+        	if(count($tempArr) == 3){
+        		$post->preferredLocation()->attach( $loc, array('locality' => $tempArr[0], 'city' => $tempArr[1], 'state' => $tempArr[2]) );
+        	}
+        	if(count($tempArr) == 2){
+        		$post->preferredLocation()->attach( $loc, array('locality' => 'none', 'city' => $tempArr[0], 'state' => $tempArr[1]) );
+        	}
+        }
+
+		// $post->preferredLocation()->attach($new_pref_locations);
 
 		if($request['connections'] != null){
 			$taggedUsers = $request['connections'];
@@ -129,8 +148,6 @@ class JobController extends Controller {
 		}		
 
 		return redirect("/home");
-		// return $taggedUsers;
-		// return $userIds;
 	}
 
 	/**

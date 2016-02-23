@@ -12,7 +12,7 @@ class ContactUsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('contact_uses', function(Blueprint $table)
+		Schema::create('contact_us_tables', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->string('name')->nullable();

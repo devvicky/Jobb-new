@@ -1864,7 +1864,5 @@ $('.viewcontact-view').on('click',function(event){
 	    return false;
   });
 });
-
-});
 </script>
 @stop

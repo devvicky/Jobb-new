@@ -91,6 +91,9 @@ class Postjob extends Model {
 		return $this->belongsTo('App\Induser');
 	}
 
+	public function preferredLocation(){
+		return $this->belongsToMany('App\Postjob', 'post_preferred_locations', 'post_id', 'id')->withTimestamps();
+	}
 
 	public function getMagicMatchAttribute(){
 		if(Auth::check()){

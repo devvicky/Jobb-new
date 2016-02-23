@@ -58,7 +58,7 @@ Route::group(array('middleware' => 'auth'), function(){
 
 	Route::get('individual', 'UserController@index');
 	Route::get('individual/create', 'UserController@create');
-	Route::get('individual/edit', 'UserController@edit');
+	// Route::get('individual/edit', 'UserController@edit');
 	Route::post('individual/update/{id}', 'UserController@update');
 	Route::post('individual/basicupdate', 'UserController@basicUpdate');
 	Route::post('individual/privacyUpdate/{id}', 'UserController@privacyUpdate');
