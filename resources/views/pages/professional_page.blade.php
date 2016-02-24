@@ -179,7 +179,7 @@
 											style="color: #cb5a5e;font-size: 16px;"></i>
 										</a>
 										@elseif($user->mobile_verify == 1)
-											<i class="glyphicon glyphicon-ok-circle" style="color: #1EC71E;font-size: 16px;"></i>
+											<i class="glyphicon glyphicon-ok-circle" style="color: #18B9B9;font-size: 16px;"></i>
 										@endif
 									</span>
 									<span class="input-group-addon">
@@ -214,7 +214,7 @@
 											style="color: #cb5a5e;font-size: 16px;"></i>
 										</a>
 										@elseif($user->email_verify == 1)
-											<i class="glyphicon glyphicon-ok-circle" style="color: #1EC71E;font-size: 16px;"></i>
+											<i class="glyphicon glyphicon-ok-circle" style="color: #18B9B9;font-size: 16px;"></i>
 										@endif
 									</span>
 									<span class="input-group-addon">
@@ -222,6 +222,32 @@
 											<i class="fa fa-pencil"></i>
 										</a>
 									</span>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+					</div>
+					<div class="row">
+						<div class="col-md-6 col-sm-6">
+							<div class="form-group">
+								<label>Linkedin Id</label>									
+								<div class="input-group">
+									<span class="input-group-addon">
+										<i class="fa fa-map-marker"></i>
+									</span>
+									<input type="text" name="in_page" class="form-control" value="{{ $user->in_page }}" placeholder="Linkedin Id">
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-md-6 col-sm-6">
+							<div class="form-group">
+								<label>Facebook Id</label>
+								<div class="input-group">
+									<span class="input-group-addon">
+									<i class="fa fa-map-marker"></i>
+									</span>
+									<input type="text" name="fb_page" class="form-control" value="{{ $user->fb_page }}" placeholder="Facebook Id">
 								</div>
 							</div>
 						</div>
@@ -373,52 +399,62 @@
 							<!--/span-->
 						</div>
 						<div class="row">
-							<div class="col-md-6 col-sm-6">
+							<div class="col-md-12 col-sm-12 col-xs-12 hide-role">
 								<div class="form-group">
-									<label>Job Category</label>
+									<label>
+										Job Role <span class="required">*</span>
+									</label>
+
+									<div class="input-group">	
+										<span class="input-group-addon">
+											<i class="fa fa-cube" style="color:darkcyan;"></i>
+										</span>			
+										<select class="job-role-ajax form-control new-role" name="role" id="jobrole">
+									  		<option value="0" selected="selected"></option>
+										</select>													
+									</div>
+									example: manager, admin, secretory <a class="hide-far">see all</a>
+
+									<div id="charNum" style="text-align:right;"></div>
+								</div>
+							</div>
+							<div class="col-md-6 col-sm-6 col-xs-12 show-far">
+								<div class="form-group">
+									<label>Functional Area <span class="required">
+									* </span></label>
 									<div class="input-group">
 										<span class="input-group-addon">
-											<i class="fa fa-cubes"></i>
+											<i class="icon-hourglass" style="color:darkcyan;"></i>
 										</span>
-										<select class="form-control" name="prof_category" value="{{ $user->prof_category }}" >
-											<optgroup label="Accounting">
-												<option @if($user->experience=="Accounts/Finance/Tax") {{ $selected }} @endif value="Accounts/Finance/Tax">Accounts/Finance/Tax</option>
-												<option @if($user->experience=="Agent") {{ $selected }} @endif value="Agent">Agent</option>
-												<option @if($user->experience=="Analytics & Business Intelligence") {{ $selected }} @endif value="Analytics & Business Intelligence">
-													Analytics & Business Intelligence
-												</option>
-											</optgroup>
-											<optgroup label="IT Field">
-												<option @if($user->experience=="HR/Administration/IR") {{ $selected }} @endif value="HR/Administration/IR">HR/Administration/IR</option>
-												<option @if($user->experience=="IT Software - Client Server") {{ $selected }} @endif value="IT Software - Client Server">IT Software - Client Server</option>
-												<option @if($user->experience=="IT Software - Mainframe") {{ $selected }} @endif value="IT Software - Mainframe">IT Software - Mainframe</option>
-												<option @if($user->experience=="IT Software - Middleware") {{ $selected }} @endif value="IT Software - Middleware">IT Software - Middleware</option>
-												<option @if($user->experience=="IT Software - Mobile") {{ $selected }} @endif value="IT Software - Mobile">IT Software - Mobile</option>
-												<option @if($user->experience=="IT Software - Other") {{ $selected }} @endif value="IT Software - Other">IT Software - Other</option>
-												<option @if($user->experience=="IT Software - System Programming") {{ $selected }} @endif value="IT Software - System Programming">IT Software - System Programming</option>
-												<option @if($user->experience=="IT Software - Telecom Software") {{ $selected }} @endif value="IT Software - Telecom Software">IT Software - Telecom Software</option>
-												<option @if($user->experience=="IT Software - Application Programming") {{ $selected }} @endif value="IT Software - Application Programming">IT Software - Application Programming</option>
-												<option @if($user->experience=="IT Software - DBA/Datawarehousing") {{ $selected }} @endif value="IT Software - DBA/Datawarehousing">IT Software - DBA/Datawarehousing</option>
-												<option @if($user->experience=="IT Software - E-Commerce") {{ $selected }} @endif value="IT Software - E-Commerce">IT Software - E-Commerce</option>
-												<option @if($user->experience=="IT Software - ERP/CRM") {{ $selected }} @endif value="IT Software - ERP/CRM">IT Software - ERP/CRM</option>
-											</optgroup>
+										<select name="time_for" class="form-control" style="z-index:0;">
+											@foreach($functionalAreas as $farea)
+									      		<option>
+									      			<li><a href="#" data-jrole="{{$farea}}">{{$farea}}</a></li>
+									      		</option>
+								      		@endforeach
 										</select>
 									</div>
 								</div>
 							</div>
-							<!--/span-->
-							<div class="col-md-6 col-sm-6">
+							<div class="col-md-6 col-sm-6 col-xs-12 show-far">
 								<div class="form-group">
-									<label>Role</label>
+									<label>Role <span class="required">
+									* </span></label>
 									<div class="input-group">
 										<span class="input-group-addon">
-											<i class="fa fa-cube"></i>
+											<i class="icon-hourglass" style="color:darkcyan;"></i>
 										</span>
-										<input type="text" class="form-control" value="{{ $user->role }}" name="role">
+										<select name="time_for" class="form-control" style="z-index:0;">
+											@foreach($roles as $role)
+									      		<option>
+									      			<li><a href="#" data-jrole="{{$role->name}}">{{$role->name}}</a></li>
+									      		</option>
+								      		@endforeach
+										</select>
 									</div>
+									<a class="back-role">Back</a>
 								</div>
 							</div>
-							<!--/span-->
 						</div>
 						
 						<div class="row">
@@ -459,7 +495,7 @@
 												<i class="icon-paper-clip" style="color: white;"></i>
 												<span class="fileinput-new">Select File </span> 
 												<span class="fileinput-exists">Upload New Resume </span>
-												<input type="file" name="resume" accept='application/pdf,application/msword'>
+												<input type="file" name="resume" accept="application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf">
 											</span>
 											<br>
 											<span class="fileinput-new"></span>
@@ -1235,5 +1271,88 @@ $gotit = [];
 		
 
 	});
+</script>
+
+<script type="text/javascript">
+ $(document).ready(function () {
+     	$('.show-far').hide();
+	    jQuery('.hide-far').on('click', function(event) {
+		    jQuery('.show-far').show();
+		    jQuery('.hide-role').hide();
+	    });
+
+	    jQuery('.back-role').on('click', function(event) {
+		    jQuery('.show-far').hide();
+		    jQuery('.hide-role').show();
+	    });
+	});
+ 
+$(".job-role-ajax").select2({
+	placeholder: 'Enter a role',
+  ajax: {
+    url: "/post/jobroles/",
+    dataType: 'json',
+    delay: 250,
+    data: function (params) {
+      return {
+        q: params.term, // search term
+        page: params.page
+      };
+    },
+    processResults: function (data, params) {
+      console.log(data);
+      return {
+        results: data
+      };
+    },
+    cache: true
+  },
+  escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+  minimumInputLength: 2,
+  templateResult: formatRepo, // omitted for brevity, see the source of this page
+  templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+});
+
+function formatRepo (repo) {
+      if (repo.loading) return repo.text;
+
+      var markup = "<div class='select2-result-repository clearfix'>" +
+        "<div class='select2-result-repository__meta'>" +
+          "<div class='select2-result-repository__title'><b>Role</b>: " + repo.role + "</div>";
+
+      markup += "<div class='select2-result-repository__statistics'>" +
+        "<div class='select2-result-repository__forks'><b>Functional area: </b> " + repo.functional_area + "</div>" +
+      "</div>" +
+      "</div></div>";
+
+      return markup;
+    }
+
+    function formatRepoSelection (repo) {
+    	if(repo.role != undefined){
+    		// console.log(repo);
+    		return repo.role+" -"+repo.functional_area+"-"+repo.industry;
+    	}      
+    }
+
+$(document).on('click', 'a', function(event, ui) {
+    var jrole = $(this).data('jrole');
+
+    $.ajaxSetup({
+        headjroleers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+
+    if(jrole != null){
+      event.preventDefault();
+      $('#all-roles').modal('hide');
+      $('#jobrole').select2('open');
+      $('.select2-search__field').val(jrole);
+      $('.select2-search__field').trigger('keyup');
+       // $('.select2-dropdown').hide();
+    }
+});
+
 </script>
 @stop

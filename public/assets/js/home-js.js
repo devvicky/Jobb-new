@@ -454,6 +454,10 @@ $(document).ready(function() {
         jQuery('.show-details').toggle('hide');
         jQuery('.hide-details').toggle('show');
     });
+
+    jQuery('.job-type-filter').on('click', function(event){
+        jQuery('.icon-btn').addClass('icon-filter-active-btn');
+    });
 });
 
 

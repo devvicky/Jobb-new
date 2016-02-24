@@ -280,6 +280,8 @@ class UserController extends Controller {
 			$data->c_locality = Input::get('c_locality');
 			$data->email = Input::get('email');
 			$data->mobile = Input::get('mobile');
+			$data->in_page = Input::get('in_page');
+			$data->fb_page = Input::get('fb_page');
 			$data->save();
 			// $message = 'Personal Tab successfully Updated'
 			return redirect('/individual/edit#professional');

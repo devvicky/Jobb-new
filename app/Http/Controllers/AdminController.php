@@ -248,8 +248,7 @@ class AdminController extends Controller {
 		}
 	}
 
-	public function editIndustry($id)
-	{
+	public function editIndustry($id){
 		$data = Industry::where('id', '=', $id)->first();
 		if($data != null){
 			$data->name = Input::get('industryname');
@@ -258,6 +257,16 @@ class AdminController extends Controller {
 		}else{
 			return 'some error occured.';
 		}
+	}
+
+	public function controlUser(){
+		$title = 'controluser';
+		$controlCorp = Corpuser::with('user')
+							   ->get(['id', 'firm_name', 'firm_type', 'firm_email_id']);
+		$controlInd = Induser::with('user')
+							   ->get(['id', 'fname', 'lname', 'email']);
+		return view('pages.control_users', compact('title', 'controlCorp', 'controlInd'));
+		// return $controlInd;
 	}
 
 }

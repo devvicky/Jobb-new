@@ -1,20 +1,20 @@
-	
 <div class="row post-item" >
-
 	<div class="col-md-12 home-post">
-
 		<div class="timeline" >
 			<!-- TIMELINE ITEM -->
 			<div class="timeline-item time-item" itemscope itemtype="http://schema.org/Article">
 				<div class="timeline-badge badge-margin">
-					<img class="timeline-badge-userpic userpic-box" src="img/profile/{{ $userImgPath }}" title="{{ $userName }}">
+					<img class="timeline-badge-userpic userpic-box" src="img/profile/{{ $userImgPath }}" alt="logo" title="{{ $userName }}">
 				</div>
-
 				@include('partials.home.image-linked')
 				@include('partials.home.favourite')
 				<div class="post-hover-act" data-postid="{{$post->id}}">
 					<!-- <a class="myactivity-posts" data-toggle="modal" href="#myactivity-posts"> -->
-				
+					@if($postType == 'job')
+	                	<a href="/job/post/{{$postId}}" target="_blank">
+	                @elseif($postType == 'skill')
+	                   <a href="/skill/post/{{$postId}}" target="_blank">
+	                @endif
 					<div class="row post-postision" style="cursor:pointer;">
 	                    <div class="col-md-12">
 	                        <div class="post-title-new capitalize" itemprop="name">{{ $postTitle }}</div>
@@ -34,7 +34,6 @@
 	                        </div>
 	                    </div>
 	               	</div>
-	               
 	               	<div class="row post-postision" style="">
 	                    @if($expMin != null)
 	                    <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code" style="">
@@ -47,27 +46,17 @@
 	                    	<small style="font-size:13px;color:dimgrey !important;"> 
 	                    		<i class="glyphicon glyphicon-map-marker post-icon-color"></i>&nbsp;: {{ $city or 'Unspecified' }}
 	                    	</small>
-	                    </div>
-	                    @if($postType == 'job')
-	                    <a href="/jobpost/{{$postId}}" target="_blank">
+	                    </div>    
 	                    <div class="col-md-4 col-sm-4 col-xs-4 hide-details" style="float: right;right: -40px;bottom: 16px;">
 	                       Details
 	                    </div>
-	                   </a>
-	                   @elseif($postType == 'skill')
-	                   <a href="/skillpost/{{$postId}}" target="_blank">
-	                    <div class="col-md-4 col-sm-4 col-xs-4 hide-details" style="float: right;right: -40px;bottom: 16px;">
-	                       Details
-	                    </div>
-	                   </a>
-	                   @endif
 	                </div>
-	                <!-- </a> -->
+	                </a>
 	            </div>
 				<div class="row" style="margin: 5px 0px; border-top: 1px solid whitesmoke;">
 					<div class="col-md-12" style="margin: 3px -13px;">
 						<div class="row" style="">
-								
+							@if($postType == 'job')	
 							<div class="col-md-3 col-sm-3 col-xs-3">
 								<div class="match" style="float: left; margin: 0px 3px;">
 									<a data-toggle="modal" data-mpostid="{{$post->id}}" 
@@ -79,7 +68,15 @@
 									</a>
 								</div>
 							</div>
-							
+							@elseif($postType == 'skill')
+							<div class="col-md-3 col-sm-3 col-xs-4" style="margin: 4px 0px;">
+								@if($post->time_for == 'Work from Home')
+								<small class="label-success label-xs elipsis-code job-type-skill-css" style="">Work From Home</small>
+								@else
+								<div><small class="label-success label-xs job-type-skill-css">{{$post->time_for}}</small></div>
+								@endif
+							</div>
+							@endif
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0 8px;">
 								<form action="/job/like" method="post" id="post-like-{{$post->id}}" data-id="{{$post->id}}">						
 									<input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -131,7 +128,7 @@
 											style="font-size: 19px;color: darkslateblue;"></i>
 										<span class="badge-share" id="share-count-{{ $post->id }}">@if($post->postactivity->sum('share') > 0){{ $post->postactivity->sum('share') }}@endif</span>
 									</button>
-									<ul class="dropdown-menu pull-right" role="menu" 
+									<ul class="dropdown-menu dropdown-menu-share" role="menu" 
 										style="min-width:0;box-shadow:0 0 !important;padding: 0;">
 										<li style="border-bottom: 1px solid #ddd;">
 											<a href="#share-post" 
@@ -218,15 +215,12 @@
 									</div>
 									<!-- /.modal -->	
 								</div>
-							</div>
-							
-								
-							</div>
-							</div>																							
-						</div>											
-					</div>
-				</div>
-
+							</div>	
+						</div>
+					</div>																							
+				</div>											
 			</div>
 		</div>
+	</div>
+</div>
 		<!-- END TIMELINE ITEM -->

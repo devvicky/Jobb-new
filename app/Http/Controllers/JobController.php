@@ -464,7 +464,8 @@ class JobController extends Controller {
 	public function postExtended(Request $request){
 		$post = Postjob::findOrFail($request['post_id']);
 		if($post != null && $post->post_duration_extend == 0){
-			$post->post_extended = $request['post_duration'];
+			$post->post_extended = $request['post_duration_extend'];
+			$post->post_duration = $request['post_duration'] + $request['post_duration_extend'];
 			$post->post_duration_extend = 1;
 			$post->post_extended_Dt = new \DateTime();
 			$post->save();

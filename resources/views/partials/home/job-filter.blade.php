@@ -5,11 +5,11 @@
 	<a class="btn default" style="background-color:whitesmoke !important;color:#8c8c8c;" data-toggle="modal" href="#homefiltermodal">
 		<i class="fa fa-filter"></i> Filter
 	</a>
-		<div class="row sort-by-css hide-label">
+		<div class="row sort-by-css hide-label" style="text-align: right;">
 			<div class="col-md-12">
 				<div class="btn-group">
 					<button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" style="border: 0;color:#8c8c8c;background:transparent;">
-					<i class="glyphicon glyphicon-sort"></i> Sort by {{$sort_by}}<i class="fa fa-angle-down"></i>
+					<i class="glyphicon glyphicon-sort"></i> Sort by <i class="fa fa-angle-down"></i>
 					</button>
 					<ul class="dropdown-menu dropdown-menu-sort" role="menu" style="min-width: 130px;margin: 4px -25px;">
 						<li>
@@ -26,6 +26,19 @@
 						</li>
 					</ul>
 				</div>
+				@if($sort_by != " ")
+				<div class="col-md-12">
+					<label class="capitalize" style="font-size:13px;font-weight:400;margin: 0 7px;">
+						{{$sort_by}}
+					</label>
+				</div>
+				@else
+				<div class="col-md-12">
+					<label class="capitalize" style="font-size:13px;font-weight:400;margin: 0 7px;">
+						Date
+					</label>
+				</div>
+				@endif
 			</div>
 		</div>
 		<div class="row sort-by-css show-filter" style="margin-right:8px;">
@@ -42,20 +55,21 @@
 		</div>		
 	</div>
 </div>
-<div class="modal fade" id="homefiltermodal" tabindex="-1" role="dialog" aria-labelledby="share-post" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-        <h4 class="modal-title">Filter Job Posts</h4>
-      </div>
-     	<form id="home-filter" name="filter_form" action="/home" method="post">
+<div id="homefiltermodal" class="modal fade" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header" style="padding: 7px 24px;">
+				<button type="button" class="close" data-dismiss="modal" 
+				aria-hidden="true" style="margin-top: 6px !important;"></button>
+				<h4 class="modal-title">Filter Job Posts</h4>
+			</div>
+			<form id="home-filter" name="filter_form" action="/home" method="post">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<div class="modal-body">
-				<div class=" scroller-filter" data-always-visible="1" data-rail-visible1="1">
+				<div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
 					<input type="hidden" name="post_type" value="job">
-					<div class="row" style="margin:0;">
-						<div class="col-md-12 col-sm-12 col-xs-12" style="margin:-5px 0;padding:0 10px;">
+					<div class="row" style="margin:0 0px 0 -10px;">
+						<div class="col-md-12 col-sm-12 col-xs-12" style="margin:0px 0;padding:0 10px;">
 							<!-- <label style="font-size:13px;font-weight:500;">Title or Role</label> -->
 							<div class="form-group">
 								<!-- <input type="text" id="title" name="post_title" class="form-control filter-input " placeholder="Job Title, Role" style="border: 1px solid darkcyan !important;margin: 7px 0px;"> -->
@@ -64,7 +78,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="row" style="margin:0;">
+					<div class="row" style="margin:0 0px 0 -7px;">
 						<div class="col-md-12" style="margin:-5px 0;padding:0 10px;">
 							<label style="font-size:13px;font-weight:500;">Experience</label> : <span id="slider-range-max-amount"> </span> Years
 							<div class="">
@@ -76,7 +90,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="row" style="margin: 15px 0 0 0;">
+					<div class="row" style="margin: 25px 0px 0 -10px;">
 						<div class="col-md-12 col-sm-12 col-xs-12" style="margin:-5px 0;padding:0 10px;">
 							<div class="form-group">
 								<!-- <label style="font-size:13px;font-weight:500;">Skills</label> -->
@@ -90,13 +104,13 @@
 						</div>
 					</div>
 					<div class="row" style="margin:0;">
-						<div class="col-md-12">
-							<div class="col-md-3 col-sm-3 col-xs-3">
+						<!-- <div class="col-md-12"> -->
+							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								 <div class="btn-group" data-toggle="buttons">
-					                <label class="btn default active ">
+					                <label class="btn default btn-filter active " style="padding:0;">
 					                    <input type="checkbox" class="toggle">
-					                    <a href="javascript:;" class="icon-btn">
-						                    <i class="fa fa-group"></i>
+					                    <a class="icon-btn icon-filter-btn">
+						                    <!-- <i class="fa fa-group"></i> -->
 						                    <div>
 						                         Full<br/> Time
 						                    </div> 
@@ -104,12 +118,12 @@
 					                </label>
 					            </div>
 							</div>
-							<div class="col-md-3 col-sm-3 col-xs-3">
+							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								<div class="btn-group" data-toggle="buttons">
-					                <label class="btn default active ">
+					                <label class="btn default btn-filter active" style="padding:0;">
 					                    <input type="checkbox" class="toggle">
-					                    <a href="javascript:;" class="icon-btn">
-						                    <i class="fa fa-group"></i>
+					                    <a class="icon-btn icon-filter-btn">
+						                    <!-- <i class="fa fa-group"></i> -->
 						                    <div>
 						                         Part<br/> Time
 						                    </div> 
@@ -117,12 +131,12 @@
 					                </label>
 					            </div>
 							</div>
-							<div class="col-md-3 col-sm-3 col-xs-3">
+							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								<div class="btn-group" data-toggle="buttons">
-					                <label class="btn default active ">
+					                <label class="btn default btn-filter active" style="padding:0;">
 					                    <input type="checkbox" class="toggle">
-					                    <a href="javascript:;" class="icon-btn">
-						                    <i class="fa fa-group"></i>
+					                    <a class="icon-btn icon-filter-btn">
+						                    <!-- <i class="fa fa-group"></i> -->
 						                    <div>
 						                         Freelancer
 						                    </div> 
@@ -130,12 +144,12 @@
 					                </label>
 					            </div>
 							</div>
-							<div class="col-md-3 col-sm-3 col-xs-3">
+							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								<div class="btn-group" data-toggle="buttons">
-					                <label class="btn default active ">
+					                <label class="btn default btn-filter active" style="padding:0;">
 					                    <input type="checkbox" class="toggle">
-					                    <a href="javascript:;" class="icon-btn">
-						                    <i class="fa fa-group"></i>
+					                    <a class="icon-btn icon-filter-btn">
+						                    <!-- <i class="fa fa-group"></i> -->
 						                    <div>
 						                         Work<br/>From Home
 						                    </div> 
@@ -143,52 +157,13 @@
 					                </label>
 					            </div>
 							</div>
-							<!-- <div class="clearfix">
-					            <div class="btn-group" data-toggle="buttons">
-					                <label class="btn default active ">
-					                    <input type="checkbox" class="toggle">
-					                    <a href="javascript:;" class="icon-btn">
-						                    <i class="fa fa-group"></i>
-						                    <div>
-						                         Full<br/> Time
-						                    </div> 
-						                </a>
-					                </label>
-					                <label class="btn default active ">
-					                    <input type="checkbox" class="toggle">
-					                    <a href="javascript:;" class="icon-btn">
-					                    <i class="fa fa-group"></i>
-					                    <div>
-					                         Part<br/> Time
-					                    </div> 
-					                    </a>
-					                </label>
-					                <label class="btn default active ">
-					                    <input type="checkbox" class="toggle">
-					                    <a href="javascript:;" class="icon-btn">
-					                    <i class="fa fa-group"></i>
-					                    <div>
-					                         Freelancer
-					                    </div> 
-					                    </a>
-					                </label>
-					                <label class="btn default active ">
-					                    <input type="checkbox" class="toggle">
-					                    <a href="javascript:;" class="icon-btn">
-					                    <i class="fa fa-group"></i>
-					                    <div>
-					                         Work<br/> From Home
-					                    </div>
-					                    </a> 
-					                </label>
-					            </div>
-					        </div> -->
-						</div>
+							
+						<!-- </div> -->
 					</div>
-					<div class="row" style="margin: 15px 0 0 0;">
-						<div class="col-md-6 col-sm-12" style="margin:-5px 0;padding:0 10px;">
+					<div class="row" style="margin: 15px 0 0 -10px;">
+						<div class="col-md-12 col-sm-12" style="margin:-5px 0;padding:0 10px;">
 							<div class="form-group">
-								<label style="font-size:13px;font-weight:500;">Prefered Location <span class="required">
+								<label style="font-size:13px;font-weight:500;">Location <span class="required">
 										* </span></label>
 								<div class="input-group">
 									<span class="input-group-addon">
@@ -196,33 +171,16 @@
 									</span>
 
 									<input type="text" id="pref_loc" name="pref_loc" 
-										class="form-control" placeholder="Select preferred location"
+										class="form-control" placeholder="Select location"
 										onblur="pref_loc_locality()">									
 									
 								</div>
 								{!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 'onchange'=>'pref_loc_locality()', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'city', 'multiple']) !!}		
 							</div>
 						</div>
-						<div class="col-md-6 col-sm-12" style="margin:-5px 0;padding:0 10px;">
-							<div class="form-group">
-								<label style="font-size:13px;font-weight:500;">Area </label>
-								<div class="input-group">
-									<span class="input-group-addon">
-									<i class="fa fa-map-marker"></i>
-									</span>
-									<input type="text" id="pref_locality"
-							onblur="pref_loc_locality()" 
-							name="p_localiy" class="form-control" placeholder="Select Local Area" disabled>
-									
-								</div>
-								{!! Form::select('preferred_locality[]', [], null, ['id'=>'preferred_locality', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Area', 'multiple']) !!}		
-							</div>
-						</div>
 					</div>
-					
-					<div class="row" style="margin:0;">
-						
-						<div class="col-md-6 col-sm-6 col-xs-12" style="padding:0 10px;">
+					<div class="row" style="margin:15px 0 0 -10px;">	
+						<div class="col-md-6 col-sm-6 col-xs-12" style="padding:0 10px;margin: -40px 0 0 0;">
 							<label style="font-size:13px;font-weight:500;">Posted by</label>
 							<div class="form-group">
 								<select multiple="multiple" name="posted_by" placeholder="Select" class="SlectBox">
@@ -232,37 +190,29 @@
 							    </select>		
 							</div>
 				        </div>
-				        <div class="col-md-6 col-sm-6 col-xs-12" style="margin:-5px 0;padding:0 10px;">
+				        <div class="col-md-6 col-sm-6 col-xs-12" style="margin: -13px 0px; padding: 0 10px;">
 				         	<div class="form-group">
 					         	 <label style="font-size:13px;">
-									<input type="checkbox" name="expired" checked class="icheck" data-checkbox="icheckbox_square-grey"> Do not include Expired Post
+									<input type="checkbox" name="expired" checked class="icheck" data-checkbox="icheckbox_square-grey"> Show Expired Post
 								</label>
 							</div>
 						</div>
 				    </div>
-					<!-- <div class="row" style="margin:0;">
-						<div class="col-md-6 col-sm-6 col-xs-12" style="margin:-5px 0;padding:0 10px;">
-				         	<div class="form-group">
-					         	 <label style="font-size:13px;">
-									<input type="checkbox" name="expired" checked class="icheck" data-checkbox="icheckbox_square-grey"> Do not include Expired Post
-								</label>
-							</div>
-						</div>
-					</div> -->
 				</div>
 			</div>
-			<div class="modal-footer right">
-				<label style="font-size:13px;float:left;margin: 5px 0;">
+			<div class="modal-footer right" style="padding: 5px 0;">
+				<label style="font-size:13px;float:left;margin: 5px 9px;">
 					<input type="checkbox" name="save filter" checked class="icheck" data-checkbox="icheckbox_square-grey"> Save Filter
 				</label>
-				<button type="submit" class="btn green">Filter</button>
+				<button type="submit" class="btn green" style="margin: 0 30px;padding: 6px 20px;">
+					Filter
+				</button>
 			</div>
 		</form>
-    </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
+		</div>
+	</div>
 </div>
+
 <!-- /.modal -->
 
 <!-- Jobtip Filter End-->

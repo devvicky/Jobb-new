@@ -47,7 +47,7 @@
             },
             resume: {
                 required: false,
-                extension: 'docx|doc|pdf|rtf'
+                extension: "docx|rtf|doc|pdf"
             }
         },
         messages: {
