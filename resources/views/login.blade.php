@@ -166,7 +166,7 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
           <div class="login-tabopen">
             <a id="login-tabopen" style="padding-bottom: 11px;padding-top: 11px;background-color: transparent;">
             <button class="btn welcome-signup-css signup-button" style="">
-              Login
+              Login Now
             </button>
             </a>
           </div>

@@ -125,6 +125,7 @@
 																	<option value="Full Time">Full Time</option>
 																	<option value="Part Time">Part Time</option>
 																	<option value="Freelancer">Freelancer</option>
+																	<option value="Work from Home">Work from Home</option>
 																</select>
 															</div>
 														</div>
@@ -238,10 +239,10 @@
 																<label class=" control-label"><input type="checkbox" id="hide-check"> Salary </label>&nbsp;: 
 																		<label class="hide-sal input-sal-exp-label"><i class="fa fa-rupee (alias)" style="font-size:12px;"></i></label>
 																		<input type="text" readonly id="slider-range-amount1" name="min_sal" class="input-sal-width hide-sal one" />
-																		<input type="text" readonly id="slider-range-amount3" name="min_sal" class="input-sal-width hide-sal-new three" />
+																		
 																		<label class="hide-sal input-sal-exp-label">- <i class="fa fa-rupee (alias)" style="font-size:12px;"></i></label>
 																		<input type="text" readonly id="slider-range-amount2" name="max_sal" class="input-sal-width hide-sal two" />
-																		<input type="text" readonly id="slider-range-amount4" name="max_sal" class="input-sal-width hide-sal four" />
+																		
 																<select id="salary-type"  name="salary_type" class="hide-sal-new input-sal-exp-label" style="border-top: 0px;border-left: 0;border-right: 0;width:75px">									
 																	<option selected="selected" value="Monthly">Monthly</option>
 																	<option value="Weekly">Weekly</option>
@@ -251,11 +252,10 @@
 																</select>
 																<div id="salary-old" class="hide-sal">
 																	<div id="slider-range" class="slider bg-gray"></div>
-																	
 																</div>
-																<div id="salary-new">
+																<!-- <div id="salary-new">
 																	<div id="slider-range-new" class="slider bg-gray"></div>
-																</div>
+																</div> -->
 															</div>
 														</div>
 													</div>
@@ -275,29 +275,15 @@
 																	</span>
 
 																	<input type="text" id="pref_loc" name="pref_loc" 
-																	class="form-control" placeholder="Select preferred location"
-																	onblur="pref_loc_locality()">									
+																	class="form-control" placeholder="Select preferred location">									
 																	
 																</div>
-																
-															{!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 'onchange'=>'pref_loc_locality()', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'city', 'multiple']) !!}		
-															</div>
-														</div>
-														
-														<div class="col-md-6 col-sm-6 col-xs-12">
-															<div class="form-group">
-																<label>Area</label>
-																<div class="input-group">
-																	<span class="input-group-addon">
-																	<i class="fa fa-map-marker"></i>
-																	</span>
-																	<input type="text" id="pref_locality"
-																	onblur="pref_loc_locality()" 
-																	name="p_localiy" class="form-control" placeholder="Select Local Area" disabled>
-																	
-																</div>
-																
-																{!! Form::select('preferred_locality[]', [], null, ['id'=>'preferred_locality', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Area', 'multiple']) !!}		
+
+																{!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 
+																												   'aria-hidden'=>'true', 
+																												   'class'=>'form-control', 
+																												   'placeholder'=>'city', 
+																												   'multiple']) !!}		
 															</div>
 														</div>
 													</div>
@@ -431,7 +417,7 @@
 					                                                                        <label class="detail-label">Salary (<i class="fa fa-rupee (alias)"></i>):</label>
 					                                                                </div>
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">
-					                                                                        <p class="form-control-static" data-display="min_sal"></p>-<p class="form-control-static" data-display="max_sal"></p> <p class="form-control-static" data-display="salary_type"></p>
+					                                                                        <p class="form-control-static" data-display="min_sal"></p>-<p class="form-control-static" data-display="max_sal"></p>/ <p class="form-control-static" data-display="salary_type"></p>
 					                                                                </div>
 					                                                            </div>
 					                                                            <div class="row"> 
@@ -463,7 +449,7 @@
 																			<br>
 																				<i class="glyphicon glyphicon-earphone" style="color: green;font-size: 16px;"></i>&nbsp;:<p class="form-control-static" data-display="phone"></p>
 																				</div> 
-																			<div class="skill-display">Post Id&nbsp;:  </div> 
+																			<div class="skill-display">Post Id&nbsp;: Null (Auto generated after submit.) </div> 
 																
 															</div>
 															
@@ -534,42 +520,35 @@ jQuery(document).ready(function() {
 </script>
 <script src="http://maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
 <script type="text/javascript">
-	// var inputId_div = $("#city");
-	
-	function initializeCity() {
-		var options = {	types: ['(cities)'], componentRestrictions: {country: "in"}};
-		var input = document.getElementById('city');
-		var autocomplete = new google.maps.places.Autocomplete(input, options);
-		autocomplete.addListener('place_changed', onPlaceChanged);
-		function onPlaceChanged() {
-		  var place = autocomplete.getPlace();
-		  if (place.address_components) { 
-		  	city = place.address_components[0];
-		  	document.getElementById('city').value = city.long_name;
-		  } else { document.getElementById('autocomplete').placeholder = 'Enter a city'; }
-		}
-	}
-   google.maps.event.addDomListener(window, 'load', initializeCity);   
-
-
     // preferred loc
-    var prefLocationArray = [];
+	var prefLocationArray = [];
+
+    // preferred loc    
     var plselect = $("#prefered_location").select2();
-    if(document.getElementById('prefered_location').value != null){
-  		prefLocationArray.push(document.getElementById('prefered_location').value);
-  	}
+    plselect.val(prefLocationArray).trigger("change");
 
   	var $eventSelect = $("#prefered_location"); 
 	$eventSelect.on("select2:unselect", function (e) {
-		console.log(e.params.data.id);
+		// console.log("Removing: "+e.params.data.id);
+		// remove corresponding value from array
 		prefLocationArray = $.grep(prefLocationArray, function(value) {
 		  return value != e.params.data.id;
 		});
+
+		// remove select option for pref loc
+		$("#prefered_location option[value='"+e.params.data.id+"']").remove();		
+		if(prefLocationArray.length == 0){
+			plselect = $("#prefered_location").select2({ dataType: 'json', data: [] });
+		}else{
+			plselect = $("#prefered_location").select2({ dataType: 'json', data: prefLocationArray });
+		}
+		plselect.val(prefLocationArray).trigger("change"); 
+		// updated array
 	});
 
     var prefLoc = $("#pref_loc");
 	function initPrefLoc() {
-		var options = {	types: ['(cities)'], componentRestrictions: {country: "in"}};
+		var options = {	types: ['(regions)'], componentRestrictions: {country: "in"}};
 		var input = document.getElementById('pref_loc');
 		var autocomplete = new google.maps.places.Autocomplete(input, options);
 		autocomplete.addListener('place_changed', onPlaceChanged);
@@ -577,36 +556,37 @@ jQuery(document).ready(function() {
 		function onPlaceChanged() {
 		  var place = autocomplete.getPlace();
 		  if (place.address_components) { 
-		  	pref_loc_city = place.address_components[0].long_name;
-		  	if(place.address_components.length == 3){		  		
-		  		pref_loc_state = '('+place.address_components[1].long_name+')';
-		  	}else if(place.address_components.length == 4){
-		  		pref_loc_state = '('+place.address_components[2].long_name+')';
-		  	}else{
-		  		pref_loc_state = '';
-		  	}
-		  	setTimeout(function(){ prefLoc.val(''); prefLoc.focus();},0);
-		  	var selectedLoc = document.getElementById('prefered_location').value;
-		  	if(selectedLoc == ''){	
-		  		selectedLoc = selectedLoc + pref_loc_city+pref_loc_state;
-		  		prefLocationArray.push(pref_loc_city+pref_loc_state);
-		  	}else{
-		  		selectedLoc = selectedLoc + ', '+pref_loc_city+pref_loc_state;
-		  		prefLocationArray.push(pref_loc_city+pref_loc_state);
-		  	}
-		  	console.log(prefLocationArray);
-		  	document.getElementById('prefered_location').value = selectedLoc;
-			
-			
+		  	// console.log(place.address_components);
+
+		  	var obj = place.address_components;		  	
+		  	var locality = '';
+	  		var city = '';
+	  		var state = '';
+		  	$.each( obj, function( key, value ) {
+		  		if($.inArray("sublocality", value.types)  > -1 ){
+		  			locality = value.long_name;
+		  		}
+		  		if($.inArray("locality", value.types)  > -1 ){
+		  			city = value.long_name;
+		  		}
+		  		if($.inArray("administrative_area_level_1", value.types)  > -1 ){
+		  			state = value.long_name;
+		  		}
+			});
+			// console.log("Locality: "+locality+" city: "+city+" state: "+state);
+
+			if(locality != '' && city != '' && state != '' ){
+				prefLocationArray.push(locality +"-"+ city +"-"+ state);	
+			}
+			if(locality == '' && city != '' && state != '' ){
+				prefLocationArray.push(city +"-" + state);	
+			}
+
+		  	setTimeout(function(){ prefLoc.val(''); prefLoc.focus();},0);	// clear field
 		  	
-		  	$("#prefered_location").select2({
-        		dataType: 'json',
-        		data: prefLocationArray
-        	});
-        	plselect.val(prefLocationArray).trigger("change"); 
+		  	$("#prefered_location").select2({ dataType: 'json', data: prefLocationArray });
+        	plselect.val(prefLocationArray).trigger("change");
 
-
-		  	// console.log(place);
 		  } else { 
 		  	document.getElementById('autocomplete').placeholder = 'Your preferred location'; 
 		  }
@@ -614,76 +594,6 @@ jQuery(document).ready(function() {
 
 	}
    google.maps.event.addDomListener(window, 'load', initPrefLoc);
-
-
-	function pref_loc_locality(){
-		var selected_pref_locations = (document.getElementById('prefered_location').value).split(',');
-		var selected_pref_locality = (document.getElementById('preferred_locality').value).split(',');
-		if(prefLocationArray.length == 1){
-			document.getElementById("prefered_location").disabled = false;
-			document.getElementById("pref_locality").disabled = false;
-			document.getElementById("pref_locality").value = '';
-		}else if(prefLocationArray.length > 1){
-			document.getElementById("prefered_location").disabled = false;
-			document.getElementById("pref_locality").disabled = true;
-			document.getElementById("preferred_locality").disabled = true;
-			prefLocalityArray = [];
-			plocalselect.val(prefLocalityArray).trigger("change");
-			document.getElementById("pref_locality").value = 'Can\'t select locality for multiple location';
-		}else if(document.getElementById('prefered_location').value == ''){
-			document.getElementById("pref_locality").disabled = true;
-			prefLocalityArray = [];
-			plocalselect.val(prefLocalityArray).trigger("change"); 
-			document.getElementById("pref_locality").value = 'Select one preferred location.';
-			document.getElementById("preferred_locality").disabled = true;
-		}
-
-		if(document.getElementById('preferred_locality').value == ''){
-			document.getElementById("preferred_locality").disabled = true;
-		}else if(prefLocalityArray.length >= 1 && prefLocationArray.length == 1){
-			document.getElementById("preferred_locality").disabled = false;
-		}else{
-			document.getElementById("preferred_locality").disabled = true;
-		}
-	}
-
-	
-	var prefLocalityArray = [];
-    var plocalselect = $("#preferred_locality").select2();
-	var prefLoc2 = $("#pref_locality");
-	function initializePrefLocality() {
-		var options = {	types: ['(regions)'], componentRestrictions: {country: "in"} };
-		var input = document.getElementById('pref_locality');
-		var autocomplete = new google.maps.places.Autocomplete(input, options);
-		autocomplete.addListener('place_changed', onPlaceChanged);
-		function onPlaceChanged() {
-		  var place2 = autocomplete.getPlace();
-		  if (place2.address_components) { 
-		  	var pref_locality = place2.address_components[0].long_name;
-
-		  	setTimeout(function(){ prefLoc2.val(''); prefLoc2.focus();},0);
-		  	var selectedLocality = document.getElementById('preferred_locality').value;
-		  	if(selectedLocality == ''){
-		  		selectedLocality = selectedLocality + pref_locality;
-		  		prefLocalityArray.push(selectedLocality);
-		  	}else{
-		  		selectedLocality = selectedLocality + ', '+pref_locality;
-		  		prefLocalityArray.push(selectedLocality);
-		  	}	
-		  	console.log(prefLocalityArray);	  	
-		  	document.getElementById('preferred_locality').value = selectedLocality;
-		  	pref_loc_locality();
-		  	$("#preferred_locality").select2({
-        		dataType: 'json',
-        		data: prefLocalityArray
-        	});
-        	plocalselect.val(prefLocalityArray).trigger("change"); 
-		  	// console.log(place2);
-		  } else { document.getElementById('pref_locality').placeholder = 'select some locality'; }
-		}
-	}
-   google.maps.event.addDomListener(window, 'load', initializePrefLocality); 
-
 
 </script>
 <script type="text/javascript">
@@ -708,32 +618,32 @@ $('.nstSlider').nstSlider({
 </script>
 <script type="text/javascript">
 
-$(document).ready(function () {
-$('#salary-new').hide();
-$('.three').hide();
-$('.four').hide();
-toggleFields();
-$('#salary-type').change(function () {
-toggleFields();
-});
-});
-function toggleFields() {
-if ($('#salary-type').val() == 'Daily' || $('#salary-type').val() == 'Hourly' || $('#salary-type').val() == 'Pervisit'){
-$('#salary-new').show();
-$('#salary-old').hide();
-$('.one').hide();
-$('.two').hide();
-$('.three').show();
-$('.four').show();
-}else{
-$('#salary-new').hide();
-$('#salary-old').show();
-$('.one').show();
-$('.two').show();
-$('.three').hide();
-$('.four').hide();
-}
-}
+// $(document).ready(function () {
+// $('#salary-new').hide();
+// $('.three').hide();
+// $('.four').hide();
+// toggleFields();
+// $('#salary-type').change(function () {
+// toggleFields();
+// });
+// });
+// function toggleFields() {
+// if ($('#salary-type').val() == 'Daily' || $('#salary-type').val() == 'Hourly' || $('#salary-type').val() == 'Pervisit'){
+// $('#salary-new').show();
+// $('#salary-old').hide();
+// $('.one').hide();
+// $('.two').hide();
+// $('.three').show();
+// $('.four').show();
+// }else{
+// $('#salary-new').hide();
+// $('#salary-old').show();
+// $('.one').show();
+// $('.two').show();
+// $('.three').hide();
+// $('.four').hide();
+// }
+// }
 
 	 $(function () {
         $("#hide-apply").click(function () {

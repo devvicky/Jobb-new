@@ -433,9 +433,6 @@
 																								   'multiple']) !!}		
 											</div>
 										</div>
-										<!--/span-->
-										<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
-										
 									</div>
 
 									<div class="row">
@@ -622,7 +619,7 @@
 																	<div>
 																	 	<div> 
 																	 		<h4 style="font-weight: 400; margin: -5px 0;"> 
-																	 			<p class="form-control-static" data-display="post_compname"></p> 
+																	 			Company Name<p class="form-control-static" data-display="post_compname"></p> 
 																	 		</h4>
 																	 	</div>  
 																	</div>
@@ -717,7 +714,7 @@
 																			<br>
 																				<i class="glyphicon glyphicon-earphone" style="color: green;font-size: 16px;"></i>&nbsp;:<p class="form-control-static" data-display="phone"></p>
 																				</div> 
-																			<div class="skill-display" style="margin: 25px 0;">Post Id&nbsp;:  </div> 
+																			<div class="skill-display" style="margin: 25px 0;">Post Id&nbsp;: Null (Auto generated after submit.) </div> 
 																</div>		
 																
 															</div>

@@ -68,13 +68,22 @@ class SkillController extends Controller {
 		// $skillIds = explode(',', $request['linked_skill_id']);
 		$request['linked_skill'] = implode(',', $request['linked_skill_id']);
         $request['city'] = implode(',', $request['prefered_location']);
-        $request['locality'] = implode(',', $request['preferred_locality']);
+        $pref_locations = $request['prefered_location'];
         $request['unique_id'] = "S".rand(111,999).rand(111,999);
 
 
 		$post = Postjob::create($request->all());
 
 		// $post->skills()->attach($skillIds);
+		foreach ($pref_locations as $loc) {
+        	$tempArr = explode('-', $loc);
+        	if(count($tempArr) == 3){
+        		$post->preferredLocation()->attach( $loc, array('locality' => $tempArr[0], 'city' => $tempArr[1], 'state' => $tempArr[2]) );
+        	}
+        	if(count($tempArr) == 2){
+        		$post->preferredLocation()->attach( $loc, array('locality' => 'none', 'city' => $tempArr[0], 'state' => $tempArr[1]) );
+        	}
+        }
 
 		return redirect("/home");
 	}

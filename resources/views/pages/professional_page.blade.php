@@ -277,11 +277,12 @@
 									<label>About Me</label>
 									<!-- <div class="input-group"> -->
 										
-										<textarea name="about_individual" class="form-control" rows="6">{{ $user->about_individual }} </textarea>
+										<textarea name="about_individual" placeholder="write about your proffessional summary..." onkeyup="countChar(this)" class="form-control" rows="6">{{ $user->about_individual }} </textarea>
 										
 									<!-- </div> -->
 									<div id="charNum" style="text-align:right;"></div>
 								</div>
+								
 							</div>
 						</div>	
 						<div class="row">
@@ -506,6 +507,9 @@
 											<a href="javascript:;" class="close fileinput-exists" data-dismiss="fileinput"></a>
 										</div>
 									</div>
+									@if($user->resume != null)
+									<label style="font-size: 12px;font-weight: 500">{{$user->resume_dtTime}} - {{$user->resume}}
+									@endif
 								</div>
 							</div>
 							<!--/span-->
@@ -528,44 +532,25 @@
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">						
 						
 						<div class="row">
-							<div class="col-md-6 col-sm-6">
+							<div class="col-md-6 col-sm-6 col-xs-12">
 								<div class="form-group">
-									<label>Prefered Location </label>
+									<label>Prefered Location <span class="required">
+											* </span></label>
 									<div class="input-group">
 										<span class="input-group-addon">
 											<i class="fa fa-map-marker"></i>
 										</span>
 
 										<input type="text" id="pref_loc" name="pref_loc" 
-										class="form-control" placeholder="Select City"
-										onblur="pref_loc_locality()">									
+										class="form-control" placeholder="Select preferred location">									
 										
 									</div>
-									<!-- <input type="text" aria-hidden="true" id="prefered_location" value="" onblur="pref_loc_locality()"
-											name="prefered_location[]" class="form-control select2"
-											placeholder="Selected City" style="border: 0;"> -->
-									{!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 'onchange'=>'pref_loc_locality()', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'city', 'multiple']) !!}		
 
-											
-								</div>
-							</div>
-							<!--/span-->
-							<div class="col-md-6 col-sm-6">
-								<div class="form-group">
-									<label>Area</label>
-									<div class="input-group">
-										<span class="input-group-addon">
-										<i class="fa fa-map-marker"></i>
-										</span>
-										<input type="text" id="pref_locality"
-										onblur="pref_loc_locality()" 
-										name="p_localit" class="form-control" placeholder="Select Area">
-										
-									</div>
-									<!-- <input type="text" id="preferred_locality" value="{{ $user->p_locality }}" placeholder="Selected Area" style="border:0" 
-										name="p_locality" class="form-control select2" disabled > -->
-								{!! Form::select('preferred_locality[]', [], null, ['id'=>'preferred_locality', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Area', 'multiple']) !!}		
-
+									{!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 
+																					   'aria-hidden'=>'true', 
+																					   'class'=>'form-control', 
+																					   'placeholder'=>'city', 
+																					   'multiple']) !!}		
 								</div>
 							</div>
 						</div>
@@ -609,12 +594,6 @@
 						</td>
 						<td>
 							<label class="uniform-inline" style="width:100%;font-weight:500;">
-							<input type="radio" name="email_show" value="Everyone"
-							@if($user->email_show == 'Everyone')
-								checked
-							@endif >
-							Everyone </label>
-							<label class="uniform-inline" style="width:100%;font-weight:500;">
 							<input type="radio" name="email_show" value="Links"
 							@if($user->email_show == 'Links')
 								checked
@@ -634,12 +613,6 @@
 						</td>
 						<td>
 							<label class="uniform-inline" style="width:100%;font-weight:500;">
-							<input type="radio" name="mobile_show" value="Everyone"
-							@if($user->mobile_show == 'Everyone')
-								checked
-							@endif >
-							Everyone </label>
-							<label class="uniform-inline" style="width:100%;font-weight:500;">
 							<input type="radio" name="mobile_show" value="Links"
 							@if($user->mobile_show == 'Links')
 								checked
@@ -658,12 +631,6 @@
 							 Who can see my Date of Birth.
 						</td>
 						<td>
-							<label class="uniform-inline" style="width:100%;font-weight:500;">
-							<input type="radio" name="dob_show" value="Everyone"
-							@if($user->dob_show == 'Everyone')
-								checked
-							@endif >
-							Everyone </label>
 							<label class="uniform-inline" style="width:100%;font-weight:500;">
 							<input type="radio" name="dob_show" value="Links"
 							@if($user->dob_show == 'Links')
@@ -714,40 +681,12 @@
 <script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
 <script src="http://maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
 <script type="text/javascript">
-	// var inputId_div = $("#city");
-	
-	function initializeCity() {
-		var options = {	types: ['(cities)'], componentRestrictions: {country: "in"}};
-		// var input = document.getElementById('city');
-
-		var form = document.getElementById('profile_validation');
-		var input = form[8];
-
-		var autocomplete = new google.maps.places.Autocomplete(input, options);
-		autocomplete.addListener('place_changed', onPlaceChanged);
-		function onPlaceChanged() {
-		  var place = autocomplete.getPlace();
-		  if (place.address_components) { 
-		  	city = place.address_components[0];
-		  	document.getElementById('city').value = city.long_name;
-		  } else { document.getElementById('autocomplete').placeholder = 'Enter a city'; }
-		}
-	}
-   google.maps.event.addDomListener(window, 'load', initializeCity);   
-
+    // preferred loc
 	var prefLocationArray = [];
-	<?php $arr = explode(', ', $user->prefered_location); ?> 
-	@foreach($arr as $gt)
-		prefLocationArray.push('<?php echo $gt; ?>');
-	@endforeach
 
     // preferred loc    
-    var plselect = $("#prefered_location").select2({ dataType: 'json', data: prefLocationArray });
-    plselect.val(prefLocationArray).trigger("change"); 
-
-    /*if(document.getElementById('prefered_location').value != ''){
-  		prefLocationArray.push(document.getElementById('prefered_location').value);
-  	}*/
+    var plselect = $("#prefered_location").select2();
+    plselect.val(prefLocationArray).trigger("change");
 
   	var $eventSelect = $("#prefered_location"); 
 	$eventSelect.on("select2:unselect", function (e) {
@@ -756,6 +695,7 @@
 		prefLocationArray = $.grep(prefLocationArray, function(value) {
 		  return value != e.params.data.id;
 		});
+
 		// remove select option for pref loc
 		$("#prefered_location option[value='"+e.params.data.id+"']").remove();		
 		if(prefLocationArray.length == 0){
@@ -769,7 +709,7 @@
 
     var prefLoc = $("#pref_loc");
 	function initPrefLoc() {
-		var options = {	types: ['(cities)'], componentRestrictions: {country: "in"}};
+		var options = {	types: ['(regions)'], componentRestrictions: {country: "in"}};
 		var input = document.getElementById('pref_loc');
 		var autocomplete = new google.maps.places.Autocomplete(input, options);
 		autocomplete.addListener('place_changed', onPlaceChanged);
@@ -778,32 +718,36 @@
 		  var place = autocomplete.getPlace();
 		  if (place.address_components) { 
 		  	// console.log(place.address_components);
-		  	pref_loc_city = place.address_components[0].long_name;
-		  	if(place.address_components.length == 3){		  		
-		  		pref_loc_state = '('+place.address_components[1].long_name+')';
-		  	}else if(place.address_components.length == 4){
-		  		pref_loc_state = '('+place.address_components[2].long_name+')';
-		  	}else if(place.address_components.length == 5){
-		  		pref_loc_state = '('+place.address_components[2].long_name+')';
-		  	}else{
-		  		pref_loc_state = '';
-		  	}
-		  	setTimeout(function(){ prefLoc.val(''); prefLoc.focus();},0);
-		  	var selectedLoc = document.getElementById('prefered_location').value;
-		  	if(selectedLoc == ''){	
-		  		selectedLoc = selectedLoc + pref_loc_city+pref_loc_state;
-		  		prefLocationArray.push(pref_loc_city+pref_loc_state);
-		  	}else{
-		  		selectedLoc = selectedLoc + ', '+pref_loc_city+pref_loc_state;
-		  		prefLocationArray.push(pref_loc_city+pref_loc_state);
-		  	}
 
-		  	document.getElementById('prefered_location').value = selectedLoc;				
+		  	var obj = place.address_components;		  	
+		  	var locality = '';
+	  		var city = '';
+	  		var state = '';
+		  	$.each( obj, function( key, value ) {
+		  		if($.inArray("sublocality", value.types)  > -1 ){
+		  			locality = value.long_name;
+		  		}
+		  		if($.inArray("locality", value.types)  > -1 ){
+		  			city = value.long_name;
+		  		}
+		  		if($.inArray("administrative_area_level_1", value.types)  > -1 ){
+		  			state = value.long_name;
+		  		}
+			});
+			// console.log("Locality: "+locality+" city: "+city+" state: "+state);
+
+			if(locality != '' && city != '' && state != '' ){
+				prefLocationArray.push(locality +"-"+ city +"-"+ state);	
+			}
+			if(locality == '' && city != '' && state != '' ){
+				prefLocationArray.push(city +"-" + state);	
+			}
+
+		  	setTimeout(function(){ prefLoc.val(''); prefLoc.focus();},0);	// clear field
 		  	
 		  	$("#prefered_location").select2({ dataType: 'json', data: prefLocationArray });
-        	plselect.val(prefLocationArray).trigger("change"); 
+        	plselect.val(prefLocationArray).trigger("change");
 
-		  	// console.log(place);
 		  } else { 
 		  	document.getElementById('autocomplete').placeholder = 'Your preferred location'; 
 		  }
@@ -811,102 +755,6 @@
 
 	}
    google.maps.event.addDomListener(window, 'load', initPrefLoc);
-
-   	var prefLocalityArray = [];
-   	<?php $arrPLocality = explode(', ', $user->p_locality); ?> 
-
-
-	@foreach($arrPLocality as $pl)
-		@if($pl != '')
-			prefLocalityArray.push('<?php echo $pl; ?>');			
-		@endif
-	@endforeach
-
-	var plocalselect = $("#preferred_locality").select2({ dataType: 'json', data: prefLocalityArray });
-    plocalselect.val(prefLocalityArray).trigger("change"); 
-    
-
-	function pref_loc_locality(){
-		var selected_pref_locations = (document.getElementById('prefered_location').value).split(',');
-		var selected_pref_locality = (document.getElementById('preferred_locality').value).split(',');
-		if(prefLocationArray.length == 1){
-			document.getElementById("prefered_location").disabled = false;
-			document.getElementById("pref_locality").disabled = false;
-			document.getElementById("pref_locality").value = '';
-		}else if(prefLocationArray.length > 1){
-			document.getElementById("prefered_location").disabled = false;
-			document.getElementById("pref_locality").disabled = true;
-			document.getElementById("preferred_locality").disabled = true;
-			prefLocalityArray = [];
-			plocalselect.val(prefLocalityArray).trigger("change");
-			document.getElementById("pref_locality").value = 'Can\'t select locality for multiple location';
-		}else if(document.getElementById('prefered_location').value == ''){
-			document.getElementById("pref_locality").disabled = true;
-			prefLocalityArray = [];
-			plocalselect.val(prefLocalityArray).trigger("change"); 
-			document.getElementById("pref_locality").value = 'Select one preferred location.';
-			document.getElementById("preferred_locality").disabled = true;
-		}
-
-		if(document.getElementById('preferred_locality').value == ''){
-			document.getElementById("preferred_locality").disabled = true;
-		}else if(prefLocalityArray.length >= 1 && prefLocationArray.length == 1){
-			document.getElementById("preferred_locality").disabled = false;
-		}else{
-			document.getElementById("preferred_locality").disabled = true;
-		}
-	}
-	
-	var prefLoc2 = $("#pref_locality");
-	function initializePrefLocality() {
-		var options = {	types: ['(regions)'], componentRestrictions: {country: "in"} };
-		var input = document.getElementById('pref_locality');
-		var autocomplete = new google.maps.places.Autocomplete(input, options);
-		autocomplete.addListener('place_changed', onPlaceChanged);
-		function onPlaceChanged() {
-		  var place2 = autocomplete.getPlace();
-		  if (place2.address_components) { 
-		  	var pref_locality = place2.address_components[0].long_name;
-
-		  	setTimeout(function(){ prefLoc2.val(''); prefLoc2.focus();},0);
-		  	var selectedLocality = document.getElementById('preferred_locality').value;
-		  	if(selectedLocality == ''){
-		  		selectedLocality = selectedLocality + pref_locality;
-		  		prefLocalityArray.push(selectedLocality);
-		  	}else{
-		  		selectedLocality = selectedLocality + ', '+pref_locality;
-		  		prefLocalityArray.push(selectedLocality);
-		  	}	
-
-		  	document.getElementById('preferred_locality').value = selectedLocality;
-		  	pref_loc_locality();
-		  	$("#preferred_locality").select2({ dataType: 'json', data: prefLocalityArray });
-        	plocalselect.val(prefLocalityArray).trigger("change"); 
-		  	// console.log(place2);
-		  } else { document.getElementById('pref_locality').placeholder = 'select some locality'; }
-		}
-	}
-   google.maps.event.addDomListener(window, 'load', initializePrefLocality); 
-
-   var $eventSelect = $("#preferred_locality"); 
-	$eventSelect.on("select2:unselect", function (e) {
-		// console.log("Removing: "+e.params.data.id);
-		// remove corresponding value from array
-		prefLocalityArray = $.grep(prefLocalityArray, function(value) {
-		  return value != e.params.data.id;
-		});
-		// remove select option for pref loc
-		$("#preferred_locality option[value='"+e.params.data.id+"']").remove();		
-		if(prefLocalityArray.length == 0){
-			plocalselect = $("#preferred_locality").select2({ dataType: 'json', data: [] });
-		}else{
-			plocalselect = $("#preferred_locality").select2({ dataType: 'json', data: prefLocalityArray });
-		}
-		plocalselect.val(prefLocalityArray).trigger("change"); 
-		// updated array
-		
-	});
-
 
 </script>
 <script type="text/javascript">
@@ -926,7 +774,6 @@ $(document).ready(function() {
     
     return false;
   });
-	
 });
 </script>
 	<script>
@@ -948,10 +795,10 @@ $(document).ready(function() {
 <script type="text/javascript">
       function countChar(val) {
         var len = val.value.length;
-        if (len >= 1000) {
-          val.value = val.value.substring(0, 1000);
+        if (len >= 255) {
+          val.value = val.value.substring(0, 255);
         } else {
-          $('#charNum').text(1000 - len);
+          $('#charNum').text(255 - len);
         }
       };
     </script>

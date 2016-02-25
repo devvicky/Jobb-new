@@ -86,11 +86,11 @@
 						</a>
 						@elseif($linksPending->contains('id', $post->individual_id) )
 						<a href="#links-follow" data-toggle="modal" class="user-link" data-linked="no" data-utype="ind">
-							<button class="btn btn-xs linkrequest-follow-icon-css"><i class="icon-hourglass (alias) " style="color:dimgrey;font-size:10px;"></i> Link Requested</button>
+							<button class="btn btn-xs linkrequest-follow-icon-css"><i class="icon-hourglass (alias) " style="color:#F7F7F7;font-size:10px;"></i> Link Requested</button>
 						</a>
 						@elseif($linksApproval->contains('id', $post->individual_id) )
 						<a href="#links-follow " data-toggle="modal" class="user-link" data-linked="no" data-utype="ind">
-							<button class="btn btn-xs linkrequest-follow-icon-css"><i class=" icon-hourglass (alias) " style="color:dimgrey;font-size:10px;"></i> Link Requested</button>
+							<button class="btn btn-xs linkrequest-follow-icon-css"><i class=" icon-hourglass (alias) " style="color:#F7F7F7;font-size:10px;"></i> Link Requested</button>
 						</a>
 						
 						@else
