@@ -1,4 +1,3 @@
-
 @include('partials.home.job-filter')
 
 @if (count($jobPosts) > 0)

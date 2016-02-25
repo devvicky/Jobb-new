@@ -2002,10 +2002,10 @@ public function homeskillFilter(){
 
 	public function magicMatch(){
 		if (Auth::check()) {		
-			$post = Postjob::with('induser', 'corpuser', 'postActivity')->where('id', '=', Input::get('postid'))->first();
+			$post = Postjob::with('induser', 'corpuser', 'postActivity', 'preferLocations')->where('id', '=', Input::get('postid'))->first();
 			
 			return view('partials.home.magicmatch', compact('post'));
-			// return $post;
+			return $post;
 		}else{
 			return redirect('login');
 		}	

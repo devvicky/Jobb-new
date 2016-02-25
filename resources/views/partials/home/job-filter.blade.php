@@ -171,11 +171,10 @@
 									</span>
 
 									<input type="text" id="pref_loc" name="pref_loc" 
-										class="form-control" placeholder="Select location"
-										onblur="pref_loc_locality()">									
+										class="form-control" placeholder="Select location">									
 									
 								</div>
-								{!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 'onchange'=>'pref_loc_locality()', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'city', 'multiple']) !!}		
+								{!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'city', 'multiple']) !!}		
 							</div>
 						</div>
 					</div>

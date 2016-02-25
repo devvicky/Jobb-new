@@ -52,7 +52,7 @@ $(document).ready(function() {
 $(document).ready(function() {
     $('.magicmatch-posts').live('click', function(event) {
         event.preventDefault();
-        var post_id = $(this).parent().data('mpostid');
+        var post_id = $(this).data('mpostid');
 
         // console.log(post_id);
         $.ajaxSetup({

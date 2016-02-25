@@ -95,6 +95,10 @@ class Postjob extends Model {
 		return $this->belongsToMany('App\Postjob', 'post_preferred_locations', 'post_id', 'id')->withTimestamps();
 	}
 
+	public function preferLocations(){
+		return $this->hasMany('App\PostPreferredLocation', 'post_id', 'id')->select('post_id', 'locality', 'city', 'state');
+	}
+
 	public function getMagicMatchAttribute(){
 		if(Auth::check()){
 			if(Auth::user()->identifier == 1){

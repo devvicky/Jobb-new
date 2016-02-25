@@ -60,11 +60,9 @@
 							<div class="col-md-3 col-sm-3 col-xs-3">
 								<div class="match" style="float: left; margin: 0px 3px;">
 									<a data-toggle="modal" data-mpostid="{{$post->id}}" 
-										class="magic-font magicmatch-posts" href="#magicmatch-posts"
-										 style="color: white;line-height: 1.7;text-decoration: none;"> 
-										<button class="btn btn-success magic-match-css">
-											<i class="icon-speedometer magic-font" style="font-size:12px;"></i> {{$magicMatch}} %
-										</button>
+										class="magic-font magicmatch-posts btn btn-success magic-match-css" href="#magicmatch-posts"
+										 style="color: white;line-height: 1.7;text-decoration: none;">
+										<i class="icon-speedometer magic-font" style="font-size:12px;"></i> {{$magicMatch}} %
 									</a>
 								</div>
 							</div>
