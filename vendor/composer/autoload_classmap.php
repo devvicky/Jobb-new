@@ -24,6 +24,7 @@ return array(
     'CreateNotificationsTable' => $baseDir . '/database/migrations/2015_12_09_181947_create_notifications_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2015_09_13_171556_create_password_resets_table.php',
     'CreatePostGroupTaggingsTable' => $baseDir . '/database/migrations/2015_12_08_062727_create_post_group_taggings_table.php',
+    'CreatePostPreferredLocationsTable' => $baseDir . '/database/migrations/2016_02_22_183531_create_post_preferred_locations_table.php',
     'CreatePostUserTaggingsTable' => $baseDir . '/database/migrations/2015_12_08_062805_create_post_user_taggings_table.php',
     'CreatePostactivitiesTable' => $baseDir . '/database/migrations/2015_09_13_171856_create_postactivities_table.php',
     'CreatePostjobSkillsTable' => $baseDir . '/database/migrations/2015_09_28_182423_create_postjob_skills_table.php',

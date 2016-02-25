@@ -59,3 +59,4 @@ vendor/composer/LICENSE
 vendor/composer/autoload_psr4.php
 vendor/autoload.php
 .env_jt
+.env
