@@ -49,3 +49,7 @@ Temporary Items
 .env
 config/services.php
 .env
+resources/views/pages/salim_prof_page.blade.php
+config/services.php
+vendor/autoload.php
+.env
