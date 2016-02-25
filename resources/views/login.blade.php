@@ -105,6 +105,10 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 .login-input-bg-color{
     background-color: rgba(149, 152, 152, 0.22) !important;
 }
+
+.login-tabopen{
+    display: none ;
+}
 @media (min-width: 570px) {
   .signup-button{
         
@@ -150,11 +154,22 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
         <!-- BEGIN USER LOGIN DROPDOWN -->
         <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
         <li>
-          <a id="signup-tabopen" style="padding-bottom: 11px;padding-top: 11px;background-color: transparent;">
-          <button class="btn welcome-signup-css signup-button" style="">
-            Sign Up
-          </button>
-          </a>
+          <div class="signup-tabopen">
+            <a id="signup-tabopen" style="padding-bottom: 11px;padding-top: 11px;background-color: transparent;">
+            <button class="btn welcome-signup-css signup-button" style="">
+              Sign Up
+            </button>
+            </a>
+          </div>
+        </li>
+        <li >
+          <div class="login-tabopen">
+            <a id="login-tabopen" style="padding-bottom: 11px;padding-top: 11px;background-color: transparent;">
+            <button class="btn welcome-signup-css signup-button" style="">
+              Login Now
+            </button>
+            </a>
+          </div>
         </li>
       </ul>
     </div>
@@ -226,6 +241,14 @@ $(document).ready(function() {
     jQuery('#signup-tabopen').on('click', function(event) {
         jQuery('.corporate-register-tab').toggle('show');
         jQuery('.login-tag').toggle('hide');
+        jQuery('.signup-tabopen').hide();
+        jQuery('.login-tabopen').show();
+    });
+    jQuery('#login-tabopen').on('click', function(event) {
+        jQuery('.corporate-register-tab').toggle('hide');
+        jQuery('.login-tag').toggle('show');
+        jQuery('.signup-tabopen').show();
+        jQuery('.login-tabopen').hide();
     });
   });
 </script>

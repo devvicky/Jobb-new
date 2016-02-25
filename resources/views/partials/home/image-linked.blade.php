@@ -1,4 +1,3 @@
-
 @if($post->expired == 1)
     <div class="timeline-body new-timeline-body">
 @elseif($post->expired == 0)
@@ -56,10 +55,10 @@
                 <div class="col-md-12">
                     <!-- Post shared by user -->                        
                     <div class="shared-by">
-                        <small>
-                            {{$post->sharedGroupBy->first()->mode}} by {{$post->sharedGroupBy->first()->fname}} {{$post->sharedGroupBy->first()->lname}}
+                        <small style="capitalize">
+                            {{$post->sharedGroupBy->first()->mode}} by {{$post->sharedGroupBy->first()->fname}}
                         </small> to 
-                        <small>{{$post->sharedToGroup->first()->group_name}}</small> group<br/>
+                        <small>'{{$post->sharedToGroup->first()->group_name}}' group</small> <br/>
                     </div>   
                 </div>
             </div>
@@ -68,7 +67,7 @@
         @if($post->tagged->contains('user_id', Auth::user()->induser_id) && 
             $post->sharedBy->first()->mode == 'shared')
             
-        <small>{{$post->sharedBy->first()->mode}} by {{$post->sharedBy->first()->fname}} {{$post->sharedBy->first()->lname}}</small>
+        <small>{{$post->sharedBy->first()->mode}} by {{$post->sharedBy->first()->fname}}</small>
         <br/>
 
         @endif
@@ -87,11 +86,11 @@
 						</a>
 						@elseif($linksPending->contains('id', $post->individual_id) )
 						<a href="#links-follow" data-toggle="modal" class="user-link" data-linked="no" data-utype="ind">
-							<button class="btn btn-xs linkrequest-follow-icon-css"><i class="icon-hourglass (alias) " style="color:dimgrey;font-size:10px;"></i> Link Requested</button>
+							<button class="btn btn-xs linkrequest-follow-icon-css"><i class="icon-hourglass (alias) " style="color:#F7F7F7;font-size:10px;"></i> Link Requested</button>
 						</a>
 						@elseif($linksApproval->contains('id', $post->individual_id) )
 						<a href="#links-follow " data-toggle="modal" class="user-link" data-linked="no" data-utype="ind">
-							<button class="btn btn-xs linkrequest-follow-icon-css"><i class=" icon-hourglass (alias) " style="color:dimgrey;font-size:10px;"></i> Link Requested</button>
+							<button class="btn btn-xs linkrequest-follow-icon-css"><i class=" icon-hourglass (alias) " style="color:#F7F7F7;font-size:10px;"></i> Link Requested</button>
 						</a>
 						
 						@else

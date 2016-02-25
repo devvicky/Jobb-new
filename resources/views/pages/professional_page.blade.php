@@ -23,7 +23,7 @@
 			</li>
 			<li>
 				<a data-toggle="tab" href="#privacy">
-				<i class="fa fa-eye"></i> Privacity Settings </a>
+				<i class="fa fa-eye"></i> Privacy Settings </a>
 			</li>
 		</ul>
 	</div>
@@ -35,7 +35,8 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class="control-label">First Name</label>
+									<label class="control-label">First Name<span class="required">
+											* </span></label>
 									<!-- <div class="input-group">
 										<span class="input-group-addon">
 											<i class="glyphicon glyphicon-font"></i>
@@ -48,7 +49,8 @@
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class="control-label">Last Name</label>
+									<label class="control-label">Last Name<span class="required">
+											* </span></label>
 									<!-- <div class="input-group">
 										<span class="input-group-addon">
 											<i class="glyphicon glyphicon-font"></i>
@@ -71,12 +73,14 @@
 										</span>
 										<input class="form-control date-picker" name="dob" size="16" type="text" value="{{ $user->dob }}"/>
 									</div>
+									<!-- <label>Check the privacy setting for showing Date of Birth</label> -->
 								</div>
 							</div>
 							<!--/span-->
 							<div class="col-md-6">
 								<div class="form-group">
-									<label>Gender</label>
+									<label>Gender<span class="required">
+											* </span></label>
 									<div class="input-group">
 											<div class="md-radio-inline">
 												<div class="md-radio">
@@ -125,8 +129,7 @@
 						<div class="row">
 							<div class="col-md-6 col-sm-6">
 								<div class="form-group">
-									<label>City <span class="required">
-											* </span></label>									
+									<label>City</label>									
 									<div class="input-group">
 										<span class="input-group-addon">
 											<i class="fa fa-map-marker"></i>
@@ -179,7 +182,7 @@
 											style="color: #cb5a5e;font-size: 16px;"></i>
 										</a>
 										@elseif($user->mobile_verify == 1)
-											<i class="glyphicon glyphicon-ok-circle" style="color: #1EC71E;font-size: 16px;"></i>
+											<i class="glyphicon glyphicon-ok-circle" style="color: #18B9B9;font-size: 16px;"></i>
 										@endif
 									</span>
 									<span class="input-group-addon">
@@ -214,7 +217,7 @@
 											style="color: #cb5a5e;font-size: 16px;"></i>
 										</a>
 										@elseif($user->email_verify == 1)
-											<i class="glyphicon glyphicon-ok-circle" style="color: #1EC71E;font-size: 16px;"></i>
+											<i class="glyphicon glyphicon-ok-circle" style="color: #18B9B9;font-size: 16px;"></i>
 										@endif
 									</span>
 									<span class="input-group-addon">
@@ -222,6 +225,32 @@
 											<i class="fa fa-pencil"></i>
 										</a>
 									</span>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+					</div>
+					<div class="row">
+						<div class="col-md-6 col-sm-6">
+							<div class="form-group">
+								<label>Linkedin Id</label>									
+								<div class="input-group">
+									<span class="input-group-addon">
+										<i class="fa fa-map-marker"></i>
+									</span>
+									<input type="text" name="in_page" class="form-control" value="{{ $user->in_page }}" placeholder="Linkedin Id">
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-md-6 col-sm-6">
+							<div class="form-group">
+								<label>Facebook Id</label>
+								<div class="input-group">
+									<span class="input-group-addon">
+									<i class="fa fa-map-marker"></i>
+									</span>
+									<input type="text" name="fb_page" class="form-control" value="{{ $user->fb_page }}" placeholder="Facebook Id">
 								</div>
 							</div>
 						</div>
@@ -248,11 +277,12 @@
 									<label>About Me</label>
 									<!-- <div class="input-group"> -->
 										
-										<textarea name="about_individual" class="form-control" rows="6">{{ $user->about_individual }} </textarea>
+										<textarea name="about_individual" placeholder="write about your proffessional summary..." onkeyup="countChar(this)" class="form-control" rows="6">{{ $user->about_individual }} </textarea>
 										
 									<!-- </div> -->
 									<div id="charNum" style="text-align:right;"></div>
 								</div>
+								
 							</div>
 						</div>	
 						<div class="row">
@@ -373,52 +403,62 @@
 							<!--/span-->
 						</div>
 						<div class="row">
-							<div class="col-md-6 col-sm-6">
+							<div class="col-md-12 col-sm-12 col-xs-12 hide-role">
 								<div class="form-group">
-									<label>Job Category</label>
+									<label>
+										Job Role <span class="required">*</span>
+									</label>
+
+									<div class="input-group">	
+										<span class="input-group-addon">
+											<i class="fa fa-cube" style="color:darkcyan;"></i>
+										</span>			
+										<select class="job-role-ajax form-control new-role" name="role" id="jobrole">
+									  		<option value="0" selected="selected"></option>
+										</select>													
+									</div>
+									example: manager, admin, secretory <a class="hide-far">see all</a>
+
+									<div id="charNum" style="text-align:right;"></div>
+								</div>
+							</div>
+							<div class="col-md-6 col-sm-6 col-xs-12 show-far">
+								<div class="form-group">
+									<label>Functional Area <span class="required">
+									* </span></label>
 									<div class="input-group">
 										<span class="input-group-addon">
-											<i class="fa fa-cubes"></i>
+											<i class="icon-hourglass" style="color:darkcyan;"></i>
 										</span>
-										<select class="form-control" name="prof_category" value="{{ $user->prof_category }}" >
-											<optgroup label="Accounting">
-												<option @if($user->experience=="Accounts/Finance/Tax") {{ $selected }} @endif value="Accounts/Finance/Tax">Accounts/Finance/Tax</option>
-												<option @if($user->experience=="Agent") {{ $selected }} @endif value="Agent">Agent</option>
-												<option @if($user->experience=="Analytics & Business Intelligence") {{ $selected }} @endif value="Analytics & Business Intelligence">
-													Analytics & Business Intelligence
-												</option>
-											</optgroup>
-											<optgroup label="IT Field">
-												<option @if($user->experience=="HR/Administration/IR") {{ $selected }} @endif value="HR/Administration/IR">HR/Administration/IR</option>
-												<option @if($user->experience=="IT Software - Client Server") {{ $selected }} @endif value="IT Software - Client Server">IT Software - Client Server</option>
-												<option @if($user->experience=="IT Software - Mainframe") {{ $selected }} @endif value="IT Software - Mainframe">IT Software - Mainframe</option>
-												<option @if($user->experience=="IT Software - Middleware") {{ $selected }} @endif value="IT Software - Middleware">IT Software - Middleware</option>
-												<option @if($user->experience=="IT Software - Mobile") {{ $selected }} @endif value="IT Software - Mobile">IT Software - Mobile</option>
-												<option @if($user->experience=="IT Software - Other") {{ $selected }} @endif value="IT Software - Other">IT Software - Other</option>
-												<option @if($user->experience=="IT Software - System Programming") {{ $selected }} @endif value="IT Software - System Programming">IT Software - System Programming</option>
-												<option @if($user->experience=="IT Software - Telecom Software") {{ $selected }} @endif value="IT Software - Telecom Software">IT Software - Telecom Software</option>
-												<option @if($user->experience=="IT Software - Application Programming") {{ $selected }} @endif value="IT Software - Application Programming">IT Software - Application Programming</option>
-												<option @if($user->experience=="IT Software - DBA/Datawarehousing") {{ $selected }} @endif value="IT Software - DBA/Datawarehousing">IT Software - DBA/Datawarehousing</option>
-												<option @if($user->experience=="IT Software - E-Commerce") {{ $selected }} @endif value="IT Software - E-Commerce">IT Software - E-Commerce</option>
-												<option @if($user->experience=="IT Software - ERP/CRM") {{ $selected }} @endif value="IT Software - ERP/CRM">IT Software - ERP/CRM</option>
-											</optgroup>
+										<select name="time_for" class="form-control" style="z-index:0;">
+											@foreach($functionalAreas as $farea)
+									      		<option>
+									      			<li><a href="#" data-jrole="{{$farea}}">{{$farea}}</a></li>
+									      		</option>
+								      		@endforeach
 										</select>
 									</div>
 								</div>
 							</div>
-							<!--/span-->
-							<div class="col-md-6 col-sm-6">
+							<div class="col-md-6 col-sm-6 col-xs-12 show-far">
 								<div class="form-group">
-									<label>Role</label>
+									<label>Role <span class="required">
+									* </span></label>
 									<div class="input-group">
 										<span class="input-group-addon">
-											<i class="fa fa-cube"></i>
+											<i class="icon-hourglass" style="color:darkcyan;"></i>
 										</span>
-										<input type="text" class="form-control" value="{{ $user->role }}" name="role">
+										<select name="time_for" class="form-control" style="z-index:0;">
+											@foreach($roles as $role)
+									      		<option>
+									      			<li><a href="#" data-jrole="{{$role->name}}">{{$role->name}}</a></li>
+									      		</option>
+								      		@endforeach
+										</select>
 									</div>
+									<a class="back-role">Back</a>
 								</div>
 							</div>
-							<!--/span-->
 						</div>
 						
 						<div class="row">
@@ -459,7 +499,7 @@
 												<i class="icon-paper-clip" style="color: white;"></i>
 												<span class="fileinput-new">Select File </span> 
 												<span class="fileinput-exists">Upload New Resume </span>
-												<input type="file" name="resume" accept='application/pdf,application/msword'>
+												<input type="file" name="resume" accept="application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf">
 											</span>
 											<br>
 											<span class="fileinput-new"></span>
@@ -467,6 +507,9 @@
 											<a href="javascript:;" class="close fileinput-exists" data-dismiss="fileinput"></a>
 										</div>
 									</div>
+									@if($user->resume != null)
+									<label style="font-size: 12px;font-weight: 500">{{$user->resume_dtTime}} - {{$user->resume}}
+									@endif
 								</div>
 							</div>
 							<!--/span-->
@@ -489,44 +532,25 @@
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">						
 						
 						<div class="row">
-							<div class="col-md-6 col-sm-6">
+							<div class="col-md-6 col-sm-6 col-xs-12">
 								<div class="form-group">
-									<label>Prefered Location </label>
+									<label>Prefered Location <span class="required">
+											* </span></label>
 									<div class="input-group">
 										<span class="input-group-addon">
 											<i class="fa fa-map-marker"></i>
 										</span>
 
 										<input type="text" id="pref_loc" name="pref_loc" 
-										class="form-control" placeholder="Select City"
-										onblur="pref_loc_locality()">									
+										class="form-control" placeholder="Select preferred location">									
 										
 									</div>
-									<!-- <input type="text" aria-hidden="true" id="prefered_location" value="" onblur="pref_loc_locality()"
-											name="prefered_location[]" class="form-control select2"
-											placeholder="Selected City" style="border: 0;"> -->
-									{!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 'onchange'=>'pref_loc_locality()', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'city', 'multiple']) !!}		
 
-											
-								</div>
-							</div>
-							<!--/span-->
-							<div class="col-md-6 col-sm-6">
-								<div class="form-group">
-									<label>Area</label>
-									<div class="input-group">
-										<span class="input-group-addon">
-										<i class="fa fa-map-marker"></i>
-										</span>
-										<input type="text" id="pref_locality"
-										onblur="pref_loc_locality()" 
-										name="p_localit" class="form-control" placeholder="Select Area">
-										
-									</div>
-									<!-- <input type="text" id="preferred_locality" value="{{ $user->p_locality }}" placeholder="Selected Area" style="border:0" 
-										name="p_locality" class="form-control select2" disabled > -->
-								{!! Form::select('preferred_locality[]', [], null, ['id'=>'preferred_locality', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Area', 'multiple']) !!}		
-
+									{!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 
+																					   'aria-hidden'=>'true', 
+																					   'class'=>'form-control', 
+																					   'placeholder'=>'city', 
+																					   'multiple']) !!}		
 								</div>
 							</div>
 						</div>
@@ -570,12 +594,6 @@
 						</td>
 						<td>
 							<label class="uniform-inline" style="width:100%;font-weight:500;">
-							<input type="radio" name="email_show" value="Everyone"
-							@if($user->email_show == 'Everyone')
-								checked
-							@endif >
-							Everyone </label>
-							<label class="uniform-inline" style="width:100%;font-weight:500;">
 							<input type="radio" name="email_show" value="Links"
 							@if($user->email_show == 'Links')
 								checked
@@ -595,12 +613,6 @@
 						</td>
 						<td>
 							<label class="uniform-inline" style="width:100%;font-weight:500;">
-							<input type="radio" name="mobile_show" value="Everyone"
-							@if($user->mobile_show == 'Everyone')
-								checked
-							@endif >
-							Everyone </label>
-							<label class="uniform-inline" style="width:100%;font-weight:500;">
 							<input type="radio" name="mobile_show" value="Links"
 							@if($user->mobile_show == 'Links')
 								checked
@@ -619,12 +631,6 @@
 							 Who can see my Date of Birth.
 						</td>
 						<td>
-							<label class="uniform-inline" style="width:100%;font-weight:500;">
-							<input type="radio" name="dob_show" value="Everyone"
-							@if($user->dob_show == 'Everyone')
-								checked
-							@endif >
-							Everyone </label>
 							<label class="uniform-inline" style="width:100%;font-weight:500;">
 							<input type="radio" name="dob_show" value="Links"
 							@if($user->dob_show == 'Links')
@@ -675,40 +681,12 @@
 <script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
 <script src="http://maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
 <script type="text/javascript">
-	// var inputId_div = $("#city");
-	
-	function initializeCity() {
-		var options = {	types: ['(cities)'], componentRestrictions: {country: "in"}};
-		// var input = document.getElementById('city');
-
-		var form = document.getElementById('profile_validation');
-		var input = form[8];
-
-		var autocomplete = new google.maps.places.Autocomplete(input, options);
-		autocomplete.addListener('place_changed', onPlaceChanged);
-		function onPlaceChanged() {
-		  var place = autocomplete.getPlace();
-		  if (place.address_components) { 
-		  	city = place.address_components[0];
-		  	document.getElementById('city').value = city.long_name;
-		  } else { document.getElementById('autocomplete').placeholder = 'Enter a city'; }
-		}
-	}
-   google.maps.event.addDomListener(window, 'load', initializeCity);   
-
+    // preferred loc
 	var prefLocationArray = [];
-	<?php $arr = explode(', ', $user->prefered_location); ?> 
-	@foreach($arr as $gt)
-		prefLocationArray.push('<?php echo $gt; ?>');
-	@endforeach
 
     // preferred loc    
-    var plselect = $("#prefered_location").select2({ dataType: 'json', data: prefLocationArray });
-    plselect.val(prefLocationArray).trigger("change"); 
-
-    /*if(document.getElementById('prefered_location').value != ''){
-  		prefLocationArray.push(document.getElementById('prefered_location').value);
-  	}*/
+    var plselect = $("#prefered_location").select2();
+    plselect.val(prefLocationArray).trigger("change");
 
   	var $eventSelect = $("#prefered_location"); 
 	$eventSelect.on("select2:unselect", function (e) {
@@ -717,6 +695,7 @@
 		prefLocationArray = $.grep(prefLocationArray, function(value) {
 		  return value != e.params.data.id;
 		});
+
 		// remove select option for pref loc
 		$("#prefered_location option[value='"+e.params.data.id+"']").remove();		
 		if(prefLocationArray.length == 0){
@@ -730,7 +709,7 @@
 
     var prefLoc = $("#pref_loc");
 	function initPrefLoc() {
-		var options = {	types: ['(cities)'], componentRestrictions: {country: "in"}};
+		var options = {	types: ['(regions)'], componentRestrictions: {country: "in"}};
 		var input = document.getElementById('pref_loc');
 		var autocomplete = new google.maps.places.Autocomplete(input, options);
 		autocomplete.addListener('place_changed', onPlaceChanged);
@@ -739,32 +718,36 @@
 		  var place = autocomplete.getPlace();
 		  if (place.address_components) { 
 		  	// console.log(place.address_components);
-		  	pref_loc_city = place.address_components[0].long_name;
-		  	if(place.address_components.length == 3){		  		
-		  		pref_loc_state = '('+place.address_components[1].long_name+')';
-		  	}else if(place.address_components.length == 4){
-		  		pref_loc_state = '('+place.address_components[2].long_name+')';
-		  	}else if(place.address_components.length == 5){
-		  		pref_loc_state = '('+place.address_components[2].long_name+')';
-		  	}else{
-		  		pref_loc_state = '';
-		  	}
-		  	setTimeout(function(){ prefLoc.val(''); prefLoc.focus();},0);
-		  	var selectedLoc = document.getElementById('prefered_location').value;
-		  	if(selectedLoc == ''){	
-		  		selectedLoc = selectedLoc + pref_loc_city+pref_loc_state;
-		  		prefLocationArray.push(pref_loc_city+pref_loc_state);
-		  	}else{
-		  		selectedLoc = selectedLoc + ', '+pref_loc_city+pref_loc_state;
-		  		prefLocationArray.push(pref_loc_city+pref_loc_state);
-		  	}
 
-		  	document.getElementById('prefered_location').value = selectedLoc;				
+		  	var obj = place.address_components;		  	
+		  	var locality = '';
+	  		var city = '';
+	  		var state = '';
+		  	$.each( obj, function( key, value ) {
+		  		if($.inArray("sublocality", value.types)  > -1 ){
+		  			locality = value.long_name;
+		  		}
+		  		if($.inArray("locality", value.types)  > -1 ){
+		  			city = value.long_name;
+		  		}
+		  		if($.inArray("administrative_area_level_1", value.types)  > -1 ){
+		  			state = value.long_name;
+		  		}
+			});
+			// console.log("Locality: "+locality+" city: "+city+" state: "+state);
+
+			if(locality != '' && city != '' && state != '' ){
+				prefLocationArray.push(locality +"-"+ city +"-"+ state);	
+			}
+			if(locality == '' && city != '' && state != '' ){
+				prefLocationArray.push(city +"-" + state);	
+			}
+
+		  	setTimeout(function(){ prefLoc.val(''); prefLoc.focus();},0);	// clear field
 		  	
 		  	$("#prefered_location").select2({ dataType: 'json', data: prefLocationArray });
-        	plselect.val(prefLocationArray).trigger("change"); 
+        	plselect.val(prefLocationArray).trigger("change");
 
-		  	// console.log(place);
 		  } else { 
 		  	document.getElementById('autocomplete').placeholder = 'Your preferred location'; 
 		  }
@@ -772,102 +755,6 @@
 
 	}
    google.maps.event.addDomListener(window, 'load', initPrefLoc);
-
-   	var prefLocalityArray = [];
-   	<?php $arrPLocality = explode(', ', $user->p_locality); ?> 
-
-
-	@foreach($arrPLocality as $pl)
-		@if($pl != '')
-			prefLocalityArray.push('<?php echo $pl; ?>');			
-		@endif
-	@endforeach
-
-	var plocalselect = $("#preferred_locality").select2({ dataType: 'json', data: prefLocalityArray });
-    plocalselect.val(prefLocalityArray).trigger("change"); 
-    
-
-	function pref_loc_locality(){
-		var selected_pref_locations = (document.getElementById('prefered_location').value).split(',');
-		var selected_pref_locality = (document.getElementById('preferred_locality').value).split(',');
-		if(prefLocationArray.length == 1){
-			document.getElementById("prefered_location").disabled = false;
-			document.getElementById("pref_locality").disabled = false;
-			document.getElementById("pref_locality").value = '';
-		}else if(prefLocationArray.length > 1){
-			document.getElementById("prefered_location").disabled = false;
-			document.getElementById("pref_locality").disabled = true;
-			document.getElementById("preferred_locality").disabled = true;
-			prefLocalityArray = [];
-			plocalselect.val(prefLocalityArray).trigger("change");
-			document.getElementById("pref_locality").value = 'Can\'t select locality for multiple location';
-		}else if(document.getElementById('prefered_location').value == ''){
-			document.getElementById("pref_locality").disabled = true;
-			prefLocalityArray = [];
-			plocalselect.val(prefLocalityArray).trigger("change"); 
-			document.getElementById("pref_locality").value = 'Select one preferred location.';
-			document.getElementById("preferred_locality").disabled = true;
-		}
-
-		if(document.getElementById('preferred_locality').value == ''){
-			document.getElementById("preferred_locality").disabled = true;
-		}else if(prefLocalityArray.length >= 1 && prefLocationArray.length == 1){
-			document.getElementById("preferred_locality").disabled = false;
-		}else{
-			document.getElementById("preferred_locality").disabled = true;
-		}
-	}
-	
-	var prefLoc2 = $("#pref_locality");
-	function initializePrefLocality() {
-		var options = {	types: ['(regions)'], componentRestrictions: {country: "in"} };
-		var input = document.getElementById('pref_locality');
-		var autocomplete = new google.maps.places.Autocomplete(input, options);
-		autocomplete.addListener('place_changed', onPlaceChanged);
-		function onPlaceChanged() {
-		  var place2 = autocomplete.getPlace();
-		  if (place2.address_components) { 
-		  	var pref_locality = place2.address_components[0].long_name;
-
-		  	setTimeout(function(){ prefLoc2.val(''); prefLoc2.focus();},0);
-		  	var selectedLocality = document.getElementById('preferred_locality').value;
-		  	if(selectedLocality == ''){
-		  		selectedLocality = selectedLocality + pref_locality;
-		  		prefLocalityArray.push(selectedLocality);
-		  	}else{
-		  		selectedLocality = selectedLocality + ', '+pref_locality;
-		  		prefLocalityArray.push(selectedLocality);
-		  	}	
-
-		  	document.getElementById('preferred_locality').value = selectedLocality;
-		  	pref_loc_locality();
-		  	$("#preferred_locality").select2({ dataType: 'json', data: prefLocalityArray });
-        	plocalselect.val(prefLocalityArray).trigger("change"); 
-		  	// console.log(place2);
-		  } else { document.getElementById('pref_locality').placeholder = 'select some locality'; }
-		}
-	}
-   google.maps.event.addDomListener(window, 'load', initializePrefLocality); 
-
-   var $eventSelect = $("#preferred_locality"); 
-	$eventSelect.on("select2:unselect", function (e) {
-		// console.log("Removing: "+e.params.data.id);
-		// remove corresponding value from array
-		prefLocalityArray = $.grep(prefLocalityArray, function(value) {
-		  return value != e.params.data.id;
-		});
-		// remove select option for pref loc
-		$("#preferred_locality option[value='"+e.params.data.id+"']").remove();		
-		if(prefLocalityArray.length == 0){
-			plocalselect = $("#preferred_locality").select2({ dataType: 'json', data: [] });
-		}else{
-			plocalselect = $("#preferred_locality").select2({ dataType: 'json', data: prefLocalityArray });
-		}
-		plocalselect.val(prefLocalityArray).trigger("change"); 
-		// updated array
-		
-	});
-
 
 </script>
 <script type="text/javascript">
@@ -887,7 +774,6 @@ $(document).ready(function() {
     
     return false;
   });
-	
 });
 </script>
 	<script>
@@ -909,10 +795,10 @@ $(document).ready(function() {
 <script type="text/javascript">
       function countChar(val) {
         var len = val.value.length;
-        if (len >= 1000) {
-          val.value = val.value.substring(0, 1000);
+        if (len >= 255) {
+          val.value = val.value.substring(0, 255);
         } else {
-          $('#charNum').text(1000 - len);
+          $('#charNum').text(255 - len);
         }
       };
     </script>
@@ -1235,5 +1121,88 @@ $gotit = [];
 		
 
 	});
+</script>
+
+<script type="text/javascript">
+ $(document).ready(function () {
+     	$('.show-far').hide();
+	    jQuery('.hide-far').on('click', function(event) {
+		    jQuery('.show-far').show();
+		    jQuery('.hide-role').hide();
+	    });
+
+	    jQuery('.back-role').on('click', function(event) {
+		    jQuery('.show-far').hide();
+		    jQuery('.hide-role').show();
+	    });
+	});
+ 
+$(".job-role-ajax").select2({
+	placeholder: 'Enter a role',
+  ajax: {
+    url: "/post/jobroles/",
+    dataType: 'json',
+    delay: 250,
+    data: function (params) {
+      return {
+        q: params.term, // search term
+        page: params.page
+      };
+    },
+    processResults: function (data, params) {
+      console.log(data);
+      return {
+        results: data
+      };
+    },
+    cache: true
+  },
+  escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+  minimumInputLength: 2,
+  templateResult: formatRepo, // omitted for brevity, see the source of this page
+  templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+});
+
+function formatRepo (repo) {
+      if (repo.loading) return repo.text;
+
+      var markup = "<div class='select2-result-repository clearfix'>" +
+        "<div class='select2-result-repository__meta'>" +
+          "<div class='select2-result-repository__title'><b>Role</b>: " + repo.role + "</div>";
+
+      markup += "<div class='select2-result-repository__statistics'>" +
+        "<div class='select2-result-repository__forks'><b>Functional area: </b> " + repo.functional_area + "</div>" +
+      "</div>" +
+      "</div></div>";
+
+      return markup;
+    }
+
+    function formatRepoSelection (repo) {
+    	if(repo.role != undefined){
+    		// console.log(repo);
+    		return repo.role+" -"+repo.functional_area+"-"+repo.industry;
+    	}      
+    }
+
+$(document).on('click', 'a', function(event, ui) {
+    var jrole = $(this).data('jrole');
+
+    $.ajaxSetup({
+        headjroleers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+
+    if(jrole != null){
+      event.preventDefault();
+      $('#all-roles').modal('hide');
+      $('#jobrole').select2('open');
+      $('.select2-search__field').val(jrole);
+      $('.select2-search__field').trigger('keyup');
+       // $('.select2-dropdown').hide();
+    }
+});
+
 </script>
 @stop

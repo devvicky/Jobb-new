@@ -1,12 +1,12 @@
 @extends('master')
 @section('content')
-    <div class="row" style="margin:0;">
-        <div class="col-md-8" style="text-align: center;margin: 5px 0 -15px 0;">
-            <h4 class="uppercase btn-success singlepost-title">
-                <label class="">{{$post->post_type}} Detail</label> ({{$post->unique_id}})
-            </h4>
-        </div>
+<div class="row" style="margin:0;">
+    <div class="col-md-8" style="text-align: center;margin: 5px 0 -15px 0;">
+        <h4 class="uppercase btn-success singlepost-title">
+            <label class="">{{$post->post_type}} Detail</label> ({{$post->unique_id}})
+        </h4>
     </div>
+</div>
 <?php $var = 1; ?>
 <div class="portlet light bordered" 
  style="border: none !important; background:transparent; margin: 20px 0px;">                                     

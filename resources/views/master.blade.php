@@ -85,6 +85,7 @@
 <link href="/assets/admin/pages/css/profile-old.css" rel="stylesheet" type="text/css"/>
 <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/assets/component-btn.css"/>
 @yield('css')
 
 <style type="css/text" rel="stylesheet">
@@ -618,7 +619,7 @@ function fileSelectHandler() {
     }
 
     // check for file size
-    if (oFile.size > 1250 * 1024) {
+    if (oFile.size > 1950 * 1224) {
         $('.error').html('You have selected too big file, please select a one smaller image file').show();
         return;
     }

@@ -55,3 +55,9 @@ CREATE TABLE `contact_us` (
 )
 ENGINE=InnoDB
 ;
+
+
+
+ALTER TABLE `indusers`
+	ADD COLUMN `fb_page` VARCHAR(255) NULL DEFAULT NULL AFTER `avatar`,
+	ADD COLUMN `in_page` VARCHAR(255) NULL DEFAULT NULL AFTER `fb_page`;

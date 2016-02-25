@@ -77,21 +77,15 @@
 										@endif					 							
 									</span>
 
-																	<?php 
+										<?php 
 										$strNew = $post->post_duration;
-										if($post->post_extended == null)
-										{
-											$strExt = 0;
-										}else{
-											$strExt = $post->post_extended;
-										}
-                                        $strAdd = $strNew + $strExt;
+                                        $strAdd = $strNew;
                                         $strAdd = '+'.$strAdd.' day';
 								 		$strOld = $post->created_at;
 								 		$fresh = $strOld->modify($strAdd);
 
-								 		$currentDate = new \DateTime();
-								 		$expiryDate = new \DateTime($fresh);
+								 		$currentDate = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'));
+								 		$expiryDate = new \Carbon\Carbon($fresh, 'Asia/Kolkata');
 								 		$difference = $currentDate->diff($expiryDate);
 								 		$remainingDays = $difference->format('%d');
 								 		$remainingHours = $difference->format('%h');
@@ -1463,6 +1457,7 @@
     	<form action="{{ url('/job/extended') }}" class="horizontal-form" method="post">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<input type="hidden" name="post_id" value="{{ $post->id }}">
+			<input type="hidden" name="post_duration" value="{{ $post->post_duration }}">
 		     <div class="modal-header">
 		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 		        <h4 class="modal-title">Extend Post Validity</h4>
@@ -1483,7 +1478,7 @@
 							<span class="input-group-addon">
 							<i class="icon-clock" style=" color: darkcyan;"></i>
 							</span>
-							<select name="post_duration" class="form-control" >						
+							<select name="post_duration_extend" class="form-control" >						
 								<option value="3">3 Days</option>
 								<option value="7">7 Days</option>
 								<option value="15">15 Days</option>
@@ -1517,7 +1512,7 @@
 						<div class="col-md-9">												
 							<div class="updates-style" style="background-color:white;" data-postid="{{$myActivity->post_id}}">{{$myActivity->time}}: {{$myActivity->identifier}} for {{$myActivity->post_title}}, {{$myActivity->post_compname}} 
 							<br>Post ID: {{$myActivity->unique_id}}  
-							<a class="myactivity-post" data-toggle="modal" href="#myactivity-post">See the full Post </a>
+							<a class="myactivity-post taggedpost" data-toggle="modal" href="#myactivity-post">See the full Post </a>
 							</div>				
 						</div>	
 						@endforeach		
@@ -1754,7 +1749,7 @@ $('.myactivity-post').on('click',function(event){
 	});
 
     $.ajax({
-      url: "/myactivity/post",
+      url: "/myactivity/postdetail",
       type: "post",
       data: {post_id: post_id},
       cache : false,

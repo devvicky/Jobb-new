@@ -190,6 +190,13 @@ License: You must have a valid license purchased only from themeforest(the above
 						<span class="title">Admin Update</span>
 					</a>
 				</li>
+				<li class="tooltips" data-container="body" data-placement="right" data-html="true" 
+					data-original-title="Report Abuse">
+					<a href="/controluser">
+						<i class="fa fa-warning"></i>
+						<span class="title">Admin Controller</span>
+					</a>
+				</li>
 				@if (Auth::guest())
 				@else
 				 <li>

@@ -330,43 +330,47 @@
 					</li>
 					@endif
 					@if($utype == 'ind')
-					<li>
-						<i class="fa fa-linkedin"></i>
-						<a href="">@keenthemes</a>
-					</li>
-					<li>
-						<i class="fa fa-facebook"></i>
-						<a href="">keenthemes</a>
-					</li>
+						@if($user->in_page != null)
+							<li>
+								<i class="fa fa-linkedin"></i>
+								<a href="{{$user->in_page}}">{{$user->in_page}}</a>
+							</li>
+						@endif
+						@if($user->fb_page != null)
+							<li>
+								<i class="fa fa-facebook"></i>
+								<a href="{{$user->fb_page}}">{{$user->fb_page}}</a>
+							</li>
+						@endif
 					@endif
 				</ul>
 				@if($utype == 'ind')
 				<ul class="list-inline">
-					@if(Auth::user()->induser_id == $user->id)
+					@if(Auth::user()->induser_id == $user->id && $user->dob != null)
 					<li>
 						<i class="fa fa-calendar"></i> {{$user->dob}}
 					</li>
-					@elseif($connectionStatus == 'friend' && Auth::user()->induser_id != $user->id && $user->dob_show == 'Everyone' || $user->dob_show == 'Links')
+					@elseif($connectionStatus == 'friend' && $user->dob != null && Auth::user()->induser_id != $user->id && $user->dob_show == 'Everyone' || $user->dob_show == 'Links')
 					<li>
 						<i class="fa fa-calendar"></i> {{$user->dob}}
 					</li>
-					@elseif($user->dob_show == 'Everyone')
+					@elseif($user->dob_show == 'Everyone' && $user->dob != null)
 					<li>
 						<i class="fa fa-calendar"></i> {{$user->dob}}
 					</li>
-					@elseif(Auth::user()->induser_id != $user->id && $user->dob_show == 'None')
+					@elseif(Auth::user()->induser_id != $user->id && $user->dob_show == 'None' && $user->dob != null)
 					
 					@endif
-					@if($user->gender == 'Female')
+					@if($user->gender == 'Female' && $user->gender != null)
 					<li>
 						<i class="fa fa-female"></i> {{$user->gender}}
 					</li>
-					@else($user->gender == 'Male')
+					@else($user->gender == 'Male' && $user->gender != null)
 					<li>
 						<i class="fa fa-male"></i> {{$user->gender}}
 					</li>
 					@endif
-					@if($user->education != null)
+					@if($user->education != null && $user->education != null)
 					<li class="capitalize">
 						<i class="fa fa-graduation-cap"></i> {{$user->education}} in {{$user->branch}}
 					</li>
@@ -798,26 +802,7 @@
 							</div>
 						</div>
 					@endif
-					@if($connectionStatus == 'friend' && Auth::user()->induser_id != $user->id && $user->email_show == 'Everyone' || $user->dob_show == 'Links')
-					<!-- <div class="col-md-12 col-sm-12 col-xs-12"> -->
-						<div class="form-group">
-							<label class="control-label col-md-2 col-sm-2 col-xs-2" style="font-size:13px;"><i class="fa fa-envelope-o"></i> </label>
-							<div class="col-md-10 col-sm-10 col-xs-10" >
-								<p class="form-control-static view-page">
-									{{ $user->email }} 
-									@if($user->email_verify == 0)
-									<a>
-										<i class="fa fa-exclamation-circle" 
-										style="color: #cb5a5e;"></i>
-									</a>
-									@elseif($user->email_verify == 1)
-										<i class="glyphicon glyphicon-ok-circle" style="color: #1EC71E;"></i>
-									@endif
-								</p>
-							</div>
-						</div>
-					<!-- </div> -->
-					@elseif(Auth::user()->induser_id != $user->id && $user->email_show == 'Everyone')
+					@if($connectionStatus == 'friend' && Auth::user()->induser_id != $user->id || $user->dob_show == 'Links')
 					<!-- <div class="col-md-12 col-sm-12 col-xs-12"> -->
 						<div class="form-group">
 							<label class="control-label col-md-2 col-sm-2 col-xs-2" style="font-size:13px;"><i class="fa fa-envelope-o"></i> </label>
@@ -839,7 +824,7 @@
 					@elseif(Auth::user()->induser_id != $user->id && $user->email_show == 'None')
 					@endif
 					<!--/span-->
-					@if($connectionStatus == 'friend' && Auth::user()->induser_id != $user->id && $user->mobile_show == 'Everyone' || $user->dob_show == 'Links')
+					@if($connectionStatus == 'friend' && Auth::user()->induser_id != $user->id || $user->dob_show == 'Links')
 					<!-- <div class="col-md-12 col-sm-12 col-xs-12"> -->
 						<div class="form-group">
 							<label class="control-label col-md-2 col-sm-2 col-xs-2"><i class="icon-call-end"></i> </label>
@@ -857,26 +842,6 @@
 								</p>
 							</div>
 						</div>
-					<!-- </div> -->
-					@elseif(Auth::user()->induser_id != $user->id && $user->mobile_show == 'Everyone')
-					<!-- <div class="col-md-12 col-sm-12 col-xs-12"> -->
-						<div class="form-group">
-							<label class="control-label col-md-2 col-sm-2 col-xs-2"><i class="icon-call-end"></i> </label>
-							<div class="col-md-10 col-sm-10 col-xs-10" >
-								<p class="form-control-static view-page">
-									{{ $user->mobile }} 
-									@if($user->mobile_verify == 0)
-									<a>
-										<i class="fa fa-exclamation-circle" 
-										style="color: #cb5a5e;font-size: 16px;"></i>
-									</a>
-									@elseif($user->mobile_verify == 1)
-										<i class="glyphicon glyphicon-ok-circle" style="color: #1EC71E;font-size: 16px;"></i>
-									@endif
-								</p>
-							</div>
-						</div>
-					<!-- </div> -->
 					@elseif(Auth::user()->induser_id != $user->id && $user->mobile_show == 'None')
 	
 					@endif
@@ -1046,19 +1011,100 @@
 @endif
 
 @if(Auth::user()->induser_id == $user->id)
-<div class="row" style="margin:15px;">
-	<div class="col-md-7 usertagged-title">Link Tagged and Shared List</div>
-	<div class="col-md-7" style="border:1px solid lightblue;">
-		@foreach($taggedPosts as $tp)
-		<div class="row usertagged-css">
-			<div class="col-md-12">
-				{{$tp->fname}} has {{$tp->mode}} the postid - {{$tp->unique_id}}
+@if(count($taggedPosts) > 0 || count($taggedGroupPosts) > 0)
+<div class="row" style="margin:0;">
+    <div class="col-md-9" style="text-align: center;border-bottom: 2px solid darkslateblue;margin: 0px 0 10px 0;">
+        <h4 class="uppercase">
+            <label class="">Tagged Post </label>
+        </h4>
+    </div>
+</div>
+<div class="portlet box blue col-md-9" style="margin-top:0;border:0;background: whitesmoke;">
+	<div class="portlet-title portlet-title-home" style="float:none;margin:0 auto; display:table;background: whitesmoke;padding: 0;">
+		<ul class="nav nav-tabs" style="padding:0;">
+			<li class="active home-tab-width-job" >
+				<a href="#link" data-toggle="tab" class="job-skill-tab">
+					Link Post
+					@if(count($taggedPosts) > 0)
+					<span class="badge" style="background-color: deepskyblue;">
+						{{count($taggedPosts)}} 
+					</span>
+					@endif
+				</a>
+			</li>
+			<li class="home-tab-width-skill">
+				<a href="#group" data-toggle="tab" class="job-skill-tab">
+					Group Post
+					@if(count($taggedGroupPosts) > 0)
+					<span class="badge" style="background-color: lightcoral;"> 
+						{{count($taggedGroupPosts)}} 
+					</span>
+					@endif
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="portlet-body" style="background-color:whitesmoke;">
+		<div class="tab-content">
+			<div class="tab-pane active" id="link">
+				@foreach($taggedPosts as $tp)
+				<div class="row" style="margin:0;">												
+					<div class="updates-style" style="background-color:white;">
+						{{$tp->created_at}} -
+						@if($tp->post_type == 'job') 
+							{{$tp->fname}} has {{$tp->mode}} a 
+							{{$tp->post_type}}  opening to you. 
+						@elseif($tp->post_type == 'skill')
+							{{$tp->fname}} has promoted a {{$tp->post_type}} with you.
+						@endif  
+						<br/>Post Title : {{$tp->post_title}}
+						<br/>Skills : {{$tp->linked_skill}} @if($tp->post_compname != null) at {{$tp->post_compname}} @endif
+						<br/>Post ID:  {{$tp->unique_id}}.  
+
+						@if($tp->post_type == 'job') 
+						<a href="/taggedjob/link/post/{{$tp->unique_id}}" target="_blank" class="taggedpost">
+							See the full Post 
+						</a>
+						@elseif($tp->post_type == 'skill')
+						<a href="/taggedskill/link/post/{{$tp->unique_id}}" target="_blank" class="taggedpost">
+							See the full Post 
+						</a>
+						@endif
+					</div>				
+				</div>
+				@endforeach
+			</div>
+			<div class="tab-pane " id="group">
+				@foreach($taggedGroupPosts as $tp)
+				<div class="row" style="margin:0;">												
+					<div class="updates-style" style="background-color:white;">
+						{{$tp->created_at}} -
+						@if($tp->post_type == 'job') 
+							{{$tp->fname}} has {{$tp->mode}} a 
+							{{$tp->post_type}}  opening to you. 
+						@elseif($tp->post_type == 'skill')
+							{{$tp->fname}} has promoted a {{$tp->post_type}} with you.
+						@endif 
+						<br/>Post Title : {{$tp->post_title}}
+						<br/>Skills : {{$tp->linked_skill}} @if($tp->post_compname != null) at {{$tp->post_compname}} @endif
+						<br>Post ID:  {{$tp->unique_id}}. 
+						@if($tp->post_type == 'job') 
+						<a href="/taggedjob/group/post/{{$tp->unique_id}}" target="_blank" class="taggedpost">
+							See the full Post 
+						</a>
+						@elseif($tp->post_type == 'skill')
+						<a href="/taggedskill/group/post/{{$tp->unique_id}}" target="_blank" class="taggedpost">
+							See the full Post 
+						</a>
+						@endif
+					</div>				
+				</div>	
+				@endforeach	
 			</div>
 		</div>
-		@endforeach
-		<!-- Salim has shared the post id J328493 @datetime -->
 	</div>
 </div>
+@endif
 @endif
 @stop
 

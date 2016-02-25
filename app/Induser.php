@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class Induser extends Model {
 
 	protected $fillable = ['fname', 'lname', 'email', 'mobile', 'mobile_otp', 'email_vcode'];
+	protected $appends = ['job_role'];
 
 	public function user(){
 		return $this->hasOne('app\user', 'induser_id', 'id');
@@ -49,6 +50,33 @@ class Induser extends Model {
 
     public function posts(){
         return $this->hasMany('App\Postjob', 'individual_id', 'id');
+    }
+
+    public function preferredLocation(){
+		return $this->belongsToMany('App\User', 'user_preferred_locations', 'user_id', 'id')->withTimestamps();
+	}
+
+	public function getJobRoleAttribute(){
+    	$role = $this->attributes['role'];
+    	if($role != null){
+    		try {
+    			$roleDetail = Industry_functional_area_role_mapping
+							::where('industry_functional_area_role_mappings.id', '=', $role)
+							->leftjoin('roles', 'industry_functional_area_role_mappings.role', '=', 'roles.id')
+							->leftjoin('industry_functional_area_mappings', 'industry_functional_area_role_mappings.industry_functional_area', '=', 'industry_functional_area_mappings.id')
+							->leftJoin('industries', 'industry_functional_area_mappings.industry', '=', 'industries.id')
+							->leftJoin('functional_areas', 'industry_functional_area_mappings.functional_area', '=', 'functional_areas.id')
+							->get(['industries.name as industry', 'functional_areas.name as functional_area', 'roles.name as role']);
+
+				return $roleDetail;
+    		} catch (Exception $e) {
+    			return null;
+    		}
+    		
+    	}else{
+    		return null;
+    	}
+    	
     }
 
 }

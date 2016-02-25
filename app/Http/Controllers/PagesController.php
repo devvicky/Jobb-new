@@ -411,6 +411,7 @@ class PagesController extends Controller {
 			}
 
 			$taggedPosts = $this->usersPost();
+			$taggedGroupPosts = $this->usersGroupPost();
 			
 		}elseif($utype == 'corp'){
 			$user = Corpuser::findOrFail($id);
@@ -432,7 +433,7 @@ class PagesController extends Controller {
                 $connectionId = $followStatus->id;
             }
 		}	
-		return view('pages.profile_indview', compact('title','thanks','posts','linksCount','user','connectionStatus','utype','connectionId', 'followCount', 'linkSharePost', 'taggedPosts'));
+		return view('pages.profile_indview', compact('title','thanks','posts','linksCount','user','connectionStatus','utype','connectionId', 'followCount', 'linkSharePost', 'taggedPosts', 'taggedGroupPosts'));
 	}
 
 	public function follow($id){
@@ -1022,7 +1023,7 @@ public function homeskillFilter(){
 		if (Auth::check()) {		
 			$post = Postjob::with('indUser', 'corpUser', 'postActivity')->where('id', '=', Input::get('postid'))->first();
 			
-			return view('pages.postDetails', compact('post'));
+			return view('pages.mypost_details', compact('post'));
 			// return $post;
 		}else{
 			return redirect('login');
@@ -1498,13 +1499,13 @@ public function homeskillFilter(){
 				$skills = Skills::lists('name', 'id');
 				$sort_by_skill = " ";
 				if($sort_by == 'date' && $post_type == 'job'){
-					$jobPosts = Postjob::orderBy('created_at', 'asc')
+					$jobPosts = Postjob::orderBy('created_at', 'desc')
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 								   ->where('post_type', '=', 'job')
 								   ->where('individual_id', '!=', Auth::user()->induser_id)
 								   ->paginate(15);
 				}elseif($sort_by == 'magic-match' && $post_type == 'job'){
-					$jobPosts = Postjob::orderBy('created_at', 'asc')
+					$jobPosts = Postjob::orderBy('created_at', 'desc')
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 								   ->where('post_type', '=', 'job')
 								   ->where('individual_id', '!=', Auth::user()->induser_id)
@@ -1899,13 +1900,13 @@ public function homeskillFilter(){
 				$jobPosts = Postjob::orderBy('id', 'desc')							
 							->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 							->where('post_type', '=', 'job')
-							->where('individual_id', '!=', Auth::user()->induser_id)
+							// ->where('individual_id', '!=', Auth::user()->induser_id)
 							->whereRaw('id in (select post_id from post_group_taggings where group_id ='.$id.')')
 							->paginate(15);
 				$skillPosts = Postjob::orderBy('id', 'desc')							
 							->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 							->where('post_type', '=', 'skill')
-							->where('individual_id', '!=', Auth::user()->induser_id)
+							// ->where('individual_id', '!=', Auth::user()->induser_id)
 							->whereRaw('id in (select post_id from post_group_taggings where group_id ='.$id.')')
 							->paginate(15);
 
@@ -2010,21 +2011,24 @@ public function homeskillFilter(){
 		}	
 	}
 
-	public function usersPost(){
-		$posts = DB::select('select p.unique_id, p.id, gu.user_id, pgt.group_id as poe, pgt.tag_share_by, indg.fname, pgt.mode
+	public function usersGroupPost(){
+		$groupPosts = DB::select('select p.unique_id, p.id, p.post_title, p.linked_skill, p.post_compname, p.post_type, gu.user_id, pgt.group_id as poe, pgt.tag_share_by, indg.fname, pgt.mode, pgt.created_at
 								from postjobs p
 								LEFT JOIN post_group_taggings pgt on pgt.post_id = p.id
 								left join groups_users gu on gu.group_id = pgt.group_id
 								left join indusers ind on ind.id = gu.user_id 
 								left join indusers indg on indg.id = pgt.tag_share_by
-								where ind.id = ?
-								union
-								select p.unique_id, put.post_id, ind.id, put.user_id as poe, put.tag_share_by, inds.fname, put.mode
-								from postjobs p
-								left join post_user_taggings put on put.post_id = p.id 
-								left join indusers ind on ind.id = put.user_id
-								left join indusers inds on inds.id = put.tag_share_by
-								where ind.id = ?', [Auth::user()->induser_id, Auth::user()->induser_id]);
+								where ind.id = ?', [Auth::user()->induser_id]);
+		return $groupPosts;
+	}
+
+	public function usersPost(){
+		$posts = DB::select('select p.unique_id, p.post_title, p.linked_skill, p.post_compname, p.post_type, put.post_id, ind.id, put.user_id as poe, put.tag_share_by, inds.fname, put.mode, put.created_at
+							from postjobs p
+							left join post_user_taggings put on put.post_id = p.id 
+							left join indusers ind on ind.id = put.user_id
+							left join indusers inds on inds.id = put.tag_share_by
+							where ind.id = ?', [Auth::user()->induser_id]);
 		return $posts;
 	}
 

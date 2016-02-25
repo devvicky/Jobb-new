@@ -47,14 +47,19 @@ Route::group(array('middleware' => 'auth'), function(){
 
 	Route::get('master', 'PagesController@master');
 	Route::get('mypost', 'PagesController@myPost');
-	Route::post('myactivity/post', 'PagesController@post');
+	Route::post('myactivity/postdetail', 'PagesController@post');
 	Route::post('/matching_criteria', 'PagesController@matching');
 	Route::post('viewcontact/view', 'PagesController@viewContact');
 	Route::post('postdetail/detail', 'PagesController@postDetail');
 	Route::post('magicmatch/detail', 'PagesController@magicMatch');
 
-	Route::get('jobpost/{id}', 'PagesController@singleJobPost');
-	Route::get('skillpost/{id}', 'PagesController@singleSkillPost');
+	Route::get('job/post/{id}', 'PagesController@singleJobPost');
+	Route::get('skill/post/{id}', 'PagesController@singleSkillPost');
+
+	Route::get('taggedjob/link/post/{id}', 'PagesController@singleJobPost');
+	Route::get('taggedskill/link/post/{id}', 'PagesController@singleSkillPost');
+	Route::get('taggedjob/group/post/{id}', 'PagesController@singleJobPost');
+	Route::get('taggedskill/group/post/{id}', 'PagesController@singleSkillPost');
 
 	Route::get('individual', 'UserController@index');
 	Route::get('individual/create', 'UserController@create');
@@ -189,7 +194,10 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::post('admin/industryfunctionalArea/upload', 'AdminController@updateIndustryfunctional');
 	Route::post('admin/indfunctionalRole/upload', 'AdminController@updateIndfunctionalRole');
 
+	Route::post('admin/corporate/control', 'AdminController@adminControlUpdate');
+
 	Route::get('dataUpdate', 'AdminController@create');
+	Route::get('controluser', 'AdminController@controlUser');
 
 	Route::post('roles/addroles', 'AdminController@addNewRoles');
 	Route::get('roles/rolesSearch', 'AdminController@roleSearch');

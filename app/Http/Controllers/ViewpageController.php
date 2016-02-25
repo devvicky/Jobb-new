@@ -12,20 +12,11 @@ use App\Corpuser;
 use App\Postactivity;
 use App\Connections;
 use App\User;
+use DB;
+use App\FunctionalAreas;
+use App\Industry;
 
 class ViewpageController extends Controller {
-
-	// public function __construct()
-	// {
-	//     $this->beforeFilter(function() {
-	//     	if(Auth::check()){
-	//         	return redirect('/home');
-	//         } else{
-	//         	return redirect('login');
-	//         }
-	//     });
-	// }
-
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -122,12 +113,18 @@ class ViewpageController extends Controller {
 			$title = 'indprofile_edit';
 			$user = Induser::where('id', '=', Auth::user()->induser_id)->first();
 			$skills = Skills::lists('name', 'name');
-			return view('pages.professional_page', compact('user', 'title', 'skills'));
+			$roles = DB::select(DB::raw('select id, name from roles'));
+			$functionalAreas = FunctionalAreas::lists('name', 'id');
+			$industry = Industry::lists('name','id');
+			return view('pages.professional_page', compact('user', 'title', 'skills', 'roles', 'functionalAreas', 'industry'));
 		}else if(Auth::user()->identifier == 2){
 			$title = 'corpprofile_edit';
 			$user = Corpuser::where('id', '=', Auth::user()->corpuser_id)->first();
 			$skills = Skills::lists('name', 'name');
-			return view('pages.firm_details', compact('user', 'title', 'skills'));
+			$skills = Skills::lists('name', 'name');
+			$roles = DB::select(DB::raw('select id, name from roles'));
+			$functionalAreas = FunctionalAreas::lists('name', 'id');
+			return view('pages.firm_details', compact('user', 'title', 'skills', 'roles', 'functionalAreas', 'industry'));
 		}
 	}
 

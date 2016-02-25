@@ -212,6 +212,7 @@ class UserController extends Controller {
 
 				}			
 				$data->resume = $fileName;
+				$data->resume_dtTime  = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'));
 			}
 			$data->education = Input::get('education');
 			$data->branch = Input::get('branch');
@@ -220,7 +221,9 @@ class UserController extends Controller {
 			$data->role = Input::get('role');
 			$data->working_at = Input::get('working_at');
 			$data->working_status = Input::get('working_status');
-			$data->linked_skill = implode(', ', Input::get('linked_skill_id'));
+			if(Input::get('linked_skill_id') != null){
+				$data->linked_skill = implode(', ', Input::get('linked_skill_id'));
+			}
 			$data->about_individual = Input::get('about_individual');
 			$data->save();
 			return redirect('/individual/edit#preference');
@@ -250,8 +253,20 @@ class UserController extends Controller {
 			
 			$data->prefered_location = implode(', ', Input::get('prefered_location'));
 			$data->prefered_jobtype = Input::get('prefered_jobtype');
-			// $data->p_locality = implode(', ', Input::get('preferred_locality'));
+			$pref_locations = Input::get('prefered_location');
 			$data->save();
+			
+			if (!empty($pref_locations)) {
+				foreach ($pref_locations as $loc) {
+		        	$tempArr = explode('-', $loc);
+		        	if(count($tempArr) == 3){
+		        		$data->preferredLocation()->attach( $loc, array('locality' => $tempArr[0], 'city' => $tempArr[1], 'state' => $tempArr[2]) );
+		        	}
+		        	if(count($tempArr) == 2){
+		        		$data->preferredLocation()->attach( $loc, array('locality' => 'none', 'city' => $tempArr[0], 'state' => $tempArr[1]) );
+		        	}
+		        }
+		    }
 			return redirect('/individual/edit#privacy');
 		}else{
 			return 'some error occured.';
@@ -280,6 +295,8 @@ class UserController extends Controller {
 			$data->c_locality = Input::get('c_locality');
 			$data->email = Input::get('email');
 			$data->mobile = Input::get('mobile');
+			$data->in_page = Input::get('in_page');
+			$data->fb_page = Input::get('fb_page');
 			$data->save();
 			// $message = 'Personal Tab successfully Updated'
 			return redirect('/individual/edit#professional');
