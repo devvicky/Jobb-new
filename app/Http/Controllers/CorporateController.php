@@ -66,6 +66,10 @@ class CorporateController extends Controller {
 				$user->email = $request['firm_email_id'];
 				$user->password = bcrypt($request['firm_password']);
 				$user->identifier = 2;
+				if($request['firm_email_id'] != null){
+					// $vcode = 'C'.rand(1111,9999);
+					$user->email_vcode = $vcode;
+				}
 
 				$corpUser->user()->save($user);
 			}catch(\Exception $e)

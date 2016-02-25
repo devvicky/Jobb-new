@@ -202,10 +202,6 @@ $('#corporate-login-btn').on('click',function(event){
 	            });
 	        }
 	        else{
-	            $('#corp-msg-box').removeClass('alert alert-danger');
-	            $('#corp-msg-box').addClass('alert alert-success').fadeIn(1000, function(){
-	                $(this).show();
-	            });
 	            redirect(data.data.page);
 	        }
 	      },
@@ -337,17 +333,22 @@ $('#corporate-register-btn').on('click',function(event){
 	      cache : false,
 	      success: function(data){
 	        loader('hide');
-	        if(data.data.page == 'login'){
+	        if(data.data.page == 'login' && data.data.vcode != null){
 	            $('#corp-msg-reg-box').removeClass('alert alert-danger');
 	            $('#corp-reg-form-errors').hide();
-	            $('#corp-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
+	           
+	        	$('.corporate-register-tab').hide();
+	            $('#mobile-otp-form').show();
+	        	$('#ind-reg-msg').html('Registration successful ! <br/>Check your email for further instruction.');  
+	        	// console.log('email');
+
+	        	$('#ind-msg-reg-box').removeClass('alert alert-danger');
+	            $('#ind-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
 	                $(this).show();
 	            });
+		        
 	            $('#corporate-register')[0].reset();
 	            $('#t-n-c').attr('checked', false); // Unchecks it
-	            // $('#corporate-register').hide();
-	            // $('#corporate-login').show();
-	            $('#corp-reg-msg').html('Registration successful ! <br/>Check your Email for further instruction.');  
 	        }else{
 	            $('#corp-msg-reg-box').removeClass('alert alert-success');
 	            $('#corp-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){

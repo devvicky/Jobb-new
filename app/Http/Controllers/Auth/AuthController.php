@@ -44,6 +44,7 @@ class AuthController extends Controller {
 
 	public function postLogin(Request $request)
 	{
+		$type = $request->input('type');
 		$field = filter_var($request->input('email'), FILTER_VALIDATE_EMAIL) ? 'email' : 'mobile';
     	$request->merge([$field => $request->input('email')]);
 
@@ -51,7 +52,11 @@ class AuthController extends Controller {
     	$data = [];
 		if($field == 'email'){
     		$data['email_verify'] = 0;
-	    	$email_verify = User::where('email', '=', $request->input('email'))->pluck('email_verify');
+	    	$email_verify = User::where('email', '=', $request->input('email'))
+	    						->where('identifier', '=', $type)
+	    						->orWhere('email', '=', $request->input('email'))
+	    						->where('identifier', '=', 3)
+	    						->pluck('email_verify');
 	    	if($email_verify == '1'){
 	    		$credentials = array_add($credentials, 'email_verify', '1');
 	    		$data['page'] = 'home';
@@ -107,7 +112,11 @@ class AuthController extends Controller {
 	    }
 	    if($field == 'mobile'){
     		$data['mobile_verify'] = 0;
-	    	$mobile_verify = User::where('mobile', '=', $request->input('email'))->pluck('mobile_verify');
+	    	$mobile_verify = User::where('mobile', '=', $request->input('email'))
+	    						 ->where('identifier', '=', $type)
+	    						 ->orWhere('mobile', '=', $request->input('email'))
+	    						 ->where('identifier', '=', 3)
+	    						 ->pluck('mobile_verify');
 	    	if($mobile_verify == '1'){
 	    		$credentials = array_add($credentials, 'mobile_verify', '1');
 	    		$data['page'] = 'home';
@@ -176,8 +185,12 @@ class AuthController extends Controller {
 			    	$data['user'] = 'invalid';
 	    			$data['message'] = 'invalid login info';
 			    }
-			}
-		    // return $this->loginPath();
+			}else{
+		    	$data['page'] = 'login';
+		    	$data['user'] = 'invalid';
+    			$data['message'] = 'invalid login info';
+		    }
+
 		    return response()->json(['success'=>false,'data'=>$data]);
 		}
 		/*else{

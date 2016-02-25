@@ -1,6 +1,7 @@
 <!-- BEGIN INDIVIDUAL LOGIN FORM -->
 <form class="login-form"  action="{{ url('/auth/login') }}" method="post" id="individual-login">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
+	<input type="hidden" name="type" value="1">
 	@if ( Session::has('flash_message') ) 
 	  <div class="alert {{ Session::get('flash_type') }}">
 	      <ul><li>{{ Session::get('flash_message') }}</li></ul>

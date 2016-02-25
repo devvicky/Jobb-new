@@ -1,6 +1,7 @@
 <!-- BEGIN CORPORATE LOGIN FORM -->
 <form class="login-form-corp"  action="{{ url('/auth/login') }}" method="post" id="corporate-login">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
+	<input type="hidden" name="type" value="2">
 	<div class="form-body">
 		
 		@if (count($errors) > 0)
@@ -13,11 +14,11 @@
 			</div>
 		@endif
 
-		<!-- 
+		 
 		<div id="corp-msg-box" style="display:none">
 			<div id="corp-msg"></div>
 		</div> 
-		-->	
+			
 
 		<div class="form-group">
 			<div class="input-group margin-top-10 form-group-login-new ">
