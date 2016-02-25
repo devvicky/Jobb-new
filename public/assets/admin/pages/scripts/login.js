@@ -276,6 +276,7 @@ var Login = function() {
                     minlength: 6
                 },
                 password_confirmation: {
+                    required: true,
                     equalTo: "#register_password"
                 },
                 tnc: {
@@ -380,6 +381,7 @@ var Login = function() {
                     minlength: 6
                 },
                 firm_password_confirmation: {
+                    required: true,
                     equalTo: "#com_reg_password"
                 },
                 firm_type: {

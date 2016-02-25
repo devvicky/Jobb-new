@@ -23,7 +23,7 @@
 			</li>
 			<li>
 				<a data-toggle="tab" href="#privacy">
-				<i class="fa fa-eye"></i> Privacity Settings </a>
+				<i class="fa fa-eye"></i> Privacy Settings </a>
 			</li>
 		</ul>
 	</div>
@@ -35,7 +35,8 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class="control-label">First Name</label>
+									<label class="control-label">First Name<span class="required">
+											* </span></label>
 									<!-- <div class="input-group">
 										<span class="input-group-addon">
 											<i class="glyphicon glyphicon-font"></i>
@@ -48,7 +49,8 @@
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class="control-label">Last Name</label>
+									<label class="control-label">Last Name<span class="required">
+											* </span></label>
 									<!-- <div class="input-group">
 										<span class="input-group-addon">
 											<i class="glyphicon glyphicon-font"></i>
@@ -71,12 +73,14 @@
 										</span>
 										<input class="form-control date-picker" name="dob" size="16" type="text" value="{{ $user->dob }}"/>
 									</div>
+									<!-- <label>Check the privacy setting for showing Date of Birth</label> -->
 								</div>
 							</div>
 							<!--/span-->
 							<div class="col-md-6">
 								<div class="form-group">
-									<label>Gender</label>
+									<label>Gender<span class="required">
+											* </span></label>
 									<div class="input-group">
 											<div class="md-radio-inline">
 												<div class="md-radio">
@@ -125,8 +129,7 @@
 						<div class="row">
 							<div class="col-md-6 col-sm-6">
 								<div class="form-group">
-									<label>City <span class="required">
-											* </span></label>									
+									<label>City</label>									
 									<div class="input-group">
 										<span class="input-group-addon">
 											<i class="fa fa-map-marker"></i>

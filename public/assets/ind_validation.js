@@ -124,6 +124,12 @@ $(document).ready(function () {
             },
             lname : {
                 required : true
+            },
+            dob: {
+                required: true
+            },
+            gender: {
+                required: true
             }
         },
         messages: {
@@ -131,9 +137,15 @@ $(document).ready(function () {
                 required: "Enter First Name",
                 minlength: "Enter minimum 3 character"
             },
-           lname: {
+            lname: {
                 required: "Enter Last Name"
-            } 
+            },
+            dob: {
+                required: "Enter Date of Birth"
+            },
+            gender: {
+                required: "Select any one"
+            }
         },
             invalidHandler: function (event, validator) { //display error alert on form submit   
             success.hide();

@@ -11,10 +11,10 @@
 	<div class="portlet-body form">
 		
 		<div class="form-body" style="padding:0;">
-			<div class="normal_search">
+			<div class="normal_search hide-socialmedia">
 				<label style="font-size: 16px;text-align: center;width: 100%;">Invite Your Friends on JobTip & Share Job Information</label>
 			</div>
-			<div class="row">
+			<div class="row hide-socialmedia">
 				<div class="col-md-12 normal_search" style="margin-bottom:15px;">
 					<div class="portlet light col-md-12 clearfix" style="background-color: transparent;">
 						<div class="row social" style="margin: 5px auto;display: table;">
@@ -152,7 +152,7 @@
 		</div>	
 	</div>
 </div>
-<div class="portlet box green col-md-7 col-xs-12 col-sm-8">
+<div class="portlet box green col-md-7 col-xs-12 col-sm-8" style="margin: 10px;">
 	<div class="portlet-title" style="float:left;padding:0;">
 		
 		<ul class="nav nav-tabs" style="padding-left: 0px;">
@@ -185,7 +185,7 @@
 			
 			<div class="tab-content">
 				<div class="tab-pane active" id="tab_5_1">
-
+					@if(count(Auth::user()->induser->friends) != null)
 					@foreach(Auth::user()->induser->friends as $connection)
 						 @if($connection->pivot->status == 1)
 					<div class="row search-user-tool" style="margin:0;">					
@@ -256,8 +256,14 @@
 						 				    
 					</div>
 					@endif	
-					 @endforeach
-								
+					@endforeach
+					@else
+						<div class="row" style="margin: 0px -35px 0px -9px;">
+							<div class="col-md-12">
+								<i class="fa fa-frown-o" style="font-size: 16px !important;"></i> You have no Link
+							</div>
+						</div>
+					@endif			
 				</div>
 				<div class="tab-pane" id="tab_5_2">
 					@if($linkrequestCount > 0)

@@ -124,7 +124,8 @@ class Postjob extends Model {
     public function getJobRoleAttribute(){
     	$role = $this->attributes['role'];
     	if($role != null){
-    		$roleDetail = Industry_functional_area_role_mapping
+    		try {
+    			$roleDetail = Industry_functional_area_role_mapping
 							::where('industry_functional_area_role_mappings.id', '=', $role)
 							->leftjoin('roles', 'industry_functional_area_role_mappings.role', '=', 'roles.id')
 							->leftjoin('industry_functional_area_mappings', 'industry_functional_area_role_mappings.industry_functional_area', '=', 'industry_functional_area_mappings.id')
@@ -132,7 +133,11 @@ class Postjob extends Model {
 							->leftJoin('functional_areas', 'industry_functional_area_mappings.functional_area', '=', 'functional_areas.id')
 							->get(['industries.name as industry', 'functional_areas.name as functional_area', 'roles.name as role']);
 
-			return $roleDetail;
+				return $roleDetail;
+    		} catch (Exception $e) {
+    			return null;
+    		}
+    		
     	}else{
     		return null;
     	}

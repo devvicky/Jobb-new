@@ -194,6 +194,8 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::post('admin/industryfunctionalArea/upload', 'AdminController@updateIndustryfunctional');
 	Route::post('admin/indfunctionalRole/upload', 'AdminController@updateIndfunctionalRole');
 
+	Route::post('admin/corporate/control', 'AdminController@adminControlUpdate');
+
 	Route::get('dataUpdate', 'AdminController@create');
 	Route::get('controluser', 'AdminController@controlUser');
 

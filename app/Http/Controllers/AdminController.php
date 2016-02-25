@@ -18,6 +18,7 @@ use App\FunctionalAreas;
 use App\User;
 use App\Industry_functional_area_mappings;
 use App\Industry_functional_area_role_mapping;
+use App\Admin_control;
 
 class AdminController extends Controller {
 
@@ -151,8 +152,10 @@ class AdminController extends Controller {
 
 	public function updateIndustryfunctional(Request $request)
 	{
-		$fiUser = Industry::findOrFail($request['Industry']);
-		$fiUser->ifmapping()->attach($request['farea']);
+		$fiUser = new Industry_functional_area_mappings();
+		$fiUser->industry = $request['Industry'];
+		$fiUser->functional_area = $request['FunctionalAreas'];
+		$fiUser->save();
 		return redirect("/dataUpdate");
 	}
 
@@ -267,6 +270,32 @@ class AdminController extends Controller {
 							   ->get(['id', 'fname', 'lname', 'email']);
 		return view('pages.control_users', compact('title', 'controlCorp', 'controlInd'));
 		// return $controlInd;
+	}
+
+	public function adminControlUpdate(){
+		$controlCorp = Corpuser::with('user')
+							   ->get(['id', 'firm_name', 'firm_type', 'firm_email_id']);
+		$controlInd = Induser::with('user')
+							   ->get(['id', 'fname', 'lname', 'email']);
+		$controlUpdate= Admin_control::where('user_id', '=', Auth::user()->id)->first();
+		if($controlUpdate != null){
+			$controlUpdate->profile_id = Input::get('profile_id');
+			$controlUpdate->subscribe = Input::get('subscribe');
+			$controlUpdate->contact_view = Input::get('contact_view');
+			$controlUpdate->resume_view = Input::get('view_resume');
+			$controlUpdate->post_job = Input::get('post_job');
+			$controlUpdate->save();
+		}elseif($controlUpdate == null){
+			$controlUpdate= new Admin_control();
+			$controlUpdate->profile_id = Input::get('profile_id');
+			$controlUpdate->subscribe = Input::get('subscribe');
+			$controlUpdate->contact_view = Input::get('contact_view');
+			$controlUpdate->resume_view = Input::get('view_resume');
+			$controlUpdate->post_job = Input::get('post_job');
+			$controlUpdate->save();
+		}
+
+		return view('pages.control_users', compact('controlUpdate', 'controlCorp', 'controlInd'));
 	}
 
 }

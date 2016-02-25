@@ -42,6 +42,7 @@
 				 		style="width:50%;background-color:#C76B6B !important;box-shadow: 0px 1px 4px #2D2C2C;border-radius:2px;">Submit 
 				 		<i class="m-icon-swapright"></i>
 	            </button>
+	            <a href="/login" class="btn btn-info login">login</a>
 			</div>
 
 		</div>

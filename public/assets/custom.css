@@ -1591,7 +1591,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 }
 
 .welcome-signup-css{
-    margin: -10px 0;
+    margin: 10px 0;
     background-color: #45b6af !important;
     color: white !important;
     border: 0;
@@ -2018,4 +2018,12 @@ body{
 .taggedpost:hover{
     color: #5b9bd1 !important;
     text-decoration: none !important;
+}
+
+.login-tabopen{
+    display: none;
+}
+
+.hide-socialmedia{
+    display: none;
 }

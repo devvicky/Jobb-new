@@ -68,7 +68,9 @@
 				</thead>
 				<tbody>
 					@foreach($controlCorp as $cc)
-					<form>
+					<form action="/admin/corporate/control" method="post">
+						<input type="hidden" name="_token" value="{{ csrf_token() }}">
+						<input type="hidden" name="profile_id" value="{{$cc->id}}">
 						<tr class="odd gradeX">
 							<td>
 								<button type="submit" class="btn btn-success">

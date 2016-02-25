@@ -1050,6 +1050,7 @@
 @endif
 
 @if(Auth::user()->induser_id == $user->id)
+@if(count($taggedPosts) > 0 || count($taggedGroupPosts) > 0)
 <div class="row" style="margin:0;">
     <div class="col-md-9" style="text-align: center;border-bottom: 2px solid darkslateblue;margin: 0px 0 10px 0;">
         <h4 class="uppercase">
@@ -1142,6 +1143,7 @@
 		</div>
 	</div>
 </div>
+@endif
 @endif
 @stop
 
