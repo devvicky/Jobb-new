@@ -53,3 +53,9 @@ resources/views/pages/salim_prof_page.blade.php
 config/services.php
 vendor/autoload.php
 .env
+config/services.php
+config/services.php
+vendor/composer/LICENSE
+vendor/composer/autoload_psr4.php
+vendor/autoload.php
+.env_jt
