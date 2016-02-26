@@ -95,7 +95,7 @@
 							<span class="input-group-addon">
 								<i class="fa fa-users" style="color:darkcyan;"></i>
 							</span>
-							<input type="text" name="group_name" maxlength="20" class="form-control" placeholder="Enter Group name">
+							<input type="text" name="group_name" maxlength="30" class="form-control" placeholder="Enter Group name">
 						</div>
 					</div>	      		
 	     		</div>

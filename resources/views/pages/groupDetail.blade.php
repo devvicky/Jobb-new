@@ -90,9 +90,9 @@
 					<div class="form-group">
 						<div class="input-group">
 							<span class="input-group-addon">
-								<i class="icon-call-end" style="color:darkcyan;"></i>
+								<i class="fa fa-users" style="color:darkcyan;"></i>
 							</span>
-							<input type="text" name="group_name" class="form-control" placeholder="Enter New Group name">
+							<input type="text" maxlength="30" name="group_name" class="form-control" placeholder="Enter New Group name">
 						</div>
 					</div>	      		
 	     		</div>

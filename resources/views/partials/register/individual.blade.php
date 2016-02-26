@@ -78,7 +78,7 @@
 		<div class="input-icon right">
 			<i class="fa"></i>
 			
-				<input type="email" id="email_address" name="email" class="form-control group login-input-bg-color" 
+				<input type="email" id="email_address" name="email" class="send form-control group login-input-bg-color" 
 						placeholder="Email Id" value="{{ old('email') }}" />
 			</div>
 		</div>
@@ -91,7 +91,7 @@
 		<div class="input-icon right">
 			<i class="fa"></i>			
 			<input type="text" id="mobile_no" name="mobile" maxlength="10" 
-					class="form-control group login-input-bg-color" placeholder="Mobile No" 
+					class="form-control group login-input-bg-color send" placeholder="Mobile No" 
 					value="{{ old('mobile') }}"/>
 			</div>
 		</div>

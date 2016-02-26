@@ -530,7 +530,7 @@
 													<span class="input-group-addon">
 													<i class="icon-call-end" style="color:darkcyan;"></i>
 													</span>
-													<input type="text" name="phone" minlength="10" value="{{ Auth::user()->mobile }}"  class="form-control group" placeholder="">
+													<input type="text" name="phone" minlength="10" maxlength="10" value="{{ Auth::user()->mobile }}"  class="form-control group" placeholder="">
 													
 													</div>
 												</div>
