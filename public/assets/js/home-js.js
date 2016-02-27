@@ -631,3 +631,63 @@ $(function() {
             }
         });
 });
+
+// // user-link
+
+// $('.user-link').live('click', function(event) {
+//     event.preventDefault();
+//     var post_user_id = $(this).parent().data('puid');
+//     var post_user_linked = $(this).data('linked');
+//     var post_user_type = $(this).data('utype');
+
+//     // var formData = $('#post-apply-'+post_id).serialize(); 
+//     //  var formAction = $('#post-apply-'+post_id).attr('action');
+
+//     $.ajaxSetup({
+//         headers: {
+//             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//         }
+//     });
+
+//     $.ajax({
+//         url: "/follow-modal",
+//         type: "post",
+//         data: {
+//             puid: post_user_id,
+//             linked: post_user_linked,
+//             utype: post_user_type
+//         },
+//         cache: false,
+//         success: function(data) {
+//             $('#links-follow-content').html(data);
+//             $('#links-follow').modal('show');
+//         }
+//     });
+//     return false;
+// });
+
+// Linked-button
+
+$('.linked-btn').live('click', function(event) {
+    event.preventDefault();
+    var post_user_id = $(this).parent().data('puid');
+    var post_user_linked = $(this).data('linked');
+    var post_user_type = $(this).data('utype');
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        url: formAction,
+        type: "post",
+        data: formData,
+        cache: false,
+        success: function(data) {
+            
+        }
+    });
+    return false;
+});

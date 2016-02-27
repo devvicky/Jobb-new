@@ -762,13 +762,13 @@
 							<label class="control-label col-md-2 col-sm-2 col-xs-2" style="font-size:13px;"><i class="fa fa-envelope-o"></i></label>
 							<div class="col-md-10 col-sm-10 col-xs-10">
 								<p class="form-control-static view-page">
-									{{ $user->email }} 
-									@if($user->email_verify == 0)
+									{{ $users->email }} 
+									@if($users->email_verify == 0)
 									<a>
 										<i class="fa fa-exclamation-circle" 
 										style="color: #cb5a5e;"></i>
 									</a>
-									@elseif($user->email_verify == 1)
+									@elseif($users->email_verify == 1)
 										<i class="glyphicon glyphicon-ok-circle" style="color: #1EC71E;"></i>
 									@endif
 								</p>
@@ -778,13 +778,13 @@
 							<label class="control-label col-md-2 col-sm-2 col-xs-2"><i class="icon-call-end"></i> </label>
 							<div class="col-md-10 col-sm-10 col-xs-10" >
 								<p class="form-control-static view-page">
-									{{ $user->mobile }} 
-									@if($user->mobile_verify == 0)
+									{{ $users->mobile }} 
+									@if($users->mobile_verify == 0)
 									<a>
 										<i class="fa fa-exclamation-circle" 
 										style="color: #cb5a5e;font-size: 16px;"></i>
 									</a>
-									@elseif($user->mobile_verify == 1)
+									@elseif($users->mobile_verify == 1)
 										<i class="glyphicon glyphicon-ok-circle" style="color: #1EC71E;font-size: 16px;"></i>
 									@endif
 								</p>
@@ -802,19 +802,19 @@
 							</div>
 						</div>
 					@endif
-					@if($connectionStatus == 'friend' && Auth::user()->induser_id != $user->id || $user->dob_show == 'Links')
+					@if($connectionStatus == 'friend' && Auth::user()->induser_id != $user->id && $user->dob_show == 'Links')
 					<!-- <div class="col-md-12 col-sm-12 col-xs-12"> -->
 						<div class="form-group">
 							<label class="control-label col-md-2 col-sm-2 col-xs-2" style="font-size:13px;"><i class="fa fa-envelope-o"></i> </label>
 							<div class="col-md-10 col-sm-10 col-xs-10" >
 								<p class="form-control-static view-page">
-									{{ $user->email }} 
-									@if($user->email_verify == 0)
+									{{ $users->email }} 
+									@if($users->email_verify == 0)
 									<a>
 										<i class="fa fa-exclamation-circle" 
 										style="color: #cb5a5e;"></i>
 									</a>
-									@elseif($user->email_verify == 1)
+									@elseif($users->email_verify == 1)
 										<i class="glyphicon glyphicon-ok-circle" style="color: #1EC71E;"></i>
 									@endif
 								</p>
@@ -824,19 +824,19 @@
 					@elseif(Auth::user()->induser_id != $user->id && $user->email_show == 'None')
 					@endif
 					<!--/span-->
-					@if($connectionStatus == 'friend' && Auth::user()->induser_id != $user->id || $user->dob_show == 'Links')
+					@if($connectionStatus == 'friend' && Auth::user()->induser_id != $user->id && $user->dob_show == 'Links')
 					<!-- <div class="col-md-12 col-sm-12 col-xs-12"> -->
 						<div class="form-group">
 							<label class="control-label col-md-2 col-sm-2 col-xs-2"><i class="icon-call-end"></i> </label>
 							<div class="col-md-10 col-sm-10 col-xs-10">
 								<p class="form-control-static view-page">
-									{{ $user->mobile }} 
-									@if($user->mobile_verify == 0)
+									{{ $users->mobile }} 
+									@if($users->mobile_verify == 0)
 									<a>
 										<i class="fa fa-exclamation-circle" 
 										style="color: #cb5a5e;font-size: 16px;"></i>
 									</a>
-									@elseif($user->mobile_verify == 1)
+									@elseif($users->mobile_verify == 1)
 										<i class="glyphicon glyphicon-ok-circle" style="color: #1EC71E;font-size: 16px;"></i>
 									@endif
 								</p>

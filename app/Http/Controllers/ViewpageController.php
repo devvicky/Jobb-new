@@ -111,7 +111,7 @@ class ViewpageController extends Controller {
 	{
 		if(Auth::user()->identifier == 1){
 			$title = 'indprofile_edit';
-			$user = Induser::where('id', '=', Auth::user()->induser_id)->first();
+			$user = User::where('id', '=', Auth::user()->id)->with('induser')->first();
 			$skills = Skills::lists('name', 'name');
 			$roles = DB::select(DB::raw('select id, name from roles'));
 			$functionalAreas = FunctionalAreas::lists('name', 'id');
@@ -119,8 +119,7 @@ class ViewpageController extends Controller {
 			return view('pages.professional_page', compact('user', 'title', 'skills', 'roles', 'functionalAreas', 'industry'));
 		}else if(Auth::user()->identifier == 2){
 			$title = 'corpprofile_edit';
-			$user = Corpuser::where('id', '=', Auth::user()->corpuser_id)->first();
-			$skills = Skills::lists('name', 'name');
+			$user = User::where('id', '=', Auth::user()->id)->with('corpuser')->first();
 			$skills = Skills::lists('name', 'name');
 			$roles = DB::select(DB::raw('select id, name from roles'));
 			$functionalAreas = FunctionalAreas::lists('name', 'id');

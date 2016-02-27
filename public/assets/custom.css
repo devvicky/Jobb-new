@@ -1262,7 +1262,7 @@ button.btn.btn-default.btn-sm.dropdown-toggle.contact-view-css {
 
 .verified-css {
     padding: 2px 8px;
-    background-color: #18B9B9;
+    background-color: #1BD4D4;
     color: white;
     border-radius: 3px;
     font-weight: 500;
@@ -1270,9 +1270,9 @@ button.btn.btn-default.btn-sm.dropdown-toggle.contact-view-css {
 
 .not-verified-css {
     padding: 2px 8px;
-    background-color: #cb5a5e;
+    background-color: #D84247;
     color: white;
-    border-radius: 15px;
+    border-radius: 3px;
     font-weight: 500;
 }
 
@@ -1940,7 +1940,7 @@ text-shadow: 0 1px #484848;
         height: 60px;
         min-width: 80px;
          margin: 0px 0px 0 0; 
-        border: 1px solid #ddd;
+        border: 0px solid #ddd;
         padding: 12px 0px 0px 0px;
         background-color: #fafafa;
         background-image: none;
@@ -1976,7 +1976,7 @@ text-shadow: 0 1px #484848;
 .btn-filter {
     color: #333333;
     background-color: #E5E5E5;
-    border: 1px solid dimgrey;
+    border: 2px solid dimgrey;
 }
 
 

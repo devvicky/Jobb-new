@@ -16,7 +16,7 @@
 														'postTitle'		=>	$post->post_title,
 														'expMin'		=>	$post->min_exp,
 														'expMax'		=>	$post->max_exp,
-														'city'			=>	$post->city,
+														'city'			=>	$post->preferLocations->first()->city,
 														'company'		=>	$post->post_compname,
 														'magicMatch'	=>	$post->magic_match,
 														'userType'		=>	'ind',

@@ -43,7 +43,7 @@
 										</span> -->
 										<div class="input-icon right">
 													<i class="fa"></i>
-										<input type="text" name="fname" value="{{$user->fname}}" class="form-control" placeholder="First Name">
+										<input type="text" name="fname" value="{{$user->induser->fname}}" class="form-control" placeholder="First Name">
 									</div>
 								</div>
 							</div>
@@ -57,7 +57,7 @@
 										</span> -->
 										<div class="input-icon right">
 													<i class="fa"></i>
-										<input type="text" name="lname" value="{{$user->lname}}" class="form-control" placeholder="Last Name" >
+										<input type="text" name="lname" value="{{$user->induser->lname}}" class="form-control" placeholder="Last Name" >
 									</div>
 								</div>
 							</div>
@@ -71,7 +71,7 @@
 										<span class="input-group-addon">
 											<i class="icon-calendar" style="color:darkcyan;"></i>
 										</span>
-										<input class="form-control date-picker" name="dob" size="16" type="text" value="{{ $user->dob }}"/>
+										<input class="form-control date-picker" name="dob" size="16" type="text" value="{{ $user->induser->dob }}"/>
 									</div>
 									<!-- <label>Check the privacy setting for showing Date of Birth</label> -->
 								</div>
@@ -85,7 +85,7 @@
 											<div class="md-radio-inline">
 												<div class="md-radio">
 													<input type="radio" checked id="radio6" name="gender" value="Male" class="md-radiobtn" 
-														@if($user->gender == 'Male')
+														@if($user->induser->gender == 'Male')
 															checked
 														@endif
 													>
@@ -97,7 +97,7 @@
 												</div>
 												<div class="md-radio">
 													<input type="radio" id="radio7" name="gender" value="Female" class="md-radiobtn" 
-													@if($user->gender == 'Female')
+													@if($user->induser->gender == 'Female')
 														checked
 													@endif
 													>
@@ -109,7 +109,7 @@
 												</div>
 												<div class="md-radio">
 													<input type="radio" id="radio8" name="gender" value="Others" class="md-radiobtn" 
-													@if($user->gender == 'Others')
+													@if($user->induser->gender == 'Others')
 														checked
 													@endif
 													>
@@ -134,7 +134,7 @@
 										<span class="input-group-addon">
 											<i class="fa fa-map-marker"></i>
 										</span>
-										<input type="text" id=" Select City" name="city" class="form-control" value="{{ $user->city }}" placeholder="City">
+										<input type="text" id=" Select City" name="city" class="form-control" value="{{ $user->induser->city }}" placeholder="City">
 									</div>
 								</div>
 							</div>
@@ -146,7 +146,7 @@
 										<span class="input-group-addon">
 										<i class="fa fa-map-marker"></i>
 										</span>
-										<input type="text" name="c_locality" class="form-control" value="{{ $user->c_locality }}" placeholder="Select Local Area">
+										<input type="text" name="c_locality" class="form-control" value="{{ $user->induser->c_locality }}" placeholder="Select Local Area">
 										
 									</div>
 								</div>
@@ -238,7 +238,7 @@
 									<span class="input-group-addon">
 										<i class="fa fa-map-marker"></i>
 									</span>
-									<input type="text" name="in_page" class="form-control" value="{{ $user->in_page }}" placeholder="Linkedin Id">
+									<input type="text" name="in_page" class="form-control" value="{{ $user->induser->in_page }}" placeholder="Linkedin Id">
 								</div>
 							</div>
 						</div>
@@ -250,7 +250,7 @@
 									<span class="input-group-addon">
 									<i class="fa fa-map-marker"></i>
 									</span>
-									<input type="text" name="fb_page" class="form-control" value="{{ $user->fb_page }}" placeholder="Facebook Id">
+									<input type="text" name="fb_page" class="form-control" value="{{ $user->induser->fb_page }}" placeholder="Facebook Id">
 								</div>
 							</div>
 						</div>
@@ -277,7 +277,7 @@
 									<label>About Me</label>
 									<!-- <div class="input-group"> -->
 										
-										<textarea name="about_individual" placeholder="write about your proffessional summary..." onkeyup="countChar(this)" class="form-control" rows="6">{{ $user->about_individual }} </textarea>
+										<textarea name="about_individual" placeholder="write about your proffessional summary..." onkeyup="countChar(this)" class="form-control" rows="6">{{ $user->induser->about_individual }} </textarea>
 										
 									<!-- </div> -->
 									<div id="charNum" style="text-align:right;"></div>
@@ -296,29 +296,29 @@
 										</span>
 										<select class="form-control" name="education" id="parent_selection" >
 											<option value="">--Please Select--</option>
-											<option @if($user->education=="BA") {{ $selected }} @endif value="BA">B.A</option>
-											<option @if($user->education=="BArch") {{ $selected }} @endif value="BArch">B.Arch</option>
-											<option @if($user->education=="BCA") {{ $selected }} @endif value="BCA">BCA</option>
-											<option @if($user->education=="BBA") {{ $selected }} @endif value="BBA">BBA</option>
-											<option @if($user->education=="BCom") {{ $selected }} @endif value="BCom">BCom</option>
-											<option @if($user->education=="B.Ed") {{ $selected }} @endif value="B.Ed">B.Ed</option>
-											<option @if($user->education=="MTech") {{ $selected }} @endif value="MTech" value="MTech">MTech</option>
-											<option @if($user->education=="MSc") {{ $selected }} @endif value="MSc" value="MSc">MSc</option>
-											<option @if($user->education=="MArch") {{ $selected }} @endif value="MArch" value="MArch">MArch</option>
+											<option @if($user->induser->education=="BA") {{ $selected }} @endif value="BA">B.A</option>
+											<option @if($user->induser->education=="BArch") {{ $selected }} @endif value="BArch">B.Arch</option>
+											<option @if($user->induser->education=="BCA") {{ $selected }} @endif value="BCA">BCA</option>
+											<option @if($user->induser->education=="BBA") {{ $selected }} @endif value="BBA">BBA</option>
+											<option @if($user->induser->education=="BCom") {{ $selected }} @endif value="BCom">BCom</option>
+											<option @if($user->induser->education=="B.Ed") {{ $selected }} @endif value="B.Ed">B.Ed</option>
+											<option @if($user->induser->education=="MTech") {{ $selected }} @endif value="MTech" value="MTech">MTech</option>
+											<option @if($user->induser->education=="MSc") {{ $selected }} @endif value="MSc" value="MSc">MSc</option>
+											<option @if($user->induser->education=="MArch") {{ $selected }} @endif value="MArch" value="MArch">MArch</option>
 
-											<option @if($user->education=="MCA") {{ $selected }} @endif value="MCA" value="MCA">MCA</option>
-											<option @if($user->education=="MS") {{ $selected }} @endif value="MS" value="MS">MS</option>
-											<option @if($user->education=="PGDiploma") {{ $selected }} @endif value="PGDiploma" value="PGDiploma">PGDiploma</option>
+											<option @if($user->induser->education=="MCA") {{ $selected }} @endif value="MCA" value="MCA">MCA</option>
+											<option @if($user->induser->education=="MS") {{ $selected }} @endif value="MS" value="MS">MS</option>
+											<option @if($user->induser->education=="PGDiploma") {{ $selected }} @endif value="PGDiploma" value="PGDiploma">PGDiploma</option>
 
-											<option @if($user->education=="MVSC") {{ $selected }} @endif value="MVSC" value="MVSC">MVSC</option>
-											<option @if($user->education=="MCM") {{ $selected }} @endif value="MCM" value="MCM">MCM</option>
-											<option @if($user->education=="BBA") {{ $selected }} @endif value="BBA" value="BBA">BBA</option>
-											<option @if($user->education=="btech") {{ $selected }} @endif value="btech">B.Tech/B.E.</option>
-											<option @if($user->education=="MCom") {{ $selected }} @endif value="MCom" value="MCom">MCom</option>
-											<option @if($user->education=="MEd") {{ $selected }} @endif value="MEd" value="MEd">MEd</option>
-											<option @if($user->education=="MPharma") {{ $selected }} @endif value="MPharma" value="MPharma">MPharma</option>
-											<option @if($user->education=="MA") {{ $selected }} @endif value="MA" value="MA">MA</option>
-											<option @if($user->education=="twelth") {{ $selected }} @endif value="twelth" value="twelth">12th</option>
+											<option @if($user->induser->education=="MVSC") {{ $selected }} @endif value="MVSC" value="MVSC">MVSC</option>
+											<option @if($user->induser->education=="MCM") {{ $selected }} @endif value="MCM" value="MCM">MCM</option>
+											<option @if($user->induser->education=="BBA") {{ $selected }} @endif value="BBA" value="BBA">BBA</option>
+											<option @if($user->induser->education=="btech") {{ $selected }} @endif value="btech">B.Tech/B.E.</option>
+											<option @if($user->induser->education=="MCom") {{ $selected }} @endif value="MCom" value="MCom">MCom</option>
+											<option @if($user->induser->education=="MEd") {{ $selected }} @endif value="MEd" value="MEd">MEd</option>
+											<option @if($user->induser->education=="MPharma") {{ $selected }} @endif value="MPharma" value="MPharma">MPharma</option>
+											<option @if($user->induser->education=="MA") {{ $selected }} @endif value="MA" value="MA">MA</option>
+											<option @if($user->induser->education=="twelth") {{ $selected }} @endif value="twelth" value="twelth">12th</option>
 											<!-- <option value="10">10</option> -->
 										</select>
 										
@@ -334,7 +334,7 @@
 											<i class="icon-graduation"></i>
 										</span>
 										<select class="form-control" name="branch" id="child_selection" value="{{ $user->branch }}">
-											<option value="{{ $user->branch }}">{{ $user->branch }}</option>
+											<option value="{{ $user->induser->branch }}">{{ $user->induser->branch }}</option>
 										</select>
 									</div>
 								</div>
@@ -351,10 +351,10 @@
 										</span>
 										<select class="form-control" id="working_status" name="working_status">
 											<option value="">Select</option>
-											<option @if($user->working_status=="Student") {{ $selected }} @endif value="Student">Student</option>
-											<option @if($user->working_status=="Searching Job") {{ $selected }} @endif value="Searching Job">Searching Job</option>
-											<option @if($user->working_status=="Working") {{ $selected }} @endif value="Working">Working</option>
-											<option @if($user->working_status=="Freelancing") {{ $selected }} @endif value="Freelancing">Freelancing</option>
+											<option @if($user->induser->working_status=="Student") {{ $selected }} @endif value="Student">Student</option>
+											<option @if($user->induser->working_status=="Searching Job") {{ $selected }} @endif value="Searching Job">Searching Job</option>
+											<option @if($user->induser->working_status=="Working") {{ $selected }} @endif value="Working">Working</option>
+											<option @if($user->induser->working_status=="Freelancing") {{ $selected }} @endif value="Freelancing">Freelancing</option>
 										</select>
 									</div>
 								</div>
@@ -368,22 +368,22 @@
 										</span>
 										<select class="form-control" name="experience" >
 											<option value=""> Select </option>
-											<option @if($user->experience=="0") {{ $selected }} @endif value="0">0</option>
-											<option @if($user->experience=="1") {{ $selected }} @endif value="1">1</option>
-											<option @if($user->experience=="2") {{ $selected }} @endif value="2">2</option>
-											<option @if($user->experience=="3") {{ $selected }} @endif value="3">3</option>
-											<option @if($user->experience=="4") {{ $selected }} @endif value="4">4</option>
-											<option @if($user->experience=="5") {{ $selected }} @endif value="5">5</option>
-											<option @if($user->experience=="6") {{ $selected }} @endif value="6">6</option>
-											<option @if($user->experience=="7") {{ $selected }} @endif value="7">7</option>
-											<option @if($user->experience=="8") {{ $selected }} @endif value="8">8</option>
-											<option @if($user->experience=="9") {{ $selected }} @endif value="9">9</option>
-											<option @if($user->experience=="10") {{ $selected }} @endif value="10">10</option>
-											<option @if($user->experience=="11") {{ $selected }} @endif value="11">11</option>
-											<option @if($user->experience=="12") {{ $selected }} @endif value="12">12</option>
-											<option @if($user->experience=="13") {{ $selected }} @endif value="13">13</option>
-											<option @if($user->experience=="14") {{ $selected }} @endif value="14">14</option>
-											<option @if($user->experience=="15") {{ $selected }} @endif value="15">15</option>
+											<option @if($user->induser->experience=="0") {{ $selected }} @endif value="0">0</option>
+											<option @if($user->induser->experience=="1") {{ $selected }} @endif value="1">1</option>
+											<option @if($user->induser->experience=="2") {{ $selected }} @endif value="2">2</option>
+											<option @if($user->induser->experience=="3") {{ $selected }} @endif value="3">3</option>
+											<option @if($user->induser->experience=="4") {{ $selected }} @endif value="4">4</option>
+											<option @if($user->induser->experience=="5") {{ $selected }} @endif value="5">5</option>
+											<option @if($user->induser->experience=="6") {{ $selected }} @endif value="6">6</option>
+											<option @if($user->induser->experience=="7") {{ $selected }} @endif value="7">7</option>
+											<option @if($user->induser->experience=="8") {{ $selected }} @endif value="8">8</option>
+											<option @if($user->induser->experience=="9") {{ $selected }} @endif value="9">9</option>
+											<option @if($user->induser->experience=="10") {{ $selected }} @endif value="10">10</option>
+											<option @if($user->induser->experience=="11") {{ $selected }} @endif value="11">11</option>
+											<option @if($user->induser->experience=="12") {{ $selected }} @endif value="12">12</option>
+											<option @if($user->induser->experience=="13") {{ $selected }} @endif value="13">13</option>
+											<option @if($user->induser->experience=="14") {{ $selected }} @endif value="14">14</option>
+											<option @if($user->induser->experience=="15") {{ $selected }} @endif value="15">15</option>
 										</select>
 									</div>
 								</div>
@@ -396,7 +396,7 @@
 											<i class="fa fa-university"></i>
 										</span>
 										
-										<input type="text" id="workingat" class="form-control" value="{{ $user->working_at }}" name="working_at">
+										<input type="text" id="workingat" class="form-control" value="{{ $user->induser->working_at }}" name="working_at">
 									</div>
 								</div>
 							</div>
@@ -508,7 +508,7 @@
 										</div>
 									</div>
 									@if($user->resume != null)
-									<label style="font-size: 12px;font-weight: 500">{{$user->resume_dtTime}} - {{$user->resume}}
+									<label style="font-size: 12px;font-weight: 500">{{$user->induser->resume_dtTime}} - {{$user->induser->resume}}
 									@endif
 								</div>
 							</div>
@@ -565,10 +565,10 @@
 										</span>
 										<select class="form-control" value="{{ $user->prefered_jobtype }}" name="prefered_jobtype">
 											<option value="">&nbsp;</option>
-											<option @if($user->prefered_jobtype=="Full Time") {{ $selected }} @endif value="Full Time">Full Time</option>
-											<option @if($user->prefered_jobtype=="Part Time") {{ $selected }} @endif value="Part Time">Part Time</option>
-											<option @if($user->prefered_jobtype=="Freelancer") {{ $selected }} @endif value="Freelancer">Freelancer</option>
-											<option @if($user->prefered_jobtype=="Work from home") {{ $selected }} @endif value="Work from home">Work from home</option>
+											<option @if($user->induser->prefered_jobtype=="Full Time") {{ $selected }} @endif value="Full Time">Full Time</option>
+											<option @if($user->induser->prefered_jobtype=="Part Time") {{ $selected }} @endif value="Part Time">Part Time</option>
+											<option @if($user->induser->prefered_jobtype=="Freelancer") {{ $selected }} @endif value="Freelancer">Freelancer</option>
+											<option @if($user->induser->prefered_jobtype=="Work from home") {{ $selected }} @endif value="Work from home">Work from home</option>
 										</select>
 									</div>
 								</div>
@@ -595,13 +595,13 @@
 						<td>
 							<label class="uniform-inline" style="width:100%;font-weight:500;">
 							<input type="radio" name="email_show" value="Links"
-							@if($user->email_show == 'Links')
+							@if($user->induser->email_show == 'Links')
 								checked
 							@endif >
 							Links </label>
 							<label class="uniform-inline" style="width:100%;font-weight:500;">
 							<input type="radio" name="email_show" value="None"
-							@if($user->email_show == 'None')
+							@if($user->induser->email_show == 'None')
 								checked
 							@endif >
 							None </label>
@@ -614,13 +614,13 @@
 						<td>
 							<label class="uniform-inline" style="width:100%;font-weight:500;">
 							<input type="radio" name="mobile_show" value="Links"
-							@if($user->mobile_show == 'Links')
+							@if($user->induser->mobile_show == 'Links')
 								checked
 							@endif >
 							Links </label>
 							<label class="uniform-inline" style="width:100%;font-weight:500;">
 							<input type="radio" name="mobile_show" value="None"
-							@if($user->mobile_show == 'None')
+							@if($user->induser->mobile_show == 'None')
 								checked
 							@endif >
 							None </label>
@@ -633,13 +633,13 @@
 						<td>
 							<label class="uniform-inline" style="width:100%;font-weight:500;">
 							<input type="radio" name="dob_show" value="Links"
-							@if($user->dob_show == 'Links')
+							@if($user->induser->dob_show == 'Links')
 								checked
 							@endif >
 							Links </label>
 							<label class="uniform-inline" style="width:100%;font-weight:500;">
 							<input type="radio" name="dob_show" value="None"
-							@if($user->dob_show == 'None')
+							@if($user->induser->dob_show == 'None')
 								checked
 							@endif >
 							None </label>
