@@ -111,7 +111,8 @@
             </div>
             @elseif($session_user->job_role != null && $session_user->working_at !=null && $session_user->working_status == "Working")
             <div class="profile-usertitle-job">
-              @if($session_user->job_role != null)
+
+              @if($session_user->job_role != '[]')
                {{ $session_user->job_role->first()->role }} @ {{ $session_user->working_at }} 
                @endif
             </div>
