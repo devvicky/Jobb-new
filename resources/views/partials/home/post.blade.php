@@ -4,7 +4,11 @@
 			<!-- TIMELINE ITEM -->
 			<div class="timeline-item time-item" itemscope itemtype="http://schema.org/Article">
 				<div class="timeline-badge badge-margin">
+					@if(!empty($userImgPath))
 					<img class="timeline-badge-userpic userpic-box" src="img/profile/{{ $userImgPath }}" alt="logo" title="{{ $userName }}">
+					@else
+					<img class="timeline-badge-userpic userpic-box" src="/assets/images/ab.png" alt="logo" title="{{ $userName }}">
+					@endif
 				</div>
 				@include('partials.home.image-linked')
 				@include('partials.home.favourite')
@@ -44,7 +48,7 @@
 	                    @endif
 	                    <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code elipsis-city-code" style="padding:0 12px;">
 	                    	<small style="font-size:13px;color:dimgrey !important;"> 
-	                    		<i class="glyphicon glyphicon-map-marker post-icon-color"></i>&nbsp;: {{ $city or 'Unspecified' }}
+	                    		<i class="glyphicon glyphicon-map-marker post-icon-color"></i>&nbsp;: {{ $city }}
 	                    	</small>
 	                    </div>    
 	                    <div class="col-md-4 col-sm-4 col-xs-4 hide-details" style="float: right;right: -40px;bottom: 16px;">
@@ -67,7 +71,7 @@
 								</div>
 							</div>
 							@elseif($postType == 'skill')
-							<div class="col-md-3 col-sm-3 col-xs-4" style="margin: 4px 0px;">
+							<div class="col-md-3 col-sm-3 col-xs-4" style="margin: 4px 7px;">
 								@if($post->time_for == 'Work from Home')
 								<small class="label-success label-xs elipsis-code job-type-skill-css" style="">Work From Home</small>
 								@else
@@ -117,7 +121,7 @@
 								@endif
 							@endif
 							
-							<div  class="col-md-3 col-sm-3 col-xs-3" style="">
+							<div  class="col-md-3 col-sm-3 col-xs-3" style="padding:0;float:right;">
 							    <div class="dropup ">											
 									<button class="btn dropdown-toggle" type="button" 
 											data-toggle="dropdown" title="Share" 

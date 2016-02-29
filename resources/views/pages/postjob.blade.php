@@ -279,7 +279,7 @@
 														<option value="Any Post Graduate">Any Post Graduate</option>
 														<option value="12th & above">12th & above</option>
 														<option value="10th & above">10th & above</option>
-														<option value="12th">12th</option>
+														<option value="twelth">12th</option>
 														<option value="10th">10th</option>
 														<option value="BA">B.A</option>
 														<option value="BArch">B.Arch</option>
@@ -530,7 +530,7 @@
 													<span class="input-group-addon">
 													<i class="icon-call-end" style="color:darkcyan;"></i>
 													</span>
-													<input type="text" name="phone" minlength="10" value="{{ Auth::user()->mobile }}"  class="form-control group" placeholder="">
+													<input type="text" name="phone" minlength="10" maxlength="10" value="{{ Auth::user()->mobile }}"  class="form-control group" placeholder="">
 													
 													</div>
 												</div>
@@ -619,31 +619,13 @@
 																	<div>
 																	 	<div> 
 																	 		<h4 style="font-weight: 400; margin: -5px 0;"> 
-																	 			Company Name<p class="form-control-static" data-display="post_compname"></p> 
+																	 			<p class="form-control-static" data-display="post_compname"></p> 
 																	 		</h4>
 																	 	</div>  
 																	</div>
 																	
 																			
-					                                                        <div class="row">
-					                                                            
-					                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-					                                                                    <label class="detail-label"> Experience : </label>     
-					                                                            </div>
-					                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-					                                                                         <p class="form-control-static" data-display="min_exp" style="margin: -5px 0;"></p> -
-																							<p class="form-control-static" data-display="max_exp" style="margin: -5px 0;"></p> Years  
-					                                                            </div>
-					                                                        </div>
-					                                                        <div class="row">
-					                                                            
-					                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-					                                                                    <label class="detail-label">Education :</label>     
-					                                                            </div>
-					                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-					                                                                         <p class="form-control-static" data-display="education" style="margin: -5px 0;"></p>
-					                                                            </div>
-					                                                        </div>
+					                                                        
 					                                                         <div class="row">
 					                                                            <!-- <div class="col-md-6 col-sm-6 col-xs-6"> 
 					                                                                    <label class="detail-label">Job Role :</label>
@@ -652,6 +634,25 @@
 					                                                                   <p class="form-control-static" data-display="role" style="margin: -5px 0;"></p>
 					                                                            </div>
 					                                                            </div> -->
+					                                                            <div class="row">
+					                                                            
+						                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+						                                                                    <label class="detail-label"> Experience : </label>     
+						                                                            </div>
+						                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+						                                                                         <p class="form-control-static" data-display="min_exp" style="margin: -5px 0;"></p> -
+																								<p class="form-control-static" data-display="max_exp" style="margin: -5px 0;"></p> Years  
+						                                                            </div>
+						                                                        </div>
+						                                                        <div class="row">
+						                                                            
+						                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+						                                                                    <label class="detail-label">Education :</label>     
+						                                                            </div>
+						                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+						                                                                         <p class="form-control-static" data-display="education" style="margin: -5px 0;"></p>
+						                                                            </div>
+						                                                        </div>
 					                                                            <div class="row"> 
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                           
 					                                                                        <label class="detail-label">Skills :</label>                                                                  
@@ -666,7 +667,7 @@
 					                                                                        <label class="detail-label">Role :</label>                                                                  
 					                                                                </div>
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-					                                                                        <p class="form-control-static" data-display="time_for" style="margin: -5px 0;"></p>
+					                                                                        <p class="form-control-static" data-display="role" style="margin: -5px 0;"></p>
 					                                                                </div>
 					                                                            </div>
 					                                                            

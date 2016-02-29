@@ -92,7 +92,7 @@
 														</div>
 													</div>
 													<div class="row">
-													<div class="col-md-5 col-sm-5 col-xs-12">
+													<div class="col-md-12 col-sm-12 col-xs-12">
 														<div class="form-group">
 															<label>
 																Job Role <span class="required">*</span>
@@ -111,40 +111,37 @@
 															<div id="charNum" style="text-align:right;"></div>
 														</div>
 													</div>
-													<div class="col-md-2 col-sm-2 col-sm-2"></div>
-													<div class="col-md-5 col-sm-5 col-xs-12">
-														<div class="form-group">
-															<label>Job Type<span class="required">
-															* </span></label>
-															<div class="input-group">
-																<span class="input-group-addon">
-																	<i class="icon-hourglass" style="color:darkcyan;"></i>
-																</span>
-																<select name="time_for" class="form-control" >
-																	<option value="">-- select --</option>
-																	<option value="Full Time">Full Time</option>
-																	<option value="Part Time">Part Time</option>
-																	<option value="Freelancer">Freelancer</option>
-																	<option value="Work from Home">Work from Home</option>
-																</select>
-															</div>
-														</div>
-													</div>
+													
+													
 												</div>
 													<div class="row">
-														<div class="col-md-5 col-sm-5 col-xs-12">
+														<div class="col-md-6 col-sm-6 col-xs-12">
+															<div class="form-group">
+																<label>Job Type<span class="required">
+																* </span></label>
+																<div class="input-group">
+																	<span class="input-group-addon">
+																		<i class="icon-hourglass" style="color:darkcyan;"></i>
+																	</span>
+																	<select name="time_for" class="form-control" >
+																		<option value="">-- select --</option>
+																		<option value="Full Time">Full Time</option>
+																		<option value="Part Time">Part Time</option>
+																		<option value="Freelancer">Freelancer</option>
+																		<option value="Work from Home">Work from Home</option>
+																	</select>
+																</div>
+															</div>
+														</div>
+														<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
+														
+														<div class="col-md-6 col-sm-6 col-xs-12">
 															<div class="form-group">
 																<label>Search Skills</label>
 																<div style="position:relative;">
 																	<input type="text" name="name" id="newskill" class="form-control" placeholder="Search for skill...">
 																	<button id="add-new-skill" style="position:absolute;right:0;top:0;" class="btn btn-success" type="button"><i class="icon-plus"></i> Add</button>		
 																</div>
-															</div>
-														</div>
-														<div class="col-md-2 col-sm-2 col-xs-2"></div>
-														<div class="col-md-5 col-sm-5 col-xs-12">
-															<div class="form-group">
-																<label>Added Skills</label><br>
 																{!! Form::select('linked_skill_id[]', $skills, null, ['id'=>'linked_skill_id', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Skills', 'multiple']) !!}
 															</div>
 														</div>

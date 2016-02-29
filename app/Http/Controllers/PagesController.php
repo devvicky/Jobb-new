@@ -68,7 +68,7 @@ class PagesController extends Controller {
 				$sort_by_skill = " ";
 				$skills = Skills::lists('name', 'name');
 				$jobPosts = Postjob::orderBy('id', 'desc')
-								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
+								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup', 'preferLocations')
 								   ->where('post_type', '=', 'job')
 								   ->where('individual_id', '!=', Auth::user()->induser_id)
 								   ->whereRaw('postjobs.id in (select  pm.id from postjobs pm where pm.id in (
@@ -96,7 +96,7 @@ class PagesController extends Controller {
 												)) ')
 								   ->paginate(5);
 				$skillPosts = Postjob::orderBy('id', 'desc')
-									 ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
+									 ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup', 'preferLocations')
 									 ->where('post_type', '=', 'skill')
 									 ->where('individual_id', '!=', Auth::user()->induser_id)
 									 ->whereRaw('postjobs.id in (select  pm.id from postjobs pm where pm.id in (
@@ -374,6 +374,7 @@ class PagesController extends Controller {
 		$title = 'profile';
 		if($utype == 'ind'){
 			$user = Induser::findOrFail($id);
+			$users = User::findOrFail($id);
 			$thanks = Postactivity::with('user', 'post')
 							      ->join('postjobs', 'postjobs.id', '=', 'postactivities.post_id')
 								  ->where('postjobs.individual_id', '=', $id)
@@ -433,7 +434,7 @@ class PagesController extends Controller {
                 $connectionId = $followStatus->id;
             }
 		}	
-		return view('pages.profile_indview', compact('title','thanks','posts','linksCount','user','connectionStatus','utype','connectionId', 'followCount', 'linkSharePost', 'taggedPosts', 'taggedGroupPosts'));
+		return view('pages.profile_indview', compact('users' ,'title','thanks','posts','linksCount','user','connectionStatus','utype','connectionId', 'followCount', 'linkSharePost', 'taggedPosts', 'taggedGroupPosts'));
 	}
 
 	public function follow($id){

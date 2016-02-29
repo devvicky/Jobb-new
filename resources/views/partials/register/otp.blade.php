@@ -42,7 +42,7 @@
 				 		style="width:50%;background-color:#C76B6B !important;box-shadow: 0px 1px 4px #2D2C2C;border-radius:2px;">Submit 
 				 		<i class="m-icon-swapright"></i>
 	            </button>
-	            <a href="/login" class="btn btn-info login">login</a>
+	            <!-- <a href="/login" class="btn btn-info login">login</a> -->
 			</div>
 
 		</div>
@@ -53,7 +53,10 @@
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	<input type="hidden" name="otp_mob" id="otpformob">
 	<button type="submit" id="resend-otp-btn" class="btn btn-default pull-right" 
-			style="margin-left: 39px;cursor: pointer;color:#C76B6B">
+			style="margin-left: 39px;cursor: pointer;color: #03C1B1;
+				    position: absolute;
+				    bottom: 50px;
+				    right: 0;">
 			Resend OTP
 	</button>
 </form>

@@ -75,6 +75,8 @@ var Login = function() {
         jQuery('#register-btn').click(function() {
             jQuery('.login-tag').hide();
             jQuery('.corporate-register-tab').show();
+            jQuery('.signup-tabopen').hide();
+            jQuery('.login-tabopen').show();
         });
         
         $('.login-form input').keypress(function(e) {
@@ -157,6 +159,8 @@ var Login = function() {
         jQuery('#register-btn-corp').click(function() {
             jQuery('.login-tag').hide();
             jQuery('.corporate-register-tab').show();
+            jQuery('.signup-tabopen').hide();
+            jQuery('.login-tabopen').show();
         });
        
         $('.login-form-corp input').keypress(function(e) {
@@ -354,6 +358,8 @@ var Login = function() {
         jQuery('#register-back-btn').click(function() {
             jQuery('.login-tag').show();
             jQuery('.corporate-register-tab').hide();
+            jQuery('.signup-tabopen').show();
+            jQuery('.login-tabopen').hide();
         });
         
     }
@@ -461,6 +467,8 @@ var Login = function() {
             jQuery('.login-tag').show();
             jQuery('#Company').show();
             jQuery('.corporate-register-tab').hide();
+            jQuery('.signup-tabopen').show();
+            jQuery('.login-tabopen').hide();
         });
     }
 
