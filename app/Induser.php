@@ -56,6 +56,10 @@ class Induser extends Model {
 		return $this->belongsToMany('App\User', 'user_preferred_locations', 'user_id', 'id')->withTimestamps();
 	}
 
+	public function preferLocations(){
+		return $this->hasMany('App\UserPreferredLocation', 'user_id', 'id')->select('user_id', 'locality', 'city', 'state');
+	}
+
 	public function getJobRoleAttribute(){
     	$role = $this->attributes['role'];
     	if($role != null){
