@@ -631,7 +631,7 @@ $(document).ready(function(){
 
 </script>
 <script>
-$selectedSkills = $("#linked_skill_id").select2();
+// $selectedSkills = $("#linked_skill_id").select2();
 $gotit = [];
     $(function(){
 
@@ -655,7 +655,7 @@ $gotit = [];
                 // }, response );
 
                 $.ajax({
-                    url: '/roles/rolesSearch',
+                    url: '/job/skillSearch',
                     dataType: "json",
                     data: { term: extractLast( request.term ) },
                     success: function(data) {
@@ -702,60 +702,63 @@ $gotit = [];
     });
 
 
-$(document).ready(function(){
-    $('#add-new-skill').on('click',function(event){         
-        event.preventDefault();
-        if (!$('#newskill').val()) {
-            alert('Please enter some role to add.');
-            return false;
-        }else{
-            var name = $('#newskill').val(); 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-              url: "{{ url('roles/newrole') }}",
-              type: "POST",
-              data: { name: name },
-              cache : false,
-              success: function(data){
-                if(data > 0){
-                    $newSkillList = new Array();
-
-                   
-
-                    $newSkillList.push($('#newskill').val());
-                    // console.log($newSkillList);
-                    $("#linked_skill_id").select2({
-                        dataType: 'json',
-                        data: $newSkillList
-                    });
-
-                    var selectedSkillId = [];
-                    $newSkill = $('#newskill').val();
-                    $newSkillId = data;
-                    // $selectedSkill = $('#linked_skill').val();
-                    // console.log($gotit);
-                    if($gotit != null){
-                        selectedSkillId = $gotit;
+    $(document).ready(function(){
+        $('#add-new-skill').on('click',function(event){         
+            event.preventDefault();
+            if (!$('#newskill').val()) {
+                alert('Please enter some skill to add.');
+                return false;
+            }else{
+                var name = $('#newskill').val(); 
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
-                    
-                    selectedSkillId.push($newSkill);
-                    // console.log(selectedSkillId);
-                    // $('#linked_skill').val($selectedSkill+""+$newSkill+", ");
-                    $selectedSkills.val(selectedSkillId).trigger("change"); 
-                    $('#newskill').val("");
-                }
-              },
-              error: function(data) {
-                alert('some error occured...');
-              }
-            }); 
-            return false;
-        }
+                });
+                $.ajax({
+                  url: "{{ url('job/newskill') }}",
+                  type: "POST",
+                  data: { name: name },
+                  cache : false,
+                  success: function(data){
+                    if(data > 0){
+                        $newSkillList = new Array();
+
+                        <?php $newSkillList = array(); ?>
+                        @foreach($skills as $skill)
+                            $newSkillList.push('<?php echo $skill; ?>');
+                        @endforeach
+
+                        $newSkillList.push($('#newskill').val());
+                        // console.log($newSkillList);
+                        $("#linked_skill_id").select2({
+                            dataType: 'json',
+                            data: $newSkillList
+                        });
+
+                        var selectedSkillId = [];
+                        $newSkill = $('#newskill').val();
+                        $newSkillId = data;
+                        // $selectedSkill = $('#linked_skill').val();
+                        // console.log($gotit);
+                        if($gotit != null){
+                            selectedSkillId = $gotit;
+                        }
+                        
+                        selectedSkillId.push($newSkill);
+                        // console.log(selectedSkillId);
+                        // $('#linked_skill').val($selectedSkill+""+$newSkill+", ");
+                        $selectedSkills.val(selectedSkillId).trigger("change"); 
+                        $('#newskill').val("");
+                    }
+                  },
+                  error: function(data) {
+                    alert('some error occured...');
+                  }
+                }); 
+                return false;
+            }
+        });
     });
-});
 </script>
 @stop

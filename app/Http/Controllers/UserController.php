@@ -218,15 +218,33 @@ class UserController extends Controller {
 			$data->branch = Input::get('branch');
 			$data->prof_category = Input::get('prof_category');
 			$data->experience = Input::get('experience');
-			$data->role = Input::get('role');
+			if(Input::get('role') > 0){
+				$data->role = Input::get('role');
+			}
 			$data->working_at = Input::get('working_at');
 			$data->working_status = Input::get('working_status');
 			if(Input::get('linked_skill_id') != null){
 				$data->linked_skill = implode(', ', Input::get('linked_skill_id'));
 			}
+			if(Input::get('prefered_location') != null){
+				$data->prefered_location = implode(', ', Input::get('prefered_location'));
+			}
 			$data->about_individual = Input::get('about_individual');
+			$data->prefered_jobtype = Input::get('prefered_jobtype');
+			$pref_locations = Input::get('prefered_location');
 			$data->save();
-			return redirect('/individual/edit#preference');
+			if (!empty($pref_locations)) {
+				foreach ($pref_locations as $loc) {
+		        	$tempArr = explode('-', $loc);
+		        	if(count($tempArr) == 3){
+		        		$data->preferredLocation()->attach( $loc, array('locality' => $tempArr[0], 'city' => $tempArr[1], 'state' => $tempArr[2]) );
+		        	}
+		        	if(count($tempArr) == 2){
+		        		$data->preferredLocation()->attach( $loc, array('locality' => 'none', 'city' => $tempArr[0], 'state' => $tempArr[1]) );
+		        	}
+		        }
+		    }
+			return redirect('/individual/edit#privacy');
 		}else{
 			return 'some error occured.';
 		}
@@ -246,8 +264,7 @@ class UserController extends Controller {
 		}
 	}
 
-	public function preferenceUpdate($id)
-	{
+	public function preferenceUpdate($id){
 		$data = Induser::where('id', '=', $id)->first();
 		if($data != null){
 			
@@ -290,13 +307,27 @@ class UserController extends Controller {
 			$data->fname = Input::get('fname');
 			$data->lname = Input::get('lname');
 			$data->dob = Input::get('dob');
-			$data->city = Input::get('city');
 			$data->gender = Input::get('gender');
-			$data->c_locality = Input::get('c_locality');
+			$curr_locations = Input::get('current_location');
 			$data->email = Input::get('email');
 			$data->mobile = Input::get('mobile');
 			$data->in_page = Input::get('in_page');
 			$data->fb_page = Input::get('fb_page');
+			if (!empty($curr_locations)) {
+				foreach ($curr_locations as $loc) {
+		        	$tempArr = explode('-', $loc);
+		        	if(count($tempArr) == 3){
+		        		$data->c_locality = $tempArr[0];
+		        		$data->city = $tempArr[1];
+		        		$data->state = $tempArr[2];
+		        	}
+		        	if(count($tempArr) == 2){
+			        	$data->c_locality = 'none';
+		        		$data->city = $tempArr[0];
+		        		$data->state = $tempArr[1];
+			        }
+		        }
+		    }
 			$data->save();
 			// $message = 'Personal Tab successfully Updated'
 			return redirect('/individual/edit#professional');

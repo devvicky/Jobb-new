@@ -257,8 +257,10 @@
 										<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
 										<div class="col-md-6 col-sm-6 col-xs-12">
 											<div class="form-group">
-												<label>Added Skills</label><br>
+												<label>Added Skills</label>
+												<div class="input-group">
 												{!! Form::select('linked_skill_id[]', $skills, null, ['id'=>'linked_skill_id', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Skills', 'multiple']) !!}
+												</div>
 											</div>
 										</div>
 									</div>
@@ -644,6 +646,7 @@
 																								<p class="form-control-static" data-display="max_exp" style="margin: -5px 0;"></p> Years  
 						                                                            </div>
 						                                                        </div>
+						                                                        
 						                                                        <div class="row">
 						                                                            
 						                                                            <div class="col-md-6 col-sm-6 col-xs-6">
@@ -672,7 +675,7 @@
 					                                                            </div>
 					                                                            
 					                                                            
-					                                                             <div class="row">
+					                                                             <div class="row show-salary">
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">
 					                                                                        <label class="detail-label">Salary (<i class="fa fa-rupee (alias)"></i>):</label>
 					                                                                </div>
@@ -1044,11 +1047,17 @@ function loader(arg){
 <script type="text/javascript">
     $(function () {
     	$(".hide-sal").hide();
+    	$(".show-salary").hide();
+    	$(".hide-sal-new").hide();
         $("#hide-check").click(function () {
             if ($(this).is(":checked")) {
                 $(".hide-sal").show();
+                $(".show-salary").show();
+                $(".hide-sal-new").show();
             } else {
                 $(".hide-sal").hide();
+                $(".show-salary").hide();
+                $(".hide-sal-new").hide();
             }
         });
     });
@@ -1397,6 +1406,7 @@ function formatRepo (repo) {
 
       markup += "<div class='select2-result-repository__statistics'>" +
         "<div class='select2-result-repository__forks'><b>Functional area: </b> " + repo.functional_area + "</div>" +
+        "<div class='select2-result-repository__stargazers'><b>Industry</b>: " + repo.industry + "</div>" +
       "</div>" +
       "</div></div>";
 
@@ -1406,7 +1416,7 @@ function formatRepo (repo) {
     function formatRepoSelection (repo) {
     	if(repo.role != undefined){
     		// console.log(repo);
-    		return repo.role+" -"+repo.functional_area+"-"+repo.industry;
+    		return  "<b>Role:</b> "+repo.role+"<br/><b>Functional Area:</b> "+repo.functional_area+"<br/><b>Industry:</b> "+repo.industry;
     	}      
     }
 

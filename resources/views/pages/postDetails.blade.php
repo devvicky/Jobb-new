@@ -448,7 +448,7 @@
                                  @if($expired == 0 && Auth::user()->identifier == 1)
                                 <div style="margin:27px 0 0;">
                                     <!-- if corporate_id not null -->
-                                    @if($post->post_type == 'job' && Auth::user()->id != $post->individual_id && $post->corporate_id != null && Auth::user()->identifier == 1)     
+                                    @if($post->post_type == 'job' && Auth::user()->id != $post->individual_id && Auth::user()->identifier == 1)     
                                         @if($post->postactivity->where('user_id', Auth::user()->induser_id)->isEmpty())
 
                                             <form action="/job/apply" method="post" id="post-apply-{{$post->id}}" data-id="{{$post->id}}">  
@@ -477,29 +477,7 @@
                                             </button>
                                         </form>                         
                                         @endif
-                                    @elseif($post->post_type == 'job' && Auth::user()->id != $post->individual_id && $post->individual_id != null && Auth::user()->identifier == 1)     
-                                        @if($post->postactivity->where('user_id', Auth::user()->induser_id)->isEmpty())
-
-                                            <form action="/job/contact" method="post" id="post-contact-{{$post->id}}" data-id="{{$post->id}}">  
-                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                <input type="hidden" name="contact" value="{{ $post->id }}">
-                                                <button class="btn contact-btn green btn-sm apply-contact-btn" 
-                                                        id="contact-btn-{{$post->id}}" type="button">Contact
-                                                </button>
-                                            </form> 
-                                       @elseif($post->postactivity->where('user_id', Auth::user()->induser_id)->first()->contact_view == 1) 
-                                            <button type="button" class="btn btn-sm bg-grey-steel apply-contact-btn" disabled="true">
-                                                <i class="glyphicon glyphicon-ok"></i> Contacted
-                                            </button>
-                                        @else
-                                        <form action="/job/contact" method="post" id="post-contact-{{$post->id}}" data-id="{{$post->id}}">  
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                            <input type="hidden" name="contact" value="{{ $post->id }}">
-                                            <button class="btn contact-btn green btn-sm apply-contact-btn" 
-                                                    id="contact-btn-{{$post->id}}" type="button">Contact
-                                            </button>
-                                        </form>                        
-                                        @endif  
+                                    
                                     @endif  
                                     @if($post->post_type == 'skill' && Auth::user()->id != $post->individual_id && Auth::user()->identifier == 1)       
                                         @if($post->postactivity->where('user_id', Auth::user()->induser_id)->isEmpty())

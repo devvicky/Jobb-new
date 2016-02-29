@@ -409,7 +409,7 @@
 					                                                            </div>
 					                                                            
 					                                                            
-					                                                             <div class="row">
+					                                                             <div class="row show-salary">
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">
 					                                                                        <label class="detail-label">Salary (<i class="fa fa-rupee (alias)"></i>):</label>
 					                                                                </div>
@@ -604,11 +604,18 @@ $('.nstSlider').nstSlider({
     }
 });
     $(function () {
+    	$(".hide-sal").hide();
+    	$(".show-salary").hide();
+    	$(".hide-sal-new").hide();
         $("#hide-check").click(function () {
             if ($(this).is(":checked")) {
-                $("#hide-sal").show();
+                $(".hide-sal").show();
+                $(".show-salary").show();
+                $(".hide-sal-new").show();
             } else {
-                $("#hide-sal").hide();
+                $(".hide-sal").hide();
+                $(".show-salary").hide();
+                $(".hide-sal-new").hide();
             }
         });
     });
@@ -831,7 +838,7 @@ function formatRepo (repo) {
     function formatRepoSelection (repo) {
     	if(repo.role != undefined){
     		// console.log(repo);
-    		return repo.role+" -"+repo.functional_area+"-"+repo.industry;
+    		return  "<b>Role:</b> "+repo.role+"<br/><b>Functional Area:</b> "+repo.functional_area+"<br/><b>Industry:</b> "+repo.industry;
     	}      
     }
 

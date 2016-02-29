@@ -130,6 +130,9 @@ $(document).ready(function () {
             },
             gender: {
                 required: true
+            },
+            "current_location[]":{
+                required: true
             }
         },
         messages: {
@@ -145,6 +148,9 @@ $(document).ready(function () {
             },
             gender: {
                 required: "Select any one"
+            },
+            "current_location[]":{
+                required: "Select city"
             }
         },
             invalidHandler: function (event, validator) { //display error alert on form submit   

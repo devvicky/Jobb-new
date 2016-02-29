@@ -1,3 +1,16 @@
+$(".show-salary").hide();
+        $("#hide-check").click(function () {
+            if ($(this).is(":checked")) {
+                $(".show-salary").show();
+            } else {
+                $(".show-salary").hide();
+            }
+        });
+
+
+
+
+
 <div class="row" style="margin:0;">
     <div class="col-md-12">
         <div class="clearfix">

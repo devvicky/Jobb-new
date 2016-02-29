@@ -8,8 +8,8 @@
 		<div class="row sort-by-css hide-label" style="text-align: right;">
 			<div class="col-md-12">
 				<div class="btn-group">
-					<button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" style="border: 0;color:#8c8c8c;background:transparent;">
-					<i class="glyphicon glyphicon-sort"></i> Sort by <i class="fa fa-angle-down"></i>
+					<button class="btn btn-default btn-sm dropdown-toggle capitalize" type="button" data-toggle="dropdown" style="border: 0;color:#8c8c8c;background:transparent;">
+					<i class="glyphicon glyphicon-sort"></i> @if($sort_by != " ") {{$sort_by}} @else Date @endif<i class="fa fa-angle-down"></i>
 					</button>
 					<ul class="dropdown-menu dropdown-menu-sort" role="menu" style="min-width: 130px;margin: 4px -25px;">
 						<li>
@@ -26,19 +26,7 @@
 						</li>
 					</ul>
 				</div>
-				@if($sort_by != " ")
-				<div class="col-md-12">
-					<label class="capitalize" style="font-size:13px;font-weight:400;margin: 0 7px;">
-						{{$sort_by}}
-					</label>
-				</div>
-				@else
-				<div class="col-md-12">
-					<label class="capitalize" style="font-size:13px;font-weight:400;margin: 0 7px;">
-						Date
-					</label>
-				</div>
-				@endif
+				
 			</div>
 		</div>
 		<div class="row sort-by-css show-filter" style="margin-right:8px;">
@@ -200,7 +188,7 @@
 				</div>
 			</div>
 			<div class="modal-footer right" style="padding: 5px 0;">
-				<label style="font-size:13px;float:left;margin: 5px 9px;">
+				<label style="font-size:13px;float:left;margin: 5px 16px;">
 					<input type="checkbox" name="save filter" checked class="icheck" data-checkbox="icheckbox_square-grey"> Save Filter
 				</label>
 				<button type="submit" class="btn green" style="margin: 0 30px;padding: 6px 20px;">

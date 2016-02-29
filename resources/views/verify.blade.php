@@ -106,10 +106,10 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 
 <!-- BEGIN LOGO -->
 <div class="logo">
-<picture>
+<!-- <picture>
     <source srcset="assets/admin/layout/img/logo-big.png">
     <img srcset="assets/new_big_logo.png" alt="My default image"  style="max-width:295px;margin-top: -10px;margin-bottom: -13px;">
-</picture>
+</picture> -->
 </div>
 
 @yield('content')

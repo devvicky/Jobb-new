@@ -1960,6 +1960,10 @@ text-shadow: 0 1px #484848;
         -o-transition: all 0.3s ease;
         transition: all 0.3s ease;
     }
+
+    .filter-height{
+        
+    }
 }
 
 
@@ -1981,7 +1985,7 @@ text-shadow: 0 1px #484848;
 
 
 .dropdown-menu-share{
-    left: -66px !important;
+    left: -10px !important;
 }
 
 body.modal-open {
@@ -2024,5 +2028,27 @@ body{
 }
 
 .hide-socialmedia{
+    display: none;
+}
+
+
+.select2-container .select2-selection--single {
+    height: 60px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #444;
+    line-height: 20px;
+}
+
+.preferences-css{
+    margin: 5px 0 10px 0;
+    background-color: #159CF7;
+    font-size: 15px;
+    color: white;
+}
+
+
+.show-far{
     display: none;
 }

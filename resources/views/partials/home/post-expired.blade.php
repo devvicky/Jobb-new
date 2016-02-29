@@ -7,7 +7,11 @@
 			<!-- TIMELINE ITEM -->
 			<div class="timeline-item time-item-ex" itemscope itemtype="http://schema.org/Article">
 				<div class="timeline-badge badge-margin">
-					<img class="timeline-badge-userpic userpic-box" src="img/profile/{{ $userImgPath }}" title="{{ $userName }}">
+					@if(!empty($userImgPath))
+					<img class="timeline-badge-userpic userpic-box" src="/img/profile/{{ $userImgPath }}" alt="logo" title="{{ $userName }}">
+					@else
+					<img class="timeline-badge-userpic userpic-box" src="/assets/images/ab.png" alt="logo" title="{{ $userName }}">
+					@endif
 				</div>
 				@include('partials.home.image-linked')
 				@include('partials.home.favourite')

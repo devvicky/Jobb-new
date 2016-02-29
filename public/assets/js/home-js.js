@@ -557,7 +557,7 @@ $(document).ready(function() {
     });
 });
 
-// job modal skill filter
+// modal job filter
 $selectedSkills = $("#linked_skill_id").select2();
 $gotit = [];
 $(function() {
@@ -690,4 +690,80 @@ $('.linked-btn').live('click', function(event) {
         }
     });
     return false;
+});
+
+
+//modal skill filter
+$selectSkills = $("#linked_skillid").select2();
+$selectit = [];
+$(function() {
+
+    function split(val) {
+        return val.split(/,\s*/);
+    }
+
+    function extractLast(term) {
+        return split(term).pop();
+    }
+
+    $("#newskill")
+        .bind("keydown", function(event) {
+            if (event.keyCode === $.ui.keyCode.TAB && $(this).autocomplete("instance").menu.active) {
+                event.preventDefault();
+            }
+        })
+        .autocomplete({
+            appendTo: '#skill-wrapper',
+            source: function(request, response) {
+                // $.getJSON( "/job/skillSearch", {
+                //  term: extractLast( request.term )
+                // }, response );
+
+                $.ajax({
+                    url: '/job/skillSearch',
+                    dataType: "json",
+                    data: {
+                        term: extractLast(request.term)
+                    },
+                    success: function(data) {
+                        if (data.length === 0) {
+                            $('#add-new-skill').removeClass('hide');
+                            $('#add-new-skill').addClass('show');
+                        } else {
+                            $('#add-new-skill').removeClass('show');
+                            $('#add-new-skill').addClass('hide');
+                        }
+                        response(data);
+                    }
+                });
+
+            },
+            search: function() {
+                var term = extractLast(this.value);
+                if (term.length < 2) {
+                    return false;
+                }
+            },
+            focus: function() {
+                return false;
+            },
+            select: function(event, ui) {
+                var termId = [];
+
+                if ($selectSkills.val() != null) {
+                    termId = $selectSkills.val();
+                }
+
+                if (termId.length != null) {
+
+                }
+                termId.push(ui.item.value);
+                $selectit.push(ui.item.value);
+
+                termId.push("");
+                $selectSkills.val(termId).trigger("change");
+                $(this).val("");
+                return false;
+            }
+        });
 });

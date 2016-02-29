@@ -220,7 +220,10 @@ body.page-boxed{
   box-shadow: none !important;
 }
 
-
+input:focus::-webkit-input-placeholder { color:white !important; }
+input:focus:-moz-placeholder { color:white !important; } /* FF 4-18 */
+input:focus::-moz-placeholder { color:white !important; } /* FF 19+ */
+input:focus:-ms-input-placeholder { color:white !important; } /* IE 10+ */
 </style>
 <!-- END THEME STYLES -->
 {{-- <link rel="shortcut icon" href="favicon.ico"/> --}}

@@ -441,10 +441,10 @@
 							<label class="control-label col-md-4 col-xs-6">Industry</label>							
 							<div class="col-md-6 col-xs-6"> 
 								<p class="form-control-static view-page">
-									@if($user->industry != null)
-									{{ $user->industry }}
-									@elseif($user->industry == null)
-									<a href="/individual/edit#tab_2-2">Add Industry</a>
+									@if($user->job_role != null)
+									{{ $user->job_role->first()->industry }}
+									@else
+									<a href="/individual/edit#professional">Add Industry</a>
 									@endif
 								</p>
 							</div>
@@ -456,16 +456,16 @@
 							<label class="control-label col-md-4 col-xs-6">Industry</label>							
 							<div class="col-md-6 col-xs-6">
 								<p class="form-control-static view-page">
-									@if($user->industry != null)
-									{{ $user->industry }}
-									@elseif($user->industry == null)
+									@if($user->job_role != null)
+									{{ $user->job_role->first()->industry }}
+									@elseif($user->job_role == null)
 									--
 									@endif
 								</p>
 							</div>
 						</div>
 					</div>
-					@elseif($user->industry == null && Auth::user()->induser_id != $user->id)
+					@elseif($user->job_role == null && Auth::user()->induser_id != $user->id)
 					@endif
 					<!--/span-->
 					@if(Auth::user()->induser_id == $user->id)
@@ -474,23 +474,23 @@
 							<label class="control-label col-md-4 col-xs-6">Functional Area</label>
 							<div class="col-md-6 col-xs-6">
 								<p class="form-control-static view-page">
-									@if($user->functional_area != null)
-									{{ $user->functional_area }}
+									@if($user->job_role != null)
+									{{$user->job_role->first()->functional_area}}
 									@else
-									 <a href="/individual/edit#tab_2-2">Add Functional Area</a>
+									<a href="/individual/edit#professional">Add Functional Area</a>
 									@endif
 								</p>
 							</div>
 						</div>
 					</div>
-					@elseif($user->functional_area != null && Auth::user()->induser_id != $user->id)
+					@elseif($user->job_role != null && Auth::user()->induser_id != $user->id)
 					<div class="col-md-12 col-sm-12 col-xs-12" style="padding:0;">
 						<div class="form-group">
 							<label class="control-label col-md-4 col-xs-6">Functional Area</label>
 							<div class="col-md-6 col-xs-6">
 								<p class="form-control-static view-page">
-									@if($user->functional_area != null)
-									{{ $user->functional_area }}
+									@if($user->job_role != null)
+									{{ $user->job_role->first()->functional_area }}
 									@else
 									 --
 									 @endif
@@ -498,7 +498,7 @@
 							</div>
 						</div>
 					</div>
-					@elseif($user->functional_area == null && Auth::user()->induser_id != $user->id)
+					@elseif($user->job_role == null && Auth::user()->induser_id != $user->id)
 					@endif
 					<!--/span-->	
 				</div>
@@ -510,10 +510,10 @@
 							<label class="control-label col-md-4 col-xs-6">Role</label>
 							<div class="col-md-6 col-xs-6">
 								<p class="form-control-static view-page">
-									@if($user->role != null)
-									{{ $user->role }}
+									@if($user->job_role != null)
+									{{ $user->job_role->first()->role }}
 									@else
-									 <a href="/individual/edit#tab_2-2">Add Role</a>
+									<a href="/individual/edit#professional">Add Role</a>
 									@endif
 								</p>
 							</div>
@@ -525,8 +525,8 @@
 							<label class="control-label col-md-4 col-xs-6">Role</label>
 							<div class="col-md-6 col-xs-6">
 								<p class="form-control-static view-page">
-									@if($user->role != null)
-									{{ $user->role }}
+									@if($user->job_role != null)
+									{{ $user->job_role->first()->role }}
 									@else
 									 --
 									 @endif
@@ -534,7 +534,7 @@
 							</div>
 						</div>
 					</div>
-					@elseif($user->role == null && Auth::user()->induser_id != $user->id)
+					@elseif($user->job_role == null && Auth::user()->induser_id != $user->id)
 					@endif
 					<!--/span-->	
 					@if(Auth::user()->induser_id == $user->id)
@@ -544,7 +544,7 @@
 							<div class="col-md-6 col-xs-6">
 								<p class="form-control-static view-page">
 									@if($user->resume != null)
-									 <a href="javascript:;" class="btn btn-xs blue" style="height: 20px;"><i class="icon-eye"></i>&nbsp;View </a>
+									 {{$user->resume_dtTime}} - {{$user->resume}}
 									 @else
 									 <a href="/individual/edit#tab_2-2">Upload Resume</a>
 									 @endif
@@ -701,7 +701,7 @@
 											{{$user->prefered_location}}
 										@endif
 									@else
-									 <a href="/individual/edit#tab_3-3">Add Job Type</a>
+									 <a href="/individual/edit#professional">Add Job Type</a>
 									@endif
 								</p>
 							<!-- </div> -->

@@ -10,7 +10,7 @@
 			<div class="col-md-12">
 				<div class="btn-group">
 					<button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" style="border: 0;color:#8c8c8c;background:transparent;">
-					<i class="glyphicon glyphicon-sort"></i> Sort by <i class="fa fa-angle-down"></i>
+					<i class="glyphicon glyphicon-sort"></i>  @if($sort_by_skill != " ") {{$sort_by_skill}} @else Date @endif <i class="fa fa-angle-down"></i>
 					</button>
 					<ul class="dropdown-menu dropdown-menu-sort" role="menu" style="min-width: 130px;margin: 4px -25px;">
 						<li>
@@ -21,19 +21,7 @@
 						</li>
 					</ul>
 				</div>
-				@if($sort_by_skill != " ")
-				<div class="col-md-12">
-					<label class="btn-small btn-success capitalize" style="padding:2px 8px;">
-						{{$sort_by_skill}}
-					</label>
-				</div>
-				@else
-				<div class="col-md-12">
-					<label class="capitalize" style="font-size:13px;font-weight:400;margin: 0 7px;">
-						Date
-					</label>
-				</div>
-				@endif
+				
 			</div>
 		</div>
 		<div class="row sort-by-css show-filter" style="margin-right:8px;">
@@ -62,7 +50,7 @@
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<div class="modal-body">
 				<div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
-					<input type="hidden" name="post_type" value="job">
+					<input type="hidden" name="post_type" value="skill">
 					<div class="row" style="margin:0;">
 						<div class="col-md-12 col-sm-12 col-xs-12" style="margin:0px 0;padding:0 10px;">
 							<!-- <label style="font-size:13px;font-weight:500;">Title or Role</label> -->
@@ -75,7 +63,7 @@
 					</div>
 					<div class="row" style="margin:0;">
 						<div class="col-md-12" style="margin:-5px 0;padding:0 10px;">
-							<label style="font-size:13px;font-weight:500;">Experience</label> : <span id="slider-range-max-amount"> </span> Years
+							<label style="font-size:13px;font-weight:500;">Experience</label> : <span id="slider-range-max-amount-skill"> </span> Years
 							<div class="">
 								<div id="slider-range-max-skill" class="slider bg-purple">
 								</div>
@@ -90,10 +78,10 @@
 							<div class="form-group">
 								<!-- <label style="font-size:13px;font-weight:500;">Skills</label> -->
 								<div>
-									<div style="position:relative;" id="job-skill-wrapper">
-										<input type="text" name="name" id="newskill-job" class="form-control" placeholder="Search skill...">		
+									<div style="position:relative;" id="skill-wrapper">
+										<input type="text" name="name" id="newskill" class="form-control" placeholder="Search skill...">		
 									</div>
-									{!! Form::select('linked_skill_id[]', $skills, null, ['id'=>'linked_skill_id', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Skills', 'multiple']) !!}
+									{!! Form::select('linked_skill_id[]', $skills, null, ['id'=>'linked_skillid', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Skills', 'multiple']) !!}
 								</div>
 							</div>
 						</div>
@@ -165,12 +153,15 @@
 										<i class="fa fa-map-marker"></i>
 									</span>
 
-									<input type="text" id="pref_loc" name="pref_loc" 
-										class="form-control" placeholder="Select location"
-										onblur="pref_loc_locality()">									
+									<input type="text" id="curr_loc" name="curr_loc" 
+										class="form-control" placeholder="Select preferred location">									
 									
 								</div>
-								{!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 'onchange'=>'pref_loc_locality()', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'city', 'multiple']) !!}		
+								{!! Form::select('current_location[]', [], null, ['id'=>'current_location', 
+																					   'aria-hidden'=>'true', 
+																					   'class'=>'form-control', 
+																					   'placeholder'=>'city', 
+																					   'multiple']) !!}
 							</div>
 						</div>
 					</div>
