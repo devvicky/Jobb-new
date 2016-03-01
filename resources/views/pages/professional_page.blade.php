@@ -410,7 +410,7 @@
 											<i class="fa fa-cube" style="color:darkcyan;"></i>
 										</span>			
 										<select class="job-role-ajax form-control new-role" name="role" id="jobrole">
-									  		<option value="0" selected="selected">{{$user->induser->job_role->first()->industry}}</option>
+									  		<option value="0" selected="selected"></option>
 										</select>													
 									</div>
 									example: manager, admin, secretory <a class="hide-far">see all</a>
@@ -419,50 +419,9 @@
 								</div>
 							</div>
 							<div class="col-md-12">
-								@if($user->induser->job_role != null)
-								<label>Industry: </label>{{$user->induser->job_role->first()->industry}}
-								<label>Functional Area: </label>{{$user->induser->job_role->first()->functional_area}}
-								<label>Role: </label>{{$user->induser->job_role->first()->role}}
-								<!-- <input type="text" class="form-control" value=""> -->
-								@endif
+								
 							</div>
-							<div class="col-md-6 col-sm-6 col-xs-12 show-far">
-								<div class="form-group">
-									<label>Functional Area <span class="required">
-									* </span></label>
-									<div class="input-group">
-										<span class="input-group-addon">
-											<i class="icon-hourglass" style="color:darkcyan;"></i>
-										</span>
-										<select name="time_for" class="form-control" style="z-index:0;">
-											@foreach($functionalAreas as $farea)
-									      		<option>
-									      			<li><a href="#" data-jrole="{{$farea}}">{{$farea}}</a></li>
-									      		</option>
-								      		@endforeach
-										</select>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6 col-sm-6 col-xs-12 show-far">
-								<div class="form-group">
-									<label>Role <span class="required">
-									* </span></label>
-									<div class="input-group">
-										<span class="input-group-addon">
-											<i class="icon-hourglass" style="color:darkcyan;"></i>
-										</span>
-										<select name="time_for" class="form-control" style="z-index:0;">
-											@foreach($roles as $role)
-									      		<option>
-									      			<li><a href="#" data-jrole="{{$role->name}}">{{$role->name}}</a></li>
-									      		</option>
-								      		@endforeach
-										</select>
-									</div>
-									<a class="back-role">Back</a>
-								</div>
-							</div>
+							
 						</div>
 						
 						<div class="row">
@@ -541,11 +500,7 @@
 										class="form-control" placeholder="Select preferred location">									
 										
 									</div>
-									{!! Form::select('prefered_location[]', $user->induser->preferred_locations, null, ['id'=>'prefered_location', 
-																					   'aria-hidden'=>'true', 
-																					   'class'=>'form-control', 
-																					   'placeholder'=>'city', 
-																					   'multiple']) !!}		
+											
 								</div>
 							</div>
 						</div>
@@ -664,19 +619,23 @@
 	// Skill Details
 	var skillArray = [];
 	<?php $array = explode(', ', $user->induser->linked_skill); ?> 
-	@foreach($array as $gta)
+	@if(count($array) > 0)
+	@foreach($array as $gt => $gta)
 		skillArray.push('<?php echo $gta; ?>');
 	@endforeach
+	@endif
     var skillselect = $("#linked_skill_id").select2({ dataType: 'json', data: skillArray });
     skillselect.val(skillArray).trigger("change");
     
 
     // preferred loc
 	var prefLocationArray = [];
-	<?php $arr = $user->induser->preferred_locations; ?> 
-	@foreach($arr as $gt)
+	<?php $arr = $user->induser->preferred_locations; ?>
+	@if(count($arr) > 0) 
+	@foreach($arr as $ga => $gt)
 		prefLocationArray.push('<?php echo $gt; ?>');
 	@endforeach
+	@endif
 	// console.log(prefLocationArray);
     // preferre.d loc    
     // var plselect = $("#prefered_location").select2();
@@ -999,10 +958,11 @@ $gotit = [];
 			        	$newSkillList = new Array();
 
 			        	<?php $newSkillList = array(); ?>
+			        	@if(count($skills) > 0)
 						@foreach($skills as $skill)
 							$newSkillList.push('<?php echo $skill; ?>');
 						@endforeach
-
+						@endif
 			        	$newSkillList.push($('#newskill').val());
 			        	// console.log($newSkillList);
 			        	$("#linked_skill_id").select2({

@@ -116,12 +116,12 @@ var FormWizard = function () {
                     required: "Select Required Education"
                     // minimum: "Select atleast 2 option"
                 },
-                linked_skill: {
-                    required: "Add Skills"
+                'linked_skill_id[]': {
+                    required: "You must add atleast one skill"
                 },
-                // city: {
-                //     required: "Select Job Location"
-                // },
+                'prefered_location[]': {
+                    required: "Please specify location"
+                },
                 time_for: {
                     required: "Select Job Type"
                 },

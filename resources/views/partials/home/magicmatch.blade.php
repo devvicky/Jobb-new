@@ -25,7 +25,7 @@
                                 <!-- Skills -->
                                 <?php $postSkills = []; 
                                     $postSkillArr = explode(',', $post->linked_skill);
-                                    $userSkillArr = explode(',', Auth::user()->induser->linked_skill);
+                                    $userSkillArr = explode(', ', Auth::user()->induser->linked_skill);
                                 ?>
                                 <?php 
                                     $matched = array_intersect($userSkillArr, $postSkillArr);

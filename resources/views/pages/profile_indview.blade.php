@@ -33,7 +33,7 @@
 					<i class="fa fa-link (alias) icon-size"></i> Linked</a>
 			@elseif($connectionStatus == 'pendingrequest')
 				<a href="/links" class="btn btn-warning btn-responsive btn-xs" style="margin:5px 0;padding:4px 10px;border-radius:15px !important;">Pending link request</a>
-				<form action="{{ url('/connections/response', $connectionId) }}" method="post">
+				<form action="{{ url('/connections/response', '2') }}" method="post">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<button type="submit" name="action" value="accept" class="btn btn-success btn-xs" style="padding:4px 10px;border-radius:15px !important;background-color:#34bf49;">
 						<i class="fa fa-check" ></i>&nbsp;Accept
@@ -89,7 +89,7 @@
 				</a>
 			</div>
 			<div class="col-md-4 col-sm-4 col-xs-4 @if($title == 'mypost'){{'active'}}@endif" style="padding:0;">
-				<a href="/postbyuser/ind/{{Auth::user()->induser_id}}" class="icon-btn icon-btn-new">
+				<a href="/mypost" class="icon-btn icon-btn-new">
 					<i class="icon-note"></i>
 					<div>
 						 Posts

@@ -1,7 +1,6 @@
 @foreach($users as $user)
 <div class="row search-user-tool">
-	<form action="{{ url('/connections/inviteFriend', $user->id) }}" method="post">
-		<input type="hidden" name="_token" value="{{ csrf_token() }}">
+	
 		<div class="col-md-2 col-sm-2 col-xs-2">
 		 	<a href="#">
 	        	<img class="media-object img-circle img-link-size" src="@if($user->profile_pic != null){{ '/img/profile/'.$user->profile_pic }}@else{{'/assets/images/ab.png'}}@endif" alt="DP" >
@@ -45,14 +44,21 @@
 			@if($user->id != Auth::user()->induser_id)
 				@if($links->contains('id', $user->id))
 		 			<div class="btn btn-success apply-ignore-font" style="padding:2px 5px;">Linked</div>
+		 		@elseif($linksPending->contains('id', $user->id) )
+		 			<div class="btn btn-warning apply-ignore-font" style="padding:2px 5px;">Link Requested</div>
+		 		@elseif($linksApproval->contains('id', $user->id) )
+		 			<div class="btn btn-warning apply-ignore-font" style="padding:2px 5px;">Link Requested</div>
 		 		@else
+		 			<form action="{{ url('/connections/inviteFriend', $user->id) }}" method="post">
+						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 		 			<button type="submit" class="btn btn-success apply-ignore-font" style="padding:2px 5px;">
 						Add Link
 					</button>
+					</form>
 				@endif
 			@endif
 		</div>
-	</form>
+	
 </div>
 @endforeach
 @foreach($corps as $corp)

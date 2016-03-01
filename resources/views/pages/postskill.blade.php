@@ -303,7 +303,17 @@
 															</div>
 														</div>
 													</div>
-													
+													<div class="col-md-5 show-apply-email">
+														<div class="form-group">
+															<label>Contact Person</label>
+															<div class="input-group">
+															<span class="input-group-addon">
+															<i class="glyphicon glyphicon-user" style="color:darkcyan;"></i>
+															</span>
+															<input type="text" name="contact_person" value="{{ Auth::user()->name }}" class="form-control" placeholder="Contact Person">
+															</div>
+														</div>
+													</div>
 													<div class="row">
 													<div class="show-apply">
 														<div class="col-md-5 col-sm-5 col-xs-12">

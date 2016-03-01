@@ -1977,6 +1977,23 @@ text-shadow: 0 1px #484848;
     border:2px solid #3691EF;
 }
 
+.checkicon{
+    display: none;
+}
+
+.btn-filter:active > .checkicon, .btn-filter.active > .checkicon{
+    position: absolute;
+    z-index: 999999;
+    color: #c6c6c6;
+    display: block;
+    top: 0px;
+    left: 5px;
+}
+
+.btn-filter:active > .jobtype-css, .btn-filter.active > .jobtype-css{
+    background-color: #3691EF;
+}
+
 .btn-filter {
     color: #333333;
     background-color: #E5E5E5;

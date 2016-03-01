@@ -91,6 +91,7 @@
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								 <div class="btn-group" data-toggle="buttons">
 					                <label class="btn default btn-filter active" style="padding:0;">
+					                	<span class="checkicon"><i class="fa fa-check"></i></span>
 					                    <input type="checkbox" class="toggle">
 					                    <a class="icon-btn icon-filter-btn">
 						                    <!-- <i class="fa fa-group"></i> -->
@@ -104,6 +105,7 @@
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								<div class="btn-group" data-toggle="buttons">
 					                <label class="btn default btn-filter active" style="padding:0;">
+					                	<span class="checkicon"><i class="fa fa-check"></i></span>
 					                    <input type="checkbox" class="toggle">
 					                    <a class="icon-btn icon-filter-btn">
 						                    <!-- <i class="fa fa-group"></i> -->
@@ -117,6 +119,7 @@
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								<div class="btn-group" data-toggle="buttons">
 					                <label class="btn default btn-filter active" style="padding:0;">
+					                	<span class="checkicon"><i class="fa fa-check"></i></span>
 					                    <input type="checkbox" class="toggle">
 					                    <a class="icon-btn icon-filter-btn">
 						                    <!-- <i class="fa fa-group"></i> -->
@@ -130,6 +133,7 @@
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								<div class="btn-group" data-toggle="buttons">
 					                <label class="btn default btn-filter active" style="padding:0;">
+					                	<span class="checkicon"><i class="fa fa-check"></i></span>
 					                    <input type="checkbox" class="toggle">
 					                    <a class="icon-btn icon-filter-btn">
 						                    <!-- <i class="fa fa-group"></i> -->
