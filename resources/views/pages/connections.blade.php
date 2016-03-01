@@ -209,17 +209,17 @@
                                 
                                      {{ $connection->working_status }} in {{ $connection->prof_category }}, {{ $connection->city }}
                                 
-                                @elseif($connection->working_status == "Freelanching")
+                                @elseif($user->job_role != '[]' && $connection->working_status == "Freelanching")
                                 
-                                     {{ $connection->role }} {{ $connection->working_status }}, {{ $connection->city }}
+                                     {{ $connection->job_role->first()->role }} {{ $connection->working_status }}, {{ $connection->city }}
                                 
-                                @elseif($connection->role != null && $connection->working_at !=null && $connection->working_status == "Working")
+                                @elseif($user->job_role != '[]' && $connection->working_at !=null && $connection->working_status == "Working")
                                 
-                                     {{ $connection->role }} @ {{ $connection->working_at }} 
+                                     {{ $connection->job_role->first()->role }} @ {{ $connection->working_at }} 
                             
-                                @elseif($connection->role != null && $connection->working_at ==null && $connection->working_status == "Working")
+                                @elseif($user->job_role != '[]' && $connection->working_at ==null && $connection->working_status == "Working")
                                 
-                                     {{ $connection->role }}, {{ $connection->city }}
+                                     {{ $connection->job_role->first()->role }}, {{ $connection->city }}
                                 
                                 @elseif($connection->role == null && $connection->working_at !=null && $connection->working_status == "Working")
                                 

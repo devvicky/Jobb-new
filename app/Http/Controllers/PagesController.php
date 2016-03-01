@@ -392,7 +392,7 @@ class PagesController extends Controller {
 												  ->first(['status']);
 			$connectionRequestStatus = Connections::where('connection_user_id', '=', Auth::user()->induser_id)
 												  ->where('user_id', '=', $id)
-												  ->first(['status']);
+												  ->first(['status', 'id']);
 
 			// connection status
 			$connectionStatus = 'add';
@@ -435,6 +435,7 @@ class PagesController extends Controller {
             }
 		}	
 		return view('pages.profile_indview', compact('users' ,'title','thanks','posts','linksCount','user','connectionStatus','utype','connectionId', 'followCount', 'linkSharePost', 'taggedPosts', 'taggedGroupPosts'));
+		// return $connectionId;
 	}
 
 	public function follow($id){

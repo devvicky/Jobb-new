@@ -33,7 +33,7 @@
 					<i class="fa fa-link (alias) icon-size"></i> Linked</a>
 			@elseif($connectionStatus == 'pendingrequest')
 				<a href="/links" class="btn btn-warning btn-responsive btn-xs" style="margin:5px 0;padding:4px 10px;border-radius:15px !important;">Pending link request</a>
-				<form action="{{ url('/connections/response', '2') }}" method="post">
+				<form action="{{ url('/connections/response', $connectionId) }}" method="post">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<button type="submit" name="action" value="accept" class="btn btn-success btn-xs" style="padding:4px 10px;border-radius:15px !important;background-color:#34bf49;">
 						<i class="fa fa-check" ></i>&nbsp;Accept
@@ -46,7 +46,7 @@
 				<button class="btn btn-responsive link-request-label">
 					<i class="icon-hourglass (alias) icon-size" style="color: chartreuse;"></i> Link requested</button>
 				@elseif($connectionStatus == 'add' && Auth::user()->induser_id != $user->id)
-				<form action="{{ url('/connections/inviteFriend', $user->id) }}" method="post" style="padding:4px 10px;border-radius:15px !important;">
+				<form action="{{ url('/connections/inviteFriend', $user->id) }}" method="post">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<button type="submit" name="action" value="accept" class="btn btn-success btn-xs" style="padding:4px 10px;border-radius:15px !important;">
 					<i class="fa fa-check" ></i>&nbsp;Add Links
@@ -441,7 +441,7 @@
 							<label class="control-label col-md-4 col-xs-6">Industry</label>							
 							<div class="col-md-6 col-xs-6"> 
 								<p class="form-control-static view-page">
-									@if($user->job_role != null)
+									@if($user->job_role != '[]')
 									{{ $user->job_role->first()->industry }}
 									@else
 									<a href="/individual/edit#professional">Add Industry</a>
@@ -450,13 +450,13 @@
 							</div>
 						</div>
 					</div>
-					@elseif($user->industry != null && Auth::user()->induser_id != $user->id)
+					@elseif($user->job_role != '[]' && Auth::user()->induser_id != $user->id)
 					<div class="col-md-12 col-sm-12 col-xs-12" style="padding:0;">
 						<div class="form-group">
 							<label class="control-label col-md-4 col-xs-6">Industry</label>							
 							<div class="col-md-6 col-xs-6">
 								<p class="form-control-static view-page">
-									@if($user->job_role != null)
+									@if($user->job_role != '[]')
 									{{ $user->job_role->first()->industry }}
 									@elseif($user->job_role == null)
 									--
@@ -474,7 +474,7 @@
 							<label class="control-label col-md-4 col-xs-6">Functional Area</label>
 							<div class="col-md-6 col-xs-6">
 								<p class="form-control-static view-page">
-									@if($user->job_role != null)
+									@if($user->job_role != '[]')
 									{{$user->job_role->first()->functional_area}}
 									@else
 									<a href="/individual/edit#professional">Add Functional Area</a>
@@ -483,13 +483,13 @@
 							</div>
 						</div>
 					</div>
-					@elseif($user->job_role != null && Auth::user()->induser_id != $user->id)
+					@elseif($user->job_role != '[]' && Auth::user()->induser_id != $user->id)
 					<div class="col-md-12 col-sm-12 col-xs-12" style="padding:0;">
 						<div class="form-group">
 							<label class="control-label col-md-4 col-xs-6">Functional Area</label>
 							<div class="col-md-6 col-xs-6">
 								<p class="form-control-static view-page">
-									@if($user->job_role != null)
+									@if($user->job_role != '[]')
 									{{ $user->job_role->first()->functional_area }}
 									@else
 									 --
@@ -510,7 +510,7 @@
 							<label class="control-label col-md-4 col-xs-6">Role</label>
 							<div class="col-md-6 col-xs-6">
 								<p class="form-control-static view-page">
-									@if($user->job_role != null)
+									@if($user->job_role != '[]')
 									{{ $user->job_role->first()->role }}
 									@else
 									<a href="/individual/edit#professional">Add Role</a>
@@ -519,13 +519,13 @@
 							</div>
 						</div>
 					</div>
-					@elseif($user->role != null && Auth::user()->induser_id != $user->id)
+					@elseif($user->job_role != '[]' && Auth::user()->induser_id != $user->id)
 					<div class="col-md-12 col-sm-12 col-xs-12" style="padding:0;">
 						<div class="form-group">
 							<label class="control-label col-md-4 col-xs-6">Role</label>
 							<div class="col-md-6 col-xs-6">
 								<p class="form-control-static view-page">
-									@if($user->job_role != null)
+									@if($user->job_role != '[]')
 									{{ $user->job_role->first()->role }}
 									@else
 									 --

@@ -119,10 +119,9 @@
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								 <div class="btn-group" data-toggle="buttons">
 					                <label class="btn default btn-filter active " style="padding:0;">
-					                	<span class="checkicon"><i class="fa fa-check"></i></span>
+					                	<span class="checkicon"><i class="fa  fa-check-square" style="font-size:20px"></i></span>
 					                    <input type="checkbox" class="toggle">
 					                    <a class="icon-btn icon-filter-btn ">
-						                    <!-- <i class="fa fa-group"></i> -->
 						                    <div>
 						                         Full<br/> Time
 						                    </div> 
@@ -133,10 +132,9 @@
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								<div class="btn-group" data-toggle="buttons">
 					                <label class="btn default btn-filter active" style="padding:0;">
-					                	<span class="checkicon"><i class="fa fa-check"></i></span>
+					                	<span class="checkicon"><i class="fa  fa-check-square" style="font-size:20px"></i></span>
 					                    <input type="checkbox" class="toggle">
 					                    <a class="icon-btn icon-filter-btn">
-						                    <!-- <i class="fa fa-group"></i> -->
 						                    <div>
 						                         Part<br/> Time
 						                    </div> 
@@ -147,11 +145,11 @@
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								<div class="btn-group" data-toggle="buttons">
 					                <label class="btn default btn-filter active" style="padding:0;">
-					                	<span class="checkicon"><i class="fa fa-check"></i></span>
+					                	<span class="checkicon"><i class="fa  fa-check-square" style="font-size:20px"></i></span>
 					                    <input type="checkbox" class="toggle">
 					                    <a class="icon-btn icon-filter-btn">
-						                    <!-- <i class="fa fa-group"></i> -->
 						                    <div>
+						                    	<br/>
 						                         Freelancer
 						                    </div> 
 						                </a>
@@ -161,10 +159,9 @@
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								<div class="btn-group" data-toggle="buttons">
 					                <label class="btn default btn-filter active" style="padding:0;">
-					                	<span class="checkicon"><i class="fa fa-check"></i></span>
+					                	<span class="checkicon"><i class="fa  fa-check-square" style="font-size:20px"></i></span>
 					                    <input type="checkbox" class="toggle">
 					                    <a class="icon-btn icon-filter-btn">
-						                    <!-- <i class="fa fa-group"></i> -->
 						                    <div>
 						                         Work<br/>From Home
 						                    </div> 

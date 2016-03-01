@@ -18,17 +18,17 @@
             
                  {{ $user->working_status }} in {{ $user->prof_category }}, {{ $user->city }}
             
-            @elseif($user->working_status == "Freelanching")
+            @elseif($user->job_role != '[]' && $user->working_status == "Freelanching")
             
-                 {{ $user->role }} {{ $user->working_status }}, {{ $user->city }}
+                 {{ $user->job_role->first()->role }} {{ $user->working_status }}, {{ $user->city }}
             
-            @elseif($user->role != null && $user->working_at !=null && $user->working_status == "Working")
+            @elseif($user->job_role != '[]' && $user->working_at !=null && $user->working_status == "Working")
             
-                 {{ $user->role }} @ {{ $user->working_at }} 
+                 {{ $user->job_role->first()->role }} @ {{ $user->working_at }} 
         
-            @elseif($user->role != null && $user->working_at ==null && $user->working_status == "Working")
+            @elseif($user->job_role != '[]' && $user->working_at ==null && $user->working_status == "Working")
             
-                 {{ $user->role }}, {{ $user->city }}
+                 {{ $user->job_role->first()->role }}, {{ $user->city }}
             
             @elseif($user->role == null && $user->working_at !=null && $user->working_status == "Working")
             

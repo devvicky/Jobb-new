@@ -124,6 +124,7 @@
 					                    <a class="icon-btn icon-filter-btn">
 						                    <!-- <i class="fa fa-group"></i> -->
 						                    <div>
+						                    	<br/>
 						                         Freelancer
 						                    </div> 
 						                </a>

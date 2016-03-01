@@ -32,24 +32,24 @@ class ViewpageController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create()
-	{
-		$title = 'indview';
-		$user = Induser::where('id', '=', Auth::user()->induser_id)->first();
-		$thanks = Postactivity::with('user', 'post')
-						      ->join('postjobs', 'postjobs.id', '=', 'postactivities.post_id')
-							  ->where('postjobs.individual_id', '=', Auth::user()->induser_id)
-							  ->where('postactivities.thanks', '=', 1)
-						      ->orderBy('postactivities.id', 'desc')
-						      ->sum('postactivities.thanks');
-		$posts = Postjob::where('individual_id', '=', Auth::user()->induser_id)->count('id');
-		$linksCount = Connections::where('user_id', '=', Auth::user()->induser_id)
-								->where('status', '=', 1)
-								->orWhere('connection_user_id', '=', Auth::user()->induser_id)
-								->where('status', '=', 1)
-								->count('id');
-		return view('pages.profile_indview', compact('user', 'thanks', 'posts', 'linksCount', 'title'));
-	}
+	// public function create()
+	// {
+	// 	$title = 'indview';
+	// 	$user = Induser::where('id', '=', Auth::user()->induser_id)->first();
+	// 	$thanks = Postactivity::with('user', 'post')
+	// 					      ->join('postjobs', 'postjobs.id', '=', 'postactivities.post_id')
+	// 						  ->where('postjobs.individual_id', '=', Auth::user()->induser_id)
+	// 						  ->where('postactivities.thanks', '=', 1)
+	// 					      ->orderBy('postactivities.id', 'desc')
+	// 					      ->sum('postactivities.thanks');
+	// 	$posts = Postjob::where('individual_id', '=', Auth::user()->induser_id)->count('id');
+	// 	$linksCount = Connections::where('user_id', '=', Auth::user()->induser_id)
+	// 							->where('status', '=', 1)
+	// 							->orWhere('connection_user_id', '=', Auth::user()->induser_id)
+	// 							->where('status', '=', 1)
+	// 							->count('id');
+	// 	return view('pages.profile_indview', compact('user', 'thanks', 'posts', 'linksCount', 'title'));
+	// }
 
 	/**
 	 * Store a newly created resource in storage.
