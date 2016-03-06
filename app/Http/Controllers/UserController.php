@@ -513,10 +513,17 @@ class UserController extends Controller {
 	        return redirect()->back()->withErrors($validator->errors());
 	    }else{
 			$user = User::where('reset_code','=',Input::get('token'))->first();
-			if($user!=null){
+			if($user != null){
 				$user->password = bcrypt(Input::get('password'));
 				$user->reset_code = null;
 				$user->save();
+				if($user->email != null){
+					$email = $user->email;
+					$fname = $user->name;
+					Mail::send('emails.auth.changepasswordconfirmation', array('fname'=>$fname), function($message) use ($email,$fname){
+				        $message->to($email, $fname)->subject('Jobtip - Password Reset!')->from('admin@jobtip.in', 'JobTip');
+				    });
+				}
 				return redirect('/login');
 			}
 		}

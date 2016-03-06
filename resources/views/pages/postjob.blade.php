@@ -240,9 +240,7 @@
 												<label>  Education <span class="required">
 														* </span></label> <!-- Select Multiple <input type="checkbox" id="education-check" name="multiple_education" value="1" class="form-control"> -->
 												<div class="input-group single-education" >
-													<span class="input-group-addon">
-														<i class="icon-graduation"></i>
-													</span>
+													
 													<select class="form-control education-list" name="education[]" id="parent_selection" multiple style="border:1px solid #c4d5df">
 														{{$n=""}}
 														@foreach($education as $edu)
@@ -251,102 +249,17 @@
 																{{$n=$edu->name}}
 																<optgroup label="{{$edu->name}}">
 															@endif
-															    <option value="{{$edu->branch}}-{{$edu->name}}">{{$edu->branch}}</option>
+															    <option value="{{$edu->branch}}-{{$edu->name}}">{{$edu->name}}-{{$edu->branch}}</option>
 															@if($n != $edu->name)
 																</optgroup>		
 															@endif
 
 														@endforeach
-
-														<!-- <option value="Any Graduate">Any Graduate</option>
-														<option value="Any Post Graduate">Any Post Graduate</option>
-														<option value="12th & above">12th & above</option>
-														<option value="10th & above">10th & above</option>
-														<option value="twelth">12th</option>
-														<option value="10th">10th</option>
-														<option value="BA">B.A</option>
-														<option value="BArch">B.Arch</option>
-														<option value="BCA">BCA</option>
-														<option value="BBA">BBA</option>
-														<option value="BCom">BCom</option>
-														<option value="B.Ed">B.Ed</option>
-														<option value="MTech" value="MTech">MTech</option>
-														<option value="MSc" value="MSc">MSc</option>
-														<option value="MArch" value="MArch">MArch</option>
-
-														<option value="MCA">MCA</option>
-														<option value="MS" value="MS">MS</option>
-														<option value="PGDiploma">PGDiploma</option>
-
-														<option value="MVSC">MVSC</option>
-														<option value="MCM">MCM</option>
-														<option value="BBA">BBA</option>
-														<option value="btech">B.Tech/B.E.</option>
-														<option value="MCom">MCom</option>
-														<option value="MEd">MEd</option>
-														<option value="MPharma">MPharma</option>
-														<option value="MA">MA</option>
-														<option value="twelth">12th</option> -->
-														<!-- <option value="10">10</option> -->
 													</select>
 												</div>
-												<!-- <div class="input-group  multiple-education" >
-													<span class="input-group-addon">
-														<i class="icon-graduation"></i>
-													<select class="bs-select form-control " name="education" multiple>
-														<option value="">--Please Select--</option>
-														<option value="Any Graduate">Any Graduate</option>
-														<option value="Any Post Graduate">Any Post Graduate</option>
-														<option value="twelth&above">12th & above</option>
-														<option value="tenth&above">10th & above</option>
-														<option value="twelth">12th</option>
-														<option value="tenth">10th</option>
-														<option value="BA">B.A</option>
-														<option value="BArch">B.Arch</option>
-														<option value="BCA">BCA</option>
-														<option value="BBA">BBA</option>
-														<option value="BCom">BCom</option>
-														<option value="B.Ed">B.Ed</option>
-														<option value="MTech" value="MTech">MTech</option>
-														<option value="MSc" value="MSc">MSc</option>
-														<option value="MArch" value="MArch">MArch</option>
-
-														<option value="MCA">MCA</option>
-														<option value="MS" value="MS">MS</option>
-														<option value="PGDiploma">PGDiploma</option>
-
-														<option value="MVSC">MVSC</option>
-														<option value="MCM">MCM</option>
-														<option value="BBA">BBA</option>
-														<option value="btech">B.Tech/B.E.</option>
-														<option value="MCom">MCom</option>
-														<option value="MEd">MEd</option>
-														<option value="MPharma">MPharma</option>
-														<option value="MA">MA</option>
-														<option value="twelth">12th</option>
-														
-													</select>
-												</div> -->
 											</div>
 
 										</div>
-										<!--/span-->
-										<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
-
-										<!-- <div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="form-group">
-												<label>Branch <span class="required"> * </span></label>
-												<div class="input-group">
-													<span class="input-group-addon">
-														<i class="icon-graduation"></i>
-													</span>
-													<select class="form-control" name="branch" id="child_selection" value="">
-														<option value=""></option>
-													</select>
-												</div>
-											</div>
-										</div> -->
-										<!--/span-->
 									</div>
 										<div class="row">
 											<div class="col-md-6 col-sm-6 col-xs-12">

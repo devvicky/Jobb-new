@@ -40,7 +40,7 @@
 	<span style="font-size: 12px;">OR</span>
 </h2>
 
-<form class="register-form"  action="{{ url('/individual/store') }}" method="post" id="individual-register">
+<form class="register-form"  action="/individual/store" method="post" id="individual-register">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 	@if (count($errors) > 0)

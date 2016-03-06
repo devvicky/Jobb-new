@@ -492,15 +492,14 @@ class PagesController extends Controller {
 			if(Auth::user()->identifier == 1 && $post_type == 'job'){
 				$filter= Filter::where('id', '=', Auth::user()->id)->where('post_type', '=', 'job')->first();
 				if($filter != null){
-					$filter->city = Input::get('city');
+					// $filter->city = Input::get('prefered_location');
 					$filter->post_type = Input::get('post_type');
 					$filter->from_user = Auth::user()->id;
 					$filter->posted_by = Input::get('posted_by');
 					$filter->job_title = Input::get('post_title');
-					$filter->city = Input::get('city');
 					$filter->prof_category = Input::get('prof_category');
 					$filter->experience = Input::get('experience');
-					$filter->time_for = Input::get('time_for');
+					// $filter->time_for = Input::get('time_for');
 					$filter->unique_id = Input::get('unique_id');
 					$filter->role = Input::get('role');
 					$filter->save();
@@ -510,10 +509,10 @@ class PagesController extends Controller {
 					$filter->posted_by = Input::get('posted_by');
 					$filter->post_type = Input::get('post_type');
 					$filter->job_title = Input::get('post_title');
-					$filter->city = Input::get('city');
+					// $filter->city = Input::get('city');
 					$filter->prof_category = Input::get('prof_category');
 					$filter->experience = Input::get('experience');
-					$filter->time_for = Input::get('time_for');
+					// $filter->time_for = Input::get('time_for');
 					$filter->unique_id = Input::get('unique_id');
 					$filter->role = Input::get('role');
 					$filter->save();
@@ -552,15 +551,17 @@ class PagesController extends Controller {
 			$post_type = Input::get('post_type');
 			$posted_by = Input::get('posted_by');
 			$post_title = Input::get('post_title');
-			$city = Input::get('city');
+			$city = Input::get('prefered_location');
+
 			$prof_category = Input::get('prof_category');
 			$experience = Input::get('experience');
 			$time_for = Input::get('time_for');
 			$unique_id = Input::get('unique_id');
 			$role = Input::get('role');
 			if($post_type == 'job'){
-			$jobPosts = Postjob::orderBy('id', 'desc')
-							   ->with('indUser', 'corpUser', 'postActivity')
+			$jobPosts = Postjob::orderBy('postjobs.id', 'desc')
+							   ->with('indUser', 'corpUser', 'postActivity', 'preferLocations')
+							   ->leftjoin('post_preferred_locations', 'post_preferred_locations.post_id', '=', 'postjobs.id')
 							   ->where('individual_id', '!=', Auth::user()->induser_id);
 
 			if($role != null){
@@ -573,12 +574,22 @@ class PagesController extends Controller {
 				$jobPosts->where('post_title', 'like', '%'.$post_title.'%');
 			}
 			if($city != null){
-				$pattern = '/\s*,\s*/';
-				$replace = ',';
-				$city = preg_replace($pattern, $replace, $city);
-				$cityArray = explode(',', $city);
-				$jobPosts->whereIn('city', $cityArray);
+				$p_locality = [];
+	    		$p_city = [];
+				foreach ($city as $loc) {
+		        	$tempArr = explode('-', $loc);
+		        	if(count($tempArr) == 3){     		
+		        		array_push($p_locality, $tempArr[0]) ;
+		        		array_push($p_city, $tempArr[1]) ;
+		        	}
+		        	if(count($tempArr) == 2){
+		        		array_push($p_city, $tempArr[0]) ;	        	
+		        	}
+		        }
+				$jobPosts->whereIn('post_preferred_locations.city', $p_city);
+				$jobPosts->whereIn('post_preferred_locations.locality', $p_locality);
 			}
+
 			if($prof_category != null){
 				$jobPosts->where('prof_category', 'like', '%'.$prof_category.'%');
 			}
@@ -586,25 +597,14 @@ class PagesController extends Controller {
 				$jobPosts->whereRaw("$experience between min_exp and max_exp");
 			}
 			if($time_for != null){
-				$jobPosts->where('time_for', '=', $time_for);
+				$jobPosts->whereIn('time_for', $time_for);
+				// return $time_for;
 			}
-			// if(count($post_type) > 0){
-			// 	if(in_array("job", $post_type)){
-			// 		$jobPosts->where('post_type', '=', $post_type[0]);
-			// 	}elseif(in_array("skill", $post_type)){
-			// 		$jobPosts->where('post_type', '=', $post_type[0]);
-			// 	}
-			// }
+			
 			if($post_type == 'job'){
 				$jobPosts->where('post_type', '=', $post_type);
 			}
-			// if(count($posted_by) > 0) {
-			// 	if(in_array("individual", $posted_by)) {
-			// 	    $jobPosts->where('individual_id', '!=', 0);
-			// 	}elseif(in_array("company", $posted_by)) {
-			// 	    $jobPosts->where('corporate_id', '!=', 0);
-			// 	}
-			// }
+			
 
 			$jobPosts = $jobPosts->paginate(15);
 			if(Auth::user()->identifier == 1){
@@ -689,6 +689,7 @@ class PagesController extends Controller {
 									 ->where('individual_id', '!=', Auth::user()->induser_id)
 									 ->paginate(15);
 			}
+			// return $time_for;
 			return view('pages.home', compact('jobPosts', 'skillPosts', 'linksApproval', 'linksPending', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'share_links', 'share_groups', 'sort_by', 'sort_by_skill'));
 		}else{
 			return redirect('login');

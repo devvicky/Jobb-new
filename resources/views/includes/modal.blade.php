@@ -3,9 +3,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       @if(Auth::user()->induser_id !=null)
-      {!! Form::open(array('url' => 'user/imgUpload', 'files'=> true, 'id'=> 'profile-img-upload-form', 'onsubmit'=>'return checkForm()')) !!}
+      <?=Form::open(array('url' => URL::to('/user/imgUpload', array(), true), 'files'=> true, 'id'=> 'profile-img-upload-form', 'onsubmit'=>'return checkForm()' ))?>
       @elseif(Auth::user()->corpuser_id !=null)
-      {!! Form::open(array('url' => 'corporate/imgUpload', 'files'=> true)) !!}
+      <?=Form::open(array('url' => URL::to('/corporate/imgUpload', array(), true), 'files'=> true))?>
       @endif
 
       <div class="modal-header">
@@ -27,7 +27,7 @@
 
         {{-- <button type="button" class="btn btn-warning cropnsave-img" >Crop & Save</button> --}}
 
-        {{-- <form action="user/imgUpload" target="_blank" method="post"> --}}
+        {{-- <form action="/user/imgUpload" target="_blank" method="post"> --}}
           <input type="hidden" id="crop_x" name="x"/>
           <input type="hidden" id="crop_y" name="y"/>
           <input type="hidden" id="crop_w" name="w"/>
@@ -193,7 +193,7 @@
         <h4 class="modal-title">Share post by email</h4>
       </div>
       <div id="myactivity-posts-content" >
-        <form role="form" id="modal-post-share-email-form" method="POST" action="{{ url('/post/sharebyemail') }}" class="form-horizontal" >
+        <form role="form" id="modal-post-share-email-form" method="POST" action="/post/sharebyemail" class="form-horizontal" >
           <div class="modal-body">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <input type="hidden" name="share_post_email_id" id="modal_share_post_email_id" value="">

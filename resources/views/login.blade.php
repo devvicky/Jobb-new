@@ -119,7 +119,7 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 @media (max-width: 570px) {
   .signup-button{
         position: absolute;
-      top: -27px;
+      top: -48px;
       right: 0;
 
   }
@@ -209,7 +209,7 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 <script src="/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
 <script src="/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
 <script src="/assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
-<script src="/assets/global/plugins/jqeury-validation/js/additional-method.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/jquery-validation/js/additional-methods.js" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 <script src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>

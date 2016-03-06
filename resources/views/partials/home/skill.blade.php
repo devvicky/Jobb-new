@@ -9,8 +9,13 @@
 	<div class="form-body" id="post-items" style="padding:0;">
 				
 			@foreach($skillPosts as $post)
-				
-
+				<?php $city = 'unspecified'; ?>
+				@if($post->preferLocations != '[]')
+					<?php $city = ''; ?>
+				@foreach($post->preferLocations as $pl)
+					<?php $city = $city . $pl->city .', '; ?>
+				@endforeach
+				@endif
 				@if($post->expired == 0)
 					@if($post->induser != null)	
 						@include('partials.home.post', ['userImgPath'	=>	$post->induser->profile_pic, 
@@ -18,7 +23,7 @@
 														'postTitle'		=>	$post->post_title,
 														'expMin'		=>	$post->min_exp,
 														'expMax'		=>	$post->max_exp,
-														'city'			=>	$post->city,
+														'city'			=>	$city,
 														'company'		=>	$post->post_compname,
 														'magicMatch'	=>	$post->magic_match,
 														'userType'		=>	'ind',
@@ -37,7 +42,7 @@
 														'postTitle'		=>	$post->post_title,
 														'expMin'		=>	$post->min_exp,
 														'expMax'		=>	$post->max_exp,
-														'city'			=>	$post->city,
+														'city'			=>	$city,
 														'company'		=>	$post->post_compname,
 														'magicMatch'	=>	$post->magic_match,
 														'userType'		=>	'ind',
