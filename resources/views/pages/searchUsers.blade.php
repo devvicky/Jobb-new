@@ -1,4 +1,5 @@
 @foreach($users as $user)
+@if($user->user->email_verify == 1 || $user->user->mobile_verify == 1)
 <div class="row search-user-tool">
 	
 		<div class="col-md-2 col-sm-2 col-xs-2">
@@ -49,7 +50,7 @@
 		 		@elseif($linksApproval->contains('id', $user->id) )
 		 			<div class="btn btn-warning apply-ignore-font" style="padding:2px 5px;">Link Requested</div>
 		 		@else
-		 			<form action="{{ url('/connections/inviteFriend', $user->id) }}" method="post">
+		 			<form action="/connections/inviteFriend/{{$user->id}}" method="post">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 		 			<button type="submit" class="btn btn-success apply-ignore-font" style="padding:2px 5px;">
 						Add Link
@@ -60,10 +61,11 @@
 		</div>
 	
 </div>
+@endif
 @endforeach
 @foreach($corps as $corp)
 <div class="row search-user-tool">
-	<form action="{{ url('/links/corporate/follow', $corp->id) }}" method="post">
+	<form action="/links/corporate/follow/{{$corp->id}}" method="post">
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">
 		<div class="col-md-2 col-sm-2 col-xs-2">
 		 	<a href="#">

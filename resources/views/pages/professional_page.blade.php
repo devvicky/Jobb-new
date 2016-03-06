@@ -30,7 +30,7 @@
 	<div class="col-md-8" style="padding:0;">
 		<div class="tab-content">
 			<div id="personal" class="tab-pane active">
-				<form action="{{ url('/individual/basicupdate') }}" id="profile_validation" class="horizontal-form" method="post">
+				<form action="/individual/basicupdate" id="profile_validation" class="horizontal-form" method="post">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 						<div class="row">
 							<div class="col-md-6">
@@ -135,17 +135,8 @@
 										<span class="input-group-addon">
 											<i class="fa fa-map-marker"></i>
 										</span>
-
-										<input type="text" id="curr_loc" name="curr_loc" 
-										class="form-control" placeholder="Select City">									
-										
+										<input type="text" id="city" name="city" class="form-control" value="{{ $user->induser->city }}" placeholder="City">										
 									</div>
-
-									{!! Form::select('current_location[]', [], null, ['id'=>'current_location', 
-																					   'aria-hidden'=>'true', 
-																					   'class'=>'form-control', 
-																					   'placeholder'=>'city', 
-																					   'multiple']) !!}		
 								</div>
 							</div>
 						</div>
@@ -260,7 +251,7 @@
 			</div>
 			<div id="professional" class="tab-pane">
 						<!-- BEGIN FORM-->
-		<form action="{{ url('/individual/update', Auth::user()->induser_id) }}" id="ind_validation" 
+		<form action="/individual/update/{{Auth::user()->induser_id}}" id="ind_validation" 
 				class="horizontal-form prof_detail" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<div class="form-body">
@@ -315,6 +306,7 @@
 											<option @if($user->induser->education=="MPharma") {{ $selected }} @endif value="MPharma" value="MPharma">MPharma</option>
 											<option @if($user->induser->education=="MA") {{ $selected }} @endif value="MA" value="MA">MA</option>
 											<option @if($user->induser->education=="twelth") {{ $selected }} @endif value="twelth" value="twelth">12th</option>
+											<option @if($user->induser->education=="Below 12th") {{ $selected }} @endif value="Below 12th" value="twelth">Below 12th</option>
 											<!-- <option value="10">10</option> -->
 										</select>
 										
@@ -324,7 +316,7 @@
 							<!--/span-->
 							<div class="col-md-6 col-sm-6">
 								<div class="form-group">
-									<label>Branch <span class="required"> * </span></label>
+									<label>Branch </label>
 									<div class="input-group">
 										<span class="input-group-addon">
 											<i class="icon-graduation"></i>
@@ -417,6 +409,7 @@
 
 									<div id="charNum" style="text-align:right;"></div>
 								</div>
+								
 							</div>
 							<div class="col-md-12">
 								
@@ -429,7 +422,7 @@
 								<div class="form-group">
 									<!-- <form action="{{ url('job/newskill') }}" id="newskillfrm" method="post">					
 									<input type="hidden" name="_token" value="{{ csrf_token() }}"> -->
-									<label>Search Skills</label>
+									<label>Search Skills<span class="required"> * </span></label>
 									<div style="position:relative;">
 										<input type="text" name="name" id="newskill" class="form-control" placeholder="Search for skill...">
 											<button id="add-new-skill" style="position:absolute;right:0;top:0;" class="btn btn-success" type="button"><i class="icon-plus"></i> Add</button>	
@@ -500,7 +493,19 @@
 										class="form-control" placeholder="Select preferred location">									
 										
 									</div>
-											
+									@if($user->induser->preferred_locations != '[]')
+									{!! Form::select('prefered_location[]', $user->induser->preferred_locations, null, ['id'=>'prefered_location', 
+																								   'aria-hidden'=>'true', 
+																								   'class'=>'form-control', 
+																								   'placeholder'=>'city', 
+																								   'multiple']) !!}	
+									@else
+									{!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 
+																								   'aria-hidden'=>'true', 
+																								   'class'=>'form-control', 
+																								   'placeholder'=>'city', 
+																							       'multiple']) !!}	
+									@endif
 								</div>
 							</div>
 						</div>
@@ -520,7 +525,7 @@
 				
 			</div> -->
 			<div id="privacy" class="tab-pane">
-				<form action="{{ url('/individual/privacyUpdate', Auth::user()->induser_id) }}" id="privacy_validation" 
+				<form action="/individual/privacyUpdate/{{Auth::user()->induser_id}}" id="privacy_validation" 
 				class="horizontal-form prof_detail" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<table class="table table-bordered table-striped">
@@ -614,7 +619,22 @@
 
 @section('javascript')
 <script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
-<script src="http://maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
+<script type="text/javascript">
+	function initialize() {
+		var options = {	types: ['(cities)'], componentRestrictions: {country: "in"}	};
+		var input = document.getElementById('city');
+		var autocomplete = new google.maps.places.Autocomplete(input, options);
+		autocomplete.addListener('place_changed', onPlaceChanged); 
+		function onPlaceChanged() {
+		  var place = autocomplete.getPlace();
+		  if (place.address_components) { city = place.address_components[0];
+		  	document.getElementById('city').value = city.long_name;
+		  } else { document.getElementById('autocomplete').placeholder = 'Enter a city'; }
+		}
+	}
+   google.maps.event.addDomListener(window, 'load', initialize);   
+</script>
 <script type="text/javascript">
 	// Skill Details
 	var skillArray = [];
@@ -805,6 +825,8 @@ $(document).ready(function() {
     
     return false;
   });
+
+ 
 });
 </script>
 	<script>
@@ -815,7 +837,7 @@ $(document).ready(function() {
     </script>
 
 
-<script src="{{ asset('/assets/ind_validation.js') }}"></script>
+<script src="/assets/ind_validation.js"></script>
 <script>
 	jQuery(document).ready(function() { 
 	    ComponentsIonSliders.init();
@@ -832,6 +854,10 @@ $(document).ready(function() {
           $('#charNum').text(255 - len);
         }
       };
+
+      $("ind_validation").submit(function(e){
+		  e.preventDefault();
+		}
     </script>
 <script type="text/javascript">
 	
@@ -949,7 +975,7 @@ $gotit = [];
 					}
 				});
 			    $.ajax({
-			      url: "{{ url('job/newskill') }}",
+			      url: "/job/newskill",
 			      type: "POST",
 			      data: { name: name },
 			      cache : false,

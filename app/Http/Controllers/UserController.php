@@ -308,26 +308,26 @@ class UserController extends Controller {
 			$data->lname = Input::get('lname');
 			$data->dob = Input::get('dob');
 			$data->gender = Input::get('gender');
-			$curr_locations = Input::get('current_location');
+			$data->city = Input::get('city');
 			$data->email = Input::get('email');
 			$data->mobile = Input::get('mobile');
 			$data->in_page = Input::get('in_page');
 			$data->fb_page = Input::get('fb_page');
-			if (!empty($curr_locations)) {
-				foreach ($curr_locations as $loc) {
-		        	$tempArr = explode('-', $loc);
-		        	if(count($tempArr) == 3){
-		        		$data->c_locality = $tempArr[0];
-		        		$data->city = $tempArr[1];
-		        		$data->state = $tempArr[2];
-		        	}
-		        	if(count($tempArr) == 2){
-			        	$data->c_locality = 'none';
-		        		$data->city = $tempArr[0];
-		        		$data->state = $tempArr[1];
-			        }
-		        }
-		    }
+			// if (!empty($curr_locations)) {
+			// 	foreach ($curr_locations as $loc) {
+		 //        	$tempArr = explode('-', $loc);
+		 //        	if(count($tempArr) == 3){
+		 //        		$data->c_locality = $tempArr[0];
+		 //        		$data->city = $tempArr[1];
+		 //        		$data->state = $tempArr[2];
+		 //        	}
+		 //        	if(count($tempArr) == 2){
+			//         	$data->c_locality = 'none';
+		 //        		$data->city = $tempArr[0];
+		 //        		$data->state = $tempArr[1];
+			//         }
+		 //        }
+		 //    }
 			$data->save();
 			// $message = 'Personal Tab successfully Updated'
 			return redirect('/individual/edit#professional');
@@ -413,10 +413,15 @@ class UserController extends Controller {
 	}
 
 	public function sendEVC(){
-		$type = 'email-verification-code';
+		$type = 'email-verification-code-send';
 		$email = Input::get('new_email');
 		$code = 'A'.Auth::user()->induser_id.rand(1111,9999);
 		$codeEnc = md5($code);
+		$user = User::where('induser_id','=',Auth::user()->induser_id)->first();
+		$fname = $user->induser->fname;
+		Mail::send('emails.auth.reminder', array('fname'=>$fname, 'code'=>$codeEnc), function($message) use ($email,$fname){
+	        $message->to($email, $fname)->subject('Jobtip - Password Reset!')->from('admin@jobtip.in', 'JobTip');
+	    });
 		return view('pages.verify_email_mobile', compact('email', 'codeEnc', 'type', 'code'));
 	}
 
@@ -535,6 +540,14 @@ class UserController extends Controller {
 			if( Hash::check(Input::get('old_password'), $user->password) ){
 				$user->password = bcrypt(Input::get('password'));
 				$user->save();
+				if($user->email != null){
+					$email = $user->email;
+					$fname = $user->name;
+					Mail::send('emails.auth.changepasswordconfirmation', array('fname'=>$fname), function($message) use ($email,$fname){
+				        $message->to($email, $fname)->subject('Jobtip - Password Changed!')->from('admin@jobtip.in', 'JobTip');
+				    });
+				}
+				
 				return redirect('/home#change-password')->withErrors(['Password changed successfully']);
 			}else{
 				return redirect("/home#change-password")->withErrors(['Old password doesnt match']);

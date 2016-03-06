@@ -181,7 +181,7 @@
 			</ul>
 	</div>
 	<div class="portlet-body" style="padding:10px 0;">
-		<div class="tabbable-custom ">
+		<div class="tabbable-custom " style="overflow:visible;">
 			
 			<div class="tab-content">
 				<div class="tab-pane active" id="tab_5_1">
@@ -209,15 +209,15 @@
                                 
                                      {{ $connection->working_status }} in {{ $connection->prof_category }}, {{ $connection->city }}
                                 
-                                @elseif($user->job_role != '[]' && $connection->working_status == "Freelanching")
+                                @elseif($connection->job_role != '[]' && $connection->working_status == "Freelanching")
                                 
                                      {{ $connection->job_role->first()->role }} {{ $connection->working_status }}, {{ $connection->city }}
                                 
-                                @elseif($user->job_role != '[]' && $connection->working_at !=null && $connection->working_status == "Working")
+                                @elseif($connection->job_role != '[]' && $connection->working_at !=null && $connection->working_status == "Working")
                                 
                                      {{ $connection->job_role->first()->role }} @ {{ $connection->working_at }} 
                             
-                                @elseif($user->job_role != '[]' && $connection->working_at ==null && $connection->working_status == "Working")
+                                @elseif($connection->job_role != '[]' && $connection->working_at ==null && $connection->working_status == "Working")
                                 
                                      {{ $connection->job_role->first()->role }}, {{ $connection->city }}
                                 
@@ -244,7 +244,7 @@
 										</li>
 										
 										<li style="margin:5px 0;">
-											<form action="{{ url('/connections/destroy', $connection->pivot->id) }}" method="post">
+											<form action="/connections/destroy, $connection->pivot->id" method="post">
 											<input type="hidden" name="_token" value="{{ csrf_token() }}">
 											<button type="submit" name="action" class="btn btn-success connection-css">Remove Link</button>		
 											</form>
@@ -315,7 +315,7 @@
 						      </small>
 						</div>
 						<div class="col-md-3 col-sm-3 col-xs-3" style="margin: 0px -10px;padding:0;">
-							<form action="{{ url('/connections/response', $conreq->pivot->id) }}" method="post">
+							<form action="/connections/response/{{$conreq->pivot->id}}" method="post">
 								<input type="hidden" name="_token" value="{{ csrf_token() }}">
 								<button type="submit" name="action" value="accept" class="btn apply-ignore-font" style="padding: 0px 3px; background-color: white;">
 									<i class="icon-check icon-check-css-new"></i>
@@ -366,7 +366,7 @@
 											<button class="btn btn-success connection-css">View Profile </button></a>
 										</li>
 										<li style="margin:5px 0;">
-											<form action="{{ url('links/corporate/unfollow', $follow->id) }}" method="post">
+											<form action="/links/corporate/unfollow, $follow->id" method="post">
 											<input type="hidden" name="_token" value="{{ csrf_token() }}">
 												<button type="submit" name="action" class="btn btn-success connection-css">
 													Un-Follow

@@ -13,7 +13,7 @@
 		<div class="col-md-12" style="border: 1px solid lightgrey;">
             <div>
                 <label>Industry Functional Area Mapping</label>
-                <form action="{{ url('/admin/industryfunctionalArea/upload') }}" id="profile_validation" class="horizontal-form" method="post">
+                <form action="/admin/industryfunctionalArea/upload" id="profile_validation" class="horizontal-form" method="post">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="col-md-5 col-sm-5" style="border: 1px solid lightgrey;">
                     <div class="form-group">
@@ -37,7 +37,7 @@
     <div class="row" style="margin: 20px 0;">
         <div class="col-md-12" style="border: 1px solid lightgrey;">
              <label>Industry Functional Area Role Mapping</label>
-            <form action="{{ url('/admin/indfunctionalRole/upload') }}" id="profile_validation" class="horizontal-form" method="post">
+            <form action="/admin/indfunctionalRole/upload" id="profile_validation" class="horizontal-form" method="post">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="col-md-5 col-sm-5" style="border: 1px solid lightgrey;">
             <div class="form-group">
@@ -104,7 +104,7 @@
                                         
                                     </div>
                                     <div class="row role-show">
-                                        <form action="{{ url('/admin/role/upload') }}" id="profile_validation" class="horizontal-form" method="post">
+                                        <form action="/admin/role/upload" id="profile_validation" class="horizontal-form" method="post">
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <div class="col-md-12">
                                            <!--  <div style="position:relative;">
@@ -155,7 +155,7 @@
                                                 </a>  
                                             </div>  
                                             <div class="col-md-2 col-sm-2 col-xs-2">
-                                                <form action="{{ url('/admin/deleterole') }}" method="post">
+                                                <form action="/admin/deleterole" method="post">
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                     <input type="hidden" name="role" value="{{$role->id}}">
                                                     <button type="submit" name="action" value="reject" class="btn apply-ignore-font" style="padding: 0px 3px; background-color: white;">
@@ -168,7 +168,7 @@
                                     <div class="modal fade" id="edit-role-{{$role->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" style="width: 300px;">
                                             <div class="modal-content">
-                                                <form action="{{ url('/admin/updaterole', $role->id) }}" class="horizontal-form" method="post">
+                                                <form action="/admin/updaterole/{{$role->id}}" class="horizontal-form" method="post">
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -239,7 +239,7 @@
                                             <button id="add-new-skill" style="position:absolute;right:0;top:0;" class="btn btn-success" type="button"><i class="icon-plus"></i> Add</button>    
                                             
                                         </div> -->
-                                            <form action="{{ url('/admin/functionalArea/upload') }}" id="profile_validation" class="horizontal-form" method="post">
+                                            <form action="/admin/functionalArea/upload" id="profile_validation" class="horizontal-form" method="post">
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                             <div class="col-md-12">
 
@@ -287,7 +287,7 @@
                                                 </a>  
                                             </div>  
                                             <div class="col-md-2 col-sm-2 col-xs-2">
-                                                <form action="{{ url('/admin/deletefarea') }}" method="post">
+                                                <form action="/admin/deletefarea" method="post">
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                     <input type="hidden" name="f_area" value="{{$functionalarea->id}}">
                                                     <button type="submit" name="action" value="reject" class="btn apply-ignore-font" style="padding: 0px 3px; background-color: white;">
@@ -300,7 +300,7 @@
                                     <div class="modal fade" id="edit-fa-{{$functionalarea->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" style="width: 300px;">
                                             <div class="modal-content">
-                                                <form action="{{ url('/admin/updatefarea', $functionalarea->id) }}" class="horizontal-form" method="post">
+                                                <form action="/admin/updatefarea/{{$functionalarea->id}}" class="horizontal-form" method="post">
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -388,7 +388,7 @@
                                         </div> -->
                                     </div>
                                     <div class="row show-industry">
-                                        <form action="{{ url('/admin/industry/upload') }}" id="profile_validation" class="horizontal-form" method="post">
+                                        <form action="/admin/industry/upload" id="profile_validation" class="horizontal-form" method="post">
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -435,7 +435,7 @@
                                                 </a>  
                                             </div>  
                                             <div class="col-md-2 col-sm-2 col-xs-2">
-                                                <form action="{{ url('/admin/deleteindustry') }}" method="post">
+                                                <form action="/admin/deleteindustry" method="post">
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                     <input type="hidden" name="industry" value="{{$industries->id}}">
                                                     <button type="submit" name="action" value="reject" class="btn apply-ignore-font" style="padding: 0px 3px; background-color: white;">
@@ -448,7 +448,7 @@
                                     <div class="modal fade" id="edit-industry-{{$industries->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" style="width: 300px;">
                                             <div class="modal-content">
-                                                <form action="{{ url('/admin/updateindustry', $industries->id) }}" class="horizontal-form" method="post">
+                                                <form action="/admin/updateindustry/{{$industries->id}}" class="horizontal-form" method="post">
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -528,7 +528,7 @@
                                               {{$industries->fareaname}} 
                                           </div>
                                           <div class="col-md-2 col-sm-2 col-xs-2">
-                                            <form action="{{ url('/admin/deleteifarea') }}" method="post">
+                                            <form action="/admin/deleteifarea" method="post">
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                 <input type="hidden" name="ifareamapping" value="{{$industries->id}}">
                                                 <button type="submit" name="action" value="reject" class="btn apply-ignore-font" style="padding: 0px 3px; background-color: white;">
@@ -716,7 +716,7 @@ $gotit = [];
                     }
                 });
                 $.ajax({
-                  url: "{{ url('job/newskill') }}",
+                  url: "/job/newskill",
                   type: "POST",
                   data: { name: name },
                   cache : false,

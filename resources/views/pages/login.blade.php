@@ -90,11 +90,14 @@ $(document).ready(function(){
 	            $('.login-tag').hide();
 	            $('#mobile-otp-form').show();
 	            $('#ind-reg-msg').html(data.data.message);
-
+	            
 	            $('#ind-msg-reg-box').removeClass('alert alert-success');
 	            $('#ind-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
 	                $(this).show();
 	            });
+	            jQuery('.signup-tabopen').hide();
+	            jQuery('.login-tabopen').hide();
+        		jQuery('.login-otp-tabopen').show();
 	        }
 	        else if(data.data.page == 'login' && data.data.mobile_verify == 0){
 	        	$('#ind-msg-box').removeClass('alert alert-success');
@@ -116,6 +119,9 @@ $(document).ready(function(){
 	            $('#ind-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
 	                $(this).show();
 	            });
+	            jQuery('.signup-tabopen').hide();
+	            jQuery('.login-tabopen').hide();
+        		jQuery('.login-otp-tabopen').show();
 	        }
 	        else{          
 	            redirect(data.data.page);
@@ -179,6 +185,9 @@ $('#corporate-login-btn').on('click',function(event){
 	            $('#ind-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
 	                $(this).show();
 	            });
+	            jQuery('.signup-tabopen').hide();
+	            jQuery('.login-tabopen').hide();
+        		jQuery('.login-otp-tabopen').show();
 	        }
 	         else if(data.data.page == 'login' && data.data.mobile_verify == 0){
 	        	$('#corp-msg-box').removeClass('alert alert-success');
@@ -200,6 +209,9 @@ $('#corporate-login-btn').on('click',function(event){
 	            $('#ind-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
 	                $(this).show();
 	            });
+	            jQuery('.signup-tabopen').hide();
+	            jQuery('.login-tabopen').hide();
+        		jQuery('.login-otp-tabopen').show();
 	        }
 	        else{
 	            redirect(data.data.page);
@@ -258,6 +270,9 @@ $('#individual-register-btn').on('click',function(event){
 		            $('#ind-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
 		                $(this).show();
 		            });
+		            jQuery('.signup-tabopen').hide();
+		            jQuery('.login-tabopen').hide();
+        			jQuery('.login-otp-tabopen').show();
 
 		        }else if(data.data.vcode != null && data.data.otp == null){
 		        	$('.corporate-register-tab').hide();
@@ -269,6 +284,10 @@ $('#individual-register-btn').on('click',function(event){
 		            $('#ind-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
 		                $(this).show();
 		            });
+		            jQuery('.signup-tabopen').hide();
+		            jQuery('.login-tabopen').hide();
+        			jQuery('.login-otp-tabopen').show();
+        			
 		        }else if(data.data.otp != null && data.data.vcode == null){
 		        	$('.corporate-register-tab').hide();
 		            $('#mobile-otp-form').show();
@@ -279,6 +298,9 @@ $('#individual-register-btn').on('click',function(event){
 		            $('#ind-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
 		                $(this).show();
 		            });
+		            jQuery('.signup-tabopen').hide();
+		            jQuery('.login-tabopen').hide();
+        			jQuery('.login-otp-tabopen').show();
 		        }
 	        }else{
 	            $('#ind-msg-reg-box').removeClass('alert alert-success');
@@ -346,6 +368,9 @@ $('#corporate-register-btn').on('click',function(event){
 	            $('#ind-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
 	                $(this).show();
 	            });
+	            jQuery('.signup-tabopen').hide();
+	            jQuery('.login-tabopen').hide();
+        		jQuery('.login-otp-tabopen').show();
 		        
 	            $('#corporate-register')[0].reset();
 	            $('#t-n-c').attr('checked', false); // Unchecks it

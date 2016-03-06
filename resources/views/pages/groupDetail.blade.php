@@ -46,7 +46,7 @@
 <div class="modal fade" id="change-admin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   	<div class="modal-dialog" style="width: 300px;">
 	    <div class="modal-content">
-	    	<form action="{{ url('/group/adminchange', $group->id) }}" class="horizontal-form" method="post">
+	    	<form action="/group/adminchange/{{$group->id}}" class="horizontal-form" method="post">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 		     	<div class="modal-header">
 			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -80,7 +80,7 @@
 <div class="modal fade" id="edit-group" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   	<div class="modal-dialog" style="width: 300px;">
 	    <div class="modal-content">
-	    	<form action="{{ url('/group/update', $group->id) }}" class="horizontal-form" method="post">
+	    	<form action="/group/update/{{$group->id}}" class="horizontal-form" method="post">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 		     	<div class="modal-header">
 			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -110,7 +110,7 @@
 <div class="modal fade" id="delete-group" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   	<div class="modal-dialog" style="width: 300px;">
 	    <div class="modal-content">
-	    	<form action="{{ url('/group/destroy', $group->id) }}" class="horizontal-form" method="post">
+	    	<form action="/group/destroy/{{$group->id}}" class="horizontal-form" method="post">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 		     	<div class="modal-header">
 			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -134,7 +134,7 @@
 <div class="modal fade" id="leave-group" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   	<div class="modal-dialog" style="width: 300px;">
 	    <div class="modal-content">
-	    	<form action="{{ url('/group/leavegroup') }}" class="horizontal-form" method="post">
+	    	<form action="/group/leavegroup" class="horizontal-form" method="post">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 		     	<div class="modal-header">
 			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>

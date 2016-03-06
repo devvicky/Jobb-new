@@ -68,37 +68,14 @@
 					</div>
 					<div class="row" style="margin:0 0px 0 -7px;">
 						<div class="col-md-12" style="margin:-5px 0;padding:0 10px;">
-							<div class="form-group">							
-								<label class=" control-label">Salary </label>&nbsp;: 
-										<label class="hide-sal input-sal-exp-label"><i class="fa fa-rupee (alias)" style="font-size:12px;"></i></label>
-										<input type="text" readonly id="slider-range-amount1" name="min_sal" class="input-sal-width hide-sal one" />
-										<!-- <input type="text" readonly id="slider-range-amount3" name="min_sal" class="input-sal-width hide-sal-new three" /> -->
-										<label class="hide-sal input-sal-exp-label">- <i class="fa fa-rupee (alias)" style="font-size:12px;"></i></label>
-										<input type="text" readonly id="slider-range-amount2" name="max_sal" class="input-sal-width hide-sal two" />
-										<!-- <input type="text" readonly id="slider-range-amount4" name="max_sal" class="input-sal-width hide-sal four" /> -->
-								<select id="salary-type"  name="salary_type" class="hide-sal-new input-sal-exp-label" style="border-top: 0px;border-left: 0;border-right: 0;width:75px">									
-									<option selected="selected" value="Monthly">Monthly</option>
-									<option value="Weekly">Weekly</option>
-									<option value="Daily">Daily</option>
-									<option value="Hourly">Hourly</option>
-									<option value="Pervisit">Per Visit</option>	
-								</select>
-								<div id="salary-old" class="hide-sal">
-									<div id="slider-range" class="slider bg-gray"></div>
-									
-								</div>
-								<!-- <div id="salary-new">
-									<div id="slider-range-new" class="slider bg-gray"></div>
-								</div> -->
-							</div>
-							<!-- <label style="font-size:13px;font-weight:500;">Experience</label> : <span id="slider-range-max-amount"> </span> Years
+							<label style="font-size:13px;font-weight:500;">Experience</label> : <span id="slider-range-max-amount-skill"> </span> Years
 							<div class="">
-								<div id="slider-range-max" class="slider bg-purple">
+								<div id="slider-range-max-skill" class="slider bg-purple">
 								</div>
 								<div class="slider-value">
 									  
 								</div>
-							</div> -->
+							</div>
 						</div>
 					</div>
 					<div class="row" style="margin: 25px 0px 0 -10px;">
@@ -119,11 +96,11 @@
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								 <div class="btn-group" data-toggle="buttons">
 					                <label class="btn default btn-filter active " style="padding:0;">
-					                	<span class="checkicon"><i class="fa  fa-check-square" style="font-size:20px"></i></span>
+					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
 					                    <input type="checkbox" class="toggle">
-					                    <a class="icon-btn icon-filter-btn ">
-						                    <div>
-						                         Full<br/> Time
+					                    <a class="icon-btn icon-filter-btn jobtype-css">
+						                    <div class="jtype-name-css">
+						                    	Full<br/> Time
 						                    </div> 
 						                </a>
 					                </label>
@@ -132,10 +109,10 @@
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								<div class="btn-group" data-toggle="buttons">
 					                <label class="btn default btn-filter active" style="padding:0;">
-					                	<span class="checkicon"><i class="fa  fa-check-square" style="font-size:20px"></i></span>
+					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
 					                    <input type="checkbox" class="toggle">
-					                    <a class="icon-btn icon-filter-btn">
-						                    <div>
+					                    <a class="icon-btn icon-filter-btn jobtype-css">
+						                    <div class="jtype-name-css">
 						                         Part<br/> Time
 						                    </div> 
 						                </a>
@@ -145,10 +122,10 @@
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								<div class="btn-group" data-toggle="buttons">
 					                <label class="btn default btn-filter active" style="padding:0;">
-					                	<span class="checkicon"><i class="fa  fa-check-square" style="font-size:20px"></i></span>
+					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
 					                    <input type="checkbox" class="toggle">
-					                    <a class="icon-btn icon-filter-btn">
-						                    <div>
+					                    <a class="icon-btn icon-filter-btn jobtype-css">
+						                    <div class="jtype-name-css">
 						                    	<br/>
 						                         Freelancer
 						                    </div> 
@@ -159,10 +136,10 @@
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								<div class="btn-group" data-toggle="buttons">
 					                <label class="btn default btn-filter active" style="padding:0;">
-					                	<span class="checkicon"><i class="fa  fa-check-square" style="font-size:20px"></i></span>
+					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
 					                    <input type="checkbox" class="toggle">
-					                    <a class="icon-btn icon-filter-btn">
-						                    <div>
+					                    <a class="icon-btn icon-filter-btn jobtype-css">
+						                    <div class="jtype-name-css">
 						                         Work<br/>From Home
 						                    </div> 
 						                </a>

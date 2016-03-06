@@ -32,13 +32,13 @@
 				<a href="/links" class="btn btn-success btn-responsive btn-xs btn-small" style="padding:4px 10px;border-radius:15px !important;">
 					<i class="fa fa-link (alias) icon-size"></i> Linked</a>
 			@elseif($connectionStatus == 'pendingrequest')
-				<a href="/links" class="btn btn-warning btn-responsive btn-xs" style="margin:5px 0;padding:4px 10px;border-radius:15px !important;">Pending link request</a>
-				<form action="{{ url('/connections/response', $connectionId) }}" method="post">
+				<a href="/links" class="btn btn-warning btn-responsive btn-xs pending-link-request">Pending link request</a>
+				<form action="/connections/response/{{$connectionId}}" method="post">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
-					<button type="submit" name="action" value="accept" class="btn btn-success btn-xs" style="padding:4px 10px;border-radius:15px !important;background-color:#34bf49;">
-						<i class="fa fa-check" ></i>&nbsp;Accept
+					<button type="submit" name="action" value="accept" class="btn btn-success btn-xs accept-request">
+						<i class="fa fa-check" style="font-size:12px;"></i>&nbsp;Accept
 					</button>
-					<button type="submit" name="action" value="reject" class="btn btn-danger btn-xs" style="padding:4px 10px;border-radius:15px !important;background-color:#4d4f53;border-color: #4d4f53;">
+					<button type="submit" name="action" value="reject" class="btn btn-danger btn-xs ignore-request">
 						<i class="glyphicon glyphicon-trash"></i>&nbsp;Ignore
 					</button>
 				</form>
@@ -46,7 +46,7 @@
 				<button class="btn btn-responsive link-request-label">
 					<i class="icon-hourglass (alias) icon-size" style="color: chartreuse;"></i> Link requested</button>
 				@elseif($connectionStatus == 'add' && Auth::user()->induser_id != $user->id)
-				<form action="{{ url('/connections/inviteFriend', $user->id) }}" method="post">
+				<form action="/connections/inviteFriend/{{$user->id}}" method="post">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<button type="submit" name="action" value="accept" class="btn btn-success btn-xs" style="padding:4px 10px;border-radius:15px !important;">
 					<i class="fa fa-check" ></i>&nbsp;Add Links
@@ -220,17 +220,17 @@
 						<div class="profile-usertitle-job capitalize individual-detail" >
 							 {{ $user->working_status }}
 						</div>
-						@elseif($user->working_status == "Freelanching")
+						@elseif($user->job_role != '[]' && $user->working_status == "Freelanching")
 						<div class="profile-usertitle-job capitalize individual-detail" >
-							 {{ $user->role }} {{ $user->working_status }}
+							 {{ $user->job_role->first()->role }} {{ $user->working_status }}
 						</div>
-						@elseif($user->role != null && $user->working_at !=null && $user->working_status == "Working")
+						@elseif($user->job_role != '[]' && $user->working_at !=null && $user->working_status == "Working")
 						<div class="profile-usertitle-job capitalize individual-detail" >
-							 {{ $user->role }}, {{ $user->working_at }} 
+							 {{ $user->job_role->first()->role }}, {{ $user->working_at }} 
 						</div>
-						@elseif($user->role != null && $user->working_at ==null && $user->working_status == "Working")
+						@elseif($user->job_role != '[]' && $user->working_at ==null && $user->working_status == "Working")
 						<div class="profile-usertitle-job capitalize individual-detail">
-							 {{ $user->role }}
+							 {{ $user->job_role->first()->role }}
 						</div>
 						@elseif($user->role == null && $user->working_at !=null && $user->working_status == "Working")
 						<div class="profile-usertitle-job capitalize individual-detail" >
@@ -256,15 +256,15 @@
 						</div>
 						@elseif($user->working_status == "Freelanching")
 						<div class="profile-usertitle-job capitalize individual-detail" >
-							 {{ $user->role }} {{ $user->working_status }}
+							 {{ $user->job_role->first()->role }} {{ $user->working_status }}
 						</div>
-						@elseif($user->role != null && $user->working_at !=null && $user->working_status == "Working")
+						@elseif($user->job_role != '[]' && $user->working_at !=null && $user->working_status == "Working")
 						<div class="profile-usertitle-job capitalize individual-detail" >
-							 {{ $user->role }}, {{ $user->working_at }} 
+							 {{ $user->job_role->first()->role }}, {{ $user->working_at }} 
 						</div>
-						@elseif($user->role != null && $user->working_at ==null && $user->working_status == "Working")
+						@elseif($user->job_role != '[]' && $user->working_at ==null && $user->working_status == "Working")
 						<div class="profile-usertitle-job capitalize individual-detail">
-							 {{ $user->role }}
+							 {{ $user->job_role->first()->role }}
 						</div>
 						@elseif($user->role == null && $user->working_at !=null && $user->working_status == "Working")
 						<div class="profile-usertitle-job capitalize individual-detail" >
@@ -350,7 +350,7 @@
 					<li>
 						<i class="fa fa-calendar"></i> {{$user->dob}}
 					</li>
-					@elseif($connectionStatus == 'friend' && $user->dob != null && Auth::user()->induser_id != $user->id && $user->dob_show == 'Everyone' || $user->dob_show == 'Links')
+					@elseif($connectionStatus == 'friend' && $user->dob != null && Auth::user()->induser_id != $user->id && $user->dob_show == 'Links')
 					<li>
 						<i class="fa fa-calendar"></i> {{$user->dob}}
 					</li>
@@ -365,7 +365,7 @@
 					<li>
 						<i class="fa fa-female"></i> {{$user->gender}}
 					</li>
-					@else($user->gender == 'Male' && $user->gender != null)
+					@elseif($user->gender == 'Male' && $user->gender != null)
 					<li>
 						<i class="fa fa-male"></i> {{$user->gender}}
 					</li>
@@ -386,10 +386,11 @@
 					@else
 					
 					@endif
+					@if($user->city != null)
 					<li>
 						<i class="fa fa-map-marker"></i> {{$user->city}}
 					</li>
-					
+					@endif
 					<!-- <li>
 						<i class="fa fa-heart"></i> BASE Jumping
 					</li> -->
@@ -430,11 +431,12 @@
 		</div>
 		
 	</div>
+
 	<div class="portlet-body form">
 		<!-- BEGIN FORM-->
 			<div class="form-body">
+				@if($user->job_role != '[]' || $user->resume != null || $user->linked_skill != null)
 				<div class="row">
-
 					@if(Auth::user()->id == $user->id)
 					<div class="col-md-12 col-sm-12 col-xs-12" style="padding:0;">
 						<div class="form-group">
@@ -458,8 +460,8 @@
 								<p class="form-control-static view-page">
 									@if($user->job_role != '[]')
 									{{ $user->job_role->first()->industry }}
-									@elseif($user->job_role == null)
-									--
+									@else
+									{{$user->fname}} has not added 'Industry'
 									@endif
 								</p>
 							</div>
@@ -492,13 +494,13 @@
 									@if($user->job_role != '[]')
 									{{ $user->job_role->first()->functional_area }}
 									@else
-									 --
-									 @endif
+									{{$user->fname}} has not added 'Functional Area'
+									@endif
 								</p>
 							</div>
 						</div>
 					</div>
-					@elseif($user->job_role == null && Auth::user()->induser_id != $user->id)
+					
 					@endif
 					<!--/span-->	
 				</div>
@@ -528,13 +530,13 @@
 									@if($user->job_role != '[]')
 									{{ $user->job_role->first()->role }}
 									@else
-									 --
+									{{$user->fname}} has not added 'Role'
 									 @endif
 								</p>
 							</div>
 						</div>
 					</div>
-					@elseif($user->job_role == null && Auth::user()->induser_id != $user->id)
+					
 					@endif
 					<!--/span-->	
 					@if(Auth::user()->induser_id == $user->id)
@@ -561,13 +563,13 @@
 									@if($user->resume != null)
 									 <a href="javascript:;" class="btn btn-xs blue" style="height: 20px;"><i class="icon-eye"></i>&nbsp;View </a>
 									 @else
-									 --
+									 {{$user->fname}} has not added 'Resume'
 									 @endif
 								</p>
 							</div>
 						</div>
 					</div>
-					@elseif($user->resume == null && Auth::user()->induser_id != $user->id)
+					
 					@endif
 					<!--/span-->
 				</div>
@@ -599,17 +601,23 @@
 									@if($user->linked_skill != null)
 									{{ $user->linked_skill }}
 									@elseif($user->linked_skill == null)
-									--
+									{{$user->fname}} has not added any 'Skills'
 									@endif
 								</p>
 							</div>
 						</div>
 					</div>
-					@elseif($user->linked_skill == null && Auth::user()->induser_id != $user->id)
 					@endif
 					<!--/span-->
 				</div>
 					<!-- /row -->
+				@else
+				<div class="row">
+					<div class="col-md-12">
+						{{$user->fname}} has not added any Professional Details.
+					</div>
+				</div>
+				@endif
 			</div>
 		<!-- END FORM-->
 	</div>
@@ -682,58 +690,62 @@
 	</div>
 	<div class="portlet-body form">
 		<!-- BEGIN FORM-->
-		<form action="individual/create" class="horizontal-form" method="post">
-			<input type="hidden" name="_token" value="{{ csrf_token() }}">
-			<div class="form-body">
-				<div class="row">
-					@if(Auth::user()->induser_id == $user->id)
-					<div class="col-md-12 col-sm-12 col-xs-12">
-						<div class="form-group">
-							
-							<!-- <div class="col-md-12 col-xs-12"> -->
-								<p class="form-control-static view-page">
-									@if($user->prefered_jobtype != null)
-									Looking for {{ $user->prefered_jobtype }} Job in 
-										@if($user->p_locality != null)
-											{{$user->p_locality}},
-										@endif
-										@if($user->prefered_location != null)
-											{{$user->prefered_location}}
-										@endif
-									@else
-									 <a href="/individual/edit#professional">Add Job Type</a>
+		<input type="hidden" name="_token" value="{{ csrf_token() }}">
+		<div class="form-body">
+			@if($user->prefered_jobtype != null || $user->prefered_location != null)
+			<div class="row">
+				@if(Auth::user()->induser_id == $user->id)
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<div class="form-group">
+						
+						<!-- <div class="col-md-12 col-xs-12"> -->
+							<p class="form-control-static view-page">
+								@if($user->prefered_jobtype != null)
+								Looking for {{ $user->prefered_jobtype }} Job in 
+									@if($user->prefered_location != null)
+										{{$user->prefered_location}}
 									@endif
-								</p>
-							<!-- </div> -->
-						</div>
+								@else
+								 <a href="/individual/edit#professional">Add Job Type</a>
+								@endif
+							</p>
+						<!-- </div> -->
 					</div>
-					@elseif($user->prefered_jobtype != null && Auth::user()->induser_id != $user->id)
-					<div class="col-md-12 col-sm-12 col-xs-12">
-						<div class="form-group">
-							
-							<!-- <div class="col-md-12 col-xs-12"> -->
-								<p class="form-control-static view-page">
-									@if($user->prefered_jobtype != null)
-									Looking for {{ $user->prefered_jobtype }} Job in 
-										@if($user->p_locality != null)
-											{{$user->p_locality}},
-										@endif
-										@if($user->prefered_location != null)
-											{{$user->prefered_location}}
-										@endif
-									@else
-									 --
-									 @endif
-								</p>
-							<!-- </div> -->
-						</div>
-					</div>
-					@elseif($user->prefered_jobtype == null && Auth::user()->induser_id != $user->id)
-					@endif
 				</div>
+				@elseif($user->prefered_location != null && Auth::user()->induser_id != $user->id)
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<div class="form-group">
+						<p class="form-control-static view-page">
+							@if($user->prefered_jobtype != null)
+							Looking for {{ $user->prefered_jobtype }} Job in 
+								
+								@if($user->prefered_location != null)
+									{{$user->prefered_location}}
+								@endif
+							@else
+							{{$user->fname}} has not added Preferred Location
+							 @endif
+						</p>
+					</div>
+				</div>
+				@elseif($user->prefered_location == null && $user->prefered_jobtype != null && Auth::user()->induser_id != $user->id)
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<div class="form-group">
+						<p class="form-control-static view-page">
+							Looking for {{ $user->prefered_jobtype }} Job
+						</p>
+					</div>
+				</div>
+				@endif
 			</div>
-		</form>
-		<!-- END FORM-->
+			@elseif($user->prefered_jobtype == null && $user->prefered_location == null)
+			<div class="row">
+					<div class="col-md-12">
+						{{$user->fname}} has not added any Preferences.
+					</div>
+				</div>
+			@endif
+		</div>
 	</div>
 </div>
 @endif
@@ -865,7 +877,6 @@
 	</div>
 	<div class="portlet-body form">
 		<!-- BEGIN FORM-->
-		<form action="individual/create" class="horizontal-form" method="post">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<div class="form-body">
 				<div class="row">
@@ -1004,7 +1015,6 @@
 				</div>
 
 			</div>
-		</form>
 		<!-- END FORM-->
 	</div>
 </div>
@@ -1047,6 +1057,7 @@
 	<div class="portlet-body" style="background-color:whitesmoke;">
 		<div class="tab-content">
 			<div class="tab-pane active" id="link">
+				@if(count($taggedPosts) > 0)
 				@foreach($taggedPosts as $tp)
 				<div class="row" style="margin:0;">												
 					<div class="updates-style" style="background-color:white;">
@@ -1073,8 +1084,16 @@
 					</div>				
 				</div>
 				@endforeach
+				@else
+				<div class="row" style="margin:0;">												
+					<div class="updates-style" style="background-color:white;">
+						No Link Tagged Post
+					</div>
+				</div>
+				@endif
 			</div>
 			<div class="tab-pane " id="group">
+				@if(count($taggedGroupPosts) > 0)
 				@foreach($taggedGroupPosts as $tp)
 				<div class="row" style="margin:0;">												
 					<div class="updates-style" style="background-color:white;">
@@ -1099,7 +1118,14 @@
 						@endif
 					</div>				
 				</div>	
-				@endforeach	
+				@endforeach
+				@else
+				<div class="row" style="margin:0;">												
+					<div class="updates-style" style="background-color:white;">
+						No Link Tagged Post
+					</div>
+				</div>
+				@endif	
 			</div>
 		</div>
 	</div>

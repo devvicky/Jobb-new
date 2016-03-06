@@ -24,22 +24,19 @@
             about_individual: {
                 // maxlength: 1000
             },
-            branch : {
-                required : true
-            },
             dob : {
                 required : true
             },
-            city : {
-                required : true
+            role: {
+                required: true
             },
             state : {
                 required : true
             },
-            linked_skill : {
+            'linked_skill_id[]' : {
                 required : true
             },
-            prefered_location: {
+            'prefered_location[]': {
                 required: true
             },
             prefered_jobtype : {
@@ -57,22 +54,19 @@
             about_individual: {
                 // maxlength: "Maximum 1000 character only"
             },
-            branch: {
-                required: "Select Branch"
-            },
             dob: {
                 required: "Enter Date of Birth"
             },
-            city: {
-                required: "Enter current City"
+            role: {
+                required: "Select Job Role"
             },
             state: {
                 required: "Select State"
             },
-            linked_skill: {
-                required: "Add SKills"
+            'linked_skill_id[]': {
+                required: "Add atleast one Skill"
             },
-            prefered_location: {
+            'prefered_location[]' : {
                 required: "Select Prefered Location"
             },
             prefered_jobtype: {
@@ -128,6 +122,9 @@ $(document).ready(function () {
             dob: {
                 required: true
             },
+            city : {
+                required : true
+            },
             gender: {
                 required: true
             },
@@ -145,6 +142,9 @@ $(document).ready(function () {
             },
             dob: {
                 required: "Enter Date of Birth"
+            },
+            city: {
+                required: "Enter current City"
             },
             gender: {
                 required: "Select any one"
@@ -244,7 +244,7 @@ $(document).ready(function () {
 
 
 
-  $(document).ready(function () {            
+$(document).ready(function () {            
 //validation rules
     var form = $('#welcome-search');
     var error = $('.alert-danger', form);

@@ -10,7 +10,7 @@
 		</label>	
 		<div class="portlet box" id="form_wizard_1">			
 			<div class="portlet-body form">
-				<form action="{{ url('job/store') }}" method="post" id="submit_form" 
+				<form action="/job/store" method="post" id="submit_form" 
 					  data-toggle="validator" role="form" class="form-horizontal">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<div class="form-wizard">
@@ -107,46 +107,14 @@
 
 												<div id="charNum" style="text-align:right;"></div>
 											</div>
-										</div>
-										<div class="col-md-6 col-sm-6 col-xs-12 show-far">
-											<div class="form-group">
-												<label>Functional Area <span class="required">
-												* </span></label>
-												<div class="input-group">
-													<span class="input-group-addon">
-														<i class="icon-hourglass" style="color:darkcyan;"></i>
-													</span>
-													<select name="time_for" class="form-control" style="z-index:0;">
-														@foreach($functionalAreas as $farea)
-												      		<option>
-												      			<li><a href="#" data-jrole="{{$farea}}">{{$farea}}</a></li>
-												      		</option>
-											      		@endforeach
-													</select>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-6 col-sm-6 col-xs-12 show-far">
-											<div class="form-group">
-												<label>Role <span class="required">
-												* </span></label>
-												<div class="input-group">
-													<span class="input-group-addon">
-														<i class="icon-hourglass" style="color:darkcyan;"></i>
-													</span>
-													<select name="time_for" class="form-control" style="z-index:0;">
-														@foreach($roles as $role)
-												      		<option>
-												      			<li><a href="#" data-jrole="{{$role->name}}">{{$role->name}}</a></li>
-												      		</option>
-											      		@endforeach
-													</select>
-												</div>
-												<a class="back-role">Back</a>
-											</div>
+											<!-- <label for="jobrole">E-mail</label> -->
 										</div>
 										
+										
 									</div>
+									<input type="hidden" name="time_for">
+
+									<!-- </select> -->
 									<div class="row">
 										<div class="col-md-12 col-sm-12 col-xs-12">
 											<div class="form-group">
@@ -416,7 +384,7 @@
 									<div class="row">
 										<div class="col-md-6 col-sm-6 col-xs-12">
 											<div class="form-group">
-												<label>Prefered Location <span class="required">
+												<label>Select Prefered Location <span class="required">
 														* </span></label>
 												<div class="input-group">
 													<span class="input-group-addon">
@@ -426,19 +394,26 @@
 													<input type="text" id="pref_loc" name="pref_loc" 
 													class="form-control" placeholder="Select preferred location">									
 													
-												</div>
-
-												{!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 
+												</div>		
+											</div>
+										</div>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<div class="form-group">
+												<label> Selected Prefered Location <span class="required">
+														* </span></label>
+												<div class="input-group">
+											{!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 
 																								   'aria-hidden'=>'true', 
 																								   'class'=>'form-control', 
 																								   'placeholder'=>'city', 
-																								   'multiple']) !!}		
+																								   'multiple']) !!}
+												</div>
 											</div>
 										</div>
 									</div>
 
 									<div class="row">
-										<div class="col-md-5 col-sm-5 col-xs-12">
+										<div class="col-md-6 col-sm-6 col-xs-12">
 											<div class="form-group">
 											<label style="margin-left: -5px;"><input id="hide-apply" name="apply-check" type="checkbox"></label><label>&nbsp;Apply On Company Website</label>
 											<div  class="input-group show-apply">
@@ -449,12 +424,14 @@
 											</div>
 											</div>
 										</div>
-										<div class="col-md-2 col-sm-2"></div>
-										<div class="col-md-5 col-sm-5 col-xs-12 show-apply-email">
+										<!-- <div class="col-md-2 col-sm-2"></div> -->
+										<div class="col-md-6 col-sm-6 col-xs-12 show-apply-email">
 											<div class="form-group">
 											<!-- <label>Job Title</label> -->
 												<div class="input-group">
-													<label><input type="checkbox" id="resume-check" name="resume_required" value="1" class="form-control"></label>
+													<label style="margin-left: -5px;">
+														<input type="checkbox" id="resume-check" name="resume_required" value="1" class="form-control">
+													</label>
 													<label>Resume Required to apply for this Job</label>
 												</div>
 											</div>
@@ -462,7 +439,7 @@
 										
 									</div>
 									<div class="row">
-										<div class="col-md-5 col-sm-5 col-xs-12">
+										<div class="col-md-6 col-sm-6 col-xs-12">
 											<div class="form-group new-margin-formgroup">
 												<label>Post Duration <span class="required">
 													* </span></label>
@@ -480,9 +457,9 @@
 												</div>
 											</div>
 										</div>
-										<div class="col-md-2 col-sm-2 col-xs-2"></div>
+										<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
 										@if(Auth::user()->identifier == 2)
-										<div class="col-md-5 show-apply-email">
+										<div class="col-md-6 col-sm-6 show-apply-email">
 											<div class="form-group">
 												<label>Contact Person</label>
 												<div class="input-group">
@@ -494,7 +471,7 @@
 											</div>
 										</div>
 										@else
-										<div class="col-md-5 show-apply-email">
+										<div class="col-md-6 col-sm-6 show-apply-email">
 											<div class="form-group">
 												<label>Contact Person</label>
 												<div class="input-group">
@@ -511,34 +488,34 @@
 									</div>
 										<!--/span-->
 									<div class="row show-apply-email">
-											<div class="col-md-5">
-												<div class="form-group">
-													<label>Email Id (Registered)</label>
-													<div class="input-group">
-													<span class="input-group-addon" >
-													<i class="icon-envelope" style="color:darkcyan;"></i>
-													
-													</span>
-													<input type="text" name="email_id" value="{{ Auth::user()->email }}" class="form-control group" placeholder="">
-													</div>
+										<div class="col-md-6 col-sm-6">
+											<div class="form-group">
+												<label>Email Id (Registered)</label>
+												<div class="input-group">
+												<span class="input-group-addon" >
+												<i class="icon-envelope" style="color:darkcyan;"></i>
+												
+												</span>
+												<input type="text" name="email_id" value="{{ Auth::user()->email }}" class="form-control group" placeholder="">
 												</div>
 											</div>
-											<!--/span-->
-											<div class="col-md-2"></div>
-											<div class="col-md-5">
-												<div class="form-group">
-													<label>Phone No (Registered)</label>
-													<div class="input-group">
-													<span class="input-group-addon">
-													<i class="icon-call-end" style="color:darkcyan;"></i>
-													</span>
-													<input type="text" name="phone" minlength="10" maxlength="10" value="{{ Auth::user()->mobile }}"  class="form-control group" placeholder="">
-													
-													</div>
-												</div>
-											</div>
-											<!--/span-->
 										</div>
+										<!--/span-->
+										<!-- <div class="col-md-2"></div> -->
+										<div class="col-md-6 col-sm-6">
+											<div class="form-group">
+												<label>Phone No (Registered)</label>
+												<div class="input-group">
+												<span class="input-group-addon">
+												<i class="icon-call-end" style="color:darkcyan;"></i>
+												</span>
+												<input type="text" name="phone" minlength="10" maxlength="10" value="{{ Auth::user()->mobile }}"  class="form-control group" placeholder="">
+												
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+									</div>
 									<div class="form-group">
 									
 									</div>
@@ -646,23 +623,30 @@
 																								<p class="form-control-static" data-display="max_exp" style="margin: -5px 0;"></p> Years  
 						                                                            </div>
 						                                                        </div>
-						                                                        
 						                                                        <div class="row">
-						                                                            
 						                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-						                                                                    <label class="detail-label">Education :</label>     
+						                                                                <label class="detail-label">Education :</label>     
 						                                                            </div>
 						                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-						                                                                         <p class="form-control-static" data-display="education" style="margin: -5px 0;"></p>
+						                                                                <p class="form-control-static" data-display="education" style="margin: -5px 0;"></p>
+						                                                            </div>
+						                                                        </div>
+						                                                        <div class="row">
+						                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+						                                                                <label class="detail-label">Branch :</label>     
+						                                                            </div>
+						                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+						                                                                <p class="form-control-static" data-display="branch" style="margin: -5px 0;"></p>
 						                                                            </div>
 						                                                        </div>
 					                                                            <div class="row"> 
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                           
 					                                                                        <label class="detail-label">Skills :</label>                                                                  
 					                                                                </div>
+					                                                               
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                 
 					                                                                        <p class="form-control-static" data-display="linked_skill_id[]" style="margin: -5px 0;"></p>
-					                                                                     
+					                                                                    
 					                                                                </div>
 					                                                            </div>
 					                                                            <div class="row"> 
@@ -670,7 +654,7 @@
 					                                                                        <label class="detail-label">Role :</label>                                                                  
 					                                                                </div>
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-					                                                                        <p class="form-control-static" data-display="role" style="margin: -5px 0;"></p>
+					                                                                        <p class="form-control-static" data-display="time_for" style="margin: -5px 0;"></p>
 					                                                                </div>
 					                                                            </div>
 					                                                            
@@ -692,15 +676,7 @@
 					                                                                         <p class="form-control-static" data-display="prefered_location[]" style="margin: -5px 0;"></p>
 					                                                                </div>
 					                                                            </div>
-					                                                            <div class="row"> 
-					                                                                
-					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-					                                                                        <label class="detail-label">Area :</label>                                                                  
-					                                                                </div>
-					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-					                                                                         <p class="form-control-static" data-display="preferred_locality[]" style="margin: -5px 0;"></p>
-					                                                                </div>
-					                                                            </div>
+					                                                            
 					                                                            <div class="skill-display">Description : </div>
 					                                                            	<p class="form-control-static" data-display="job_detail"></p>
 
@@ -796,7 +772,7 @@
 					<span class="input-group-addon">
 					<i class="icon-clock" style=" color: darkcyan;"></i>
 					</span>
-					<select name="role" class="form-control" >
+					<select name="" class="form-control" >
 						@foreach($roles as $role)
 			      		<option>
 			      			<li><a href="#" data-jrole="{{$role->name}}">{{$role->name}}</a></li>
@@ -919,16 +895,7 @@ jQuery(document).ready(function() {
 </script>
 
 <script type="text/javascript">
-/*$(document).ready(function(){
-    $("#salary-type").change(function(){
-        $(this).find("option:selected").each(function(){
-            if($(this).attr("value")=="Daily"){
-                $('#salary-new').show();
-				$('#salary-old').hide();
-            }
-        });
-    }).change();
-});*/
+ 
 </script>
 <script>
     $(document).ready(function () {
@@ -1049,15 +1016,21 @@ function loader(arg){
     	$(".hide-sal").hide();
     	$(".show-salary").hide();
     	$(".hide-sal-new").hide();
+    	$(".one").prop('disabled',true);
+    	$(".two").prop('disabled',true);
         $("#hide-check").click(function () {
             if ($(this).is(":checked")) {
                 $(".hide-sal").show();
                 $(".show-salary").show();
                 $(".hide-sal-new").show();
+                $(".one").prop('disabled',false);
+    			$(".two").prop('disabled',false);
             } else {
                 $(".hide-sal").hide();
                 $(".show-salary").hide();
                 $(".hide-sal-new").hide();
+                $(".one").prop('disabled',true);
+    			$(".two").prop('disabled',true);
             }
         });
     });
@@ -1211,7 +1184,7 @@ $gotit = [];
 					}
 				});
 			    $.ajax({
-			      url: "{{ url('job/newskill') }}",
+			      url: "/job/newskill",
 			      type: "POST",
 			      data: { name: name },
 			      cache : false,
@@ -1374,7 +1347,7 @@ $gotit = [];
 $(".job-role-ajax").select2({
 	placeholder: 'Enter a role',
   ajax: {
-    url: "/post/jobroles/",
+    url: "/post/jobroles",
     dataType: 'json',
     delay: 250,
     data: function (params) {

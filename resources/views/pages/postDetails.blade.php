@@ -432,14 +432,20 @@
                                             <div class="col-md-6 col-sm-6 col-xs-6">
                                                     <label class="detail-label">Salary (<i class="fa fa-rupee (alias)"></i>):</label>
                                             </div>
+                                            @if($post->min_sal != null)
                                             <div class="col-md-6 col-sm-6 col-xs-6">
                                                     {{ $post->min_sal }}-{{ $post->max_sal }}/{{ $post->salary_type }}
                                             </div>
+                                            @else
+                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                    Not disclose
+                                            </div>
+                                            @endif
                                         </div>
                                         <div class="skill-display">Description : </div>
                                         {{ $post->job_detail }}
                                         
-                                        @if($post->post_type == 'job')
+                                        @if($post->post_type == 'job' && $post->reference_id != null)
                                         <div class="skill-display">Reference Id&nbsp;: {{ $post->reference_id }} </div> 
                                         @endif
                                     </div>
@@ -542,7 +548,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Share post</h4>
             </div>
-            <form class="form-horizontal" id="modal-post-share-form" role="form" method="POST" action="{{ url('/post/share') }}">
+            <form class="form-horizontal" id="modal-post-share-form" role="form" method="POST" action="/post/share">
                 <div class="modal-body">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="share_post_id" id="modal_share_post_id" value=""> @if(Auth::user()->induser)

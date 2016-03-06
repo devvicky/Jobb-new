@@ -15,7 +15,7 @@
 
   <!-- csrf_token -->
   <meta name="csrf-token" content="{{ csrf_token() }}" />	
-<link href="http://fonts.googleapis.com/css?family=Muli" rel="stylesheet" type="text/css" />
+<link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet" type="text/css" />
   <!-- Bootstrap  -->
 <link href="/assets/startup/css/bootstrap.min.css" rel="stylesheet">
 
@@ -23,7 +23,7 @@
 <link rel="stylesheet" media="screen" href="/assets/startup/fonts/font-awesome/font-awesome.min.css">
     
   <!-- Custom Styles -->
-<link href="{{ asset('/assets/startup/css/style.css') }}" rel="stylesheet">
+<link href="/assets/startup/css/style.css" rel="stylesheet">
 
   <!-- Responsive Styles -->
 <link href="/assets/startup/css/responsive.css" rel="stylesheet">
@@ -31,13 +31,13 @@
   <!-- Normalize Styles -->
 <link href="/assets/startup/css/normalize.css" rel="stylesheet">
 <link href="/assets/custom.css" rel="stylesheet">
-<link href="{{ asset('/assets/custom_new.css') }}" rel="stylesheet"/>
+<link href="/assets/custom_new.css" rel="stylesheet"/>
   <!-- Extras -->
 <link rel="stylesheet" type="text/css" href="/assets/startup/extras/animate.css">
 <link rel="stylesheet" type="text/css" href="/assets/startup/extras/lightbox.css">
 <link rel="stylesheet" type="text/css" href="/assets/startup/extras/owl/owl.carousel.css">
 <link rel="stylesheet" type="text/css" href="/assets/startup/extras/owl/owl.theme.css">
-<link rel="stylesheet" type="text/css" href="{{ asset('/assets/startup/extras/owl/owl.transitions.css') }}">
+<link rel="stylesheet" type="text/css" href="/assets/startup/extras/owl/owl.transitions.css">
 <style type="text/css">
 
 input::-webkit-input-placeholder { color:white !important; }

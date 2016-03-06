@@ -5,7 +5,7 @@
 		<i class="fa fa-phone" style="font-size: 16px;color: firebrick;"></i> Change mobile verification
 	</h4>
 </div>
-<form action="{{ url('/verify-otp') }}" method="post" id="verify-otp-form">				
+<form action="/verify-otp" method="post" id="verify-otp-form">				
 <input type="hidden" name="_token" value="{{ csrf_token() }}">	
 <div class="modal-body">
 	OTP received : <b>{{$otp}}</b>
@@ -28,7 +28,7 @@
 		<i class="fa fa-phone" style="font-size: 16px;color: firebrick;"></i> Change email verification
 	</h4>
 </div>
-<form action="{{ url('/verify-evc') }}" method="post" id="verify-evc-form">				
+<form action="/verify-evc" method="post" id="verify-evc-form">				
 <input type="hidden" name="_token" value="{{ csrf_token() }}">	
 <div class="modal-body">
 	Verification code received : <b>{{$code}}</b>

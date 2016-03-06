@@ -30,7 +30,7 @@
 		<div class="tab-content">
 			<div id="tab_1-1" class="tab-pane active">
 				<!-- BEGIN FORM-->
-				<form action="{{ url('/corporate/basicupdate') }}" id="corp_firm_validation" class="horizontal-form" method="post">
+				<form action="/corporate/basicupdate" id="corp_firm_validation" class="horizontal-form" method="post">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<div class="form-body">
 						<div class="row">
@@ -213,7 +213,7 @@
 			</div>
 			<div id="tab_2-2" class="tab-pane">
 						<!-- BEGIN FORM-->
-				<form action="{{ url('/corporate/update', Auth::user()->corpuser_id) }}" id="corp_contact_validation" class="horizontal-form" method="post">
+				<form action="/corporate/update/{{Auth::user()->corpuser_id}}" id="corp_contact_validation" class="horizontal-form" method="post">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<div class="form-body">
 						<div class="row">
@@ -338,7 +338,7 @@
 				
 			</div>
 			<div id="tab_4-4" class="tab-pane">
-				<form action="{{ url('/corporate/privacyUpdate', Auth::user()->corpuser_id) }}" id="privacy_validation" 
+				<form action="/corporate/privacyUpdate/{{Auth::user()->corpuser_id}}" id="privacy_validation" 
 				class="horizontal-form prof_detail" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<table class="table table-bordered table-striped">
@@ -401,7 +401,7 @@
 @stop
 
 @section('javascript')
-<script src="{{ asset('/assets/corp_validation.js') }}"></script>
+<script src="/assets/corp_validation.js"></script>
 <script type="text/javascript">
       function countChar(val) {
         var len = val.value.length;
@@ -498,7 +498,7 @@ $gotit = [];
 					}
 				});
 			    $.ajax({
-			      url: "{{ url('job/newskill') }}",
+			      url: "job/newskill",
 			      type: "POST",
 			      data: { name: name },
 			      cache : false,

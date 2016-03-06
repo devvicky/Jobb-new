@@ -1916,7 +1916,7 @@ $gotit = [];
 					}
 				});
 			    $.ajax({
-			      url: "{{ url('job/newskill') }}",
+			      url: "job/newskill",
 			      type: "POST",
 			      data: { name: name },
 			      cache : false,

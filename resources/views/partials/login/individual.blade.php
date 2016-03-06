@@ -1,5 +1,5 @@
 <!-- BEGIN INDIVIDUAL LOGIN FORM -->
-<form class="login-form"  action="{{ url('/auth/login') }}" method="post" id="individual-login">
+<form class="login-form"  action="/auth/login" method="post" id="individual-login">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	<input type="hidden" name="type" value="1">
 	@if ( Session::has('flash_message') ) 
@@ -48,15 +48,16 @@
 		</div>
 	</div>	
 	<div class="form-actions" style="border-bottom: 0 !important;">
-	    <button id="individual-login-btn" type="submit" class="btn btn-primary btn-block uppercase" 
-	    		style="width:50%;background-color:#C76B6B !important;box-shadow: 0px 1px 4px #2D2C2C;border-radius:2px;">
+	    <button id="individual-login-btn" type="submit" class="btn btn-primary uppercase" 
+	    		style="background-color:#C76B6B !important;box-shadow: 0px 1px 4px #2D2C2C;padding: 6px 45px;">
 	        Login
 	    </button>
-	</div>                                      
-	<div class="form-actions" style="border-bottom: 0px;margin: -53px -30px 15px;">                                                             
 	    <a href="javascript:;" id="forget-password" class="forget-password" style="font-size: 13px;color: #D2D6DA !important;text-decoration: initial;">Forgot Password ?
 	    </a>
-	</div>									
+	</div>                                      
+	<!-- <div class="form-actions" style="border-bottom: 0px;margin: -53px -30px 15px;">                                                             
+	    
+	</div>	 -->								
 </form>
 
 <h2 class="decorated" style="margin: 0px 10px 8px 10px;color: #A0AFB3;">

@@ -144,13 +144,12 @@
                                                                     
                                                                  
                                                             </div>
-                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                                                
-                                                                    
-                                                                
+                                                            @if($post->min_sal != null)
+                                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                         
                                                                     {{ $post->min_sal }}-{{ $post->max_sal }} {{ $post->salary_type }}
                                                                  
                                                             </div>
+                                                            @endif
                                                         </div>
                                                         <?php 
                                                             $strNew = '+'.$post->post_duration.' day';

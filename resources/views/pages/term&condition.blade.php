@@ -1,7 +1,10 @@
-@extends('home')
+@extends('welcome')
 
 @section('content')
-
+<div style="margin: 40px 30px;">
+	<label style="float: none;
+    margin: 0 auto;
+    display: table;">Term & Conditions </label><br/>
 Terms of use
 PLEASE CAREFULLY READ THESE TERMS OF USE. BY USING THIS WEBSITE YOU INDICATE YOUR UNDERSTANDING AND ACCEPTANCE OF THESE TERMS. IF YOU DO NOT AGREE TO THESE TERMS YOU MAY NOT USE THIS WEBSITE.
 GENERAL TERMS
@@ -83,6 +86,6 @@ UNDER NO CIRCUMSTANCES SHALL JOBTIP.IN OR ITS LICENSORS BE LIABLE TO ANY USER ON
 Without limiting the foregoing, under no circumstances shall Jobtip.in or its licensors be held liable for any delay or failure in performance resulting directly or indirectly from acts of nature, forces, or causes beyond its reasonable control, including, without limitation, Internet failures, computer equipment failures, telecommunication equipment failures, other equipment failures, electrical power failures, strikes, labour disputes, riots, insurrections, civil disturbances, shortages of labour or materials, fires, floods, storms, explosions, acts of God, war, governmental actions, orders of domestic or foreign courts or tribunals, non-performance of third parties, or loss of or fluctuations in heat, light, or air conditioning.
 
 
-
+</div>
 
 @stop

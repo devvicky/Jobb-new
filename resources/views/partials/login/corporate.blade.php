@@ -1,5 +1,5 @@
 <!-- BEGIN CORPORATE LOGIN FORM -->
-<form class="login-form-corp"  action="{{ url('/auth/login') }}" method="post" id="corporate-login">
+<form class="login-form-corp"  action="/auth/login" method="post" id="corporate-login">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	<input type="hidden" name="type" value="2">
 	<div class="form-body">
@@ -46,8 +46,8 @@
 		</div>
 
 		<div class="form-actions" style="border-bottom: 0 !important;">
-            <button id="corporate-login-btn" type="submit" class="btn btn-primary btn-block uppercase" 
-            		style="width:50%;background-color:#C76B6B !important;box-shadow: 0px 1px 4px #2D2C2C;border-radius:2px;">
+            <button id="corporate-login-btn" type="submit" class="btn btn-primary uppercase" 
+            		style="background-color:#C76B6B !important;box-shadow: 0px 1px 4px #2D2C2C;padding: 6px 45px;">
                 Login
             </button>
         </div>

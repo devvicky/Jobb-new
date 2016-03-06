@@ -153,7 +153,8 @@ class ConnectionsController extends Controller {
 	public function searchConnections()
 	{
 		$keywords = Input::get('keywords');
-		$users = Induser::where('email', '=', $keywords)
+		$users = Induser::with('user')
+						->where('email', '=', $keywords)
 						->where('id', '<>', Auth::user()->induser_id)
 						->orWhere('fname', 'like', '%'.$keywords.'%')
 						->where('id', '<>', Auth::user()->induser_id)
@@ -228,7 +229,7 @@ class ConnectionsController extends Controller {
 		}elseif(Input::get('action') == 'reject'){
 			Connections::where('id', '=', $id)->update(['status' => 2]);
 		}
-		return redirect('/links');
+		return redirect('/profile/ind/'.$id);
 	}
 
 	public function newLink($id)

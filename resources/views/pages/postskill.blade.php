@@ -1,309 +1,360 @@
 @extends('master')
 
 @section('content')
+																
 <div class="row" style="margin:5px;">
-		<div class="col-md-9">
-					<label class="post-job-heading">
-						Do you want to share your skills<br>
-						Share Skill Tip here for FREE !!
-					</label>
-						<div class="portlet box" id="form_wizard_1">
-							
-							<div class="portlet-body form">
-								<!-- <form action="#" class="form-horizontal"  method="POST"> -->
-								<form action="{{ url('skill/store') }}" method="post" id="submit_form" class="form-horizontal">
-									<input type="hidden" name="_token" value="{{ csrf_token() }}">
-									<div class="form-wizard">
-										<div class="form-body">
-											<ul class="nav nav-pills nav-justified steps">
-												<li>
-													<a href="#tab1" data-toggle="tab" class="step">
-													<!-- <span class="number">
-													1 </span> -->
-													<span class="desc">
-													<i class="fa fa-check"></i>Skills </span>
-													</a>
-												</li>
-												<li>
-													<a href="#tab2" data-toggle="tab" class="step">
-													<!-- <span class="number">
-													2 </span> -->
-													<span class="desc">
-													<i class="fa fa-check"></i>Education </span>
-													</a>
-												</li>
-												<li>
-													<a href="#tab3" data-toggle="tab" class="step active">
-													<!-- <span class="number">
-													3 </span> -->
-													<span class="desc">
-													<i class="fa fa-check"></i>Location </span>
-													</a>
-												</li>
-												<li>
-													<a href="#tab4" data-toggle="tab" class="step">
-													<!-- <span class="number">
-													4 </span> -->
-													<span class="desc">
-													<i class="fa fa-check"></i>Confirm </span>
-													</a>
-												</li>
-											</ul>
-											<div id="bar" class="progress progress-striped" role="progressbar" style="background-color: transparent;height: 5px;">
-												<div class="progress-bar progress-bar-success">
+	<div class="col-md-9">
+		<label class="post-job-heading">
+			Do you know about any job openings<br>
+			Share Job Tip here for FREE !!
+		</label>	
+		<div class="portlet box" id="form_wizard_1">			
+			<div class="portlet-body form">
+				<form action="/job/store" method="post" id="submit_form" 
+					  data-toggle="validator" role="form" class="form-horizontal">
+					<input type="hidden" name="_token" value="{{ csrf_token() }}">
+					<div class="form-wizard">
+						<div class="form-body">
+							<ul class="nav nav-pills nav-justified steps">
+								<li>
+									<a href="#tab1" data-toggle="tab" class="step">
+									<!-- <span class="number">
+									1 </span> -->
+									<span class="desc">
+									<i class="fa fa-check"></i>Skills </span>
+									</a>
+								</li>
+								<li>
+									<a href="#tab2" data-toggle="tab" class="step">
+									<!-- <span class="number">
+									2 </span> -->
+									<span class="desc">
+									<i class="fa fa-check"></i>Education </span>
+									</a>
+								</li>
+								<li>
+									<a href="#tab3" data-toggle="tab" class="step active">
+									<!-- <span class="number">
+									3 </span> -->
+									<span class="desc">
+									<i class="fa fa-check"></i>Location </span>
+									</a>
+								</li>
+								<li>
+									<a href="#tab4" data-toggle="tab" class="step">
+									<!-- <span class="number">
+									4 </span> -->
+									<span class="desc">
+									<i class="fa fa-check"></i>Confirm </span>
+									</a>
+								</li>
+							</ul>
+							<div id="bar" class="progress progress-striped" role="progressbar">
+								<div class="progress-bar progress-bar-success"></div>
+							</div>
+							<div class="tab-content">
+								@if (count($errors) > 0)
+									<div class="alert alert-danger">
+										<ul>
+											@foreach ($errors->all() as $error)
+												<li>{{ $error }}</li>
+											@endforeach
+										</ul>
+									</div>
+								@endif
+								<!-- <div class="alert alert-danger display-none">
+									<button class="close" data-dismiss="alert"></button>
+									You have some form errors. Please check below.
+								</div>
+								<div class="alert alert-success display-none">
+									<button class="close" data-dismiss="alert"></button>
+									Your form validation is successful!
+								</div> -->
+								<div class="tab-pane active" id="tab1">
+									<input type="hidden" name="post_id" value"rand(11111,99999)">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<div class="input-icon right">
+													<i class="fa"></i>
+													<label>Skill Title <span class="required">*</span></label>
+													<div class="input-group">
+														<span class="input-group-addon">
+															<i class="fa fa-flag" style="color:darkcyan;"></i>
+														</span>
+														<input type="text" name="post_title" class="form-control" 
+															   placeholder="Job Title" required>
+													</div>
 												</div>
 											</div>
-											<div class="tab-content">
-												@if (count($errors) > 0)
-													<div class="alert alert-danger">
-														<ul>
-															@foreach ($errors->all() as $error)
-																<li>{{ $error }}</li>
-															@endforeach
-														</ul>
-													</div>
-												@endif
-												<div class="tab-pane active" id="tab1">
-													<!-- <h3 class="block">Provide your account details</h3> -->
-													<div class="row">
-														<div class="col-md-12">
-															<div class="form-group">
-																<label>Skill Title <span class="required">
-																* </span></label>
-																<div class="input-group">
-																	<span class="input-group-addon">
-																		<i class="fa fa-flag" style="color:darkcyan;"></i>
-																	</span>
-																	<input type="text" name="post_title" class="form-control" placeholder="Job Title">
-																</div>
-															</div>
+										</div>
+									</div>
+									<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<label>Skill Details <span class="required">*</span></label>								
+											<textarea name="job_detail" onkeyup="countChar(this)" class="form-control autosizeme" rows="6"></textarea>
+											<div id="charNum" style="text-align:right;"></div>
+										</div>
+									</div>
+									</div>
+
+
+									<div class="row">
+										<div class="col-md-12 col-sm-12 col-xs-12 hide-role">
+											<div class="form-group">
+												<label>
+													Job Role <span class="required">*</span>
+												</label>
+
+												<div class="input-group">	
+													<span class="input-group-addon">
+														<i class="fa fa-cube" style="color:darkcyan;"></i>
+													</span>			
+													<select class="job-role-ajax form-control new-role" name="role" id="jobrole">
+												  		<option value="0" selected="selected"></option>
+													</select>													
+												</div>
+												example: manager, admin, secretory <a class="hide-far">see all</a>
+
+												<div id="charNum" style="text-align:right;"></div>
+											</div>
+											<!-- <label for="jobrole">E-mail</label> -->
+										</div>
+										
+										
+									</div>
+									<input type="hidden" name="">
+
+									<!-- </select> -->
+									<div class="row">
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<div class="form-group">
+												<label>Job Type <span class="required">
+												* </span></label>
+												<div class="input-group">
+													<span class="input-group-addon">
+														<i class="icon-hourglass" style="color:darkcyan;"></i>
+													</span>
+													<select name="time_for" class="form-control" style="z-index:0;">
+														<option value="">-- select --</option>
+														<option value="Full Time">Full Time</option>
+														<option value="Part Time">Part Time</option>
+														<option value="Freelancer">Freelancer</option>
+														<option value="Work from Home">Work from Home</option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<div class="form-group">
+												<label>Search Skills</label>
+												<div style="position:relative;">
+													<input type="text" name="name" id="newskill" class="form-control" placeholder="Search for skill...">
+													<button id="add-new-skill" style="position:absolute;right:0;top:0;" class="btn btn-success" type="button"><i class="icon-plus"></i> Add</button>		
+												</div>
+												{!! Form::select('linked_skill_id[]', $skills, null, ['id'=>'linked_skill_id', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Skills', 'multiple']) !!}
+											</div>
+										</div>
+									</div>
+									<input type="hidden" name="prof_category" value="prof_category">	
+								</div>
+								<div class="tab-pane" id="tab2">
+									<div class="row">
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<div class="form-group">
+												<label>  Education <span class="required">
+														* </span></label> <!-- Select Multiple <input type="checkbox" id="education-check" name="multiple_education" value="1" class="form-control"> -->
+												<div class="input-group single-education" >
+													<span class="input-group-addon">
+														<i class="icon-graduation"></i>
+													</span>
+													<select class="form-control " name="education" id="parent_selection">
+														<option value="">--Please Select--</option>
+														<option value="Any Graduate">Any Graduate</option>
+														<option value="Any Post Graduate">Any Post Graduate</option>
+														<option value="12th & above">12th & above</option>
+														<option value="10th & above">10th & above</option>
+														<option value="twelth">12th</option>
+														<option value="10th">10th</option>
+														<option value="BA">B.A</option>
+														<option value="BArch">B.Arch</option>
+														<option value="BCA">BCA</option>
+														<option value="BBA">BBA</option>
+														<option value="BCom">BCom</option>
+														<option value="B.Ed">B.Ed</option>
+														<option value="MTech" value="MTech">MTech</option>
+														<option value="MSc" value="MSc">MSc</option>
+														<option value="MArch" value="MArch">MArch</option>
+
+														<option value="MCA">MCA</option>
+														<option value="MS" value="MS">MS</option>
+														<option value="PGDiploma">PGDiploma</option>
+
+														<option value="MVSC">MVSC</option>
+														<option value="MCM">MCM</option>
+														<option value="BBA">BBA</option>
+														<option value="btech">B.Tech/B.E.</option>
+														<option value="MCom">MCom</option>
+														<option value="MEd">MEd</option>
+														<option value="MPharma">MPharma</option>
+														<option value="MA">MA</option>
+														<option value="twelth">12th</option>
+														<!-- <option value="10">10</option> -->
+													</select>
+												</div>
+												<!-- <div class="input-group  multiple-education" >
+													<span class="input-group-addon">
+														<i class="icon-graduation"></i>
+													<select class="bs-select form-control " name="education" multiple>
+														<option value="">--Please Select--</option>
+														<option value="Any Graduate">Any Graduate</option>
+														<option value="Any Post Graduate">Any Post Graduate</option>
+														<option value="twelth&above">12th & above</option>
+														<option value="tenth&above">10th & above</option>
+														<option value="twelth">12th</option>
+														<option value="tenth">10th</option>
+														<option value="BA">B.A</option>
+														<option value="BArch">B.Arch</option>
+														<option value="BCA">BCA</option>
+														<option value="BBA">BBA</option>
+														<option value="BCom">BCom</option>
+														<option value="B.Ed">B.Ed</option>
+														<option value="MTech" value="MTech">MTech</option>
+														<option value="MSc" value="MSc">MSc</option>
+														<option value="MArch" value="MArch">MArch</option>
+
+														<option value="MCA">MCA</option>
+														<option value="MS" value="MS">MS</option>
+														<option value="PGDiploma">PGDiploma</option>
+
+														<option value="MVSC">MVSC</option>
+														<option value="MCM">MCM</option>
+														<option value="BBA">BBA</option>
+														<option value="btech">B.Tech/B.E.</option>
+														<option value="MCom">MCom</option>
+														<option value="MEd">MEd</option>
+														<option value="MPharma">MPharma</option>
+														<option value="MA">MA</option>
+														<option value="twelth">12th</option>
+														
+													</select>
+												</div> -->
+											</div>
+
+										</div>
+										<!--/span-->
+										<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
+
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<div class="form-group">
+												<label>Branch <span class="required"> * </span></label>
+												<div class="input-group">
+													<span class="input-group-addon">
+														<i class="icon-graduation"></i>
+													</span>
+													<select class="form-control" name="branch" id="child_selection" value="">
+														<option value=""></option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+									</div>
+										<div class="row">
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<div class="form-group">							
+													<label class=" control-label">Experience </label>&nbsp;: 
+															<input type="text" readonly id="slider-range-exp1" name="min_exp" class="input-exp-width" /> - 
+															<input type="text" readonly id="slider-range-exp2" name="max_exp" class="input-exp-width" /> Years
+													<div id="slider-range-exp" class="slider bg-gray" style="    z-index: 0;">
 														</div>
+														
+												</div>
+											</div>
+											<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
+											
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<div class="form-group">							
+													<label class=" control-label"><input type="checkbox" id="hide-check"> Salary </label>&nbsp;: 
+															<label class="hide-sal input-sal-exp-label"><i class="fa fa-rupee (alias)" style="font-size:12px;"></i></label>
+															<input type="text" readonly id="slider-range-amount1" name="min_sal" class="input-sal-width hide-sal one" />
+															<!-- <input type="text" readonly id="slider-range-amount3" name="min_sal" class="input-sal-width hide-sal-new three" /> -->
+															<label class="hide-sal input-sal-exp-label">- <i class="fa fa-rupee (alias)" style="font-size:12px;"></i></label>
+															<input type="text" readonly id="slider-range-amount2" name="max_sal" class="input-sal-width hide-sal two" />
+															<!-- <input type="text" readonly id="slider-range-amount4" name="max_sal" class="input-sal-width hide-sal four" /> -->
+													<select id="salary-type"  name="salary_type" class="hide-sal-new input-sal-exp-label" style="border-top: 0px;border-left: 0;border-right: 0;width:75px">									
+														<option selected="selected" value="Monthly">Monthly</option>
+														<option value="Weekly">Weekly</option>
+														<option value="Daily">Daily</option>
+														<option value="Hourly">Hourly</option>
+														<option value="Pervisit">Per Visit</option>	
+													</select>
+													<div id="salary-old" class="hide-sal">
+														<div id="slider-range" class="slider bg-gray"></div>
+														
 													</div>
-													<div class="row">
-														<div class="col-md-12">
-															<div class="form-group">
-																<label>Skill Details <span class="required">
-																* </span></label>
-																<div class="" style=" padding-bottom: 10px;">
-																	<textarea name="job_detail" onkeyup="countChar(this)" class="form-control autosizeme" rows="3"></textarea>
-																	<div id="charNum" style="text-align:right;"></div>
-																</div>
-															</div>
-														</div>
-													</div>
-													<div class="row">
-													<div class="col-md-12 col-sm-12 col-xs-12">
+													<!-- <div id="salary-new">
+														<div id="slider-range-new" class="slider bg-gray"></div>
+													</div> -->
+												</div>
+											</div>
+										</div>
+									<!--/span-->
+									<div class="form-group">
+										
+									</div>
+								</div>
+								<div class="tab-pane" id="tab3">
+												<div class="row">
+													<div class="col-md-6 col-sm-6 col-xs-12">
 														<div class="form-group">
-															<label>
-																Job Role <span class="required">*</span>
-															</label>
-
-															<div class="input-group">	
-																<span class="input-group-addon">
-																	<i class="fa fa-cube" style="color:darkcyan;"></i>
-																</span>			
-																<select class="job-role-ajax form-control" name="role" id="jobrole">
-															  		<option value="0" selected="selected"></option>
-																</select>													
-															</div>
-															example: manager, admin, secretory <a href="#all-roles" data-toggle="modal" >see all</a>
-
-															<div id="charNum" style="text-align:right;"></div>
-														</div>
-													</div>
-													
-													
-												</div>
-													<div class="row">
-														<div class="col-md-6 col-sm-6 col-xs-12">
-															<div class="form-group">
-																<label>Job Type<span class="required">
-																* </span></label>
-																<div class="input-group">
-																	<span class="input-group-addon">
-																		<i class="icon-hourglass" style="color:darkcyan;"></i>
-																	</span>
-																	<select name="time_for" class="form-control" >
-																		<option value="">-- select --</option>
-																		<option value="Full Time">Full Time</option>
-																		<option value="Part Time">Part Time</option>
-																		<option value="Freelancer">Freelancer</option>
-																		<option value="Work from Home">Work from Home</option>
-																	</select>
-																</div>
-															</div>
-														</div>
-														<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
-														
-														<div class="col-md-6 col-sm-6 col-xs-12">
-															<div class="form-group">
-																<label>Search Skills</label>
-																<div style="position:relative;">
-																	<input type="text" name="name" id="newskill" class="form-control" placeholder="Search for skill...">
-																	<button id="add-new-skill" style="position:absolute;right:0;top:0;" class="btn btn-success" type="button"><i class="icon-plus"></i> Add</button>		
-																</div>
-																{!! Form::select('linked_skill_id[]', $skills, null, ['id'=>'linked_skill_id', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Skills', 'multiple']) !!}
-															</div>
-														</div>
-													</div>
-													<!--/span-->
-													<div class="form-group">
-														
-													</div>
-												</div>
-												<div class="tab-pane" id="tab2">
-													<div class="row">
-														<div class="col-md-5 col-sm-5">
-															<div class="form-group">
-																<label>Education <span class="required">
-																		* </span></label>
-																<div class="input-group">
-																	<span class="input-group-addon">
-																		<i class="icon-graduation"></i>
-																	</span>
-																	<select class="form-control" name="education" id="parent_selection" >
-																		<option value="">--Please Select--</option>
-																		<option value="Any Graduate">Any Graduate</option>
-																		<option value="Any Post Graduate">Any Post Graduate</option>
-																		<option value="twelth&above">12th & above</option>
-																		<option value="tenth&above">10th & above</option>
-																		<option value="twelth">12th</option>
-																		<option value="tenth">10th</option>
-																		<option value="BA">B.A</option>
-																		<option value="BArch">B.Arch</option>
-																		<option value="BCA">BCA</option>
-																		<option value="BBA">BBA</option>
-																		<option value="BCom">BCom</option>
-																		<option value="B.Ed">B.Ed</option>
-																		<option value="MTech" value="MTech">MTech</option>
-																		<option value="MSc" value="MSc">MSc</option>
-																		<option value="MArch" value="MArch">MArch</option>
-
-																		<option value="MCA">MCA</option>
-																		<option value="MS" value="MS">MS</option>
-																		<option value="PGDiploma">PGDiploma</option>
-
-																		<option value="MVSC">MVSC</option>
-																		<option value="MCM">MCM</option>
-																		<option value="BBA">BBA</option>
-																		<option value="btech">B.Tech/B.E.</option>
-																		<option value="MCom">MCom</option>
-																		<option value="MEd">MEd</option>
-																		<option value="MPharma">MPharma</option>
-																		<option value="MA">MA</option>
-																		<option value="twelth">12th</option>
-																		<!-- <option value="10">10</option> -->
-																	</select>
-																	
-																</div>
-															</div>
-														</div>
-														<!--/span-->
-														<div class="col-md-2 col-sm-2 col-xs-2"></div>
-
-														<div class="col-md-5 col-sm-5">
-															<div class="form-group">
-																<label>Branch <span class="required"> * </span></label>
-																<div class="input-group">
-																	<span class="input-group-addon">
-																		<i class="icon-graduation"></i>
-																	</span>
-																	<select class="form-control" name="branch" id="child_selection" value="">
-																		<option value=""></option>
-																	</select>
-																</div>
-															</div>
-														</div>
-														<!--/span-->
-													</div>
-																				
-													<!--/span-->
-													<div class="row">
-														<div class="ccol-md-5 col-sm-5 col-xs-12">
-															<div class="form-group">							
-																<label class=" control-label">Experience </label>&nbsp;: 
-																		<input type="text" readonly id="slider-range-exp1" name="min_exp" class="input-exp-width" /> - 
-																		<input type="text" readonly id="slider-range-exp2" name="max_exp" class="input-exp-width" /> Years
-																<div id="slider-range-exp" class="slider bg-gray">
-																	</div>
-																	
-															</div>
-														</div>
-														<div class="col-md-2 col-sm-2 col-xs-2"></div>
-														
-														<div class="ccol-md-5 col-sm-5 col-xs-12">
-															<div class="form-group">							
-																<label class=" control-label"><input type="checkbox" id="hide-check"> Salary </label>&nbsp;: 
-																		<label class="hide-sal input-sal-exp-label"><i class="fa fa-rupee (alias)" style="font-size:12px;"></i></label>
-																		<input type="text" readonly id="slider-range-amount1" name="min_sal" class="input-sal-width hide-sal one" />
-																		
-																		<label class="hide-sal input-sal-exp-label">- <i class="fa fa-rupee (alias)" style="font-size:12px;"></i></label>
-																		<input type="text" readonly id="slider-range-amount2" name="max_sal" class="input-sal-width hide-sal two" />
-																		
-																<select id="salary-type"  name="salary_type" class="hide-sal-new input-sal-exp-label" style="border-top: 0px;border-left: 0;border-right: 0;width:75px">									
-																	<option selected="selected" value="Monthly">Monthly</option>
-																	<option value="Weekly">Weekly</option>
-																	<option value="Daily">Daily</option>
-																	<option value="Hourly">Hourly</option>
-																	<option value="Pervisit">Per Visit</option>	
-																</select>
-																<div id="salary-old" class="hide-sal">
-																	<div id="slider-range" class="slider bg-gray"></div>
-																</div>
-																<!-- <div id="salary-new">
-																	<div id="slider-range-new" class="slider bg-gray"></div>
-																</div> -->
-															</div>
-														</div>
-													</div>
-													<div class="form-group">
-														
-													</div>
-												</div>
-												<div class="tab-pane" id="tab3">
-													<div class="row">
-														<div class="col-md-6 col-sm-6 col-xs-12">
-															<div class="form-group">
-																<label>Prefered Location <span class="required">
-																		* </span></label>
-																<div class="input-group">
-																	<span class="input-group-addon">
-																		<i class="fa fa-map-marker"></i>
-																	</span>
-
-																	<input type="text" id="pref_loc" name="pref_loc" 
-																	class="form-control" placeholder="Select preferred location">									
-																	
-																</div>
-
-																{!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 
-																												   'aria-hidden'=>'true', 
-																												   'class'=>'form-control', 
-																												   'placeholder'=>'city', 
-																												   'multiple']) !!}		
-															</div>
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-md-5 col-sm-5 col-xs-12">
-															<div class="form-group new-margin-formgroup">
-																<label>Post Duration <span class="required">
+															<label>Select Prefered Location <span class="required">
 																	* </span></label>
-																<div class="input-group">
-																	<span class="input-group-addon">
-																	<i class="icon-clock" style=" color: darkcyan;"></i>
-																	</span>
-																	<select name="post_duration" class="form-control" >
-																		<option value="">--select--</option>					
-																		<option value="90">3 Months</option>
-																		<option value="180">6 Months</option>
-																		<option value="270">9 Months</option>
-																	</select>
-																</div>
+															<div class="input-group">
+																<span class="input-group-addon">
+																	<i class="fa fa-map-marker"></i>
+																</span>
+
+																<input type="text" id="pref_loc" name="pref_loc" 
+																class="form-control" placeholder="Select preferred location">									
+																
+															</div>		
+														</div>
+													</div>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<div class="form-group">
+															<label> Selected Prefered Location <span class="required">
+																	* </span></label>
+															<div class="input-group">
+														{!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 
+																											   'aria-hidden'=>'true', 
+																											   'class'=>'form-control', 
+																											   'placeholder'=>'city', 
+																											   'multiple']) !!}
 															</div>
 														</div>
 													</div>
-													<div class="col-md-5 show-apply-email">
+												</div>
+												<div class="row">
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<div class="form-group new-margin-formgroup">
+															<label>Post Duration <span class="required">
+																* </span></label>
+															<div class="input-group">
+																<span class="input-group-addon">
+																<i class="icon-clock" style=" color: darkcyan;"></i>
+																</span>
+																<select name="post_duration" class="form-control" >
+																	<option value="">--select--</option>					
+																	<option value="90">3 Months</option>
+																	<option value="180">6 Months</option>
+																	<option value="270">9 Months</option>
+																</select>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-6 col-sm-6 col-xs-12">
 														<div class="form-group">
 															<label>Contact Person</label>
 															<div class="input-group">
@@ -314,96 +365,112 @@
 															</div>
 														</div>
 													</div>
-													<div class="row">
-													<div class="show-apply">
-														<div class="col-md-5 col-sm-5 col-xs-12">
-															<div class="form-group">
-																<label>Email Id (Registered)</label>
-																<div class="input-group">
-																<span class="input-group-addon">
-																<i class="icon-envelope" style="color:darkcyan;"></i>
-																</span>
-																<input type="text" name="email_id" value="{{ Auth::user()->email }}" class="form-control group" placeholder="">
-																
-																</div>
+												</div>
+												
+												<div class="row">
+												<!-- <div class="show-apply"> -->
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<div class="form-group">
+															<label>Email Id (Registered)</label>
+															<div class="input-group">
+															<span class="input-group-addon">
+															<i class="icon-envelope" style="color:darkcyan;"></i>
+															</span>
+															<input type="text" name="email_id" value="{{ Auth::user()->email }}" class="form-control group" placeholder="">
+															
 															</div>
 														</div>
-														<!--/span-->
-														<div class="col-md-2 col-sm-2 col-xs-2"></div>
-														<div class="col-md-5 col-sm-5 col-xs-12">
-															<div class="form-group">
-																<label>Phone No (Registered)</label>
-																<div class="input-group">
-																<span class="input-group-addon">
-																<i class="icon-call-end" style="color:darkcyan;"></i>
-																</span>
-																<input type="text" name="phone" value="{{ Auth::user()->mobile }}"  class="form-control group" placeholder="">
-																
-																</div>
+													</div>
+													<!--/span-->
+													<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<div class="form-group">
+															<label>Phone No (Registered)</label>
+															<div class="input-group">
+															<span class="input-group-addon">
+															<i class="icon-call-end" style="color:darkcyan;"></i>
+															</span>
+															<input type="text" name="phone" value="{{ Auth::user()->mobile }}"  class="form-control group" placeholder="">
+															
 															</div>
 														</div>
-														<!--/span-->	
 													</div>
+													<!--/span-->	
+												<!-- </div> -->
+											</div>
+												<div class="form-group">
+												
 												</div>
-													<div class="form-group">
-													
-													</div>
-												</div>
-												<div class="tab-pane" id="tab4">
+											</div>
+								<div class="tab-pane" id="tab4">
 									
 									<input type="hidden" name="post_type">
 										<div class="form-body">
 											
-											<?php $var = 1; ?>
+
+											<div class="row">	
+											  	<div class="col-md-12"><hr style="margin:0 0 15px 0"></div>
+											</div>
 											
 											<div class="row">																				
 												<div class="col-md-12" style="padding:0;">												
 														<div class="timeline" style="padding:0;">
 														<!-- TIMELINE ITEM -->
-														<div class="timeline-item time-item">
-															<div class="timeline-body" style="margin: 0;border: 1px solid lightgrey;">
+														<div class="timeline-item time-item" style="box-shadow:0 0 !important;">
+															<div class="timeline-body" style="margin: 0;">
 																<div class="timeline-body-content col-md-7" style="margin: 0 15px;">
 																	<div style="font-weight: 600;color: black;font-size: 16px;">
 																		<p class="form-control-static" data-display="post_title"></p>
 																	</div>
 																	<div>
 																	 	<div> 
-																	 		<h4 style=" margin: -5px 0;"> 
+																	 		<h4 style="font-weight: 400; margin: -5px 0;"> 
 																	 			<p class="form-control-static" data-display="post_compname"></p> 
 																	 		</h4>
 																	 	</div>  
 																	</div>
-																	<div class="row">
-					                                                            
-					                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-					                                                                    <label class="detail-label"> Experience : </label>     
-					                                                            </div>
-					                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-					                                                                         <p class="form-control-static" data-display="min_exp" style="margin: -5px 0;"></p> -
-																							<p class="form-control-static" data-display="max_exp" style="margin: -5px 0;"></p> Years  
-					                                                            </div>
-					                                                        </div>
-					                                                        <div class="row">
-					                                                            
-					                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-					                                                                    <label class="detail-label">Education :</label>     
-					                                                            </div>
-					                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-					                                                                         <p class="form-control-static" data-display="education" style="margin: -5px 0;"></p>
-					                                                            </div>
-					                                                        </div>
+																	
+																			
+					                                                        
 					                                                         <div class="row">
-					                                                            <div class="col-md-6 col-sm-6 col-xs-6"> 
+					                                                            <!-- <div class="col-md-6 col-sm-6 col-xs-6"> 
 					                                                                    <label class="detail-label">Job Role :</label>
 					                                                            </div>
 					                                                            <div class="col-md-6 col-sm-6 col-xs-6">
 					                                                                   <p class="form-control-static" data-display="role" style="margin: -5px 0;"></p>
 					                                                            </div>
-					                                                            </div>
+					                                                            </div> -->
+					                                                            <div class="row">
+					                                                            
+						                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+						                                                                    <label class="detail-label"> Experience : </label>     
+						                                                            </div>
+						                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+						                                                                         <p class="form-control-static" data-display="min_exp" style="margin: -5px 0;"></p> -
+																								<p class="form-control-static" data-display="max_exp" style="margin: -5px 0;"></p> Years  
+						                                                            </div>
+						                                                        </div>
+						                                                        <div class="row">
+						                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+						                                                                <label class="detail-label">Education :</label>     
+						                                                            </div>
+						                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+						                                                                <p class="form-control-static" data-display="education" style="margin: -5px 0;"></p>
+						                                                            </div>
+						                                                        </div>
+						                                                        <div class="row">
+						                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+						                                                                <label class="detail-label">Branch :</label>     
+						                                                            </div>
+						                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+						                                                                <p class="form-control-static" data-display="branch" style="margin: -5px 0;"></p>
+						                                                            </div>
+						                                                        </div>
 					                                                            <div class="row"> 
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                           
 					                                                                        <label class="detail-label">Skills :</label>                                                                  
 					                                                                </div>
+					                                                               <!--  -->
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                 
 					                                                                        <p class="form-control-static" data-display="linked_skill_id[]" style="margin: -5px 0;"></p>
 					                                                                     
@@ -411,7 +478,7 @@
 					                                                            </div>
 					                                                            <div class="row"> 
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-					                                                                        <label class="detail-label">Job Type :</label>                                                                  
+					                                                                        <label class="detail-label">Role :</label>                                                                  
 					                                                                </div>
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
 					                                                                        <p class="form-control-static" data-display="time_for" style="margin: -5px 0;"></p>
@@ -424,7 +491,7 @@
 					                                                                        <label class="detail-label">Salary (<i class="fa fa-rupee (alias)"></i>):</label>
 					                                                                </div>
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">
-					                                                                        <p class="form-control-static" data-display="min_sal"></p>-<p class="form-control-static" data-display="max_sal"></p>/ <p class="form-control-static" data-display="salary_type"></p>
+					                                                                        <p class="form-control-static" data-display="min_sal"></p>-<p class="form-control-static" data-display="max_sal"></p> <p class="form-control-static" data-display="salary_type"></p>
 					                                                                </div>
 					                                                            </div>
 					                                                            <div class="row"> 
@@ -436,27 +503,26 @@
 					                                                                         <p class="form-control-static" data-display="prefered_location[]" style="margin: -5px 0;"></p>
 					                                                                </div>
 					                                                            </div>
-					                                                            <div class="row"> 
-					                                                                
-					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-					                                                                        <label class="detail-label">Area :</label>                                                                  
-					                                                                </div>
-					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-					                                                                         <p class="form-control-static" data-display="preferred_locality[]" style="margin: -5px 0;"></p>
-					                                                                </div>
-					                                                            </div>
-																				<div >Post Duration: <p class="form-control-static" data-display="post_duration"></p></div>
-																			<div class="skill-display">Contact Details:<br> </div>
-																			<!-- <div class="show-apply">Apply on Company Website:<p class="form-control-static" data-display="website_redirect_url"></p></div><br> -->
-																			<div id="con" class="show-apply-email">
-																			Contact Person: <p class="form-control-static" data-display="contact_person"></p><br>
+					                                                            
+					                                                            <div class="skill-display">Description : </div>
+					                                                            	<p class="form-control-static" data-display="job_detail"></p>
 
+					                                                            <!-- <div class="">Reference Id&nbsp;:<p class="form-control-static" data-display="reference_id"></p> </div>  -->
+
+																			
+																			<div >Post Duration: <p class="form-control-static" data-display="post_duration"></p></div>
+																			<div class="skill-display">Contact Details:<br> </div>
+																			<label class="show-apply">Apply on Company Website:<p class="form-control-static" data-display="website_redirect_url"></p></label><br>
+																			<div id="con" class="show-apply-email" style="margin: -25px 0;">
+																			<i class="icon-user" style="color:darkslategrey;font-size: 16px;"></i> : <p class="form-control-static" data-display="contact_person"></p><br>
+																					
 																				<i class="glyphicon glyphicon-envelope" style="color: #13B8D4;font-size: 16px;"></i>&nbsp;:<p class="form-control-static" data-display="email_id"></p>
 																				 
 																			<br>
 																				<i class="glyphicon glyphicon-earphone" style="color: green;font-size: 16px;"></i>&nbsp;:<p class="form-control-static" data-display="phone"></p>
 																				</div> 
-																			<div class="skill-display">Post Id&nbsp;: Null (Auto generated after submit.) </div> 
+																			<!-- <div class="skill-display" style="margin: 25px 0;">Post Id&nbsp;: Null (Auto generated after submit.) </div>  -->
+																</div>		
 																
 															</div>
 															
@@ -473,58 +539,99 @@
 													
 													<!-- END FORM-->
 													
-										<?php $var++; ?>
+										
 									</div>
 								</div>
-											</div>
-										</div>
-										<div class="form-actions">
-											<div class="row">
-												<div class="col-md-offset-3" style="margin:auto;display:table">
-													<a href="javascript:;" class="btn default button-previous">
-													<i class="m-icon-swapleft"></i> Back </a>
-													<a href="javascript:;" class="btn blue button-next">
-													Continue <i class="m-icon-swapright m-icon-white"></i>
-													</a>
-													<button type="submit" class=" btn blue button-submit">Submit</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</form>
+							</div>
+						</div>
+						<div class="form-actions">
+							<div style="margin: auto;display: table;">
+								<a href="javascript:;" class="btn default button-previous">
+									<i class="m-icon-swapleft"></i> Back 
+								</a>
+								<a href="javascript:;" class="btn blue button-next">
+									Continue <i class="m-icon-swapright m-icon-white"></i>
+								</a>
+								<!-- <a href="javascript:;" class="btn green ">
+								Submit <i class="m-icon-swapright m-icon-white"></i>
+								</a> -->
+								<button type="submit" class=" btn blue button-submit">Submit</button>
 							</div>
 						</div>
 					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	</div>
+
+
+<!-- BEGIN ROLE MODAL-->
+<div class="modal fade" id="all-roles" tabindex="-1" role="dialog" aria-labelledby="Roles" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+     <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title">Roles</h4>
+      </div>
+      <div class="modal-body">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="form-group new-margin-formgroup">
+				<label>Functional Area</label>
+				<div class="input-group">
+					<span class="input-group-addon">
+					<i class="icon-clock" style=" color: darkcyan;"></i>
+					</span>
+					<select name="functional_area" class="form-control" >
+						@foreach($functionalAreas as $farea)
+			      		<option>
+			      			<li><a href="#" data-jrole="{{$farea}}">{{$farea}}</a></li>
+			      		</option>
+			      		@endforeach
+					</select>
 				</div>
+			</div>
+		</div>
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="form-group new-margin-formgroup">
+				<label>Role</label>
+				<div class="input-group">
+					<span class="input-group-addon">
+					<i class="icon-clock" style=" color: darkcyan;"></i>
+					</span>
+					<select name="" class="form-control" >
+						@foreach($roles as $role)
+			      		<option>
+			      			<li><a href="#" data-jrole="{{$role->name}}">{{$role->name}}</a></li>
+			      		</option>
+			      		@endforeach
+					</select>
+				</div>
+			</div>
+		</div>
+	      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal">Submit</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- END ROLE MODAL -->
+
+
+<div id="loader" style="display:none;z-index:9999;background:white" class="page-loading">
+	<img src="/assets/loader.gif"><span> Please wait...</span>
+</div>
+
 @stop
 
 
 @section('javascript')
-<!-- <script src="{{ asset('/assets/admin/pages/scripts/components-ion-sliders.js') }}" type="text/javascript"></script> -->
-<script>
-jQuery(document).ready(function() {       
-// init demo features
-   FormWizard.init();
-});
-</script>
-<script type="text/javascript">
-      function countChar(val) {
-        var len = val.value.length;
-        if (len >= 1000) {
-          val.value = val.value.substring(0, 1000);
-        } else {
-          $('#charNum').text(1000 - len);
-        }
-      };
-    </script>
-<script>
-	jQuery(document).ready(function() { 
-	    ComponentsIonSliders.init();
-	    ComponentsDropdowns.init();
-	    ComponentsEditors.init();
-	    ComponentsjQueryUISliders.init(); 
-	});   
-</script>
+<script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
 <script src="http://maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
 <script type="text/javascript">
     // preferred loc
@@ -603,34 +710,41 @@ jQuery(document).ready(function() {
    google.maps.event.addDomListener(window, 'load', initPrefLoc);
 
 </script>
-<script type="text/javascript">
-$('.nstSlider').nstSlider({
-    "left_grip_selector": ".leftGrip",
-    "right_grip_selector": ".rightGrip",
-    "value_bar_selector": ".bar",
-    "value_changed_callback": function(cause, leftValue, rightValue) {
-        $(this).parent().find('.leftLabel').text(leftValue);
-        $(this).parent().find('.rightLabel').text(rightValue);
-    }
+<script>
+jQuery(document).ready(function() {       
+	ComponentsIonSliders.init();  
+	 
+	ComponentsDropdowns.init();
+	ComponentsEditors.init();
+    FormWizard.init();
+    ComponentsjQueryUISliders.init(); 
 });
-    $(function () {
-    	$(".hide-sal").hide();
-    	$(".show-salary").hide();
-    	$(".hide-sal-new").hide();
-        $("#hide-check").click(function () {
-            if ($(this).is(":checked")) {
-                $(".hide-sal").show();
-                $(".show-salary").show();
-                $(".hide-sal-new").show();
-            } else {
-                $(".hide-sal").hide();
-                $(".show-salary").hide();
-                $(".hide-sal-new").hide();
-            }
+</script>
+
+<script type="text/javascript">
+ 
+</script>
+<script>
+    $(document).ready(function () {
+        $('#nav li').hover(
+        function () {
+            //show submenu
+            $('ul', this).slideDown("fast");
+        }, function () {
+            //hide submenu
+            $('ul', this).slideUp("fast");
         });
     });
 </script>
 <script type="text/javascript">
+function loader(arg){
+    if(arg == 'show'){
+        $('#loader').show();
+    }else{
+        $('#loader').hide();
+    }
+}
+
 
 // $(document).ready(function () {
 // $('#salary-new').hide();
@@ -659,17 +773,135 @@ $('.nstSlider').nstSlider({
 // }
 // }
 
-	 $(function () {
-        $("#hide-apply").click(function () {
+
+
+	function countChar(val) {
+		var len = val.value.length;
+		if (len >= 1000) {
+			val.value = val.value.substring(0, 1000);
+		} else {
+			$('#charNum').text(1000 - len);
+		}
+	};
+   
+    $("#education").multipleSelect({
+        filter: true,
+        multiple: true
+    });
+
+    var job_categories = new Array();
+	function addRole(val){
+		job_categories.push(val);		
+		// console.log(job_categories); 
+	}
+
+	function removeRole(val){
+		job_categories.splice( job_categories.indexOf(val), 1 );
+		// console.log(job_categories); 
+	}
+    
+	$("#job_categories").multipleSelect({
+		onClick: function(view) {
+			view.checked ? addRole(view.value) : removeRole(view.value);
+		},
+		onClose: function() {	
+			if(job_categories.length > 0){
+				loader('show');
+				$.ajaxSetup({
+			        headers: {
+			            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			        }
+			    });
+				$.ajax({
+					url: '/jobcategory/roles',
+					type: "post",
+					data: {category: job_categories},
+					cache : false,
+					success:function(data){
+						var $select = $('#job_roles');
+						$select.html(' ');
+						$.each(data.role, function(key, val){
+						  $select.append('<option id="' + val.job_role + '">' + val.job_role + '</option>');
+						});
+						loader('hide');
+					},
+					error:function(data){
+						console.log(data);
+						loader('hide');
+					}
+				});
+			}else{
+				var $select = $('#job_roles');
+				$select.html(' ');
+				$select.append('<option id="">Please select job category</option>');
+			}
+		}	
+	});
+    </script>
+<script type="text/javascript">
+    $(function () {
+    	$(".hide-sal").hide();
+    	$(".show-salary").hide();
+    	$(".hide-sal-new").hide();
+        $("#hide-check").click(function () {
             if ($(this).is(":checked")) {
-                $(".show-apply").show();
-                 
+                $(".hide-sal").show();
+                $(".show-salary").show();
+                $(".hide-sal-new").show();
             } else {
-                $(".show-apply").hide();
+                $(".hide-sal").hide();
+                $(".show-salary").hide();
+                $(".hide-sal-new").hide();
+            }
+        });
+    });
+
+        $(function () {
+        $("#resume-check").click(function () {
+            if ($(this).is(":checked")) {
+                $(".resume-required").show();
+                $(".not-required").hide();
+            } else {
+            	$(".not-required").show();
+                $(".resume-required").hide();
                 
             }
         });
     });
+
+        $(function () {
+	 	$(".show-apply").hide();
+        $("#hide-apply").click(function () {
+            if ($(this).is(":checked")) {
+                $(".show-apply").show();
+                $(".show-apply-email").hide();
+                 
+            } else {
+                $(".show-apply-email").show();
+                $(".show-apply").hide();
+            }
+        });
+    });
+        
+	  $(document).ready(function () {
+     	$('.show-far').hide();
+	    jQuery('.hide-far').on('click', function(event) {
+		    jQuery('.show-far').show();
+		    jQuery('.hide-role').hide();
+	    });
+
+	    jQuery('.back-role').on('click', function(event) {
+		    jQuery('.show-far').hide();
+		    jQuery('.hide-role').show();
+	    });
+	});
+
+    $('#connections').select2({
+    placeholder: "Enter Name"
+});
+    $('#groups').select2({
+    placeholder: "Enter Group Name"
+});
 </script>
 <script>
 $selectedSkills = $("#linked_skill_id").select2();
@@ -757,7 +989,7 @@ $gotit = [];
 					}
 				});
 			    $.ajax({
-			      url: "{{ url('job/newskill') }}",
+			      url: "/job/newskill",
 			      type: "POST",
 			      data: { name: name },
 			      cache : false,
@@ -803,11 +1035,124 @@ $gotit = [];
 		});
 </script>
 <script type="text/javascript">
+	 
+	
+	// user post tagging
+	/*$("#connections-list").hide();
+    $("#groups-list").hide();*/
+   /* $("#connections").prop('required',false);
+    $("#groups").prop('required',false);*/
+    $("#connections").prop('disabled',true);
+    $("#groups").prop('disabled',true);
+    $("#tag-group-all").prop('checked', true);
+    $('.add-everyone').addClass('tag-css');
+    $(".hide-link").hide();
+    $(".hide-group").hide();
+	$("input[name$='tag-group']").click(function() {
+        var selected = $(this).val();
+        if(selected == 'all' && $(this).prop('checked')){
+        	/*$("#connections-list").hide();
+        	$("#groups-list").hide();
+        	$("#connections").hide();
+        	$("#groups").hide();*/
+        	$("#connections").prop('required',false);
+        	$("#groups").prop('required',false);
+        	$("#connections").prop('disabled',true);
+        	$("#groups").prop('disabled',true);
+        	$(".hide-link").hide();
+        	$(".hide-group").hide();
+        	$('.add-everyone').addClass('tag-css');
+        	$('.add-link').removeClass('tag-css');
+        	$('.add-group').removeClass('tag-css');
+        	$("#tag-group-links").prop('checked', false);
+        	$("#tag-group-groups").prop('checked', false);
+        }else if(selected == 'links' && $(this).prop('checked')){
+        	/*$("#connections-list").show();
+        	$("#groups-list").show();
+        	$("#connections").show();
+        	$("#groups").show();*/
+        	$("#connections").prop('required',true);
+        	$("#connections").prop('disabled',false);
+        	$('.add-link').addClass('tag-css');
+        	// $('.add-group').removeClass('tag-css');
+        	$('.add-everyone').removeClass('tag-css');
+        	$(".hide-link").show();
+        	if ($("#groups").prop('disabled') === false) {
+	        	$("#groups").prop('disabled',false);
+	        	$('.add-group').addClass('tag-css');
+	        	$(".hide-group").show();
+	        }else{
+	        	$("#groups").prop('disabled',true);
+	        	
+	        }
+	        if ($("#groups").prop('required') === false) {
+	        	$("#groups").prop('required',false);
+	        	$(".hide-group").show();
+	        	
+	        }else{
+	        	$("#groups").prop('required',true);
+	        	$('.add-group').addClass('tag-css');
+	        }
+        	$("#tag-group-all").prop('checked', false);
+        }else if(selected == 'groups' && $(this).prop('checked')){
+        	/*$("#connections-list").show();
+        	$("#groups-list").show();
+        	$("#connections").show();
+        	$("#groups").show();*/
+        	$("#groups").prop('required',true);
+        	$("#groups").prop('disabled',false);
+        	$('.add-group').addClass('tag-css');
+        	$('.add-link').removeClass('tag-css');
+        	$('.add-everyone').removeClass('tag-css');
+        	$(".hide-group").show();
+        	if ($("#connections").prop('disabled') === false) {	        	
+        		$("#connections").prop('disabled',false);
+        		$('.add-link').addClass('tag-css');
+        		$(".hide-link").show();
+	        }else{
+	        	$("#connections").prop('disabled',true);
+	        	
+	        }
+	        if ($("#connections").prop('required') === false) {	        	
+        		$("#connections").prop('required',false);
+        		
+	        }else{
+	        	$("#connections").prop('required',true);
+	        	$('.add-link').addClass('tag-css');
+	        	$(".hide-link").show();
+	        }
+        	$("#tag-group-all").prop('checked', false);
+        }else if(selected == 'links' && $(this).prop('checked') === false){
+        	$("#connections").prop('disabled',true);
+        	$(".hide-link").hide();
+        	$('.add-link').removeClass('tag-css');
+        	if($("#tag-group-groups").prop('checked') === false){
+	        	$("#tag-group-all").prop('checked', true);
+	        	$('.add-link').removeClass('tag-css');
+	        	$('.add-group').removeClass('tag-css');
+	        	$(".hide-link").hide();
+        		$(".hide-group").hide();
+	        }
+        }else if(selected == 'groups' && $(this).prop('checked') === false){
+        	$("#groups").prop('disabled',true);
+        	$(".hide-group").hide();
+        	$('.add-group').removeClass('tag-css');
+        	if($("#tag-group-links").prop('checked') === false){
+	        	$("#tag-group-all").prop('checked', true);
+	        	$('.add-link').removeClass('tag-css');
+	        	$('.add-group').removeClass('tag-css');
+	        	$(".hide-link").hide();
+        		$(".hide-group").hide();
+	        }
+        }
+    }); 
+</script>
+<script type="text/javascript">
 
 $(".job-role-ajax").select2({
 	placeholder: 'Enter a role',
   ajax: {
-    url: "/post/jobroles/",
+    url: "/post/jobroles",
     dataType: 'json',
     delay: 250,
     data: function (params) {
@@ -817,6 +1162,7 @@ $(".job-role-ajax").select2({
       };
     },
     processResults: function (data, params) {
+      console.log(data);
       return {
         results: data
       };

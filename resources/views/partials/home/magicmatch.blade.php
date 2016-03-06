@@ -28,6 +28,10 @@
                                     $userSkillArr = explode(', ', Auth::user()->induser->linked_skill);
                                 ?>
                                 <?php 
+                                    $matchedPost = array_intersect($userSkillArr, $postSkillArr);
+                                    $unmatchedPost = array_diff($userSkillArr, $postSkillArr);
+                                ?>
+                                <?php 
                                     $matched = array_intersect($userSkillArr, $postSkillArr);
                                     $unmatched = array_diff($userSkillArr, $postSkillArr);
                                 ?>
@@ -45,16 +49,20 @@
                                     <td class="matching-criteria-align">{{$post->linked_skill}}</td>
                                     @if(Auth::user()->induser->linked_skill != null)                                    
                                     <td class="matching-criteria-align">
-                                        <span style="color:green">
+                                        
                                             @foreach($matched as $m)
-                                            {{$m. ', '}} 
+                                            <span style="background-color:green;color:white;">
+                                            {{$m}} 
+                                            </span>
                                             @endforeach
-                                        </span>
-                                        <span style="color:red">
+                                        
+                                        
                                             @foreach($unmatched as $um)
-                                            {{$um. ', '}} 
+                                            <span style="color:red">
+                                            {{$um. ', '}}
+                                            </span>  
                                             @endforeach
-                                        </span>                                        
+                                                                               
                                     </td>
                                     @else
                                     <td class="matching-criteria-align"><a href="/individual/edit">Add Skills </a></td>

@@ -8,7 +8,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Share post</h4>
             </div>
-            <form class="form-horizontal" id="modal-post-share-form" role="form" method="POST" action="{{ url('/post/share') }}">
+            <form class="form-horizontal" id="modal-post-share-form" role="form" method="POST" action="/post/share">
                 <div class="modal-body">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="share_post_id" id="modal_share_post_id" value=""> @if(Auth::user()->induser)
@@ -71,7 +71,7 @@
 -->
 <script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
 <script src="/assets/js/home-js.js"></script>
-<script src="http://maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
 <script>
 jQuery(document).ready(function() {
     ComponentsIonSliders.init();

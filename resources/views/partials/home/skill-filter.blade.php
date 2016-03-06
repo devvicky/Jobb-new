@@ -63,14 +63,16 @@
 					</div>
 					<div class="row" style="margin:0;">
 						<div class="col-md-12" style="margin:-5px 0;padding:0 10px;">
-							<label style="font-size:13px;font-weight:500;">Experience</label> : <span id="slider-range-max-amount-skill"> </span> Years
-							<div class="">
-								<div id="slider-range-max-skill" class="slider bg-purple">
-								</div>
-								<div class="slider-value">
-									  
+							<div class="form-group">							
+								<label class=" control-label">Experience </label>&nbsp;: 
+										
+										<input type="text" readonly id="slider-range-exp1" name="min_exp" class="filter-range-experience" /> - 
+										<input type="text" readonly id="slider-range-exp2" name="max_exp" class="filter-range-experience" /> Years
+								<div id="experience" class="">
+									<div id="slider-range-exp" class="slider bg-gray"></div>
 								</div>
 							</div>
+							
 						</div>
 					</div>
 					<div class="row" style="margin: 15px 0 0 0;">
@@ -90,13 +92,12 @@
 						<!-- <div class="col-md-12"> -->
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								 <div class="btn-group" data-toggle="buttons">
-					                <label class="btn default btn-filter active" style="padding:0;">
-					                	<span class="checkicon"><i class="fa fa-check"></i></span>
+					                <label class="btn default btn-filter active " style="padding:0;">
+					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
 					                    <input type="checkbox" class="toggle">
-					                    <a class="icon-btn icon-filter-btn">
-						                    <!-- <i class="fa fa-group"></i> -->
-						                    <div>
-						                         Full<br/> Time
+					                    <a class="icon-btn icon-filter-btn jobtype-css">
+						                    <div class="jtype-name-css">
+						                    	Full<br/> Time
 						                    </div> 
 						                </a>
 					                </label>
@@ -105,11 +106,10 @@
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								<div class="btn-group" data-toggle="buttons">
 					                <label class="btn default btn-filter active" style="padding:0;">
-					                	<span class="checkicon"><i class="fa fa-check"></i></span>
+					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
 					                    <input type="checkbox" class="toggle">
-					                    <a class="icon-btn icon-filter-btn">
-						                    <!-- <i class="fa fa-group"></i> -->
-						                    <div>
+					                    <a class="icon-btn icon-filter-btn jobtype-css">
+						                    <div class="jtype-name-css">
 						                         Part<br/> Time
 						                    </div> 
 						                </a>
@@ -119,11 +119,10 @@
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								<div class="btn-group" data-toggle="buttons">
 					                <label class="btn default btn-filter active" style="padding:0;">
-					                	<span class="checkicon"><i class="fa fa-check"></i></span>
+					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
 					                    <input type="checkbox" class="toggle">
-					                    <a class="icon-btn icon-filter-btn">
-						                    <!-- <i class="fa fa-group"></i> -->
-						                    <div>
+					                    <a class="icon-btn icon-filter-btn jobtype-css">
+						                    <div class="jtype-name-css">
 						                    	<br/>
 						                         Freelancer
 						                    </div> 
@@ -134,11 +133,10 @@
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								<div class="btn-group" data-toggle="buttons">
 					                <label class="btn default btn-filter active" style="padding:0;">
-					                	<span class="checkicon"><i class="fa fa-check"></i></span>
+					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
 					                    <input type="checkbox" class="toggle">
-					                    <a class="icon-btn icon-filter-btn">
-						                    <!-- <i class="fa fa-group"></i> -->
-						                    <div>
+					                    <a class="icon-btn icon-filter-btn jobtype-css">
+						                    <div class="jtype-name-css">
 						                         Work<br/>From Home
 						                    </div> 
 						                </a>

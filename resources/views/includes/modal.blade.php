@@ -77,7 +77,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
         <h4 class="modal-title">Change password</h4>
       </div>
-      <form class="form-horizontal" role="form" method="POST" action="{{ url('/change/password') }}">
+      <form class="form-horizontal" id="pass-change" role="form" method="POST" action="/change/password">
       <div class="modal-body">
           @if (count($errors) > 0)
             <div class="alert alert-danger">
@@ -93,21 +93,30 @@
           <div class="form-group" style="margin-bottom:15px">
             <label class="col-md-4 control-label">Old Password</label>
             <div class="col-md-8">
-              <input type="password" class="form-control" name="old_password" required>
+              <div class="input-icon right ">
+                <i class="fa"></i>
+                <input type="password" class="form-control" name="old_password" required>
+              </div>
             </div>
           </div>
 
           <div class="form-group" style="margin-bottom:15px">
             <label class="col-md-4 control-label">New Password</label>
             <div class="col-md-8">
-              <input type="password" class="form-control" name="password" required>
+              <div class="input-icon right ">
+                <i class="fa"></i>
+                <input type="password" id="new_password" class="form-control" name="password" required>
+              </div>
             </div>
           </div>
 
           <div class="form-group" style="margin-bottom:15px">
             <label class="col-md-4 control-label">Confirm Password</label>
             <div class="col-md-8">
-              <input type="password" class="form-control" name="password_confirmation" required>
+              <div class="input-icon right ">
+                <i class="fa"></i>
+                <input type="password" class="form-control" name="password_confirmation" required>
+              </div> 
             </div>
           </div>
      

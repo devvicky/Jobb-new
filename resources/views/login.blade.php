@@ -17,18 +17,18 @@
 <!-- csrf_token -->
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
-<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
-<link href="{{ asset('/assets/global/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css"/>
-<link href="{{ asset('/assets/global/plugins/simple-line-icons/simple-line-icons.min.css') }}" rel="stylesheet" type="text/css"/>
-<link href="{{ asset('/assets/global/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
-<link href="{{ asset('/assets/global/plugins/uniform/css/uniform.default.css') }}" rel="stylesheet" type="text/css"/>
-<link href="{{ asset('/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css') }}" rel="stylesheet" type="text/css"/>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
+<link href="/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
 <!-- END GLOBAL MANDATORY STYLES -->
 <!-- BEGIN PAGE LEVEL STYLES -->
-<link href="{{ asset('/assets/admin/pages/css/login.css') }}" rel="stylesheet" type="text/css"/>
-<link href="{{ asset('/assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css') }}" rel="stylesheet" type="text/css"/>
-<link href="{{ asset('/assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css') }}" rel="stylesheet" type="text/css"/>
-<link href="{{ asset('/assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
+<link href="/assets/admin/pages/css/login.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME STYLES -->
 <link href="../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
@@ -36,14 +36,14 @@
 <link href="../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
 <link href="../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css" id="style_color"/>
 <link href="../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
-<link href="{{ asset('/assets/custom_admin.css') }}" rel="stylesheet"/>
+<link href="/assets/custom_admin.css" rel="stylesheet"/>
 
 
-<link href="{{ asset('/assets/global/css/components-rounded.css') }}" id="style_components" rel="stylesheet" type="text/css"/>
-<!-- <link href="{{ asset('/assets/admin/layout2/css/layout.css') }}" rel="stylesheet" type="text/css"/> -->
-<!-- <link href="{{ asset('/assets/global/plugins/icheck/skins/all.css') }}" rel="stylesheet"/> -->
-<link href="{{ asset('/assets/custom.css') }}" rel="stylesheet"/>
-<link href="{{ asset('/assets/custom_new.css') }}" rel="stylesheet"/>
+<link href="/assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css"/>
+<!-- <link href="/assets/admin/layout2/css/layout.css" rel="stylesheet" type="text/css"/> -->
+<!-- <link href="/assets/global/plugins/icheck/skins/all.css" rel="stylesheet"/> -->
+<link href="/assets/custom.css" rel="stylesheet"/>
+<link href="/assets/custom_new.css" rel="stylesheet"/>
 <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
 <!-- END THEME STYLES -->
@@ -125,7 +125,7 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
   }
 }
 </style>
-<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -171,6 +171,15 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
             </a>
           </div>
         </li>
+        <li >
+          <div class="login-otp-tabopen">
+            <a id="login-otp-tabopen" style="padding-bottom: 11px;padding-top: 11px;background-color: transparent;">
+            <button class="btn welcome-signup-css signup-button" style="">
+              Login Now
+            </button>
+            </a>
+          </div>
+        </li>
       </ul>
     </div>
     <!-- END TOP NAVIGATION MENU -->
@@ -194,29 +203,29 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 <script src="../../assets/global/plugins/respond.min.js"></script>
 <script src="../../assets/global/plugins/excanvas.min.js"></script> 
 <![endif]-->
-<script src="{{ asset('/assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('/assets/global/plugins/jquery-migrate.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('/assets/global/plugins/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('/assets/global/plugins/jquery.blockui.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('/assets/global/plugins/uniform/jquery.uniform.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('/assets/global/plugins/jquery.cokie.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('/assets/global/plugins/jqeury-validation/js/additional-method.js') }}" type="text/javascript"></script>
+<script src="/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/jqeury-validation/js/additional-method.js" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
 <!-- BEGIN PAGE LEVEL PLUGINS -->
-<script src="{{ asset('/assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('/assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js') }}" type="text/javascript"></script>
-<script src="{{ asset('/assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js') }}" type="text/javascript"></script>
-<!-- <script src="{{ asset('/assets/admin/pages/scripts/form-validation.js') }}"></script> -->
-<script src="{{ asset('/assets/global/plugins/bootstrap-tabdrop/js/bootstrap-tabdrop.js') }}" type="text/javascript"></script>
+<script src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
+<!-- <script src="/assets/admin/pages/scripts/form-validation.js"></script> -->
+<script src="/assets/global/plugins/bootstrap-tabdrop/js/bootstrap-tabdrop.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script src="{{ asset('/assets/global/scripts/metronic.js') }}" type="text/javascript"></script>
-<script src="{{ asset('/assets/admin/pages/scripts/login.js') }}" type="text/javascript"></script>
-<script src="{{ asset('/assets/admin/pages/scripts/form-icheck.js') }}"></script>
-<script src="{{ asset('/assets/admin/layout2/scripts/layout.js') }}" type="text/javascript"></script>
-<script src="{{ asset('/assets/admin/layout2/scripts/demo.js') }}" type="text/javascript"></script>
-<script src="{{ asset('/assets/global/plugins/icheck/icheck.min.js') }}"></script>
-<script src="{{ asset('/assets/admin/pages/scripts/ui-extended-modals.js') }}"></script>
+<script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="/assets/admin/pages/scripts/login.js" type="text/javascript"></script>
+<script src="/assets/admin/pages/scripts/form-icheck.js"></script>
+<script src="/assets/admin/layout2/scripts/layout.js" type="text/javascript"></script>
+<script src="/assets/admin/layout2/scripts/demo.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/icheck/icheck.min.js"></script>
+<script src="/assets/admin/pages/scripts/ui-extended-modals.js"></script>
 <script src="../../assets/global/scripts/metronic.js" type="text/javascript"></script>
 <script src="../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
 <script src="../../assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
@@ -244,14 +253,82 @@ $(document).ready(function() {
         jQuery('.login-tag').toggle('hide');
         jQuery('.signup-tabopen').hide();
         jQuery('.login-tabopen').show();
+        jQuery('.login-otp-tabopen').hide();
     });
     jQuery('#login-tabopen').on('click', function(event) {
         jQuery('.corporate-register-tab').toggle('hide');
         jQuery('.login-tag').toggle('show');
         jQuery('.signup-tabopen').show();
         jQuery('.login-tabopen').hide();
+        jQuery('.login-otp-tabopen').hide();
+    });
+    jQuery('#login-otp-tabopen').on('click', function(event) {
+        // jQuery('.corporate-register-tab').toggle('hide');
+        jQuery('.login-tag').toggle('show');
+        jQuery('.signup-tabopen').show();
+        jQuery('.login-tabopen').hide();
+        jQuery('.login-otp-tabopen').hide();
+        jQuery('#mobile-otp-form').hide();
     });
   });
+</script>
+<script>
+$(document).ready(function () {            
+//validation rules
+    var form = $('#forget-password-val');
+    var error = $('.alert-danger', form);
+    var success = $('.alert-success', form);
+    form.validate({
+        doNotHideMessage: true, //this option enables to show the error/success messages on tab switch.
+        errorElement: 'span', //default input error message container
+        errorClass: 'help-block help-block-error', // default input error message class
+        focusInvalid: false, // do not focus the last invalid input
+        rules: {
+            password: {
+              required: true,
+              minlength: 6
+            },
+            password_confirmation: {
+              required: true,
+              equalTo: "#new_password"
+            }
+        },
+        messages: {
+            password: {
+              required: 'Enter new Password'
+            },
+            password_confirmation:{
+              required: 'Enter same password'
+            }
+        },
+            invalidHandler: function (event, validator) { //display error alert on form submit   
+            success.hide();
+            error.show();
+            Metronic.scrollTo(error, -200);
+        },
+
+             highlight: function(element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+            unhighlight: function(element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) { // render error placement for each input type
+                    var icon = $(element).parent('.input-icon').children('i');
+                    icon.removeClass('fa-check').addClass("fa-warning");  
+                    icon.attr("data-original-title", error.text()).tooltip({'placement': 'left'});
+                   
+                },
+            success: function (label, element) {
+                    var icon = $(element).parent('.input-icon').children('i');
+                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                    icon.removeClass("fa-warning").addClass("fa-check");
+                },
+    });
+});
+
 </script>
 <!-- END JAVASCRIPTS -->
 </body>
