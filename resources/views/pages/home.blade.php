@@ -8,7 +8,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Share post</h4>
             </div>
-            <form class="form-horizontal" id="modal-post-share-form" role="form" method="POST" action="{{ url('/post/share') }}">
+            <form class="form-horizontal" id="modal-post-share-form" role="form" method="POST" action="/post/share">
                 <div class="modal-body">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="share_post_id" id="modal_share_post_id" value=""> @if(Auth::user()->induser)
@@ -71,7 +71,7 @@
 -->
 <script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
 <script src="/assets/js/home-js.js"></script>
-<script src="http://maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
 <script>
 jQuery(document).ready(function() {
     ComponentsIonSliders.init();
@@ -158,10 +158,84 @@ jQuery(document).ready(function() {
     }
    google.maps.event.addDomListener(window, 'load', initPrefLoc);
 
-
-// Skill Tag list
 </script>
+<script type="text/javascript">
+    // preferred loc
+    var currLocationArray = [];
 
+    // preferred loc    
+    var clselect = $("#current_location").select2();
+    clselect.val(currLocationArray).trigger("change");
+
+    var $eventSelect = $("#current_location"); 
+    $eventSelect.on("select2:unselect", function (e) {
+        // console.log("Removing: "+e.params.data.id);
+        // remove corresponding value from array
+        currLocationArray = $.grep(prefLocationArray, function(value) {
+          return value != e.params.data.id;
+        });
+
+        // remove select option for pref loc
+        $("#current_location option[value='"+e.params.data.id+"']").remove();       
+        if(currLocationArray.length == 0){
+            clselect = $("#current_location").select2({ dataType: 'json', data: [] });
+        }else{
+            clselect = $("#current_location").select2({ dataType: 'json', data: currLocationArray });
+        }
+        clselect.val(currLocationArray).trigger("change"); 
+        // updated array
+    });
+
+    var currLoc = $("#curr_loc");
+    function initCurrLoc() {
+        var options = { types: ['(regions)'], componentRestrictions: {country: "in"}};
+        var input = document.getElementById('curr_loc');
+        var autocomplete = new google.maps.places.Autocomplete(input, options);
+        autocomplete.addListener('place_changed', onPlaceChanged);
+
+        function onPlaceChanged() {
+          var place = autocomplete.getPlace();
+          if (place.address_components) { 
+            // console.log(place.address_components);
+
+            var obj = place.address_components;         
+            var locality = '';
+            var city = '';
+            var state = '';
+            $.each( obj, function( key, value ) {
+                if($.inArray("sublocality", value.types)  > -1 ){
+                    locality = value.long_name;
+                }
+                if($.inArray("locality", value.types)  > -1 ){
+                    city = value.long_name;
+                }
+                if($.inArray("administrative_area_level_1", value.types)  > -1 ){
+                    state = value.long_name;
+                }
+            });
+            // console.log("Locality: "+locality+" city: "+city+" state: "+state);
+
+            if(locality != '' && city != '' && state != '' ){
+                currLocationArray.push(locality +"-"+ city +"-"+ state);    
+            }
+            if(locality == '' && city != '' && state != '' ){
+                currLocationArray.push(city +"-" + state);  
+            }
+
+            setTimeout(function(){ currLoc.val(''); currLoc.focus();},0);   // clear field
+            
+            $("#current_location").select2({ dataType: 'json', data: currLocationArray });
+            clselect.val(currLocationArray).trigger("change");
+
+          } else { 
+            document.getElementById('autocomplete').placeholder = 'Your current location'; 
+          }
+        }
+
+    }
+   google.maps.event.addDomListener(window, 'load', initCurrLoc);
+
+</script>
 <style type="text/css">
 /* required for preferred location */
 .pac-container {z-index:999999;}

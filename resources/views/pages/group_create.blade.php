@@ -21,7 +21,7 @@
 				<div class="row">
 					<div class="col-md-7" style="">
 						<!-- BEGIN FORM-->
-						<form action="{{ url('/group/store') }}" class="horizontal-form" method="post">
+						<form action="/group/store" class="horizontal-form" method="post">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 								<div class="form-group">
 									<div class="input-group">
@@ -31,7 +31,7 @@
 										</div>
 										<span class="input-group-btn">
 											<button id="" class="btn btn-success" type="submit" style=" margin-right: 15px;"><i class="fa fa-arrow-left fa-fw"/></i>Create</button>
-											<a href="{{url('/group/')}}" id="" class="btn default" type="button">Cancel</a>
+											<a href="/group/" id="" class="btn default" type="button">Cancel</a>
 										</span>
 									</div>
 								</div>
@@ -64,7 +64,7 @@
 										 </div>
 										 <div class="media-body-right">
 										 	<span class="input-group-btn btn-right">
-											<form action="{{ url('/group/deleteuser') }}" method="post">
+											<form action="/group/deleteuser" method="post">
 												<input type="hidden" name="_token" value="{{ csrf_token() }}">
 												<input type="hidden" name="id" value="{{$user->id}}">
 												<input type="hidden" name="groupid" value="{{$user->group_id}}">

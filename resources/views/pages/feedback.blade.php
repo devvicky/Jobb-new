@@ -45,7 +45,7 @@
 		
 	<div class="portlet-body form">
 		<!-- BEGIN FORM-->
-		<form action="{{ url('/feedback/store') }}" class="horizontal-form" method="post">
+		<form action="/feedback/store" class="horizontal-form" method="post">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<div class="form-body">
 				<div class="row">

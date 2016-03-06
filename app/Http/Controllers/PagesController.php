@@ -393,7 +393,7 @@ class PagesController extends Controller {
 												  ->first(['status']);
 			$connectionRequestStatus = Connections::where('connection_user_id', '=', Auth::user()->induser_id)
 												  ->where('user_id', '=', $id)
-												  ->first(['status']);
+												  ->first(['status', 'id']);
 
 			// connection status
 			$connectionStatus = 'add';
@@ -436,6 +436,7 @@ class PagesController extends Controller {
             }
 		}	
 		return view('pages.profile_indview', compact('users' ,'title','thanks','posts','linksCount','user','connectionStatus','utype','connectionId', 'followCount', 'linkSharePost', 'taggedPosts', 'taggedGroupPosts'));
+		// return $connectionId;
 	}
 
 	public function follow($id){
@@ -913,7 +914,7 @@ public function homeskillFilter(){
 			$type = Input::get('type');
 
 			if($type == 'people'){
-				$users = Induser::orderBy('id', 'desc');
+				$users = Induser::with('user')->orderBy('id', 'desc');
 				$corpsearchprofile = Corpsearchprofile::where('user_id', '=', Auth::user()->id)
 													  ->where('save_contact', '=', 1)
 													  ->get(['profile_id']);
@@ -977,7 +978,7 @@ public function homeskillFilter(){
 				$links = collect($links);
 				return view('pages.profileSearch', compact('users', 'title', 'links', 'type', 'corpsearchprofile', 'perPeople', 'perpeopleSkill'));
 			}elseif($type == 'company'){
-				$users = Corpuser::orderBy('id', 'desc');
+				$users = Corpuser::with('user')->orderBy('id', 'desc');
 
 				if($name != null){
 					$users->where('firm_name', 'like', '%'.$name.'%')->orWhere('firm_email_id', '=', $name);
@@ -1456,13 +1457,15 @@ public function homeskillFilter(){
 		$linksPending = collect($linksPending);
 
 		if($searchQuery != null){
-			$searchResultForInd = Induser::where('fname', 'like', '%'.$searchQuery.'%')
+			$searchResultForInd = Induser::with('user')
+										 ->where('fname', 'like', '%'.$searchQuery.'%')
 										 ->orWhere('lname', 'like', '%'.$searchQuery.'%')
 										 ->orWhere('email', '=', $searchQuery)
 										 ->orWhere('mobile', '=', $searchQuery)
 										 ->paginate(10);
 
-			$searchResultForCorp = Corpuser::where('firm_name', 'like', '%'.$searchQuery.'%')
+			$searchResultForCorp = Corpuser::with('user')
+										   ->where('firm_name', 'like', '%'.$searchQuery.'%')
 										   ->orWhere('firm_email_id', '=', $searchQuery)
 										   ->orWhere('firm_phone', '=', $searchQuery)
 										   ->paginate(10);

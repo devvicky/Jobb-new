@@ -106,19 +106,20 @@
             @elseif($session_user->working_status == "Freelanching")
             <div class="profile-usertitle-job">
               @if($session_user->job_role != null)
-               {{ $session_user->role }} {{ $session_user->working_status }}, {{ $session_user->city }}
+               {{ $session_user->job_role->first()->role }} {{ $session_user->working_status }}, {{ $session_user->city }}
               @endif
             </div>
-            @elseif($session_user->role != null && $session_user->working_at !=null && $session_user->working_status == "Working")
+            @elseif($session_user->job_role != null && $session_user->working_at !=null && $session_user->working_status == "Working")
             <div class="profile-usertitle-job">
+
               @if($session_user->job_role != '[]')
                {{ $session_user->job_role->first()->role }} @ {{ $session_user->working_at }} 
                @endif
             </div>
-            @elseif($session_user->role != null && $session_user->working_at ==null && $session_user->working_status == "Working")
+            @elseif($session_user->job_role != null && $session_user->working_at ==null && $session_user->working_status == "Working")
             <div class="profile-usertitle-job">
               @if($session_user->job_role != null)
-               {{ $session_user->role }}, {{ $session_user->city }}
+               {{ $session_user->job_role->first()->role }}, {{ $session_user->city }}
                @endif
             </div>
             @elseif($session_user->role == null && $session_user->working_at !=null && $session_user->working_status == "Working")

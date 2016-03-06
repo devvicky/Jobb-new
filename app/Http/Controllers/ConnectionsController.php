@@ -153,7 +153,8 @@ class ConnectionsController extends Controller {
 	public function searchConnections()
 	{
 		$keywords = Input::get('keywords');
-		$users = Induser::where('email', '=', $keywords)
+		$users = Induser::with('user')
+						->where('email', '=', $keywords)
 						->where('id', '<>', Auth::user()->induser_id)
 						->orWhere('fname', 'like', '%'.$keywords.'%')
 						->where('id', '<>', Auth::user()->induser_id)
@@ -182,14 +183,30 @@ class ConnectionsController extends Controller {
 											where connections.user_id=?
 											 and connections.status=1
 								)', [Auth::user()->induser_id, Auth::user()->induser_id]);
-		$links = collect($links);
+			$links = collect($links);
+
+		$linksApproval = DB::select('select id from indusers
+											where indusers.id in (
+													select connections.user_id as id from connections
+													where connections.connection_user_id=?
+													 and connections.status=0
+											)', [Auth::user()->induser_id]);
+			$linksApproval = collect($linksApproval);
+
+		$linksPending = DB::select('select id from indusers
+									where indusers.id in (
+											select connections.connection_user_id as id from connections
+											where connections.user_id=?
+											 and connections.status=0
+									)', [Auth::user()->induser_id]);
+			$linksPending = collect($linksPending);
 
 		$follows = DB::select('select follows.corporate_id as id 
 								from follows 
 								where follows.individual_id=?', [Auth::user()->induser_id]);
 		$follows = collect($follows);
 
-		return view('pages.searchUsers', compact('users', 'links', 'corps', 'follows'));
+		return view('pages.searchUsers', compact('users', 'links', 'corps', 'follows', 'linksApproval', 'linksPending'));
 	}
 
 	public function response($id)
@@ -212,7 +229,7 @@ class ConnectionsController extends Controller {
 		}elseif(Input::get('action') == 'reject'){
 			Connections::where('id', '=', $id)->update(['status' => 2]);
 		}
-		return redirect('/links');
+		return redirect('/profile/ind/'.$id);
 	}
 
 	public function newLink($id)

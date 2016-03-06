@@ -16,24 +16,24 @@
 <!-- csrf_token -->
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
-<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
-<link href="{{ asset('/assets/global/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css"/>
-<link href="{{ asset('/assets/global/plugins/simple-line-icons/simple-line-icons.min.css') }}" rel="stylesheet" type="text/css"/>
-<link href="{{ asset('/assets/global/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
-<link href="{{ asset('/assets/global/plugins/uniform/css/uniform.default.css') }}" rel="stylesheet" type="text/css"/>
-<link href="{{ asset('/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css') }}" rel="stylesheet" type="text/css"/>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
+<link href="/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
 <!-- END GLOBAL MANDATORY STYLES -->
 <!-- BEGIN PAGE LEVEL STYLES -->
-<link href="{{ asset('/assets/admin/pages/css/login.css') }}" rel="stylesheet" type="text/css"/>
-<link href="{{ asset('/assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css') }}" rel="stylesheet" type="text/css"/>
-<link href="{{ asset('/assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css') }}" rel="stylesheet" type="text/css"/>
-<link href="{{ asset('/assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
+<link href="/assets/admin/pages/css/login.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME STYLES -->
-<link href="{{ asset('/assets/global/css/components-rounded.css') }}" id="style_components" rel="stylesheet" type="text/css"/>
-<link href="{{ asset('/assets/admin/layout2/css/layout.css') }}" rel="stylesheet" type="text/css"/>
-<link href="{{ asset('/assets/global/plugins/icheck/skins/all.css') }}" rel="stylesheet"/>
-<link href="{{ asset('/assets/custom.css') }}" rel="stylesheet"/>
+<link href="/assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css"/>
+<link href="/assets/admin/layout2/css/layout.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/global/plugins/icheck/skins/all.css" rel="stylesheet"/>
+<link href="/assets/custom.css" rel="stylesheet"/>
 <!-- END THEME STYLES -->
 <link rel="shortcut icon" href="favicon.ico"/>
 <style type="text/css" rel="stylesheet">
@@ -98,7 +98,7 @@ input:focus:-moz-placeholder { color:transparent !important; } /* FF 4-18 */
 input:focus::-moz-placeholder { color:transparent !important; } /* FF 19+ */
 input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 </style>
-<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -106,10 +106,10 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 
 <!-- BEGIN LOGO -->
 <div class="logo">
-<picture>
+<!-- <picture>
     <source srcset="assets/admin/layout/img/logo-big.png">
     <img srcset="assets/new_big_logo.png" alt="My default image"  style="max-width:295px;margin-top: -10px;margin-bottom: -13px;">
-</picture>
+</picture> -->
 </div>
 
 @yield('content')
@@ -124,28 +124,28 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 <script src="../../assets/global/plugins/respond.min.js"></script>
 <script src="../../assets/global/plugins/excanvas.min.js"></script> 
 <![endif]-->
-<script src="{{ asset('/assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('/assets/global/plugins/jquery-migrate.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('/assets/global/plugins/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('/assets/global/plugins/jquery.blockui.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('/assets/global/plugins/uniform/jquery.uniform.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('/assets/global/plugins/jquery.cokie.min.js') }}" type="text/javascript"></script>
+<script src="/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
 <!-- BEGIN PAGE LEVEL PLUGINS -->
-<script src="{{ asset('/assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('/assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js') }}" type="text/javascript"></script>
-<script src="{{ asset('/assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js') }}" type="text/javascript"></script>
-<script src="{{ asset('/assets/admin/pages/scripts/form-validation.js') }}"></script>
-<script src="{{ asset('/assets/global/plugins/bootstrap-tabdrop/js/bootstrap-tabdrop.js') }}" type="text/javascript"></script>
+<script src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
+<script src="/assets/admin/pages/scripts/form-validation.js"></script>
+<script src="/assets/global/plugins/bootstrap-tabdrop/js/bootstrap-tabdrop.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script src="{{ asset('/assets/global/scripts/metronic.js') }}" type="text/javascript"></script>
-<script src="{{ asset('/assets/admin/pages/scripts/login.js') }}" type="text/javascript"></script>
-<script src="{{ asset('/assets/admin/pages/scripts/form-icheck.js') }}"></script>
-<script src="{{ asset('/assets/admin/layout2/scripts/layout.js') }}" type="text/javascript"></script>
-<script src="{{ asset('/assets/admin/layout2/scripts/demo.js') }}" type="text/javascript"></script>
-<script src="{{ asset('/assets/global/plugins/icheck/icheck.min.js') }}"></script>
-<script src="{{ asset('/assets/admin/pages/scripts/ui-extended-modals.js') }}"></script>
+<script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="/assets/admin/pages/scripts/login.js" type="text/javascript"></script>
+<script src="/assets/admin/pages/scripts/form-icheck.js"></script>
+<script src="/assets/admin/layout2/scripts/layout.js" type="text/javascript"></script>
+<script src="/assets/admin/layout2/scripts/demo.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/icheck/icheck.min.js"></script>
+<script src="/assets/admin/pages/scripts/ui-extended-modals.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 
 @yield('javascript')

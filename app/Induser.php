@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class Induser extends Model {
 
 	protected $fillable = ['fname', 'lname', 'email', 'mobile', 'mobile_otp', 'email_vcode'];
-	protected $appends = ['job_role'];
+	protected $appends = ['job_role', 'preferred_locations'];
 
 	public function user(){
 		return $this->hasOne('app\user', 'induser_id', 'id');
@@ -62,7 +62,7 @@ class Induser extends Model {
 
 	public function getJobRoleAttribute(){
     	$role = $this->attributes['role'];
-    	if($role != null){
+    	if($role != "0"){
     		try {
     			$roleDetail = Industry_functional_area_role_mapping
 							::where('industry_functional_area_role_mappings.id', '=', $role)
@@ -75,12 +75,23 @@ class Induser extends Model {
 				return $roleDetail;
     		} catch (Exception $e) {
     			return null;
-    		}
+    			}
     		
     	}else{
     		return null;
     	}
     	
+    }
+
+    public function getPreferredLocationsAttribute(){
+    	$loc = $this->attributes['prefered_location'];
+    	if($loc != null){
+    		
+    		$arr = explode(',', $loc);
+    		return $arr;
+    	}else{
+    		return null;
+    	}
     }
 
 }

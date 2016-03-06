@@ -1,3 +1,34 @@
+$(".show-salary").hide();
+        $("#hide-check").click(function () {
+            if ($(this).is(":checked")) {
+                $(".show-salary").show();
+            } else {
+                $(".show-salary").hide();
+            }
+        });
+
+
+
+var skillArray = [];
+    <?php $array = explode(', ', $user->induser->linked_skill); ?> 
+    @if(count($array) > 0)
+    @foreach($array as $gta)
+        skillArray.push('<?php echo $gta; ?>');
+    @endforeach
+    @endif
+    var skillselect = $("#linked_skill_id").select2({ dataType: 'json', data: skillArray });
+    skillselect.val(skillArray).trigger("change");
+    
+
+    // preferred loc
+    var prefLocationArray = [];
+    <?php $arr = $user->induser->preferred_locations; ?>
+    @if(count($arr) > 0) 
+    @foreach($arr as $gt)
+        prefLocationArray.push('<?php echo $gt; ?>');
+    @endforeach
+    @endif
+
 <div class="row" style="margin:0;">
     <div class="col-md-12">
         <div class="clearfix">

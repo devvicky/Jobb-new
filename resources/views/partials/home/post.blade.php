@@ -5,7 +5,7 @@
 			<div class="timeline-item time-item" itemscope itemtype="http://schema.org/Article">
 				<div class="timeline-badge badge-margin">
 					@if(!empty($userImgPath))
-					<img class="timeline-badge-userpic userpic-box" src="img/profile/{{ $userImgPath }}" alt="logo" title="{{ $userName }}">
+					<img class="timeline-badge-userpic userpic-box" src="/img/profile/{{ $userImgPath }}" alt="logo" title="{{ $userName }}">
 					@else
 					<img class="timeline-badge-userpic userpic-box" src="/assets/images/ab.png" alt="logo" title="{{ $userName }}">
 					@endif
@@ -71,7 +71,7 @@
 								</div>
 							</div>
 							@elseif($postType == 'skill')
-							<div class="col-md-3 col-sm-3 col-xs-4" style="margin: 4px 7px;">
+							<div class="col-md-3 col-sm-3 col-xs-4" style="margin: 4px 13px;">
 								@if($post->time_for == 'Work from Home')
 								<small class="label-success label-xs elipsis-code job-type-skill-css" style="">Work From Home</small>
 								@else
@@ -79,7 +79,7 @@
 								@endif
 							</div>
 							@endif
-							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0 8px;">
+							<div class="col-md-2 col-sm-2 col-xs-2" style="padding:0 8px;">
 								<form action="/job/like" method="post" id="post-like-{{$post->id}}" data-id="{{$post->id}}">						
 									<input type="hidden" name="_token" value="{{ csrf_token() }}">
 									<input type="hidden" name="like" value="{{ $post->id }}">
@@ -105,18 +105,18 @@
 							
 							@if($userId != Auth::user()->induser_id && Auth::user()->identifier == 1)												
 								@if($post->postactivity->where('user_id', Auth::user()->id)->isEmpty())
-								<div class="col-md-3 col-sm-3 col-xs-3">
+								<div class="col-md-2 col-sm-2 col-xs-2">
 								</div>
 								@elseif($post->postactivity->where('user_id', Auth::user()->id)->first()->apply == 1)
-								<div class="col-md-3 col-sm-3 col-xs-3"  style="">													
+								<div class="col-md-2 col-sm-2 col-xs-2"  style="">													
 									<i class="fa fa-check-square-o" style="font-size:13px;"></i><span style="font-size:12px;" class="applied-css hidden-sm hidden-xs"> Applied</span> 
 								</div>
 								@elseif($post->postactivity->where('user_id', Auth::user()->id)->first()->contact_view == 1)
-								<div class="col-md-3 col-sm-3 col-xs-3"  style="">													
+								<div class="col-md-2 col-sm-2 col-xs-2"  style="">													
 									<i class="fa fa-check-square-o" style="font-size:13px;"></i><span style="font-size:12px;" class="hidden-sm hidden-xs"> Contacted</span> 
 								</div>
 								@else
-								<div class="col-md-3 col-sm-3 col-xs-3">
+								<div class="col-md-2 col-sm-2 col-xs-2">
 								</div>
 								@endif
 							@endif

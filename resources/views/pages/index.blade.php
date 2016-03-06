@@ -512,7 +512,7 @@
     <!-- Main js -->
 <script src="/assets/startup/js/main.js"></script>
 <script type="text/javascript">
- (function(){
+ // (function(){
 
     // List your words here:
  /*   var words = [

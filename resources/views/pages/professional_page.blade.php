@@ -17,10 +17,10 @@
 				<a data-toggle="tab" href="#professional">
 				<i class="icon-briefcase"></i> Professional Details </a>
 			</li>
-			<li>
+			<!-- <li>
 				<a data-toggle="tab" href="#preference">
 				<i class=" icon-pointer"></i> Preferences </a>
-			</li>
+			</li> -->
 			<li>
 				<a data-toggle="tab" href="#privacy">
 				<i class="fa fa-eye"></i> Privacy Settings </a>
@@ -30,7 +30,7 @@
 	<div class="col-md-8" style="padding:0;">
 		<div class="tab-content">
 			<div id="personal" class="tab-pane active">
-				<form action="{{ url('/individual/basicupdate') }}" id="profile_validation" class="horizontal-form" method="post">
+				<form action="/individual/basicupdate" id="profile_validation" class="horizontal-form" method="post">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 						<div class="row">
 							<div class="col-md-6">
@@ -127,31 +127,18 @@
 							<!--/span-->
 						</div>
 						<div class="row">
-							<div class="col-md-6 col-sm-6">
+							<div class="col-md-6 col-sm-6 col-xs-12">
 								<div class="form-group">
-									<label>City</label>									
+									<label>City <span class="required">
+											* </span></label>
 									<div class="input-group">
 										<span class="input-group-addon">
 											<i class="fa fa-map-marker"></i>
 										</span>
-										<input type="text" id=" Select City" name="city" class="form-control" value="{{ $user->induser->city }}" placeholder="City">
+										<input type="text" id="city" name="city" class="form-control" value="{{ $user->induser->city }}" placeholder="City">										
 									</div>
 								</div>
 							</div>
-							<!--/span-->
-							<div class="col-md-6 col-sm-6">
-								<div class="form-group">
-									<label>Area </label>
-									<div class="input-group">
-										<span class="input-group-addon">
-										<i class="fa fa-map-marker"></i>
-										</span>
-										<input type="text" name="c_locality" class="form-control" value="{{ $user->induser->c_locality }}" placeholder="Select Local Area">
-										
-									</div>
-								</div>
-							</div>
-							<!--/span-->
 						</div>
 					<div class="row">
 						<div class="col-md-6 col-sm-6">
@@ -264,7 +251,7 @@
 			</div>
 			<div id="professional" class="tab-pane">
 						<!-- BEGIN FORM-->
-		<form action="{{ url('/individual/update', Auth::user()->induser_id) }}" id="ind_validation" 
+		<form action="/individual/update/{{Auth::user()->induser_id}}" id="ind_validation" 
 				class="horizontal-form prof_detail" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<div class="form-body">
@@ -319,6 +306,7 @@
 											<option @if($user->induser->education=="MPharma") {{ $selected }} @endif value="MPharma" value="MPharma">MPharma</option>
 											<option @if($user->induser->education=="MA") {{ $selected }} @endif value="MA" value="MA">MA</option>
 											<option @if($user->induser->education=="twelth") {{ $selected }} @endif value="twelth" value="twelth">12th</option>
+											<option @if($user->induser->education=="Below 12th") {{ $selected }} @endif value="Below 12th" value="twelth">Below 12th</option>
 											<!-- <option value="10">10</option> -->
 										</select>
 										
@@ -328,7 +316,7 @@
 							<!--/span-->
 							<div class="col-md-6 col-sm-6">
 								<div class="form-group">
-									<label>Branch <span class="required"> * </span></label>
+									<label>Branch </label>
 									<div class="input-group">
 										<span class="input-group-addon">
 											<i class="icon-graduation"></i>
@@ -421,44 +409,12 @@
 
 									<div id="charNum" style="text-align:right;"></div>
 								</div>
+								
 							</div>
-							<div class="col-md-6 col-sm-6 col-xs-12 show-far">
-								<div class="form-group">
-									<label>Functional Area <span class="required">
-									* </span></label>
-									<div class="input-group">
-										<span class="input-group-addon">
-											<i class="icon-hourglass" style="color:darkcyan;"></i>
-										</span>
-										<select name="time_for" class="form-control" style="z-index:0;">
-											@foreach($functionalAreas as $farea)
-									      		<option>
-									      			<li><a href="#" data-jrole="{{$farea}}">{{$farea}}</a></li>
-									      		</option>
-								      		@endforeach
-										</select>
-									</div>
-								</div>
+							<div class="col-md-12">
+								
 							</div>
-							<div class="col-md-6 col-sm-6 col-xs-12 show-far">
-								<div class="form-group">
-									<label>Role <span class="required">
-									* </span></label>
-									<div class="input-group">
-										<span class="input-group-addon">
-											<i class="icon-hourglass" style="color:darkcyan;"></i>
-										</span>
-										<select name="time_for" class="form-control" style="z-index:0;">
-											@foreach($roles as $role)
-									      		<option>
-									      			<li><a href="#" data-jrole="{{$role->name}}">{{$role->name}}</a></li>
-									      		</option>
-								      		@endforeach
-										</select>
-									</div>
-									<a class="back-role">Back</a>
-								</div>
-							</div>
+							
 						</div>
 						
 						<div class="row">
@@ -466,7 +422,7 @@
 								<div class="form-group">
 									<!-- <form action="{{ url('job/newskill') }}" id="newskillfrm" method="post">					
 									<input type="hidden" name="_token" value="{{ csrf_token() }}"> -->
-									<label>Search Skills</label>
+									<label>Search Skills<span class="required"> * </span></label>
 									<div style="position:relative;">
 										<input type="text" name="name" id="newskill" class="form-control" placeholder="Search for skill...">
 											<button id="add-new-skill" style="position:absolute;right:0;top:0;" class="btn btn-success" type="button"><i class="icon-plus"></i> Add</button>	
@@ -474,21 +430,6 @@
 									</div>
 								</div>
 							</div>
-							<!-- <div class="col-md-6 col-sm-6">
-								<div class="form-group">
-									<label>Added Skills <span class="required">
-													* </span></label>
-								    <input type="hidden" id="linked_skill" value="css, php" name="linked_skill" 
-								     		class="form-control select2 uppercase"
-								     		placeholder="List of skills to be added">
-								    		
-								    <input type="text" id="linked_skill" name="linked_skill" 
-								     		class="form-control select2">
-								</div>
-							</div> -->
-						</div>
-
-						<div class="row">
 							<div class="col-md-6 col-sm-6">
 								<div class="form-group" style="">
 									<label class="control-label">Upload Resume <small style="font-weight: 400; font-size: 13px;">(Optional) only pdf or word format</small></label>&nbsp;
@@ -507,51 +448,15 @@
 											<a href="javascript:;" class="close fileinput-exists" data-dismiss="fileinput"></a>
 										</div>
 									</div>
-									@if($user->resume != null)
+									@if($user->induser->resume != null)
 									<label style="font-size: 12px;font-weight: 500">{{$user->induser->resume_dtTime}} - {{$user->induser->resume}}
 									@endif
 								</div>
 							</div>
-							<!--/span-->
 						</div>
-					</div>
-				</div>
-				<div class="form-actions ">
-					<button type="submit" name="individual" value="Save" class="btn blue">
-						<i class="fa fa-check"></i> Update
-					</button>
-					<a href="/profile/ind/{{Auth::user()->induser_id}}" class="btn default">Cancel</a>
-				</div>
-			</div>
-		</form>
-		<!-- END FORM-->
-			</div>
-			<div id="preference" class="tab-pane">
-				<form action="{{ url('/individual/preferenceUpdate', Auth::user()->induser_id) }}" id="preference_validation" 
-				class="horizontal-form prof_detail" method="post" enctype="multipart/form-data">
-					<input type="hidden" name="_token" value="{{ csrf_token() }}">						
-						
 						<div class="row">
-							<div class="col-md-6 col-sm-6 col-xs-12">
-								<div class="form-group">
-									<label>Prefered Location <span class="required">
-											* </span></label>
-									<div class="input-group">
-										<span class="input-group-addon">
-											<i class="fa fa-map-marker"></i>
-										</span>
-
-										<input type="text" id="pref_loc" name="pref_loc" 
-										class="form-control" placeholder="Select preferred location">									
-										
-									</div>
-
-									{!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 
-																					   'aria-hidden'=>'true', 
-																					   'class'=>'form-control', 
-																					   'placeholder'=>'city', 
-																					   'multiple']) !!}		
-								</div>
+							<div class="col-md-12 preferences-css">
+								<span>Job Preference</span>
 							</div>
 						</div>
 						<div class="row">
@@ -573,18 +478,54 @@
 									</div>
 								</div>
 							</div>
+						<!-- </div>
+						<div class="row"> -->
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<div class="form-group">
+									<label>Prefered Location <span class="required">
+											* </span></label>
+									<div class="input-group">
+										<span class="input-group-addon">
+											<i class="fa fa-map-marker"></i>
+										</span>
+
+										<input type="text" id="pref_loc" name="pref_loc" 
+										class="form-control" placeholder="Select preferred location">									
+										
+									</div>
+									@if($user->induser->preferred_locations != '[]')
+									{!! Form::select('prefered_location[]', $user->induser->preferred_locations, null, ['id'=>'prefered_location', 
+																								   'aria-hidden'=>'true', 
+																								   'class'=>'form-control', 
+																								   'placeholder'=>'city', 
+																								   'multiple']) !!}	
+									@else
+									{!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 
+																								   'aria-hidden'=>'true', 
+																								   'class'=>'form-control', 
+																								   'placeholder'=>'city', 
+																							       'multiple']) !!}	
+									@endif
+								</div>
+							</div>
 						</div>
-					<!--end profile-settings-->
-					<div class="margin-top-10">
-						<button type="submit" name="individual" value="Save" class="btn green">
-						<i class="fa fa-check"></i> Save Changes
-						</button>
-						<a href="/profile/ind/{{Auth::user()->induser_id}}" class="btn default">Cancel</a>
 					</div>
-				</form>
+				</div>
+				<div class="form-actions ">
+					<button type="submit" name="individual" value="Save" class="btn blue">
+						<i class="fa fa-check"></i> Update
+					</button>
+					<a href="/profile/ind/{{Auth::user()->induser_id}}" class="btn default">Cancel</a>
+				</div>
 			</div>
+		</form>
+		<!-- END FORM-->
+			</div>
+			<!-- <div id="preference" class="tab-pane">
+				
+			</div> -->
 			<div id="privacy" class="tab-pane">
-				<form action="{{ url('/individual/privacyUpdate', Auth::user()->induser_id) }}" id="privacy_validation" 
+				<form action="/individual/privacyUpdate/{{Auth::user()->induser_id}}" id="privacy_validation" 
 				class="horizontal-form prof_detail" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<table class="table table-bordered table-striped">
@@ -659,7 +600,6 @@
 	</div>
 	<!--end col-md-9-->
 </div>
-
 <!-- Mobile/Email verification -->
 <div class="modal fade bs-modal-sm" id="edit-me-modal" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-sm">
@@ -679,13 +619,47 @@
 
 @section('javascript')
 <script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
-<script src="http://maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
 <script type="text/javascript">
+	function initialize() {
+		var options = {	types: ['(cities)'], componentRestrictions: {country: "in"}	};
+		var input = document.getElementById('city');
+		var autocomplete = new google.maps.places.Autocomplete(input, options);
+		autocomplete.addListener('place_changed', onPlaceChanged); 
+		function onPlaceChanged() {
+		  var place = autocomplete.getPlace();
+		  if (place.address_components) { city = place.address_components[0];
+		  	document.getElementById('city').value = city.long_name;
+		  } else { document.getElementById('autocomplete').placeholder = 'Enter a city'; }
+		}
+	}
+   google.maps.event.addDomListener(window, 'load', initialize);   
+</script>
+<script type="text/javascript">
+	// Skill Details
+	var skillArray = [];
+	<?php $array = explode(', ', $user->induser->linked_skill); ?> 
+	@if(count($array) > 0)
+	@foreach($array as $gt => $gta)
+		skillArray.push('<?php echo $gta; ?>');
+	@endforeach
+	@endif
+    var skillselect = $("#linked_skill_id").select2({ dataType: 'json', data: skillArray });
+    skillselect.val(skillArray).trigger("change");
+    
+
     // preferred loc
 	var prefLocationArray = [];
-
-    // preferred loc    
-    var plselect = $("#prefered_location").select2();
+	<?php $arr = $user->induser->preferred_locations; ?>
+	@if(count($arr) > 0) 
+	@foreach($arr as $ga => $gt)
+		prefLocationArray.push('<?php echo $gt; ?>');
+	@endforeach
+	@endif
+	// console.log(prefLocationArray);
+    // preferre.d loc    
+    // var plselect = $("#prefered_location").select2();
+    var plselect = $("#prefered_location").select2({ dataType: 'json', data: prefLocationArray });
     plselect.val(prefLocationArray).trigger("change");
 
   	var $eventSelect = $("#prefered_location"); 
@@ -758,6 +732,83 @@
 
 </script>
 <script type="text/javascript">
+    // preferred loc
+	var currLocationArray = [];
+
+    // preferred loc    
+    var clselect = $("#current_location").select2();
+    clselect.val(currLocationArray).trigger("change");
+
+  	var $eventSelect = $("#current_location"); 
+	$eventSelect.on("select2:unselect", function (e) {
+		// console.log("Removing: "+e.params.data.id);
+		// remove corresponding value from array
+		currLocationArray = $.grep(prefLocationArray, function(value) {
+		  return value != e.params.data.id;
+		});
+
+		// remove select option for pref loc
+		$("#current_location option[value='"+e.params.data.id+"']").remove();		
+		if(currLocationArray.length == 0){
+			clselect = $("#current_location").select2({ dataType: 'json', data: [] });
+		}else{
+			clselect = $("#current_location").select2({ dataType: 'json', data: currLocationArray });
+		}
+		clselect.val(currLocationArray).trigger("change"); 
+		// updated array
+	});
+
+    var currLoc = $("#curr_loc");
+	function initCurrLoc() {
+		var options = {	types: ['(regions)'], componentRestrictions: {country: "in"}};
+		var input = document.getElementById('curr_loc');
+		var autocomplete = new google.maps.places.Autocomplete(input, options);
+		autocomplete.addListener('place_changed', onPlaceChanged);
+
+		function onPlaceChanged() {
+		  var place = autocomplete.getPlace();
+		  if (place.address_components) { 
+		  	// console.log(place.address_components);
+
+		  	var obj = place.address_components;		  	
+		  	var locality = '';
+	  		var city = '';
+	  		var state = '';
+		  	$.each( obj, function( key, value ) {
+		  		if($.inArray("sublocality", value.types)  > -1 ){
+		  			locality = value.long_name;
+		  		}
+		  		if($.inArray("locality", value.types)  > -1 ){
+		  			city = value.long_name;
+		  		}
+		  		if($.inArray("administrative_area_level_1", value.types)  > -1 ){
+		  			state = value.long_name;
+		  		}
+			});
+			// console.log("Locality: "+locality+" city: "+city+" state: "+state);
+
+			if(locality != '' && city != '' && state != '' ){
+				currLocationArray.push(locality +"-"+ city +"-"+ state);	
+			}
+			if(locality == '' && city != '' && state != '' ){
+				currLocationArray.push(city +"-" + state);	
+			}
+
+		  	setTimeout(function(){ currLoc.val(''); currLoc.focus();},0);	// clear field
+		  	
+		  	$("#current_location").select2({ dataType: 'json', data: currLocationArray });
+        	clselect.val(currLocationArray).trigger("change");
+
+		  } else { 
+		  	document.getElementById('autocomplete').placeholder = 'Your current location'; 
+		  }
+		}
+
+	}
+   google.maps.event.addDomListener(window, 'load', initCurrLoc);
+
+</script>
+<script type="text/javascript">
 $(document).ready(function() {
   
   $('#name').blur(function(){
@@ -774,6 +825,8 @@ $(document).ready(function() {
     
     return false;
   });
+
+ 
 });
 </script>
 	<script>
@@ -784,7 +837,7 @@ $(document).ready(function() {
     </script>
 
 
-<script src="{{ asset('/assets/ind_validation.js') }}"></script>
+<script src="/assets/ind_validation.js"></script>
 <script>
 	jQuery(document).ready(function() { 
 	    ComponentsIonSliders.init();
@@ -801,6 +854,10 @@ $(document).ready(function() {
           $('#charNum').text(255 - len);
         }
       };
+
+      $("#ind_validation").submit(function(e){
+		  e.preventDefault();
+		});
     </script>
 <script type="text/javascript">
 	
@@ -918,7 +975,7 @@ $gotit = [];
 					}
 				});
 			    $.ajax({
-			      url: "{{ url('job/newskill') }}",
+			      url: "/job/newskill",
 			      type: "POST",
 			      data: { name: name },
 			      cache : false,
@@ -927,10 +984,11 @@ $gotit = [];
 			        	$newSkillList = new Array();
 
 			        	<?php $newSkillList = array(); ?>
+			        	@if(count($skills) > 0)
 						@foreach($skills as $skill)
 							$newSkillList.push('<?php echo $skill; ?>');
 						@endforeach
-
+						@endif
 			        	$newSkillList.push($('#newskill').val());
 			        	// console.log($newSkillList);
 			        	$("#linked_skill_id").select2({
@@ -1172,6 +1230,7 @@ function formatRepo (repo) {
 
       markup += "<div class='select2-result-repository__statistics'>" +
         "<div class='select2-result-repository__forks'><b>Functional area: </b> " + repo.functional_area + "</div>" +
+        "<div class='select2-result-repository__stargazers'><b>Industry</b>: " + repo.industry + "</div>" +
       "</div>" +
       "</div></div>";
 
@@ -1181,7 +1240,7 @@ function formatRepo (repo) {
     function formatRepoSelection (repo) {
     	if(repo.role != undefined){
     		// console.log(repo);
-    		return repo.role+" -"+repo.functional_area+"-"+repo.industry;
+    		return  "<b>Role:</b> "+repo.role+"<br/><b>Functional Area:</b> "+repo.functional_area+"<br/><b>Industry:</b> "+repo.industry;
     	}      
     }
 

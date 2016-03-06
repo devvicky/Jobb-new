@@ -10,7 +10,7 @@
     <!-- END LOGO -->
     <!-- BEGIN RESPONSIVE MENU TOGGLER -->
     <a href="javascript:;" class="menu-toggler responsive-toggler toggle-display" data-toggle="collapse" data-target=".navbar-collapse">
-      <i class="fa fa-bars"></i>
+      <i class="fa fa-bars" style="color: #B9D649;"></i>
     </a>
     <!-- END RESPONSIVE MENU TOGGLER -->
     <!-- BEGIN PAGE ACTIONS -->
@@ -178,7 +178,7 @@
             <a class="advance-search btn" data-toggle="modal" href="#advance">Advance</a>
           </span> -->
           <span class="input-group-btn">
-            <a class="btn submit"><i class="icon-magnifier"></i></a>
+            <a class="btn submit"><i class="icon-magnifier" style="color: whitesmoke;"></i></a>
           </span>
         </div>
       </form>

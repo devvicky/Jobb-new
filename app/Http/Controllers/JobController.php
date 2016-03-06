@@ -16,6 +16,7 @@ use App\Induser;
 use App\ReportAbuse;
 use App\User;
 use App\Notification;
+use App\Role;
 use App\Industry;
 use App\FunctionalAreas;
 use App\ReportAbuseAction;
@@ -105,10 +106,19 @@ class JobController extends Controller {
 		unset ($prefered_location[count($prefered_location)-1]);
 		$request['unique_id'] = "J".rand(111,999).rand(111,999);*/
 
+
 		$request['education'] = implode(',', $request['education']);
 
-		$request['linked_skill'] = implode(',', $request['linked_skill_id']);
-        $request['city'] = implode(',', $request['prefered_location']);
+		/*$request['linked_skill'] = implode(',', $request['linked_skill_id']);
+        $request['city'] = implode(',', $request['prefered_location']);*/
+
+
+		if($request['linked_skill_id'] != null){
+			$request['linked_skill'] = implode(',', $request['linked_skill_id']);
+		}
+		if($request['prefered_location'] != null){
+			$request['city'] = implode(',', $request['prefered_location']);
+		}
 
         $pref_locations = $request['prefered_location'];
 
@@ -445,6 +455,29 @@ class JobController extends Controller {
 		if($request->ajax()){
 			$skill = Skills::create(['name' => $request['name']]);
 			return $skill->id;
+		}
+	}
+
+	public function roleSearch(){
+		$term = Input::get('term');
+		
+		$results = array();
+		
+		$queries = DB::table('roles')
+					 ->where('name', 'LIKE', '%'.$term.'%')
+					 ->where('status', '=', 0)
+					 ->take(5)->get();
+		
+		foreach ($queries as $query){
+		    $results[] = [ 'id' => $query->id, 'value' => $query->name ];
+		}
+		return Response::json($results);
+	}
+
+	public function addNewRoles(Request $request){
+		if($request->ajax()){
+			$role = Role::create(['name' => $request['name']]);
+			return $role->id;
 		}
 	}
 

@@ -1,17 +1,17 @@
 <div class="portlet light bordered">
-										<div class="portlet-title">
-											<div class="caption">
-												<i class=""></i>
-												<span class="caption-subject font-blue-hoki bold uppercase">My Post</span>
-												
-											</div>
-											
-										</div>
-										<div class="portlet-body form">
-											<!-- BEGIN FORM-->
-											<form action="#" class="horizontal-form">
-												<div class="form-body">
-											<div class="row">
+		<div class="portlet-title">
+			<div class="caption">
+				<i class=""></i>
+				<span class="caption-subject font-blue-hoki bold uppercase">My Post</span>
+				
+			</div>
+			
+		</div>
+		<div class="portlet-body form">
+			<!-- BEGIN FORM-->
+			<form action="#" class="horizontal-form">
+				<div class="form-body">
+			<div class="row">
 										
 					<div class="col-md-12" style="    margin-top: -39px;">
 													<div class="timeline-item">

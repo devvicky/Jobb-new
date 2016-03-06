@@ -104,7 +104,7 @@ License: You must have a valid license purchased only from themeforest(the above
 				@if (Auth::guest())
 				@else
 				 <li class="dropdown dropdown-quick-sidebar-toggler">
-					<a href="{{ url('/auth/logout') }}" class="dropdown-toggle">
+					<a href="/auth/logout" class="dropdown-toggle">
 					<i class="icon-logout"></i>
 					</a>
 				</li>
@@ -200,7 +200,7 @@ License: You must have a valid license purchased only from themeforest(the above
 				@if (Auth::guest())
 				@else
 				 <li>
-					<a href="{{ url('/auth/logout') }}">
+					<a href="/auth/logout">
 						<i class="icon-logout"></i>
 						<span class="title">Logout</span>
 					</a>

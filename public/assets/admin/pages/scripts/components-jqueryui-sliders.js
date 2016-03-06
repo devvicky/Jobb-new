@@ -117,7 +117,7 @@ var ComponentsjQueryUISliders = function () {
                 values: [0, 2],
 
                 slide: function (event, ui) {
-                     $("#slider-range-exp1").val(ui.values[0]);
+                    $("#slider-range-exp1").val(ui.values[0]);
                     $("#slider-range-exp2").val(ui.values[1]);
                     // $("#slider-range-amount-exp").text("Min-Exp " + ui.values[0] + " - Max-Exp " + ui.values[1]);
                 }
@@ -142,6 +142,21 @@ var ComponentsjQueryUISliders = function () {
             });
 
             $("#slider-range-max-amount").text($("#slider-range-max").slider("value"));
+
+            //Skill Experience slider
+
+            $("#slider-range-max-skill").slider({
+                isRTL: Metronic.isRTL(),
+                range: "max",
+                min: 0,
+                max: 15,
+                step: 1,
+                slide: function (event, ui) {
+                    $("#slider-range-max-amount-skill").text(ui.value);
+                }
+            });
+
+            $("#slider-range-max-amount-skill").text($("#slider-range-max-skill").slider("value"));
 
             // range min
             $("#slider-range-min").slider({

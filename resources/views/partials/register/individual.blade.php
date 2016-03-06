@@ -123,8 +123,8 @@
 	<div class="form-group margin-top-20 margin-bottom-20">
 		<label style="font-size: 13px;color: #D2C9C9 !important;">
 			<input type="checkbox" id="t-n-c" name="tnc"/> I agree to the 
-			<a href="/login/termcondition" target="_blank" style="">Terms of Service </a>& 
-			<a href="/login/privacyprolicy" target="_blank" style="">Privacy Policy </a>
+			<a href="/termcondition" target="_blank" style="">Terms of Service </a>& 
+			<a href="/privacyprolicy" target="_blank" style="">Privacy Policy </a>
 		</label>
 		<div id="register_tnc_error"></div>
 	</div>									

@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('content')
-<div class="myactivity-head col-md-9">
+<div class="myactivity-head col-md-9" style="margin: 10px 0 0 0;">
 	<i class="icon-trophy"></i> My Activity
 </div>
 <div class="portlet box blue col-md-9" style="border:0;">
@@ -232,7 +232,7 @@
 															 Do you want to expire this post?
 														</div>
 														<div class="modal-footer">		
-															<form action="{{ url('job/expire') }}" method="post">				
+															<form action="/job/expire" method="post">				
 																<input type="hidden" name="_token" value="{{ csrf_token() }}">
 																<input type="hidden" name="post_id" value="{{$post->id}}">					
 																<button type="submit" class="btn blue">Yes</button>
@@ -1454,7 +1454,7 @@
 <div class="modal fade" id="extend-job-expiry-{{ $post->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-    	<form action="{{ url('/job/extended') }}" class="horizontal-form" method="post">
+    	<form action="/job/extended" class="horizontal-form" method="post">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<input type="hidden" name="post_id" value="{{ $post->id }}">
 			<input type="hidden" name="post_duration" value="{{ $post->post_duration }}">
@@ -1569,7 +1569,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
         <h4 class="modal-title">Share post</h4>
       </div>
-      <form class="form-horizontal" id="modal-post-share-form" role="form" method="POST" action="{{ url('/post/share') }}">
+      <form class="form-horizontal" id="modal-post-share-form" role="form" method="POST" action="/post/share">
       <div class="modal-body">
                   
           <input type="hidden" name="_token" value="{{ csrf_token() }}">

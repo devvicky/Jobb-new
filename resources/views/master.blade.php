@@ -21,6 +21,11 @@
 <!-- <link rel="stylesheet" type="text/css" href="/assets/css/jquery.mobile-1.4.5.css"/>
 <link rel="stylesheet" type="text/css" href="/assets/css/jquery.mobile-1.4.5.min.css"/> -->
 
+<link rel="canonical" href="https://www.alessioatzeni.com/wp-content/tutorials/jquery/simple-tooltip/index.html" />
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+<!-- <link rel="stylesheet" type="text/css" href="{{ asset('/assets/css/jquery.mobile-1.4.5.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('/assets/css/jquery.mobile-1.4.5.min.css') }}"/> -->
+
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css">
 <link href="/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link href="/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
@@ -54,6 +59,7 @@
 
 <script src="/assets/global/plugins/pace/pace.min.js" type="text/javascript"></script>
 <link href="/assets/global/plugins/pace/themes/pace-theme-minimal.css" rel="stylesheet" type="text/css"/><!-- END PAGE LEVEL STYLES -->
+
 <!-- BEGIN THEME STYLES -->
 <link href="/assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
 <link href="/assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
@@ -67,7 +73,9 @@
 <link href="/assets/custom_new.css" rel="stylesheet"/>
 <script src="/assets/global/plugins/autosize/autosize.min.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL STYLES -->
-<link href="assets/global/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet"/>
+
+<link href="/assets/global/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet"/>
+
 <!-- <link href="/assets/admin/pages/css/profile.css" rel="stylesheet" type="text/css"/> -->
 <link href="/assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
 <!-- <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" /> -->
@@ -219,7 +227,10 @@ body.page-boxed{
   box-shadow: none !important;
 }
 
-
+input:focus::-webkit-input-placeholder { color:white !important; }
+input:focus:-moz-placeholder { color:white !important; } /* FF 4-18 */
+input:focus::-moz-placeholder { color:white !important; } /* FF 19+ */
+input:focus:-ms-input-placeholder { color:white !important; } /* IE 10+ */
 </style>
 <!-- END THEME STYLES -->
 {{-- <link rel="shortcut icon" href="favicon.ico"/> --}}
@@ -286,8 +297,13 @@ body.page-boxed{
 <script src="/assets/global/plugins/respond.min.js"></script>
 <script src="/assets/global/plugins/excanvas.min.js"></script> 
 <![endif]-->
+
 <!-- <script src="/assets/js/jquery.mobile-1.4.5.js" type="text/javascript"></script>
 <script src="/assets/js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script> -->
+
+<!-- <script src="{{ asset('/assets/js/jquery.mobile-1.4.5.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/assets/js/jquery.mobile-1.4.5.min.js') }}" type="text/javascript"></script> -->
+
 <script src="/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
 <script src="/assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
 <!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
@@ -677,7 +693,68 @@ function fileSelectHandler() {
 }
 
 </script>
+<script>
+$(document).ready(function () {            
+//validation rules
+    var form = $('#pass-change');
+    var error = $('.alert-danger', form);
+    var success = $('.alert-success', form);
+    form.validate({
+        doNotHideMessage: true, //this option enables to show the error/success messages on tab switch.
+        errorElement: 'span', //default input error message container
+        errorClass: 'help-block help-block-error', // default input error message class
+        focusInvalid: false, // do not focus the last invalid input
+        rules: {
+           old_password: {
+              required: true,
+              minlength: 6
+            },
+            password: {
+              required: true,
+              minlength: 6
+            },
+            password_confirmation: {
+              required: true,
+              equalTo: "#new_password"
+            }
+        },
+        messages: {
+            old_password: {
+                required: 'Enter old Password'
+            },
+            password: {
+              required: 'Enter new Password'
+            }
+        },
+            invalidHandler: function (event, validator) { //display error alert on form submit   
+            success.hide();
+            error.show();
+            Metronic.scrollTo(error, -200);
+        },
 
+             highlight: function(element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+            unhighlight: function(element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) { // render error placement for each input type
+                    var icon = $(element).parent('.input-icon').children('i');
+                    icon.removeClass('fa-check').addClass("fa-warning");  
+                    icon.attr("data-original-title", error.text()).tooltip({'placement': 'left'});
+                   
+                },
+            success: function (label, element) {
+                    var icon = $(element).parent('.input-icon').children('i');
+                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                    icon.removeClass("fa-warning").addClass("fa-check");
+                },
+    });
+});
+
+</script>
 @yield('javascript')
 
 <!-- END JAVASCRIPTS -->

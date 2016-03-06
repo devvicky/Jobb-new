@@ -365,7 +365,7 @@
 																	@endforeach
 																 
 															</div>
-															@if($post->post_type == 'job')
+															@if($post->post_type == 'job' && $post->min_sal != null)
 															<div class="col-md-12 col-sm-12 col-xs-12">													
 																<label class="detail-label">Salary (<i class="fa fa-rupee (alias)"></i>):</label>
 																{{ $post->min_sal }}-{{ $post->max_sal }} {{ $post->salary_type }} 

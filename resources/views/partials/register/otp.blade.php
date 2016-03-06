@@ -55,7 +55,7 @@
 	<button type="submit" id="resend-otp-btn" class="btn btn-default pull-right" 
 			style="margin-left: 39px;cursor: pointer;color: #03C1B1;
 				    position: absolute;
-				    bottom: 50px;
+				    bottom: 24px;
 				    right: 0;">
 			Resend OTP
 	</button>

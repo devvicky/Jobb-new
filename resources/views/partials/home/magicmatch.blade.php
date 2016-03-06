@@ -28,6 +28,10 @@
                                     $userSkillArr = array_map('trim', explode(',', Auth::user()->induser->linked_skill));
                                 ?>
                                 <?php 
+                                    $matchedPost = array_intersect($userSkillArr, $postSkillArr);
+                                    $unmatchedPost = array_diff($userSkillArr, $postSkillArr);
+                                ?>
+                                <?php 
                                     $matched = array_intersect($userSkillArr, $postSkillArr);
                                     $unmatched = array_diff($userSkillArr, $postSkillArr);
                                 ?>
@@ -45,16 +49,19 @@
                                     <td class="matching-criteria-align">{{$post->linked_skill}}</td>
                                     @if(Auth::user()->induser->linked_skill != null)                                    
                                     <td class="matching-criteria-align">
-                                        <span style="color:green">
-                                            @foreach($matched as $m)
-                                            {{$m. ', '}} 
-                                            @endforeach
+                                        
+                                        @foreach($matched as $m)
+                                        <span style="background-color:green;color:white;padding: 2px 4px;margin:2px;text-transform:capitalize">
+                                        {{$m}}
                                         </span>
-                                        <span style="color:red">
-                                            @foreach($unmatched as $um)
-                                            {{$um. ', '}} 
-                                            @endforeach
-                                        </span>                                        
+                                        @endforeach                                        
+                                    
+                                        @foreach($unmatched as $um)
+                                        <span style="background-color:red;color:white;padding: 2px 4px;margin:2px;text-transform:capitalize">
+                                        {{$um}}
+                                        </span>  
+                                        @endforeach
+                                                                               
                                     </td>
                                     @else
                                     <td class="matching-criteria-align"><a href="/individual/edit">Add Skills </a></td>

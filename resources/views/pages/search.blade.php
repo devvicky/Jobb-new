@@ -80,6 +80,7 @@
 			<div class="search-classic">
 				<p>About {{count($searchResultForInd)}} results for "{{$searchQuery}}"</p>		
 				@foreach($searchResultForInd as $ind)
+				@if($ind->user->email_verify == 1 || $ind->user->mobile_verify == 1)
 				<div class="row search-user-tool" style="margin:0;">
 				<div class="col-md-7">					
 						<div class="col-md-2 col-sm-3 col-xs-3">
@@ -147,6 +148,7 @@
 							</div>	    
 					</div>
 				</div>
+				@endif
 				@endforeach
 
 				<?php echo $searchResultForInd->fragment('tab_tab_ind')->render(); ?>
@@ -159,6 +161,7 @@
 				<p>About {{count($searchResultForCorp)}} results for "{{$searchQuery}}"</p>
 
 				@foreach($searchResultForCorp as $corp)
+				@if($corp->user->email_verify == 1 || $corp->user->mobile_verify == 1)
 				<div class="row search-user-tool" style="margin:0;">
 						<div class="col-md-7">		
 							<div class="col-md-2 col-sm-2 col-xs-3">
@@ -179,6 +182,7 @@
 							</div>
 					   </div> 
 					</div>
+					@endif
 				@endforeach
 
 				<?php echo $searchResultForCorp->fragment('tab_tab_corp')->render(); ?>

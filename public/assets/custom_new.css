@@ -46,12 +46,10 @@ input:focus:-ms-input-placeholder { font-size: 12px !important; } */
 .search-advance-tool {
     position: absolute;
     right: -6px;
-    bottom: 3px;
+    bottom: 2px;
     padding: 4px 10px;
-    /* line-height: 1.4; */
     background-color: darkcyan;
     color: white !important;
-    box-shadow: 0 1px 2px lightslategray;
 }
 
 .group-align{
@@ -468,7 +466,7 @@ display: table;
     background-color: #656565;
     border-color: #656565;
     color: white;
-    padding: 4px 10px;
+    padding: 2px 8px;
 }
 
 .link-request-label.focus, .link-request-label:focus, .link-request-label:hover{

@@ -1,7 +1,7 @@
 @foreach($users as $user)
+@if($user->user->email_verify == 1 || $user->user->mobile_verify == 1)
 <div class="row search-user-tool">
-	<form action="{{ url('/connections/inviteFriend', $user->id) }}" method="post">
-		<input type="hidden" name="_token" value="{{ csrf_token() }}">
+	
 		<div class="col-md-2 col-sm-2 col-xs-2">
 		 	<a href="#">
 	        	<img class="media-object img-circle img-link-size" src="@if($user->profile_pic != null){{ '/img/profile/'.$user->profile_pic }}@else{{'/assets/images/ab.png'}}@endif" alt="DP" >
@@ -19,17 +19,17 @@
             
                  {{ $user->working_status }} in {{ $user->prof_category }}, {{ $user->city }}
             
-            @elseif($user->working_status == "Freelanching")
+            @elseif($user->job_role != '[]' && $user->working_status == "Freelanching")
             
-                 {{ $user->role }} {{ $user->working_status }}, {{ $user->city }}
+                 {{ $user->job_role->first()->role }} {{ $user->working_status }}, {{ $user->city }}
             
-            @elseif($user->role != null && $user->working_at !=null && $user->working_status == "Working")
+            @elseif($user->job_role != '[]' && $user->working_at !=null && $user->working_status == "Working")
             
-                 {{ $user->role }} @ {{ $user->working_at }} 
+                 {{ $user->job_role->first()->role }} @ {{ $user->working_at }} 
         
-            @elseif($user->role != null && $user->working_at ==null && $user->working_status == "Working")
+            @elseif($user->job_role != '[]' && $user->working_at ==null && $user->working_status == "Working")
             
-                 {{ $user->role }}, {{ $user->city }}
+                 {{ $user->job_role->first()->role }}, {{ $user->city }}
             
             @elseif($user->role == null && $user->working_at !=null && $user->working_status == "Working")
             
@@ -45,19 +45,27 @@
 			@if($user->id != Auth::user()->induser_id)
 				@if($links->contains('id', $user->id))
 		 			<div class="btn btn-success apply-ignore-font" style="padding:2px 5px;">Linked</div>
+		 		@elseif($linksPending->contains('id', $user->id) )
+		 			<div class="btn btn-warning apply-ignore-font" style="padding:2px 5px;">Link Requested</div>
+		 		@elseif($linksApproval->contains('id', $user->id) )
+		 			<div class="btn btn-warning apply-ignore-font" style="padding:2px 5px;">Link Requested</div>
 		 		@else
+		 			<form action="/connections/inviteFriend/{{$user->id}}" method="post">
+						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 		 			<button type="submit" class="btn btn-success apply-ignore-font" style="padding:2px 5px;">
 						Add Link
 					</button>
+					</form>
 				@endif
 			@endif
 		</div>
-	</form>
+	
 </div>
+@endif
 @endforeach
 @foreach($corps as $corp)
 <div class="row search-user-tool">
-	<form action="{{ url('/links/corporate/follow', $corp->id) }}" method="post">
+	<form action="/links/corporate/follow/{{$corp->id}}" method="post">
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">
 		<div class="col-md-2 col-sm-2 col-xs-2">
 		 	<a href="#">

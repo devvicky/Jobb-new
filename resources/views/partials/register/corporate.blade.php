@@ -1,5 +1,5 @@
 <!-- BEGIN CORPORATE REGISTER FORM -->
-<form class="register-corporate-form" action="{{ url('/corporate/store') }}" method="post" id="corporate-register">
+<form class="register-corporate-form" action="/corporate/store" method="post" id="corporate-register">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	@if (count($errors) > 0)
 		<div class="alert alert-danger">
@@ -104,8 +104,8 @@
 	<div class="form-group margin-top-20 margin-bottom-20">
 		<label style="font-size: 13px;color: #D2C9C9 !important;">
 			<input type="checkbox" name="ctnc"/> I agree to the 
-			<a href="/login/termcondition" style="">Terms of Service </a>& 
-			<a href="/login/privacyprolicy" style="">Privacy Policy </a>
+			<a href="/termcondition" target="_blank" style="">Terms of Service </a>& 
+			<a href="/privacyprolicy" target="_blank" style="">Privacy Policy </a>
 		</label>
 		<div id="register_ctnc_error"></div>
 	</div>	

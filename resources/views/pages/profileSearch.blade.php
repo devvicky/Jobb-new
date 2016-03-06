@@ -16,7 +16,7 @@
 				@if(count($users) > 0)
 							@foreach($users as $user)
 							<!-- BEGIN FORM-->
-							@if($type == 'people' && Auth::user()->identifier == 1)	
+							@if($type == 'people' && Auth::user()->identifier == 1 && $user->user->email_verify == 1 || $user->user->mobile_verify == 1)	
 				
 						
 					  <div class="row" style="padding: 0 0 15px 0; margin: 0 0 15px 0;border-bottom: 1px solid #eee;">
@@ -62,14 +62,14 @@
 							 	<div class="col-md-3 col-sm-3 col-xs-3">
 						 		@if($links->contains('id', $user->id))
 						 			<!-- <div class="btn btn-success btn-sm">Linked</div> -->
-						 			<form action="{{ url('/connections/removeLink', $user->id) }}" method="post" 
+						 			<form action="/connections/removeLink/{{$user->id}}" method="post" 
 						 					>				
 										<input type="hidden" name="_token" value="{{ csrf_token() }}">	
 										<button type="submit" class="btn btn-success btn-sm" style="padding:2px 5px;">Linked</button>
 									</form>			
 						 		@else
 						 		
-						 			<form action="{{ url('/connections/inviteFriend', $user->id) }}" method="post">
+						 			<form action="/connections/inviteFriend/{{$user->id}}" method="post">
 										<input type="hidden" name="_token" value="{{ csrf_token() }}">
 										<button type="submit" class="btn btn-success apply-ignore-font" style="padding:2px 5px;">
 											Add Link
@@ -80,7 +80,7 @@
 						 	</div>
 						 	@endif
 					  </div>
-							@elseif($type == 'company')
+							@elseif($type == 'company' && $user->user->email_verify == 1 || $user->user->mobile_verify == 1)
 							
 								
 								  <div class="row" style="padding: 0 0 15px 0; margin: 0 0 15px 0;border-bottom: 1px solid #eee;">
@@ -102,13 +102,13 @@
 
 								 		@if($following->contains('id', $user->id))
 								 			<!-- <div class="btn btn-success btn-sm">Following</div> -->
-								 			<form action="{{ url('/userorate/unfollow', $user->id) }}" method="post">				
+								 			<form action="/userorate/unfollow/{{$user->id}}" method="post">				
 												<input type="hidden" name="_token" value="{{ csrf_token() }}">	
 												<button type="submit" class="btn btn-sm btn-success" style="padding:2px 5px;">Following</button>
 											</form>
 								 		@else
 								 		
-								 			<form action="{{ url('/userorate/follow', $user->id) }}" method="post">
+								 			<form action="/userorate/follow/{{$user->id}}" method="post">
 												<input type="hidden" name="_token" value="{{ csrf_token() }}">
 												<button type="submit" class="btn btn-success apply-ignore-font" style="padding:2px 5px;">
 													<i class="glyphicon glyphicon-plus-sign" style="font-size: 12px;"></i> 
@@ -156,7 +156,7 @@
 							@if(count($users) > 0)
 					@foreach($users as $user)
 					<!-- BEGIN FORM-->
-					@if($type == 'people' && Auth::user()->identifier == 2)	
+					@if($type == 'people' && Auth::user()->identifier == 2 && $user->user->email_verify == 1 || $user->user->mobile_verify == 1)	
 						  	<div class="row" style="margin:0;border-bottom: 1px solid #eee;">
 							    <div class="col-md-1 col-sm-2 col-xs-2" style="padding:0 !important;">
 								      <a data-toggle="modal" class="btn resume-button-css magic-profile-match" href="#post-mod-{{$user->id}}" style="padding: 2px 8px;">

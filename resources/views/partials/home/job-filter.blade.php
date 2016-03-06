@@ -8,8 +8,8 @@
 		<div class="row sort-by-css hide-label" style="text-align: right;">
 			<div class="col-md-12">
 				<div class="btn-group">
-					<button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" style="border: 0;color:#8c8c8c;background:transparent;">
-					<i class="glyphicon glyphicon-sort"></i> Sort by <i class="fa fa-angle-down"></i>
+					<button class="btn btn-default btn-sm dropdown-toggle capitalize" type="button" data-toggle="dropdown" style="border: 0;color:#8c8c8c;background:transparent;">
+					<i class="glyphicon glyphicon-sort"></i> @if($sort_by != " ") {{$sort_by}} @else Date @endif<i class="fa fa-angle-down"></i>
 					</button>
 					<ul class="dropdown-menu dropdown-menu-sort" role="menu" style="min-width: 130px;margin: 4px -25px;">
 						<li>
@@ -26,19 +26,7 @@
 						</li>
 					</ul>
 				</div>
-				@if($sort_by != " ")
-				<div class="col-md-12">
-					<label class="capitalize" style="font-size:13px;font-weight:400;margin: 0 7px;">
-						{{$sort_by}}
-					</label>
-				</div>
-				@else
-				<div class="col-md-12">
-					<label class="capitalize" style="font-size:13px;font-weight:400;margin: 0 7px;">
-						Date
-					</label>
-				</div>
-				@endif
+				
 			</div>
 		</div>
 		<div class="row sort-by-css show-filter" style="margin-right:8px;">
@@ -80,9 +68,9 @@
 					</div>
 					<div class="row" style="margin:0 0px 0 -7px;">
 						<div class="col-md-12" style="margin:-5px 0;padding:0 10px;">
-							<label style="font-size:13px;font-weight:500;">Experience</label> : <span id="slider-range-max-amount"> </span> Years
+							<label style="font-size:13px;font-weight:500;">Experience</label> : <span id="slider-range-max-amount-skill"> </span> Years
 							<div class="">
-								<div id="slider-range-max" class="slider bg-purple">
+								<div id="slider-range-max-skill" class="slider bg-purple">
 								</div>
 								<div class="slider-value">
 									  
@@ -108,11 +96,11 @@
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								 <div class="btn-group" data-toggle="buttons">
 					                <label class="btn default btn-filter active " style="padding:0;">
+					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
 					                    <input type="checkbox" class="toggle">
-					                    <a class="icon-btn icon-filter-btn">
-						                    <!-- <i class="fa fa-group"></i> -->
-						                    <div>
-						                         Full<br/> Time
+					                    <a class="icon-btn icon-filter-btn jobtype-css">
+						                    <div class="jtype-name-css">
+						                    	Full<br/> Time
 						                    </div> 
 						                </a>
 					                </label>
@@ -121,10 +109,10 @@
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								<div class="btn-group" data-toggle="buttons">
 					                <label class="btn default btn-filter active" style="padding:0;">
+					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
 					                    <input type="checkbox" class="toggle">
-					                    <a class="icon-btn icon-filter-btn">
-						                    <!-- <i class="fa fa-group"></i> -->
-						                    <div>
+					                    <a class="icon-btn icon-filter-btn jobtype-css">
+						                    <div class="jtype-name-css">
 						                         Part<br/> Time
 						                    </div> 
 						                </a>
@@ -134,10 +122,11 @@
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								<div class="btn-group" data-toggle="buttons">
 					                <label class="btn default btn-filter active" style="padding:0;">
+					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
 					                    <input type="checkbox" class="toggle">
-					                    <a class="icon-btn icon-filter-btn">
-						                    <!-- <i class="fa fa-group"></i> -->
-						                    <div>
+					                    <a class="icon-btn icon-filter-btn jobtype-css">
+						                    <div class="jtype-name-css">
+						                    	<br/>
 						                         Freelancer
 						                    </div> 
 						                </a>
@@ -147,10 +136,10 @@
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								<div class="btn-group" data-toggle="buttons">
 					                <label class="btn default btn-filter active" style="padding:0;">
+					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
 					                    <input type="checkbox" class="toggle">
-					                    <a class="icon-btn icon-filter-btn">
-						                    <!-- <i class="fa fa-group"></i> -->
-						                    <div>
+					                    <a class="icon-btn icon-filter-btn jobtype-css">
+						                    <div class="jtype-name-css">
 						                         Work<br/>From Home
 						                    </div> 
 						                </a>
@@ -200,7 +189,7 @@
 				</div>
 			</div>
 			<div class="modal-footer right" style="padding: 5px 0;">
-				<label style="font-size:13px;float:left;margin: 5px 9px;">
+				<label style="font-size:13px;float:left;margin: 5px 16px;">
 					<input type="checkbox" name="save filter" checked class="icheck" data-checkbox="icheckbox_square-grey"> Save Filter
 				</label>
 				<button type="submit" class="btn green" style="margin: 0 30px;padding: 6px 20px;">

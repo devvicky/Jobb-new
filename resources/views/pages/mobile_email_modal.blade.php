@@ -34,7 +34,7 @@
 		<i class="fa fa-envelope" style="font-size: 16px;color: firebrick;"></i> Change email
 	</h4>
 </div>
-<form action="{{ url('/send-evc') }}" method="post" id="send-evc-form">				
+<form action="/send-evc" method="post" id="send-evc-form">				
 <input type="hidden" name="_token" value="{{ csrf_token() }}">	
 <div class="modal-body">
 	<div class="form-group">
