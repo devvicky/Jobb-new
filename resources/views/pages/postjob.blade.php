@@ -264,7 +264,7 @@
 									</div>
 									
 									<div class="row">
-										<div class="col-md-6 col-sm-6 col-xs-12">
+										<div class="col-md-12 col-sm-12 col-xs-12">
 											<div class="form-group">
 												
 												<label>  Education <span class="required">
@@ -273,9 +273,22 @@
 													<span class="input-group-addon">
 														<i class="icon-graduation"></i>
 													</span>
-													<select class="form-control " name="education" id="parent_selection">
-														<option value="">--Please Select--</option>
-														<option value="Any Graduate">Any Graduate</option>
+													<select class="form-control education-list" name="education[]" id="parent_selection" multiple style="border:1px solid #c4d5df">
+														{{$n=""}}
+														@foreach($education as $edu)
+														
+															@if($n != $edu->name)
+																{{$n=$edu->name}}
+																<optgroup label="{{$edu->name}}">
+															@endif
+															    <option value="{{$edu->branch}}-{{$edu->name}}">{{$edu->branch}}</option>
+															@if($n != $edu->name)
+																</optgroup>		
+															@endif
+
+														@endforeach
+
+														<!-- <option value="Any Graduate">Any Graduate</option>
 														<option value="Any Post Graduate">Any Post Graduate</option>
 														<option value="12th & above">12th & above</option>
 														<option value="10th & above">10th & above</option>
@@ -303,7 +316,7 @@
 														<option value="MEd">MEd</option>
 														<option value="MPharma">MPharma</option>
 														<option value="MA">MA</option>
-														<option value="twelth">12th</option>
+														<option value="twelth">12th</option> -->
 														<!-- <option value="10">10</option> -->
 													</select>
 												</div>
@@ -350,7 +363,7 @@
 										<!--/span-->
 										<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
 
-										<div class="col-md-6 col-sm-6 col-xs-12">
+										<!-- <div class="col-md-6 col-sm-6 col-xs-12">
 											<div class="form-group">
 												<label>Branch <span class="required"> * </span></label>
 												<div class="input-group">
@@ -362,7 +375,7 @@
 													</select>
 												</div>
 											</div>
-										</div>
+										</div> -->
 										<!--/span-->
 									</div>
 										<div class="row">
@@ -828,6 +841,10 @@
 <script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
 <script src="http://maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
 <script type="text/javascript">
+	$(".education-list").select2({
+	  placeholder: "Select education"
+	});
+
     // preferred loc
 	var prefLocationArray = [];
 

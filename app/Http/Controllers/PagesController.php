@@ -95,6 +95,7 @@ class PagesController extends Controller {
 														from post_user_taggings put
 												)) ')
 								   ->paginate(5);
+								   
 				$skillPosts = Postjob::orderBy('id', 'desc')
 									 ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup', 'preferLocations')
 									 ->where('post_type', '=', 'skill')

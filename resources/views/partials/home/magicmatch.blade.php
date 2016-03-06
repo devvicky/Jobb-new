@@ -24,8 +24,8 @@
                             <tbody>
                                 <!-- Skills -->
                                 <?php $postSkills = []; 
-                                    $postSkillArr = explode(',', $post->linked_skill);
-                                    $userSkillArr = explode(',', Auth::user()->induser->linked_skill);
+                                    $postSkillArr = array_map('trim', explode(',', $post->linked_skill));
+                                    $userSkillArr = array_map('trim', explode(',', Auth::user()->induser->linked_skill));
                                 ?>
                                 <?php 
                                     $matched = array_intersect($userSkillArr, $postSkillArr);
@@ -118,9 +118,30 @@
                                     <!-- <td>
                                         <label class="title-color">Education</label>
                                     </td> -->
-                                    <td class="matching-criteria-align">{{ $post->education }}</td>
+                                    <td class="matching-criteria-align">
+                                        @if($post->education != null)
+                                            <?php $educations = collect(explode(',', $post->education)); ?>
+                                             @if(count($educations) > 0)
+                                                @foreach($educations as $edu)
+                                                    {{ $edu }} <br/>
+                                                @endforeach
+                                             @endif
+                                        @endif
+
+                                    </td>
                                     @if(Auth::user()->induser->education != null)
-                                    <td class="matching-criteria-align">{{ Auth::user()->induser->education }}</td>
+                                    <td class="matching-criteria-align">
+                                        @if( count($educations) > 0 && 
+                                             $educations->contains( Auth::user()->induser->branch."-".Auth::user()->induser->education ))
+                                            <span style="color:green">
+                                                {{Auth::user()->induser->branch}}-{{Auth::user()->induser->education}} <br/>
+                                            </span>
+                                        @else
+                                            <span style="color:red">
+                                                {{Auth::user()->induser->branch}}-{{Auth::user()->induser->education}} <br/>
+                                            </span>
+                                        @endif
+                                    </td>
                                     @else
                                     <td class="matching-criteria-align"><a href="/individual/edit">Add Education </a></td>
                                     @endif
@@ -140,15 +161,25 @@
                                     <td class="matching-criteria-align">
                                     @if(count($post->preferlocations) > 0)
                                         @foreach($post->preferlocations as $loc)
-                                        {{ $loc->city }}-{{ $loc->state }} <br/>
+                                            {{ $loc->city }}-{{ $loc->state }} <br/>
                                         @endforeach
                                     @endif
                                     </td>
 
                                     @if(count(Auth::user()->induser->preferLocations) > 0)
                                     <td class="matching-criteria-align">
-                                        @foreach(Auth::user()->induser->preferLocations as $loc)
-                                        {{ $loc->city }}-{{ $loc->state }} <br/>
+                                        @foreach(Auth::user()->induser->preferLocations as $loc)                                            
+
+                                            @if($post->preferlocations->contains('city', $loc->city))
+                                                <span style="color:green">
+                                                    {{ $loc->city }}-{{ $loc->state }} <br/>
+                                                </span>
+                                            @else
+                                                <span style="color:red">
+                                                    {{ $loc->city }}-{{ $loc->state }} <br/>
+                                                </span>
+                                            @endif
+
                                         @endforeach
                                     </td>
                                     @else

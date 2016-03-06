@@ -20,6 +20,7 @@ use App\Industry;
 use App\FunctionalAreas;
 use App\ReportAbuseAction;
 use App\PostPreferredLocation;
+use App\Education;
 
 use Auth;
 use Mail;
@@ -71,7 +72,11 @@ class JobController extends Controller {
 			$roles = DB::select(DB::raw('select id, name from roles'));
 			$functionalAreas = FunctionalAreas::lists('name', 'id');
 			$industry = Industry::lists('name','id');
-			return view('pages.postjob', compact('title', 'skills', 'connections', 'groups', 'roles', 'functionalAreas', 'industry'));
+
+			$education = Education::all();
+			// return $education;
+
+			return view('pages.postjob', compact('title', 'skills', 'connections', 'groups', 'roles', 'functionalAreas', 'industry', 'education'));
 		}else{
 
 			$roles = DB::select(DB::raw('select id, name from roles'));
@@ -99,6 +104,8 @@ class JobController extends Controller {
 		$prefered_location = implode(',', $request['prefered_location']);
 		unset ($prefered_location[count($prefered_location)-1]);
 		$request['unique_id'] = "J".rand(111,999).rand(111,999);*/
+
+		$request['education'] = implode(',', $request['education']);
 
 		$request['linked_skill'] = implode(',', $request['linked_skill_id']);
         $request['city'] = implode(',', $request['prefered_location']);

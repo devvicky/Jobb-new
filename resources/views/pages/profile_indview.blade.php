@@ -46,7 +46,7 @@
 				<button class="btn btn-responsive link-request-label">
 					<i class="icon-hourglass (alias) icon-size" style="color: chartreuse;"></i> Link requested</button>
 				@elseif($connectionStatus == 'add' && Auth::user()->induser_id != $user->id)
-				<form action="{{ url('/connections/inviteFriend', $user->id) }}" method="post" style="padding:4px 10px;border-radius:15px !important;">
+				<form action="/connections/inviteFriend', $user->id) }}" method="post" style="padding:4px 10px;border-radius:15px !important;">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<button type="submit" name="action" value="accept" class="btn btn-success btn-xs" style="padding:4px 10px;border-radius:15px !important;">
 					<i class="fa fa-check" ></i>&nbsp;Add Links
@@ -682,7 +682,7 @@
 	</div>
 	<div class="portlet-body form">
 		<!-- BEGIN FORM-->
-		<form action="individual/create" class="horizontal-form" method="post">
+		<form action="/individual/create" class="horizontal-form" method="post">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<div class="form-body">
 				<div class="row">
@@ -751,7 +751,7 @@
 	</div>
 	<div class="portlet-body form">
 		<!-- BEGIN FORM-->
-		<form action="individual/create" class="horizontal-form" method="post">
+		<form action="/individual/create" class="horizontal-form" method="post">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<div class="form-body">
 				@if(Auth::user()->induser_id == $user->id)
@@ -865,7 +865,7 @@
 	</div>
 	<div class="portlet-body form">
 		<!-- BEGIN FORM-->
-		<form action="individual/create" class="horizontal-form" method="post">
+		<form action="/individual/create" class="horizontal-form" method="post">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<div class="form-body">
 				<div class="row">
