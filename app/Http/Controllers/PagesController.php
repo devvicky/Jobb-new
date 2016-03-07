@@ -42,6 +42,11 @@ class PagesController extends Controller {
 		return view('pages.about')->with('name', $name);
 	}
 
+	public function privayTerm(){
+		$name = "Policy-Term";
+		return view('pages.privacy-policy-term-condition')->with('name', $name);
+	}
+
 	public function termcondition(){
 		return view('pages.term&condition');
 	}

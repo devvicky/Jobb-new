@@ -358,6 +358,7 @@ function removeUsers($groupid){
 }
 
 function valueChange($userid){
+
     if($('.add-done').is(":checked")){
     	$(".add-done-show").show();
     	$(".done-show").hide();
@@ -392,6 +393,13 @@ function valueChange($userid){
 </script>
 <script type="text/javascript">
     $('#connections').select2();
+// $(document).ready(function(){
+//   $('input').iCheck({
+//     checkboxClass: 'icheckbox_flat-blue',
+//     radioClass: 'iradio_square',
+//     increaseArea: '20%' // optional
+//   });
+// });
 
    
 </script>

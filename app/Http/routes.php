@@ -4,6 +4,7 @@ Route::get('/', 'PagesController@index');
 Route::get('home', 'PagesController@home');
 Route::get('login', 'PagesController@login');
 Route::get('about', 'PagesController@about');
+Route::get('privacy-policy-term-condition', 'PagesController@privayTerm');
 
 Route::get('termcondition', 'PagesController@termcondition');
 Route::get('privacyprolicy', 'PagesController@privacy_policy');
@@ -156,7 +157,7 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::post('corporate/follow/{id}', 'PagesController@follow');
 	Route::post('corporate/unfollow/{id}', 'PagesController@unfollow');
 	
-	Route::post('me-change', 'UserController@edit_me');
+	// Route::post('me-change', 'UserController@edit_me');
 	Route::post('me-change', 'UserController@edit_me');
 	Route::post('send-otp', 'UserController@sendOTP');
 	Route::post('verify-otp', 'UserController@verifyOTP');

@@ -967,22 +967,12 @@ div[class*='icheckbox_'], div[class*='iradio_'] {
 }
 
 .portlet > .portlet-title-login > .nav-tabs > li.active > a, .portlet > .portlet-title-login > .nav-tabs > li:hover > a {
-    color: white;
+    color: #3A3939;
     font-weight: 600;
     background: transparent;
     border-bottom: 4px solid #f3565d;
     font-size: 15px !important;
 }
-
-/*.portlet > .portlet-title-login > .nav-tabs > li:hover > a{
-     background: none;
-    margin: 5px 0px 0px 1px;
-    border: 0;
-    color: lightgrey;
-    padding: 8px 10px;
-    border-bottom: 4px solid #9E9E9E;
-    font-size: 15px !important;
-}*/
 
 .corporate-register-tab{
     display: none;
@@ -992,9 +982,9 @@ div[class*='icheckbox_'], div[class*='iradio_'] {
     background: none;
     margin: 5px 0px 0px 1px;
     border: 0;
-    color: lightgrey;
+    color: #AFADAD;
     padding: 8px 10px;
-    border-bottom: 4px solid #506669;
+    border-bottom: 4px solid #CECECE;
     font-size: 15px !important;
 }
 

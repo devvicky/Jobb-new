@@ -33,8 +33,8 @@
 			</div>
 		</div>
 
-		<div class="form-group">
-			<div class="input-group margin-top-10 form-group-login-new">
+		<div class="form-group" style="margin: -10px 0 30px 0;">
+			<div class="input-group form-group-login-new">
 				<span class="input-group-addon input-group-addon-new login-input-bg-color">
 					<i class="icon-lock-open"></i>
 				</span>
@@ -46,15 +46,15 @@
 		</div>
 
 		<div class="form-actions" style="border-bottom: 0 !important;">
-            <button id="corporate-login-btn" type="submit" class="btn btn-primary uppercase" 
-            		style="background-color:#C76B6B !important;box-shadow: 0px 1px 4px #2D2C2C;padding: 6px 45px;">
+            <button id="corporate-login-btn" type="submit" class="btn btn-primary uppercase login-signup-button" 
+            		style="background-color:#C76B6B !important;padding: 6px 45px;">
                 Login
             </button>
         </div>
 
         <div class="form-actions" style="border-bottom: 0px;margin: -53px -30px 15px;">                                       
             <a href="javascript:;" id="forget-password-corp" class="forget-password " 
-               style="font-size: 13px;color: #D2D6DA !important;text-decoration: initial;">
+               style="font-size: 13px;color: #818284 !important;text-decoration: initial;">
             	Forgot Password ?
             </a>
         </div>

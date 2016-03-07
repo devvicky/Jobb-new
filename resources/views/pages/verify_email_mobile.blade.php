@@ -21,7 +21,7 @@
 	<button type="button" class="btn btn-sm default" data-dismiss="modal">Cancel</button>								
 </div>
 </form>	
-@elseif($type == 'email-verification-code')
+@elseif($type == 'email-verification-code-send')
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 	<h4 class="modal-title">
@@ -31,7 +31,7 @@
 <form action="/verify-evc" method="post" id="verify-evc-form">				
 <input type="hidden" name="_token" value="{{ csrf_token() }}">	
 <div class="modal-body">
-	Verification code received : <b>{{$code}}</b>
+	Verification code received : <b></b>
 	<input type="text" class="form-control" name="email_vcode" placeholder="Enter verification code">
 	<input type="hidden" name="email" value="{{ $email }}">
 	<input type="hidden" name="ecodeenc" value="{{ $codeEnc }}">

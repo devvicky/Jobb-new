@@ -70,7 +70,7 @@
 		</div>
 	</div>
 
-	<div class="form-group" style="margin-bottom:15px;" >
+	<div class="form-group" style="margin-bottom:45px;" >
 		<label class="control-label register-firmtype-css">Firm Type</label>
 		<div class="col-md-12">
 			<div class="md-radio-inline" style="float: none;margin: 0 auto;display: table;">
@@ -78,9 +78,9 @@
 					<input type="radio" id="radio6" name="firm_type" value="company" 
 							class="md-radiobtn">
 					<label for="radio6" 
-							style="font-weight:500 !important;font-size:13px;color: antiquewhite;">
+							style="font-weight:500 !important;font-size:13px;color: #31708f;">
 						<span></span>
-						<span class="check" style="background: #F1F1F1;"></span>
+						<span class="check" style="background: #565656;"></span>
 						<span class="box" style="border: 2px solid #8DE8BA !important;"></span>
 						Company 
 					</label>
@@ -88,9 +88,9 @@
 				
 				<div class="md-radio" >
 					<input type="radio" id="radio7" name="firm_type" value="consultancy" class="md-radiobtn" >
-					<label for="radio7" style="font-weight:500 !important;font-size:13px;color: antiquewhite;">
+					<label for="radio7" style="font-weight:500 !important;font-size:13px;color: #31708f;">
 						<span></span>
-						<span class="check" style="background: #F1F1F1;"></span>
+						<span class="check" style="background: #565656;"></span>
 						<span class="box" style="border: 2px solid #8DE8BA !important;"></span>
 						Consultancy 
 					</label>
@@ -101,8 +101,8 @@
 
 	</div>
 
-	<div class="form-group margin-top-20 margin-bottom-20">
-		<label style="font-size: 13px;color: #D2C9C9 !important;">
+	<div class="form-group">
+		<label style="font-size: 13px;color: #827E7E !important;">
 			<input type="checkbox" name="ctnc"/> I agree to the 
 			<a href="/termcondition" target="_blank" style="">Terms of Service </a>& 
 			<a href="/privacyprolicy" target="_blank" style="">Privacy Policy </a>
@@ -121,13 +121,13 @@
 
 	<div class="form-actions" style="border-bottom: 0 !important;">
 		<label id="register-back-btn3" 
-				style="position: absolute; right: 36px;bottom: 36px; font-weight:400;color:lightgrey;cursor: pointer;font-size:15px;">
+				style="position: absolute; right: 36px;bottom: 36px; font-weight:400;color:#7B7B7B;cursor: pointer;font-size:15px;">
 			Back
 		</label>
 
         <button id="corporate-register-btn" type="submit" 
-        		class="btn btn-primary btn-block uppercase" 
-        		style="width:50%;background-color:#C76B6B !important;box-shadow: 0px 1px 4px #2D2C2C;border-radius:2px;">
+        		class="btn btn-primary btn-block uppercase login-signup-button" 
+        		style="width:50%;background-color:#C76B6B !important;border-radius:2px;">
             Submit
         </button>
     </div> 

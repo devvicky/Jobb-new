@@ -7,7 +7,7 @@
 <!-- BEGIN HEAD -->
 <head>
 <meta charset="utf-8"/>
-<title>Jobtip - Login</title>
+<title>Jobtip - Term & Policy</title>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
 <meta name="keywords" content="job, jobs,skill, skills, opening, job opening, vacancy, requirement, naukri, monster, job search, searching job, post job for free, free job posting, work, refer job, job reference, promote skill, jobs in..., hire, fresher, experience, job info, hiring, recruitment, walk in jobs" />  
 <meta name="Description" CONTENT="Jobtip -where jobs follow you">
@@ -50,73 +50,19 @@
 <link rel="shortcut icon" href="favicon.ico"/>
 <style type="text/css" rel="stylesheet">
 body{
-  background-color: whitesmoke;
-
- /* background-attachment: fixed;
-  background-image: url('/assets/admin/pages/media/bg/2.jpg');
-  background-repeat: no-repeat;*/
-}
-.decorated{
-     overflow: hidden;
-     text-align: center;
-   
- }
-.decorated > span{
-    position: relative;
-    display: inline-block;
-}
-.decorated > span:before, .decorated > span:after{
-    content: '';
-    position: absolute;
-    top: 50%;
-    border-bottom: 1px solid;
-    width: 592px; /* half of limiter */
-    margin: 0 20px;
-}
-.decorated > span:before{
-    right: 100%;
-}
-.decorated > span:after{
-    left: 100%;
+  background-color: white;
 }
 
-.login-signup-button{
-  /*box-shadow: 0px 4px #6D3E3E;*/
+.privacy-policy-header{
+    margin: 5px 0 10px 0;
+    font-size: 13px;
+    font-weight: 600;
+    background-color: lightgrey;
+    padding: 3px 5px;
 }
-
-.login-signup-button:hover{
-  box-shadow: 0px 3px #6D3E3E;
-  /*box-shadow: 2px 2px 2px #6D3E3E;*/
-}
-
-.login-signup-button:active, .login-signup-button.active{
-  box-shadow: 0px 0px #6D3E3E; 
-}
-
-*::-webkit-input-placeholder {
-color:#A7D6D6 !important;
-font-family: !important;
-font-size:14px !important;
-}
-*:-moz-placeholder {
-color:#A7D6D6!important;
-font-size:14px !important;
-}
-*::-moz-placeholder {
-color:#A7D6D6 !important;
-font-size:14px !important;
-}
-*:-ms-input-placeholder !important{
-color:#A7D6D6 !important;
-font-size:14px !important;
-}
-input:focus::-webkit-input-placeholder { color:transparent !important; }
-input:focus:-moz-placeholder { color:transparent !important; } /* FF 4-18 */
-input:focus::-moz-placeholder { color:transparent !important; } /* FF 19+ */
-input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 
 .login-input-bg-color{
-        background-color: #333333 !important;
+    background-color: rgba(149, 152, 152, 0.22) !important;
 }
 
 .login-tabopen{
@@ -137,6 +83,9 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 
   }
 }
+ul {
+    list-style: initial !important;
+}
 </style>
 <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 </head>
@@ -147,7 +96,7 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 @include('includes.analyticstracking')
 
 <!-- BEGIN HEADER -->
-<div class="page-header navbar navbar-fixed-top" style="background-color: transparent !important;">
+<div class="page-header navbar navbar-fixed-top" style="background-color: #575761 !important;">
   <!-- BEGIN HEADER INNER -->
   <div class="page-header-inner">
     <!-- BEGIN LOGO -->
@@ -168,27 +117,9 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
         <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
         <li>
           <div class="signup-tabopen">
-            <a id="signup-tabopen" style="padding-bottom: 11px;padding-top: 11px;background-color: transparent;">
+            <a href="/login" style="padding-bottom: 11px;padding-top: 11px;background-color: transparent;">
             <button class="btn welcome-signup-css signup-button" style="">
-              Sign Up
-            </button>
-            </a>
-          </div>
-        </li>
-        <li >
-          <div class="login-tabopen">
-            <a id="login-tabopen" style="padding-bottom: 11px;padding-top: 11px;background-color: transparent;">
-            <button class="btn welcome-signup-css signup-button" style="">
-              Login Now
-            </button>
-            </a>
-          </div>
-        </li>
-        <li >
-          <div class="login-otp-tabopen">
-            <a id="login-otp-tabopen" style="padding-bottom: 11px;padding-top: 11px;background-color: transparent;">
-            <button class="btn welcome-signup-css signup-button" style="">
-              Login Now
+              Login
             </button>
             </a>
           </div>
@@ -247,102 +178,6 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 <!-- END PAGE LEVEL SCRIPTS -->
 
 @yield('javascript')
-
-<script>
-jQuery(document).ready(function() {
-  Metronic.init(); // init metronic core components
-  Layout.init(); // init current layout
-  Login.init();
-  Demo.init(); // init demo features
-  UIExtendedModals.init();
-  // FormValidation.init();
-});
-
-
-$(document).ready(function() {
-
-    jQuery('#signup-tabopen').on('click', function(event) {
-        jQuery('.corporate-register-tab').toggle('show');
-        jQuery('.login-tag').toggle('hide');
-        jQuery('.signup-tabopen').hide();
-        jQuery('.login-tabopen').show();
-        jQuery('.login-otp-tabopen').hide();
-    });
-    jQuery('#login-tabopen').on('click', function(event) {
-        jQuery('.corporate-register-tab').toggle('hide');
-        jQuery('.login-tag').toggle('show');
-        jQuery('.signup-tabopen').show();
-        jQuery('.login-tabopen').hide();
-        jQuery('.login-otp-tabopen').hide();
-    });
-    jQuery('#login-otp-tabopen').on('click', function(event) {
-        // jQuery('.corporate-register-tab').toggle('hide');
-        jQuery('.login-tag').toggle('show');
-        jQuery('.signup-tabopen').show();
-        jQuery('.login-tabopen').hide();
-        jQuery('.login-otp-tabopen').hide();
-        jQuery('#mobile-otp-form').hide();
-    });
-  });
-</script>
-<script>
-$(document).ready(function () {            
-//validation rules
-    var form = $('#forget-password-val');
-    var error = $('.alert-danger', form);
-    var success = $('.alert-success', form);
-    form.validate({
-        doNotHideMessage: true, //this option enables to show the error/success messages on tab switch.
-        errorElement: 'span', //default input error message container
-        errorClass: 'help-block help-block-error', // default input error message class
-        focusInvalid: false, // do not focus the last invalid input
-        rules: {
-            password: {
-              required: true,
-              minlength: 6
-            },
-            password_confirmation: {
-              required: true,
-              equalTo: "#new_password"
-            }
-        },
-        messages: {
-            password: {
-              required: 'Enter new Password'
-            },
-            password_confirmation:{
-              required: 'Enter same password'
-            }
-        },
-            invalidHandler: function (event, validator) { //display error alert on form submit   
-            success.hide();
-            error.show();
-            Metronic.scrollTo(error, -200);
-        },
-
-             highlight: function(element) {
-            $(element).closest('.form-group').addClass('has-error');
-        },
-            unhighlight: function(element) {
-            $(element).closest('.form-group').removeClass('has-error');
-        },
-            errorElement: 'span',
-            errorClass: 'help-block',
-            errorPlacement: function (error, element) { // render error placement for each input type
-                    var icon = $(element).parent('.input-icon').children('i');
-                    icon.removeClass('fa-check').addClass("fa-warning");  
-                    icon.attr("data-original-title", error.text()).tooltip({'placement': 'left'});
-                   
-                },
-            success: function (label, element) {
-                    var icon = $(element).parent('.input-icon').children('i');
-                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
-                    icon.removeClass("fa-warning").addClass("fa-check");
-                },
-    });
-});
-
-</script>
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

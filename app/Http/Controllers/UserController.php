@@ -418,9 +418,9 @@ class UserController extends Controller {
 		$code = 'A'.Auth::user()->induser_id.rand(1111,9999);
 		$codeEnc = md5($code);
 		$user = User::where('induser_id','=',Auth::user()->induser_id)->first();
-		$fname = $user->induser->fname;
-		Mail::send('emails.auth.reminder', array('fname'=>$fname, 'code'=>$codeEnc), function($message) use ($email,$fname){
-	        $message->to($email, $fname)->subject('Jobtip - Password Reset!')->from('admin@jobtip.in', 'JobTip');
+		$fname = $user->name;
+		Mail::send('emails.auth.email_change', array('fname'=>$fname, 'code'=>$code), function($message) use ($email,$fname){
+	        $message->to($email, $fname)->subject('Jobtip - Email Change!')->from('admin@jobtip.in', 'JobTip');
 	    });
 		return view('pages.verify_email_mobile', compact('email', 'codeEnc', 'type', 'code'));
 	}

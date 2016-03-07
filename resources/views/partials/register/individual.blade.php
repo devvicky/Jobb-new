@@ -1,27 +1,27 @@
 <!-- BEGIN INDIVIDUAL REGISTER FORM -->
 <div style="text-align: center; margin: 5px;">
-	<small style="font-size:14px;color: #D8DCDC;">One click register with</small>
+	<small style="font-size:14px;color: #8C8E8E;">One click register with</small>
 </div>
 
 <div class="login-options" >
 	<div class="row social">
 		<div class="col-md-4 col-xs-4 " style="padding-right:2px;">
-			<a class="btn btn-lg btn-facebook btn-block" href="{!!URL::to('facebook')!!}" 
+			<a class="btn btn-lg btn-facebook btn-block" href="/facebook" 
 			   style="background: #3b5998;color: white;border-radius:2px;">
 				<i class="fa fa-facebook "></i>
 				<span class="hidden-xs">&nbsp;Facebook</span>
 			</a>
 		</div>
 		
-		<div class="col-md-4 col-xs-4 " style="padding-left:2px;padding-right:0px;">
-			<a class="btn btn-lg btn-google btn-block" href="{!!URL::to('google')!!}" 
+		<div class="col-md-4 col-xs-4 " style="padding-left:2px;padding-right:2px;">
+			<a class="btn btn-lg btn-google btn-block" href="/google" 
 			style="background: #c32f10;color: white;border-radius:2px;">
 				<i class="fa fa-google-plus"></i>
 				<span class="hidden-xs">&nbsp;Google+</span>
 			</a>
 		</div>
 		<div class="col-md-4 col-xs-4 " style="padding-left:2px;">
-			<a class="btn btn-lg btn-linkedin btn-block" href="{!!URL::to('linkedin')!!}" 
+			<a class="btn btn-lg btn-linkedin btn-block" href="/linkedin" 
 				style="background: #00aced;color: white;border-radius:2px;">
 				<i class="fa fa fa-linkedin"></i>
 				<span class="hidden-xs">&nbsp;Linkedin</span>
@@ -31,7 +31,7 @@
 </div>
 
 <div style="text-align: center; margin-bottom: 5px;">
-	<small style="font-size:12px;color: #D8DCDC;">
+	<small style="font-size:12px;color:#8C8E8E;">
 		We respect your privacy, we will not post or disclose any information without your permission.
 	</small>
 </div>
@@ -121,7 +121,7 @@
 		</div>
 	</div>														
 	<div class="form-group margin-top-20 margin-bottom-20">
-		<label style="font-size: 13px;color: #D2C9C9 !important;">
+		<label style="font-size: 13px;color: #827E7E !important;">
 			<input type="checkbox" id="t-n-c" name="tnc"/> I agree to the 
 			<a href="/termcondition" target="_blank" style="">Terms of Service </a>& 
 			<a href="/privacyprolicy" target="_blank" style="">Privacy Policy </a>
@@ -130,11 +130,11 @@
 	</div>									
 	<div class="form-actions" style="border-bottom: 0 !important;">
 		<label id="register-back-btn" 
-			   style="position: absolute; right: 36px;bottom: 12px; font-weight:400;color:lightgrey;cursor: pointer;font-size:15px;">
+			   style="position: absolute; right: 36px;bottom: 12px; font-weight:400;color:#7B7B7B;cursor: pointer;font-size:15px;">
 			Back
 		</label>
-	    <button id="individual-register-btn" type="submit" class="btn btn-primary btn-block uppercase" 
-	    		style="width:50%;background-color:#C76B6B !important;box-shadow: 0px 1px 4px #2D2C2C;border-radius:2px;">
+	    <button id="individual-register-btn" type="submit" class="btn btn-primary btn-block uppercase login-signup-button" 
+	    		style="width:50%;background-color:#C76B6B !important;border-radius:2px;">
 	        Submit
 	    </button>
 	</div> 

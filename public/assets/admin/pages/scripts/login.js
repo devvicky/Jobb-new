@@ -413,7 +413,7 @@ var Login = function() {
                     required: "Please enter the same password again"
                 },
                 firm_type: {
-                    required: "Firm type is requied"
+                    required: "Select Firm Type"
                 },
                 ctnc: {
                     required: "Please accept TNC first"

@@ -39,8 +39,8 @@
 			Back
 		</label>
 
-        <button id="forget-password-btn" type="submit" class="btn btn-primary btn-block uppercase" 
-        		style="width:50%;background-color:#C76B6B !important;box-shadow: 0px 1px 4px #2D2C2C;border-radius:2px;">
+        <button id="forget-password-btn" type="submit" class="btn btn-primary btn-block uppercase login-signup-button" 
+        		style="width:50%;background-color:#C76B6B !important;border-radius:2px;">
             Submit
         </button>
     </div>
