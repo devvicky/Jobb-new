@@ -74,6 +74,7 @@ class PagesController extends Controller {
 				$skills = Skills::lists('name', 'name');
 				$jobPosts = Postjob::orderBy('id', 'desc')
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup', 'preferLocations')
+
 								   ->where('post_type', '=', 'job')
 								   ->where('individual_id', '!=', Auth::user()->induser_id)
 								   ->whereRaw('postjobs.id in (select  pm.id from postjobs pm where pm.id in (
@@ -563,6 +564,7 @@ class PagesController extends Controller {
 			$time_for = Input::get('time_for');
 			$unique_id = Input::get('unique_id');
 			$role = Input::get('role');
+			$skill = Input::get('linked_skill_id');
 			if($post_type == 'job'){
 			$jobPosts = Postjob::orderBy('postjobs.id', 'desc')
 							   ->with('indUser', 'corpUser', 'postActivity', 'preferLocations')
@@ -610,6 +612,9 @@ class PagesController extends Controller {
 				$jobPosts->where('post_type', '=', $post_type);
 			}
 			
+			if($skill != null){
+				$jobPosts->whereIn('linked_skill', $skill);
+			}
 
 			$jobPosts = $jobPosts->paginate(15);
 			if(Auth::user()->identifier == 1){
@@ -694,7 +699,7 @@ class PagesController extends Controller {
 									 ->where('individual_id', '!=', Auth::user()->induser_id)
 									 ->paginate(15);
 			}
-			// return $time_for;
+			// return $skill;
 			return view('pages.home', compact('jobPosts', 'skillPosts', 'linksApproval', 'linksPending', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'share_links', 'share_groups', 'sort_by', 'sort_by_skill'));
 		}else{
 			return redirect('login');

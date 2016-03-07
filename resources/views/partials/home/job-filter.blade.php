@@ -68,7 +68,7 @@
 					</div>
 					<div class="row" style="margin:0 0px 0 -7px;">
 						<div class="col-md-12" style="margin:-5px 0;padding:0 10px;">
-							<label style="font-size:13px;font-weight:500;">Experience</label> : <span id="slider-range-max-amount-skill"> </span> Years
+							<label style="font-size:13px;font-weight:500;">Experience</label> : <input readonly id="slider-range-experience" name="experience" class="filter-range-experience" /> Years
 							<div class="">
 								<div id="slider-range-max-skill" class="slider bg-purple">
 								</div>
@@ -97,7 +97,7 @@
 								 <div class="btn-group" data-toggle="buttons">
 					                <label class="btn default btn-filter  " style="padding:0;">
 					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
-					                    <input type="checkbox" name="time_for[]" value="Full Time" class="toggle">
+					                    <input type="checkbox" checked name="time_for[]" value="Full Time" class="toggle">
 					                    <a class="icon-btn icon-filter-btn jobtype-css">
 						                    <div class="jtype-name-css">
 						                    	Full<br/> Time
@@ -110,7 +110,7 @@
 								<div class="btn-group" data-toggle="buttons">
 					                <label class="btn default btn-filter" style="padding:0;">
 					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
-					                    <input type="checkbox" name="time_for[]" value="Part Time" class="toggle">
+					                    <input type="checkbox" checked name="time_for[]" value="Part Time" class="toggle">
 					                    <a class="icon-btn icon-filter-btn jobtype-css">
 						                    <div class="jtype-name-css">
 						                         Part<br/> Time
@@ -123,7 +123,7 @@
 								<div class="btn-group" data-toggle="buttons">
 					                <label class="btn default btn-filter " style="padding:0;">
 					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
-					                    <input type="checkbox" name="time_for[]" value="Frelancer" class="toggle">
+					                    <input type="checkbox" checked name="time_for[]" value="Frelancer" class="toggle">
 					                    <a class="icon-btn icon-filter-btn jobtype-css">
 						                    <div class="jtype-name-css">
 						                    	<br/>
@@ -137,7 +137,7 @@
 								<div class="btn-group" data-toggle="buttons">
 					                <label class="btn default btn-filter" style="padding:0;">
 					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
-					                    <input type="checkbox" name="time_for[]" value="Work From Home" class="toggle">
+					                    <input type="checkbox" checked name="time_for[]" value="Work From Home" class="toggle">
 					                    <a class="icon-btn icon-filter-btn jobtype-css">
 						                    <div class="jtype-name-css">
 						                         Work<br/>From Home

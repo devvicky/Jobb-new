@@ -1302,8 +1302,8 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 }
 
 .ui-widget-header {
-    border: 1px solid #797979 !important;
-    background: #797979 !important;
+    border: 1px solid #DEDCDC !important;
+    background: #DEDCDC !important;
     color: #5A2121;
     font-weight: bold;
 }

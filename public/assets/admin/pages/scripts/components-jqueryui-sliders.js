@@ -144,7 +144,6 @@ var ComponentsjQueryUISliders = function () {
             $("#slider-range-max-amount").text($("#slider-range-max").slider("value"));
 
             //Skill Experience slider
-
             $("#slider-range-max-skill").slider({
                 isRTL: Metronic.isRTL(),
                 range: "max",
@@ -152,11 +151,12 @@ var ComponentsjQueryUISliders = function () {
                 max: 15,
                 step: 1,
                 slide: function (event, ui) {
-                    $("#slider-range-max-amount-skill").text(ui.value);
+                    // $("#slider-range-max-amount-skill").text(ui.value);
+                    $("#slider-range-experience").val(ui.value);
                 }
             });
 
-            $("#slider-range-max-amount-skill").text($("#slider-range-max-skill").slider("value"));
+            $("#slider-range-experience").val($("#slider-range-max-skill").slider("value"));
 
             // range min
             $("#slider-range-min").slider({
