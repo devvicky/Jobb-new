@@ -70,5 +70,5 @@ ALTER TABLE `filters`
 ALTER TABLE `filters`
 	CHANGE COLUMN `prof_category` `save_filter` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8_unicode_ci' AFTER `expired`;
 
-	ALTER TABLE `filters`
+ALTER TABLE `filters`
 	CHANGE COLUMN `role` `experience_new` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8_unicode_ci' AFTER `experience`;
