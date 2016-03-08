@@ -94,29 +94,29 @@ body{
 }
 
 *::-webkit-input-placeholder {
-color:#A7D6D6 !important;
+color:dimgrey !important;
 font-family: !important;
 font-size:14px !important;
 }
 *:-moz-placeholder {
-color:#A7D6D6!important;
+color:dimgrey !important;
 font-size:14px !important;
 }
 *::-moz-placeholder {
-color:#A7D6D6 !important;
+color:dimgrey !important;
 font-size:14px !important;
 }
 *:-ms-input-placeholder !important{
-color:#A7D6D6 !important;
+color:dimgrey !important;
 font-size:14px !important;
 }
-input:focus::-webkit-input-placeholder { color:transparent !important; }
-input:focus:-moz-placeholder { color:transparent !important; } /* FF 4-18 */
-input:focus::-moz-placeholder { color:transparent !important; } /* FF 19+ */
-input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
+input:focus::-webkit-input-placeholder { color:dimgrey !important; }
+input:focus:-moz-placeholder { color:dimgrey !important; } /* FF 4-18 */
+input:focus::-moz-placeholder { color:dimgrey !important; } /* FF 19+ */
+input:focus:-ms-input-placeholder { color:dimgrey !important; } /* IE 10+ */
 
 .login-input-bg-color{
-        background-color: #333333 !important;
+        background-color: #eee !important;
 }
 
 .login-tabopen{

@@ -72,6 +72,8 @@ class PagesController extends Controller {
 				$sort_by =" ";
 				$sort_by_skill = " ";
 				$skills = Skills::lists('name', 'name');
+				$filter = Filter::where('post_type', '=', 'job')->where('from_user', '=', Auth::user()->id)->first();
+				$skillfilter = Filter::where('post_type', '=', 'skill')->where('from_user', '=', Auth::user()->id)->first();
 				$jobPosts = Postjob::orderBy('id', 'desc')
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup', 'preferLocations')
 
@@ -202,7 +204,7 @@ class PagesController extends Controller {
 								->lists('name', 'id');
 
 				}
-				return view('pages.home', compact('jobPosts', 'skillPosts', 'title', 'links', 'following', 'userSkills', 'skills', 'linksApproval', 'linksPending', 'share_links', 'share_groups', 'sort_by', 'sort_by_skill'));
+				return view('pages.home', compact('jobPosts', 'skillPosts', 'title', 'links', 'following', 'userSkills', 'skills', 'linksApproval', 'linksPending', 'share_links', 'share_groups', 'sort_by', 'sort_by_skill', 'filter', 'skillfilter'));
 				// return $skillPosts;
 			} elseif(Auth::user()->identifier == 2){
 				$sort_by = " ";
@@ -493,87 +495,114 @@ class PagesController extends Controller {
 			$title = 'home';
 			$sort_by =" ";
 			$sort_by_skill = " ";
+			$skillfilter = "";
 			$skills = Skills::lists('name', 'id');
 			$post_type = Input::get('post_type');
-			if(Auth::user()->identifier == 1 && $post_type == 'job'){
-				$filter= Filter::where('id', '=', Auth::user()->id)->where('post_type', '=', 'job')->first();
+			$save_filter = Input::get('save_filter');
+			$filter= Filter::where('from_user', '=', Auth::user()->id)->where('post_type', '=', 'job')->first();
+			if($save_filter == 'savefilter'){
+				if(Auth::user()->identifier == 1 && $post_type == 'job'){
+				
 				if($filter != null){
-					// $filter->city = Input::get('prefered_location');
 					$filter->post_type = Input::get('post_type');
 					$filter->from_user = Auth::user()->id;
 					$filter->posted_by = Input::get('posted_by');
-					$filter->job_title = Input::get('post_title');
-					$filter->prof_category = Input::get('prof_category');
+					$filter->job_title = Input::get('job_title');
 					$filter->experience = Input::get('experience');
-					// $filter->time_for = Input::get('time_for');
+					if(Input::get('time_for') != null){
+						$filter->time_for = implode(', ', Input::get('time_for'));
+					}
+					if(Input::get('linked_skill_id') != null){
+						$filter->linked_skill = implode(', ', Input::get('linked_skill_id'));
+					}
+					if(Input::get('prefered_location') != null){
+						$filter->city = implode(', ', Input::get('prefered_location'));
+					}
 					$filter->unique_id = Input::get('unique_id');
-					$filter->role = Input::get('role');
+					$filter->expired = Input::get('expired');
+					$filter->save_filter = Input::get('save_filter');
 					$filter->save();
 				}elseif($filter == null){
 					$filter = new Filter();
 					$filter->from_user = Auth::user()->id;
 					$filter->posted_by = Input::get('posted_by');
 					$filter->post_type = Input::get('post_type');
-					$filter->job_title = Input::get('post_title');
-					// $filter->city = Input::get('city');
-					$filter->prof_category = Input::get('prof_category');
+					$filter->job_title = Input::get('job_title');
 					$filter->experience = Input::get('experience');
-					// $filter->time_for = Input::get('time_for');
+					if(Input::get('time_for') != null){
+						$filter->time_for = implode(', ', Input::get('time_for'));
+					}
+					if(Input::get('linked_skill_id') != null){
+						$filter->linked_skill = implode(', ', Input::get('linked_skill_id'));
+					}
+					if(Input::get('prefered_location') != null){
+						$filter->city = implode(', ', Input::get('prefered_location'));
+					}
 					$filter->unique_id = Input::get('unique_id');
-					$filter->role = Input::get('role');
+					$filter->expired = Input::get('expired');
+					$filter->save_filter = Input::get('save_filter');
 					$filter->save();
 				}
 
-			}elseif(Auth::user()->identifier == 2){
-				$filter= Filter::where('id', '=', Auth::user()->id)->where('post_type', '=', 'job')->first();
-				if($filter != null){
-					$filter->city = Input::get('city');
+				}elseif(Auth::user()->identifier == 2 && $post_type == 'job'){
+					if($filter != null){
 					$filter->post_type = Input::get('post_type');
 					$filter->from_user = Auth::user()->id;
 					$filter->posted_by = Input::get('posted_by');
-					$filter->job_title = Input::get('post_title');
-					$filter->city = Input::get('city');
-					$filter->prof_category = Input::get('prof_category');
+					$filter->job_title = Input::get('job_title');
 					$filter->experience = Input::get('experience');
-					$filter->time_for = Input::get('time_for');
+					if(Input::get('time_for') != null){
+						$filter->time_for = implode(', ', Input::get('time_for'));
+					}
+					if(Input::get('linked_skill_id') != null){
+						$filter->linked_skill = implode(', ', Input::get('linked_skill_id'));
+					}
+					if(Input::get('prefered_location') != null){
+						$filter->city = implode(', ', Input::get('prefered_location'));
+					}
 					$filter->unique_id = Input::get('unique_id');
-					$filter->role = Input::get('role');
+					$filter->expired = Input::get('expired');
+					$filter->save_filter = Input::get('save_filter');
 					$filter->save();
 				}elseif($filter == null){
-					$filter = new Filter();
-					$filter->from_user = Auth::user()->id;
-					$filter->posted_by = Input::get('posted_by');
-					$filter->post_type = Input::get('post_type');
-					$filter->job_title = Input::get('post_title');
-					$filter->city = Input::get('city');
-					$filter->prof_category = Input::get('prof_category');
-					$filter->experience = Input::get('experience');
-					$filter->time_for = Input::get('time_for');
-					$filter->unique_id = Input::get('unique_id');
-					$filter->role = Input::get('role');
-					$filter->save();
+						$filter = new Filter();
+						$filter->from_user = Auth::user()->id;
+						$filter->posted_by = Input::get('posted_by');
+						$filter->post_type = Input::get('post_type');
+						$filter->job_title = Input::get('job_title');
+						$filter->experience = Input::get('experience');
+						if(Input::get('time_for') != null){
+							$filter->time_for = implode(', ', Input::get('time_for'));
+						}
+						if(Input::get('linked_skill_id') != null){
+							$filter->linked_skill = implode(', ', Input::get('linked_skill_id'));
+						}
+						if(Input::get('prefered_location') != null){
+							$filter->city = implode(', ', Input::get('prefered_location'));
+						}
+						$filter->unique_id = Input::get('unique_id');
+						$filter->expired = Input::get('expired');
+						$filter->save_filter = Input::get('save_filter');
+						$filter->save();
+					}
 				}
 			}
-			$post_type = Input::get('post_type');
-			$posted_by = Input::get('posted_by');
-			$post_title = Input::get('post_title');
-			$city = Input::get('prefered_location');
 
+			$posted_by = Input::get('posted_by');
+			$post_title = Input::get('job_title');
+			$city = Input::get('prefered_location');
 			$prof_category = Input::get('prof_category');
 			$experience = Input::get('experience');
 			$time_for = Input::get('time_for');
 			$unique_id = Input::get('unique_id');
-			$role = Input::get('role');
 			$skill = Input::get('linked_skill_id');
+
 			if($post_type == 'job'){
 			$jobPosts = Postjob::orderBy('postjobs.id', 'desc')
 							   ->with('indUser', 'corpUser', 'postActivity', 'preferLocations')
 							   ->leftjoin('post_preferred_locations', 'post_preferred_locations.post_id', '=', 'postjobs.id')
 							   ->where('individual_id', '!=', Auth::user()->induser_id);
 
-			if($role != null){
-				$jobPosts->where('role', 'like', '%'.$role.'%');
-			}
 			if($unique_id != null){
 				$jobPosts->where('unique_id', 'like', '%'.$unique_id.'%');
 			}
@@ -601,7 +630,7 @@ class PagesController extends Controller {
 				$jobPosts->where('prof_category', 'like', '%'.$prof_category.'%');
 			}
 			if($experience != null){
-				$jobPosts->whereRaw("$experience between min_exp and max_exp");
+				$jobPosts->where("$experience between min_exp and max_exp");
 			}
 			if($time_for != null){
 				$jobPosts->whereIn('time_for', $time_for);
@@ -700,7 +729,7 @@ class PagesController extends Controller {
 									 ->paginate(15);
 			}
 			// return $skill;
-			return view('pages.home', compact('jobPosts', 'skillPosts', 'linksApproval', 'linksPending', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'share_links', 'share_groups', 'sort_by', 'sort_by_skill'));
+			return view('pages.home', compact('jobPosts', 'skillPosts', 'linksApproval', 'linksPending', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'share_links', 'share_groups', 'sort_by', 'sort_by_skill', 'filter', 'skillfilter'));
 		}else{
 			return redirect('login');
 		}	
@@ -712,87 +741,116 @@ public function homeskillFilter(){
 		$title = 'home';
 		$sort_by =" ";
 		$sort_by_skill = " ";
+		$filter = "";
 		$skills = Skills::lists('name', 'id');
 		$post_type = Input::get('post_type');
-		if(Auth::user()->identifier == 1 && $post_type == 'skill'){
-			$filter= Filter::where('id', '=', Auth::user()->id)
-							->where('post_type', '=', 'skill')
-							->first();
-			if($filter != null){
-				$filter->city = Input::get('city');
-				$filter->post_type = Input::get('post_type');
-				$filter->from_user = Auth::user()->id;
-				$filter->posted_by = Input::get('posted_by');
-				$filter->job_title = Input::get('post_title');
-				$filter->city = Input::get('city');
-				$filter->prof_category = Input::get('prof_category');
-				$filter->experience = Input::get('experience');
-				$filter->time_for = Input::get('time_for');
-				$filter->unique_id = Input::get('unique_id');
-				$filter->role = Input::get('role');
-				$filter->save();
-			}elseif($filter == null){
-				$filter = new Filter();
-				$filter->from_user = Auth::user()->id;
-				$filter->posted_by = Input::get('posted_by');
-				$filter->post_type = Input::get('post_type');
-				$filter->job_title = Input::get('post_title');
-				$filter->city = Input::get('city');
-				$filter->prof_category = Input::get('prof_category');
-				$filter->experience = Input::get('experience');
-				$filter->time_for = Input::get('time_for');
-				$filter->unique_id = Input::get('unique_id');
-				$filter->role = Input::get('role');
-				$filter->save();
-			}
-		}elseif(Auth::user()->identifier == 2){
-			$filter = Filter::where('id', '=', Auth::user()->corpuser_id)->where('post_type', '=', 'skill')->first();	
-			if($filter != null){
-				$filter->city = Input::get('city');
-				$post_type = Input::get('post_type');
-				$filter->from_user = Auth::user()->id;
-				$filter->posted_by = Input::get('posted_by');
-				$filter->job_title = Input::get('post_title');
-				$filter->city = Input::get('city');
-				$filter->prof_category = Input::get('prof_category');
-				$filter->experience = Input::get('experience');
-				$filter->time_for = Input::get('time_for');
-				$filter->unique_id = Input::get('unique_id');
-				$filter->role = Input::get('role');
-				$filter->save();
-			}elseif($filter == null){
-				$filter = new Filter();
-				$filter->from_user = Auth::user()->id;
-				$filter->posted_by = Input::get('posted_by');
-				$filter->job_title = Input::get('post_title');
-				$filter->city = Input::get('city');
-				$filter->prof_category = Input::get('prof_category');
-				$filter->experience = Input::get('experience');
-				$filter->time_for = Input::get('time_for');
-				$filter->unique_id = Input::get('unique_id');
-				$filter->role = Input::get('role');
-				$filter->save();
-			}
-		}
+		$save_filter = Input::get('save_filter');	
+		$skillfilter= Filter::where('from_user', '=', Auth::user()->id)->where('post_type', '=', 'skill')->first();
+			if($save_filter == 'savefilter'){
+				if(Auth::user()->identifier == 1 && $post_type == 'skill'){
+				
+				if($skillfilter != null){
+					$skillfilter->post_type = Input::get('post_type');
+					$skillfilter->from_user = Auth::user()->id;
+					$skillfilter->posted_by = Input::get('posted_by');
+					$skillfilter->job_title = Input::get('skill_title');
+					$skillfilter->experience = Input::get('min_exp');
+					$skillfilter->experience_new = Input::get('max_exp');
+					if(Input::get('time_for') != null){
+						$skillfilter->time_for = implode(', ', Input::get('time_for'));
+					}
+					if(Input::get('linked_skill_id') != null){
+						$skillfilter->linked_skill = implode(', ', Input::get('linked_skill_id'));
+					}
+					if(Input::get('current_location') != null){
+						$skillfilter->city = implode(', ', Input::get('current_location'));
+					}
+					$skillfilter->unique_id = Input::get('unique_id');
+					$skillfilter->expired = Input::get('expired');
+					$skillfilter->save_filter = Input::get('save_filter');
+					$skillfilter->save();
+				}elseif($skillfilter == null){
+					$skillfilter = new Filter();
+					$skillfilter->from_user = Auth::user()->id;
+					$skillfilter->post_type = Input::get('post_type');
+					$skillfilter->job_title = Input::get('skill_title');
+					$skillfilter->experience = Input::get('min_exp');
+					$skillfilter->experience_new = Input::get('max_exp');
+					if(Input::get('time_for') != null){
+						$skillfilter->time_for = implode(', ', Input::get('time_for'));
+					}
+					if(Input::get('linked_skill_id') != null){
+						$skillfilter->linked_skill = implode(', ', Input::get('linked_skill_id'));
+					}
+					if(Input::get('current_location') != null){
+						$skillfilter->city = implode(', ', Input::get('current_location'));
+					}
+					$skillfilter->unique_id = Input::get('unique_id');
+					$skillfilter->expired = Input::get('expired');
+					$skillfilter->save_filter = Input::get('save_filter');
+					$skillfilter->save();
+				}
 
-		$post_type = Input::get('post_type');
+				}elseif(Auth::user()->identifier == 2 && $post_type == 'skill'){
+					if($skillfilter != null){
+					$skillfilter->post_type = Input::get('post_type');
+					$skillfilter->from_user = Auth::user()->id;
+					$skillfilter->posted_by = Input::get('posted_by');
+					$skillfilter->job_title = Input::get('skill_title');
+					$skillfilter->experience = Input::get('min_exp');
+					$skillfilter->experience_new = Input::get('max_exp');
+					if(Input::get('time_for') != null){
+						$skillfilter->time_for = implode(', ', Input::get('time_for'));
+					}
+					if(Input::get('linked_skill_id') != null){
+						$skillfilter->linked_skill = implode(', ', Input::get('linked_skill_id'));
+					}
+					if(Input::get('current_location') != null){
+						$skillfilter->city = implode(', ', Input::get('current_location'));
+					}
+					$skillfilter->unique_id = Input::get('unique_id');
+					$skillfilter->expired = Input::get('expired');
+					$skillfilter->save_filter = Input::get('save_filter');
+					$skillfilter->save();
+				}elseif($skillfilter == null){
+						$skillfilter = new Filter();
+						$skillfilter->from_user = Auth::user()->id;
+						$skillfilter->post_type = Input::get('post_type');
+						$skillfilter->job_title = Input::get('skill_title');
+						$skillfilter->experience = Input::get('min_exp');
+						$skillfilter->experience_new = Input::get('max_exp');
+						if(Input::get('time_for') != null){
+							$skillfilter->time_for = implode(', ', Input::get('time_for'));
+						}
+						if(Input::get('linked_skill_id') != null){
+							$skillfilter->linked_skill = implode(', ', Input::get('linked_skill_id'));
+						}
+						if(Input::get('current_location') != null){
+							$skillfilter->city = implode(', ', Input::get('current_location'));
+						}
+						$skillfilter->unique_id = Input::get('unique_id');
+						$skillfilter->expired = Input::get('expired');
+						$skillfilter->save_filter = Input::get('save_filter');
+						$skillfilter->save();
+					}
+				}
+			}
+
 		$posted_by = Input::get('posted_by');
-		$post_title = Input::get('post_title');
-		$city = Input::get('city');
-		$prof_category = Input::get('prof_category');
-		$experience = Input::get('experience');
+		$post_title = Input::get('skill_title');
+		$city = Input::get('prefered_location');
+		$experience = Input::get('min_exp');
+		$experience_new = Input::get('max_exp');
 		$time_for = Input::get('time_for');
 		$unique_id = Input::get('unique_id');
-		$role = Input::get('role');
+		$skill = Input::get('linked_skill_id');
 
 		if($post_type == 'skill'){
 			$skillPosts = Postjob::orderBy('id', 'desc')
-								 ->with('indUser', 'corpUser', 'postActivity')
-								 ->where('individual_id', '!=', Auth::user()->induser_id);
+								 ->with('indUser', 'corpUser', 'postActivity', 'preferLocations')
+							   	 ->leftjoin('post_preferred_locations', 'post_preferred_locations.post_id', '=', 'postjobs.id')
+							     ->where('individual_id', '!=', Auth::user()->induser_id);
 
-		if($role != null){
-			$skillPosts->where('role', 'like', '%'.$role.'%');
-		}
 		if($unique_id != null){
 			$skillPosts->where('unique_id', 'like', '%'.$unique_id.'%');
 		}
@@ -800,17 +858,30 @@ public function homeskillFilter(){
 			$skillPosts->where('post_title', 'like', '%'.$post_title.'%');
 		}
 		if($city != null){
-			$pattern = '/\s*,\s*/';
-			$replace = ',';
-			$city = preg_replace($pattern, $replace, $city);
-			$cityArray = explode(',', $city);
-			$skillPosts->whereIn('city', $cityArray);
-		}
-		if($prof_category != null){
-			$skillPosts->where('prof_category', 'like', '%'.$prof_category.'%');
+				$p_locality = [];
+	    		$p_city = [];
+				foreach ($city as $loc) {
+		        	$tempArr = explode('-', $loc);
+		        	if(count($tempArr) == 3){     		
+		        		array_push($p_locality, $tempArr[0]) ;
+		        		array_push($p_city, $tempArr[1]) ;
+		        	}
+		        	if(count($tempArr) == 2){
+		        		array_push($p_city, $tempArr[0]) ;	        	
+		        	}
+		        }
+				$jobPosts->whereIn('post_preferred_locations.city', $p_city);
+				$jobPosts->whereIn('post_preferred_locations.locality', $p_locality);
+			}
+		if($time_for != null){
+			$jobPosts->whereIn('time_for', $time_for);
+			// return $time_for;
 		}
 		if($experience != null){
-			$skillPosts->whereRaw("$experience between min_exp and max_exp");
+			$jobPosts->where( 'min_exp', '=', $experience);
+		}
+		if($experience_new != null){
+			$jobPosts->where( 'max_exp', '=', $experience_new);
 		}
 		if($time_for != null){
 			$skillPosts->where('time_for', '=', $time_for);
@@ -899,7 +970,7 @@ public function homeskillFilter(){
 
 	}
 	
-	return view('pages.home', compact('jobPosts', 'skillPosts', 'linksApproval', 'linksPending', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'share_links', 'share_groups', 'sort_by_skill', 'sort_by'));
+	return view('pages.home', compact('jobPosts', 'skillPosts', 'linksApproval', 'linksPending', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'share_links', 'share_groups', 'sort_by_skill', 'sort_by', 'skillfilter', 'filter'));
 	}else{
 		return redirect('login');
 	}
@@ -1094,8 +1165,8 @@ public function homeskillFilter(){
 		if (Auth::check()) {
 			$title = 'favourite';
 			$skills = Skills::lists('name', 'id');
-
-			
+			$filter = Filter::where('post_type', '=', 'job')->where('from_user', '=', Auth::user()->id)->first();
+			$skillfilter= Filter::where('from_user', '=', Auth::user()->id)->where('post_type', '=', 'skill')->first();
 			$jobPosts = Postjob::orderBy('id', 'desc')							
 							->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 							->where('post_type', '=', 'job')
@@ -1189,7 +1260,7 @@ public function homeskillFilter(){
 
 			}
 			
-			return view('pages.home', compact('jobPosts', 'skillPosts', 'linksPending', 'linksApproval', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'share_links', 'share_groups'));
+			return view('pages.home', compact('jobPosts', 'skillPosts', 'linksPending', 'linksApproval', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'share_links', 'share_groups', 'filter', 'skillfilter'));
 			// return $posts;
 		}else{
 			return redirect('login');
@@ -1263,6 +1334,8 @@ public function homeskillFilter(){
 		if (Auth::check()) {
 			$title = 'postByUser';
 			$groups = array();
+			$filter = Filter::where('post_type', '=', 'job')->where('from_user', '=', Auth::user()->id)->first();
+			$skillfilter= Filter::where('from_user', '=', Auth::user()->id)->where('post_type', '=', 'skill')->first();
 			if($utype == 'ind'){
 				$postuser = Induser::find($id);
 				$jobPosts = Postjob::orderBy('id', 'desc')->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
@@ -1367,7 +1440,7 @@ public function homeskillFilter(){
 				unset ($userSkills[count($userSkills)-1]); 
 			}
 			
-			return view('pages.home', compact('jobPosts', 'share_links', 'share_groups', 'skillPosts', 'linksPending', 'linksApproval', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'postuser'));
+			return view('pages.home', compact('jobPosts', 'share_links', 'share_groups', 'skillPosts', 'linksPending', 'linksApproval', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'postuser', 'filter', 'skillfilter'));
 			// return $userSkills;
 		}else{
 			return redirect('login');
@@ -1509,7 +1582,8 @@ public function homeskillFilter(){
 	public function homeSorting($post_type, $sort_by){
 		if (Auth::check()) {
 			$title = 'home';
-
+			$filter = Filter::where('post_type', '=', 'job')->where('from_user', '=', Auth::user()->id)->first();
+			$skillfilter= Filter::where('from_user', '=', Auth::user()->id)->where('post_type', '=', 'skill')->first();
 			if(Auth::user()->identifier == 1 || Auth::user()->identifier == 2){
 
 				$skills = Skills::lists('name', 'id');
@@ -1645,7 +1719,7 @@ public function homeskillFilter(){
 
 				}
 				// return $jobPosts;
-				return view('pages.home', compact('jobPosts', 'skillPosts', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'linksApproval', 'linksPending', 'share_links', 'share_groups', 'sort_by', 'sort_by_skill'));
+				return view('pages.home', compact('jobPosts', 'skillPosts', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'linksApproval', 'linksPending', 'share_links', 'share_groups', 'sort_by', 'sort_by_skill', 'filter', 'skillfilter'));
 			} 
 		}
 		else{
@@ -1657,7 +1731,8 @@ public function homeskillFilter(){
 	public function homeskillSorting($post_type, $sort_by_skill){
 		if (Auth::check()) {
 			$title = 'home';
-
+			$filter = Filter::where('post_type', '=', 'job')->where('from_user', '=', Auth::user()->id)->first();
+			$skillfilter= Filter::where('from_user', '=', Auth::user()->id)->where('post_type', '=', 'skill')->first();
 			if(Auth::user()->identifier == 1 || Auth::user()->identifier == 2){
 
 				$skills = Skills::lists('name', 'id');
@@ -1775,7 +1850,7 @@ public function homeskillFilter(){
 
 				}
 				// return $sort_by;
-				return view('pages.home', compact('jobPosts', 'skillPosts', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'linksApproval', 'linksPending', 'share_links', 'share_groups', 'sort_by', 'sort_by_skill'));
+				return view('pages.home', compact('jobPosts', 'skillPosts', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'linksApproval', 'linksPending', 'share_links', 'share_groups', 'sort_by', 'sort_by_skill', 'filter', 'skillfilter'));
 			} 
 		}
 		else{
@@ -1912,7 +1987,8 @@ public function homeskillFilter(){
 			$title = 'postInGroup';
 			$groups = array();
 				$groupUser = Group::find($id);
-
+				$filter = Filter::where('post_type', '=', 'job')->where('from_user', '=', Auth::user()->id)->first();
+				$skillfilter= Filter::where('from_user', '=', Auth::user()->id)->where('post_type', '=', 'skill')->first();
 				$jobPosts = Postjob::orderBy('id', 'desc')							
 							->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 							->where('post_type', '=', 'job')
@@ -1996,7 +2072,7 @@ public function homeskillFilter(){
 				unset ($userSkills[count($userSkills)-1]); 
 			}
 			
-			return view('pages.home', compact('jobPosts', 'share_links', 'share_groups', 'skillPosts', 'linksPending', 'linksApproval', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'groupUser'));
+			return view('pages.home', compact('jobPosts', 'share_links', 'share_groups', 'skillPosts', 'linksPending', 'linksApproval', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'groupUser', 'filter', 'skillfilter'));
 			// return $userSkills;
 		}else{
 			return redirect('login');
@@ -2186,7 +2262,7 @@ public function homeskillFilter(){
 
 				}
 				// return $jobPosts;
-				return view('pages.home', compact('jobPosts', 'skillPosts', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'linksApproval', 'linksPending', 'share_links', 'share_groups', 'sort_by', 'sort_by_skill'));
+				return view('pages.mypost', compact('jobPosts', 'skillPosts', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'linksApproval', 'linksPending', 'share_links', 'share_groups', 'sort_by', 'sort_by_skill'));
 			} 
 		}
 		else{

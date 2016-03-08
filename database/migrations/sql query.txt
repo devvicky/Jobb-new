@@ -61,3 +61,14 @@ ENGINE=InnoDB
 ALTER TABLE `indusers`
 	ADD COLUMN `fb_page` VARCHAR(255) NULL DEFAULT NULL AFTER `avatar`,
 	ADD COLUMN `in_page` VARCHAR(255) NULL DEFAULT NULL AFTER `fb_page`;
+
+
+ALTER TABLE `filters`
+	CHANGE COLUMN `expired` `expired` VARCHAR(255) NULL DEFAULT '0' COLLATE 'utf8_unicode_ci' AFTER `posted_by`;
+
+
+ALTER TABLE `filters`
+	CHANGE COLUMN `prof_category` `save_filter` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8_unicode_ci' AFTER `expired`;
+
+	ALTER TABLE `filters`
+	CHANGE COLUMN `role` `experience_new` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8_unicode_ci' AFTER `experience`;

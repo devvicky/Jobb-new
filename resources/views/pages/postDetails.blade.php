@@ -194,7 +194,7 @@
                                                                 style="font-size: 19px;color: darkslateblue;"></i>
                                                             <span class="badge-share" id="share-count-{{ $post->id }}">@if($post->postactivity->sum('share') > 0){{ $post->postactivity->sum('share') }}@endif</span>
                                                         </button>
-                                                        <ul class="dropdown-menu dropdown-menu-share" role="menu" 
+                                                        <ul class="dropdown-menu dropdown-menu-share-home" role="menu" 
                                                             style="min-width:0;box-shadow:0 0 !important;padding: 0;">
                                                             <li style="border-bottom: 1px solid #ddd;">
                                                                 <a href="#share-post" 
@@ -471,9 +471,14 @@
                                                     @endif
                                             </form> 
                                         @elseif($post->postactivity->where('user_id', Auth::user()->induser_id)->first()->apply == 1 && Auth::user()->identifier == 1) 
-                                            <button type="button" class="btn btn-sm bg-grey-steel apply-contact-btn" disabled="true">
-                                                Applied
-                                            </button>
+                                            <div class="col-md-6">
+                                                <button type="button" class="btn btn-sm bg-grey-steel apply-contact-btn" disabled="true">
+                                                    Applied
+                                                </button>
+                                            </div>
+                                            <div class="col-md-6">
+                                                ({{ $post->postactivity->where('user_id', Auth::user()->id)->first()->apply_dtTime }})
+                                            </div>
                                         @else
                                         <form action="/job/apply" method="post" id="post-apply-{{$post->id}}" data-id="{{$post->id}}">  
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -495,9 +500,14 @@
                                                 </button>
                                             </form> 
                                         @elseif($post->postactivity->where('user_id', Auth::user()->induser_id)->first()->contact_view == 1) 
-                                            <button type="button" class="btn btn-sm bg-grey-steel apply-contact-btn" disabled="true">
-                                                <i class="glyphicon glyphicon-ok"></i> Contacted
-                                            </button>
+                                             <div class="col-md-6">
+                                                <button type="button" class="btn btn-sm bg-grey-steel apply-contact-btn" disabled="true">
+                                                    <i class="glyphicon glyphicon-ok"></i> Contacted
+                                                </button>
+                                            </div>
+                                            <div class="col-md-6">
+                                                ({{ $post->postactivity->where('user_id', Auth::user()->id)->first()->contact_view_dtTime }})
+                                            </div>
                                             @else
                                         <form action="/job/contact" method="post" id="post-contact-{{$post->id}}" data-id="{{$post->id}}">  
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -520,10 +530,12 @@
                                             <div class="col-md-4 col-sm-4 col-xs-4">
                                                 <i class="fa fa-check-square-o"></i><span class="hidden-sm hidden-xs"> Applied</span> 
                                             </div>
+                                            {{ $post->postactivity->where('user_id', Auth::user()->id)->first()->apply_dtTime }}
                                         @elseif($post->postactivity->where('user_id', Auth::user()->id)->first()->contact_view == 1) 
                                             <div class="col-md-4 col-sm-4 col-xs-4">
                                                 <i class="fa fa-check-square-o"></i><span class="hidden-sm hidden-xs"> Contacted</span> 
                                             </div>
+                                            {{ $post->postactivity->where('user_id', Auth::user()->id)->first()->contact_view_dtTime }}
                                         @endif
                                     <div class="col-md-4 col-sm-4 col-xs-4">
                                         <i class="glyphicon glyphicon-ban-circle"></i> Expired
@@ -663,10 +675,7 @@ $('.contact-btn').live('click',function(event){
             $('#contact-btn-'+post_id).text('Contacted');
             $('#show-hide-contacts').addClass('show-hide-new');
         }
-      },
-      error: function(data) {
-            console.log("e:"+data);
-       }
+      }
     }); 
     return false;
   });

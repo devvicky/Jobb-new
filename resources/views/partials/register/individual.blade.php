@@ -122,7 +122,7 @@
 	</div>														
 	<div class="form-group margin-top-20 margin-bottom-20">
 		<label style="font-size: 13px;color: #827E7E !important;">
-			<input type="checkbox" id="t-n-c" name="tnc"/> I agree to the 
+			<input type="checkbox" checked id="t-n-c" name="tnc"/> I agree to the 
 			<a href="/termcondition" target="_blank" style="">Terms of Service </a>& 
 			<a href="/privacyprolicy" target="_blank" style="">Privacy Policy </a>
 		</label>

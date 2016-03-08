@@ -656,9 +656,6 @@
 		prefLocationArray.push('<?php echo $gt; ?>');
 	@endforeach
 	@endif
-	// console.log(prefLocationArray);
-    // preferre.d loc    
-    // var plselect = $("#prefered_location").select2();
     var plselect = $("#prefered_location").select2({ dataType: 'json', data: prefLocationArray });
     plselect.val(prefLocationArray).trigger("change");
 

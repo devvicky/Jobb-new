@@ -749,6 +749,10 @@ ul{
     max-width: 256px;
 }
 
+.dropdown-menu-share-home {
+    left: -48px !important;
+}
+
 @media (max-width: 767px){
     .nav-justified>li {
         display: block;

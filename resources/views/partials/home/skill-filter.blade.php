@@ -56,7 +56,7 @@
 							<!-- <label style="font-size:13px;font-weight:500;">Title or Role</label> -->
 							<div class="form-group">
 								<!-- <input type="text" id="title" name="post_title" class="form-control filter-input " placeholder="Job Title, Role" style="border: 1px solid darkcyan !important;margin: 7px 0px;"> -->
-								<input type="text" id="title" name="pref_loc" 
+								<input type="text" id="title" name="skill_title" value="@if($skillfilter != null){{$skillfilter->job_title}}@endif"
 									class="form-control select2" placeholder="Enter Keywords">
 							</div>
 						</div>
@@ -92,9 +92,9 @@
 						<!-- <div class="col-md-12"> -->
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								 <div class="btn-group" data-toggle="buttons">
-					                <label class="btn default btn-filter active " style="padding:0;">
+					                <label class="btn default btn-filter " style="padding:0;">
 					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
-					                    <input type="checkbox" class="toggle">
+					                    <input type="checkbox" name="time_for[]" class="toggle">
 					                    <a class="icon-btn icon-filter-btn jobtype-css">
 						                    <div class="jtype-name-css">
 						                    	Full<br/> Time
@@ -105,9 +105,9 @@
 							</div>
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								<div class="btn-group" data-toggle="buttons">
-					                <label class="btn default btn-filter active" style="padding:0;">
+					                <label class="btn default btn-filter" style="padding:0;">
 					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
-					                    <input type="checkbox" class="toggle">
+					                    <input type="checkbox" name="time_for[]" class="toggle">
 					                    <a class="icon-btn icon-filter-btn jobtype-css">
 						                    <div class="jtype-name-css">
 						                         Part<br/> Time
@@ -118,9 +118,9 @@
 							</div>
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								<div class="btn-group" data-toggle="buttons">
-					                <label class="btn default btn-filter active" style="padding:0;">
+					                <label class="btn default btn-filter" style="padding:0;">
 					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
-					                    <input type="checkbox" class="toggle">
+					                    <input type="checkbox" name="time_for[]" class="toggle">
 					                    <a class="icon-btn icon-filter-btn jobtype-css">
 						                    <div class="jtype-name-css">
 						                    	<br/>
@@ -132,9 +132,9 @@
 							</div>
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								<div class="btn-group" data-toggle="buttons">
-					                <label class="btn default btn-filter active" style="padding:0;">
+					                <label class="btn default btn-filter" style="padding:0;">
 					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
-					                    <input type="checkbox" class="toggle">
+					                    <input type="checkbox" name="time_for[]" class="toggle">
 					                    <a class="icon-btn icon-filter-btn jobtype-css">
 						                    <div class="jtype-name-css">
 						                         Work<br/>From Home
@@ -168,21 +168,13 @@
 							</div>
 						</div>
 					</div>
-					<div class="row" style="margin:0;">	
-						<div class="col-md-6 col-sm-6 col-xs-12" style="padding:0 10px;margin: -40px 0 0 0;">
-							<label style="font-size:13px;font-weight:500;">Posted by</label>
-							<div class="form-group">
-								<select multiple="multiple" name="posted_by" placeholder="Select" class="SlectBox">
-									<option selected value="individual">Individual</option>
-									<option selected value="company">Company</option>
-									<option selected value="consultancy">Consultancy</option>
-							    </select>		
-							</div>
-				        </div>
+					<div class="row" style="margin:15px 0 0 -10px;">	
+						
 				        <div class="col-md-6 col-sm-6 col-xs-12" style="margin: -13px 0px; padding: 0 10px;">
 				         	<div class="form-group">
 					         	 <label style="font-size:13px;">
-									<input type="checkbox" name="expired" checked class="icheck" data-checkbox="icheckbox_square-grey"> Show Expired Post
+									<input type="checkbox" name="expired" value="1"  class="icheck" data-checkbox="icheckbox_square-grey"
+									@if($skillfilter != null)@if($skillfilter->expired == '1') Checked @endif @endif > Show Expired Post
 								</label>
 							</div>
 						</div>
@@ -190,8 +182,8 @@
 				</div>
 			</div>
 			<div class="modal-footer right" style="padding: 5px 0;">
-				<label style="font-size:13px;float:left;margin: 5px 9px;">
-					<input type="checkbox" name="save filter" checked class="icheck" data-checkbox="icheckbox_square-grey"> Save Filter
+				<label style="font-size:13px;float:left;margin: 5px 16px;">
+					<input type="checkbox" name="save_filter" value="savefilter" class="icheck" data-checkbox="icheckbox_square-grey" @if($skillfilter != null)@if($skillfilter->save_filter == 'savefilter') checked @endif @endif> Save Filter
 				</label>
 				<button type="submit" class="btn green" style="margin: 0 30px;padding: 6px 20px;">
 					Filter

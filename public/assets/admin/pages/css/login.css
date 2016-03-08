@@ -79,12 +79,12 @@ Login page
   border: none;
   background-color: transparent;
   height: 35px;
-  color: white;
+  color: #333333;
   border: 1px solid #83ADAD;
  
 }
 .login .content .form-control:focus, .login .content .form-control:active {
-  border: 1px solid #A7D6D6;
+  border: 1px solid #ccc;
   border-left: 0;
 }
 .login .content .form-control::-moz-placeholder {

@@ -130,7 +130,7 @@
 											style="font-size: 19px;color: darkslateblue;"></i>
 										<span class="badge-share" id="share-count-{{ $post->id }}">@if($post->postactivity->sum('share') > 0){{ $post->postactivity->sum('share') }}@endif</span>
 									</button>
-									<ul class="dropdown-menu dropdown-menu-share" role="menu" 
+									<ul class="dropdown-menu dropdown-menu-share-home" role="menu" 
 										style="min-width:0;box-shadow:0 0 !important;padding: 0;">
 										<li style="border-bottom: 1px solid #ddd;">
 											<a href="#share-post" 

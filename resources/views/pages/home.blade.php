@@ -81,13 +81,44 @@ jQuery(document).ready(function() {
     ComponentsjQueryUISliders.init();
     // FormWizard.init();
 });
+    
+    //job Filter
+    var skillArray = [];
+    @if($filter != null)
+    <?php $array = explode(', ', $filter->linked_skill); ?> 
+    @if(count($array) > 0)
+    @foreach($array as $gt => $gta)
+        skillArray.push('<?php echo $gta; ?>');
+    @endforeach
+    @endif
+    @endif
+    var skillselect = $("#linked_skill_id").select2({ dataType: 'json', data: skillArray });
+    skillselect.val(skillArray).trigger("change");
 
+     //skill Filter
+    var skillArray = [];
+    @if($skillfilter != null)
+    <?php $arrayskill = explode(', ', $skillfilter->linked_skill); ?> 
+    @if(count($arrayskill) > 0)
+    @foreach($arrayskill as $gt => $gta)
+        skillArray.push('<?php echo $gta; ?>');
+    @endforeach
+    @endif
+    @endif
+    var skillselect = $("#linked_skillid").select2({ dataType: 'json', data: skillArray });
+    skillselect.val(skillArray).trigger("change");
 
     // preferred loc
     var prefLocationArray = [];
-
-    // preferred loc    
-    var plselect = $("#prefered_location").select2();
+    @if($filter != null)
+    <?php $arr = explode(', ', $filter->city); ?>
+    @if(count($arr) > 0) 
+    @foreach($arr as $ga => $gt)
+        prefLocationArray.push('<?php echo $gt; ?>');
+    @endforeach
+    @endif
+    @endif
+    var plselect = $("#prefered_location").select2({ dataType: 'json', data: prefLocationArray });
     plselect.val(prefLocationArray).trigger("change");
 
     var $eventSelect = $("#prefered_location"); 
@@ -163,15 +194,22 @@ jQuery(document).ready(function() {
     // preferred loc
     var currLocationArray = [];
 
-    // preferred loc    
-    var clselect = $("#current_location").select2();
+    @if($skillfilter != null)
+        <?php $arrCity = explode(', ', $skillfilter->city); ?>
+        @if(count($arrCity) > 0) 
+            @foreach($arrCity as $ga => $gt)
+                currLocationArray.push('<?php echo $gt; ?>');
+            @endforeach
+        @endif
+    @endif
+    var clselect = $("#current_location").select2({ dataType: 'json', data: currLocationArray });
     clselect.val(currLocationArray).trigger("change");
 
     var $eventSelect = $("#current_location"); 
     $eventSelect.on("select2:unselect", function (e) {
         // console.log("Removing: "+e.params.data.id);
         // remove corresponding value from array
-        currLocationArray = $.grep(prefLocationArray, function(value) {
+        currLocationArray = $.grep(currLocationArray, function(value) {
           return value != e.params.data.id;
         });
 
@@ -235,6 +273,21 @@ jQuery(document).ready(function() {
     }
    google.maps.event.addDomListener(window, 'load', initCurrLoc);
 
+</script>
+<script>
+//Skill Experience slider
+    
+    $("#slider-range-max-skill").slider({
+        isRTL: Metronic.isRTL(),
+        range: "max",
+        min: 0,
+        max: 15,
+        step: 1,
+        slide: function (event, ui) {
+             $("#slider-range-experience").val(ui.value);   
+        }
+    });
+    $("#slider-range-experience").val($("#slider-range-max-skill").slider("value"));
 </script>
 <style type="text/css">
 /* required for preferred location */

@@ -3432,6 +3432,16 @@ select.input-sm {
   padding: 2px 10px;
 }
 
+
+.input-group .input-group-addon {
+  border-color: #ccc;
+  background: transparent;
+  min-width: 39px;
+}
+.input-group .input-group-addon > i {
+  color:#666;
+}
+
 @media (max-width: 768px) {
   /* 768px */
   .input-large {
@@ -3447,12 +3457,12 @@ select.input-sm {
   border-color: #e5e5e5;
 }
 .input-group .input-group-addon {
-  border-color: darkcyan;
+  border-color: #ccc;
   background: transparent;
   min-width: 39px;
 }
 .input-group .input-group-addon > i {
-  color:white;
+  color:#666;
 }
 
 /* Input spinner */

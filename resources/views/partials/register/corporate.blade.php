@@ -103,7 +103,7 @@
 
 	<div class="form-group">
 		<label style="font-size: 13px;color: #827E7E !important;">
-			<input type="checkbox" name="ctnc"/> I agree to the 
+			<input type="checkbox" checked name="ctnc"/> I agree to the 
 			<a href="/termcondition" target="_blank" style="">Terms of Service </a>& 
 			<a href="/privacyprolicy" target="_blank" style="">Privacy Policy </a>
 		</label>
