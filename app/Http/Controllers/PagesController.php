@@ -622,19 +622,20 @@ class PagesController extends Controller {
 		        		array_push($p_city, $tempArr[0]) ;	        	
 		        	}
 		        }
+		        if(count($p_locality)>0){		        	
+					$jobPosts->whereIn('post_preferred_locations.locality', $p_locality);
+		        }
 				$jobPosts->whereIn('post_preferred_locations.city', $p_city);
-				$jobPosts->whereIn('post_preferred_locations.locality', $p_locality);
 			}
 
 			if($prof_category != null){
 				$jobPosts->where('prof_category', 'like', '%'.$prof_category.'%');
 			}
 			if($experience != null){
-				$jobPosts->where("$experience between min_exp and max_exp");
+				$jobPosts->whereRaw("min_exp = 0 and max_exp =".$experience);
 			}
 			if($time_for != null){
 				$jobPosts->whereIn('time_for', $time_for);
-				// return $time_for;
 			}
 			
 			if($post_type == 'job'){
@@ -645,7 +646,7 @@ class PagesController extends Controller {
 				$jobPosts->whereIn('linked_skill', $skill);
 			}
 
-			$jobPosts = $jobPosts->paginate(15);
+			$jobPosts = $jobPosts->groupBy('unique_id')->paginate(15);
 			if(Auth::user()->identifier == 1){
 				$userSkills = Induser::where('id', '=', Auth::user()->induser_id)->first(['linked_skill']);
 				$userSkills = array_map('trim', explode(',', $userSkills->linked_skill));
@@ -728,7 +729,7 @@ class PagesController extends Controller {
 									 ->where('individual_id', '!=', Auth::user()->induser_id)
 									 ->paginate(15);
 			}
-			// return $skill;
+			// return $jobPosts;
 			return view('pages.home', compact('jobPosts', 'skillPosts', 'linksApproval', 'linksPending', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'share_links', 'share_groups', 'sort_by', 'sort_by_skill', 'filter', 'skillfilter'));
 		}else{
 			return redirect('login');
