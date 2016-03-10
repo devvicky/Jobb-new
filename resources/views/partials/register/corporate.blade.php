@@ -110,15 +110,6 @@
 		<div id="register_ctnc_error"></div>
 	</div>	
 
-	<!-- 
-	<div class="form-actions" style="border-bottom:0 !important;">
-		<label id="register-back-btn3" style="margin-left: 39px;cursor: pointer;">Back</label>
-		<button type="submit" id="corporate-register-btn" class="btn btn-default pull-left submit-login-button register-submit-css">
-		Submit
-		</button>
-	</div> 
-	-->
-
 	<div class="form-actions" style="border-bottom: 0 !important;">
 		<label id="register-back-btn3" 
 				style="position: absolute; right: 36px;bottom: 36px; font-weight:400;color:#7B7B7B;cursor: pointer;font-size:15px;">
@@ -126,8 +117,8 @@
 		</label>
 
         <button id="corporate-register-btn" type="submit" 
-        		class="btn btn-primary btn-block uppercase login-signup-button" 
-        		style="width:50%;background-color:#C76B6B !important;border-radius:2px;">
+        		class="btn uppercase login-signup-button" 
+        		style="padding: 6px 45px;border-radius:2px;">
             Submit
         </button>
     </div> 

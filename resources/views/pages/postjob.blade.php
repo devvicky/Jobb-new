@@ -80,9 +80,11 @@
 									<div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
-											<label>Job Details <span class="required">*</span></label>								
-											<textarea name="job_detail" onkeyup="countChar(this)" class="form-control autosizeme" rows="6"></textarea>
-											<div id="charNum" style="text-align:right;"></div>
+											<label>Job Details <span class="required">*</span></label>	
+											<textarea id="textarea" rows="6" class="form-control autosizeme" maxlength="500" ></textarea>
+											<div id="textarea_feedback"></div>							
+											<!-- <textarea name="job_detail" onkeyup="countChar(this)" class="form-control autosizeme" rows="6"></textarea>
+											<div id="charNum" style="text-align:right;"></div> -->
 										</div>
 									</div>
 									</div>
@@ -521,16 +523,6 @@
 																	<div style="font-weight: 600;color: black;font-size: 16px;">
 																		<p class="form-control-static" data-display="post_title"></p>
 																	</div>
-																	<div>
-																	 	<div> 
-																	 		<h4 style="font-weight: 400; margin: -5px 0;"> 
-																	 			<p class="form-control-static" data-display="post_compname"></p> 
-																	 		</h4>
-																	 	</div>  
-																	</div>
-																	
-																			
-					                                                        
 					                                                         <div class="row">
 					                                                            <!-- <div class="col-md-6 col-sm-6 col-xs-6"> 
 					                                                                    <label class="detail-label">Job Role :</label>
@@ -539,6 +531,16 @@
 					                                                                   <p class="form-control-static" data-display="role" style="margin: -5px 0;"></p>
 					                                                            </div>
 					                                                            </div> -->
+					                                                            <div class="row">
+					                                                            
+						                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+						                                                                    <label class="detail-label"> Company Name : </label>     
+						                                                            </div>
+						                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+						                                                                         <p class="form-control-static" data-display="post_compname" style="margin: -5px 0;"></p>
+																								
+						                                                            </div>
+						                                                        </div>
 					                                                            <div class="row">
 					                                                            
 						                                                            <div class="col-md-6 col-sm-6 col-xs-6">
@@ -554,7 +556,7 @@
 						                                                                <label class="detail-label">Education :</label>     
 						                                                            </div>
 						                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-						                                                                <p class="form-control-static" data-display="education" style="margin: -5px 0;"></p>
+						                                                                <p class="form-control-static" data-display="education[]" style="margin: -5px 0;"></p>
 						                                                            </div>
 						                                                        </div>
 						                                                        <div class="row">
@@ -580,7 +582,7 @@
 					                                                                        <label class="detail-label">Role :</label>                                                                  
 					                                                                </div>
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-					                                                                        <p class="form-control-static" data-display="time_for" style="margin: -5px 0;"></p>
+					                                                                        <p class="form-control-static" data-display="role" style="margin: -5px 0;"></p>
 					                                                                </div>
 					                                                            </div>
 					                                                            
@@ -875,15 +877,26 @@ function loader(arg){
 // $('.four').hide();
 // }
 // }
+$(document).ready(function() {
+var text_max = 500;
+$('#textarea_feedback').html(text_max + ' characters remaining');
 
+$('#textarea').keyup(function() {
+    var text_length = $('#textarea').val().length;
+    var text_remaining = text_max - text_length;
+
+    $('#textarea_feedback').html(text_remaining + ' characters remaining');
+});
+
+});
 
 
 	function countChar(val) {
 		var len = val.value.length;
-		if (len >= 1000) {
-			val.value = val.value.substring(0, 1000);
+		if (len >= 500) {
+			val.value = val.value.substring(0, 500);
 		} else {
-			$('#charNum').text(1000 - len);
+			$('#charNum').text(500 - len);
 		}
 	};
    
@@ -1318,6 +1331,7 @@ function formatRepo (repo) {
 
     function formatRepoSelection (repo) {
     	if(repo.role != undefined){
+
     		// console.log(repo);
     		return  "<b>Role:</b> "+repo.role+"<br/><b>Functional Area:</b> "+repo.functional_area+"<br/><b>Industry:</b> "+repo.industry;
     	}      

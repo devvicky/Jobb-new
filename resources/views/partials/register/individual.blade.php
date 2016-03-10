@@ -133,8 +133,8 @@
 			   style="position: absolute; right: 36px;bottom: 12px; font-weight:400;color:#7B7B7B;cursor: pointer;font-size:15px;">
 			Back
 		</label>
-	    <button id="individual-register-btn" type="submit" class="btn btn-primary btn-block uppercase login-signup-button" 
-	    		style="width:50%;background-color:#C76B6B !important;border-radius:2px;">
+	    <button id="individual-register-btn" type="submit" class="btn uppercase login-signup-button" 
+	    		style="padding: 6px 45px;border-radius:2px;">
 	        Submit
 	    </button>
 	</div> 

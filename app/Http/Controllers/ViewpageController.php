@@ -36,6 +36,7 @@ class ViewpageController extends Controller {
 	{
 		$title = 'indview';
 		$user = Induser::where('id', '=', Auth::user()->induser_id)->first();
+		$users = User::findOrFail();
 		$thanks = Postactivity::with('user', 'post')
 						      ->join('postjobs', 'postjobs.id', '=', 'postactivities.post_id')
 							  ->where('postjobs.individual_id', '=', Auth::user()->induser_id)
@@ -48,7 +49,7 @@ class ViewpageController extends Controller {
 								->orWhere('connection_user_id', '=', Auth::user()->induser_id)
 								->where('status', '=', 1)
 								->count('id');
-		return view('pages.profile_indview', compact('user', 'thanks', 'posts', 'linksCount', 'title'));
+		return view('pages.profile_indview', compact('user', 'thanks', 'posts', 'linksCount', 'title', 'users'));
 	}
 
 	/**

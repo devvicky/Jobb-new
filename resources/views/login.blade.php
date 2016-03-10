@@ -81,16 +81,27 @@ body{
 }
 
 .login-signup-button{
-  /*box-shadow: 0px 4px #6D3E3E;*/
+  background-color: #CA4E4E;
+  border: 1px solid #C76B6B;
+  color: white;
 }
 
-.login-signup-button:hover{
-  box-shadow: 0px 3px #6D3E3E;
-  /*box-shadow: 2px 2px 2px #6D3E3E;*/
+.login-signup-button:hover, .login-signup-button.hover{
+  border: 1px solid #902B2B;
+  background-color: #B53030;
+  color: white;
 }
 
 .login-signup-button:active, .login-signup-button.active{
-  box-shadow: 0px 0px #6D3E3E; 
+  color: #D2C8C8 !important; 
+  background-color: #B53030;
+}
+
+.forget-password-header{
+    margin: 50px 0 20px 0;
+    color: #949387;
+    font-size: 20px;
+    text-shadow: 0px 1px 0px #626292;
 }
 
 *::-webkit-input-placeholder {

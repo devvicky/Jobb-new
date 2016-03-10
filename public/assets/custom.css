@@ -2100,3 +2100,13 @@ body{
     width: 4%;
     border: 0;
 }
+
+
+.magic-match-header{
+    text-align: center;
+    font-size: 17px;
+    margin: 5px 0;
+    background-color: dimgray;
+    padding: 2px;
+    color: white !important;
+}

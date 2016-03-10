@@ -346,29 +346,54 @@ class JobController extends Controller {
 	}
 
 	public function postContact(Request $request){
-		$contact = Postactivity::where('post_id', '=', $request['contact'])
-							->where('user_id', '=', Auth::user()->id)
+		$apply = Postactivity::where('post_id', '=', $request['contact'])
+							->where('user_id', '=', Auth::user()->induser_id)
 							->first();
-
 		$post_id = $request['contact'];
-		$data = [];
-		$data['pa'] = $contact;
-		$data['post_user_info'] = null;
-		if($contact == null){
-			$contact = new Postactivity();
-			$contact->post_id = $post_id;
-			$contact->user_id = Auth::user()->id;
-			$contact->contact_view = 1;
-			$contact->contact_view_dtTime = new \DateTime();
-			$contact->save();
+		if($apply == null){
+			$apply = new Postactivity();
+			$apply->post_id = $post_id;
+			$apply->user_id = Auth::user()->induser_id;
+			$apply->contact_view = 1;
+			$apply->contact_view_dtTime = new \DateTime();
+			$apply->save();
 
-			$data['contact_status'] = 'contacted';
 			// Notification entry
 			if($post_id != null){
 				$to_user = 0;
 				$post_user_info = Postjob::where('id', '=', $post_id)->first(['id', 'individual_id', 'corporate_id']);
+				if($post_user_info != null){
 
-				$data['post_user_info'] = $post_user_info;
+					if($post_user_info->individual_id != null){
+						$to_user = User::where('induser_id', '=', $post_user_info->individual_id)->pluck('id');
+					}
+
+					if($post_user_info->corporate_id != null){
+						$to_user = User::where('corpuser_id', '=', $post_user_info->corporate_id)->pluck('id');
+					}
+
+					$post_unique_id = Postjob::where('id', '=', $post_id)->pluck('unique_id');
+					$notification = new Notification();
+					$notification->from_user = Auth::user()->id;
+					$notification->to_user = $to_user;
+					$notification->remark = 'has contacted for your post id: '.$post_unique_id;
+					$notification->operation = 'job contact';
+					$notification->save();
+
+				}
+
+			}			
+
+			return "contacted";
+		}elseif($apply != null && $apply->contact_view == 0){
+			$apply->contact_view = 1;
+			$apply->contact_view_dtTime = new \DateTime();
+			$apply->save();
+
+			// Notification entry
+			if($post_id != null){
+				$to_user = 0;
+				$post_user_info = Postjob::where('id', '=', $post_id)->first(['id', 'individual_id', 'corporate_id']);
 				if($post_user_info != null){
 
 					if($post_user_info->individual_id != null){
@@ -387,52 +412,13 @@ class JobController extends Controller {
 					$notification->operation = 'job contact';
 					$notification->save();
 
-					$data['notification_status'] = 'notified';
-
-				}
-
-
-			}
-
-			// return response()->json(['success'=>true,'data'=>$data]);
-		}elseif($contact != null && $contact->contact_view == 0){
-			$contact->contact_view = 1;
-			$contact->contact_view_dtTime = new \DateTime();
-			$contact->save();
-
-			$data['contact_status'] = 'contacted';
-
-			// Notification entry
-			if($post_id != null){
-				$to_user = 0;
-				$post_user_info = Postjob::where('id', '=', $post_id)->first(['id', 'individual_id', 'corporate_id']);
-				$data['post_user_info'] = $post_user_info;
-				if($post_user_info != null){
-
-					if($post_user_info->individual_id != null){
-						$to_user = User::where('induser_id', '=', $post_user_info->individual_id)->pluck('id');
-					}
-					
-					if($post_user_info->corporate_id != null){
-						$to_user = User::where('corpuser_id', '=', $post_user_info->corporate_id)->pluck('id');
-					}
-
-					$notification = new Notification();
-					$notification->from_user = Auth::user()->id;
-					$notification->to_user = $to_user;
-					$notification->remark = 'has contacted for your post id: '.$post_id;
-					$notification->operation = 'job contact';
-					$notification->save();
-
-					$data['notification_status'] = 'notified';
-
 				}
 
 			}
 
-			
+			return "contacted";
 		}
-		return response()->json(['success'=>true,'data'=>$data]);
+
 	}
 
 	public function skillSearch(){

@@ -11,6 +11,10 @@ class Induser extends Model {
 		return $this->hasOne('app\user', 'induser_id', 'id');
 	}
 
+	public function profileUser(){
+		return $this->hasOne('App\Induser', 'id', 'individual_id');
+	}
+
 	public function friendsOfMine(){
 	  return $this->belongsToMany('App\Induser', 'connections', 'user_id', 'connection_user_id')
 			      ->withPivot('id')

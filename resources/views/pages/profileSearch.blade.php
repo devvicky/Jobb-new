@@ -224,10 +224,6 @@
 											</button>
 										<!-- </div> -->
 									</form>
-									@else
-									<!-- <button disabled class="btn grey corp-profile-contact" type="button" style="">
-										<i class="glyphicon glyphicon-earphone" style="font-size:11px;"></i> Contacted
-									</button> -->
 									@endif
 								</div>
 									<form action="/profile/save" method="post" id="profile-save-{{$user->id}}" data-saveid="{{$user->id}}">

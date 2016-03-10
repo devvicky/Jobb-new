@@ -48,8 +48,8 @@
 		</div>
 	</div>	
 	<div class="form-actions" style="border-bottom: 0 !important;">
-	    <button id="individual-login-btn" type="submit" class="btn btn-primary uppercase login-signup-button" 
-	    		style="background-color:#C76B6B !important;padding: 6px 45px;">
+	    <button id="individual-login-btn" type="submit" class="btn uppercase login-signup-button" 
+	    		style="padding: 6px 45px;">
 	        Login
 	    </button>
 	    <a href="javascript:;" id="forget-password" class="forget-password" style="font-size: 13px;color: #818284 !important;text-decoration: initial;">Forgot Password ?

@@ -1,15 +1,15 @@
 <!-- BEGIN FORGOT PASSWORD FORM -->
 <form class="forget-form" action="/forget" method="post" id="forgot-password">
-	<h3 style="margin-bottom: 10px;color:khaki;font-size: 20px;text-shadow: 0px 1px 1px blue;">
+	<h3 class="forget-password-header">
 		Forgot Password ?
 	</h3>
 	
-	<p style="text-align: center;font-size: 17px;color: yellow;margin-bottom: 20px;">
+	<p style="text-align: center;font-size: 17px;color: #A72F3F;margin-bottom: 10px;">
 		No Worries&nbsp;
 		<i class="icon-emoticon-smile"></i>
 	</p>
 
-	<p style="text-align: center;font-size: 13px;color: #F3D5D5;">
+	<p style="text-align: center;font-size: 12px;color: #583C3C;">
 		 Enter your E-mail iD or Mobile No. We will send you a link to reset password.
 	</p>
 
@@ -35,12 +35,12 @@
 
 	<div class="form-actions" style="border-bottom: 0 !important;">
 		<label id="back-btn" 
-				style="position: absolute; right: 36px;bottom: 22px; font-weight:400;color:lightgrey;cursor: pointer;font-size:15px;">
+				style="position: absolute; right: 36px;bottom: 22px; font-weight:400;color:#7B7B7B;cursor: pointer;font-size:15px;">
 			Back
 		</label>
 
-        <button id="forget-password-btn" type="submit" class="btn btn-primary btn-block uppercase login-signup-button" 
-        		style="width:50%;background-color:#C76B6B !important;border-radius:2px;">
+        <button id="forget-password-btn" type="submit" class="btn uppercase login-signup-button" 
+        		style="padding: 6px 45px;border-radius:2px;">
             Submit
         </button>
     </div>

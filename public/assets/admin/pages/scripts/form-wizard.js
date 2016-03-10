@@ -179,15 +179,9 @@ var FormWizard = function () {
                     if (input.is(":text") || input.is("textarea")) {
                         $(this).html(input.val());
                     } else if (input.is("select")) {
-                        $(this).html(input.find('option:selected').text());
+                        $(this).html(input.find('option:selected').text())
                     } else if (input.is(":radio") && input.is(":checked")) {
                         $(this).html(input.attr("data-title"));
-                    } else if ($(this).attr("data-display") == 'payment[]') {
-                        var payment = [];
-                        $('[name="payment[]"]:checked', form).each(function(){ 
-                            payment.push($(this).attr('data-title'));
-                        });
-                        $(this).html(payment.join("<br>"));
                     }
                 });
             }

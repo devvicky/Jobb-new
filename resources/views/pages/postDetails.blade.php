@@ -70,9 +70,9 @@
                                     @include('partials.home.favourite')
 
                                     @if($expired == 1)
-                                    <div class="post-hover-exp" data-postid="{{$post->id}}"><a class="myactivity-posts" data-toggle="modal" href="#myactivity-posts">
+                                    <div class="post-hover-exp">
                                         @else
-                                    <div class="post-hover-act" data-postid="{{$post->id}}"><a class="myactivity-posts" data-toggle="modal" href="#myactivity-posts">
+                                    <div class="post-hover-act">
                                         @endif
                                     
                                     <div class="row post-postision" style="cursor:pointer;">
@@ -102,7 +102,7 @@
                                         
                                        
                                     </div>
-                                    </a>
+                                    
                                 </div>
                                     <div class="row" style="margin: 5px 0px; border-top: 1px solid whitesmoke;">
                                         <div class="col-md-12" style="margin: 3px -13px;">

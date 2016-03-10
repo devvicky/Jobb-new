@@ -71,6 +71,9 @@
 							<div class="">
 								<div id="slider-range-max-skill" class="slider bg-purple">
 								</div>
+								<div class="slider-value">
+									  
+								</div>
 							</div>
 						</div>
 					</div>

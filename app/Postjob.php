@@ -155,16 +155,6 @@ class Postjob extends Model {
 
 		$currentDate = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'));
 
-		/*$strNew = '+'.$duration.' day';
-		$strOld = $post->created_at;
-		$fresh = $strOld->modify($strNew);
-
-		$currentDate = new \DateTime();
-		$expiryDate = new \DateTime($fresh);*/
-
-		// $difference = $expiryDate->diff($currentDate);
-		// $remainingDays = $difference->format('%d');
-
 		if($currentDate >= $expireAt){
 			// $expired = 1;
 			return 1;

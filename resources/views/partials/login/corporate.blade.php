@@ -46,8 +46,8 @@
 		</div>
 
 		<div class="form-actions" style="border-bottom: 0 !important;">
-            <button id="corporate-login-btn" type="submit" class="btn btn-primary uppercase login-signup-button" 
-            		style="background-color:#C76B6B !important;padding: 6px 45px;">
+            <button id="corporate-login-btn" type="submit" class="btn uppercase login-signup-button" 
+            		style="padding: 6px 45px;">
                 Login
             </button>
         </div>

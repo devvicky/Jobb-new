@@ -763,6 +763,26 @@
 		
 	</div>
 	<div class="portlet-body form">
+		<div class="row" style="display:none;">
+        <div class="col-md-8 col-sm-8 col-xs-12" style="padding:0 !important;margin: 5px 0;">
+			<i class="fa fa-envelope"></i> : {{$user->email}}<br>
+			<i class="fa fa-phone-square"></i> : {{$user->mobile}}
+		</div>
+		<div class="col-md-4 col-sm-4 col-xs-12" style="padding:0 !important;margin: 5px 0;">
+			<button class="btn blue corp-profile-resume" style="">
+			<i class="glyphicon glyphicon-download"></i> Resume
+		</button>
+		</div>
+		<form action="/contact/view" method="post" id="profile-{{$user->id}}" data-id="{{$user->id}}">
+			<input type="hidden" name="_token" value="{{ csrf_token() }}">
+			<input type="hidden" name="profileid" value="{{ $user->id }}">
+			<!-- <div class="view-profile"> -->
+				<button id="profile-{{$user->id}}" class="btn green profile-contact profile-btn" type="button" style="">
+					<i class="glyphicon glyphicon-earphone" style="font-size:11px;"></i> Contact
+				</button>
+			<!-- </div> -->
+		</form>
+	</div>
 		<!-- BEGIN FORM-->
 		<form action="/individual/create" class="horizontal-form" method="post">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -1145,5 +1165,48 @@ Metronic.init(); // init metronic core components
 Layout.init(); // init current layout
 Demo.init(); // init demo features\
 });
+
+$('.profile-btn').live('click',function(event){  	    
+  	event.preventDefault();
+  	var post_id = $(this).parent().data('id');
+
+  	var formData = $('#profile-'+post_id).serialize(); 
+    var formAction = $('#profile-'+post_id).attr('action');
+    $count = $.trim($('#profilecount').text());
+    if($count.length == 0 || $count == ""){
+		$count = 0;
+	}
+    $.ajaxSetup({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
+	});
+
+    $.ajax({
+      url: formAction,
+      type: "post",
+      data: formData,
+      cache : false,
+
+      success: function(data){
+     		// console.log(data);
+      	if(data.data.save_contact == 1 && data.success == 'success'){
+
+ 			var out = '<div class="col-md-8 col-sm-8 col-xs-12" style="padding:0 !important;margin: 5px 0;">';
+ 			out += '<i class="fa fa-envelope"></i> : '+data.data.email+'<br>';
+ 			out += '<i class="fa fa-phone-square"></i> : '+data.data.mobile+'</div>';
+ 			out += '<div class="col-md-4 col-sm-4 col-xs-12" style="padding:0 !important;margin: 5px 0;">';
+
+ 			$("#profile-contacts-"+post_id).html(out);
+ 			$("#profilefav-btn-"+post_id).hide();
+ 			$('#profilefav-btn-'+post_id).prop('disabled', true);
+			
+        }else {
+        	// console.log(data);
+        }
+      }
+    }); 
+    return false;
+  }); 
 </script>
 @stop
