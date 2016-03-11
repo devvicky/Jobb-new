@@ -71,7 +71,7 @@
 -->
 <script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
 <script src="/assets/js/home-js.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
+<script src="//maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
 <script>
 jQuery(document).ready(function() {
     ComponentsIonSliders.init();
@@ -85,12 +85,19 @@ jQuery(document).ready(function() {
     //job Filter
     var skillArray = [];
     @if($filter != null)
-    <?php $array = explode(', ', $filter->linked_skill); ?> 
-    @if(count($array) > 0)
-    @foreach($array as $gt => $gta)
-        skillArray.push('<?php echo $gta; ?>');
-    @endforeach
-    @endif
+        <?php $array = explode(', ', $filter->linked_skill); ?> 
+        @if(count($array) > 0)
+            @foreach($array as $gt => $gta)
+                skillArray.push('<?php echo $gta; ?>');
+            @endforeach
+        @endif
+    @else
+        <?php $authSkill = explode(', ', Auth::user()->induser->linked_skill); ?> 
+        @if(count($authSkill) > 0)
+            @foreach($authSkill as $gt => $gta)
+                skillArray.push('<?php echo $gta; ?>');
+            @endforeach
+        @endif
     @endif
     var skillselect = $("#linked_skill_id").select2({ dataType: 'json', data: skillArray });
     skillselect.val(skillArray).trigger("change");

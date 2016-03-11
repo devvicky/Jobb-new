@@ -82,6 +82,8 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::get('favouriteProfile', 'PagesController@listFavourite');
 	Route::post('profile/save', 'PagesController@saveProfile');
 
+	Route::post('contact/view', 'PagesController@showContact');
+
 	Route::get('job/skillSearch', 'JobController@skillSearch');
 	Route::get('job', 'JobController@index');
 	Route::get('job/create', 'JobController@create');

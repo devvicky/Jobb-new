@@ -229,7 +229,7 @@ class ConnectionsController extends Controller {
 		}elseif(Input::get('action') == 'reject'){
 			Connections::where('id', '=', $id)->update(['status' => 2]);
 		}
-		return redirect('/profile/ind/'.$id);
+		return redirect('/profile/ind/'.$cuid);
 	}
 
 	public function newLink($id)

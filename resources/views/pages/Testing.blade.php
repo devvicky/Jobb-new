@@ -1,3 +1,17 @@
+
+@if($filter != null)@if(stripos($filter->time_for, '%Part%') == FALSE) active @endif @endif
+
+
+
+
+
+
+
+
+
+
+
+
 @extends('master')
 
 @section('content')

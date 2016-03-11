@@ -262,12 +262,10 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<label>About Me</label>
-									<!-- <div class="input-group"> -->
-										
-										<textarea name="about_individual" placeholder="write about your proffessional summary..." onkeyup="countChar(this)" class="form-control" rows="6">{{ $user->induser->about_individual }} </textarea>
-										
-									<!-- </div> -->
-									<div id="charNum" style="text-align:right;"></div>
+										<!-- <textarea   onkeyup="countChar(this)" class="form-control" rows="6"> </textarea>
+									<div id="charNum" style="text-align:right;"></div> -->
+									<textarea id="textarea" rows="6" class="form-control " maxlength="250" name="about_individual" placeholder="write about your proffessional summary...">{{ $user->induser->about_individual }}</textarea>
+											<div id="textarea_feedback"></div>
 								</div>
 								
 							</div>
@@ -619,7 +617,7 @@
 
 @section('javascript')
 <script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
+<script src="//maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
 <script type="text/javascript">
 	function initialize() {
 		var options = {	types: ['(cities)'], componentRestrictions: {country: "in"}	};
@@ -842,19 +840,26 @@ $(document).ready(function() {
 	    ComponentsEditors.init();
 	});   
 </script>
-<script type="text/javascript">
+<script>
+$(document).ready(function() {
+var text_max = 250;
+	$('#textarea_feedback').html(text_max + ' characters remaining');
+
+	$('#textarea').keyup(function() {
+	    var text_length = $('#textarea').val().length;
+	    var text_remaining = text_max - text_length;
+
+	    $('#textarea_feedback').html(text_remaining + ' characters remaining');
+	});
+});
       function countChar(val) {
         var len = val.value.length;
-        if (len >= 255) {
-          val.value = val.value.substring(0, 255);
+        if (len >= 500) {
+          val.value = val.value.substring(0, 500);
         } else {
-          $('#charNum').text(255 - len);
+          $('#charNum').text(500 - len);
         }
       };
-
-      $("#ind_validation").submit(function(e){
-		  e.preventDefault();
-		});
     </script>
 <script type="text/javascript">
 	
@@ -1259,6 +1264,7 @@ $(document).on('click', 'a', function(event, ui) {
        // $('.select2-dropdown').hide();
     }
 });
+
 
 </script>
 @stop

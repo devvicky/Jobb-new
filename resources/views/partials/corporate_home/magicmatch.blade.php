@@ -4,10 +4,7 @@
     <div class="portlet light bordered" style="border: none !important;background:transparent;padding:0 !important;">                                     
         <div class="portlet-body form">
             <div class="form-body" style="padding: 1px 0;">
-                <h3 class="magic-match-header">
-                    <i class="icon-speedometer magic-font" style="font-size:12px;"></i> 
-                    {{$post->magic_match}} %
-                </h3>
+
                 <!-- BEGIN BORDERED TABLE PORTLET-->
                 <div class="portlet box">
                     <div class="portlet-body" style=" padding: 0 !important;">
@@ -31,8 +28,8 @@
                                     $userSkillArr = array_map('trim', explode(',', Auth::user()->induser->linked_skill));
                                 ?>
                                 <?php 
-                                    $matchedPost = array_intersect($postSkillArr, $userSkillArr);
-                                    $unmatchedPost = array_diff($postSkillArr, $userSkillArr);
+                                    $matchedPost = array_intersect($userSkillArr, $postSkillArr);
+                                    $unmatchedPost = array_diff($userSkillArr, $postSkillArr);
                                 ?>
                                 <?php 
                                     $matched = array_intersect($userSkillArr, $postSkillArr);
@@ -49,21 +46,7 @@
                                     </td>
                                 </tr>
                                 <tr>                                                                                            
-                                    <td class="matching-criteria-align">
-                                        
-                                        @foreach($matchedPost as $m)
-                                        <span style="background-color:green;color:white;padding: 2px 4px;margin:2px;text-transform:capitalize">
-                                        {{$m}}
-                                        </span>
-                                        @endforeach                                        
-                                    
-                                        @foreach($unmatchedPost as $um)
-                                        <span style="background-color:red;color:white;padding: 2px 4px;margin:2px;text-transform:capitalize">
-                                        {{$um}}
-                                        </span>  
-                                        @endforeach
-                                                                               
-                                    </td>
+                                    <td class="matching-criteria-align">{{$post->linked_skill}}</td>
                                     @if(Auth::user()->induser->linked_skill != null)                                    
                                     <td class="matching-criteria-align">
                                         

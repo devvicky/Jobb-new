@@ -76,7 +76,6 @@ class PagesController extends Controller {
 				$skillfilter = Filter::where('post_type', '=', 'skill')->where('from_user', '=', Auth::user()->id)->first();
 				$jobPosts = Postjob::orderBy('id', 'desc')
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup', 'preferLocations')
-
 								   ->where('post_type', '=', 'job')
 								   ->where('individual_id', '!=', Auth::user()->induser_id)
 								   ->whereRaw('postjobs.id in (select  pm.id from postjobs pm where pm.id in (
@@ -210,15 +209,16 @@ class PagesController extends Controller {
 				$sort_by = " ";
 				$sort_by_skill = " ";
 				$skills = Skills::lists('name', 'id');
+				$filter = Filter::where('post_type', '=', 'job')->where('from_user', '=', Auth::user()->id)->first();
+				$skillfilter = Filter::where('post_type', '=', 'skill')->where('from_user', '=', Auth::user()->id)->first();
+
 				$jobPosts = Postjob::orderBy('id', 'desc')
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 								   ->where('post_type', '=', 'job')
-								   ->where('post_expire', '=', '0')
 								   ->paginate(5);
 				$skillPosts = Postjob::orderBy('id', 'desc')
 									 ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 									 ->where('post_type', '=', 'skill')
-									 ->where('post_expire', '=', '0')
 									 ->paginate(5);
 
 				if(Auth::user()->corpuser_id != null){
@@ -230,7 +230,7 @@ class PagesController extends Controller {
 					$following = collect($following);
 				}
 
-				return view('pages.home_corporate', compact('jobPosts', 'skillPosts', 'title', 'following', 'skills', 'sort_by', 'sort_by_skill'));
+				return view('pages.home_corporate', compact('jobPosts', 'skillPosts', 'title', 'following', 'skills', 'sort_by', 'sort_by_skill', 'filter', 'skillfilter'));
 
 			}elseif(Auth::user()->identifier == 3){
 				$reportAbuseCount = ReportAbuse::count();
@@ -1916,6 +1916,22 @@ public function homeskillFilter(){
 						
 		return view('pages.shortlistprofile', compact('users', 'title', 'profileFav', 'profileSave'));
 	}
+
+	public function showContact(Request $request){
+		$profile = $request['profileid'];
+		$profileUser = Induser::where('id', '=', $request['profileid'])->first(['id', 'mobile', 'email']);
+		$data = [];
+		$data['profile_id'] = $profileUser->id;
+		$data['mobile'] = $profileUser->mobile;
+		$data['email'] = $profileUser->email;
+		if($profile != null){
+			return response()->json(['success'=>'success','data'=>$data]);
+		}else{
+			return response()->json(['success'=>'fail','data'=>$data]);
+			// return $profileFav;
+		}
+	}
+
 
 	public function saveProfile(Request $request){
 		$profileSave = Corpsearchprofile::where('profile_id', '=', $request['profileid'])
