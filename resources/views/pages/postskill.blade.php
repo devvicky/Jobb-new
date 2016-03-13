@@ -264,12 +264,9 @@
 										<div class="row">
 											<div class="col-md-6 col-sm-6 col-xs-12">
 												<div class="form-group">							
-													<label class=" control-label">Experience </label>&nbsp;: 
-															<input type="text" readonly id="slider-range-exp1" name="min_exp" class="input-exp-width" /> - 
-															<input type="text" readonly id="slider-range-exp2" name="max_exp" class="input-exp-width" /> Years
-													<div id="slider-range-exp" class="slider bg-gray" style="    z-index: 0;">
-														</div>
-														
+													<label style="font-size:13px;font-weight:500;">Experience</label> : <input readonly id="slider-range-experience" name="min_exp" class="filter-range-experience" /> Years
+													<div id="slider-range-max-skill" class="slider bg-purple">
+													</div>
 												</div>
 											</div>
 											<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
@@ -446,8 +443,7 @@
 						                                                                    <label class="detail-label"> Experience : </label>     
 						                                                            </div>
 						                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-						                                                                         <p class="form-control-static" data-display="min_exp" style="margin: -5px 0;"></p> -
-																								<p class="form-control-static" data-display="max_exp" style="margin: -5px 0;"></p> Years  
+																								<p class="form-control-static" data-display="min_exp" style="margin: -5px 0;"></p> Years  
 						                                                            </div>
 						                                                        </div>
 						                                                        <div class="row">
@@ -478,7 +474,7 @@
 					                                                            </div>
 					                                                            <div class="row"> 
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-					                                                                        <label class="detail-label">Role :</label>                                                                  
+					                                                                        <label class="detail-label">Job Type :</label>                                                                  
 					                                                                </div>
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
 					                                                                        <p class="form-control-static" data-display="time_for" style="margin: -5px 0;"></p>
@@ -745,6 +741,19 @@ function loader(arg){
     }
 }
 
+// Experience slider
+    
+    $("#slider-range-max-skill").slider({
+        isRTL: Metronic.isRTL(),
+        range: "max",
+        min: 0,
+        max: 15,
+        step: 1,
+        slide: function (event, ui) {
+             $("#slider-range-experience").val(ui.value);   
+        }
+    });
+    $("#slider-range-experience").val($("#slider-range-max-skill").slider("value"));
 
 // $(document).ready(function () {
 // $('#salary-new').hide();

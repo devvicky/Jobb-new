@@ -29,7 +29,8 @@
 														'userId'		=>	$post->individual_id,
 														'postId'		=>	$post->unique_id,
 														'postType'		=>	$post->post_type,
-														'skill'			=>	$post->linked_skill])
+														'skill'			=>	$post->linked_skill,
+														'jobType'		=>	$post->time_for ])
 					@elseif($post->corpuser != null)
 						@include('partials.home.post', ['userImgPath'	=>	$post->corpuser->logo_status, 
 														'userName'		=>	$post->corpuser->firm_name ])
@@ -48,7 +49,8 @@
 														'userId'		=>	$post->individual_id,
 														'postId'		=>	$post->unique_id,
 														'postType'		=>	$post->post_type,
-														'skill'			=>	$post->linked_skill])
+														'skill'			=>	$post->linked_skill,
+														'jobType'		=>	$post->time_for])
 					@elseif($post->corpuser != null)
 						@include('partials.home.post-expired', ['userImgPath'	=>	$post->corpuser->logo_status, 
 														'userName'		=>	$post->corpuser->firm_name ])

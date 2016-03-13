@@ -30,8 +30,8 @@
   
   <!-- Normalize Styles -->
 <link href="/assets/startup/css/normalize.css" rel="stylesheet">
-<link href="/assets/custom.css" rel="stylesheet">
-<link href="/assets/custom_new.css" rel="stylesheet"/>
+<link href="/assets/css/custom.css" rel="stylesheet">
+<link href="/assets/css/custom_new.css" rel="stylesheet"/>
   <!-- Extras -->
 <link rel="stylesheet" type="text/css" href="/assets/startup/extras/animate.css">
 <link rel="stylesheet" type="text/css" href="/assets/startup/extras/lightbox.css">

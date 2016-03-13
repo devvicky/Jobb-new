@@ -520,19 +520,6 @@ function down(){
 	    jQuery('.show-comp').toggle('hide');
 	    jQuery('.show-firm-type').toggle('show');
     });
-
-     // $('input[type="radio"]').click(function() {
-     //     if($(this).attr('id') == 'id_radio1') {
-     //        $('.show-comp').show(); 
-     //        $('.show-firm-type').hide();          
-     //     }
-     // });
-     // $('input[type="radio"]').click(function() {
-     //     if($(this).attr('id') == 'id_radio2') {
-     //         $('.show-comp').hide();
-     //      $('.show-firm-type').show();        
-     //     }
-     // });
 });
 
 </script>

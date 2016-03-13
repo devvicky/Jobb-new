@@ -42,8 +42,8 @@
 <link href="/assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css"/>
 <!-- <link href="/assets/admin/layout2/css/layout.css" rel="stylesheet" type="text/css"/> -->
 <!-- <link href="/assets/global/plugins/icheck/skins/all.css" rel="stylesheet"/> -->
-<link href="/assets/custom.css" rel="stylesheet"/>
-<link href="/assets/custom_new.css" rel="stylesheet"/>
+<link href="/assets/css/custom.css" rel="stylesheet"/>
+<link href="/assets/css/custom_new.css" rel="stylesheet"/>
 <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
 <!-- END THEME STYLES -->

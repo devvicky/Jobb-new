@@ -32,9 +32,12 @@
 	                        </div>
 	                    </div>
 	                    @endif
-	                    <div class="col-md-12">
+	                    <!-- <div class="col-md-3 col-sm-3 col-xs-12">
+	                    	<div><small class="label-success label-xs job-type-skill-css">{{$jobType}}</small></div>
+	                    </div> -->
+	                    <div class="col-md-12 col-sm-12 col-xs-12">
 	                        <div class=" capitalize" itemprop="name" style="font-size:13px;color:dimgrey !important;">
-	                        	Skills : {{$skill}}
+	                       @if($postType == 'job') <small class="label-success label-xs job-type-skill-css">{{$jobType}}</small>&nbsp;&nbsp;@endif	Skills : {{$skill}}
 	                        </div>
 	                    </div>
 	               	</div>
@@ -75,11 +78,12 @@
 								@if($post->time_for == 'Work from Home')
 								<small class="label-success label-xs elipsis-code job-type-skill-css" style="">Work From Home</small>
 								@else
-								<div><small class="label-success label-xs job-type-skill-css">{{$post->time_for}}</small></div>
+								<div><small class="label-success label-xs job-type-skill-css">{{$jobType}}</small></div>
 								@endif
 							</div>
 							@endif
-							<div class="col-md-2 col-sm-2 col-xs-3" style="padding:0 8px;text-align:center;">
+							@if($postType == 'job')
+							<div class="col-md-2 col-sm-2 col-xs-3" style="padding:0 8px;">
 								<form action="/job/like" method="post" id="post-like-{{$post->id}}" data-id="{{$post->id}}">						
 									<input type="hidden" name="_token" value="{{ csrf_token() }}">
 									<input type="hidden" name="like" value="{{ $post->id }}">
@@ -94,6 +98,23 @@
 									 <i class="fa fa-thumbs-up thanks-icon" id="like-{{$post->id}}"></i>		
 								@endif
 							</button>
+							@elseif($postType == 'skill')
+							<div class="col-md-2 col-sm-2 col-xs-2" style="padding:0 8px;margin: 0 15px 0 -15px;">
+								<form action="/job/like" method="post" id="post-like-{{$post->id}}" data-id="{{$post->id}}">						
+									<input type="hidden" name="_token" value="{{ csrf_token() }}">
+									<input type="hidden" name="like" value="{{ $post->id }}">
+							<button class="btn like-btn"  type="button" style="background-color: transparent;padding:3px;" title="Thanks">
+								@if($post->postactivity->where('user_id', Auth::user()->id)->isEmpty())					
+									 <i class="fa fa-thumbs-up thanks-icon" id="like-{{$post->id}}"></i>
+								@elseif($post->postactivity->where('user_id', Auth::user()->id)->first()->thanks == 1) 
+
+									 <i class="fa fa-thumbs-up thanks-icon" id="like-{{$post->id}}" style="color:darkseagreen;"></i>
+
+								@else
+									 <i class="fa fa-thumbs-up thanks-icon" id="like-{{$post->id}}"></i>		
+								@endif
+							</button>
+							@endif
 							<!-- <label  style="color:burlywood">Thanks </label>	 -->
 									<span class="badge-like" id="like-count-{{ $post->id }}">
 									@if($post->postactivity->sum('thanks') > 0)
@@ -105,14 +126,14 @@
 							
 							@if($userId != Auth::user()->induser_id && Auth::user()->identifier == 1)												
 								@if($post->postactivity->where('user_id', Auth::user()->id)->isEmpty())
-								<div class="col-md-2 col-sm-2 col-xs-3">
+								<div class="col-md-2 col-sm-2 col-xs-2">
 								</div>
 								@elseif($post->postactivity->where('user_id', Auth::user()->id)->first()->apply == 1)
-								<div class="col-md-2 col-sm-2 col-xs-3"  style="margin: 5px -5px;text-align: center;">													
+								<div class="col-md-2 col-sm-2 col-xs-3"  style="margin: 5px -5px;">													
 									<i class="fa fa-check-square-o" style="font-size:13px;"></i><span style="font-size:12px;" class="applied-css hidden-sm hidden-xs"> Applied</span> 
 								</div>
 								@elseif($post->postactivity->where('user_id', Auth::user()->id)->first()->contact_view == 1)
-								<div class="col-md-2 col-sm-2 col-xs-3"  style="margin: 5px -5px;text-align: center;">													
+								<div class="col-md-2 col-sm-2 col-xs-2"  style="margin: 5px -5px;">													
 									<i class="fa fa-check-square-o" style="font-size:13px;"></i><span style="font-size:12px;" class="hidden-sm hidden-xs"> Contacted</span> 
 								</div>
 								@endif

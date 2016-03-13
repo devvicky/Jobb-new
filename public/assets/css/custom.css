@@ -26,7 +26,7 @@
     height: 128px;
     border-radius: 50% !important;
     margin: auto;
-    background: #fff url("images/ab.png") !important;
+    background: #fff url("../images/ab.png") !important;
     background-size: 100%;
     text-align: center;
     cursor: pointer;
@@ -40,7 +40,7 @@
     height: 128px;
     /*border-radius: 50% !important;*/
     margin: auto;
-    background: #fff url("images/corpnew.jpg") !important;
+    background: #fff url("../images/corpnew.jpg") !important;
     background-size: 100%;
     text-align: center;
     cursor: pointer;

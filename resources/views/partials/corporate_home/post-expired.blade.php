@@ -14,7 +14,9 @@
 					@endif
 				</div>
 				@include('partials.home.image-linked')
-				@include('partials.home.favourite')
+				@if($postType == 'skill')
+					@include('partials.home.favourite')
+				@endif
 				<div class="post-hover-act" data-postid="{{$post->id}}">
 					<!-- <a class="myactivity-posts" data-toggle="modal" href="#myactivity-posts"> -->
 					@if($postType == 'job')

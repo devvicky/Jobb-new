@@ -184,6 +184,8 @@
 </div>
 <!-- /.modal -->
 
+
+
 <!-- SHARE MODAL FORM-->
 <div class="modal fade" id="share-by-email" tabindex="-1" role="basic" aria-hidden="true">
   <div class="modal-dialog">

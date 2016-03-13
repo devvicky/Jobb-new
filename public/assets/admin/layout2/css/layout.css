@@ -691,7 +691,7 @@ Page Header
     position: absolute;
     width: auto !important;
     margin: -14px 0px 0 !important;
-    background-color:whitesmoke;
+    background-color:#296173;
   }
   .page-header.navbar .top-menu .navbar-nav > li.dropdown-extended > .dropdown-menu {
     max-width: 245px;

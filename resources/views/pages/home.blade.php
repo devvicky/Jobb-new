@@ -82,6 +82,12 @@ jQuery(document).ready(function() {
     // FormWizard.init();
 });
     
+    $(function() {
+      $(".save-filter").delay(5000).fadeOut();
+    });
+
+
+
     //job Filter
     var skillArray = [];
     @if($filter != null)
@@ -282,7 +288,7 @@ jQuery(document).ready(function() {
 
 </script>
 <script>
-//Skill Experience slider
+// Experience slider
     
     $("#slider-range-max-skill").slider({
         isRTL: Metronic.isRTL(),

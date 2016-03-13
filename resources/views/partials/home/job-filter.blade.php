@@ -5,6 +5,7 @@
 	<a class="btn default" style="background-color:whitesmoke !important;color:#8c8c8c;" data-toggle="modal" href="#homefiltermodal">
 		<i class="fa fa-filter"></i> Filter
 	</a>
+	
 		<div class="row sort-by-css hide-label" style="text-align: right;">
 			<div class="col-md-12">
 				<div class="btn-group">
@@ -25,24 +26,20 @@
 							<a href="/home/job/corporate">corporate Post</a>
 						</li>
 					</ul>
-				</div>
-				
-			</div>
-		</div>
-		<div class="row sort-by-css show-filter" style="margin-right:8px;">
-			<div class="col-md-8 col-sm-8 col-xs-7" style="margin:5px 0;">
-				<a class="show-more" style="font-size:12px;font-weight:400;">Show more</a>
-			</div>
-			<div class="col-md-4 col-sm-4 col-xs-5">
-				<!-- <a class="show-more" style="font-size:12px;font-weight:400;">Show more</a> -->
-				<button type="submit" class="btn btn-info" value="Search" title="Search" 
-						style="background-color:transparent !important; border-color: transparent;">
-						<i class="glyphicon glyphicon-floppy-disk" style="color:dodgerblue;font-size:16px;"></i>
-					</button>
+				</div>		
 			</div>
 		</div>		
 	</div>
 </div>
+@if (count($errors) > 0)
+	<div class="alert alert-success save-filter">
+		<ul>
+			@foreach ($errors->all() as $error)
+				<li>{{ $error }}</li>
+			@endforeach
+		</ul>
+	</div>
+@endif
 <div id="homefiltermodal" class="modal fade" tabindex="-1" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">

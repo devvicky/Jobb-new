@@ -83,7 +83,8 @@ class JobController extends Controller {
 			$roles = DB::select(DB::raw('select id, name from roles'));
 			$functionalAreas = FunctionalAreas::lists('name', 'id');
 			$industry = Industry::lists('name','id');
-			return view('pages.postjob', compact('title', 'skills', 'roles', 'functionalAreas', 'industry'));
+			$education = Education::all();
+			return view('pages.postjob', compact('title', 'skills', 'roles', 'functionalAreas', 'industry', 'education'));
 		}
 	}
 

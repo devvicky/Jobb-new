@@ -69,8 +69,8 @@
 <link href="/assets/admin/pages/css/timeline.css" rel="stylesheet" type="text/css"/>
 <link href="/assets/global/plugins/ion.rangeslider/css/ion.rangeSlider.css" rel="stylesheet"/>
 <link href="/assets/global/plugins/ion.rangeslider/css/ion.rangeSlider.Metronic.css" rel="stylesheet"/>
-<link href="/assets/custom.css" rel="stylesheet"/>
-<link href="/assets/custom_new.css" rel="stylesheet"/>
+<link href="/assets/css/custom.css" rel="stylesheet"/>
+<link href="/assets/css/custom_new.css" rel="stylesheet"/>
 <script src="/assets/global/plugins/autosize/autosize.min.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL STYLES -->
 
@@ -93,6 +93,11 @@
 <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="/assets/component-btn.css"/>
+
+<link rel="stylesheet" type="text/css" href="/assets/startup/normalize.css" />
+<link rel="stylesheet" type="text/css" href="/assets/startup/demo.css" />
+<link rel="stylesheet" href="fonts/font-awesome-4.2.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="/assets/startup/tooltip-line.css" />
 @yield('css')
 
 <style type="css/text" rel="stylesheet">
@@ -393,6 +398,14 @@ input:focus:-ms-input-placeholder { color:white !important; } /* IE 10+ */
 <!-- END PAGE LEVEL SCRIPTS -->
 <script src="/assets/js/jt-toast.js"></script>
 <script>
+$(document).ready(function () {
+    $('.show-contact').hide();
+      $('.contact-view').click(function () {
+         $('.show-contact').show();
+         $('.contact-view').hide();
+  });
+});
+
 function loader(arg){
     if(arg == 'show'){
         $('#loader').show();

@@ -163,16 +163,12 @@ class CorporateController extends Controller {
 	{
 		$data = Corpuser::where('id', '=', $id)->first();
 		if($data != null){
-		
-		$data->firm_address = Input::get('firm_address');
-		$data->state = Input::get('state');
-		$data->city = Input::get('city');
 		$data->username = Input::get('username');
 		$data->working_as = Input::get('working_as');
 		$data->firm_email_id = Input::get('firm_email_id');
 		$data->firm_phone = Input::get('firm_phone');
 		$data->save();
-		return redirect('/corporate/create');
+		return redirect('/corporate/edit#privacy_setting');
 		}else{
 			return 'some error occured.'+Input::get('email');
 		}
@@ -198,11 +194,15 @@ class CorporateController extends Controller {
 			$data->firm_name = Input::get('firm_name');
 			$data->firm_type = Input::get('firm_type');
 			$data->website_url = Input::get('website_url');
-			$data->linked_skill = implode(', ', Input::get('linked_skill_id'));
+			if(Input::get('linked_skill_id') != null){
+				$data->linked_skill = implode(', ', Input::get('linked_skill_id'));
+			}
 			$data->emp_count = Input::get('emp_count');
 			$data->slogan = Input::get('slogan');
+			$data->firm_address = Input::get('firm_address');
+			$data->city = Input::get('city');
 			$data->save();
-			return redirect('/corporate/create#tab_2-2');
+			return redirect('/corporate/edit#account_handler');
 		}
 	}
 

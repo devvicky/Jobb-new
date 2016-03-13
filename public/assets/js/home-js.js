@@ -78,7 +78,6 @@ $(document).ready(function() {
 });
 
 
-
 // like-button
 
 $('.like-btn').live('click', function(event) {

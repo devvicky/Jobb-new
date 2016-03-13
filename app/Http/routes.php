@@ -43,8 +43,10 @@ Route::post('reset/password', 'UserController@postResetPassword');
 Route::group(array('middleware' => 'auth'), function(){
 
 	Route::post('home', 'PagesController@homeFilter');
-	Route::post('search/profile', 'PagesController@searchProfile');
 	Route::post('home/skill', 'PagesController@homeskillFilter');
+
+	Route::post('search/profile', 'PagesController@searchProfile');
+	Route::post('search/ind/profile', 'PagesController@searchIndProfile');
 
 	Route::get('master', 'PagesController@master');
 	Route::get('mypost', 'PagesController@myPost');
@@ -53,6 +55,7 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::post('viewcontact/view', 'PagesController@viewContact');
 	Route::post('postdetail/detail', 'PagesController@postDetail');
 	Route::post('magicmatch/detail', 'PagesController@magicMatch');
+	Route::post('mypostmagicmatch/detail', 'PagesController@mypostmagicMatch');
 
 	Route::get('job/post/{id}', 'PagesController@singleJobPost');
 	Route::get('skill/post/{id}', 'PagesController@singleSkillPost');

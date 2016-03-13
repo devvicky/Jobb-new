@@ -7,46 +7,28 @@
 		<div style="border-bottom: 1px solid lightgrey;">
 			<label style="float:none; margin:0 auto; display:table;">Profile Search</label>
 		</div>
-		<form id="corpsearch-profile" action="/search/profile" method="post">
+		<form id="corpsearch-profile" action="/search/ind/profile" method="post">
 	      <input type="hidden" name="_token" value="{{ csrf_token() }}">
-	      <div class="row " style="margin: 0px auto; float: none; display: table;">
+	      <div class="row " style="display: table;">
 				<input type="hidden" name="type" value="people" >
 	      </div>
 	      <div class="row" style="margin:15px -15px 0;">
-	        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">
-	          <div class="form-group">              
-	              <input type="text" name="fullname" class="form-control filter-input" placeholder="Enter Name or Email Id">
-	          </div>  
-	        </div>
-	        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">
-	          <div class="form-group">              
-	              <input type="text" name="city" class="form-control filter-input" placeholder="Location: Pune, Hyderabad">
-	          </div>  
-	        </div>
-	      </div>
-	      <div class="row">
 	        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">
 	          <div class="form-group">              
 	              <input type="text" name="role" class="form-control filter-input" placeholder="Job Role">
 	          </div>  
 	        </div>
 	        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">
-	          <div class="form-group">              
-	              <input type="text" name="category" class="form-control filter-input" placeholder="Functional Area">
-	          </div>  
-	        </div>
-	      </div>
-	      <div class="row">
-	        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">
-	          <div class="form-group">              
-	              <input type="text" name="working_at" class="form-control filter-input" placeholder="Working at">
-	          </div>  
-	        </div>
-	        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">
-	          <div class="form-group">              
-	              <input type="text" name="mobile" class="form-control filter-input" placeholder="Mobile No">
-	          </div>  
-	        </div>
+				<div class="form-group">
+					<!-- <label>Enter Skill</label> -->
+					<div style="position:relative;">
+						<input type="text" name="name" id="newskill" class="form-control" placeholder="Search for skill">
+							<!-- <button id="add-new-skill" style="position:absolute;right:0;top:0;" class="btn btn-success" type="button"><i class="icon-plus"></i> Add</button>	 -->
+							{!! Form::select('linked_skill_id[]', $skills, null, ['id'=>'linked_skill_id', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Skills', 'multiple']) !!}
+					</div>
+				</div>
+			</div>
+	        
 	      </div>
 	      <div class="row">
 	        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">
@@ -58,42 +40,32 @@
 					</div>		
 	          </div>  
 	        </div>
-	        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">
-	          <div class="form-group">
-				<select multiple="multiple" name="job_type"  placeholder="Select" class="SlectBox">
-			       <option selected value="Full Time">Full Time</option>
-					<option value="Part Time">Part Time</option>
-					<option value="Freelancer">Freelancer</option>
-					<option value="Work from Home">Work from Home</option>
-			    </select>		
-			</div>  
-	        </div>
-	      </div>
-	      
-	      <div class="row">
-			<div class="col-md-6 col-sm-6 col-xs-12">
-				<div class="form-group">
-					<label>Enter Skill</label>
-					<div style="position:relative;">
-						<input type="text" name="linked_skill_id" id="" class="form-control" placeholder="Search for skill...">
-						<!-- <button id="add-new-skill" style="position:absolute;right:0;top:0;" class="btn btn-success" type="button"><i class="icon-plus"></i> Add</button>		 -->
-					</div>
-				</div>
-			</div>
-			
-		</div>
-		<div class="row">
 	        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">   
-	          	
-	            <input type="checkbox" name="resume" class="form-control filter-input"> With Resume
-  
+	          	 <div class="form-group">
+	          	 	<label></label>
+	            <input type="checkbox" name="resume" class="icheck filter-input"> Profiles with Resume only
+  				</div>
 	        </div>
-<!-- 	        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">
-	          <div class="form-group">              
-	              <input type="text" name="job_type" class="form-control filter-input group" placeholder="Job Type">
-	          </div>  
-	        </div> -->
+	        
 	      </div>
+	      <div class="row">
+			<div class="col-md-6 col-sm-6 col-xs-12 advance-len">
+	          	<div class="form-group">
+					<select  name="job_type"  placeholder="Select" class="SlectBox">
+						<option value="">--Select--</option>
+				        <option value="Full Time">Full Time</option>
+						<option value="Part Time">Part Time</option>
+						<option value="Freelancer">Freelancer</option>
+						<option value="Work from home">Work from Home</option>
+				    </select>		
+				</div>  
+	        </div>
+			<div class="col-md-6 col-sm-6 col-xs-12 advance-len">
+	          <div class="form-group">              
+	              <input type="text" id="city" name="city" class="form-control" placeholder="Location: Pune, Hyderabad">
+	          </div>  
+	        </div>
+		</div>
 	      <div class="row" style="margin-bottom: 10px;">
 	        <div class="col-md-12 col-sm-12 col-xs-12">
 	              <div class="footer links-title center-css">              
@@ -116,6 +88,22 @@ jQuery(document).ready(function() {
 });
 </script>
 <script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
+<script src="//maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
+<script type="text/javascript">
+	function initialize() {
+		var options = {	types: ['(cities)'], componentRestrictions: {country: "in"}	};
+		var input = document.getElementById('city');
+		var autocomplete = new google.maps.places.Autocomplete(input, options);
+		autocomplete.addListener('place_changed', onPlaceChanged); 
+		function onPlaceChanged() {
+		  var place = autocomplete.getPlace();
+		  if (place.address_components) { city = place.address_components[0];
+		  	document.getElementById('city').value = city.long_name;
+		  } else { document.getElementById('autocomplete').placeholder = 'Enter a city'; }
+		}
+	}
+   google.maps.event.addDomListener(window, 'load', initialize);   
+</script>
 	 <script type="text/javascript">
         $(document).ready(function () {
             window.asd = $('.SlectBox').SumoSelect({ csvDispCount: 3 });
