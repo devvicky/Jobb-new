@@ -999,23 +999,27 @@ public function homeskillFilter(){
 			$title = 'Profile search';
 			
 			$city = Input::get('city');
-			$name = Input::get('fullname');
+			$name = Input::get('name');
 			$role = Input::get('role');
-			$category = Input::get('category');
 			$working_at = Input::get('working_at');
 			$mobile = Input::get('mobile');
-			$min_exp = Input::get('min_exp');
-			$max_exp = Input::get('max_exp');
-			$prefered_jobtype = Input::get('job_type');
-			$resume = Input::get('resume');
-			$skills = Input::get('linked_skill_id');
+			// $category = Input::get('category');
+			// $min_exp = Input::get('min_exp');
+			// $max_exp = Input::get('max_exp');
+			// $prefered_jobtype = Input::get('job_type');
+			// $resume = Input::get('resume');
+			// $skills = Input::get('linked_skill_id');
 
 			$type = Input::get('type');
+			$firm_type = Input::get('firm_type');
 
 			if($type == 'people'){
 				$users = Induser::with('user')->orderBy('id', 'desc');
+
 				if($name != null){
-					$users->where('fname', 'like', '%'.$name.'%')->orWhere('lname', 'like', '%'.$name.'%')->orWhere('email', '=', $name);
+					$users->where('fname', 'like', '%'.$name.'%')
+					      ->orWhere('lname', 'like', '%'.$name.'%')
+					      ->orWhere('email', '=', $name);
 				}
 				if($city != null){
 					$pattern = '/\s*,\s*/';
@@ -1024,7 +1028,7 @@ public function homeskillFilter(){
 					$cityArray = explode(',', $city);
 					$users->whereIn('city', $cityArray);
 				}
-				if($role != null){
+				if($role != 0 ){
 					$users->where('role', 'like', '%'.$role.'%');
 				}
 				if($working_at != null){
@@ -1032,29 +1036,7 @@ public function homeskillFilter(){
 				}
 				if($mobile != null){
 					$users->where('mobile', 'like', '%'.$mobile.'%');
-				}
-				if($min_exp != null && $max_exp != null){
-					$users->where('experience', '=', $min_exp);
-				}
-				if($prefered_jobtype != null){
-					$users->where('prefered_jobtype', '=', $prefered_jobtype);
-				}
-				if($resume != null){
-					$users->whereNotNull('resume');
-				}
-				if($skills != null){
-					$users->where('linked_skill', 'like', '%'.$skills.'%');
-				}
-
-				// if($skills != null){
-				// 	$pattern = '/\s*,\s*/';
-				// 	$replace = ',';
-				// 	$skills = preg_replace($pattern, $replace, $skills);
-				// 	$skillsArray = explode(',', $skills);
-				// 	$users->whereIn('linked_skill', $skillsArray);
-				// }
-
-				
+				}		
 
 				$users = $users->paginate(15);
 
@@ -1069,12 +1051,15 @@ public function homeskillFilter(){
 											 and connections.status=1
 								)', [Auth::user()->induser_id, Auth::user()->induser_id]);
 				$links = collect($links);
+
+				// return $users;
 				return view('pages.profileSearch', compact('users', 'title', 'links', 'type', 'corpsearchprofile', 'perPeople', 'perpeopleSkill'));
 			}elseif($type == 'company'){
 				$users = Corpuser::with('user')->orderBy('id', 'desc');
 
 				if($name != null){
-					$users->where('firm_name', 'like', '%'.$name.'%')->orWhere('firm_email_id', '=', $name);
+					$users->where('firm_name', 'like', '%'.$name.'%')
+				 	      ->orWhere('firm_email_id', '=', $name);
 				}
 				if($city != null){
 					$pattern = '/\s*,\s*/';
@@ -1086,12 +1071,10 @@ public function homeskillFilter(){
 				if($role != null){
 					$users->where('role', 'like', '%'.$role.'%');
 				}
-				if($category != null){
-					$users->where('prof_category', 'like', '%'.$category.'%');
+				if(count($firm_type) > 0){
+					$users->whereIn('firm_type', $firm_type);
 				}
-				if($mobile != null){
-					$users->where('firm_phone', 'like', '%'.$mobile.'%');
-				}
+				
 				$users = $users->paginate(15);
 
 				$following = DB::select('select id from corpusers 

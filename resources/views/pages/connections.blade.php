@@ -8,8 +8,7 @@
 			<span class="caption-subject font-blue-hoki bold uppercase">Manage your Links</span>
 		</div>
 	</div>
-	<div class="portlet-body form">
-		
+	<div class="portlet-body form">		
 		<div class="form-body" style="padding:0;">
 			<div class="normal_search hide-socialmedia">
 				<label style="font-size: 16px;text-align: center;width: 100%;">Invite Your Friends on JobTip & Share Job Information</label>
@@ -31,24 +30,24 @@
 							@endif
 							@if($user->reg_via == 'google')
 							<div class="col-md-4 col-xs-4 ">
-								  <a  class="btn btn-lg btn-google btn-block share-media-icon" disabled href="" style="background: #c32f10;color: white;border-radius: 25px !important;">
-								  <i class="fa fa-google-plus"></i><span class="hidden-xs"style="font-size:14px"> &nbsp;Google+</span></a>
+								<a  class="btn btn-lg btn-google btn-block share-media-icon" disabled href="" style="background: #c32f10;color: white;border-radius: 25px !important;">
+								<i class="fa fa-google-plus"></i><span class="hidden-xs"style="font-size:14px"> &nbsp;Google+</span></a>
 							</div>
 							@else
 							<div class="col-md-4 col-xs-4 ">
-								  <a  class="btn btn-lg btn-google btn-block share-media-icon" href="" style="background: #c32f10;color: white;border-radius: 25px !important;">
-								  <i class="fa fa-google-plus"></i><span class="hidden-xs"style="font-size:14px"> &nbsp;Google+</span></a>
+								<a  class="btn btn-lg btn-google btn-block share-media-icon" href="" style="background: #c32f10;color: white;border-radius: 25px !important;">
+								<i class="fa fa-google-plus"></i><span class="hidden-xs"style="font-size:14px"> &nbsp;Google+</span></a>
 							</div>
 							@endif
 							@if($user->reg_via == 'linkedin')
 							<div class="col-md-4 col-xs-4 ">
-								  <a class="btn btn-lg btn-linkedin btn-block share-media-icon" disabled style="background: #00aced;color: white;border-radius: 25px !important;">
-								  <i class="fa fa fa-linkedin"></i><span class="hidden-xs"style="font-size:14px"> &nbsp;Linkedin</span></a>
+								<a class="btn btn-lg btn-linkedin btn-block share-media-icon" disabled style="background: #00aced;color: white;border-radius: 25px !important;">
+								<i class="fa fa fa-linkedin"></i><span class="hidden-xs"style="font-size:14px"> &nbsp;Linkedin</span></a>
 							</div>
 							@else
 							<div class="col-md-4 col-xs-4 ">
-								  <a class="btn btn-lg btn-linkedin btn-block share-media-icon" style="background: #00aced;color: white;border-radius: 25px !important;">
-								  <i class="fa fa fa-linkedin"></i><span class="hidden-xs"style="font-size:14px"> &nbsp;Linkedin</span></a>
+								<a class="btn btn-lg btn-linkedin btn-block share-media-icon" style="background: #00aced;color: white;border-radius: 25px !important;">
+								<i class="fa fa fa-linkedin"></i><span class="hidden-xs"style="font-size:14px"> &nbsp;Linkedin</span></a>
 							</div>
 							@endif
 						</div>
@@ -59,87 +58,99 @@
 	</div>
 </div>
 <div class="row clearfix" style="margin-bottom:10px">	
-<!-- BEGIN FORM-->
+	<!-- BEGIN ADVANCED SEARCH -->
 	<div class="col-md-7 col-sm-8">
 		<div class="show-adsearch">
 			<form id="search-profile" action="/search/profile" method="post">
-	      <input type="hidden" name="_token" value="{{ csrf_token() }}">
-	      <!-- <div class="row-md-2"></div> -->
-	      <div class="row" style="margin-bottom: 20px;margin-top: 10px;">
-	        <div class="col-md-12 col-sm-12 col-xs-12 advance-len" style="margin:10px 0;">
-	          <div class="input-group" style="margin:0 auto;">
-	            <div class="icheck-inline">
-	              <label>
-	              	<input id="id_radio1" type="radio" checked name="type" value="people" class="">
-	              	People
-	              </label>
-	              <label>
-	              	<input id="id_radio2" type="radio" value="company" name="type" class="">
-	              	Company
-	              </label>
-	            </div>
-	          </div>
-	        </div> 
-	      </div>
-	      <div class="row show-firm-type" style="margin: 0px auto; float: none; display: table;">
-	      	<div class="btn-group col-md-12 col-sm-12 col-xs-12" style="margin:10px;" data-toggle="buttons">
-				<label class="btn btn-default color-button check-font-size active" >
-				<input type="checkbox" name="firm_type[]" value="Company" class="toggle"> Company </label>
-				<label class="btn btn-default color-button check-font-size">
-				<input type="checkbox" name="firm_type[]" value="Consultancy" class="toggle"> Consultancy </label>
-			</div>
-	      </div>
-	      <div class="row" style="margin:0;">
-	        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">
-	          <div class="form-group">              
-	              <input type="text" name="name" class="form-control filter-input group" placeholder="Enter Name or Company name or Email Id">
-	          </div>  
-	        </div>
-	        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">
-	          <div class="form-group">              
-	              <input type="text" name="city" class="form-control filter-input" placeholder="Location: Pune, Hyderabad">
-	          </div>  
-	        </div>
-	      </div>
-	      <div class="row" style="margin:0;">
-	        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">
-	          <div class="form-group">              
-	              <input type="text" name="role" class="form-control filter-input" placeholder="Job Role">
-	          </div>  
-	        </div>
-	        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">
-	          <div class="form-group">              
-	              <input type="text" name="category" class="form-control filter-input" placeholder="Job Category">
-	          </div>  
-	        </div>
-	      </div>
-	      <div class="row show-comp" style="margin:0;">
-	        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">
-	          <div class="form-group">              
-	              <input type="text" name="working_at" class="form-control filter-input" placeholder="Working at">
-	          </div>  
-	        </div>
-	        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">
-	          <div class="form-group">              
-	              <input type="text" name="mobile" class="form-control filter-input group" placeholder="Mobile No">
-	          </div>  
-	        </div>
-	      </div>
-	      <div class="row" style="margin-bottom: 10px;">
-	        <div class="col-md-12 col-sm-12 col-xs-12">
-	              <div class="footer links-title center-css">              
-	              <button type="submit" class="btn blue "><i class="glyphicon glyphicon-search"></i> Search</button>
-	          		
-	          </div> 
-	          <div class="advance-search group-back-position">
-	          		<button type="button" class="btn" style="background-color:transparent;"><i class="glyphicon glyphicon-chevron-left"></i> Back</button>
-	          </div>
-	        </div>
-	        
-	      </div>
-	    </form>
+		      	<input type="hidden" name="_token" value="{{ csrf_token() }}">
+				<!-- <div class="row-md-2"></div> -->
+				<div class="row" style="margin-bottom: 20px;margin-top: 10px;">
+					<div class="col-md-12 col-sm-12 col-xs-12 advance-len" style="margin:10px 0;">
+					  <div class="input-group" style="margin:0 auto;">
+					    <div class="icheck-inline">
+					      <label>
+					      	<input id="id_radio1" type="radio" checked name="type" value="people" class="">
+					      	People
+					      </label>
+					      <label>
+					      	<input id="id_radio2" type="radio" value="company" name="type" class="">
+					      	Company
+					      </label>
+					    </div>
+					  </div>
+					</div> 
+				</div>
+				<div class="row show-firm-type" style="margin: 0px auto; float: none; display: table;">
+					<div class="btn-group col-md-12 col-sm-12 col-xs-12" style="margin:10px;" data-toggle="buttons">
+						<label class="btn btn-default color-button check-font-size active" >
+							<input type="checkbox" name="firm_type[]" value="Company" class="toggle" checked> Company 
+						</label>
+						<label class="btn btn-default color-button check-font-size active">
+							<input type="checkbox" name="firm_type[]" value="Consultancy" class="toggle" checked> Consultancy 
+						</label>
+					</div>
+				</div>
+				<div class="row" style="margin:0;">
+					<div class="col-md-6 col-sm-6 col-xs-12">
+					  <div class="form-group">              
+					      <input type="text" name="name" class="form-control filter-input group" 
+					      			placeholder="Enter Name or Email Id" />
+					  </div>  
+					</div>
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<div class="input-group">
+							<span class="input-group-addon">
+								<i class="fa fa-map-marker"></i>
+							</span>
+							<input type="text" id="city" name="city" class="form-control" placeholder="City">										
+						</div>
+					</div>
+				</div>
+		       <div class="row" style="margin:0;">
+					<div class="col-md-12 col-sm-12 col-xs-12 hide-role">
+						<div class="form-group">
+							<label>
+								Job Role
+							</label>
+							<div class="input-group">	
+								<span class="input-group-addon">
+									<i class="fa fa-cube" style="color:darkcyan;"></i>
+								</span>			
+								<select class="job-role-ajax form-control new-role" name="role" id="jobrole">
+							  		<option value="0" selected="selected"></option>
+								</select>													
+							</div>
+							example: manager, admin, secretory <a class="hide-far">see all</a>
+							<div id="charNum" style="text-align:right;"></div>
+						</div>					
+					</div>
+		        </div>
+				<div class="row show-comp" style="margin:0;">
+					<div class="col-md-6 col-sm-6 col-xs-12">
+					  	<div class="form-group">              
+					      <input type="text" name="working_at" class="form-control filter-input" placeholder="Working at">
+					  	</div>  
+					</div>
+					<div class="col-md-6 col-sm-6 col-xs-12">
+					  	<div class="form-group">              
+					      <input type="text" name="mobile" class="form-control filter-input group" placeholder="Mobile No">
+					  	</div>  
+					</div>
+				</div>
+		      	<div class="row" style="margin-bottom: 10px;">
+			        <div class="col-md-12 col-sm-12 col-xs-12">
+						<div class="footer links-title center-css">              
+						  <button type="submit" class="btn blue "><i class="glyphicon glyphicon-search"></i> Search</button>	
+						</div> 
+						<div class="advance-search group-back-position">
+							<button type="button" class="btn" style="background-color:transparent;">
+							<i class="glyphicon glyphicon-chevron-left"></i> Back</button>
+						</div>
+			        </div>		        
+		      	</div>
+		    </form>
+		</div>
 	</div>
-</div>
 </div>
 <div class="row" style="margin:0 !important;">
 	<div class="col-md-7" style="padding-left:0 !important;margin:10px 0;">
@@ -476,35 +487,43 @@
 
 @section('javascript')
 <script src="{{ asset('/assets/ind_validation.js') }}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
 <script type="text/javascript">
-$.ajaxSetup({
-	headers: {
-		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	        }
-});
+	function initialize() {
+		var options = {	types: ['(cities)'], componentRestrictions: {country: "in"}	};
+		var input = document.getElementById('city');
+		var autocomplete = new google.maps.places.Autocomplete(input, options);
+		autocomplete.addListener('place_changed', onPlaceChanged); 
+		function onPlaceChanged() {
+		  var place = autocomplete.getPlace();
+		  if (place.address_components) { city = place.address_components[0];
+		  	document.getElementById('city').value = city.long_name;
+		  } else { document.getElementById('autocomplete').placeholder = 'Enter a city'; }
+		}
+	}
+    google.maps.event.addDomListener(window, 'load', initialize); 
 
-var timer;
-function up(){
-	timer=setTimeout(function(){
-			var keywords = $('#search-input').val();
-			if(keywords.length>2){
-				$.post('/searchConnections', {keywords: keywords}, function(markup){
-					$('#search-results').html(markup);
-				});
-			}else{
-				$('#search-results').empty();
-			}
-		}, 500);
-}
+	$.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')} });
 
-function down(){
-	clearTimeout(timer);
-}
-</script>
+	var timer;
+	function up(){
+		timer=setTimeout(function(){
+				var keywords = $('#search-input').val();
+				if(keywords.length>2){
+					$.post('/searchConnections', {keywords: keywords}, function(markup){
+						$('#search-results').html(markup);
+					});
+				}else{
+					$('#search-results').empty();
+				}
+			}, 500);
+	}
 
-<script type="text/javascript">
-     $(document).ready(function () {
-     	$('.show-firm-type').hide();
+	function down(){
+		clearTimeout(timer);
+	}
+     	
+    $('.show-firm-type').hide();
 
     jQuery('.advance-search').on('click', function(event) {
 	    jQuery('.show-adsearch').toggle('show');
@@ -520,7 +539,55 @@ function down(){
 	    jQuery('.show-comp').toggle('hide');
 	    jQuery('.show-firm-type').toggle('show');
     });
-});
+
+	$(".job-role-ajax").select2({
+		placeholder: 'Enter a role',
+		ajax: {
+		    url: "/post/jobroles/",
+		    dataType: 'json',
+		    delay: 250,
+		    data: function (params) {
+		      return {
+		        q: params.term, // search term
+		        page: params.page
+		      };
+		    },
+		    processResults: function (data, params) {
+		      console.log(data);
+		      return {
+		        results: data
+		      };
+		    },
+		    cache: true
+	  	},
+		escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+		minimumInputLength: 2,
+		templateResult: formatRepo, // omitted for brevity, see the source of this page
+		templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+	});
+
+	function formatRepo (repo) {
+		if (repo.loading) return repo.text;
+
+		var markup = "<div class='select2-result-repository clearfix'>" +
+		"<div class='select2-result-repository__meta'>" +
+		  "<div class='select2-result-repository__title'><b>Role</b>: " + repo.role + "</div>";
+
+		markup += "<div class='select2-result-repository__statistics'>" +
+		"<div class='select2-result-repository__forks'><b>Functional area: </b> " + repo.functional_area + "</div>" +
+		"<div class='select2-result-repository__stargazers'><b>Industry</b>: " + repo.industry + "</div>" +
+		"</div>" +
+		"</div></div>";
+
+		return markup;
+    }
+
+    function formatRepoSelection (repo) {
+    	if(repo.role != undefined){
+    		// console.log(repo);
+    		return  "<b>Role:</b> "+repo.role+"<br/><b>Functional Area:</b> "+repo.functional_area+"<br/><b>Industry:</b> "+repo.industry;
+    	}      
+    }
 
 </script>
 @stop
