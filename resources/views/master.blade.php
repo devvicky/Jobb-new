@@ -94,10 +94,6 @@
 <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="/assets/component-btn.css"/>
 
-<link rel="stylesheet" type="text/css" href="/assets/startup/normalize.css" />
-<link rel="stylesheet" type="text/css" href="/assets/startup/demo.css" />
-<link rel="stylesheet" href="fonts/font-awesome-4.2.0/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="/assets/startup/tooltip-line.css" />
 @yield('css')
 
 <style type="css/text" rel="stylesheet">
@@ -397,6 +393,7 @@ input:focus:-ms-input-placeholder { color:white !important; } /* IE 10+ */
 <script src="/assets/admin/pages/scripts/components-jqueryui-sliders.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <script src="/assets/js/jt-toast.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
 <script>
 $(document).ready(function () {
     $('.show-contact').hide();

@@ -429,8 +429,6 @@
 
 @section('javascript')
 <script src="/assets/corp_validation.js"></script>
-<script src="//maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
-
 <script type="text/javascript">
   $(document).ready(function() {
 	var text_max = 250;

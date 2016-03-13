@@ -71,7 +71,6 @@
 -->
 <script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
 <script src="/assets/js/home-js.js"></script>
-<script src="//maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
 <script>
 jQuery(document).ready(function() {
     ComponentsIonSliders.init();
