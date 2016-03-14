@@ -78,7 +78,7 @@ class PagesController extends Controller {
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup', 'preferLocations')
 								   ->where('post_type', '=', 'job')
 								   ->where('individual_id', '!=', Auth::user()->induser_id)
-								   ->whereRaw('postjobs.id in (select  pm.id from postjobs pm where pm.id in (
+								   ->whereRaw('postjobs.id in (select pm.id from postjobs pm where pm.id in (
 													select p.id 
 														from postjobs p
 														LEFT JOIN post_group_taggings pgt on pgt.post_id = p.id
@@ -97,10 +97,11 @@ class PagesController extends Controller {
 												select pm.id from postjobs pm where pm.id not in (
 													select distinct pgt.post_id
 														from post_group_taggings pgt
-												union
+													union
 													select distinct put.post_id
 														from post_user_taggings put
 												)) ')
+									
 								   ->paginate(5);
 								   
 				$skillPosts = Postjob::orderBy('id', 'desc')
