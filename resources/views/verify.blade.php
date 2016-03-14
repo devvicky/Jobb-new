@@ -7,12 +7,13 @@
 <!-- BEGIN HEAD -->
 <head>
 <meta charset="utf-8"/>
-<title>Login</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Jobtip - Login</title>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-<meta content="" name="description"/>
-<meta content="" name="author"/>
+<meta name="keywords" content="job, jobs,skill, skills, opening, job opening, vacancy, requirement, naukri, monster, job search, searching job, post job for free, free job posting, work, refer job, job reference, promote skill, jobs in..., hire, fresher, experience, job info, hiring, recruitment, walk in jobs" />  
+<meta name="Description" CONTENT="Jobtip -where jobs follow you">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <!-- csrf_token -->
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
@@ -30,27 +31,26 @@
 <link href="/assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME STYLES -->
+<link href="../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+<link href="../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+<link href="../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+<link href="../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css" id="style_color"/>
+<link href="../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/custom_admin.css" rel="stylesheet"/>
+
+
 <link href="/assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css"/>
-<link href="/assets/admin/layout2/css/layout.css" rel="stylesheet" type="text/css"/>
-<link href="/assets/global/plugins/icheck/skins/all.css" rel="stylesheet"/>
-<link href="/assets/custom.css" rel="stylesheet"/>
+<!-- <link href="/assets/admin/layout2/css/layout.css" rel="stylesheet" type="text/css"/> -->
+<!-- <link href="/assets/global/plugins/icheck/skins/all.css" rel="stylesheet"/> -->
+<link href="/assets/css/custom.css" rel="stylesheet"/>
+<link href="/assets/css/custom_new.css" rel="stylesheet"/>
+<link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
 <!-- END THEME STYLES -->
 <link rel="shortcut icon" href="favicon.ico"/>
 <style type="text/css" rel="stylesheet">
 body{
-  background: #3c3d2f; /* Old browsers */
-  background: -moz-linear-gradient(top,  #3c3d2f 1%, #b7ad70 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#3c3d2f), color-stop(100%,#b7ad70)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top,  #3c3d2f 1%,#b7ad70 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top,  #3c3d2f 1%,#b7ad70 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top,  #3c3d2f 1%,#b7ad70 100%); /* IE10+ */
-  background: linear-gradient(to bottom,  #3c3d2f 1%,#b7ad70 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3c3d2f', endColorstr='#b7ad70',GradientType=0 ); /* IE6-9 */
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  background-attachment: fixed;
+  background: whitesmoke;
 }
 .decorated{
      overflow: hidden;
@@ -74,6 +74,23 @@ body{
 }
 .decorated > span:after{
     left: 100%;
+}
+
+.login-signup-button{
+  background-color: #CA4E4E;
+  border: 1px solid #C76B6B;
+  color: white;
+}
+
+.login-signup-button:hover, .login-signup-button.hover{
+  border: 1px solid #902B2B;
+  background-color: #B53030;
+  color: white;
+}
+
+.login-signup-button:active, .login-signup-button.active{
+  color: #D2C8C8 !important; 
+  background-color: #B53030;
 }
 
 *::-webkit-input-placeholder {
@@ -103,7 +120,41 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
 <body class="login">
-
+<!-- BEGIN HEADER -->
+<div class="page-header navbar navbar-fixed-top" style="background-color: transparent !important;">
+  <!-- BEGIN HEADER INNER -->
+  <div class="page-header-inner">
+    <!-- BEGIN LOGO -->
+    <div class="page-logo">
+      <a href="/home">
+      <img src="/assets/logo.png" alt="logo" class="logo-default" style="width: 150px;margin: 5px 0;" />
+      </a>
+    </div>
+    <!-- END LOGO -->
+    <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+   
+    <!-- END RESPONSIVE MENU TOGGLER -->
+    <!-- BEGIN TOP NAVIGATION MENU -->
+    <div class="top-menu">
+      <ul class="nav navbar-nav pull-right">        
+        <!-- BEGIN USER LOGIN DROPDOWN -->
+        <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+        <li >
+          <div class="">
+            <a href="/login" style="padding-bottom: 11px;padding-top: 11px;background-color: transparent;">
+            <button class="btn welcome-signup-css signup-button" style="">
+              Login Now
+            </button>
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <!-- END TOP NAVIGATION MENU -->
+  </div>
+  <!-- END HEADER INNER -->
+</div>
+<!-- END HEADER -->
 <!-- BEGIN LOGO -->
 <div class="logo">
 <!-- <picture>
@@ -130,12 +181,13 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 <script src="/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
 <script src="/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
 <script src="/assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/jquery-validation/js/additional-methods.js" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 <script src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
 <script src="/assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript"></script>
 <script src="/assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
-<script src="/assets/admin/pages/scripts/form-validation.js"></script>
+<!-- <script src="/assets/admin/pages/scripts/form-validation.js"></script> -->
 <script src="/assets/global/plugins/bootstrap-tabdrop/js/bootstrap-tabdrop.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
@@ -146,6 +198,11 @@ input:focus:-ms-input-placeholder { color:transparent !important; } /* IE 10+ */
 <script src="/assets/admin/layout2/scripts/demo.js" type="text/javascript"></script>
 <script src="/assets/global/plugins/icheck/icheck.min.js"></script>
 <script src="/assets/admin/pages/scripts/ui-extended-modals.js"></script>
+<script src="../../assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="../../assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+<script src="../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="../../assets/admin/pages/scripts/index.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 
 @yield('javascript')
@@ -156,7 +213,10 @@ jQuery(document).ready(function() {
   Layout.init(); // init current layout
   Login.init();
   Demo.init(); // init demo features
+  UIExtendedModals.init();
+  // FormValidation.init();
 });
+
 </script>
 <!-- END JAVASCRIPTS -->
 </body>

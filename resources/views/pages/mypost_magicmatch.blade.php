@@ -84,27 +84,7 @@
                                     <td class="matching-criteria-align"><a href="/individual/edit">Add Skills </a></td>
                                     @endif                                  
                                 </tr>
-                                <tr class="@if(strcasecmp($post->job_role->first()->industry, Auth::user()->induser->job_role->first()->industry) == 0) title-bacground-color @else title-bacground-color @endif">
-                                    <td colspan="2" class="matching-criteria-align">
-                                        @if(strcasecmp($post->job_role->first()->industry, Auth::user()->induser->job_role->first()->industry) == 0)
-                                        <i class="fa fa-check magic-match-icon-color"></i> <label class="title-color">Industry</label>
-                                        @else
-                                        <i class="fa fa-times"></i> <label class="title-color">Industry</label>
-                                        @endif
-                                    </td>
-                                </tr>
-                                <tr class="@if(strcasecmp($post->job_role->first()->industry, Auth::user()->induser->job_role->first()->industry) == 0) success @else danger-new @endif">
-                                    <!-- <td>
-                                        <label class="title-color">Job Role</label>
-                                    </td> -->
-                                    <td class="matching-criteria-align">{{ $post->job_role->first()->industry }}</td>
-                                    @if(Auth::user()->induser->industry != '[]')
-                                    <td class="matching-criteria-align">{{ Auth::user()->induser->job_role->first()->industry }}</td>
-                                    @else
-                                    <td class="matching-criteria-align"><a href="/individual/edit">Add Job Role </a></td>
-                                    @endif
-                                </tr>
-                                
+
                                 <tr class="@if(strcasecmp($post->role, Auth::user()->induser->role) == 0) title-bacground-color @else title-bacground-color @endif">
                                     <td colspan="2" class="matching-criteria-align">
                                         @if(strcasecmp($post->role, Auth::user()->induser->role) == 0)

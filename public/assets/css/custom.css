@@ -26,7 +26,7 @@
     height: 128px;
     border-radius: 50% !important;
     margin: auto;
-    background: #fff url("images/ab.png") !important;
+    background: #fff url("../images/ab.png") !important;
     background-size: 100%;
     text-align: center;
     cursor: pointer;
@@ -40,7 +40,7 @@
     height: 128px;
     /*border-radius: 50% !important;*/
     margin: auto;
-    background: #fff url("images/corpnew.jpg") !important;
+    background: #fff url("../images/corpnew.jpg") !important;
     background-size: 100%;
     text-align: center;
     cursor: pointer;
@@ -54,7 +54,7 @@
     height: 100px;
     border-radius: 5% !important;
     margin: auto;
-    background: url("images/ab.png") !important;
+    background: url("../images/ab.png") !important;
     background-size: 100%;
     text-align: center;
     cursor: pointer;
@@ -68,7 +68,7 @@
     height: 100px;
     border-radius: 5% !important;
     margin: auto;
-    background: #fff url("images/corp.png") !important;
+    background: #fff url("../images/corp.png") !important;
     background-size: 100%;
     text-align: center;
     cursor: pointer;
@@ -595,8 +595,8 @@ button.report-button-css {
 }
 
 .userpic-box{
-    /*border: 1px darkgrey solid;*/
-    box-shadow: 0px 2px 1px darkgrey;
+    border: 3px #D0D0D0 solid;
+    /*box-shadow: 0px 2px 1px darkgrey;*/
 }
 
 .share-bar{
@@ -892,7 +892,7 @@ form.search-form.search-form-expanded {
 }
 
 .follow-icon-right {
-    background: lavender;
+    /*background: lavender;*/
     padding: 2px 4px;
     float: left;
     color: darkslategray;
@@ -1059,7 +1059,7 @@ button.btn.btn-xs.link-follow-icon-css{
     font-size: 12px;
     color: white;
     background: #3f729b;
-    padding: 0 5px;
+    padding: 1px 5px;
 }
 
 button.btn.btn-xs.unlink-follow-icon-css {
@@ -2109,4 +2109,8 @@ body{
     background-color: dimgray;
     padding: 2px;
     color: white !important;
+}
+
+.show-contact{
+    display: none;
 }

@@ -93,7 +93,7 @@
 				<div class="row" style="margin:0;">
 					<div class="col-md-6 col-sm-6 col-xs-12">
 					  <div class="form-group">              
-					      <input type="text" name="name" class="form-control filter-input group" 
+					      <input type="text" name="name" class="form-control filter-input " 
 					      			placeholder="Enter Name or Email Id" />
 					  </div>  
 					</div>
@@ -133,7 +133,7 @@
 					</div>
 					<div class="col-md-6 col-sm-6 col-xs-12">
 					  	<div class="form-group">              
-					      <input type="text" name="mobile" class="form-control filter-input group" placeholder="Mobile No">
+					      <input type="text" name="mobile" class="form-control filter-input " placeholder="Mobile No">
 					  	</div>  
 					</div>
 				</div>
@@ -486,7 +486,7 @@
 @stop
 
 @section('javascript')
-<script src="{{ asset('/assets/ind_validation.js') }}"></script>
+<script src="/assets/ind_validation.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
 <script type="text/javascript">
 	function initialize() {
@@ -539,19 +539,6 @@
 	    jQuery('.show-comp').toggle('hide');
 	    jQuery('.show-firm-type').toggle('show');
     });
-
-     // $('input[type="radio"]').click(function() {
-     //     if($(this).attr('id') == 'id_radio1') {
-     //        $('.show-comp').show(); 
-     //        $('.show-firm-type').hide();          
-     //     }
-     // });
-     // $('input[type="radio"]').click(function() {
-     //     if($(this).attr('id') == 'id_radio2') {
-     //         $('.show-comp').hide();
-     //      $('.show-firm-type').show();        
-     //     }
-     // });
 
 	$(".job-role-ajax").select2({
 		placeholder: 'Enter a role',

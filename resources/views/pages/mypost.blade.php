@@ -29,6 +29,8 @@
 				@if (count($posts) > 0)
 				
 				@foreach($posts as $post)	
+
+			
 				<div class="" style="padding:0;">												
 					<div class="timeline" >
 						<!-- TIMELINE ITEM -->
@@ -445,9 +447,12 @@
 																		  	<div class="row" style="border-bottom:1px dotted lightgrey;">
 																		  		
 														                    	<div class="col-md-4 col-sm-4 col-xs-4" style="font-size:12px;">
-														                    		<a data-toggle="modal" href="#post-mod-{{$post->id}}">
-														                    			<i class="icon-speedometer" style="font-size:12px;"></i> {{$post->magic_match}} %  
-														                    		</a>
+														                    		
+														                    		<a data-toggle="modal" data-mpostid="{{$post->id}}" 
+																						class="magic-font mypost_magicmatch btn btn-success magic-match-css" href="#mypost_magicmatch"
+																						 style="color: white;line-height: 1.7;text-decoration: none;">
+																						<i class="icon-speedometer magic-font" style="font-size:12px;"></i> {{$post->magic_match}} %
+																					</a>
 														                    	</div>
 														                    	
 														                    	<!-- <div class="col-md-2 col-sm-4 col-xs-4">
@@ -760,6 +765,8 @@
 																					$overlap = array_intersect($postSkills, $userSkills);
 																					$counts  = array_count_values($overlap);
 																				?>
+
+																				
 																		  		<div class="row" style="font-size:13px;border-bottom:1px dotted lightgrey;">
 																		  		<div class="col-md-10">
 																					<div class="col-md-2 col-sm-3 col-xs-3">
@@ -780,11 +787,11 @@
 																			<div class="row" style="margin: 10px -15px;">
 																				@if($post->post_type == 'job')
 														                    	<div class="col-md-2 col-sm-3 col-xs-3" style="font-size:12px;margin: 10px 10px;">
-														                    		<a data-toggle="modal" class="btn resume-button-css" href="#post-mod-{{$post->id}}" style="padding: 2px 8px;">
-														                    			<i class="icon-speedometer" style="font-size:12px;"></i> 
-																						{{$post->magic_match}} %
-
-														                    		</a>
+														                    		<a data-toggle="modal" data-mpostid="{{$post->id}}" 
+																						class="magic-font mypost_magicmatch btn btn-success magic-match-css" href="#mypost_magicmatch"
+																						 style="color: white;line-height: 1.7;text-decoration: none;">
+																						<i class="icon-speedometer magic-font" style="font-size:12px;"></i> {{$post->magic_match}} %
+																					</a>
 														                    	</div>
 														                    	@else
 														                    	<div class="col-md-2 col-sm-3 col-xs-3" style="font-size:12px;margin: 10px 10px;">
@@ -1050,11 +1057,11 @@
 																			<div class="row" style="margin: 10px -15px;">
 																				@if($post->post_type == 'job')
 														                    	<div class="col-md-2 col-sm-3 col-xs-3" style="font-size:12px;margin: 10px 10px;">
-														                    		<a data-toggle="modal" class="btn resume-button-css" href="#post-mod-{{$post->id}}" style="padding: 2px 8px;">
-														                    			<i class="icon-speedometer" style="font-size:12px;"></i> 
-																						{{$post->magic_match}} %
-
-														                    		</a>
+														                    		<a data-toggle="modal" data-mpostid="{{$post->id}}" 
+																						class="magic-font mypost_magicmatch btn btn-success magic-match-css" href="#mypost_magicmatch"
+																						 style="color: white;line-height: 1.7;text-decoration: none;">
+																						<i class="icon-speedometer magic-font" style="font-size:12px;"></i> {{$post->magic_match}} %
+																					</a>
 														                    	</div>
 														                    	@else
 														                    	<div class="col-md-2 col-sm-3 col-xs-3" style="font-size:12px;margin: 10px 10px;">
@@ -1641,6 +1648,26 @@
 	<!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+<a data-toggle="modal" data-mpostid="{{$post->id}}" 
+class="magic-font mypost_magicmatch btn btn-success magic-match-css" href="#mypost_magicmatch"
+ style="color: white;line-height: 1.7;text-decoration: none;">
+<i class="icon-speedometer magic-font" style="font-size:12px;"></i> {{$post->magic_match}} %
+</a>
+<!-- Magic Match MODAL FORM-->
+<div class="modal fade" id="mypost_magicmatch" tabindex="-1" role="basic" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div id="mypost-magicmatch-posts-content">
+        <div style="text-align:center;">
+          <img src="/assets/global/img/loading.gif"><span> Please wait...</span>
+        </div>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 @stop
 
 @section('javascript')
@@ -1678,6 +1705,39 @@ $('.myactivity-posts').on('click',function(event){
 	    jQuery('#show-social').toggle('show');
 	    });
 	});
+
+	// Magicmatch-post
+
+	$(document).ready(function() {
+	    $('.mypost_magicmatch').live('click', function(event) {
+	        event.preventDefault();
+	        var post_id = $(this).data('mpostid');
+
+	        // console.log(post_id);
+	        $.ajaxSetup({
+	            headers: {
+	                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	            }
+	        });
+
+	        $.ajax({
+	            url: "/mypostmagicmatch/detail",
+	            type: "post",
+	            data: {
+	                postid: post_id
+	            },
+	            cache: false,
+	            success: function(data) {
+	                $('#mypost-magicmatch-posts-content').html(data);
+	                $('#mypost_magicmatch').modal('show');
+	            }
+	        });
+	        return false;
+	    });
+	});
+
+
+
 
 	$(document).ready(function(){ 
 		

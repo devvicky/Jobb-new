@@ -265,18 +265,20 @@
 						<div class="col-md-7 col-sm-7 col-xs-6">
 							<a href="/profile/ind/{{$user->id}}" data-utype="ind">
 				      			{{ $user->fname }} {{ $user->lname }}</a>
-						     	 @if($user->id == $user->admin_id && $user->id != null)
-						      	<span class="btn btn-xs btn-warning" style="border-radius:25px !important;margin:0 10px">
-						      		Admin
-						      	</span>
-					      @endif
+						     	@if($user->id == $user->admin_id && $user->id != null)
+							      	<span class="btn btn-xs btn-warning" style="border-radius:25px !important;margin:0 10px">
+							      		Admin
+							      	</span>
+						      @endif
 					      <br>{{ $user->working_at }}
 							 {{ $user->city }}
 						</div>
 						<div class="col-md-1 col-sm-1 col-xs-1">
 							@if($user->admin_id == Auth::user()->induser_id)
 							<label>
+								@if($user->admin_id != $user->id)
 								<input type="checkbox" id="" class="remove-done" data-checkbox="icheckbox_square-grey" onchange="removeUsers({{$user->groups_users_id}})">
+								@endif
 							</label>
 							@endif
 						<!-- </div> -->

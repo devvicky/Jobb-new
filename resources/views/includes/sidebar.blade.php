@@ -177,7 +177,7 @@
       @if (Auth::user()->identifier == 2)
       <li class="@if($title == 'search_profile'){{'active'}}@endif">
         <a class="" href="/searchProfile">
-        <i class="icon-link"></i>
+        <i class="fa fa-search"></i>
         <span class="title">
         Search Profile</span>
         <span class="selected">

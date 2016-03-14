@@ -1,6 +1,6 @@
 .SumoSelect p {margin: 0;}
 .SlectBox { 
-    width: 200px;
+    width: 280px;
  padding: 5px 8px;
 }
 
@@ -8,7 +8,7 @@
 @media (max-width: 768px){
 
     .SlectBox { 
-     width: 250px !important;
+     width: 263px !important;
      padding: 5px 8px;
     }
  }

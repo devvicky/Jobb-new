@@ -763,29 +763,8 @@
 		
 	</div>
 	<div class="portlet-body form">
-		<div class="row" style="display:none;">
-        <div class="col-md-8 col-sm-8 col-xs-12" style="padding:0 !important;margin: 5px 0;">
-			<i class="fa fa-envelope"></i> : {{$user->email}}<br>
-			<i class="fa fa-phone-square"></i> : {{$user->mobile}}
-		</div>
-		<div class="col-md-4 col-sm-4 col-xs-12" style="padding:0 !important;margin: 5px 0;">
-			<button class="btn blue corp-profile-resume" style="">
-			<i class="glyphicon glyphicon-download"></i> Resume
-		</button>
-		</div>
-		<form action="/contact/view" method="post" id="profile-{{$user->id}}" data-id="{{$user->id}}">
-			<input type="hidden" name="_token" value="{{ csrf_token() }}">
-			<input type="hidden" name="profileid" value="{{ $user->id }}">
-			<!-- <div class="view-profile"> -->
-				<button id="profile-{{$user->id}}" class="btn green profile-contact profile-btn" type="button" style="">
-					<i class="glyphicon glyphicon-earphone" style="font-size:11px;"></i> Contact
-				</button>
-			<!-- </div> -->
-		</form>
-	</div>
+		
 		<!-- BEGIN FORM-->
-		<form action="/individual/create" class="horizontal-form" method="post">
-			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<div class="form-body">
 				@if(Auth::user()->induser_id == $user->id)
 				<div class="row" >
@@ -795,13 +774,13 @@
 							<label class="control-label col-md-2 col-sm-2 col-xs-2" style="font-size:13px;"><i class="fa fa-envelope-o"></i></label>
 							<div class="col-md-10 col-sm-10 col-xs-10">
 								<p class="form-control-static view-page">
-									{{ $users->email }} 
-									@if($users->email_verify == 0)
+									{{ $user->user->email }} 
+									@if($user->user->email_verify == 0 && $user->user->email != null)
 									<a>
 										<i class="fa fa-exclamation-circle" 
 										style="color: #cb5a5e;"></i>
 									</a>
-									@elseif($users->email_verify == 1)
+									@elseif($user->user->email_verify == 1)
 										<i class="glyphicon glyphicon-ok-circle" style="color: #1EC71E;"></i>
 									@endif
 								</p>
@@ -811,13 +790,13 @@
 							<label class="control-label col-md-2 col-sm-2 col-xs-2"><i class="icon-call-end"></i> </label>
 							<div class="col-md-10 col-sm-10 col-xs-10" >
 								<p class="form-control-static view-page">
-									{{ $users->mobile }} 
-									@if($users->mobile_verify == 0)
+									{{ $user->user->mobile }} 
+									@if($user->user->mobile_verify == 0 && $user->user->mobile != null)
 									<a>
 										<i class="fa fa-exclamation-circle" 
 										style="color: #cb5a5e;font-size: 16px;"></i>
 									</a>
-									@elseif($users->mobile_verify == 1)
+									@elseif($user->user->mobile_verify == 1)
 										<i class="glyphicon glyphicon-ok-circle" style="color: #1EC71E;font-size: 16px;"></i>
 									@endif
 								</p>
@@ -825,6 +804,23 @@
 						</div>
 					</div>
 					@endif
+					@if(Auth::user()->induser_id != $user->id)
+					<div class="row show-contact" style="">
+				        <div class="col-md-8 col-sm-8 col-xs-12" style="padding:0 !important;margin: 5px 0;">
+							<i class="fa fa-envelope"></i> : {{$user->email}}<br>
+							<i class="fa fa-phone-square"></i> : {{$user->mobile}}
+						</div>
+						<div class="col-md-4 col-sm-4 col-xs-12" style="padding:0 !important;margin: 5px 0;">
+							<button class="btn blue corp-profile-resume" style="">
+							<i class="glyphicon glyphicon-download"></i> Resume
+						</button>
+						</div>
+					</div>
+					<div class="row">
+						<a class="btn green contact-view">
+							<i class="glyphicon glyphicon-earphone" style="font-size:11px;"></i> Contact
+						</a>
+					</div>
 					@if(Auth::user()->induser_id != $user->id && $user->email_show == 'None' && $user->mobile_show == 'None')
 						<div class="form-group">
 							<label class="control-label col-md-2 col-sm-2 col-xs-2" style="font-size:13px;"><i class="fa fa-envelope-o"></i> </label>
@@ -878,10 +874,10 @@
 					@elseif(Auth::user()->induser_id != $user->id && $user->mobile_show == 'None')
 	
 					@endif
+					@endif
 					<!--/span-->
 				</div>
 			</div>
-		</form>
 		<!-- END FORM-->
 	</div>
 </div>
@@ -1165,6 +1161,8 @@ Metronic.init(); // init metronic core components
 Layout.init(); // init current layout
 Demo.init(); // init demo features\
 });
+
+
 
 $('.profile-btn').live('click',function(event){  	    
   	event.preventDefault();

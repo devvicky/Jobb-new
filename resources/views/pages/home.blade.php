@@ -71,7 +71,6 @@
 -->
 <script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
 <script src="/assets/js/home-js.js"></script>
-<script src="//maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
 <script>
 jQuery(document).ready(function() {
     ComponentsIonSliders.init();
@@ -82,6 +81,12 @@ jQuery(document).ready(function() {
     // FormWizard.init();
 });
     
+    $(function() {
+      $(".save-filter").delay(5000).fadeOut();
+    });
+
+    
+
     //job Filter
     var skillArray = [];
     @if($filter != null)
@@ -282,7 +287,7 @@ jQuery(document).ready(function() {
 
 </script>
 <script>
-//Skill Experience slider
+// Experience slider
     
     $("#slider-range-max-skill").slider({
         isRTL: Metronic.isRTL(),

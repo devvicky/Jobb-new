@@ -37,7 +37,7 @@
 	                    @endif
 	                    <div class="col-md-12">
 	                        <div class=" capitalize" itemprop="name" style="font-size:13px;color:dimgrey !important;">
-	                        	Skills : {{$skill}}
+	                        <small class="label-success label-xs job-type-skill-css">{{$jobType}}</small>&nbsp;&nbsp;	Skills : {{$skill}}
 	                        </div>
 	                    </div>
 	               	</div>

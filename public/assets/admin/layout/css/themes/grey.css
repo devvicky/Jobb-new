@@ -148,7 +148,7 @@ Page Header
   opacity: 1;
 }
 .page-header.navbar .search-form .input-group .form-control:-ms-input-placeholder {
-  color: #c1c6ce;
+  color: white;
 }
 .page-header.navbar .search-form .input-group .form-control::-webkit-input-placeholder {
   color: #c1c6ce;

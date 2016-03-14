@@ -6,7 +6,7 @@
 				<a href="#skill" data-toggle="tab" class="job-skill-tab">Skills</a>
 			</li>
 			<li class=" home-tab-width-job" >
-				<a href="#job" data-toggle="tab" class="job-skill-tab">Jobs</a>
+				<a href="#job" data-toggle="tab" class="job-skill-tab">Profile Search</a>
 			</li>
 		</ul>
 	</div>

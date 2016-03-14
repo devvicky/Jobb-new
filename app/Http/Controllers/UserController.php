@@ -555,7 +555,7 @@ class UserController extends Controller {
 				    });
 				}
 				
-				return redirect('/home#change-password')->withErrors(['Password changed successfully']);
+				return redirect('/home')->withErrors(['Password changed successfully']);
 			}else{
 				return redirect("/home#change-password")->withErrors(['Old password doesnt match']);
 			}

@@ -29,10 +29,23 @@
 														'userId'		=>	$post->individual_id,
 														'postId'		=>	$post->unique_id,
 														'postType'		=>	$post->post_type,
-														'skill'			=>	$post->linked_skill])
+														'skill'			=>	$post->linked_skill,
+														'jobType'		=>	$post->time_for ])
 					@elseif($post->corpuser != null)
 						@include('partials.home.post', ['userImgPath'	=>	$post->corpuser->logo_status, 
-														'userName'		=>	$post->corpuser->firm_name ])
+														'userName'		=>	$post->corpuser->firm_name,
+														'postTitle'		=>	$post->post_title,
+														'expMin'		=>	$post->min_exp,
+														'expMax'		=>	$post->max_exp,
+														'city'			=>	$city,
+														'company'		=>	$post->post_compname,
+														'magicMatch'	=>	$post->magic_match,
+														'userType'		=>	'ind',
+														'userId'		=>	$post->individual_id,
+														'postId'		=>	$post->unique_id,
+														'postType'		=>	$post->post_type,
+														'skill'			=>	$post->linked_skill,
+														'jobType'		=>	$post->time_for ])
 					@endif
 				@elseif($post->expired == 1)
 					@if($post->induser != null)	
@@ -48,10 +61,23 @@
 														'userId'		=>	$post->individual_id,
 														'postId'		=>	$post->unique_id,
 														'postType'		=>	$post->post_type,
-														'skill'			=>	$post->linked_skill])
+														'skill'			=>	$post->linked_skill,
+														'jobType'		=>	$post->time_for])
 					@elseif($post->corpuser != null)
 						@include('partials.home.post-expired', ['userImgPath'	=>	$post->corpuser->logo_status, 
-														'userName'		=>	$post->corpuser->firm_name ])
+														'userName'		=>	$post->corpuser->firm_name,
+														'postTitle'		=>	$post->post_title,
+														'expMin'		=>	$post->min_exp,
+														'expMax'		=>	$post->max_exp,
+														'city'			=>	$city,
+														'company'		=>	$post->post_compname,
+														'magicMatch'	=>	$post->magic_match,
+														'userType'		=>	'ind',
+														'userId'		=>	$post->individual_id,
+														'postId'		=>	$post->unique_id,
+														'postType'		=>	$post->post_type,
+														'skill'			=>	$post->linked_skill,
+														'jobType'		=>	$post->time_for ])
 					@endif
 				@endif
 			@endforeach					 			

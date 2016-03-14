@@ -121,7 +121,7 @@
                                                                     <label class="detail-label">Skills :</label>                                                                  
                                                             </div>
                                                             <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-                                                                    {{$post->linked_skill}}
+                                                                    {{ $post->linked_skill }}
                                                                  
                                                             </div>
                                                         </div>

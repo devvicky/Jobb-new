@@ -37,7 +37,7 @@ class Postjob extends Model {
 							'resume_required'
 						   ];
 
-	protected $appends = ['magic_match', 'job_role', 'expired'];
+	protected $appends = ['magic_match', 'job_role', 'expired', 'mypost_match'];
 
 	public function indUser(){
 		return $this->hasOne('App\Induser', 'id', 'individual_id');
@@ -104,11 +104,11 @@ class Postjob extends Model {
 			if(Auth::user()->identifier == 1){
 				$userSkills = Induser::where('id', '=', Auth::user()->induser_id)->first(['linked_skill']);
 				$userSkills = array_map('trim', explode(',', $userSkills->linked_skill));
-				unset ($userSkills[count($userSkills)-1]);
+				// unset ($userSkills[count($userSkills)-1]);
 
 				$postSkills = $this->attributes['linked_skill'];
 				$postSkills = array_map('trim', explode(',', $this->attributes['linked_skill']));
-				unset ($postSkills[count($postSkills)-1]);
+				// unset ($postSkills[count($postSkills)-1]);
 
 				$overlap = array_intersect($userSkills, $postSkills);
 				$counts  = array_count_values($overlap);
@@ -163,6 +163,32 @@ class Postjob extends Model {
 			return 0;
 		}
 
+    }
+
+    public function getMypostMatchAttribute(){
+		if(Auth::check()){
+			if(Auth::user()->identifier == 1){
+				$userSkills = Induser::where('id', '=', Auth::user()->induser_id)->first(['linked_skill']);
+				$userSkills = array_map('trim', explode(',', $userSkills->linked_skill));
+				unset ($userSkills[count($userSkills)-1]);
+
+				$postSkills = $this->attributes['linked_skill'];
+				$postSkills = array_map('trim', explode(',', $this->attributes['linked_skill']));
+				unset ($postSkills[count($postSkills)-1]);
+
+				$overlap = array_intersect($userSkills, $postSkills);
+				$counts  = array_count_values($overlap);
+				if(count($counts) > 0){
+					$percentage = round( ( count($counts) / count($postSkills) ) * 100 );
+				}else{
+					$percentage = 0;
+				}
+
+				return $percentage;
+			}
+		}else{		
+        	return null;
+		}
     }
 
 }

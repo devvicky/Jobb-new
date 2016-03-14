@@ -491,19 +491,13 @@
 										class="form-control" placeholder="Select preferred location">									
 										
 									</div>
-									@if($user->induser->preferred_locations != '[]')
-									{!! Form::select('prefered_location[]', $user->induser->preferred_locations, null, ['id'=>'prefered_location', 
-																								   'aria-hidden'=>'true', 
-																								   'class'=>'form-control', 
-																								   'placeholder'=>'city', 
-																								   'multiple']) !!}	
-									@else
+									
 									{!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 
 																								   'aria-hidden'=>'true', 
 																								   'class'=>'form-control', 
 																								   'placeholder'=>'city', 
-																							       'multiple']) !!}	
-									@endif
+																								   'multiple']) !!}	
+									
 								</div>
 							</div>
 						</div>
@@ -617,7 +611,6 @@
 
 @section('javascript')
 <script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
-<script src="//maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
 <script type="text/javascript">
 	function initialize() {
 		var options = {	types: ['(cities)'], componentRestrictions: {country: "in"}	};
@@ -648,12 +641,7 @@
 
     // preferred loc
 	var prefLocationArray = [];
-	<?php $arr = $user->induser->preferred_locations; ?>
-	@if(count($arr) > 0) 
-	@foreach($arr as $ga => $gt)
-		prefLocationArray.push('<?php echo $gt; ?>');
-	@endforeach
-	@endif
+	
     var plselect = $("#prefered_location").select2({ dataType: 'json', data: prefLocationArray });
     plselect.val(prefLocationArray).trigger("change");
 
@@ -852,15 +840,7 @@ var text_max = 250;
 	    $('#textarea_feedback').html(text_remaining + ' characters remaining');
 	});
 });
-      function countChar(val) {
-        var len = val.value.length;
-        if (len >= 500) {
-          val.value = val.value.substring(0, 500);
-        } else {
-          $('#charNum').text(500 - len);
-        }
-      };
-    </script>
+</script>
 <script type="text/javascript">
 	
 // $selectedSkills = $("#prefered_location").select2();

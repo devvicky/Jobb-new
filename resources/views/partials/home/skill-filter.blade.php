@@ -14,30 +14,27 @@
 					</button>
 					<ul class="dropdown-menu dropdown-menu-sort" role="menu" style="min-width: 130px;margin: 4px -25px;">
 						<li>
-							<a href="/home/type/skill/date">Date</a>
+							<a href="/home/skill/date">Date</a>
 						</li>
 						<li>
-							<a href="/home/type/skill/individual">Individual Post</a>
+							<a href="/home/skill/jobtype#skill">Job Type</a>
 						</li>
 					</ul>
 				</div>
 				
 			</div>
-		</div>
-		<div class="row sort-by-css show-filter" style="margin-right:8px;">
-			<div class="col-md-8 col-sm-8 col-xs-7" style="margin:5px 0;">
-				<a class="show-more" style="font-size:12px;font-weight:400;">Show more</a>
-			</div>
-			<div class="col-md-4 col-sm-4 col-xs-5">
-				<!-- <a class="show-more" style="font-size:12px;font-weight:400;">Show more</a> -->
-				<button type="submit" class="btn btn-info" value="Search" title="Search" 
-					style="background-color:transparent !important; border-color: transparent;">
-					<i class="glyphicon glyphicon-floppy-disk" style="color:dodgerblue;font-size:16px;"></i>
-				</button>
-			</div>
 		</div>		
 	</div>
 </div>
+@if (count($errors) > 0)
+	<div class="alert alert-success">
+		<ul>
+			@foreach ($errors->all() as $error)
+				<li>{{ $error }}</li>
+			@endforeach
+		</ul>
+	</div>
+@endif
 <div id="homeskillfiltermodal" class="modal fade" tabindex="-1" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -46,7 +43,7 @@
 				aria-hidden="true" style="margin-top: 6px !important;"></button>
 				<h4 class="modal-title">Filter Skill Posts</h4>
 			</div>
-			<form name="filter_form" action="home/skill" method="post">
+			<form name="filter_form" action="/home/skill" method="post">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<div class="modal-body">
 				<div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">

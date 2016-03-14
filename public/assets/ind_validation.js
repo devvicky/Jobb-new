@@ -191,7 +191,7 @@ $(document).ready(function () {
  
  $(document).ready(function () {            
 //validation rules
-    var form = $('#search-profile');
+    var form = $('#');
     var error = $('.alert-danger', form);
     var success = $('.alert-success', form);
     form.validate({
