@@ -165,7 +165,7 @@ class JobController extends Controller {
 			$post->taggedGroup()->attach($taggedGroups, array('mode' => 'tagged', 'tag_share_by' => Auth::user()->induser_id));
 		}		
 
-		return redirect("/home");
+		return redirect("/mypost");
 	}
 
 	/**
@@ -281,7 +281,7 @@ class JobController extends Controller {
 			$apply->post_id = $post_id;
 			$apply->user_id = Auth::user()->induser_id;
 			$apply->apply = 1;
-			$apply->apply_dtTime = new \DateTime();
+			$apply->apply_dtTime = new \DateTimeZone('Asia/Kolkata');
 			$apply->save();
 
 			// Notification entry
@@ -313,7 +313,7 @@ class JobController extends Controller {
 			return "applied";
 		}elseif($apply != null && $apply->apply == 0){
 			$apply->apply = 1;
-			$apply->apply_dtTime = new \DateTime();
+			$apply->apply_dtTime = new \DateTimeZone('Asia/Kolkata');
 			$apply->save();
 
 			// Notification entry
