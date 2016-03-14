@@ -175,14 +175,26 @@
                                     </td>
                                     @if(Auth::user()->induser->education != null)
                                     <td class="matching-criteria-align">
-                                        @if( count($educations) > 0 && 
-                                             $educations->contains( Auth::user()->induser->branch."-".Auth::user()->induser->education ))
-                                            <span style="color:green">
-                                                {{Auth::user()->induser->branch}}-{{Auth::user()->induser->education}} <br/>
-                                            </span>
+                                        @if( 
+                                            ( count($educations) > 0 && $educations->contains( Auth::user()->induser->education ) ) || 
+                                            ( count($educations) == 1 )
+                                           ) 
+
+                                           @if(count($educations) == 1)
+                                                <?php 
+                                                    $postEdu = explode('-', $educations[0]); 
+                                                    $usrEdu = explode('-', Auth::user()->induser->education); 
+                                                ?>
+                                                @if(($postEdu[0] == 'Any graduate' && $usrEdu[2] == $postEdu[1]) || 
+                                                    ($postEdu[0] == 'Any post graduate' && $usrEdu[2] == $postEdu[1]))
+                                                    <span style="color:green">{{Auth::user()->induser->education}} <br/></span>
+                                                @endif
+                                           @else
+                                            <span style="color:green">{{Auth::user()->induser->education}} <br/></span>
+                                            @endif
                                         @else
                                             <span style="color:red">
-                                                {{Auth::user()->induser->branch}}-{{Auth::user()->induser->education}} <br/>
+                                                {{Auth::user()->induser->education}} <br/>
                                             </span>
                                         @endif
                                     </td>

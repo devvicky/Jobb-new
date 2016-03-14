@@ -15,6 +15,7 @@ use App\User;
 use DB;
 use App\FunctionalAreas;
 use App\Industry;
+use App\Education;
 
 class ViewpageController extends Controller {
 	/**
@@ -117,7 +118,10 @@ class ViewpageController extends Controller {
 			$roles = DB::select(DB::raw('select id, name from roles'));
 			$functionalAreas = FunctionalAreas::lists('name', 'id');
 			$industry = Industry::lists('name','id');
-			return view('pages.professional_page', compact('user', 'title', 'skills', 'roles', 'functionalAreas', 'industry'));
+
+			$educationList = Education::orderBy('level')->orderBy('name')->where('name', '!=', '0')->get();
+
+			return view('pages.professional_page', compact('user', 'title', 'skills', 'roles', 'functionalAreas', 'industry', 'educationList'));
 		}else if(Auth::user()->identifier == 2){
 			$title = 'corpprofile_edit';
 			$user = User::where('id', '=', Auth::user()->id)->with('corpuser')->first();

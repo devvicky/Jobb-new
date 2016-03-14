@@ -244,18 +244,12 @@
 												<div class="input-group single-education" >
 													
 													<select class="form-control education-list" name="education[]" id="parent_selection" multiple style="border:1px solid #c4d5df">
-														{{$n=""}}
 														@foreach($education as $edu)
-														
-															@if($n != $edu->name)
-																{{$n=$edu->name}}
-																<optgroup label="{{$edu->name}}">
+															@if($edu->name != '0')
+															<option value="{{$edu->branch}}-{{$edu->name}}-{{$edu->level}}">{{$edu->name}}-{{$edu->branch}}</option>
+															@else
+															<option value="{{$edu->name}}">{{$edu->branch}}</option>
 															@endif
-															    <option value="{{$edu->branch}}-{{$edu->name}}">{{$edu->name}}-{{$edu->branch}}</option>
-															@if($n != $edu->name)
-																</optgroup>		
-															@endif
-
 														@endforeach
 													</select>
 												</div>

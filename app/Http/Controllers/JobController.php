@@ -74,7 +74,7 @@ class JobController extends Controller {
 			$functionalAreas = FunctionalAreas::lists('name', 'id');
 			$industry = Industry::lists('name','id');
 
-			$education = Education::all();
+			$education = Education::orderBy('level')->orderBy('name')->get();
 			// return $education;
 
 			return view('pages.postjob', compact('title', 'skills', 'connections', 'groups', 'roles', 'functionalAreas', 'industry', 'education'));

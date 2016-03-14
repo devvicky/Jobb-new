@@ -279,7 +279,27 @@
 										<span class="input-group-addon">
 											<i class="icon-graduation"></i>
 										</span>
-										<select class="form-control" name="education" id="parent_selection" >
+
+										<select class="form-control education-list" name="education" value="{{$user->induser->education}}"
+												id="parent_selection" style="border:1px solid #c4d5df">
+											{{$n=""}}
+											@foreach($educationList as $edu)
+											
+												@if($n != $edu->name && $edu->name != '0')
+													{{$n=$edu->name}}
+													<optgroup label="{{$edu->name}}">
+												@endif
+												    <option value="{{$edu->branch}}-{{$edu->name}}-{{$edu->level}}" @if($user->induser->education=="{{$edu->branch}}-{{$edu->name}}") {{ $selected }} @endif>{{$edu->name}}-{{$edu->branch}}</option>
+												@if($n != $edu->name)
+													</optgroup>		
+												@endif
+
+											@endforeach
+										</select>
+
+
+
+										<!-- <select class="form-control" name="education" id="parent_selection" >
 											<option value="">--Please Select--</option>
 											<option @if($user->induser->education=="BA") {{ $selected }} @endif value="BA">B.A</option>
 											<option @if($user->induser->education=="BArch") {{ $selected }} @endif value="BArch">B.Arch</option>
@@ -305,15 +325,15 @@
 											<option @if($user->induser->education=="MA") {{ $selected }} @endif value="MA" value="MA">MA</option>
 											<option @if($user->induser->education=="twelth") {{ $selected }} @endif value="twelth" value="twelth">12th</option>
 											<option @if($user->induser->education=="Below 12th") {{ $selected }} @endif value="Below 12th" value="twelth">Below 12th</option>
-											<!-- <option value="10">10</option> -->
-										</select>
+											
+										</select> -->
 										
 									</div>
 								</div>
 							</div>
 							<!--/span-->
 							<div class="col-md-6 col-sm-6">
-								<div class="form-group">
+								<!-- <div class="form-group">
 									<label>Branch </label>
 									<div class="input-group">
 										<span class="input-group-addon">
@@ -323,7 +343,7 @@
 											<option value="{{ $user->induser->branch }}">{{ $user->induser->branch }}</option>
 										</select>
 									</div>
-								</div>
+								</div> -->
 							</div>
 							<!--/span-->
 						</div>						
