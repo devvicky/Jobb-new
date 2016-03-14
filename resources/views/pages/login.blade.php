@@ -72,7 +72,7 @@ $(document).ready(function(){
 	      cache : false,
 	      success: function(data){
 	        loader('hide');
-	        // console.log(data);
+	        console.log(data);
 	        if(data.data.page == 'login' && data.data.user == 'invalid'){            
 	            $('#ind-msg-box').removeClass('alert alert-success');
 	            $('#ind-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){

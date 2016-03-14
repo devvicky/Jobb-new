@@ -104,11 +104,11 @@ class Postjob extends Model {
 			if(Auth::user()->identifier == 1){
 				$userSkills = Induser::where('id', '=', Auth::user()->induser_id)->first(['linked_skill']);
 				$userSkills = array_map('trim', explode(',', $userSkills->linked_skill));
-				unset ($userSkills[count($userSkills)-1]);
+				// unset ($userSkills[count($userSkills)-1]);
 
 				$postSkills = $this->attributes['linked_skill'];
 				$postSkills = array_map('trim', explode(',', $this->attributes['linked_skill']));
-				unset ($postSkills[count($postSkills)-1]);
+				// unset ($postSkills[count($postSkills)-1]);
 
 				$overlap = array_intersect($userSkills, $postSkills);
 				$counts  = array_count_values($overlap);

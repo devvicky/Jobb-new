@@ -1093,7 +1093,13 @@ background: #26ca28;
   background-color: whitesmoke;
 }
 
+.searchedprofile{
+  display: none;
+}
 
+.show-profile:hover, .show-profile.hover{
+  
+}
 
 /*admin css*/
 
@@ -1232,3 +1238,4 @@ input[type=checkbox]:checked + label {
   margin: 0 auto;
   display: table;
 }
+

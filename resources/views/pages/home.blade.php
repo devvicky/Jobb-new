@@ -85,7 +85,7 @@ jQuery(document).ready(function() {
       $(".save-filter").delay(5000).fadeOut();
     });
 
-
+    
 
     //job Filter
     var skillArray = [];

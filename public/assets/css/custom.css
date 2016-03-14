@@ -595,8 +595,8 @@ button.report-button-css {
 }
 
 .userpic-box{
-    /*border: 1px darkgrey solid;*/
-    box-shadow: 0px 2px 1px darkgrey;
+    border: 3px #D0D0D0 solid;
+    /*box-shadow: 0px 2px 1px darkgrey;*/
 }
 
 .share-bar{
@@ -892,7 +892,7 @@ form.search-form.search-form-expanded {
 }
 
 .follow-icon-right {
-    background: lavender;
+    /*background: lavender;*/
     padding: 2px 4px;
     float: left;
     color: darkslategray;
@@ -1059,7 +1059,7 @@ button.btn.btn-xs.link-follow-icon-css{
     font-size: 12px;
     color: white;
     background: #3f729b;
-    padding: 0 5px;
+    padding: 1px 5px;
 }
 
 button.btn.btn-xs.unlink-follow-icon-css {

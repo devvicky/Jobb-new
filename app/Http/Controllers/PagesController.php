@@ -72,6 +72,9 @@ class PagesController extends Controller {
 			if(Auth::user()->identifier == 1){
 				$sort_by =" ";
 				$sort_by_skill = " ";
+				$searchskill = ["css","php"];
+				// $searchskill = implode(',', $searchskill);
+				// $searchskill = explode(',', $searchskill);
 				$skills = Skills::lists('name', 'name');
 				$filter = Filter::where('post_type', '=', 'job')->where('from_user', '=', Auth::user()->id)->first();
 				$skillfilter = Filter::where('post_type', '=', 'skill')->where('from_user', '=', Auth::user()->id)->first();
@@ -79,6 +82,7 @@ class PagesController extends Controller {
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup', 'preferLocations')
 								   ->where('post_type', '=', 'job')
 								   ->where('individual_id', '!=', Auth::user()->induser_id)
+								   ->orWhere('corporate_id', '>', 0)
 								   ->whereRaw('postjobs.id in (select  pm.id from postjobs pm where pm.id in (
 													select p.id 
 														from postjobs p
@@ -204,6 +208,7 @@ class PagesController extends Controller {
 								->lists('name', 'id');
 
 				}
+				// return $searchskill;
 				return view('pages.home', compact('jobPosts', 'skillPosts', 'title', 'links', 'following', 'userSkills', 'skills', 'linksApproval', 'linksPending', 'share_links', 'share_groups', 'sort_by', 'sort_by_skill', 'filter', 'skillfilter'));
 				// return $skillPosts;
 			} elseif(Auth::user()->identifier == 2){
@@ -2307,7 +2312,6 @@ public function homeskillFilter(){
 				$skills = Skills::lists('name', 'name');
 				$post = Postjob::orderBy('id', 'desc')
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
-								   ->where('individual_id', '!=', Auth::user()->induser_id)
 								   ->where('unique_id', '=', $id)
 								   ->get();
 				if($post != null){
@@ -2513,7 +2517,7 @@ public function homeskillFilter(){
 
 	public function searchIndProfile(){
 		if (Auth::check()) {
-			$title = 'Profile search';
+			$title = 'Profilesearch';
 			
 			$city = Input::get('city');
 			$role = Input::get('role');
@@ -2523,7 +2527,7 @@ public function homeskillFilter(){
 			$resume = Input::get('resume');
 			$skill = Input::get('linked_skill_id');
 			$type = Input::get('type');
-				
+			$skills = Skills::lists('name', 'name');	
 				$users = Induser::with('user')->orderBy('id', 'desc');
 				$corpsearchprofile = Corpsearchprofile::where('user_id', '=', Auth::user()->id)
 													  ->where('save_contact', '=', 1)
@@ -2542,6 +2546,10 @@ public function homeskillFilter(){
 					$users->whereRaw("experience between $min_exp and $max_exp");
 				}
 
+				if($role != 0 ){
+					$users->where('role', 'like', '%'.$role.'%');
+				}
+
 				if($prefered_jobtype != null){
 					$users->where('prefered_jobtype', '=', $prefered_jobtype);
 				}
@@ -2550,7 +2558,7 @@ public function homeskillFilter(){
 				}
 				
 				$perProfile = "";
-				
+				$searchSkill = "";
 				if($skill == null){
 					$perProfile = '100';
 				}elseif($skill != null){
@@ -2565,7 +2573,7 @@ public function homeskillFilter(){
 					$overlap = array_intersect($userSkills, $searchSkill);
 					$counts  = array_count_values($overlap);
 					if(count($counts) > 0){
-						$perProfile = round( ( count($counts) / count($searchSkill) ) * 100 );
+						$perProfile = round( ( count($counts) / count($userSkills) ) * 100 );
 					}else{
 						$perProfile = 0;
 					}
@@ -2573,7 +2581,7 @@ public function homeskillFilter(){
 
 				$users = $users->paginate(5);
 				// return $searchSkill;
-				return view('pages.profileIndSearch', compact('users', 'title', 'type', 'corpsearchprofile', 'perProfile'));
+				return view('pages.corpsearchProfile', compact('users', 'title', 'type', 'corpsearchprofile', 'perProfile', 'skills', 'city', 'role', 'min_exp', 'max_exp', 'searchSkill', 'resume', 'prefered_jobtype'));
 		
 		}
 	}

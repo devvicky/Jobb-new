@@ -54,6 +54,9 @@ $(document).ready(function() {
         event.preventDefault();
         var post_id = $(this).data('mpostid');
 
+        var clear = '<div style="text-align:center;"><img src="./assets/global/img/loading.gif"><span> Please wait...</span></div>';
+        $("#magicmatch-posts-content").html(clear);
+
         // console.log(post_id);
         $.ajaxSetup({
             headers: {
