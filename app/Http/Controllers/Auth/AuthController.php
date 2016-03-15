@@ -60,6 +60,7 @@ class AuthController extends Controller {
 	    	if($email_verify == '1'){
 	    		$credentials = array_add($credentials, 'email_verify', '1');
 	    		$data['page'] = 'home';
+	    		$data['valid'] = 1;
 	    		$data['email_verify'] = 1;
 	    	}else{
 	    		$data['page'] = 'login';
@@ -82,6 +83,7 @@ class AuthController extends Controller {
 					    });*/
 						
 						$data['email_verify'] = 0;
+						$data['valid'] = 1;
 			    		$data['message'] = 'Your email is not verified. Please check your email for verification code.';
 					}else if($difference >= 1){
 						$vcode = "";
@@ -100,9 +102,12 @@ class AuthController extends Controller {
 					    });
 
 					    $data['email_verify'] = 0;
+					    $data['valid'] = 1;
 			    		$data['message'] = 'We have sent you an email for verification.';
 					}
 
+	    		}else{
+	    			$data['valid'] = 0;
 	    		}
 	    		//error - email not verified
 	    		/*$data['email_verify'] = 0;
@@ -120,6 +125,7 @@ class AuthController extends Controller {
 	    	if($mobile_verify == '1'){
 	    		$credentials = array_add($credentials, 'mobile_verify', '1');
 	    		$data['page'] = 'home';
+	    		$data['valid'] = 1;
 	    		$data['mobile_verify'] = 1;
 	    	}else{	    		
 				$data['page'] = 'login';
@@ -139,6 +145,7 @@ class AuthController extends Controller {
 						User::where('mobile', '=', $request->input('email'))->update(['mobile_otp_attempt' => $mobile_otp_attemptInc]);
 
 						$data['mobile_verify'] = 0;
+						$data['valid'] = 1;
 			    		$data['message'] = 'Mobile number not yet verified. Please check your mobile for OTP. '.$userForMobile->mobile_otp;
 					}else if($difference >= 15 && $userForMobile->mobile_otp_attempt < 3){
 						// regenerate otp, update otp, reset attempt n mobile_otp_expiry
@@ -148,16 +155,19 @@ class AuthController extends Controller {
 						// Induser::where('mobile', '=', $request->input('email'))->update(['mobile_otp' => $otp]);
 
 						$data['mobile_verify'] = 0;
+						$data['valid'] = 1;
 			    		$data['message'] = 'OTP sent to your registered mobile number. '.$otp;
 					}else if($userForMobile->mobile_otp_attempt == 3){
 						if($difference >= 30){
 							User::where('mobile', '=', $request->input('email'))->update(['mobile_otp_attempt' => 0]);
 						}
 						$data['mobile_verify'] = 0;
+						$data['valid'] = 1;
 			    		$data['message'] = 'You have reached to maximum limit. Try after sometime.';
 					}
+	    		}else{
+	    			$data['valid'] = 0;
 	    		}
-
 	    	}
 	    }
 
@@ -175,20 +185,22 @@ class AuthController extends Controller {
 			if( array_key_exists ( 'mobile_verify' , $data) ){
 				$mverify = $data['mobile_verify'];
 			}
-			if(($data['page'] == 'home') && ($everify == 1 || $mverify == 1)){
+			if(($data['page'] == 'home') && ($everify == 1 || $mverify == 1) && $data['valid'] == 1){
 				if ($this->auth->attempt($credentials)){
-			        // return $this->redirectPath();
 			        $data['message'] = 'login success';
 			        return response()->json(['success'=>true,'data'=>$data]);
-			    }else{
-			    	$data['page'] = 'login';
-			    	$data['user'] = 'invalid';
-	    			$data['message'] = 'invalid login info';
 			    }
-			}else{
+			    /*else{
+			    	$data['page'] = 'login';
+			    	$data['user'] = 'valid';
+	    			$data['message'] = 'invalid login info';
+			    }*/
+			}else if($data['valid'] == 0){
 		    	$data['page'] = 'login';
 		    	$data['user'] = 'invalid';
     			$data['message'] = 'invalid login info';
+		    }else{
+		    	$data['page'] = 'login';
 		    }
 
 		    return response()->json(['success'=>false,'data'=>$data]);

@@ -8,6 +8,11 @@
 <head>
 <meta charset="utf-8"/>
 <title>Jobtip - Login</title>
+
+<!-- not cachable -->
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="-1">
+
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
 <meta name="keywords" content="job, jobs,skill, skills, opening, job opening, vacancy, requirement, naukri, monster, job search, searching job, post job for free, free job posting, work, refer job, job reference, promote skill, jobs in..., hire, fresher, experience, job info, hiring, recruitment, walk in jobs" />  
 <meta name="Description" CONTENT="Jobtip -where jobs follow you">
