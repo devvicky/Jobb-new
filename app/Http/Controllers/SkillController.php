@@ -85,7 +85,7 @@ class SkillController extends Controller {
         	}
         }
 
-		return redirect("/home");
+		return redirect("/mypost");
 	}
 
 	/**

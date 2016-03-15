@@ -1,9 +1,9 @@
-@extends('welcome')
+@extends('privacy-policy-term-condition')
 
 @section('content')
 
 @if($title == 'welcome')
-<div class="row show-credential" style="text-align:center;margin: 35px 0 0px 0;">
+<div class="row show-credential" style="text-align:center;margin: 70px 0 0px 0;">
 	@if($role != null)
 	<div class="col-md-12 col-sm-12 col-xs-12 capitalize " style="padding:0;">
 		<div class="welcome-search-type">
@@ -23,7 +23,7 @@
 	</div>
 </div>
 <?php $selected = 'selected'; ?>
-<div class="row welcome-detail" style="margin: 0 -10px 0 5px !important;">
+<div class="row welcome-detail" style="margin: 70px -10px 0 5px !important;">
 	<div class="col-md-2 col-sm-1"></div>
 		<div class="col-md-8 col-sm-10" style="padding:0;">
 		<form id="welcome-searchs" name="welcome_form" action="/welcome/post" method="post">

@@ -281,7 +281,7 @@ class JobController extends Controller {
 			$apply->post_id = $post_id;
 			$apply->user_id = Auth::user()->induser_id;
 			$apply->apply = 1;
-			$apply->apply_dtTime = new \DateTimeZone('Asia/Kolkata');
+			$apply->apply_dtTime = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'));
 			$apply->save();
 
 			// Notification entry
@@ -313,7 +313,7 @@ class JobController extends Controller {
 			return "applied";
 		}elseif($apply != null && $apply->apply == 0){
 			$apply->apply = 1;
-			$apply->apply_dtTime = new \DateTimeZone('Asia/Kolkata');
+			$apply->apply_dtTime = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'));
 			$apply->save();
 
 			// Notification entry
@@ -356,7 +356,7 @@ class JobController extends Controller {
 			$apply->post_id = $post_id;
 			$apply->user_id = Auth::user()->induser_id;
 			$apply->contact_view = 1;
-			$apply->contact_view_dtTime = new \DateTime();
+			$apply->contact_view_dtTime = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'));
 			$apply->save();
 
 			// Notification entry
@@ -388,7 +388,7 @@ class JobController extends Controller {
 			return "contacted";
 		}elseif($apply != null && $apply->contact_view == 0){
 			$apply->contact_view = 1;
-			$apply->contact_view_dtTime = new \DateTime();
+			$apply->contact_view_dtTime = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'));
 			$apply->save();
 
 			// Notification entry
@@ -494,7 +494,7 @@ class JobController extends Controller {
 			$post->post_extended = $request['post_duration_extend'];
 			$post->post_duration = $request['post_duration'] + $request['post_duration_extend'];
 			$post->post_duration_extend = 1;
-			$post->post_extended_Dt = new \DateTime();
+			$post->post_extended_Dt = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'));
 			$post->save();
 			return redirect('/mypost')
 					->withErrors([
@@ -513,8 +513,8 @@ class JobController extends Controller {
 		$post = Postjob::findOrFail($request['post_id']);
 		if($post != null){
 
-			$createdDate = new \DateTime($post->created_at);
-			$currentDate = new \DateTime();
+			$createdDate = new \Carbon\Carbon($post->created_at, 'Asia/Kolkata');
+			$currentDate = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'));
 
 			$difference = $currentDate->diff($createdDate);
 
@@ -653,11 +653,11 @@ class JobController extends Controller {
 							$postActivity->post_id = $sharePostId;
 							$postActivity->user_id = Auth::user()->id;
 							$postActivity->share = 1;
-							$postActivity->share_dtTime = new \DateTime();
+							$postActivity->share_dtTime = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'));
 							$postActivity->save();
 						}elseif($postActivity != null && $postActivity->share == 0){
 							$postActivity->share = 1;
-							$postActivity->share_dtTime = new \DateTime();
+							$postActivity->share_dtTime = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'));
 							$postActivity->save();
 						}
 

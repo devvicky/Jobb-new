@@ -714,7 +714,7 @@
 																			</button>
 																			<ul class='dropdown-menu dropdown-menu-sort 'role='menu' style='min-width: 130px;margin: 4px -25px;'>
 																				<li>
-																					<a href='javascript:;'>
+																					<a href='./mypost/post/date'>
 																					Date </a>
 																				</li>
 																				
@@ -735,7 +735,7 @@
 																					<a href='javascript:;'>
 																					Consultancy Post </a>
 																				</li>
-																				@endif
+																				
 																			</ul>
 																		</div>
 																	</div>";

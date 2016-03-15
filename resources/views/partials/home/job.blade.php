@@ -12,6 +12,7 @@
 				@if($post->preferLocations != '[]')
 					<?php $city = ''; ?>
 				@foreach($post->preferLocations as $pl)
+					
 					<?php $city = $city . $pl->city .', '; ?>
 				@endforeach
 				@endif

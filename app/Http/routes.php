@@ -190,6 +190,8 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::get('home/{post_type}/{sort_by}', 'PagesController@homeSorting');
 	Route::get('home/{post_type}/{sort_by_skill}', 'PagesController@homeskillSorting');
 
+	Route::get('mypost/post/{sort_by}', 'PagesController@myActivitySorting');
+
 	Route::get('home/contactus', 'PagesController@contactUs');
 	Route::get('login/aboutme', 'PagesController@aboutMe');
 

@@ -69,13 +69,7 @@
                                     @include('partials.home.image-linked')
                                     @include('partials.home.favourite')
 
-                                    @if($expired == 1)
-                                    <div class="post-hover-exp">
-                                        @else
-                                    <div class="post-hover-act">
-                                        @endif
-                                    
-                                    <div class="row post-postision" style="cursor:pointer;">
+                                    <div class="row post-postision">
                                         <div class="col-md-12">
                                             <div class="post-title-new capitalize">{{ $post->post_title }} </div>
                                         </div>
@@ -86,9 +80,7 @@
                                             
                                         @endif
                                     </div>
-                                   
-                                    <div class="row post-postision" style="">
-                                        
+                                    <div class="row post-postision" style=""> 
                                         @if($post->min_exp != null)
                                         <div class="col-md-4 col-sm-4 col-xs-4" style="">
                                         <small style="font-size:13px;color:dimgrey !important;"> <i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: {{ $post->min_exp}}-{{ $post->max_exp}} Yr</small>
@@ -98,12 +90,9 @@
                                         <div class="col-md-8 col-sm-8 col-xs-8 elipsis-code-city" style="padding:0 12px;">
                                         <small style="font-size:13px;color:dimgrey !important;"> <i class="glyphicon glyphicon-map-marker post-icon-color"></i>&nbsp;: {{ $post->city }}</small>
                                         </div>
-                                        @endif
-                                        
-                                       
+                                        @endif 
                                     </div>
-                                    
-                                </div>
+
                                     <div class="row" style="margin: 5px 0px; border-top: 1px solid whitesmoke;">
                                         <div class="col-md-12" style="margin: 3px -13px;">
                                             
@@ -454,7 +443,7 @@
                                  @if($expired == 0 && Auth::user()->identifier == 1)
                                 <div style="margin:27px 0 0;">
                                     <!-- if corporate_id not null -->
-                                    @if($post->post_type == 'job' && Auth::user()->id != $post->individual_id && Auth::user()->identifier == 1)     
+                                    @if($post->corporate_id != null && Auth::user()->id != $post->individual_id &&  Auth::user()->identifier == 1)     
                                         @if($post->postactivity->where('user_id', Auth::user()->induser_id)->isEmpty())
 
                                             <form action="/job/apply" method="post" id="post-apply-{{$post->id}}" data-id="{{$post->id}}">  
@@ -476,7 +465,7 @@
                                                     Applied
                                                 </button>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div id="applied_dTime" class="col-md-6">
                                                 ({{ $post->postactivity->where('user_id', Auth::user()->id)->first()->apply_dtTime }})
                                             </div>
                                         @else
@@ -490,7 +479,7 @@
                                         @endif
                                     
                                     @endif  
-                                    @if($post->post_type == 'skill' && Auth::user()->id != $post->individual_id && Auth::user()->identifier == 1)       
+                                    @if($post->individual_id != null && Auth::user()->id != $post->individual_id && Auth::user()->identifier == 1)       
                                         @if($post->postactivity->where('user_id', Auth::user()->induser_id)->isEmpty())
                                             <form action="/job/contact" method="post" id="post-contact-{{$post->id}}" data-id="{{$post->id}}">  
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
