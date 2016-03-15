@@ -172,7 +172,7 @@
 							    </select>		
 							</div>
 				        </div>
-				        <div class="col-md-6 col-sm-6 col-xs-12" style="margin: -13px 0px; padding: 0 10px;">
+				        <div class="col-md-12 col-sm-12 col-xs-12" style="margin: -13px 0px; padding: 0 10px;">
 				         	<div class="form-group">
 					         	 <label style="font-size:13px;">
 									<input type="checkbox" name="expired" value="1"  class="icheck" data-checkbox="icheckbox_square-grey"

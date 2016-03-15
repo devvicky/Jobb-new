@@ -656,7 +656,7 @@ ul{
     display: table;
    /* margin-top: -39px;*/
     padding: 5px 30px;
-    box-shadow: 0 3px 5px gray;
+    /*box-shadow: 0 3px 5px gray;*/
     border-radius: 5px !important;
     font-size: 14px;
 }
@@ -1002,10 +1002,14 @@ div[class*='icheckbox_'], div[class*='iradio_'] {
 .magic-match-css{
     padding: 0px 5px;
     margin: 0px 10px;
-    /*border-radius: 10px !important;*/
     font-size: 12px;
-    background-color: dodgerblue;
-    border-color: dodgerblue;
+    background-color: #2BC3DC !important;
+    border-color: #2BC3DC !important;
+    line-height: 1.5;
+}
+
+.magic-match-css:hover, .magic-match-css.hover{
+    background-color: #34BCD2 !important;
 }
 
 .dropdown-menu-sort:before, .dropdown-toggle > .dropdown-menu-sort:before, .btn-group > .dropdown-menu-sort:before {
@@ -1750,14 +1754,14 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 }
 
 .tabbable-line > .nav-tabs-welcome > li.active > a {
-    background-color: rgba(84, 67, 67, 0.95) !important;
-    color: #00F590 !important;
+    background-color: transparent;
+    color: #7E8A85 !important;
 }
 .tabbable-line > .nav-tabs-welcome > li > a {
     border: 0;
     margin-right: 0;
-    color: #FFFFFF;
-    background-color: #A0A0A0;
+    color: #C7C7C7 !important;
+    background-color: transparent !important;
 }
 
 .welcome-search-type{
@@ -2104,7 +2108,7 @@ body{
 
 .magic-match-header{
     text-align: center;
-    font-size: 17px;
+    font-size: 14px;
     margin: 5px 0;
     background-color: dimgray;
     padding: 2px;

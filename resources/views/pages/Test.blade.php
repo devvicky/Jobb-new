@@ -1,3 +1,35 @@
+
+@if(Auth::user()->induser->prefered_location != null)
+<td class="matching-criteria-align">
+    {{Auth::user()->induser->prefered_location}}
+</td>
+@else
+<td class="matching-criteria-align"><a href="/individual/edit">Add Job Location </a></td>
+@endif
+
+
+@if(count(Auth::user()->induser->preferLocations) > 0)
+                                    <td class="matching-criteria-align">
+                                        @foreach(Auth::user()->induser->preferLocations as $loc)                                            
+
+                                            @if($post->preferlocations->contains('city', $loc->city))
+                                                <span style="color:green">
+                                                    {{ $loc->city }}-{{ $loc->state }} <br/>
+                                                </span>
+                                            @else
+                                                <span style="color:red">
+                                                    {{ $loc->city }}-{{ $loc->state }} <br/>
+                                                </span>
+                                            @endif
+
+                                        @endforeach
+                                    </td>
+                                    @else
+                                    <td class="matching-criteria-align"><a href="/individual/edit">Add Job Location </a></td>
+                                    @endif
+
+                                    
+
 $(".show-salary").hide();
         $("#hide-check").click(function () {
             if ($(this).is(":checked")) {

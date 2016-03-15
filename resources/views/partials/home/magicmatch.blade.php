@@ -6,7 +6,7 @@
             <div class="form-body" style="padding: 1px 0;">
                 <h3 class="magic-match-header">
                     <i class="icon-speedometer magic-font" style="font-size:12px;"></i> 
-                    {{$post->magic_match}} %
+                    {{$post->magic_match}} % Skill Matched
                 </h3>
                 <!-- BEGIN BORDERED TABLE PORTLET-->
                 <div class="portlet box">
@@ -42,7 +42,7 @@
                                 <tr class=" title-bacground-color ">
                                     <td colspan="2" class="matching-criteria-align">
                                         @if(count($matched) > 0)
-                                        <i class="fa fa-check magic-match-icon-color"></i> <label class="title-color">Skills({{count($matched)}})</label>
+                                        <i class="fa fa-check magic-match-icon-color"></i> <label class="title-color">Skills ({{count($matched)}})</label>
                                         @else
                                         <i class="fa fa-times"></i> <label class="title-color">Skills</label>
                                         @endif
@@ -52,13 +52,13 @@
                                     <td class="matching-criteria-align">
                                         
                                         @foreach($matchedPost as $m)
-                                        <span style="background-color:green;color:white;padding: 2px 4px;margin:2px;text-transform:capitalize">
+                                        <span style="background-color:#209220;color:white;padding: 2px 4px;margin:2px;text-transform:capitalize">
                                         {{$m}}
                                         </span>
                                         @endforeach                                        
                                     
                                         @foreach($unmatchedPost as $um)
-                                        <span style="background-color:red;color:white;padding: 2px 4px;margin:2px;text-transform:capitalize">
+                                        <span style="background-color:#D02222;color:white;padding: 2px 4px;margin:2px;text-transform:capitalize">
                                         {{$um}}
                                         </span>  
                                         @endforeach
@@ -68,13 +68,13 @@
                                     <td class="matching-criteria-align">
                                         
                                         @foreach($matched as $m)
-                                        <span style="background-color:green;color:white;padding: 2px 4px;margin:2px;text-transform:capitalize">
+                                        <span style="background-color:#209220;color:white;padding: 2px 4px;margin:2px;text-transform:capitalize">
                                         {{$m}}
                                         </span>
                                         @endforeach                                        
                                     
                                         @foreach($unmatched as $um)
-                                        <span style="background-color:red;color:white;padding: 2px 4px;margin:2px;text-transform:capitalize">
+                                        <span style="background-color:#D02222;color:white;padding: 2px 4px;margin:2px;text-transform:capitalize">
                                         {{$um}}
                                         </span>  
                                         @endforeach
@@ -104,25 +104,24 @@
                                     <td class="matching-criteria-align"><a href="/individual/edit">Add Job Role </a></td>
                                     @endif
                                 </tr>
-                                
-                                <tr class="@if(strcasecmp($post->role, Auth::user()->induser->role) == 0) title-bacground-color @else title-bacground-color @endif">
+                                <tr class="@if(strcasecmp($post->job_role->first()->functional_area, Auth::user()->induser->job_role->first()->functional_area) == 0 && strcasecmp($post->job_role->first()->role, Auth::user()->induser->job_role->first()->role) == 0) title-bacground-color @else title-bacground-color @endif">
                                     <td colspan="2" class="matching-criteria-align">
-                                        @if(strcasecmp($post->role, Auth::user()->induser->role) == 0)
-                                        <i class="fa fa-check magic-match-icon-color"></i> <label class="title-color">Job Role</label>
+                                       @if(strcasecmp($post->job_role->first()->functional_area, Auth::user()->induser->job_role->first()->functional_area) == 0 && strcasecmp($post->job_role->first()->role, Auth::user()->induser->job_role->first()->role) == 0)
+                                        <i class="fa fa-check magic-match-icon-color"></i> <label class="title-color">Functional Area - Role</label>
                                         @else
-                                        <i class="fa fa-times"></i> <label class="title-color">Job Role</label>
+                                        <i class="fa fa-times"></i> <label class="title-color">Functional Area - Role</label>
                                         @endif
                                     </td>
                                 </tr>
-                                <tr class="@if(strcasecmp($post->role, Auth::user()->induser->role) == 0) success @else danger-new @endif">
+                                <tr class="@if(strcasecmp($post->job_role->first()->functional_area, Auth::user()->induser->job_role->first()->functional_area) == 0 && strcasecmp($post->job_role->first()->role, Auth::user()->induser->job_role->first()->role) == 0) success @else danger-new @endif">
                                     <!-- <td>
                                         <label class="title-color">Job Role</label>
                                     </td> -->
-                                    <td class="matching-criteria-align">{{ $post->job_role->first()->role }}</td>
-                                    @if(Auth::user()->induser->role != null)
-                                    <td class="matching-criteria-align">{{ Auth::user()->induser->job_role->first()->role }}</td>
+                                    <td class="matching-criteria-align"> {{ $post->job_role->first()->functional_area }} - {{ $post->job_role->first()->role }}</td>
+                                    @if(Auth::user()->induser->job_role != '[]')
+                                    <td class="matching-criteria-align">{{ Auth::user()->induser->job_role->first()->functional_area }} - {{ Auth::user()->induser->job_role->first()->role }}</td>
                                     @else
-                                    <td class="matching-criteria-align"><a href="/individual/edit">Add Job Role </a></td>
+                                    <td class="matching-criteria-align"><a href="/individual/edit">Add Functional Area & Role </a></td>
                                     @endif
                                 </tr>
                                 
@@ -202,7 +201,7 @@
                                     <td class="matching-criteria-align"><a href="/individual/edit">Add Education </a></td>
                                     @endif
                                 </tr>
-                                <tr class="@if($post->city == Auth::user()->induser->city) title-bacground-color @else title-bacground-color @endif">
+                                <tr class="@if(strcasecmp($post->city, Auth::user()->induser->prefered_location) == 0) title-bacground-color @else title-bacground-color @endif">
                                     <td colspan="2" class="matching-criteria-align">
                                         @if($post->city == Auth::user()->induser->city)
                                         <i class="fa fa-check magic-match-icon-color"></i> 
@@ -213,7 +212,7 @@
                                         @endif
                                     </td>
                                 </tr>
-                                <tr class="@if($post->city == Auth::user()->induser->city) success @else danger-new @endif">                                                                                            
+                                <tr class="@if(strcasecmp($post->city, Auth::user()->induser->prefered_location) == 0) success @else danger-new @endif">                                                                                            
                                     <td class="matching-criteria-align">
                                     @if(count($post->preferlocations) > 0)
                                         @foreach($post->preferlocations as $loc)
@@ -221,26 +220,14 @@
                                         @endforeach
                                     @endif
                                     </td>
-
-                                    @if(count(Auth::user()->induser->preferLocations) > 0)
+                                    @if(Auth::user()->induser->prefered_location != null)
                                     <td class="matching-criteria-align">
-                                        @foreach(Auth::user()->induser->preferLocations as $loc)                                            
-
-                                            @if($post->preferlocations->contains('city', $loc->city))
-                                                <span style="color:green">
-                                                    {{ $loc->city }}-{{ $loc->state }} <br/>
-                                                </span>
-                                            @else
-                                                <span style="color:red">
-                                                    {{ $loc->city }}-{{ $loc->state }} <br/>
-                                                </span>
-                                            @endif
-
-                                        @endforeach
+                                        {{Auth::user()->induser->prefered_location}}
                                     </td>
                                     @else
                                     <td class="matching-criteria-align"><a href="/individual/edit">Add Job Location </a></td>
                                     @endif
+                                    
                                 </tr>
                                 <tr class="@if($post->time_for == Auth::user()->induser->prefered_jobtype || ($post->time_for == 'Part Time' && Auth::user()->induser->prefered_jobtype == 'Full Time')) title-bacground-color @else title-bacground-color @endif">
                                     <td colspan="2" class="matching-criteria-align">

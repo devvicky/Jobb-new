@@ -1119,7 +1119,7 @@
 							{{$tp->fname}} has {{$tp->mode}} a 
 							{{$tp->post_type}}  opening to you. 
 						@elseif($tp->post_type == 'skill')
-							{{$tp->fname}} has promoted a {{$tp->post_type}} with you.
+							{{$tp->fname}} has promoted a {{$tp->post_type}} to you.
 						@endif 
 						<br/>Post Title : {{$tp->post_title}}
 						<br/>Skills : {{$tp->linked_skill}} @if($tp->post_compname != null) at {{$tp->post_compname}} @endif
