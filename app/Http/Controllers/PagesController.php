@@ -2522,11 +2522,11 @@ public function homeskillFilter(){
 				}elseif($skill != null){
 					$skillUser = Induser::first(['linked_skill']);
 					$userSkills = array_map('trim', explode(',', $skillUser->linked_skill));
-					unset ($userSkills[count($userSkills)-1]);
+					// unset ($userSkills[count($userSkills)-1]);
 
 					$searchSkill = implode(',', Input::get('linked_skill_id'));
 					$searchSkill = array_map('trim', explode(',', $searchSkill));
-					unset ($searchSkill[count($searchSkill)-1]);
+					// unset ($searchSkill[count($searchSkill)-1]);
 
 					$overlap = array_intersect($userSkills, $searchSkill);
 					$counts  = array_count_values($overlap);

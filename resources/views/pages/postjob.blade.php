@@ -246,7 +246,7 @@
 													<select class="form-control education-list" name="education[]" id="parent_selection" multiple style="border:1px solid #c4d5df">
 														@foreach($education as $edu)
 															@if($edu->name != '0')
-															<option value="{{$edu->branch}}-{{$edu->name}}-{{$edu->level}}">{{$edu->name}}-{{$edu->branch}}</option>
+															<option value="{{$edu->branch}}-{{$edu->name}}-{{$edu->level}}">{{$edu->name}} ({{$edu->branch}})</option>
 															@else
 															<option value="{{$edu->name}}">{{$edu->branch}}</option>
 															@endif

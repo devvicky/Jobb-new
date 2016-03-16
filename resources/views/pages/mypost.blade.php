@@ -105,7 +105,7 @@
 								  		<div class="col-md-6 col-sm-6 col-xs-7">
 								  			<small style="font-size:13px;">Post expires in 
 									  			<button class="btn post-expire-duration-css"> 
-									  				{{($post->post_duration + $post->post_extended) - $dayExpire}} days
+									  				{{($post->post_duration + $post->post_extended)}} days
 									  			</button>
 									  		</small>
 								  		</div>

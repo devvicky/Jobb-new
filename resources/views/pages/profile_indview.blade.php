@@ -540,39 +540,7 @@
 					
 					@endif
 					<!--/span-->	
-					@if(Auth::user()->induser_id == $user->id)
-					<div class="col-md-12 col-sm-12 col-xs-12" style="padding:0;">
-						<div class="form-group">
-							<label class="control-label col-md-4 col-xs-6">Resume</label>
-							<div class="col-md-6 col-xs-6">
-								<p class="form-control-static view-page">
-									@if($user->resume != null)
-									 {{$user->resume_dtTime}} - {{$user->resume}}
-									 @else
-									 <a href="/individual/edit#tab_2-2">Upload Resume</a>
-									 @endif
-								</p>
-							</div>
-						</div>
-					</div>
-					@elseif($user->resume != null && Auth::user()->induser_id != $user->id)
-					<div class="col-md-12 col-sm-12 col-xs-12" style="padding:0;">
-						<div class="form-group">
-							<label class="control-label col-md-4 col-xs-6">Resume</label>
-							<div class="col-md-6 col-xs-6">
-								<p class="form-control-static view-page">
-									@if($user->resume != null)
-									 <a href="javascript:;" class="btn btn-xs blue" style="height: 20px;"><i class="icon-eye"></i>&nbsp;View </a>
-									 @else
-									 {{$user->fname}} has not added 'Resume'
-									 @endif
-								</p>
-							</div>
-						</div>
-					</div>
 					
-					@endif
-					<!--/span-->
 				</div>
 				<!--/row-->
 				<div class="row">
@@ -876,6 +844,41 @@
 					@endif
 					@endif
 					<!--/span-->
+					<div class="row" style="margin: 10px -30px;">
+					@if(Auth::user()->induser_id == $user->id)
+					<div class="col-md-12 col-sm-12 col-xs-12" style="padding:0;">
+						<div class="form-group">
+							
+							<div class="col-md-12 col-xs-12">
+								<p class="form-control-static view-page">
+									@if($user->resume != null)
+									 {{$user->resume_dtTime}} - {{$user->resume}}
+									 @else
+									 <a href="/individual/edit#tab_2-2">Upload Resume</a>
+									 @endif
+								</p>
+							</div>
+						</div>
+					</div>
+					@elseif($user->resume != null && Auth::user()->induser_id != $user->id)
+					<div class="col-md-12 col-sm-12 col-xs-12" style="padding:0;">
+						<div class="form-group">
+							
+							<div class="col-md-6 col-xs-6">
+								<p class="form-control-static view-page">
+									@if($user->resume != null)
+									 <a href="javascript:;" class="btn btn-xs blue" style="padding: 5px;"><i class="icon-eye"></i>&nbsp;View Resume</a>
+									 @else
+									 {{$user->fname}} has not added 'Resume'
+									 @endif
+								</p>
+							</div>
+						</div>
+					</div>
+					
+					@endif
+					<!--/span-->
+				</div>
 				</div>
 			</div>
 		<!-- END FORM-->
