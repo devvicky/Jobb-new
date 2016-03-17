@@ -90,18 +90,18 @@ body{
 .login-signup-button{
   background-color: #CA4E4E;
   border: 1px solid #C76B6B;
-  color: white;
+  color: white !important;
 }
 
 .login-signup-button:hover, .login-signup-button.hover{
   border: 1px solid #902B2B;
   background-color: #B53030;
-  color: white;
+  color: white ;
 }
 
 .login-signup-button:active, .login-signup-button.active{
-  color: #D2C8C8 !important; 
-  background-color: #B53030;
+    color: #EFECEC !important;
+    background-color: #E28B8B;
 }
 
 .forget-password-header{

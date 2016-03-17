@@ -17,7 +17,7 @@
 							<a href="/home/skill/date">Date</a>
 						</li>
 						<li>
-							<a href="/home/skill/jobtype#skill">Job Type</a>
+							<a href="/home/skill/jobtype">Job Type</a>
 						</li>
 					</ul>
 				</div>
@@ -46,7 +46,7 @@
 			<form name="filter_form" action="/home/skill" method="post">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<div class="modal-body">
-				<div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
+				<div data-always-visible="1" data-rail-visible1="1">
 					<input type="hidden" name="post_type" value="skill">
 					<div class="row" style="margin:0;">
 						<div class="col-md-12 col-sm-12 col-xs-12" style="margin:0px 0;padding:0 10px;">

@@ -125,6 +125,7 @@ $(document).ready(function(){
 	        }
 	        else{          
 	            redirect(data.data.page);
+	            $(".login-signup-button").prop('disabled', true);
 	        }
 	      },
 	      error: function(data) {

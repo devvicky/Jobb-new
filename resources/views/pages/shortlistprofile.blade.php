@@ -41,12 +41,6 @@
 					@foreach($users as $user)
 					<div class="row" style="border-bottom:1px dotted lightgrey;padding: 5px 0;margin:0;">
 						
-						<div class="col-md-2 col-sm-2 col-xs-3" style="padding:0 !important;">
-						     <a data-toggle="modal" class="btn resume-button-css magic-profile-match" href="#post-mod-{{$user->id}}" style="padding: 2px 8px;">
-			    				<i class="icon-speedometer" style="font-size:12px;"></i> 
-			    			</a>
-			    			<br><span>Match</span>
-					    </div>
 						<div class="col-md-10 col-sm-10 col-xs-9">
 							<a href="/profile/ind/{{$user->id}}" data-utype="ind">
 				      			{{ $user->fname }} {{ $user->lname }}</a>
@@ -82,12 +76,6 @@
 					@if(count($profileSave) > 0)
 					@foreach($profileSave as $user)
 					<div class="row saved-profile-{{$user->id}}" style="border-bottom:1px dotted lightgrey;padding: 5px 0;margin:0">
-						
-						<div class="col-md-2 col-sm-2 col-xs-3" style="padding:0 !important;">
-						      <a data-toggle="modal" class="btn resume-button-css magic-profile-match" href="#post-mod-{{$user->id}}" style="padding: 2px 8px;">
-			    			<i class="icon-speedometer" style="font-size:12px;"></i> 
-			    		</a>
-					    </div>
 						<div class="col-md-7 col-sm-7 col-xs-6">
 							<a href="/profile/ind/{{$user->id}}" data-utype="ind">
 				      			{{ $user->fname }} {{ $user->lname }}</a>
@@ -114,18 +102,9 @@
 								<!-- </div> -->
 							</form>
 							@else
-							<!-- <button disabled class="btn grey corp-profile-contact" type="button" style="">
-								<i class="glyphicon glyphicon-earphone" style="font-size:11px;"></i> Contacted
-							</button> -->
+
 							@endif
 						</div>
-						<form action="/profile/save" method="post" id="profile-save-{{$user->id}}" data-saveid="{{$user->id}}">
-							<input type="hidden" name="_token" value="{{ csrf_token() }}">
-							<input type="hidden" name="profileid" value="{{ $user->id }}">
-							<button id="profilesave-btn-{{$user->id}}" class="btn fav-btn profile-save-btn" type="button" style="background-color: transparent;padding:0 10px;border:0;">			
-								<i class="fa fa-save (alias)" style="font-size: 20px;color:rgb(183, 182, 182);"></i>
-							</button>
-						</form>
 					</div>
 					@endforeach
 					@else

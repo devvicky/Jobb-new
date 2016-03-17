@@ -255,7 +255,7 @@
 										</li>
 										
 										<li style="margin:5px 0;">
-											<form action="/connections/destroy, $connection->pivot->id" method="post">
+											<form action="/connections/destroy/{{$connection->pivot->id}}" method="post">
 											<input type="hidden" name="_token" value="{{ csrf_token() }}">
 											<button type="submit" name="action" class="btn btn-success connection-css">Remove Link</button>		
 											</form>
