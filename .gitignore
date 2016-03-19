@@ -50,3 +50,7 @@ config/services.php
 .env_jt
 .env
 resources/views/pages/salim_prof_page.blade.php
+vendor/composer/LICENSE
+.env
+vendor/composer/autoload_files.php
+vendor/composer/ClassLoader.php
