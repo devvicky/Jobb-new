@@ -105,20 +105,20 @@
             </div>
             @elseif($session_user->working_status == "Freelanching")
             <div class="profile-usertitle-job">
-              @if($session_user->job_role != null)
+              @if($session_user->job_role != '[]')
                {{ $session_user->job_role->first()->role }} {{ $session_user->working_status }}, {{ $session_user->city }}
               @endif
             </div>
-            @elseif($session_user->job_role != null && $session_user->working_at !=null && $session_user->working_status == "Working")
+            @elseif($session_user->job_role != '[]' && $session_user->working_at !=null && $session_user->working_status == "Working")
             <div class="profile-usertitle-job">
 
               @if($session_user->job_role != '[]')
                {{ $session_user->job_role->first()->role }} @ {{ $session_user->working_at }} 
                @endif
             </div>
-            @elseif($session_user->job_role != null && $session_user->working_at ==null && $session_user->working_status == "Working")
+            @elseif($session_user->job_role != '[]' && $session_user->working_at ==null && $session_user->working_status == "Working")
             <div class="profile-usertitle-job">
-              @if($session_user->job_role != null)
+              @if($session_user->job_role != '[]')
                {{ $session_user->job_role->first()->role }}, {{ $session_user->city }}
                @endif
             </div>
@@ -131,6 +131,32 @@
                {{ $session_user->prof_category }}, {{ $session_user->city }}
             </div>
             @endif
+          @endif
+          <div>{{$profilePer}}% Profile Saved</div>
+          @if($profilePer <= 25)
+          <div class="progress progress-striped" style="height: 10px;background-color: #8A8272;margin: 10px 5px 15px 5px;">
+              <div class="progress-bar progress-bar-danger" style="width: {{$profilePer}}%">
+                  
+              </div>
+          </div>
+          @elseif($profilePer <= 50 && $profilePer > 25)
+          <div class="progress progress-striped" style="height: 10px;background-color: #8A8272;margin: 10px 5px 15px 5px;">
+              <div class="progress-bar progress-bar-warning" style="width: {{$profilePer}}%">
+                  
+              </div>
+          </div>
+          @elseif($profilePer > 50 && $profilePer <= 75)
+          <div class="progress progress-striped" style="height: 10px;background-color: #8A8272;margin: 10px 5px 15px 5px;">
+              <div class="progress-bar progress-bar-info" style="width: {{$profilePer}}%">
+                  
+              </div>
+          </div>
+          @elseif($profilePer >= 75)
+          <div class="progress progress-striped" style="height: 10px;background-color: #8A8272;margin: 10px 5px 15px 5px;">
+              <div class="progress-bar progress-bar-success" style="width: {{$profilePer}}%">
+                  
+              </div>
+          </div>
           @endif
         </div>
       </li>

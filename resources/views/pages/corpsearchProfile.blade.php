@@ -249,7 +249,7 @@
 			</div>
 			<div class="col-md-4 col-sm-4 col-xs-4" style="padding:0 !important;">
 			      	<a data-toggle="modal" class="btn resume-button-css magic-profile-match" href="#static" style="padding: 2px 8px;">
-		    			<i class="icon-speedometer" style="font-size:12px;"></i>{{$perProfile}}%
+		    			<i class="icon-speedometer" style="font-size:12px;"></i> {{$perProfile}}%
 		    		</a>
 		    </div>	
   		</div>

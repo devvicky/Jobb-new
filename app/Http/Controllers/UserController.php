@@ -218,9 +218,13 @@ class UserController extends Controller {
 			$data->branch = Input::get('branch');
 			$data->prof_category = Input::get('prof_category');
 			$data->experience = Input::get('experience');
-			if(Input::get('role') > 0){
-				$data->role = Input::get('role');
+			if(Input::get('role') != null){
+				$farea_role = Input::get('role');
+				$temp = explode('-', $farea_role);
+				$data->functional_area = $temp[0];
+				$data->role = $temp[1];
 			}
+			
 			$data->working_at = Input::get('working_at');
 			$data->working_status = Input::get('working_status');
 			if(Input::get('linked_skill_id') != null){
@@ -244,7 +248,7 @@ class UserController extends Controller {
 		 //        	}
 		 //        }
 		 //    }
-			return redirect('/individual/edit#privacy');
+			return redirect('/profile/ind/'.$id);
 		}else{
 			return 'some error occured.';
 		}

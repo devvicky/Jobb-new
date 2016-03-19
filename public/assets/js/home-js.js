@@ -191,6 +191,133 @@ $('.fav-btn').live('click', function(event) {
     return false;
 });
 
+//Link Request
+
+$('.link-btn').live('click', function(event) {
+    event.preventDefault();
+    var post_id = $(this).parent().data('id');
+    var puid = $(this).data('puid');
+    var formData = $('#no-ind-unknown').serialize();
+    var formAction = $('#no-ind-unknown').attr('action');
+    
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        url: formAction,
+        type: "post",
+        data: formData,
+        cache: false,
+
+        success: function(data) {
+            if(data == 'success'){
+                $(".puid-"+puid).html('<a href="#links-follow" data-toggle="modal" class="user-link" data-linked="no" data-utype="ind"><button class="btn btn-xs linkrequest-follow-icon-css"><i class="icon-hourglass (alias) " style="color:#F7F7F7;font-size:10px;"></i> Link Requested</button></a>');
+                $('#links-follow').modal('hide');
+            }
+        }
+    });
+    return false;
+});
+
+
+//Link Remove Request
+
+$('.link-remove-btn').live('click', function(event) {
+    event.preventDefault();
+    var post_id = $(this).parent().data('id');
+    var puid = $(this).data('puid');
+    var formData = $('#yes-ind').serialize();
+    var formAction = $('#yes-ind').attr('action');
+    
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        url: formAction,
+        type: "post",
+        data: formData,
+        cache: false,
+
+        success: function(data) {
+            if(data == 'success'){
+                 $(".puid-"+puid).html('<a href="#links-follow" data-toggle="modal" class="user-link3" data-linked="no" data-utype="ind"><button class="btn btn-xs unlink-follow-icon-css"><i class="icon-hourglass (alias)" style="color:dimgrey;font-size:10px;"></i> Add Link</button></a>');
+                $('#links-follow').modal('hide');
+            }
+        }
+    });
+    return false;
+});
+
+//Follow Request
+
+$('.follow-btn').live('click', function(event) {
+    event.preventDefault();
+    var post_id = $(this).parent().data('id');
+    var puid = $(this).data('pfid');
+    var formData = $('#no-corp').serialize();
+    var formAction = $('#no-corp').attr('action');
+    
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        url: formAction,
+        type: "post",
+        data: formData,
+        cache: false,
+
+        success: function(data) {
+            if(data == 'success'){
+                console.log(data);
+                 $(".pfid-"+puid).html('<a href="#links-follow" data-toggle="modal" class="user-link3" data-linked="no" data-utype="ind"><button class="btn btn-xs link-follow-icon-css"><i class="icon-check" style="color:#F7F7F7;font-size:10px;"></i> Following</button></a>');
+                $('#links-follow').modal('hide');
+            }
+        }
+    });
+    return false;
+});
+
+
+//Follow Remove Request
+
+$('.unfollow-btn').live('click', function(event) {
+    event.preventDefault();
+    var post_id = $(this).parent().data('id');
+    var puid = $(this).data('pfid');
+    var formData = $('#yes-corp').serialize();
+    var formAction = $('#yes-corp').attr('action');
+    
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        url: formAction,
+        type: "post",
+        data: formData,
+        cache: false,
+
+        success: function(data) {
+            if(data == 'success'){
+                console.log(data);
+                 $(".pfid-"+puid).html('<a href="#links-follow" data-toggle="modal" class="user-link3" data-linked="no" data-utype="ind"><button class="btn btn-xs unlink-follow-icon-css"><i class="icon-plus" style="color:dimgrey;font-size:10px;"></i> Follow</button></a>');
+                $('#links-follow').modal('hide');
+            }
+        }
+    });
+    return false;
+});
 
 
 // user-link
@@ -229,7 +356,7 @@ $('.user-link').live('click', function(event) {
 
 $('.user-link2').live('click', function(event) {
     event.preventDefault();
-    var post_user_id = $(this).parent().data('puid');
+    var post_user_id = $(this).parent().data('pfid');
     var post_user_linked = $(this).data('linked');
     var post_user_type = $(this).data('utype');
 

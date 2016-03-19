@@ -16,6 +16,7 @@ return array(
     'CreateFeedbacksTable' => $baseDir . '/database/migrations/2015_12_01_153142_create_feedbacks_table.php',
     'CreateFiltersTable' => $baseDir . '/database/migrations/2015_12_30_142908_create_filters_table.php',
     'CreateFollowsTable' => $baseDir . '/database/migrations/2015_10_22_063837_create_follows_table.php',
+    'CreateFunctionalAreaRoleMappingsTable' => $baseDir . '/database/migrations/2016_03_18_065100_create_functional_area_role_mappings_table.php',
     'CreateFunctionalAreasTable' => $baseDir . '/database/migrations/2016_01_05_163945_create_functional_areas_table.php',
     'CreateGroupsTable' => $baseDir . '/database/migrations/2015_09_23_153509_create_groups_table.php',
     'CreateGroupsUsersTable' => $baseDir . '/database/migrations/2015_09_30_153154_create_groups_users_table.php',

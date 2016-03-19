@@ -16,5 +16,4 @@
 		</button>	
 	</form>
 	@endif
-	
 </div>

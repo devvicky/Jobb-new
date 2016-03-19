@@ -10,17 +10,11 @@
 			<li class="active">
 				<a data-toggle="tab" href="#personal">
 				<i class="icon-user"></i> Personal info </a>
-				<span class="after">
-				</span>
 			</li>
 			<li>
 				<a data-toggle="tab" href="#professional">
 				<i class="icon-briefcase"></i> Professional Details </a>
 			</li>
-			<!-- <li>
-				<a data-toggle="tab" href="#preference">
-				<i class=" icon-pointer"></i> Preferences </a>
-			</li> -->
 			<li>
 				<a data-toggle="tab" href="#privacy">
 				<i class="fa fa-eye"></i> Privacy Settings </a>
@@ -280,8 +274,8 @@
 											<i class="icon-graduation"></i>
 										</span>
 										@if($user->induser->education == null)
-										<select class="form-control education-list" name="education" value=""
-												id="parent_selection" style="border:1px solid #c4d5df">
+										<select class="form-control education-list" name="education" style="border:1px solid #c4d5df">
+											<option selected value="">Select</option>
 											{{$n=""}}
 											@foreach($educationList as $edu)
 											
@@ -298,7 +292,7 @@
 										</select>
 										@else
 										<select class="form-control education-list" name="education" value="{{$user->induser->education}}"
-												id="parent_selection" style="border:1px solid #c4d5df">
+												 style="border:1px solid #c4d5df">
 												<option selected value="{{$user->induser->education}}">{{$user->induser->education}}</option>
 											{{$n=""}}
 											@foreach($educationList as $edu)
@@ -351,7 +345,7 @@
 							<!--/span-->
 						</div>						
 						<div class="row">
-							<div class="col-md-6 col-sm-6 col-xs-6">
+							<div class="col-md-6 col-sm-6 col-xs-12">
 								<div class="form-group">
 									<label>Working Status</label>
 									<div class="input-group">
@@ -383,24 +377,44 @@
 							<!--/span-->
 						</div>
 						<div class="row">
-							<div class="col-md-12 col-sm-12 col-xs-12 hide-role">
+							<div class="col-md-6 col-sm-6 col-xs-12">
 								<div class="form-group">
 									<label>
 										Job Role <span class="required">*</span>
 									</label>
+									@if($user->induser->role == null)
+										<select class="select2me form-control" name="role">
+											<option selected value="">Select</option>
+											{{$n=""}}
+											@foreach($farearoleList as $farearole)
+											@if($n != $farearole->functional_area)
+												{{$n=$farearole->functional_area}}
+												<optgroup label="{{$farearole->functional_area}}">
+											@endif
+											<option value="{{$farearole->functional_area}}-{{$farearole->role}}">{{$farearole->role}}</option>
+											@if($n != $farearole->functional_area)
+													</optgroup>		
+												@endif
+											@endforeach
+										</select>
+									@elseif($user->induser->role != null)
 
-									<div class="input-group">	
-										<span class="input-group-addon">
-											<i class="fa fa-cube" style="color:darkcyan;"></i>
-										</span>			
-										<select class="job-role-ajax form-control new-role" name="role" id="jobrole">
-	
-									  		<option value="0"></option>
-										</select>													
-									</div>
-									example: manager, admin, secretory <a class="hide-far">see all</a>
-
-									<div id="charNum" style="text-align:right;"></div>
+										<select class="select2me form-control" name="role">
+											<option value="{{$user->induser->functional_area}}-{{$user->induser->role}}">{{$user->induser->role}}</option>
+											{{$n=""}}
+											@foreach($farearoleList as $farearole)
+											@if($n != $farearole->functional_area)
+												{{$n=$farearole->functional_area}}
+												<optgroup label="{{$farearole->functional_area}}">
+											@endif
+											<option value="{{$farearole->functional_area}}-{{$farearole->role}}">{{$farearole->role}}</option>
+											@if($n != $farearole->functional_area)
+													</optgroup>		
+												@endif
+											@endforeach
+										</select>
+									@endif								
+									<!-- </div> -->
 								</div>
 								
 							</div>
@@ -630,7 +644,12 @@
 		skillArray.push('<?php echo $gta; ?>');
 	@endforeach
 	@endif
-    var skillselect = $("#linked_skill_id").select2({ dataType: 'json', data: skillArray });
+	if(skillArray.length == 0){
+		var skillselect = $("#linked_skill_id").select2({ dataType: 'json', data: [] });
+	}else{
+		var skillselect = $("#linked_skill_id").select2({ dataType: 'json', data: skillArray });
+	}
+    
     skillselect.val(skillArray).trigger("change");
     
 
@@ -866,13 +885,6 @@ else
 $("#workingat").removeAttr('disabled');
 }
 
-// rules: {
-// working_at: {
-// required: function(element) {
-// return $("#working_status").val() == 'Working'
-// }
-// }
-// }
 $gotit = [];
 	$(function(){
 

@@ -7,7 +7,7 @@
 	@if($role != null)
 	<div class="col-md-12 col-sm-12 col-xs-12 capitalize " style="padding:0;">
 		<div class="welcome-search-type">
-			 {{$role}} | {{$experience}} Years | {{$city}} 
+			 {{$role}} @if($experience != null)| {{$experience}} Years @endif @if($city != null)| {{$city}} @endif
 		</div>
 	</div>
 	@endif
@@ -130,18 +130,14 @@
                                         {{ $post->induser->fname}} {{ $post->induser->lname}}
                                     </a>
                                 </div> 
-                                <div class="col-md-6 col-sm-6 col-xs-8">
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                   <a href="/login"> <button class="btn btn-xs unlink-follow-icon-css"><i class="fa fa-unlink (alias) icon-size" style="color:dimgrey;"></i> Add Link</button></a>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6">
                                     <i class="fa fa-clock-o job-icon-color" style="font-size: 11px;"></i> 
                                     <small class="job-time-css" style="color:#676565 !important;">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }}</small>
                                 </div>
-                               <!--  <a class="myactivity-posts" data-toggle="modal" href="#myactivity-posts">
-			                        <div class="col-md-6 col-sm-6 col-xs-4" style="#676565 !important;">
-			                           
-			                        </div>
-			                    </a> -->
-			                     <div class="post-hover-act col-md-6" data-wpostid="{{$post->id}}"><a class="welcome-posts" data-toggle="modal" href="#welcome-posts">
-			                     		Details
-	                    		</div>
+                               
                             </div>
                             @elseif($post->corporate_id != null)
                             <div class="row">
@@ -152,7 +148,7 @@
                                 </div>
                                 <div class="col-md-6 col-md-6 col-xs-12">
                                 	<span class="firm-type-left" style="margin: 2px 0;">{{ $post->corpuser->firm_type}}</span> 
-									  
+									<a href="/login"> <button class="btn btn-xs unlink-follow-icon-css" style="margin: 2px 3px;"><i class="icon-plus icon-size" style="color:dimgrey;"></i> Follow</button> </a>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-8">
                                     <i class="fa fa-clock-o job-icon-color" style="font-size: 11px;"></i> 
@@ -162,7 +158,8 @@
                             </div>
                             @endif
 						</div>
-						<div class="row post-postision" style="cursor:pointer;">
+					<div class="row post-postision" style="cursor:pointer;">
+						<a href="/welcome/job/post/{{$post->unique_id}}" target="_blank">
                         <div class="col-md-12">
                             <div class="post-title-new capitalize" style="color:;">{{ $post->post_title }} </div>
                         </div>
@@ -172,8 +169,8 @@
                         </div>
                             
                         @endif
-                   	</div>
-                   	<div class="row post-postision" style="">
+                   	<!-- </div>
+                   	<div class="row post-postision" style=""> -->
                                                         
                        <div class="col-md-6 col-sm-6 col-xs-6" style="">                                 
                         @if($post->min_exp != null)
@@ -187,6 +184,7 @@
                         </small>
                         @endif
                         </div>
+                    </a>
                     </div>
                     <div class="row" style="border-top: 1px solid lightgrey;margin: 10px 0px 0px 0;">
                     	<a href="/login"><div class="col-md-3 col-sm-3 col-xs-3" style="text-align:center;line-height: 2;">
@@ -240,18 +238,13 @@
                                         {{ $post->induser->fname}} {{ $post->induser->lname}}
                                     </a>
                                 </div> 
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                   <a href="/login"> <button class="btn btn-xs unlink-follow-icon-css"><i class="fa fa-unlink (alias) icon-size" style="color:dimgrey;"></i> Add Link</button></a>
+                                </div>
                                 <div class="col-md-6 col-sm-6 col-xs-8">
                                     <i class="fa fa-clock-o job-icon-color" style="font-size: 11px;"></i> 
                                     <small class="job-time-css" style="color:#676565 !important;">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }}</small>
                                 </div>
-                               <!--  <a class="myactivity-posts" data-toggle="modal" href="#myactivity-posts">
-			                        <div class="col-md-6 col-sm-6 col-xs-4" style="#676565 !important;">
-			                           
-			                        </div>
-			                    </a> -->
-			                     <div class="post-hover-act col-md-6" data-wpostid="{{$post->id}}"><a class="welcome-posts" data-toggle="modal" href="#welcome-posts">
-			                     		Details
-	                    		</div>
                             </div>
                             @elseif($post->corporate_id != null)
                             <div class="row">
@@ -273,31 +266,32 @@
                             @endif
 						</div>
 						<div class="row post-postision" style="cursor:pointer;">
-                        <div class="col-md-12">
-                            <div class="post-title-new capitalize" style="color:;">{{ $post->post_title }} </div>
-                        </div>
-                        @if($post->post_compname != null && $post->post_type == 'job')
-                        <div class="col-md-12">
-                            <div><small class="capitalize" style="font-size:13px;color:#676565 !important">Required at {{ $post->post_compname }}</small></div>
-                        </div>
-                            
-                        @endif
-                   	</div>
-                   	<div class="row post-postision" style="">
-                                                        
-                       <div class="col-md-6 col-sm-6 col-xs-6" style="">                                 
-                        @if($post->min_exp != null)
-                        <small style="font-size:13px;color:#676565 !important"> <i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: {{ $post->min_exp}}-{{ $post->max_exp}} Yr</small>
-                        @endif
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-6 elipsis-code elipsis-city-code" style="padding:0 12px;">
-                        @if($post->city != null)
-                        <small style="font-size:13px;color:#676565 !important;"> <i class="glyphicon glyphicon-map-marker post-icon-color"></i>&nbsp;: 
-                        	{{ $post->city }}
-                        </small>
-                        @endif
-                        </div>
-                    </div>
+							<a href="/welcome/skill/post/{{$post->unique_id}}" target="_blank">
+	                        <div class="col-md-12">
+	                            <div class="post-title-new capitalize" style="color:;">{{ $post->post_title }} </div>
+	                        </div>
+	                        @if($post->post_compname != null && $post->post_type == 'job')
+	                        <div class="col-md-12">
+	                            <div><small class="capitalize" style="font-size:13px;color:#676565 !important">Required at {{ $post->post_compname }}</small></div>
+	                        </div>
+	                            
+	                        @endif
+	                   
+	                                                        
+	                       <div class="col-md-6 col-sm-6 col-xs-6" style="">                                 
+	                        @if($post->min_exp != null)
+	                        <small style="font-size:13px;color:#676565 !important"> <i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: {{ $post->min_exp}}-{{ $post->max_exp}} Yr</small>
+	                        @endif
+	                        </div>
+	                        <div class="col-md-6 col-sm-6 col-xs-6 elipsis-code elipsis-city-code" style="padding:0 12px;">
+	                        @if($post->city != null)
+	                        <small style="font-size:13px;color:#676565 !important;"> <i class="glyphicon glyphicon-map-marker post-icon-color"></i>&nbsp;: 
+	                        	{{ $post->city }}
+	                        </small>
+	                        @endif
+	                        </div>
+	                    </a>
+	                    </div>
                     <div class="row" style="border-top: 1px solid lightgrey;margin: 10px 0px 0px 0;">
                     	<a href="/login"><div class="col-md-3 col-sm-3 col-xs-3" style="text-align:center;line-height: 2;">
                     		<i class="fa fa-thumbs-up" style="color:darkseagreen;font-size: 20px; margin: 9px 0;"></i>
@@ -317,7 +311,7 @@
 
 			</div>
 			@if(count($jobPosts) > 0)
-			<div style="margin: 15px 25px;text-align:center;"><a href="/login">Show more Jobs</a></div>
+			<div style="margin: 15px 25px;text-align:center;"><a href="/login">Show more Skills</a></div>
 			@else
 			<div style="margin: 15px 25px;text-align:center;"><a href="/login">Search with other credential</a></div>
 			@endif

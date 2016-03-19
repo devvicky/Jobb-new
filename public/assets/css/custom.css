@@ -424,6 +424,8 @@ background-color:white;
 
 .post-icon-color{
     color: dimgray;
+    line-height: 2;
+    font-size: 12px;
 }
 
 .user-link, .user-link2{
@@ -2055,12 +2057,12 @@ body{
 
 
 .select2-container .select2-selection--single {
-    height: 60px;
+    height: 35px;
 }
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
     color: #444;
-    line-height: 20px;
+    line-height: 30px;
 }
 
 .preferences-css{
@@ -2117,4 +2119,21 @@ body{
 
 .show-contact{
     display: none;
+}
+
+
+.corp-remove-btn{
+    padding: 2px 10px;
+    box-shadow: 0 2px 3px lightgrey;
+    border-radius: 2px !important;
+    margin: 10px 0;
+}
+
+
+.resume-btn{
+    padding: 2px 5px;
+    background-color: dodgerblue !important;
+    border-color: dodgerblue !important;
+    box-shadow: 0 2px 3px lightgrey !important;
+    border-radius: 2px !important;
 }

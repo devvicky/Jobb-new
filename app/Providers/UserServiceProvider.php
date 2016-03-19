@@ -34,6 +34,69 @@ class UserServiceProvider extends ServiceProvider {
 									  ->where('postactivities.thanks', '=', 1)
 								      ->orderBy('postactivities.id', 'desc')
 								      ->sum('postactivities.thanks');
+				$profilePer = 0;
+				if(Auth::user()->induser->fname != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->lname != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->email != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->mobile != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->dob != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->city != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->fb_page != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->in_page != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->gender != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->about_individual != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->education != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->experience != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->working_status != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->working_at != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->role != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->linked_skill != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->resume != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->prefered_location != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->prefered_jobtype != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->profile_pic != null){
+					$profilePer = $profilePer + 1;
+				}
+
+				$profilePer = round(($profilePer/20)*100) ;
 
 			}else if(Auth::user()->identifier == 2 || Auth::user()->identifier == 3){
 				$user = Corpuser::where('id', '=', Auth::user()->corpuser_id)->first();
@@ -45,10 +108,12 @@ class UserServiceProvider extends ServiceProvider {
 									      ->where('user_id', '=', Auth::user()->id)
 									      ->orderBy('id', 'desc')
 								          ->get(['id', 'fav_post', 'fav_post_dtTime', 'user_id', 'post_id']);
+				$profilePer = 0;
 			}
 			$view->with('session_user', $user)->with('favourites', $favourites)
 											  ->with('thanksCount', $thanksCount)
-											  ->with('followCount', $followCount);
+											  ->with('followCount', $followCount)
+											  ->with('profilePer', $profilePer);
 		});
 
 		view()->composer('includes.header', function($view){
@@ -66,7 +131,7 @@ class UserServiceProvider extends ServiceProvider {
 									  ->where('postactivities.thanks', '=', 1)
 								      ->orderBy('postactivities.id', 'desc')
 								      ->take(5)
-								      ->get(['postactivities.id', 'postjobs.unique_id', 'postactivities.thanks', 'postactivities.thanks_dtTime', 'postactivities.user_id', 'postactivities.post_id']);
+								      ->get();
 				$favourites = Postactivity::with('user')
 									      ->where('fav_post', '=', 1)
 									      ->where('user_id', '=', Auth::user()->id)

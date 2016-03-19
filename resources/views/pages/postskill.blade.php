@@ -10,7 +10,7 @@
 		</label>	
 		<div class="portlet box" id="form_wizard_1">			
 			<div class="portlet-body form">
-				<form action="/job/store" method="post" id="submit_form" 
+				<form action="/skill/store" method="post" id="submit_form" 
 					  data-toggle="validator" role="form" class="form-horizontal">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<div class="form-wizard">

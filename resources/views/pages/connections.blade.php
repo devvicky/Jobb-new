@@ -326,7 +326,7 @@
 						      </small>
 						</div>
 						<div class="col-md-3 col-sm-3 col-xs-3" style="margin: 0px -10px;padding:0;">
-							<form action="/connections/response/{{$conreq->pivot->id}}" method="post">
+							<form action="/connections/response/{{$conreq->pivot->id}}" id="accept-reject" method="post">
 								<input type="hidden" name="_token" value="{{ csrf_token() }}">
 								<button type="submit" name="action" value="accept" class="btn apply-ignore-font" style="padding: 0px 3px; background-color: white;">
 									<i class="icon-check icon-check-css-new"></i>

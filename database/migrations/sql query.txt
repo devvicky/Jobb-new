@@ -90,3 +90,19 @@ INSERT INTO `education` (`id`, `name`, `branch`, `level`, `created_at`, `updated
 INSERT INTO `education` (`id`, `name`, `branch`, `level`, `created_at`, `updated_at`) VALUES (6, 'M.Tech', 'Civil Engineering', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 INSERT INTO `education` (`id`, `name`, `branch`, `level`, `created_at`, `updated_at`) VALUES (5, 'M.Tech', 'Computer Science', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 INSERT INTO `education` (`id`, `name`, `branch`, `level`, `created_at`, `updated_at`) VALUES (7, 'M.Tech', 'Mechanical Engineering', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+
+
+
+CREATE TABLE `functional_area_role_mappings` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`functional_area` VARCHAR(50) NULL DEFAULT NULL,
+	`role` VARCHAR(50) NULL DEFAULT NULL,
+	`created_at` TIMESTAMP NULL DEFAULT '0000-00-00 00:00:00',
+	`updated_at` TIMESTAMP NULL DEFAULT '0000-00-00 00:00:00',
+	PRIMARY KEY (`id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=636
+;

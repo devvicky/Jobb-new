@@ -1,9 +1,7 @@
 
 <div class="row" style="margin:15px;">
 	<div class="col-md-12 col-sm-12">
-		<div class="myactivity-head" style="margin: 10px 0 0 0;">
-			<i class="fa fa-search"></i> Search Profile
-		</div>
+		
 		<form id="corpsearch-profile" action="/search/ind/profile" method="post">
 	      <input type="hidden" name="_token" value="{{ csrf_token() }}">
 	      <div class="row " style="display: table;">

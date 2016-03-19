@@ -123,10 +123,8 @@
             </ul>
           </li>
           <!-- END NOTIFICATION DROPDOWN -->
-          <!-- BEGIN INBOX DROPDOWN -->
-          <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
           <li class="dropdown dropdown-extended dropdown-inbox thank-fav-icon" id="header_inbox_bar">
-            <a class="dropdown-toggle @if($title == 'notify_view'){{'active'}}@endif" href="/notify/thanks/@if(Auth::user()->identifier==1){{'ind'}}@elseif(Auth::user()->identifier==2){{'corp'}}@endif/{{Auth::user()->induser_id}}{{Auth::user()->corpuser_id}}" data-utype="thank">
+            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"  data-close-others="true">
             @if($thanksCount > 0)
             <i class="icon-like" style="color: #CBF9CB; font-size:20px !important;"></i>
             @elseif($thanksCount == 0)
@@ -134,10 +132,51 @@
             @endif
             <span class="badge badge-default badge-thanks  @if($thanksCount > 0) show @else hide @endif" id="like-count" style="background-color:lightcoral !important;">{{$thanksCount}}</span>
             </a>
+            <ul class="dropdown-menu dropmenu-notification">
+              <li class="external" style="background-color: #1F1F1F;margin: -4px 0;">
+                @if($thanksCount > 0)
+                <h3 style="color: #D7D7FF;font-weight: 500;">{{$thanksCount}} New  Thanks</h3>
+                @else
+                <h3 style="color: #D7D7FF;font-weight: 500;"> No Thanks</h3>
+                @endif
+                <a class="@if($title == 'notify_view'){{'active'}}@endif" 
+                    href="/notify/thanks/@if(Auth::user()->identifier==1){{'ind'}}@elseif(Auth::user()->identifier==2){{'corp'}}@endif/{{Auth::user()->induser_id}}{{Auth::user()->corpuser_id}}" data-utype="thank" style="color: #D7D7FF;">view all</a>
+              </li>
+              <li>
+                <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283" id="notification-list">
+                  @foreach($thanks as $not)
+                    <li>
+                      <a href="inbox.html?a=view">
+                      <span class="photo">
+                      @if($not->fromuser != null)
+                        @if($not->fromuser->first()->induser != null)
+                          
+                          <img src="@if($not->fromuser->first()->induser->profile_pic != null){{ '/img/profile/'.$not->fromuser->first()->induser->profile_pic }}@else{{'/assets/images/ab.png'}}@endif" class="img-circle" width="40" height="40">                        
+                          
+                        @elseif($not->fromuser->first()->corpuser != null)
+                          
+                          <img src="@if($not->fromuser->first()->corpuser->logo_status != null){{ '/img/profile/'.$not->fromuser->first()->corpuser->logo_status }}@else{{'/assets/images/ab.png'}}@endif" class="img-circle" width="40" height="40">
+                         
+                        @endif
+                      @else
+                        <img src="/assets/images/ab.png" class="img-circle" width="40" height="40">                 
+                      @endif
+                      </span>
+                      <span class="subject">
+                      <span class="from" style="color: #61B7FF;">
+                      {{$not->user->name}}</span>
+                      <span class="time" style="color:aliceblue;">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($not->thanks_dtTime))->diffForHumans() }} </span>
+                      </span>
+                      <span class="message" style="color:whitesmoke;">
+                      has thanked your post : {{$not->unique_id}} </span>
+                      </a>
+                    </li>
+                 @endforeach
+                </ul>
+              </li>
+            </ul>
           </li>
-         
-          <!-- END INBOX DROPDOWN -->
-          <!-- BEGIN TODO DROPDOWN -->
+          <!-- BEGIN INBOX DROPDOWN -->
           <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
           <li class="dropdown dropdown-extended dropdown-tasks thank-fav-icon" id="header_task_bar">
             <a href="/favourite" data-utype="fav" class="dropdown-toggle @if($title == 'notify_view'){{'active'}}@endif"  data-close-others="true">

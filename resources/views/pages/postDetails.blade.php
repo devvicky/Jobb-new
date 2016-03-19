@@ -440,7 +440,7 @@
                                     </div>
                                 </div>
                                 
-                                 @if($expired == 0 && Auth::user()->identifier == 1)
+                                 @if($expired == 0)
                                 <div style="margin:27px 0 0;">
                                     <!-- if corporate_id not null -->
                                     @if($post->corporate_id != null && Auth::user()->id != $post->individual_id &&  Auth::user()->identifier == 1)     
@@ -479,7 +479,7 @@
                                         @endif
                                     
                                     @endif  
-                                    @if($post->individual_id != null && Auth::user()->id != $post->individual_id && Auth::user()->identifier == 1)       
+                                    @if($post->individual_id != null && Auth::user()->id != $post->individual_id)       
                                         @if($post->postactivity->where('user_id', Auth::user()->induser_id)->isEmpty())
                                             <form action="/job/contact" method="post" id="post-contact-{{$post->id}}" data-id="{{$post->id}}">  
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
