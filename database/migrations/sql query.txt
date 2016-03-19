@@ -72,3 +72,12 @@ ALTER TABLE `filters`
 
 ALTER TABLE `filters`
 	CHANGE COLUMN `role` `experience_new` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8_unicode_ci' AFTER `experience`;
+
+ALTER TABLE `corpusers`
+	CHANGE COLUMN `state` `prefered_location` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8_unicode_ci' AFTER `role`;
+
+
+ALTER TABLE `corpusers`
+	CHANGE COLUMN `email_show` `email_show` VARCHAR(255) NULL DEFAULT 'None' COLLATE 'utf8_unicode_ci' AFTER `firm_email_id`,
+	CHANGE COLUMN `phone_show` `phone_show` VARCHAR(255) NULL DEFAULT 'None' COLLATE 'utf8_unicode_ci' AFTER `email_show`;
+SELECT `DEFAULT_COLLATION_NAME` FROM `information_schema`.`SCHEMATA` WHERE `SCHEMA_NAME`='jobtip';
