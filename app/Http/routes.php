@@ -193,8 +193,8 @@ Route::group(array('middleware' => 'auth'), function(){
 
 	Route::get('search/', 'PagesController@search');
 
-	Route::get('home/{post_type}/{sort_by}', 'PagesController@homeSorting');
-	Route::get('home/{post_type}/{sort_by_skill}', 'PagesController@homeskillSorting');
+	Route::get('home/job/{sort_by}', 'PagesController@homeSorting');
+	Route::get('home/skill/{sort_by_skill}', 'PagesController@homeskillSorting');
 
 	Route::get('mypost/post/{sort_by}', 'PagesController@myActivitySorting');
 
@@ -234,6 +234,8 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::get('report-abuse/action/warningemail/{post_id}', 'JobController@warningEmailForAbuse');
 
 	Route::post('post/sharebyemail', 'JobController@sharePostByEmail');
+
+	Route::get('profileedit/{role_id}', 'UserController@role_detail');
 
 });
 

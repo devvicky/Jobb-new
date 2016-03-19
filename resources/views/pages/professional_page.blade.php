@@ -398,7 +398,6 @@
 											@endforeach
 										</select>
 									@elseif($user->induser->role != null)
-
 										<select class="select2me form-control" name="role">
 											<option value="{{$user->induser->functional_area}}-{{$user->induser->role}}">{{$user->induser->role}}</option>
 											{{$n=""}}
@@ -621,6 +620,15 @@
 @section('javascript')
 <script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
 <script type="text/javascript">
+	$.ajax({ // make the request for the selected data object
+	  type: 'GET',
+	  url: '/profileedit/{{ $user->induser->role }}',
+	  dataType: 'json'
+	}).then(function (data) {
+		console.log(data);
+	});
+
+
 	function initialize() {
 		var options = {	types: ['(cities)'], componentRestrictions: {country: "in"}	};
 		var input = document.getElementById('city');

@@ -11,6 +11,7 @@ use App\Induser;
 use App\Corpuser;
 use App\Skills;
 use App\User;
+use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests\CreateUserRequest;
@@ -743,5 +744,23 @@ class UserController extends Controller {
 	  
 	  // print_r($li_user);die;
 	}
+
+
+	public function role_detail($role_id){
+		$role = DB::select(DB::raw('select ifar.id as id, r.name as role, fa.name as "functional_area", i.name as industry 
+							from industry_functional_area_role_mappings ifar
+							join industry_functional_area_mappings ifa
+							on ifar.industry_functional_area = ifa.id
+							join roles r
+							on ifar.role=r.id
+							join functional_areas fa
+							on ifa.functional_area=fa.id
+							join industries i
+							on ifa.industry=i.id
+							where ifar.id = ?
+							order by id'), [$role_id]);
+		return $role;
+	}
+
 		
 }
