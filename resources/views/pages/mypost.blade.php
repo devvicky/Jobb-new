@@ -40,19 +40,20 @@
 									
 									<div class="timeline-body-head-caption">
 										@if(count($post->groupTagged) > 0)
-                                        @if($post->sharedGroupBy->first()->mode == 'tagged')
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <!-- Post shared by user -->                        
-                                                
-	                                            <div class="shared-by">
-	                                                You have tagged to <b>{{$post->sharedToGroup->first()->group_name}}</b> group<br/>
+	                                        @if($post->sharedGroupBy->first()->mode == 'tagged')
+	                                        <div class="row">
+	                                            <div class="col-md-12">
+	                                                <!-- Post shared by user -->                        
+	                                                
+		                                            <div class="shared-by">
+		                                                You have tagged to <b>{{$post->sharedToGroup->first()->group_name}}</b> group<br/>
+		                                            </div>
+	                                                
 	                                            </div>
-                                                
-                                            </div>
-                                        </div>
-                                        @endif
-                                    @endif
+
+	                                        </div>
+	                                        @endif
+	                                    @endif
                                      @if($post->tagged->contains('user_id', Auth::user()->induser_id) && 
                                         $post->sharedBy->first()->mode == 'tagged')
                                         
@@ -60,10 +61,10 @@
                                         {{$post->sharedBy->first()->fname}} {{$post->sharedBy->first()->lname}}</small>
                                         @endif
 											
-											Post Id:&nbsp;{{ $post->unique_id }}&nbsp;
-										<small>
-											<i class="fa fa-clock-o" style="font-size: 11px;"></i>  {{ date('M d, Y', strtotime($post->created_at)) }}
-										</small>
+										Post Id:&nbsp;{{ $post->unique_id }}&nbsp;
+													<small>
+														<i class="fa fa-clock-o" style="font-size: 11px;"></i>  {{ date('M d, Y', strtotime($post->created_at)) }}
+													</small>	
 									</div>
 								</div>
 								<div class="timeline-body-content" style="margin-top: 20px;">
@@ -71,13 +72,7 @@
 									<div class="post-job-skill-bar">
 										<div class="{{ $post->post_type }}"><a class="post-type-class">{{ $post->post_type }}</a></div>
 									</div>
-									<span class="font-grey-cascade">
-										@if($post->post_type == 'skill')	
-										<div class="post-title-new capitalize">{{ $post->post_title }} </div>
-										@elseif($post->post_type == 'job')
-											 <div class="post-title-new capitalize">{{ $post->post_title }}  </div>
-										@endif					 							
-									</span>
+									
 
 										<?php 
 										$strNew = $post->post_duration;
@@ -101,11 +96,16 @@
 								 		}
 								  	?>
 								  	<div class="row">
+								  		<div class="col-md-12">
+								  			<span class="font-grey-cascade">
+													 <div class="post-title-new capitalize">{{ $post->post_title }}  </div>					 							
+											</span>
+								  		</div>
 								  		@if($expired == 0)
 								  		<div class="col-md-6 col-sm-6 col-xs-7">
 								  			<small style="font-size:13px;">Post expires in 
 									  			<button class="btn post-expire-duration-css"> 
-									  				{{($post->post_duration + $post->post_extended) - $dayExpire}} days
+									  				{{($post->post_duration + $post->post_extended)}} days
 									  			</button>
 									  		</small>
 								  		</div>

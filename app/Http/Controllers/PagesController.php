@@ -219,10 +219,6 @@ class PagesController extends Controller {
 				$filter = Filter::where('post_type', '=', 'job')->where('from_user', '=', Auth::user()->id)->first();
 				$skillfilter = Filter::where('post_type', '=', 'skill')->where('from_user', '=', Auth::user()->id)->first();
 
-				$jobPosts = Postjob::orderBy('id', 'desc')
-								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
-								   ->where('post_type', '=', 'job')
-								   ->paginate(5);
 				$skillPosts = Postjob::orderBy('id', 'desc')
 									 ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 									 ->where('post_type', '=', 'skill')
@@ -1756,12 +1752,12 @@ public function homeskillFilter(){
 								   ->where('individual_id', '!=', Auth::user()->induser_id)
 								   ->paginate(15);
 				}elseif($sort_by_skill == 'jobtype' && $post_type == 'skill'){
+
 					$skillPosts = Postjob::orderBy('time_for', 'asc')
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 								   ->where('post_type', '=', 'skill')
 								   ->where('individual_id', '!=', Auth::user()->induser_id)
 								   ->paginate(15);
-					// $skillPosts = sort($skillPosts);
 					// sort( $skillPosts, SORT_FLAG_CASE );
 				}
 				
@@ -2513,24 +2509,27 @@ public function homeskillFilter(){
 				
 				$perProfile = "";
 				$searchSkill = "";
+
 				if($skill == null){
 					$perProfile = '100';
 				}elseif($skill != null){
-					$skillUser = Induser::first(['linked_skill']);
-					$userSkills = array_map('trim', explode(',', $skillUser->linked_skill));
-					unset ($userSkills[count($userSkills)-1]);
+					
+						$skillUser = Induser::first(['linked_skill']);
+						$userSkills = array_map('trim', explode(',', $skillUser->linked_skill));
+						// unset ($userSkills[count($userSkills)-1]);
 
-					$searchSkill = implode(',', Input::get('linked_skill_id'));
-					$searchSkill = array_map('trim', explode(',', $searchSkill));
-					unset ($searchSkill[count($searchSkill)-1]);
+						$searchSkill = implode(',', Input::get('linked_skill_id'));
+						$searchSkill = array_map('trim', explode(',', $searchSkill));
+						// unset ($searchSkill[count($searchSkill)-1]);
 
-					$overlap = array_intersect($userSkills, $searchSkill);
-					$counts  = array_count_values($overlap);
-					if(count($counts) > 0){
-						$perProfile = round( ( count($counts) / count($userSkills) ) * 100 );
-					}else{
-						$perProfile = 0;
-					}
+						$overlap = array_intersect($userSkills, $searchSkill);
+						$counts  = array_count_values($overlap);
+						if(count($counts) > 0){
+							$perProfile = round( ( count($counts) / count($userSkills) ) * 100 );
+						}else{
+							$perProfile = 0;
+						}
+					
 				}
 
 				$users = $users->paginate(5);

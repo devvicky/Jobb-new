@@ -81,7 +81,7 @@
 									<div class="col-md-12">
 										<div class="form-group">
 											<label>Job Details <span class="required">*</span></label>	
-											<textarea id="textarea" rows="6" class="form-control autosizeme" maxlength="500" ></textarea>
+											<textarea id="textarea" rows="6" class="form-control autosizeme" name="job_detail" maxlength="1000" ></textarea>
 											<div id="textarea_feedback"></div>							
 											<!-- <textarea name="job_detail" onkeyup="countChar(this)" class="form-control autosizeme" rows="6"></textarea>
 											<div id="charNum" style="text-align:right;"></div> -->
@@ -246,7 +246,7 @@
 													<select class="form-control education-list" name="education[]" id="parent_selection" multiple style="border:1px solid #c4d5df">
 														@foreach($education as $edu)
 															@if($edu->name != '0')
-															<option value="{{$edu->branch}}-{{$edu->name}}-{{$edu->level}}">{{$edu->name}}-{{$edu->branch}}</option>
+															<option value="{{$edu->branch}}-{{$edu->name}}-{{$edu->level}}">{{$edu->name}} ({{$edu->branch}})</option>
 															@else
 															<option value="{{$edu->name}}">{{$edu->branch}}</option>
 															@endif
@@ -553,14 +553,7 @@
 						                                                                <p class="form-control-static" data-display="education[]" style="margin: -5px 0;"></p>
 						                                                            </div>
 						                                                        </div>
-						                                                        <div class="row">
-						                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-						                                                                <label class="detail-label">Branch :</label>     
-						                                                            </div>
-						                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-						                                                                <p class="form-control-static" data-display="branch" style="margin: -5px 0;"></p>
-						                                                            </div>
-						                                                        </div>
+						                                                        
 					                                                            <div class="row"> 
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                           
 					                                                                        <label class="detail-label">Skills :</label>                                                                  
@@ -616,7 +609,7 @@
 																			<br>
 																				<i class="glyphicon glyphicon-earphone" style="color: green;font-size: 16px;"></i>&nbsp;:<p class="form-control-static" data-display="phone"></p>
 																				</div> 
-																			<div class="skill-display" style="margin: 25px 0;">Post Id&nbsp;: Null (Auto generated after submit.) </div> 
+																			<!-- <div class="skill-display" style="margin: 25px 0;">Post Id&nbsp;: Null (Auto generated after submit.) </div>  -->
 																</div>		
 																
 															</div>
@@ -872,7 +865,7 @@ function loader(arg){
 // }
 // }
 $(document).ready(function() {
-var text_max = 500;
+var text_max = 1000;
 $('#textarea_feedback').html(text_max + ' characters remaining');
 
 $('#textarea').keyup(function() {

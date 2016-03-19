@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('content')
-																
+												
 <div class="row" style="margin:5px;">
 	<div class="col-md-9">
 		<label class="post-job-heading">
@@ -93,7 +93,7 @@
 									<div class="col-md-12">
 										<div class="form-group">
 											<label>Skill Details <span class="required">*</span></label>								
-											<textarea name="job_detail" onkeyup="countChar(this)" class="form-control autosizeme" rows="6"></textarea>
+											<textarea name="job_detail" onkeyup="countChar(this)" class="form-control autosizeme" maxlength="1000" rows="6"></textarea>
 											<div id="charNum" style="text-align:right;"></div>
 										</div>
 									</div>

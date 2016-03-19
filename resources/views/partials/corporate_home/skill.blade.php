@@ -85,6 +85,6 @@
 
 <div class="row">
 	<div class="col-md-12">
-		<?php echo $jobPosts->render(); ?>
+		<?php echo $skillPosts->render(); ?>
 	</div>
 </div>			

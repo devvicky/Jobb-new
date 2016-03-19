@@ -120,8 +120,8 @@ class ViewpageController extends Controller {
 			$industry = Industry::lists('name','id');
 
 			$educationList = Education::orderBy('level')->orderBy('name')->where('name', '!=', '0')->get();
-
-			return view('pages.professional_page', compact('user', 'title', 'skills', 'roles', 'functionalAreas', 'industry', 'educationList'));
+			$location = Induser::where('id', '=', Auth::user()->induser_id)->first(['prefered_location']);
+			return view('pages.professional_page', compact('user', 'title', 'skills', 'roles', 'functionalAreas', 'industry', 'educationList', 'location'));
 		}else if(Auth::user()->identifier == 2){
 			$title = 'corpprofile_edit';
 			$user = User::where('id', '=', Auth::user()->id)->with('corpuser')->first();

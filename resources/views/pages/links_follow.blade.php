@@ -10,7 +10,7 @@
 	 Do you want to add him as your new link?
 </div>
 <div class="modal-footer">		
-	<form action="/connections/newLink, $puid" method="post">				
+	<form action="/connections/newLink/{{$puid}}" method="post">				
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">	
 		<button type="submit" class="btn btn-sm blue">Yes</button>
 		<button type="button" class="btn btn-sm default" data-dismiss="modal">No</button>
@@ -58,7 +58,7 @@
 	 Do you want to remove him from your link?
 </div>
 <div class="modal-footer">		
-	<form action="/connections/removeLink, $puid" method="post">				
+	<form action="/connections/removeLink/{{$puid}}" method="post">				
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">	
 		<button type="submit" class="btn btn-sm blue">Yes</button>
 		<button type="button" class="btn btn-sm default" data-dismiss="modal">No</button>
@@ -76,7 +76,7 @@
 	 Do you want to Follow?
 </div>
 <div class="modal-footer">		
-	<form action="/corporate/follow, $puid" method="post">				
+	<form action="/corporate/follow/{{$puid}}" method="post">				
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">	
 		<button type="submit" class="btn btn-sm blue">Yes</button>
 		<button type="button" class="btn btn-sm default" data-dismiss="modal">No</button>
@@ -94,7 +94,7 @@
 	 Do you want to unfollow?
 </div>
 <div class="modal-footer">		
-	<form action="/corporate/unfollow, $puid" method="post">				
+	<form action="/corporate/unfollow/{{$puid}}" method="post">				
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">	
 		<button type="submit" class="btn btn-sm blue">Yes</button>
 		<button type="button" class="btn btn-sm default" data-dismiss="modal">No</button>

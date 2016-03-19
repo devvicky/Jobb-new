@@ -232,19 +232,19 @@ class UserController extends Controller {
 			}
 			$data->about_individual = Input::get('about_individual');
 			$data->prefered_jobtype = Input::get('prefered_jobtype');
-			$pref_locations = Input::get('prefered_location');
+			// $pref_locations = Input::get('prefered_location');
 			$data->save();
-			if (!empty($pref_locations)) {
-				foreach ($pref_locations as $loc) {
-		        	$tempArr = explode('-', $loc);
-		        	if(count($tempArr) == 3){
-		        		$data->preferredLocation()->attach( $loc, array('locality' => $tempArr[0], 'city' => $tempArr[1], 'state' => $tempArr[2]) );
-		        	}
-		        	if(count($tempArr) == 2){
-		        		$data->preferredLocation()->attach( $loc, array('locality' => 'none', 'city' => $tempArr[0], 'state' => $tempArr[1]) );
-		        	}
-		        }
-		    }
+			// if (!empty($pref_locations)) {
+			// 	foreach ($pref_locations as $loc) {
+		 //        	$tempArr = explode('-', $loc);
+		 //        	if(count($tempArr) == 3){
+		 //        		$data->preferredLocation()->attach( $loc, array('locality' => $tempArr[0], 'city' => $tempArr[1], 'state' => $tempArr[2]) );
+		 //        	}
+		 //        	if(count($tempArr) == 2){
+		 //        		$data->preferredLocation()->attach( $loc, array('locality' => 'none', 'city' => $tempArr[0], 'state' => $tempArr[1]) );
+		 //        	}
+		 //        }
+		 //    }
 			return redirect('/individual/edit#privacy');
 		}else{
 			return 'some error occured.';

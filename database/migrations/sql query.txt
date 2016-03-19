@@ -73,6 +73,7 @@ ALTER TABLE `filters`
 ALTER TABLE `filters`
 	CHANGE COLUMN `role` `experience_new` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8_unicode_ci' AFTER `experience`;
 
+
 ALTER TABLE `corpusers`
 	CHANGE COLUMN `state` `prefered_location` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8_unicode_ci' AFTER `role`;
 
@@ -81,3 +82,21 @@ ALTER TABLE `corpusers`
 	CHANGE COLUMN `email_show` `email_show` VARCHAR(255) NULL DEFAULT 'None' COLLATE 'utf8_unicode_ci' AFTER `firm_email_id`,
 	CHANGE COLUMN `phone_show` `phone_show` VARCHAR(255) NULL DEFAULT 'None' COLLATE 'utf8_unicode_ci' AFTER `email_show`;
 SELECT `DEFAULT_COLLATION_NAME` FROM `information_schema`.`SCHEMATA` WHERE `SCHEMA_NAME`='jobtip';
+
+
+ALTER TABLE `education`
+	ADD COLUMN `level` INT UNSIGNED NULL DEFAULT NULL AFTER `branch`;
+
+
+	 INSERT INTO `education` (`id`, `name`, `branch`, `level`, `created_at`, `updated_at`) VALUES (11, 'Intermediate', 'Art', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `education` (`id`, `name`, `branch`, `level`, `created_at`, `updated_at`) VALUES (8, 'Intermediate', 'Science', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `education` (`id`, `name`, `branch`, `level`, `created_at`, `updated_at`) VALUES (10, '0', 'Any graduate', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `education` (`id`, `name`, `branch`, `level`, `created_at`, `updated_at`) VALUES (9, 'B.E', 'CS', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `education` (`id`, `name`, `branch`, `level`, `created_at`, `updated_at`) VALUES (1, 'B.Tech', 'Computer Science', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `education` (`id`, `name`, `branch`, `level`, `created_at`, `updated_at`) VALUES (2, 'B.Tech', 'IT', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `education` (`id`, `name`, `branch`, `level`, `created_at`, `updated_at`) VALUES (3, 'B.Tech', 'Mechanical Engineering', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `education` (`id`, `name`, `branch`, `level`, `created_at`, `updated_at`) VALUES (4, 'B.Tech', 'Civil Engineering', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `education` (`id`, `name`, `branch`, `level`, `created_at`, `updated_at`) VALUES (12, '0', 'Any post graduate', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `education` (`id`, `name`, `branch`, `level`, `created_at`, `updated_at`) VALUES (6, 'M.Tech', 'Civil Engineering', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `education` (`id`, `name`, `branch`, `level`, `created_at`, `updated_at`) VALUES (5, 'M.Tech', 'Computer Science', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `education` (`id`, `name`, `branch`, `level`, `created_at`, `updated_at`) VALUES (7, 'M.Tech', 'Mechanical Engineering', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00');

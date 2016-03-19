@@ -264,7 +264,7 @@
 									<label>About Me</label>
 										<!-- <textarea   onkeyup="countChar(this)" class="form-control" rows="6"> </textarea>
 									<div id="charNum" style="text-align:right;"></div> -->
-									<textarea id="textarea" rows="6" class="form-control " maxlength="250" name="about_individual" placeholder="write about your proffessional summary...">{{ $user->induser->about_individual }}</textarea>
+									<textarea id="textarea" rows="6" class="form-control " maxlength="500" name="about_individual" placeholder="write about your proffessional summary...">{{ $user->induser->about_individual }}</textarea>
 											<div id="textarea_feedback"></div>
 								</div>
 								
@@ -279,8 +279,8 @@
 										<span class="input-group-addon">
 											<i class="icon-graduation"></i>
 										</span>
-
-										<select class="form-control education-list" name="education" value="{{$user->induser->education}}"
+										@if($user->induser->education == null)
+										<select class="form-control education-list" name="education" value=""
 												id="parent_selection" style="border:1px solid #c4d5df">
 											{{$n=""}}
 											@foreach($educationList as $edu)
@@ -289,66 +289,69 @@
 													{{$n=$edu->name}}
 													<optgroup label="{{$edu->name}}">
 												@endif
-												    <option value="{{$edu->branch}}-{{$edu->name}}-{{$edu->level}}" @if($user->induser->education=="{{$edu->branch}}-{{$edu->name}}") {{ $selected }} @endif>{{$edu->name}}-{{$edu->branch}}</option>
+													<option value="{{$edu->branch}}-{{$edu->name}}-{{$edu->level}}" @if($user->induser->education=="{{$edu->branch}}-{{$edu->name}}") {{ $selected }} @endif>{{$edu->name}}-{{$edu->branch}}</option>
 												@if($n != $edu->name)
 													</optgroup>		
 												@endif
 
 											@endforeach
 										</select>
-
-
-
-										<!-- <select class="form-control" name="education" id="parent_selection" >
-											<option value="">--Please Select--</option>
-											<option @if($user->induser->education=="BA") {{ $selected }} @endif value="BA">B.A</option>
-											<option @if($user->induser->education=="BArch") {{ $selected }} @endif value="BArch">B.Arch</option>
-											<option @if($user->induser->education=="BCA") {{ $selected }} @endif value="BCA">BCA</option>
-											<option @if($user->induser->education=="BBA") {{ $selected }} @endif value="BBA">BBA</option>
-											<option @if($user->induser->education=="BCom") {{ $selected }} @endif value="BCom">BCom</option>
-											<option @if($user->induser->education=="B.Ed") {{ $selected }} @endif value="B.Ed">B.Ed</option>
-											<option @if($user->induser->education=="MTech") {{ $selected }} @endif value="MTech" value="MTech">MTech</option>
-											<option @if($user->induser->education=="MSc") {{ $selected }} @endif value="MSc" value="MSc">MSc</option>
-											<option @if($user->induser->education=="MArch") {{ $selected }} @endif value="MArch" value="MArch">MArch</option>
-
-											<option @if($user->induser->education=="MCA") {{ $selected }} @endif value="MCA" value="MCA">MCA</option>
-											<option @if($user->induser->education=="MS") {{ $selected }} @endif value="MS" value="MS">MS</option>
-											<option @if($user->induser->education=="PGDiploma") {{ $selected }} @endif value="PGDiploma" value="PGDiploma">PGDiploma</option>
-
-											<option @if($user->induser->education=="MVSC") {{ $selected }} @endif value="MVSC" value="MVSC">MVSC</option>
-											<option @if($user->induser->education=="MCM") {{ $selected }} @endif value="MCM" value="MCM">MCM</option>
-											<option @if($user->induser->education=="BBA") {{ $selected }} @endif value="BBA" value="BBA">BBA</option>
-											<option @if($user->induser->education=="btech") {{ $selected }} @endif value="btech">B.Tech/B.E.</option>
-											<option @if($user->induser->education=="MCom") {{ $selected }} @endif value="MCom" value="MCom">MCom</option>
-											<option @if($user->induser->education=="MEd") {{ $selected }} @endif value="MEd" value="MEd">MEd</option>
-											<option @if($user->induser->education=="MPharma") {{ $selected }} @endif value="MPharma" value="MPharma">MPharma</option>
-											<option @if($user->induser->education=="MA") {{ $selected }} @endif value="MA" value="MA">MA</option>
-											<option @if($user->induser->education=="twelth") {{ $selected }} @endif value="twelth" value="twelth">12th</option>
-											<option @if($user->induser->education=="Below 12th") {{ $selected }} @endif value="Below 12th" value="twelth">Below 12th</option>
+										@else
+										<select class="form-control education-list" name="education" value="{{$user->induser->education}}"
+												id="parent_selection" style="border:1px solid #c4d5df">
+												<option selected value="{{$user->induser->education}}">{{$user->induser->education}}</option>
+											{{$n=""}}
+											@foreach($educationList as $edu)
 											
-										</select> -->
-										
+												@if($n != $edu->name && $edu->name != '0')
+													{{$n=$edu->name}}
+													<optgroup label="{{$edu->name}}">
+												@endif
+													<option value="{{$edu->branch}}-{{$edu->name}}-{{$edu->level}}" @if($user->induser->education=="{{$edu->branch}}-{{$edu->name}}") {{ $selected }} @endif>{{$edu->name}}-{{$edu->branch}}</option>
+												@if($n != $edu->name)
+													</optgroup>		
+												@endif
+
+											@endforeach
+										</select>
+										@endif								
 									</div>
 								</div>
 							</div>
 							<!--/span-->
 							<div class="col-md-6 col-sm-6">
-								<!-- <div class="form-group">
-									<label>Branch </label>
+								<div class="form-group">
+									<label>Experience </label>
 									<div class="input-group">
 										<span class="input-group-addon">
-											<i class="icon-graduation"></i>
+											<i class=" icon-briefcase"></i>
 										</span>
-										<select class="form-control" name="branch" id="child_selection" value="{{ $user->branch }}">
-											<option value="{{ $user->induser->branch }}">{{ $user->induser->branch }}</option>
+										<select class="form-control" name="experience" >
+											<option value=""> Select </option>
+											<option @if($user->induser->experience=="0") {{ $selected }} @endif value="0">Fresher</option>
+											<option @if($user->induser->experience=="1") {{ $selected }} @endif value="1">1 Year</option>
+											<option @if($user->induser->experience=="2") {{ $selected }} @endif value="2">2 Years</option>
+											<option @if($user->induser->experience=="3") {{ $selected }} @endif value="3">3 Years</option>
+											<option @if($user->induser->experience=="4") {{ $selected }} @endif value="4">4 Years</option>
+											<option @if($user->induser->experience=="5") {{ $selected }} @endif value="5">5 Years</option>
+											<option @if($user->induser->experience=="6") {{ $selected }} @endif value="6">6 Years</option>
+											<option @if($user->induser->experience=="7") {{ $selected }} @endif value="7">7 Years</option>
+											<option @if($user->induser->experience=="8") {{ $selected }} @endif value="8">8 Years</option>
+											<option @if($user->induser->experience=="9") {{ $selected }} @endif value="9">9 Years</option>
+											<option @if($user->induser->experience=="10") {{ $selected }} @endif value="10">10 Years</option>
+											<option @if($user->induser->experience=="11") {{ $selected }} @endif value="11">11 Years</option>
+											<option @if($user->induser->experience=="12") {{ $selected }} @endif value="12">12 Years</option>
+											<option @if($user->induser->experience=="13") {{ $selected }} @endif value="13">13 Years</option>
+											<option @if($user->induser->experience=="14") {{ $selected }} @endif value="14">14 Years</option>
+											<option @if($user->induser->experience=="15") {{ $selected }} @endif value="15">15 Years</option>
 										</select>
 									</div>
-								</div> -->
+								</div>
 							</div>
 							<!--/span-->
 						</div>						
 						<div class="row">
-							<div class="col-md-3 col-sm-3 col-xs-6">
+							<div class="col-md-6 col-sm-6 col-xs-6">
 								<div class="form-group">
 									<label>Working Status</label>
 									<div class="input-group">
@@ -365,35 +368,6 @@
 									</div>
 								</div>
 							</div>	
-							<div class="col-md-3 col-sm-3 col-xs-6">
-								<div class="form-group">
-									<label>Experience</label>
-									<div class="input-group">
-										<span class="input-group-addon">
-											<i class=" icon-briefcase"></i>
-										</span>
-										<select class="form-control" name="experience" >
-											<option value=""> Select </option>
-											<option @if($user->induser->experience=="0") {{ $selected }} @endif value="0">0</option>
-											<option @if($user->induser->experience=="1") {{ $selected }} @endif value="1">1</option>
-											<option @if($user->induser->experience=="2") {{ $selected }} @endif value="2">2</option>
-											<option @if($user->induser->experience=="3") {{ $selected }} @endif value="3">3</option>
-											<option @if($user->induser->experience=="4") {{ $selected }} @endif value="4">4</option>
-											<option @if($user->induser->experience=="5") {{ $selected }} @endif value="5">5</option>
-											<option @if($user->induser->experience=="6") {{ $selected }} @endif value="6">6</option>
-											<option @if($user->induser->experience=="7") {{ $selected }} @endif value="7">7</option>
-											<option @if($user->induser->experience=="8") {{ $selected }} @endif value="8">8</option>
-											<option @if($user->induser->experience=="9") {{ $selected }} @endif value="9">9</option>
-											<option @if($user->induser->experience=="10") {{ $selected }} @endif value="10">10</option>
-											<option @if($user->induser->experience=="11") {{ $selected }} @endif value="11">11</option>
-											<option @if($user->induser->experience=="12") {{ $selected }} @endif value="12">12</option>
-											<option @if($user->induser->experience=="13") {{ $selected }} @endif value="13">13</option>
-											<option @if($user->induser->experience=="14") {{ $selected }} @endif value="14">14</option>
-											<option @if($user->induser->experience=="15") {{ $selected }} @endif value="15">15</option>
-										</select>
-									</div>
-								</div>
-							</div>
 							<div class="col-md-6 col-sm-6 col-xs-12" >
 								<div class="form-group">
 									<label>Working at</label>
@@ -511,13 +485,13 @@
 										class="form-control" placeholder="Select preferred location">									
 										
 									</div>
-									
-									{!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 
+	
+									{!! Form::select('prefered_location[]', $location, null, ['id'=>'prefered_location', 
 																								   'aria-hidden'=>'true', 
 																								   'class'=>'form-control', 
 																								   'placeholder'=>'city', 
 																								   'multiple']) !!}	
-									
+
 								</div>
 							</div>
 						</div>
@@ -670,7 +644,12 @@
 
     // preferred loc
 	var prefLocationArray = [];
-	
+	<?php $arr = explode(', ', $user->induser->prefered_location); ?>
+	@if(count($arr) > 0) 
+	@foreach($arr as $ga => $gt)
+		prefLocationArray.push('<?php echo $gt; ?>');
+	@endforeach
+	@endif
     var plselect = $("#prefered_location").select2({ dataType: 'json', data: prefLocationArray });
     plselect.val(prefLocationArray).trigger("change");
 
@@ -859,7 +838,7 @@ $(document).ready(function() {
 </script>
 <script>
 $(document).ready(function() {
-var text_max = 250;
+var text_max = 500;
 	$('#textarea_feedback').html(text_max + ' characters remaining');
 
 	$('#textarea').keyup(function() {

@@ -16,7 +16,7 @@
 			<div class="tab-pane active" id="skill">
 				@include('partials.corporate_home.skill')
 			</div>
-			<div class="tab-pane " id="job">
+			<div class="tab-pane " id="job" style="background-color: white;">
 				@include('partials.corporate_home.job')
 			</div>
 		</div>

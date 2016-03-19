@@ -343,7 +343,7 @@
             </tr>
             <tr>
               <td  class="matching-criteria-align">
-
+              	
               </td>
               <td  class="matching-criteria-align">
                 {{$user->linked_skill}}
@@ -371,7 +371,7 @@
             </tr>
             <tr>
               <td class="matching-criteria-align">
-
+              	{{$min_exp}}-{{$max_exp}}
               </td>
               <td class="matching-criteria-align">
                 {{$user->experience}}
