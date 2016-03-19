@@ -1588,7 +1588,8 @@ public function homeskillFilter(){
 
 
 
-	public function homeSorting($post_type, $sort_by){
+	public function homeSorting($sort_by){
+		$post_type = 'job';
 		if (Auth::check()) {
 			$title = 'home';
 			$filter = Filter::where('post_type', '=', 'job')->where('from_user', '=', Auth::user()->id)->first();
@@ -1737,7 +1738,8 @@ public function homeskillFilter(){
 	}
 
 
-	public function homeskillSorting($post_type, $sort_by_skill){
+	public function homeskillSorting($sort_by_skill){
+		$post_type = 'skill';
 		if (Auth::check()) {
 			$title = 'home';
 			$filter = Filter::where('post_type', '=', 'job')->where('from_user', '=', Auth::user()->id)->first();
@@ -1746,27 +1748,21 @@ public function homeskillFilter(){
 
 				$skills = Skills::lists('name', 'id');
 				$sort_by = " ";
+
 				if($sort_by_skill == 'date' && $post_type == 'skill'){
 					$skillPosts = Postjob::orderBy('created_at', 'desc')
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 								   ->where('post_type', '=', 'skill')
 								   ->where('individual_id', '!=', Auth::user()->induser_id)
 								   ->paginate(15);
-
 				}elseif($sort_by_skill == 'jobtype' && $post_type == 'skill'){
-					$skillPosts = Postjob::orderBy('time_for', 'desc')
+					$skillPosts = Postjob::orderBy('time_for', 'asc')
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 								   ->where('post_type', '=', 'skill')
 								   ->where('individual_id', '!=', Auth::user()->induser_id)
 								   ->paginate(15);
-					$skillPosts = sort($skillPosts);
+					// $skillPosts = sort($skillPosts);
 					// sort( $skillPosts, SORT_FLAG_CASE );
-				}else{
-					$skillPosts = Postjob::orderBy('created_at', 'desc')
-								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
-								   ->where('post_type', '=', 'skill')
-								   ->where('individual_id', '!=', Auth::user()->induser_id)
-								   ->paginate(15);
 				}
 				
 				$jobPosts = Postjob::orderBy('id', 'desc')

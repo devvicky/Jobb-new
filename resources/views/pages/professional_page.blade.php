@@ -420,7 +420,7 @@
 											<i class="fa fa-cube" style="color:darkcyan;"></i>
 										</span>			
 										<select class="job-role-ajax form-control new-role" name="role" id="jobrole">
-									  		<option value="0" selected="selected"></option>
+									  		<option value="0" selected="selected">Select role</option>
 										</select>													
 									</div>
 									example: manager, admin, secretory <a class="hide-far">see all</a>
@@ -632,6 +632,15 @@
 @section('javascript')
 <script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
 <script type="text/javascript">
+	$.ajax({ // make the request for the selected data object
+	  type: 'GET',
+	  url: '/profileedit/{{ $user->induser->role }}',
+	  dataType: 'json'
+	}).then(function (data) {
+		console.log(data);
+	});
+
+
 	function initialize() {
 		var options = {	types: ['(cities)'], componentRestrictions: {country: "in"}	};
 		var input = document.getElementById('city');

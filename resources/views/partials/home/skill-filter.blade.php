@@ -17,7 +17,7 @@
 							<a href="/home/skill/date">Date</a>
 						</li>
 						<li>
-							<a href="/home/skill/jobtype#skill">Job Type</a>
+							<a href="/home/skill/jobtype">Job Type</a>
 						</li>
 					</ul>
 				</div>
