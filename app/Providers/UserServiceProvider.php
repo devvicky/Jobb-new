@@ -34,6 +34,7 @@ class UserServiceProvider extends ServiceProvider {
 									  ->where('postactivities.thanks', '=', 1)
 								      ->orderBy('postactivities.id', 'desc')
 								      ->sum('postactivities.thanks');
+
 				$profilePer = 0;
 				if(Auth::user()->induser->fname != null){
 					$profilePer = $profilePer + 1;
@@ -109,6 +110,14 @@ class UserServiceProvider extends ServiceProvider {
 									      ->orderBy('id', 'desc')
 								          ->get(['id', 'fav_post', 'fav_post_dtTime', 'user_id', 'post_id']);
 				$profilePer = 0;
+				if(Auth::user()->corpuser->firm_name != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->corpuser->username != null){
+					$profilePer = $profilePer + 1;
+				}
+
+				$profilePer = round(($profilePer/20)*100) ;
 			}
 			$view->with('session_user', $user)->with('favourites', $favourites)
 											  ->with('thanksCount', $thanksCount)

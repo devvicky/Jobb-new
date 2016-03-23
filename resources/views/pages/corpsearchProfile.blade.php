@@ -25,9 +25,7 @@
 						<span class="input-group-addon">
 							<i class="fa fa-cube" style="color:darkcyan;"></i>
 						</span>			
-						<select  class="job-role-ajax form-control new-role" name="role" id="jobrole">
-					  		<option value="0" selected="selected"></option>
-						</select>													
+						<input type="text" name="role" placeholder="Job Role" class="form-control">												
 					</div>
 				</div>					
 			</div>

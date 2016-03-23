@@ -31,7 +31,7 @@
 										    	{{ $user->fname }} {{ $user->lname }}
 										    </h4>
 										 	@if($user->working_status == "Student")
-			                                     {{ $user->education }} in {{ $user->branch }}, {{ $user->city }}	                                
+			                                     Student, {{ $user->city }}	                                
 			                                @elseif($user->working_status == "Searching Job")	                                
 			                                     {{ $user->working_status }} in {{ $user->prof_category }}, {{ $user->city }}	                                
 			                                @elseif($user->working_status == "Freelanching")	                                
@@ -43,7 +43,7 @@
 			                                @elseif($user->role == null && $user->working_at !=null && $user->working_status == "Working")
 			                                     {{ $user->woring_at }}, {{ $user->city }}
 			                                @elseif($user->role == null && $user->working_at ==null && $user->working_status == "Working")
-			                                     {{ $user->prof_category }}, {{ $user->city }}
+			                                      {{ $user->city }}
 			                                @endif
 										</div>
 										@if($user->id != Auth::user()->induser_id)

@@ -274,7 +274,7 @@
 											<i class="icon-graduation"></i>
 										</span>
 										@if($user->induser->education == null)
-										<select class="form-control education-list" name="education" style="border:1px solid #c4d5df">
+										<select class="select2me form-control education-list" name="education" style="border:1px solid #c4d5df">
 											<option selected value="">Select</option>
 											{{$n=""}}
 											@foreach($educationList as $edu)
@@ -283,7 +283,7 @@
 													{{$n=$edu->name}}
 													<optgroup label="{{$edu->name}}">
 												@endif
-													<option value="{{$edu->branch}}-{{$edu->name}}-{{$edu->level}}" @if($user->induser->education=="{{$edu->branch}}-{{$edu->name}}") {{ $selected }} @endif>{{$edu->name}}-{{$edu->branch}}</option>
+													<option value="{{$edu->name}}-{{$edu->branch}}-{{$edu->level}}" @if($user->induser->education=="{{$edu->branch}}-{{$edu->name}}") {{ $selected }} @endif>{{$edu->branch}}</option>
 												@if($n != $edu->name)
 													</optgroup>		
 												@endif
@@ -291,9 +291,13 @@
 											@endforeach
 										</select>
 										@else
-										<select class="form-control education-list" name="education" value="{{$user->induser->education}}"
+										<select class="select2me form-control education-list" name="education" value="{{$user->induser->education}}"
 												 style="border:1px solid #c4d5df">
-												<option selected value="{{$user->induser->education}}">{{$user->induser->education}}</option>
+												 <?php $education = explode('-', $user->induser->education); 
+												 		$name = $education[0];
+												 		$branch = $education[1];
+												 		$level = $education[2];  ?>
+												<option selected value="{{$name}}-{{$branch}}-{{$level}}">{{$name}}-{{$branch}}</option>
 											{{$n=""}}
 											@foreach($educationList as $edu)
 											
@@ -301,7 +305,7 @@
 													{{$n=$edu->name}}
 													<optgroup label="{{$edu->name}}">
 												@endif
-													<option value="{{$edu->branch}}-{{$edu->name}}-{{$edu->level}}" @if($user->induser->education=="{{$edu->branch}}-{{$edu->name}}") {{ $selected }} @endif>{{$edu->name}}-{{$edu->branch}}</option>
+													<option value="{{$edu->name}}-{{$edu->branch}}-{{$edu->level}}">{{$edu->name}}-{{$edu->branch}}</option>
 												@if($n != $edu->name)
 													</optgroup>		
 												@endif
@@ -379,6 +383,67 @@
 						<div class="row">
 							<div class="col-md-6 col-sm-6 col-xs-12">
 								<div class="form-group">
+									<label>Industry <span class="required">*</span>
+									</label>
+									<select class="select2me form-control" name="industry">
+										<option value="">Select</option>
+										<option @if($user->induser->industry=="Automotive/ Ancillaries") {{ $selected }} @endif value="Automotive/ Ancillaries">Automotive/ Ancillaries</option>
+										<option @if($user->induser->industry=="Banking/ Financial Services") {{ $selected }} @endif value="Banking/ Financial Services">Banking/ Financial Services</option>
+										<option @if($user->induser->industry=="Bio Technology & Life Sciences") {{ $selected }} @endif value="Bio Technology & Life Sciences">Bio Technology & Life Sciences</option>
+										<option @if($user->induser->industry=="Chemicals/Petrochemicals") {{ $selected }} @endif value="Chemicals/Petrochemicals">Chemicals/Petrochemicals</option>
+										<option @if($user->induser->industry=="Construction") {{ $selected }} @endif value="Construction">Construction</option>
+										<option @if($user->induser->industry=="FMCG") {{ $selected }} @endif value="FMCG">FMCG</option>
+										<option @if($user->induser->industry=="Education") {{ $selected }} @endif value="Education">Education</option>
+										<option @if($user->induser->industry=="Entertainment/ Media/ Publishing") {{ $selected }} @endif value="Entertainment/ Media/ Publishing">Entertainment/ Media/ Publishing</option>
+										<option @if($user->induser->industry=="Insurance") {{ $selected }} @endif value="Insurance">Insurance</option>
+										<option @if($user->induser->industry=="ITES/BPO") {{ $selected }} @endif value="ITES/BPO">ITES/BPO</option>
+										<option @if($user->induser->industry=="IT/ Computers - Hardware") {{ $selected }} @endif value="IT/ Computers - Hardware">IT/ Computers - Hardware</option>
+										<option @if($user->induser->industry=="IT/ Computers - Software") {{ $selected }} @endif value="IT/ Computers - Software">IT/ Computers - Software</option>
+										<option @if($user->induser->industry=="KPO/Analytic") {{ $selected }} @endif value="KPO/Analytics">KPO/Analytics</option>
+										<option @if($user->induser->industry=="Machinery/ Equipment Mfg.") {{ $selected }} @endif value="Machinery/ Equipment Mfg.">Machinery/ Equipment Mfg.</option>
+										<option @if($user->induser->industry=="Oil/ Gas/ Petroleum") {{ $selected }} @endif value="Oil/ Gas/ Petroleum">Oil/ Gas/ Petroleum</option>
+										<option @if($user->induser->industry=="Pharmaceuticals") {{ $selected }} @endif value="Pharmaceuticals">Pharmaceuticals</option>
+										<option @if($user->induser->industry=="Power/Energy") {{ $selected }} @endif value="Power/Energy">Power/Energy</option>
+										<option @if($user->induser->industry=="Retailing") {{ $selected }} @endif value="Retailing">Retailing</option>
+										<option @if($user->induser->industry=="Telecom") {{ $selected }} @endif value="Telecom">Telecom</option>
+										<option @if($user->induser->industry=="Advertising/PR/Events") {{ $selected }} @endif value="Advertising/PR/Events">Advertising/PR/Events</option>
+										<option @if($user->induser->industry=="Agriculture/ Dairy Based") {{ $selected }} @endif value="Agriculture/ Dairy Based">Agriculture/ Dairy Based</option>
+										<option @if($user->induser->industry=="Aviation/Aerospace") {{ $selected }} @endif value="Aviation/Aerospace">Aviation/Aerospace</option>
+										<option @if($user->induser->industry=="Beauty/Fitness/PersonalCare/SPA") {{ $selected }} @endif value="Beauty/Fitness/PersonalCare/SPA">Beauty/Fitness/PersonalCare/SPA</option>
+										<option @if($user->induser->industry=="Beverages/ Liquor") {{ $selected }} @endif value="Beverages/ Liquor">Beverages/ Liquor</option>
+										<option @if($user->induser->industry=="Cement") {{ $selected }} @endif value="Cement">Cement</option>
+										<option @if($user->induser->industry=="Ceramics & Sanitary Ware") {{ $selected }} @endif value="Ceramics & Sanitary Ware">Ceramics & Sanitary Ware</option>
+										<option @if($user->induser->industry=="Consultancy") {{ $selected }} @endif value="Consultancy">Consultancy</option>
+										<option @if($user->induser->industry=="Courier/ Freight/ Transportation") {{ $selected }} @endif value="Courier/ Freight/ Transportation">Courier/ Freight/ Transportation</option>
+										<option @if($user->induser->industry=="Law Enforcement/Security Services") {{ $selected }} @endif value="Law Enforcement/Security Services">Law Enforcement/Security Services</option>
+										<option @if($user->induser->industry=="E-Learning") {{ $selected }} @endif value="E-Learning">E-Learning</option>
+										<option @if($user->induser->industry=="Shipping/ Marine Services") {{ $selected }} @endif value="Shipping/ Marine Services">Shipping/ Marine Services</option>
+										<option @if($user->induser->industry=="Engineering, Procurement, Construction") {{ $selected }} @endif value="Engineering, Procurement, Construction">Engineering, Procurement, Construction</option>
+										<option @if($user->induser->industry=="Environmental Service") {{ $selected }} @endif value="Environmental Service">Environmental Service</option>
+										<option @if($user->induser->industry=="Facility management") {{ $selected }} @endif value="Facility management">Facility management</option>
+										<option @if($user->induser->industry=="Fertilizer/ Pesticides") {{ $selected }} @endif value="Fertilizer/ Pesticides">Fertilizer/ Pesticides</option>
+										<option @if($user->induser->industry=="Food & Packaged Food") {{ $selected }} @endif value="Food & Packaged Food">Food & Packaged Food</option>
+										<option @if($user->induser->industry=="Textiles / Yarn / Fabrics / Garments") {{ $selected }} @endif value="Textiles / Yarn / Fabrics / Garments">Textiles / Yarn / Fabrics / Garments</option>
+										<option @if($user->induser->industry=="Gems & Jewellery") {{ $selected }} @endif value="Gems & Jewellery">Gems & Jewellery</option>
+										<option @if($user->induser->industry=="Government/ PSU/ Defence") {{ $selected }} @endif value="Government/ PSU/ Defence">Government/ PSU/ Defence</option>
+										<option @if($user->induser->industry=="Consumer Electronics/Appliances") {{ $selected }} @endif value="Consumer Electronics/Appliances">Consumer Electronics/Appliances</option>
+										<option @if($user->induser->industry=="Hospitals/ Health Care") {{ $selected }} @endif value="Hospitals/ Health Care">Hospitals/ Health Care</option>
+										<option @if($user->induser->industry=="Hotels/ Restaurant") {{ $selected }} @endif value="Hotels/ Restaurant">Hotels/ Restaurant</option>
+										<option @if($user->induser->industry=="Import / Export") {{ $selected }} @endif value="Import / Export">Import / Export</option>
+										<option @if($user->induser->industry=="Market Research") {{ $selected }} @endif value="Market Research">Market Research</option>
+										<option @if($user->induser->industry=="Medical Transcription") {{ $selected }} @endif value="Medical Transcription">Medical Transcription</option>
+										<option @if($user->induser->industry=="Mining") {{ $selected }} @endif value="Mining">Mining</option>
+										<option @if($user->induser->industry=="NGO") {{ $selected }} @endif value="NGO">NGO</option>
+										<option @if($user->induser->industry=="Paper") {{ $selected }} @endif value="Paper">Paper</option>
+										<option @if($user->induser->industry=="Printing / Packaging") {{ $selected }} @endif value="Printing / Packaging">Printing / Packaging</option>
+										<option @if($user->induser->industry=="Public Relations (PR)") {{ $selected }} @endif value="Public Relations (PR)">Public Relations (PR)</option>
+										<option @if($user->induser->industry=="Travel / Tourism") {{ $selected }} @endif value="Travel / Tourism">Travel / Tourism</option>
+										<option @if($user->induser->industry=="Other") {{ $selected }} @endif value="Other">Other</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<div class="form-group">
 									<label>
 										Job Role <span class="required">*</span>
 									</label>
@@ -399,7 +464,7 @@
 										</select>
 									@elseif($user->induser->role != null)
 										<select class="select2me form-control" name="role">
-											<option value="{{$user->induser->functional_area}}-{{$user->induser->role}}">{{$user->induser->role}}</option>
+											<option value="{{$user->induser->functional_area}}-{{$user->induser->role}}">{{$user->induser->functional_area}}-{{$user->induser->role}}</option>
 											{{$n=""}}
 											@foreach($farearoleList as $farearole)
 											@if($n != $farearole->functional_area)
@@ -417,10 +482,6 @@
 								</div>
 								
 							</div>
-							<div class="col-md-12">
-								
-							</div>
-							
 						</div>
 						
 						<div class="row">

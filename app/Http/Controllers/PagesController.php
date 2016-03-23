@@ -594,7 +594,6 @@ class PagesController extends Controller {
 			$posted_by = Input::get('posted_by');
 			$post_title = Input::get('job_title');
 			$city = Input::get('prefered_location');
-			$prof_category = Input::get('prof_category');
 			$experience = Input::get('experience');
 			$time_for = Input::get('time_for');
 			$unique_id = Input::get('unique_id');
@@ -609,9 +608,11 @@ class PagesController extends Controller {
 			if($unique_id != null){
 				$jobPosts->where('unique_id', 'like', '%'.$unique_id.'%');
 			}
+
 			if($post_title != null){
-				$jobPosts->where('post_title', 'like', '%'.$post_title.'%');
+				$jobPosts->where('post_title', 'like', '%'.$post_title.'%')->orWhere('role', 'like', '%'.$post_title.'%');
 			}
+
 			if($city != null){
 				$p_locality = [];
 	    		$p_city = [];
@@ -631,15 +632,10 @@ class PagesController extends Controller {
 				$jobPosts->whereIn('post_preferred_locations.city', $p_city);
 			}
 
-			if($prof_category != null){
-				$jobPosts->where('prof_category', 'like', '%'.$prof_category.'%');
-			}
 			if($experience != null){
 				$jobPosts->whereRaw("$experience between min_exp and max_exp");
 			}
-			// if($experience != null){
-			// 	$jobPosts->whereRaw("min_exp = 0 and max_exp =".$experience);
-			// }
+
 			if($time_for != null){
 				$jobPosts->whereIn('time_for', $time_for);
 			}
@@ -653,10 +649,6 @@ class PagesController extends Controller {
 					$jobPosts->where('linked_skill', 'like', '%'.$skil.'%');
 				}
 			}
-			
-			// if($skill != null){
-			// 		$jobPosts->whereIn('linked_skill', $skills);
-			// 	}
 
 			$jobPosts = $jobPosts->groupBy('unique_id')->paginate(15);
 			if(Auth::user()->identifier == 1){
@@ -868,13 +860,14 @@ public function homeskillFilter(){
 			$skillPosts = Postjob::orderBy('postjobs.id', 'desc')
 								 ->with('indUser', 'corpUser', 'postActivity', 'preferLocations')
 							   	 ->leftjoin('post_preferred_locations', 'post_preferred_locations.post_id', '=', 'postjobs.id')
-							     ->where('individual_id', '!=', Auth::user()->induser_id);
+							     ->where('individual_id', '!=', Auth::user()->induser_id)
+							     ->where('post_type', '=', 'skill');
 
 		if($unique_id != null){
 			$skillPosts->where('unique_id', 'like', '%'.$unique_id.'%');
 		}
 		if($post_title != null){
-			$skillPosts->where('post_title', 'like', '%'.$post_title.'%');
+			$skillPosts->where('post_title', 'like', '%'.$post_title.'%')->orWhere('role', 'like', '%'.$post_title.'%');
 		}
 		if($city != null){
 				$p_locality = [];
@@ -1031,7 +1024,7 @@ public function homeskillFilter(){
 					$cityArray = explode(',', $city);
 					$users->whereIn('city', $cityArray);
 				}
-				if($role != 0 ){
+				if($role != null ){
 					$users->where('role', 'like', '%'.$role.'%');
 				}
 				if($working_at != null){

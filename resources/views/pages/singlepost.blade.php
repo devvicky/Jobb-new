@@ -92,32 +92,25 @@
                                                                  
                                                             </div>
                                                         </div>
-                                                        @if( $post->job_role != null)
+                                                       
                                                          <div class="row">
                                                             <div class="col-md-6 col-sm-6 col-xs-6"> 
                                                                     <label class="detail-label">Job Industry :</label>
                                                             </div>
                                                             <div class="col-md-6 col-sm-6 col-xs-6">
-                                                                    {{ $post->job_role->first()->industry }}
+                                                                    {{ $post->industry }}
                                                             </div>
                                                         </div>
-                                                        <div class="row">
-                                                            <div class="col-md-6 col-sm-6 col-xs-6"> 
-                                                                    <label class="detail-label">Job Functional Area :</label>
-                                                            </div>
-                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                                                    {{ $post->job_role->first()->functional_area }}
-                                                            </div>
-                                                        </div>
+                                                        
                                                         <div class="row">
                                                             <div class="col-md-6 col-sm-6 col-xs-6"> 
                                                                     <label class="detail-label">Job Role :</label>
                                                             </div>
                                                             <div class="col-md-6 col-sm-6 col-xs-6">
-                                                                    {{ $post->job_role->first()->role }}
+                                                                    {{ $post->role }}
                                                             </div>
                                                         </div>
-                                                        @endif
+                                                        
                                                             <div class="row"> 
                                                             <div class="col-md-6 col-sm-6 col-xs-6">
                                                                 

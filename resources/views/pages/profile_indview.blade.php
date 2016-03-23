@@ -11,11 +11,11 @@
 			<li>
 				@if($utype == 'ind')
 				<div class="profile-userpic-view">
-					<img  src="@if($user->profile_pic != null){{ '/img/profile/'.$user->profile_pic }}@else{{'/assets/images/ab.png'}}@endif">
+					<img  src="@if($user->profile_pic != null){{ '/img/profile/'.$user->profile_pic }}@else{{'/assets/images/ab.png'}}@endif" style="width:100%">
 				</div>
 				@elseif($utype == 'corp')
 				<div class="profile-userpic-corp-view">
-					<img  src="@if($user->logo_status != null){{ '/img/profile/'.$user->logo_status }}@else{{'/assets/images/corpnew.jpg'}}@endif">
+					<img  src="@if($user->logo_status != null){{ '/img/profile/'.$user->logo_status }}@else{{'/assets/images/corpnew.jpg'}}@endif" style="width:100%">
 				</div>
 				@endif
 				<!-- <a href="javascript:;" class="profile-edits">
@@ -214,33 +214,29 @@
 							<span class="caption-subject font-green-haze bold uppercase" style="font-size:14px;">About Me</span>
 						</div>
 						@if($user->working_status == "Student")
-						<div class="profile-usertitle-job capitalize individual-detail">
-							 {{ $user->education }} in {{ $user->branch }}
+						<div class=" capitalize individual-detail">
+							 Student
 						</div>
 						@elseif($user->working_status == "Searching Job")
-						<div class="profile-usertitle-job capitalize individual-detail" >
+						<div class=" capitalize individual-detail" >
 							 {{ $user->working_status }}
 						</div>
-						@elseif($user->job_role != '[]' && $user->working_status == "Freelanching")
-						<div class="profile-usertitle-job capitalize individual-detail" >
-							 {{ $user->job_role->first()->role }} {{ $user->working_status }}
+						@elseif($user->role != null && $user->working_status == "Freelanching")
+						<div class=" capitalize individual-detail" >
+							 {{ $user->role }} {{ $user->working_status }}
 						</div>
-						@elseif($user->job_role != '[]' && $user->working_at !=null && $user->working_status == "Working")
-						<div class="profile-usertitle-job capitalize individual-detail" >
-							 {{ $user->job_role->first()->role }}, {{ $user->working_at }} 
+						@elseif($user->role != null && $user->working_at !=null && $user->working_status == "Working")
+						<div class=" capitalize individual-detail" >
+							 {{ $user->role }}, {{ $user->working_at }} 
 						</div>
-						@elseif($user->job_role != '[]' && $user->working_at ==null && $user->working_status == "Working")
-						<div class="profile-usertitle-job capitalize individual-detail">
-							 {{ $user->job_role->first()->role }}
+						@elseif($user->role != null && $user->working_at ==null && $user->working_status == "Working")
+						<div class=" capitalize individual-detail">
+							 {{ $user->role }}
 						</div>
 						@elseif($user->role == null && $user->working_at !=null && $user->working_status == "Working")
-						<div class="profile-usertitle-job capitalize individual-detail" >
+						<div class=" capitalize individual-detail" >
 							 {{ $user->woring_at }}
 						</div>
-						@elseif($user->role == null && $user->working_at ==null && $user->working_status == "Working")
-			            <div class="profile-usertitle-job capitalize individual-detail" >
-			               {{ $user->prof_category }}
-			            </div>
 						@endif
 					 @else
 					 <div class="caption">
@@ -248,33 +244,29 @@
 						<span class="caption-subject font-green-haze bold uppercase" style="font-size:14px;">About {{$user->fname}}</span>
 					</div>
 					@if($user->working_status == "Student")
-						<div class="profile-usertitle-job capitalize individual-detail">
-							 {{ $user->education }} in {{ $user->branch }}
+						<div class=" capitalize individual-detail">
+							 Student
 						</div>
 						@elseif($user->working_status == "Searching Job")
-						<div class="profile-usertitle-job capitalize individual-detail" >
+						<div class=" capitalize individual-detail" >
 							 {{ $user->working_status }}
 						</div>
-						@elseif($user->working_status == "Freelanching")
-						<div class="profile-usertitle-job capitalize individual-detail" >
-							 {{ $user->job_role->first()->role }} {{ $user->working_status }}
+						@elseif($user->role != null && $user->working_status == "Freelanching")
+						<div class=" capitalize individual-detail" >
+							 {{ $user->role }} {{ $user->working_status }}
 						</div>
-						@elseif($user->job_role != '[]' && $user->working_at !=null && $user->working_status == "Working")
-						<div class="profile-usertitle-job capitalize individual-detail" >
-							 {{ $user->job_role->first()->role }}, {{ $user->working_at }} 
+						@elseif($user->role != null && $user->working_at !=null && $user->working_status == "Working")
+						<div class=" capitalize individual-detail" >
+							 {{ $user->role }}, {{ $user->working_at }} 
 						</div>
-						@elseif($user->job_role != '[]' && $user->working_at ==null && $user->working_status == "Working")
-						<div class="profile-usertitle-job capitalize individual-detail">
-							 {{ $user->job_role->first()->role }}
+						@elseif($user->role != null && $user->working_at ==null && $user->working_status == "Working")
+						<div class=" capitalize individual-detail">
+							 {{ $user->role }}
 						</div>
 						@elseif($user->role == null && $user->working_at !=null && $user->working_status == "Working")
-						<div class="profile-usertitle-job capitalize individual-detail" >
+						<div class=" capitalize individual-detail" >
 							 {{ $user->woring_at }}
 						</div>
-						@elseif($user->role == null && $user->working_at ==null && $user->working_status == "Working")
-			            <div class="profile-usertitle-job capitalize individual-detail" >
-			               {{ $user->prof_category }}
-			            </div>
 						@endif
 					 @endif
 					@endif
@@ -371,9 +363,13 @@
 						<i class="fa fa-male"></i> {{$user->gender}}
 					</li>
 					@endif
-					@if($user->education != null && $user->education != null)
+					@if($user->education != null)
+					<?php $education = explode('-', $user->education); 
+							 		   $name = $education[0];
+							 		   $branch = $education[1];
+							 		   $level = $education[2];  ?>
 					<li class="capitalize">
-						<i class="fa fa-graduation-cap"></i> {{$user->education}} in {{$user->branch}}
+						<i class="fa fa-graduation-cap"></i> {{$name}} in {{$branch}}
 					</li>
 					@endif
 					@if($user->experience != null && $user->experience != 0)
@@ -513,8 +509,8 @@
 							<label class="control-label col-md-4 col-xs-6">Role</label>
 							<div class="col-md-6 col-xs-6">
 								<p class="form-control-static view-page">
-									@if($user->job_role != '[]')
-									{{ $user->job_role->first()->role }}
+									@if($user->role != null)
+									{{ $user->role }}
 									@else
 									<a href="/individual/edit#professional">Add Role</a>
 									@endif
@@ -522,14 +518,14 @@
 							</div>
 						</div>
 					</div>
-					@elseif($user->job_role != '[]' && Auth::user()->induser_id != $user->id)
+					@elseif($user->role != null && Auth::user()->induser_id != $user->id)
 					<div class="col-md-12 col-sm-12 col-xs-12" style="padding:0;">
 						<div class="form-group">
 							<label class="control-label col-md-4 col-xs-6">Role</label>
 							<div class="col-md-6 col-xs-6">
 								<p class="form-control-static view-page">
-									@if($user->job_role != '[]')
-									{{ $user->job_role->first()->role }}
+									@if($user->role != null)
+									{{ $user->role }}
 									@else
 									{{$user->fname}} has not added 'Role'
 									 @endif

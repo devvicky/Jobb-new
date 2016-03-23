@@ -22,6 +22,7 @@ use App\FunctionalAreas;
 use App\ReportAbuseAction;
 use App\PostPreferredLocation;
 use App\Education;
+use App\Functional_area_role_mapping;
 
 use Auth;
 use Mail;
@@ -70,21 +71,15 @@ class JobController extends Controller {
 						->get(['groups.id as id', 'groups.group_name as name'])
 						->lists('name', 'id');
 
-			$roles = DB::select(DB::raw('select id, name from roles'));
-			$functionalAreas = FunctionalAreas::lists('name', 'id');
-			$industry = Industry::lists('name','id');
-
 			$education = Education::orderBy('level')->orderBy('name')->get();
-			// return $education;
+			$farearoleList = Functional_area_role_mapping::orderBy('id')->get();
 
-			return view('pages.postjob', compact('title', 'skills', 'connections', 'groups', 'roles', 'functionalAreas', 'industry', 'education'));
+			return view('pages.postjob', compact('title', 'skills', 'connections', 'groups', 'education', 'farearoleList'));
 		}else{
 
-			$roles = DB::select(DB::raw('select id, name from roles'));
-			$functionalAreas = FunctionalAreas::lists('name', 'id');
-			$industry = Industry::lists('name','id');
 			$education = Education::all();
-			return view('pages.postjob', compact('title', 'skills', 'roles', 'functionalAreas', 'industry', 'education'));
+
+			return view('pages.postjob', compact('title', 'skills', 'education'));
 		}
 	}
 
@@ -100,19 +95,7 @@ class JobController extends Controller {
 		else
 			$request['corporate_id'] = Auth::user()->corpuser_id;
 		$request['post_type'] = 'job';
-
-		/*$skillIds = implode(',', $request['linked_skill_id']);
-		unset ($skillIds[count($skillIds)-1]);
-		$prefered_location = implode(',', $request['prefered_location']);
-		unset ($prefered_location[count($prefered_location)-1]);
-		$request['unique_id'] = "J".rand(111,999).rand(111,999);*/
-
-
 		$request['education'] = implode(',', $request['education']);
-
-		/*$request['linked_skill'] = implode(',', $request['linked_skill_id']);
-        $request['city'] = implode(',', $request['prefered_location']);*/
-
 
 		if($request['linked_skill_id'] != null){
 			$request['linked_skill'] = implode(',', $request['linked_skill_id']);
@@ -121,13 +104,15 @@ class JobController extends Controller {
 			$request['city'] = implode(',', $request['prefered_location']);
 		}
 
+		$temp = explode(', ', $request['role']);
+		$request['functional_area'] = $temp[0];
+		$request['role'] = $temp[1];
+
         $pref_locations = $request['prefered_location'];
 
-        // $request['locality'] = implode(',', $request['preferred_locality']);
         $request['unique_id'] = "J".rand(111,999).rand(111,999);
         
-		$post = Postjob::create($request->all());
-		// $post->skills()->attach($skillIds); 
+		$post = Postjob::create($request->all()); 
 
 		foreach ($pref_locations as $loc) {
         	$tempArr = explode('-', $loc);
@@ -138,8 +123,6 @@ class JobController extends Controller {
         		$post->preferredLocation()->attach( $loc, array('locality' => 'none', 'city' => $tempArr[0], 'state' => $tempArr[1]) );
         	}
         }
-
-		// $post->preferredLocation()->attach($new_pref_locations);
 
 		if($request['connections'] != null){
 			$taggedUsers = $request['connections'];

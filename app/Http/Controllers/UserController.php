@@ -219,6 +219,7 @@ class UserController extends Controller {
 			$data->branch = Input::get('branch');
 			$data->prof_category = Input::get('prof_category');
 			$data->experience = Input::get('experience');
+			$data->industry = Input::get('industry');
 			if(Input::get('role') != null){
 				$farea_role = Input::get('role');
 				$temp = explode('-', $farea_role);

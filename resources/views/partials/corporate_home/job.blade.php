@@ -14,14 +14,9 @@
 	      	<div class="col-md-6 col-sm-6 col-xs-12 advance-len">
 				<div class="form-group">
 					<label style="font-weight: 500;">
-						Job Role
+						Enter Keyword
 					</label>
-					<!-- <div class="input-group">	 -->
-								
-						<select  class="job-role-ajax form-control new-role" name="role" id="jobrole">
-					  		<option value="0" selected="selected"></option>
-						</select>													
-					<!-- </div> -->
+					<input type="text" name="role" placeholder="Enter Keyword">
 				</div>					
 			</div>
 	        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">

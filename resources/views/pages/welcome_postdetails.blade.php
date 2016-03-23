@@ -194,21 +194,14 @@
                                             </div>
                                         </div>
                                         <div class="row" style="padding:0;"> 
-                                            @if($post->locality != null && $post->city !=null)
+                                            @if( $post->city !=null)
                                             <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-                                                    <label class="detail-label">Locality :</label>                                                                  
-                                            </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-                                                    {{ $post->locality }},{{ $post->city }} 
-                                            </div>
-                                            @elseif($post->locality == null && $post->city !=null)
-                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-                                                    <label class="detail-label">Locality :</label>                                                                  
+                                                    <label class="detail-label">City :</label>                                                                  
                                             </div>
                                             <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
                                                     {{ $post->city }} 
                                             </div>
-                                            @endif
+                                            
                                         </div>
                                         
                                          <div class="row" style="padding:0;">

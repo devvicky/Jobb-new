@@ -78,45 +78,99 @@
 										</div>
 									</div>
 									<div class="row">
-									<div class="col-md-12">
-										<div class="form-group">
-											<label>Job Details <span class="required">*</span></label>	
-											<textarea id="textarea" rows="6" class="form-control autosizeme" name="job_detail" maxlength="1000" ></textarea>
-											<div id="textarea_feedback"></div>							
-											<!-- <textarea name="job_detail" onkeyup="countChar(this)" class="form-control autosizeme" rows="6"></textarea>
-											<div id="charNum" style="text-align:right;"></div> -->
+										<div class="col-md-12">
+											<div class="form-group">
+												<label>Job Details <span class="required">*</span></label>	
+												<textarea id="textarea" rows="6" class="form-control autosizeme" name="job_detail" maxlength="1000" ></textarea>
+												<div id="textarea_feedback"></div>
+											</div>
 										</div>
 									</div>
-									</div>
-
-
 									<div class="row">
-										<div class="col-md-12 col-sm-12 col-xs-12 hide-role">
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<div class="form-group">
+												<label>Industry <span class="required">*</span>
+												</label>
+												<select class="select2me form-control" name="industry">
+													<option value="">Select</option>
+			                                        <option value="Automotive/ Ancillaries">Automotive/ Ancillaries</option>
+			                                        <option value="Banking/ Financial Services">Banking/ Financial Services</option>
+			                                        <option value="Bio Technology & Life Sciences">Bio Technology & Life Sciences</option>
+			                                        <option value="Chemicals/Petrochemicals">Chemicals/Petrochemicals</option>
+			                                        <option value="Construction">Construction</option>
+			                                        <option value="FMCG">FMCG</option>
+			                                        <option value="Education">Education</option>
+			                                        <option value="Entertainment/ Media/ Publishing">Entertainment/ Media/ Publishing</option>
+			                                        <option value="Insurance">Insurance</option>
+			                                        <option value="ITES/BPO">ITES/BPO</option>
+			                                        <option value="IT/ Computers - Hardware">IT/ Computers - Hardware</option>
+			                                        <option value="IT/ Computers - Software">IT/ Computers - Software</option>
+			                                        <option value="KPO/Analytics">KPO/Analytics</option>
+			                                        <option value="Machinery/ Equipment Mfg.">Machinery/ Equipment Mfg.</option>
+			                                        <option value="Oil/ Gas/ Petroleum">Oil/ Gas/ Petroleum</option>
+			                                        <option value="Pharmaceuticals">Pharmaceuticals</option>
+			                                        <option value="Power/Energy">Power/Energy</option>
+			                                        <option value="Real Estate">Real Estate</option>
+			                                        <option value="Retailing">Retailing</option>
+			                                        <option value="Telecom">Telecom</option>
+			                                        <option value="Advertising/PR/Events">Advertising/PR/Events</option>
+			                                        <option value="Agriculture/ Dairy Based">Agriculture/ Dairy Based</option>
+			                                        <option value="Aviation/Aerospace">Aviation/Aerospace</option>
+			                                        <option value="Beauty/Fitness/PersonalCare/SPA">Beauty/Fitness/PersonalCare/SPA</option>
+			                                        <option value="Beverages/ Liquor">Beverages/ Liquor</option>
+			                                        <option value="Cement">Cement</option>
+			                                        <option value="Ceramics & Sanitary Ware">Ceramics & Sanitary Ware</option>
+			                                        <option value="Consultancy">Consultancy</option>
+			                                        <option value="Courier/ Freight/ Transportation">Courier/ Freight/ Transportation</option>
+			                                        <option value="Law Enforcement/Security Services">Law Enforcement/Security Services</option>
+			                                        <option value="E-Learning">E-Learning</option>
+			                                        <option value="Shipping/ Marine Services">Shipping/ Marine Services</option>
+			                                        <option value="Engineering, Procurement, Construction">Engineering, Procurement, Construction</option>
+			                                        <option value="Environmental Service">Environmental Service</option>
+			                                        <option value="Facility management">Facility management</option>
+			                                        <option value="Fertilizer/ Pesticides">Fertilizer/ Pesticides</option>
+			                                        <option value="Food & Packaged Food">Food & Packaged Food</option>
+			                                        <option value="Textiles / Yarn / Fabrics / Garments">Textiles / Yarn / Fabrics / Garments</option>
+			                                        <option value="Gems & Jewellery">Gems & Jewellery</option>
+			                                        <option value="Government/ PSU/ Defence">Government/ PSU/ Defence</option>
+			                                        <option value="Consumer Electronics/Appliances">Consumer Electronics/Appliances</option>
+			                                        <option value="Hospitals/ Health Care">Hospitals/ Health Care</option>
+			                                        <option value="Hotels/ Restaurant">Hotels/ Restaurant</option>
+			                                        <option value="Import / Export">Import / Export</option>
+			                                        <option value="Market Research">Market Research</option>
+			                                        <option value="Medical Transcription">Medical Transcription</option>
+			                                        <option value="Mining">Mining</option>
+			                                        <option value="NGO">NGO</option>
+			                                        <option value="Paper">Paper</option>
+			                                        <option value="Printing / Packaging">Printing / Packaging</option>
+			                                        <option value="Public Relations (PR)">Public Relations (PR)</option>
+			                                        <option value="Travel / Tourism">Travel / Tourism</option>
+			                                        <option value="Other">Other</option>
+			                                    </select>
+											</div>
+										</div>
+										<div class="col-md-6 col-sm-6 col-xs-12">
 											<div class="form-group">
 												<label>
 													Job Role <span class="required">*</span>
 												</label>
-
-												<div class="input-group">	
-													<span class="input-group-addon">
-														<i class="fa fa-cube" style="color:darkcyan;"></i>
-													</span>			
-													<select class="job-role-ajax form-control new-role" name="role" id="jobrole">
-												  		<option value="0" selected="selected"></option>
-													</select>													
-												</div>
-												example: manager, admin, secretory <a class="hide-far">see all</a>
-
-												<div id="charNum" style="text-align:right;"></div>
+												<select class="select2me form-control" name="role">
+													<option value="">Select</option>
+													{{$n=""}}
+													@foreach($farearoleList as $farearole)
+													@if($n != $farearole->functional_area)
+														{{$n=$farearole->functional_area}}
+														<optgroup label="{{$farearole->functional_area}}">
+													@endif
+													<option value="{{$farearole->functional_area}}, {{$farearole->role}}">{{$farearole->role}}</option>
+													@if($n != $farearole->functional_area)
+															</optgroup>		
+														@endif
+													@endforeach
+												</select>
 											</div>
-											<!-- <label for="jobrole">E-mail</label> -->
 										</div>
-										
-										
 									</div>
-									<input type="hidden" name="time_for">
-
-									<!-- </select> -->
 									<div class="row">
 										<div class="col-md-12 col-sm-12 col-xs-12">
 											<div class="form-group">
@@ -246,7 +300,7 @@
 													<select class="form-control education-list" name="education[]" id="parent_selection" multiple style="border:1px solid #c4d5df">
 														@foreach($education as $edu)
 															@if($edu->name != '0')
-															<option value="{{$edu->branch}}-{{$edu->name}}-{{$edu->level}}">{{$edu->name}} ({{$edu->branch}})</option>
+															<option value="{{$edu->name}}-{{$edu->branch}}-{{$edu->level}}">{{$edu->name}} ({{$edu->branch}})</option>
 															@else
 															<option value="{{$edu->name}}">{{$edu->branch}}</option>
 															@endif
@@ -257,46 +311,42 @@
 
 										</div>
 									</div>
-										<div class="row">
-											<div class="col-md-6 col-sm-6 col-xs-12">
-												<div class="form-group">							
-													<label class=" control-label">Experience </label>&nbsp;: 
-															<input type="text" readonly id="slider-range-exp1" name="min_exp" class="input-exp-width" /> - 
-															<input type="text" readonly id="slider-range-exp2" name="max_exp" class="input-exp-width" /> Years
-													<div id="slider-range-exp" class="slider bg-gray" style="    z-index: 0;">
-														</div>
-														
-												</div>
-											</div>
-											<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
-											
-											<div class="col-md-6 col-sm-6 col-xs-12">
-												<div class="form-group">							
-													<label class=" control-label"><input type="checkbox" id="hide-check"> Salary </label>&nbsp;: 
-															<label class="hide-sal input-sal-exp-label"><i class="fa fa-rupee (alias)" style="font-size:12px;"></i></label>
-															<input type="text" readonly id="slider-range-amount1" name="min_sal" class="input-sal-width hide-sal one" />
-															<!-- <input type="text" readonly id="slider-range-amount3" name="min_sal" class="input-sal-width hide-sal-new three" /> -->
-															<label class="hide-sal input-sal-exp-label">- <i class="fa fa-rupee (alias)" style="font-size:12px;"></i></label>
-															<input type="text" readonly id="slider-range-amount2" name="max_sal" class="input-sal-width hide-sal two" />
-															<!-- <input type="text" readonly id="slider-range-amount4" name="max_sal" class="input-sal-width hide-sal four" /> -->
-													<select id="salary-type"  name="salary_type" class="hide-sal-new input-sal-exp-label" style="border-top: 0px;border-left: 0;border-right: 0;width:75px">									
-														<option selected="selected" value="Monthly">Monthly</option>
-														<option value="Weekly">Weekly</option>
-														<option value="Daily">Daily</option>
-														<option value="Hourly">Hourly</option>
-														<option value="Pervisit">Per Visit</option>	
-													</select>
-													<div id="salary-old" class="hide-sal">
-														<div id="slider-range" class="slider bg-gray"></div>
-														
+									<div class="row">
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<div class="form-group">							
+												<label class=" control-label">Experience </label>&nbsp;: 
+														<input type="text" readonly id="slider-range-exp1" name="min_exp" class="input-exp-width" /> - 
+														<input type="text" readonly id="slider-range-exp2" name="max_exp" class="input-exp-width" /> Years
+												<div id="slider-range-exp" class="slider bg-gray" style="    z-index: 0;">
 													</div>
-													<!-- <div id="salary-new">
-														<div id="slider-range-new" class="slider bg-gray"></div>
-													</div> -->
+													
+											</div>
+										</div>
+										<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
+										
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<div class="form-group">							
+												<label class=" control-label"><input type="checkbox" id="hide-check"> Salary </label>&nbsp;: 
+														<label class="hide-sal input-sal-exp-label"><i class="fa fa-rupee (alias)" style="font-size:12px;"></i></label>
+														<input type="text" readonly id="slider-range-amount1" name="min_sal" class="input-sal-width hide-sal one" />
+														<!-- <input type="text" readonly id="slider-range-amount3" name="min_sal" class="input-sal-width hide-sal-new three" /> -->
+														<label class="hide-sal input-sal-exp-label">- <i class="fa fa-rupee (alias)" style="font-size:12px;"></i></label>
+														<input type="text" readonly id="slider-range-amount2" name="max_sal" class="input-sal-width hide-sal two" />
+														<!-- <input type="text" readonly id="slider-range-amount4" name="max_sal" class="input-sal-width hide-sal four" /> -->
+												<select id="salary-type"  name="salary_type" class="hide-sal-new input-sal-exp-label" style="border-top: 0px;border-left: 0;border-right: 0;width:75px">									
+													<option selected="selected" value="Monthly">Monthly</option>
+													<option value="Weekly">Weekly</option>
+													<option value="Daily">Daily</option>
+													<option value="Hourly">Hourly</option>
+													<option value="Pervisit">Per Visit</option>	
+												</select>
+												<div id="salary-old" class="hide-sal">
+													<div id="slider-range" class="slider bg-gray"></div>
+													
 												</div>
 											</div>
 										</div>
-									<!--/span-->
+									</div>
 									<div class="form-group">
 										
 									</div>
@@ -339,9 +389,6 @@
 											<div class="form-group">
 											<label style="margin-left: -5px;"><input id="hide-apply" name="apply-check" type="checkbox"></label><label>&nbsp;Apply On Company Website</label>
 											<div  class="input-group show-apply">
-												<!-- <span class="input-group-addon">
-													<i class="icon-info"style="color:darkcyan;"></i>
-												</span> -->
 												<input type="text" name="website_redirect_url" class="form-control" value="" placeholder="http://">
 											</div>
 											</div>
@@ -513,7 +560,7 @@
 														<!-- TIMELINE ITEM -->
 														<div class="timeline-item time-item" style="box-shadow:0 0 !important;">
 															<div class="timeline-body" style="margin: 0;">
-																<div class="timeline-body-content col-md-7" style="margin: 0 15px;">
+																<div class="timeline-body-content col-md-7" style="margin: 0px 15px 20px;">
 																	<div style="font-weight: 600;color: black;font-size: 16px;">
 																		<p class="form-control-static" data-display="post_title"></p>
 																	</div>
@@ -566,14 +613,20 @@
 					                                                            </div>
 					                                                            <div class="row"> 
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                           
+					                                                                        <label class="detail-label">Industry :</label>                                                                  
+					                                                                </div>
+					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
+					                                                                        <p class="form-control-static" data-display="industry" style="margin: -5px 0;"></p>
+					                                                                </div>
+					                                                            </div>
+					                                                            <div class="row"> 
+					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                           
 					                                                                        <label class="detail-label">Role :</label>                                                                  
 					                                                                </div>
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
 					                                                                        <p class="form-control-static" data-display="role" style="margin: -5px 0;"></p>
 					                                                                </div>
 					                                                            </div>
-					                                                            
-					                                                            
 					                                                             <div class="row show-salary">
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">
 					                                                                        <label class="detail-label">Salary (<i class="fa fa-rupee (alias)"></i>):</label>
@@ -651,65 +704,7 @@
 			</div>
 		</div>
 	</div>
-	</div>
-
-
-<!-- BEGIN ROLE MODAL-->
-<div class="modal fade" id="all-roles" tabindex="-1" role="dialog" aria-labelledby="Roles" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-        <h4 class="modal-title">Roles</h4>
-      </div>
-      <div class="modal-body">
-		<div class="col-md-12 col-sm-12 col-xs-12">
-			<div class="form-group new-margin-formgroup">
-				<label>Functional Area</label>
-				<div class="input-group">
-					<span class="input-group-addon">
-					<i class="icon-clock" style=" color: darkcyan;"></i>
-					</span>
-					<select name="functional_area" class="form-control" >
-						@foreach($functionalAreas as $farea)
-			      		<option>
-			      			<li><a href="#" data-jrole="{{$farea}}">{{$farea}}</a></li>
-			      		</option>
-			      		@endforeach
-					</select>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-12 col-sm-12 col-xs-12">
-			<div class="form-group new-margin-formgroup">
-				<label>Role</label>
-				<div class="input-group">
-					<span class="input-group-addon">
-					<i class="icon-clock" style=" color: darkcyan;"></i>
-					</span>
-					<select name="" class="form-control" >
-						@foreach($roles as $role)
-			      		<option>
-			      			<li><a href="#" data-jrole="{{$role->name}}">{{$role->name}}</a></li>
-			      		</option>
-			      		@endforeach
-					</select>
-				</div>
-			</div>
-		</div>
-	      
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-dismiss="modal">Submit</button>
-      </div>
-    </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
 </div>
-<!-- /.modal -->
-<!-- END ROLE MODAL -->
-
 
 <div id="loader" style="display:none;z-index:9999;background:white" class="page-loading">
 	<img src="/assets/loader.gif"><span> Please wait...</span>
@@ -1271,77 +1266,5 @@ $gotit = [];
 	        }
         }
     }); 
-</script>
-<script type="text/javascript">
-
-$(".job-role-ajax").select2({
-	placeholder: 'Enter a role',
-  ajax: {
-    url: "/post/jobroles",
-    dataType: 'json',
-    delay: 250,
-    data: function (params) {
-      return {
-        q: params.term, // search term
-        page: params.page
-      };
-    },
-    processResults: function (data, params) {
-      console.log(data);
-      return {
-        results: data
-      };
-    },
-    cache: true
-  },
-  escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
-  minimumInputLength: 2,
-  templateResult: formatRepo, // omitted for brevity, see the source of this page
-  templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
-});
-
-function formatRepo (repo) {
-      if (repo.loading) return repo.text;
-
-      var markup = "<div class='select2-result-repository clearfix'>" +
-        "<div class='select2-result-repository__meta'>" +
-          "<div class='select2-result-repository__title'><b>Role</b>: " + repo.role + "</div>";
-
-      markup += "<div class='select2-result-repository__statistics'>" +
-        "<div class='select2-result-repository__forks'><b>Functional area: </b> " + repo.functional_area + "</div>" +
-        "<div class='select2-result-repository__stargazers'><b>Industry</b>: " + repo.industry + "</div>" +
-      "</div>" +
-      "</div></div>";
-
-      return markup;
-    }
-
-    function formatRepoSelection (repo) {
-    	if(repo.role != undefined){
-
-    		// console.log(repo);
-    		return  "<b>Role:</b> "+repo.role+"<br/><b>Functional Area:</b> "+repo.functional_area+"<br/><b>Industry:</b> "+repo.industry;
-    	}      
-    }
-
-$(document).on('click', 'a', function(event, ui) {
-    var jrole = $(this).data('jrole');
-
-    $.ajaxSetup({
-        headjroleers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-      });
-
-    if(jrole != null){
-      event.preventDefault();
-      $('#all-roles').modal('hide');
-      $('#jobrole').select2('open');
-      $('.select2-search__field').val(jrole);
-      $('.select2-search__field').trigger('keyup');
-       // $('.select2-dropdown').hide();
-    }
-});
-
 </script>
 @stop
