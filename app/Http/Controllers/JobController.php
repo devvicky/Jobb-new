@@ -331,26 +331,16 @@ class JobController extends Controller {
 
 	public function postContact(Request $request){
 
-		if(Auth::user()->identifier == 1){
-			$apply = Postactivity::where('post_id', '=', $request['contact'])
-							->where('user_id', '=', Auth::user()->induser_id)
-							->first();
-		}elseif(Auth::user()->identifier == 2){
-			$apply = Postactivity::where('post_id', '=', $request['contact'])
-							->where('user_id', '=', Auth::user()->corpuser_id)
-							->first();
-		}
-		
+		$apply = Postactivity::where('post_id', '=', $request['contact'])
+							 ->where('user_id', '=', Auth::user()->id)
+							 ->first();		
 
 		$post_id = $request['contact'];
 		if($apply == null){
 			$apply = new Postactivity();
 			$apply->post_id = $post_id;
-			if(Auth::user()->identifier == 1){
-				$apply->user_id = Auth::user()->id;
-			}elseif(Auth::user()->identifier ==2){
-				$apply->user_id = Auth::user()->id;
-			}
+
+			$apply->user_id = Auth::user()->id;	
 			
 			$apply->contact_view = 1;
 			$apply->contact_view_dtTime = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'));

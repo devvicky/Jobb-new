@@ -91,7 +91,8 @@
 								 <div class="btn-group" data-toggle="buttons">
 					                <label class="btn default btn-filter @if($filter != null)@if(stripos($filter->time_for, '%Full%') == FALSE) active @endif @endif" style="padding:0;">
 					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
-					                    <input type="checkbox" name="time_for[]" value="Full Time" class="toggle">
+					                    <input type="checkbox" name="time_for[]" value="Full Time" class="toggle" 
+					                    @if($filter != null)@if(stripos($filter->time_for, '%Full%') == FALSE) checked @endif @endif>
 					                    <a class="icon-btn icon-filter-btn jobtype-css">
 						                    <div class="jtype-name-css">
 						                    	Full<br/> Time
@@ -104,7 +105,8 @@
 								<div class="btn-group" data-toggle="buttons">
 					                <label class="btn default btn-filter @if($filter != null)@if(stripos($filter->time_for, '%Part%') == FALSE) active @endif @endif" style="padding:0;">
 					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
-					                    <input type="checkbox" name="time_for[]" value="Part Time" class="toggle">
+					                    <input type="checkbox" name="time_for[]" value="Part Time" class="toggle" 
+					                    @if($filter != null)@if(stripos($filter->time_for, '%Part%') == FALSE) active @endif @endif>
 					                    <a class="icon-btn icon-filter-btn jobtype-css">
 						                    <div class="jtype-name-css">
 						                         Part<br/> Time
@@ -117,7 +119,8 @@
 								<div class="btn-group" data-toggle="buttons">
 					                <label class="btn default btn-filter @if($filter != null)@if(stripos($filter->time_for, '%Free%') == FALSE) active @endif @endif" style="padding:0;">
 					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
-					                    <input type="checkbox" name="time_for[]" value="Freelancer" class="toggle">
+					                    <input type="checkbox" name="time_for[]" value="Freelancer" class="toggle" 
+					                    @if($filter != null)@if(stripos($filter->time_for, '%Free%') == FALSE) active @endif @endif>
 					                    <a class="icon-btn icon-filter-btn jobtype-css">
 						                    <div class="jtype-name-css">
 						                    	<br/>
@@ -131,7 +134,8 @@
 								<div class="btn-group" data-toggle="buttons">
 					                <label class="btn default btn-filter @if($filter != null)@if(stripos($filter->time_for, '%Work%') == FALSE) active @endif @endif" style="padding:0;">
 					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
-					                    <input type="checkbox" name="time_for[]" value="Work From Home" class="toggle">
+					                    <input type="checkbox" name="time_for[]" value="Work From Home" class="toggle" 
+					                    @if($filter != null)@if(stripos($filter->time_for, '%Free%') == FALSE) active @endif @endif>
 					                    <a class="icon-btn icon-filter-btn jobtype-css">
 						                    <div class="jtype-name-css">
 						                         Work<br/>From Home

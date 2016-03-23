@@ -1045,7 +1045,7 @@
 																                    		 class="img-circle">
 																					</div>
 																					<div class="col-md-6 col-sm-9 col-xs-9">
-																						<a href="/profile/ind/{{$pa->user->id}}" data-utype="ind">
+																						<a href="/profile/ind/{{$pa->user->induser->id}}" data-utype="ind">
 																	                    		{{$pa->user->induser->fname}}</a> has contacted for this post 
 																                    	
 																					</div>
