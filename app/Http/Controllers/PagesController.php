@@ -610,7 +610,10 @@ class PagesController extends Controller {
 			}
 
 			if($post_title != null){
-				$jobPosts->where('post_title', 'like', '%'.$post_title.'%')->orWhere('role', 'like', '%'.$post_title.'%');
+				$jobPosts->where('post_title', 'like', '%'.$post_title.'%')
+						 ->orWhere('job_detail', 'like', '%'.$post_title.'%')
+						 ->orWhere('role', 'like', '%'.$post_title.'%')
+						 ->orWhere('linked_skill', 'like', '%'.$post_title.'%');
 			}
 
 			if($city != null){
