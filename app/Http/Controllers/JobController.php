@@ -348,13 +348,13 @@ class JobController extends Controller {
 
 	public function postContact(Request $request){
 		$apply = Postactivity::where('post_id', '=', $request['contact'])
-							->where('user_id', '=', Auth::user()->induser_id)
+							->where('user_id', '=', Auth::user()->id)
 							->first();
 		$post_id = $request['contact'];
 		if($apply == null){
 			$apply = new Postactivity();
 			$apply->post_id = $post_id;
-			$apply->user_id = Auth::user()->induser_id;
+			$apply->user_id = Auth::user()->id;
 			$apply->contact_view = 1;
 			$apply->contact_view_dtTime = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'));
 			$apply->save();
