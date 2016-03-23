@@ -12,6 +12,8 @@ class Postjob extends Model {
 							'post_type',
 							'post_compname',  
 							'role', 
+							'functional_area',
+							'industry',
 							'city', 
 							'state', 
 							'min_exp',

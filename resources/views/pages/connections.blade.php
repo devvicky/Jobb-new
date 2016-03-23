@@ -98,30 +98,13 @@
 					  </div>  
 					</div>
 					<div class="col-md-6 col-sm-6 col-xs-12">
-						<div class="input-group">
-							<span class="input-group-addon">
-								<i class="fa fa-map-marker"></i>
-							</span>
-							<input type="text" id="city" name="city" class="form-control" placeholder="City">										
-						</div>
+						<input type="text" id="city" name="city" class="form-control" placeholder="City">
 					</div>
 				</div>
 		       <div class="row" style="margin:0;">
 					<div class="col-md-12 col-sm-12 col-xs-12 hide-role">
 						<div class="form-group">
-							<label>
-								Job Role
-							</label>
-							<div class="input-group">	
-								<span class="input-group-addon">
-									<i class="fa fa-cube" style="color:darkcyan;"></i>
-								</span>			
-								<select class="job-role-ajax form-control new-role" name="role" id="jobrole">
-							  		<option value="0" selected="selected"></option>
-								</select>													
-							</div>
-							example: manager, admin, secretory <a class="hide-far">see all</a>
-							<div id="charNum" style="text-align:right;"></div>
+							<input type="text" class="form-control" name="role" placeholder="Enter Role">
 						</div>					
 					</div>
 		        </div>
@@ -220,17 +203,17 @@
                                 
                                      {{ $connection->working_status }} in {{ $connection->prof_category }}, {{ $connection->city }}
                                 
-                                @elseif($connection->job_role != '[]' && $connection->working_status == "Freelanching")
+                                @elseif($connection->role != null && $connection->working_status == "Freelanching")
                                 
-                                     {{ $connection->job_role->first()->role }} {{ $connection->working_status }}, {{ $connection->city }}
+                                     {{ $connection->role }} {{ $connection->working_status }}, {{ $connection->city }}
                                 
-                                @elseif($connection->job_role != '[]' && $connection->working_at !=null && $connection->working_status == "Working")
+                                @elseif($connection->role != null && $connection->working_at !=null && $connection->working_status == "Working")
                                 
-                                     {{ $connection->job_role->first()->role }} @ {{ $connection->working_at }} 
+                                     {{ $connection->role }} @ {{ $connection->working_at }} 
                             
-                                @elseif($connection->job_role != '[]' && $connection->working_at ==null && $connection->working_status == "Working")
+                                @elseif($connection->role != null && $connection->working_at ==null && $connection->working_status == "Working")
                                 
-                                     {{ $connection->job_role->first()->role }}, {{ $connection->city }}
+                                     {{ $connection->role }}, {{ $connection->city }}
                                 
                                 @elseif($connection->role == null && $connection->working_at !=null && $connection->working_status == "Working")
                                 
@@ -326,7 +309,7 @@
 						      </small>
 						</div>
 						<div class="col-md-3 col-sm-3 col-xs-3" style="margin: 0px -10px;padding:0;">
-							<form action="/connections/response/{{$conreq->pivot->id}}" method="post">
+							<form action="/connections/response/{{$conreq->pivot->id}}" id="accept-reject" method="post">
 								<input type="hidden" name="_token" value="{{ csrf_token() }}">
 								<button type="submit" name="action" value="accept" class="btn apply-ignore-font" style="padding: 0px 3px; background-color: white;">
 									<i class="icon-check icon-check-css-new"></i>

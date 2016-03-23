@@ -245,7 +245,7 @@ class ConnectionsController extends Controller {
 		        return redirect('/home');
 		    }
 		}
-		return redirect('/home');
+		return 'success';
 	}
 
 	public function removeLink($id){
@@ -255,7 +255,7 @@ class ConnectionsController extends Controller {
 							      ->where('connection_user_id', '=', $id)
 							      ->first();
 		$connections->delete();
-		return redirect('/home');
+		return 'success';
 	}
 
 	public function friendLink($utype, $id)

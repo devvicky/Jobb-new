@@ -1,9 +1,7 @@
 
 <div class="row" style="margin:15px;">
 	<div class="col-md-12 col-sm-12">
-		<div class="myactivity-head" style="margin: 10px 0 0 0;">
-			<i class="fa fa-search"></i> Search Profile
-		</div>
+		
 		<form id="corpsearch-profile" action="/search/ind/profile" method="post">
 	      <input type="hidden" name="_token" value="{{ csrf_token() }}">
 	      <div class="row " style="display: table;">
@@ -16,14 +14,9 @@
 	      	<div class="col-md-6 col-sm-6 col-xs-12 advance-len">
 				<div class="form-group">
 					<label style="font-weight: 500;">
-						Job Role
+						Enter Keyword
 					</label>
-					<!-- <div class="input-group">	 -->
-								
-						<select  class="job-role-ajax form-control new-role" name="role" id="jobrole">
-					  		<option value="0" selected="selected"></option>
-						</select>													
-					<!-- </div> -->
+					<input type="text" name="role" placeholder="Enter Keyword">
 				</div>					
 			</div>
 	        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">

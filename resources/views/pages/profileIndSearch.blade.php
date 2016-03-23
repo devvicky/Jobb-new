@@ -31,17 +31,17 @@
                 
                      {{ $user->working_status }} in {{ $user->prof_category }}, {{ $user->city }}
                 
-                @elseif($user->job_role != '[]' && $user->working_status == "Freelanching")
+                @elseif($user->role != null && $user->working_status == "Freelanching")
                 
-                     {{ $user->job_role->first()->role }} {{ $user->working_status }}, {{ $user->city }}
+                     {{ $user->role }} {{ $user->working_status }}, {{ $user->city }}
                 
-                @elseif($user->job_role != '[]' && $user->working_at !=null && $user->working_status == "Working")
+                @elseif($user->role != null && $user->working_at !=null && $user->working_status == "Working")
                 
-                     {{ $user->job_role->first()->role }} @ {{ $user->working_at }} 
+                     {{ $user->role }} @ {{ $user->working_at }} 
             
-                @elseif($user->job_role != '[]' && $user->working_at ==null && $user->working_status == "Working")
+                @elseif($user->role != null && $user->working_at ==null && $user->working_status == "Working")
                 
-                     {{ $user->job_role->first()->role }}, {{ $user->city }}
+                     {{ $user->role }}, {{ $user->city }}
                 
                 @elseif($user->role == null && $user->working_at !=null && $user->working_status == "Working")
                 
@@ -142,8 +142,8 @@
 
               </td>
               <td class="matching-criteria-align">
-                @if($user->job_role != '[]')
-                {{ $user->job_role->first()->role }}
+                @if($user->role != null)
+                {{ $user->role }}
                 @endif
               </td>
             </tr>

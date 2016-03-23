@@ -79,7 +79,7 @@
             </div>
             <div class="col-md-4 col-md-4 col-xs-12">
             	@if($post->individual_id != null && Auth::user()->induser_id != $post->individual_id && Auth::user()->identifier == 1)
-					<div class="" data-puid="{{$post->individual_id}}" style="margin:4px 0;">
+					<div class="puid-{{$post->individual_id}}" data-puid="{{$post->individual_id}}" style="margin:4px 0;">
 						@if($links->contains('id', $post->individual_id) )
 						<a href="#links-follow" data-toggle="modal" class="user-link" data-linked="yes" data-utype="ind">
 							<button class="btn btn-xs link-follow-icon-css"><i class="fa fa-link (alias) icon-size" style="color:white;"></i> Linked</button>
@@ -117,13 +117,13 @@
             </div>
             <div class="col-md-4 col-md-4 col-xs-12">
             	<span class="firm-type-left" style="margin: 2px 0;">{{ $post->corpuser->firm_type}}</span> 
-				<span class="follow-icon-right" data-puid="{{$post->corporate_id}}">
+				<span class="follow-icon-right pfid-{{$post->corporate_id}}" data-pfid="{{$post->corporate_id}}">
 						@if($following->contains('id', $post->corporate_id))
-						<a href="#links-follow" data-toggle="modal" class="user-link" data-linked="yes" data-utype="corp">
+						<a href="#links-follow" data-toggle="modal" class="user-link2" data-linked="yes" data-utype="corp">
 							<button class="btn btn-xs link-follow-icon-css"><i class="icon-check icon-size" style="color:white;"></i> Following</button>
 						</a>
 					@else
-						<a href="#links-follow" data-toggle="modal" class="user-link3" data-linked="no" data-utype="corp">
+						<a href="#links-follow" data-toggle="modal" class="user-link2" data-linked="no" data-utype="corp">
 							<button class="btn btn-xs unlink-follow-icon-css"><i class="icon-plus icon-size" style="color:dimgrey;"></i> Follow</button>
 						</a>
 					@endif

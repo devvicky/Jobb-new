@@ -12,6 +12,9 @@ Route::post('welcome/post', 'WelcomeController@welcomeSearch');
 Route::post('welcome/postdetails', 'WelcomeController@postDetails');
 Route::post('/contact', 'WelcomeController@contactUs');
 
+Route::get('welcome/job/post/{id}', 'WelcomeController@welcomeJobPost');
+Route::get('welcome/skill/post/{id}', 'WelcomeController@welcomeskillPost');
+
 Route::controllers([
 	'auth'		=>	'Auth\AuthController',
 	'password'	=>	'Auth\PasswordController',
@@ -84,6 +87,9 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::post('profile/fav', 'PagesController@favProfile');
 	Route::get('favouriteProfile', 'PagesController@listFavourite');
 	Route::post('profile/save', 'PagesController@saveProfile');
+
+	Route::post('remove/sortlisted/{id}', 'PagesController@removeSortlisted');
+	Route::post('remove/saved/{id}', 'PagesController@removeSaved');
 
 	Route::post('contact/view', 'PagesController@showContact');
 

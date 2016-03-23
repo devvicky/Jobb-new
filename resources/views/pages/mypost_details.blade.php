@@ -90,21 +90,13 @@
                                                                     {{ $post->education }}     
                                                             </div>
                                                         </div>
-                                                        @if( $post->job_role != null)
+                                                        
                                                          <div class="row">
                                                             <div class="col-md-6 col-sm-6 col-xs-6"> 
-                                                                    <label class="detail-label">Job Industry :</label>
+                                                                    <label class="detail-label">Industry :</label>
                                                             </div>
                                                             <div class="col-md-6 col-sm-6 col-xs-6">
-                                                                    {{ $post->job_role->first()->industry }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-6 col-sm-6 col-xs-6"> 
-                                                                    <label class="detail-label">Job Functional Area :</label>
-                                                            </div>
-                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                                                    {{ $post->job_role->first()->functional_area }}
+                                                                    {{ $post->industry }}
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -112,10 +104,10 @@
                                                                     <label class="detail-label">Job Role :</label>
                                                             </div>
                                                             <div class="col-md-6 col-sm-6 col-xs-6">
-                                                                    {{ $post->job_role->first()->role }}
+                                                                    {{ $post->role }}
                                                             </div>
                                                         </div>
-                                                        @endif
+                                                        
                                                         <div class="row"> 
                                                             <div class="col-md-6 col-sm-6 col-xs-6">                                                           
                                                                     <label class="detail-label">Skills :</label>                                                                  
@@ -134,21 +126,14 @@
                                                             </div>
                                                         </div>
                                                         <div class="row"> 
-                                                            @if($post->locality != null && $post->city !=null)
+                                                            
                                                             <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-                                                                    <label class="detail-label">Locality :</label>                                                                  
-                                                            </div>
-                                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-                                                                    {{ $post->locality }},{{ $post->city }} 
-                                                            </div>
-                                                            @elseif($post->locality == null && $post->city !=null)
-                                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-                                                                    <label class="detail-label">Locality :</label>                                                                  
+                                                                    <label class="detail-label">Prefered Location :</label>                                                                  
                                                             </div>
                                                             <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
                                                                     {{ $post->city }} 
                                                             </div>
-                                                            @endif
+                                                            
                                                         </div>
                                                         
                                                          <div class="row">
@@ -156,7 +141,11 @@
                                                                     <label class="detail-label">Salary (<i class="fa fa-rupee (alias)"></i>):</label>
                                                             </div>
                                                             <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                @if($post->min_sal != null)
                                                                     {{ $post->min_sal }}-{{ $post->max_sal }} {{ $post->salary_type }}
+                                                                @else
+                                                                Not desclose
+                                                                @endif
                                                             </div>
                                                         </div>
                                                         <?php 
@@ -177,7 +166,7 @@
                                                         <div class="skill-display">Description : </div>
                                                         {{ $post->job_detail }}
                                                         
-                                                        @if($post->post_type == 'job')
+                                                        @if($post->post_type == 'job' && $post->reference_id != null)
                                                         <div class="skill-display">Reference Id&nbsp;: {{ $post->reference_id }} </div> 
                                                         @endif
 

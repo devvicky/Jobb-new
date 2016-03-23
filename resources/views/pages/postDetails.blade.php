@@ -352,33 +352,33 @@
                                                 @endif    
                                             </div>
                                         </div>
-                                        @if($post->job_role->first()->industry != null)
+                                        @if($post->industry != null)
                                          <div class="row">
                                             <div class="col-md-6 col-sm-6 col-xs-6"> 
                                                     <label class="detail-label">Industry :</label>
                                             </div>
                                             <div class="col-md-6 col-sm-6 col-xs-6">
-                                                    {{ $post->job_role->first()->industry }}
+                                                    {{ $post->industry }}
                                             </div>
                                         </div>
                                         @endif
-                                        @if($post->job_role->first()->functional_area != null)
+                                        @if($post->functional_area != null)
                                         <div class="row">
                                             <div class="col-md-6 col-sm-6 col-xs-6"> 
                                                     <label class="detail-label">Functional Area :</label>
                                             </div>
                                             <div class="col-md-6 col-sm-6 col-xs-6">
-                                                    {{ $post->job_role->first()->functional_area }}
+                                                    {{ $post->functional_area }}
                                             </div>
                                         </div>
                                         @endif
-                                        @if($post->job_role->first()->role != null)
+                                        @if($post->role != null)
                                         <div class="row">
                                             <div class="col-md-6 col-sm-6 col-xs-6"> 
                                                     <label class="detail-label">Role :</label>
                                             </div>
                                             <div class="col-md-6 col-sm-6 col-xs-6">
-                                                    {{ $post->job_role->first()->role }}
+                                                    {{ $post->role }}
                                             </div>
                                         </div>
                                         @endif
@@ -400,20 +400,14 @@
                                             </div>
                                         </div>
                                         <div class="row"> 
-                                            @if($post->locality != null && $post->city !=null)
+                                            @if( $post->city !=null)
                                             <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-                                                    <label class="detail-label">Locality :</label>                                                                  
-                                            </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-                                                    {{ $post->locality }},{{ $post->city }} 
-                                            </div>
-                                            @elseif($post->locality == null && $post->city !=null)
-                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-                                                    <label class="detail-label">Locality :</label>                                                                  
+                                                    <label class="detail-label">Peferred Location :</label>                                                                  
                                             </div>
                                             <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
                                                     {{ $post->city }} 
                                             </div>
+                                            
                                             @endif
                                         </div>
                                         
@@ -440,7 +434,7 @@
                                     </div>
                                 </div>
                                 
-                                 @if($expired == 0 && Auth::user()->identifier == 1)
+                                 @if($expired == 0)
                                 <div style="margin:27px 0 0;">
                                     <!-- if corporate_id not null -->
                                     @if($post->corporate_id != null && Auth::user()->id != $post->individual_id &&  Auth::user()->identifier == 1)     
@@ -479,7 +473,7 @@
                                         @endif
                                     
                                     @endif  
-                                    @if($post->individual_id != null && Auth::user()->id != $post->individual_id && Auth::user()->identifier == 1)       
+                                    @if($post->individual_id != null && Auth::user()->id != $post->individual_id)       
                                         @if($post->postactivity->where('user_id', Auth::user()->induser_id)->isEmpty())
                                             <form action="/job/contact" method="post" id="post-contact-{{$post->id}}" data-id="{{$post->id}}">  
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">

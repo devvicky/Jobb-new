@@ -232,6 +232,8 @@ input:focus::-webkit-input-placeholder { color:white !important; }
 input:focus:-moz-placeholder { color:white !important; } /* FF 4-18 */
 input:focus::-moz-placeholder { color:white !important; } /* FF 19+ */
 input:focus:-ms-input-placeholder { color:white !important; } /* IE 10+ */
+
+
 </style>
 <!-- END THEME STYLES -->
 {{-- <link rel="shortcut icon" href="favicon.ico"/> --}}
@@ -393,7 +395,10 @@ input:focus:-ms-input-placeholder { color:white !important; } /* IE 10+ */
 <script src="/assets/admin/pages/scripts/components-jqueryui-sliders.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <script src="/assets/js/jt-toast.js"></script>
+<script src="/assets/js/justgage.js"></script>
+<script src="/assets/js/raphael-2.1.4.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
+
 <script>
 $(document).ready(function () {
     $('.show-contact').hide();
@@ -644,7 +649,7 @@ function fileSelectHandler() {
     }
 
     // check for file size
-    if (oFile.size > 1950 * 1224) {
+    if (oFile.size > 1950 * 1900) {
         $('.error').html('You have selected too big file, please select a one smaller image file').show();
         return;
     }

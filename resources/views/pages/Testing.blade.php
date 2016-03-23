@@ -1,889 +1,382 @@
+<div class="row" style="margin:0;padding:0;">
+    <div class="col-md-8" style="text-align: center;margin: 5px 0 -15px 0;">
+        <h4 class="uppercase btn-success singlepost-title">
+            <label class="">{{$post->post_type}} Detail</label> ({{$post->unique_id}})
+        </h4>
+    </div>
+</div>
+<div class="portlet light bordered" 
+ style="border: none !important; background:transparent; margin: 20px 0px;">                                     
+<div class="portlet-body form" id="posts">
+    <div class="form-body" id="post-items" style="padding:0;">                                          
+        <div class="row post-item" >
+                        
+                        <div class="col-md-8 home-post">
 
-@if($filter != null)@if(stripos($filter->time_for, '%Part%') == FALSE) active @endif @endif
+                            <div class="timeline" >
+                                <!-- TIMELINE ITEM -->
 
+                              
+                                <div class="timeline-item time-item">
+                               
+                                    <div class="timeline-badge badge-margin">
+                                    @if($post->induser != null && !empty($post->induser->profile_pic))
+                                    <img class="timeline-badge-userpic userpic-box" src="/img/profile/{{ $post->induser->profile_pic }}" title="{{ $post->induser->fname }}">
+                                    
+                                    @elseif($post->corpuser != null && !empty($post->corpuser->logo_status))
+                                    <img class="" src="/img/profile/{{ $post->corpuser->logo_status }}" title="{{ $post->corpuser->firm_name }}">
+                                    
+                                    @elseif(empty($post->corpuser->logo_status) && $post->corpuser != null )
+                                    <img class="" src="/assets/images/corpnew.jpg">
+                                    
+                                    @elseif(empty($post->induser->profile_pic) && $post->induser != null)
+                                    <img class="timeline-badge-userpic userpic-box" src="/assets/images/ab.png">
+                                    
+                                    @endif
+                                    
+                                </div>
+                                    <div class="row post-postision" style="padding:0;">
+                                        <div class="col-md-12">
+                                            <div class="post-title-new capitalize">{{ $post->post_title }} </div>
+                                        </div>
+                                        @if($post->post_compname != null && $post->post_type == 'job')
+                                        <div class="col-md-12">
+                                            <div><small class="capitalize" style="font-size:13px;color:dimgrey !important;">Required at {{ $post->post_compname }}</small></div>
+                                        </div>
+                                            
+                                        @endif
+                                    </div>
+                                    <div class="row post-postision" style="padding:0;"> 
+                                        @if($post->min_exp != null)
+                                        <div class="col-md-4 col-sm-4 col-xs-4" style="">
+                                        <small style="font-size:13px;color:dimgrey !important;"> <i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: {{ $post->min_exp}}-{{ $post->max_exp}} Yr</small>
+                                        </div>
+                                        @endif
+                                        @if($post->city != null)
+                                        <div class="col-md-8 col-sm-8 col-xs-8 elipsis-code-city" style="padding:0 12px;">
+                                        <small style="font-size:13px;color:dimgrey !important;"> <i class="glyphicon glyphicon-map-marker post-icon-color"></i>&nbsp;: {{ $post->city }}</small>
+                                        </div>
+                                        @endif 
+                                    </div>
 
+                                    <div class="row" style="margin: 5px 0px; border-top: 1px solid whitesmoke;padding:0;">
+                                        <div class="col-md-12" style="margin: 3px -13px;">
+                                           
+                                            <div class="row" style="padding:0;">  
+                                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                                    
+                                                    <div class="match" style="float: left; margin: 0px 3px;">      
+                                                        <a data-toggle="modal" data-mpostid="{{$post->id}}" class="magic-font magicmatch-posts" href="#magicmatch-posts" style="color: white;line-height: 1.7;text-decoration: none;"> 
+                                                            <button class="btn btn-success magic-match-css"><i class="icon-speedometer magic-font" style="font-size:12px;"></i> 
+                                                               
+                                                            </button>
+                                                            
+                                                        </a>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 col-sm-3 col-xs-3" style="padding:0 8px;">                 
+                                                <button class="btn like-btn"  type="button" style="background-color: transparent;padding:3px;" title="Thanks">
+                                                    <i class="fa fa-thumbs-up thanks-icon" id="like-{{$post->id}}"></i>        
+                                                </button>
+                                                </div>
+                                                
+                                                <div  class="col-md-3 col-sm-3 col-xs-3" style="">
+                                                    <div class="dropup ">                                           
+                                                        <button class="btn dropdown-toggle" type="button" 
+                                                                data-toggle="dropdown" title="Share" 
+                                                                style="background-color: transparent;border: 0;margin: 0px;">
+                                                            <i class="fa fa-share-square-o" 
+                                                                style="font-size: 19px;color: darkslateblue;"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu dropdown-menu-share-home" role="menu" 
+                                                            style="min-width:0;box-shadow:0 0 !important;padding: 0;">
+                                                            <li style="border-bottom: 1px solid #ddd;">
+                                                                <a class="jobtip sojt" >
+                                                                    Share on Jobtip
+                                                                </a>
+                                                            </li>
+                                                            <li style="border-bottom: 1px solid #ddd;">
+                                                                <a class="jobtip sbmail">
+                                                                    Share by email
+                                                                </a>
+                                                            </li>
+                                                        </ul>                                                   
+                                                    </div>
+                                                    <div class="report-css">
+                                             
+                                                    <a href="/login">
+                                                        <button class="report-button-css">
+                                                            <i class="fa  fa-ellipsis-v" style="color:black;"></i>
+                                                        </button>
+                                                    </a>   
+                                                    </div>
+                                                </div>    
+                                            </div>
+                                            <div class="row" style="padding:0;">
+                                                
+                                                <div class="col-md-3 col-sm-3 col-xs-6" style="font-size:12px;text-align:center">
+                                                <!-- <div class="expired-css">                                                   -->
+                                                    <i class="glyphicon glyphicon-ban-circle" style="font-size:12px;color:dimgrey;"></i> Post Expired
+                                                <!-- </div> -->
+                                                </div> 
+                                            </div>                                          
+                                        </div>
+                                    </div>
 
-
-
-
-
-
-
-
-
-
-@extends('master')
-
-@section('content')
-<div class="row" style="margin:5px;">
-	<div class="col-md-9">
-				<label class="post-job-heading">
-					Do you want to share your skills<br>
-					Share Skill Tip here for FREE !!
-				</label>
-					<div class="portlet box" id="form_wizard_1">
-						
-						<div class="portlet-body form">
-							<!-- <form action="#" class="form-horizontal"  method="POST"> -->
-							<form action="{{ url('skill/store') }}" method="post" id="submit_form" class="form-horizontal">
-								<input type="hidden" name="_token" value="{{ csrf_token() }}">
-								<div class="form-wizard">
-									<div class="form-body">
-										<ul class="nav nav-pills nav-justified steps">
-											<li>
-												<a href="#tab1" data-toggle="tab" class="step">
-												<!-- <span class="number">
-												1 </span> -->
-												<span class="desc">
-												<i class="fa fa-check"></i>Skills </span>
-												</a>
-											</li>
-											<li>
-												<a href="#tab2" data-toggle="tab" class="step">
-												<!-- <span class="number">
-												2 </span> -->
-												<span class="desc">
-												<i class="fa fa-check"></i>Education </span>
-												</a>
-											</li>
-											<li>
-												<a href="#tab3" data-toggle="tab" class="step active">
-												<!-- <span class="number">
-												3 </span> -->
-												<span class="desc">
-												<i class="fa fa-check"></i>Location </span>
-												</a>
-											</li>
-											<li>
-												<a href="#tab4" data-toggle="tab" class="step">
-												<!-- <span class="number">
-												4 </span> -->
-												<span class="desc">
-												<i class="fa fa-check"></i>Confirm </span>
-												</a>
-											</li>
-										</ul>
-										<div id="bar" class="progress progress-striped" role="progressbar" style="background-color: transparent;height: 5px;">
-											<div class="progress-bar progress-bar-success">
-											</div>
-										</div>
-										<div class="tab-content">
-											@if (count($errors) > 0)
-												<div class="alert alert-danger">
-													<ul>
-														@foreach ($errors->all() as $error)
-															<li>{{ $error }}</li>
-														@endforeach
-													</ul>
-												</div>
-											@endif
-											<div class="tab-pane active" id="tab1">
-												<!-- <h3 class="block">Provide your account details</h3> -->
-												<div class="row">
-													<div class="col-md-12">
-														<div class="form-group">
-															<label>Skill Title <span class="required">
-															* </span></label>
-															<div class="input-group">
-																<span class="input-group-addon">
-																	<i class="fa fa-flag" style="color:darkcyan;"></i>
-																</span>
-																<input type="text" name="post_title" class="form-control" placeholder="Job Title">
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-md-12">
-														<div class="form-group">
-															<label>Skill Details <span class="required">
-															* </span></label>
-															<div class="" style=" padding-bottom: 10px;">
-																<textarea name="job_detail" onkeyup="countChar(this)" class="form-control autosizeme" rows="3"></textarea>
-																<div id="charNum" style="text-align:right;"></div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="row">
-												<div class="col-md-12 col-sm-12 col-xs-12">
-													<div class="form-group">
-														<label>
-															Job Role <span class="required">*</span>
-														</label>
-
-														<div class="input-group">	
-															<span class="input-group-addon">
-																<i class="fa fa-cube" style="color:darkcyan;"></i>
-															</span>			
-															<select class="job-role-ajax form-control" name="role" id="jobrole">
-														  		<option value="0" selected="selected"></option>
-															</select>													
-														</div>
-														example: manager, admin, secretory <a href="#all-roles" data-toggle="modal" >see all</a>
-
-														<div id="charNum" style="text-align:right;"></div>
-													</div>
-												</div>
-												
-												
-											</div>
-												<div class="row">
-													<div class="col-md-6 col-sm-6 col-xs-12">
-														<div class="form-group">
-															<label>Job Type<span class="required">
-															* </span></label>
-															<div class="input-group">
-																<span class="input-group-addon">
-																	<i class="icon-hourglass" style="color:darkcyan;"></i>
-																</span>
-																<select name="time_for" class="form-control" >
-																	<option value="">-- select --</option>
-																	<option value="Full Time">Full Time</option>
-																	<option value="Part Time">Part Time</option>
-																	<option value="Freelancer">Freelancer</option>
-																	<option value="Work from Home">Work from Home</option>
-																</select>
-															</div>
-														</div>
-													</div>
-													<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
-													
-													<div class="col-md-6 col-sm-6 col-xs-12">
-														<div class="form-group">
-															<label>Search Skills</label>
-															<div style="position:relative;">
-																<input type="text" name="name" id="newskill" class="form-control" placeholder="Search for skill...">
-																<button id="add-new-skill" style="position:absolute;right:0;top:0;" class="btn btn-success" type="button"><i class="icon-plus"></i> Add</button>		
-															</div>
-															{!! Form::select('linked_skill_id[]', $skills, null, ['id'=>'linked_skill_id', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Skills', 'multiple']) !!}
-														</div>
-													</div>
-												</div>
-												<!--/span-->
-												<div class="form-group">
-													
-												</div>
-											</div>
-											<div class="tab-pane" id="tab2">
-												<div class="row">
-													<div class="col-md-6 col-sm-6">
-														<div class="form-group">
-															<label>Education <span class="required">
-																	* </span></label>
-															<div class="input-group">
-																<span class="input-group-addon">
-																	<i class="icon-graduation"></i>
-																</span>
-																<select class="form-control" name="education" id="parent_selection" >
-																	<option value="">--Please Select--</option>
-																	<option value="Any Graduate">Any Graduate</option>
-																	<option value="Any Post Graduate">Any Post Graduate</option>
-																	<option value="twelth&above">12th & above</option>
-																	<option value="tenth&above">10th & above</option>
-																	<option value="twelth">12th</option>
-																	<option value="tenth">10th</option>
-																	<option value="BA">B.A</option>
-																	<option value="BArch">B.Arch</option>
-																	<option value="BCA">BCA</option>
-																	<option value="BBA">BBA</option>
-																	<option value="BCom">BCom</option>
-																	<option value="B.Ed">B.Ed</option>
-																	<option value="MTech" value="MTech">MTech</option>
-																	<option value="MSc" value="MSc">MSc</option>
-																	<option value="MArch" value="MArch">MArch</option>
-
-																	<option value="MCA">MCA</option>
-																	<option value="MS" value="MS">MS</option>
-																	<option value="PGDiploma">PGDiploma</option>
-
-																	<option value="MVSC">MVSC</option>
-																	<option value="MCM">MCM</option>
-																	<option value="BBA">BBA</option>
-																	<option value="btech">B.Tech/B.E.</option>
-																	<option value="MCom">MCom</option>
-																	<option value="MEd">MEd</option>
-																	<option value="MPharma">MPharma</option>
-																	<option value="MA">MA</option>
-																	<option value="twelth">12th</option>
-																	<!-- <option value="10">10</option> -->
-																</select>
-																
-															</div>
-														</div>
-													</div>
-													<!--/span-->
-													<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
-
-													<div class="col-md-6 col-sm-6">
-														<div class="form-group">
-															<label>Branch <span class="required"> * </span></label>
-															<div class="input-group">
-																<span class="input-group-addon">
-																	<i class="icon-graduation"></i>
-																</span>
-																<select class="form-control" name="branch" id="child_selection" value="">
-																	<option value=""></option>
-																</select>
-															</div>
-														</div>
-													</div>
-													<!--/span-->
-												</div>
-																			
-												<!--/span-->
-												<div class="row">
-													<div class="ccol-md-6 col-sm-6 col-xs-12">
-														<div class="form-group">							
-															<label class=" control-label">Experience </label>&nbsp;: 
-																	<input type="text" readonly id="slider-range-exp1" name="min_exp" class="input-exp-width" /> - 
-																	<input type="text" readonly id="slider-range-exp2" name="max_exp" class="input-exp-width" /> Years
-															<div id="slider-range-exp" class="slider bg-gray">
-																</div>
-																
-														</div>
-													</div>
-													<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
-													
-													<div class="ccol-md-6 col-sm-6 col-xs-12">
-														<div class="form-group">							
-															<label class=" control-label"><input type="checkbox" id="hide-check"> Salary </label>&nbsp;: 
-																	<label class="hide-sal input-sal-exp-label"><i class="fa fa-rupee (alias)" style="font-size:12px;"></i></label>
-																	<input type="text" readonly id="slider-range-amount1" name="min_sal" class="input-sal-width hide-sal one" />
-																	
-																	<label class="hide-sal input-sal-exp-label">- <i class="fa fa-rupee (alias)" style="font-size:12px;"></i></label>
-																	<input type="text" readonly id="slider-range-amount2" name="max_sal" class="input-sal-width hide-sal two" />
-																	
-															<select id="salary-type"  name="salary_type" class="hide-sal-new input-sal-exp-label" style="border-top: 0px;border-left: 0;border-right: 0;width:75px">									
-																<option selected="selected" value="Monthly">Monthly</option>
-																<option value="Weekly">Weekly</option>
-																<option value="Daily">Daily</option>
-																<option value="Hourly">Hourly</option>
-																<option value="Pervisit">Per Visit</option>	
-															</select>
-															<div id="salary-old" class="hide-sal">
-																<div id="slider-range" class="slider bg-gray"></div>
-															</div>
-															<!-- <div id="salary-new">
-																<div id="slider-range-new" class="slider bg-gray"></div>
-															</div> -->
-														</div>
-													</div>
-												</div>
-												<div class="form-group">
-													
-												</div>
-											</div>
-											<div class="tab-pane" id="tab3">
-												<div class="row">
-													<div class="col-md-6 col-sm-6 col-xs-12">
-														<div class="form-group">
-															<label>Select Prefered Location <span class="required">
-																	* </span></label>
-															<div class="input-group">
-																<span class="input-group-addon">
-																	<i class="fa fa-map-marker"></i>
-																</span>
-
-																<input type="text" id="pref_loc" name="pref_loc" 
-																class="form-control" placeholder="Select preferred location">									
-																
-															</div>		
-														</div>
-													</div>
-													<div class="col-md-6 col-sm-6 col-xs-12">
-														<div class="form-group">
-															<label> Selected Prefered Location <span class="required">
-																	* </span></label>
-															<div class="input-group">
-														{!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 
-																											   'aria-hidden'=>'true', 
-																											   'class'=>'form-control', 
-																											   'placeholder'=>'city', 
-																											   'multiple']) !!}
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-md-6 col-sm-6 col-xs-12">
-														<div class="form-group new-margin-formgroup">
-															<label>Post Duration <span class="required">
-																* </span></label>
-															<div class="input-group">
-																<span class="input-group-addon">
-																<i class="icon-clock" style=" color: darkcyan;"></i>
-																</span>
-																<select name="post_duration" class="form-control" >
-																	<option value="">--select--</option>					
-																	<option value="90">3 Months</option>
-																	<option value="180">6 Months</option>
-																	<option value="270">9 Months</option>
-																</select>
-															</div>
-														</div>
-													</div>
-													<div class="col-md-6 col-sm-6 col-xs-12">
-														<div class="form-group">
-															<label>Contact Person</label>
-															<div class="input-group">
-															<span class="input-group-addon">
-															<i class="glyphicon glyphicon-user" style="color:darkcyan;"></i>
-															</span>
-															<input type="text" name="contact_person" value="{{ Auth::user()->name }}" class="form-control" placeholder="Contact Person">
-															</div>
-														</div>
-													</div>
-												</div>
-												
-												<div class="row">
-												<!-- <div class="show-apply"> -->
-													<div class="col-md-6 col-sm-6 col-xs-12">
-														<div class="form-group">
-															<label>Email Id (Registered)</label>
-															<div class="input-group">
-															<span class="input-group-addon">
-															<i class="icon-envelope" style="color:darkcyan;"></i>
-															</span>
-															<input type="text" name="email_id" value="{{ Auth::user()->email }}" class="form-control group" placeholder="">
-															
-															</div>
-														</div>
-													</div>
-													<!--/span-->
-													<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
-													<div class="col-md-6 col-sm-6 col-xs-12">
-														<div class="form-group">
-															<label>Phone No (Registered)</label>
-															<div class="input-group">
-															<span class="input-group-addon">
-															<i class="icon-call-end" style="color:darkcyan;"></i>
-															</span>
-															<input type="text" name="phone" value="{{ Auth::user()->mobile }}"  class="form-control group" placeholder="">
-															
-															</div>
-														</div>
-													</div>
-													<!--/span-->	
-												<!-- </div> -->
-											</div>
-												<div class="form-group">
-												
-												</div>
-											</div>
-											<div class="tab-pane" id="tab4">
-								
-								<input type="hidden" name="post_type">
-									<div class="form-body">
-										
-										<?php $var = 1; ?>
-										
-										<div class="row">																				
-											<div class="col-md-12" style="padding:0;">												
-													<div class="timeline" style="padding:0;">
-													<!-- TIMELINE ITEM -->
-													<div class="timeline-item time-item">
-														<div class="timeline-body" style="margin: 0;border: 1px solid lightgrey;">
-															<div class="timeline-body-content col-md-7" style="margin: 0 15px;">
-																<div style="font-weight: 600;color: black;font-size: 16px;">
-																	<p class="form-control-static" data-display="post_title"></p>
-																</div>
-																<div>
-																 	<div> 
-																 		<h4 style=" margin: -5px 0;"> 
-																 			<p class="form-control-static" data-display="post_compname"></p> 
-																 		</h4>
-																 	</div>  
-																</div>
-																<div class="row">
-				                                                            
-				                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-				                                                                    <label class="detail-label"> Experience : </label>     
-				                                                            </div>
-				                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-				                                                                         <p class="form-control-static" data-display="min_exp" style="margin: -5px 0;"></p> -
-																						<p class="form-control-static" data-display="max_exp" style="margin: -5px 0;"></p> Years  
-				                                                            </div>
-				                                                        </div>
-				                                                        <div class="row">
-				                                                            
-				                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-				                                                                    <label class="detail-label">Education :</label>     
-				                                                            </div>
-				                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-				                                                                         <p class="form-control-static" data-display="education" style="margin: -5px 0;"></p>
-				                                                            </div>
-				                                                        </div>
-				                                                         <div class="row">
-				                                                            <div class="col-md-6 col-sm-6 col-xs-6"> 
-				                                                                    <label class="detail-label">Job Role :</label>
-				                                                            </div>
-				                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-				                                                                   <p class="form-control-static" data-display="role" style="margin: -5px 0;"></p>
-				                                                            </div>
-				                                                            </div>
-				                                                            <div class="row"> 
-				                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-				                                                                        <label class="detail-label">Skills :</label>                                                                  
-				                                                                </div>
-				                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                 
-				                                                                        <p class="form-control-static" data-display="linked_skill_id[]" style="margin: -5px 0;"></p>
-				                                                                     
-				                                                                </div>
-				                                                            </div>
-				                                                            <div class="row"> 
-				                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-				                                                                        <label class="detail-label">Job Type :</label>                                                                  
-				                                                                </div>
-				                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-				                                                                        <p class="form-control-static" data-display="time_for" style="margin: -5px 0;"></p>
-				                                                                </div>
-				                                                            </div>
-				                                                            
-				                                                            
-				                                                             <div class="row show-salary">
-				                                                                <div class="col-md-6 col-sm-6 col-xs-6">
-				                                                                        <label class="detail-label">Salary (<i class="fa fa-rupee (alias)"></i>):</label>
-				                                                                </div>
-				                                                                <div class="col-md-6 col-sm-6 col-xs-6">
-				                                                                        <p class="form-control-static" data-display="min_sal"></p>-<p class="form-control-static" data-display="max_sal"></p>/ <p class="form-control-static" data-display="salary_type"></p>
-				                                                                </div>
-				                                                            </div>
-				                                                            <div class="row"> 
-				                                                                
-				                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-				                                                                        <label class="detail-label">Prefered Location :</label>                                                                  
-				                                                                </div>
-				                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-				                                                                         <p class="form-control-static" data-display="prefered_location[]" style="margin: -5px 0;"></p>
-				                                                                </div>
-				                                                            </div>
-				                                                            
-																			<div >Post Duration: <p class="form-control-static" data-display="post_duration"></p></div>
-																		<div class="skill-display">Contact Details:<br> </div>
-																		<!-- <div class="show-apply">Apply on Company Website:<p class="form-control-static" data-display="website_redirect_url"></p></div><br> -->
-																		<div id="con" class="show-apply-email">
-																		Contact Person: <p class="form-control-static" data-display="contact_person"></p><br>
-
-																			<i class="glyphicon glyphicon-envelope" style="color: #13B8D4;font-size: 16px;"></i>&nbsp;:<p class="form-control-static" data-display="email_id"></p>
-																			 
-																		<br>
-																			<i class="glyphicon glyphicon-earphone" style="color: green;font-size: 16px;"></i>&nbsp;:<p class="form-control-static" data-display="phone"></p>
-																			</div> 
-																		<!-- <div class="skill-display">Post Id&nbsp;: Null (Auto generated after submit.) </div>  -->
-															
-														</div>
-														
-													</div>
-
-													<!-- END TIMELINE ITEM -->
-												</div>
-											</div>	
-											
-											<!-- END TIMELINE ITEM -->
-										
-										</div>
-													
-												
-												<!-- END FORM-->
-												
-									
-								</div>
-							</div>
-										</div>
-									</div>
-									<div class="form-actions">
-										<div class="row">
-											<div class="col-md-offset-3" style="margin:auto;display:table">
-												<a href="javascript:;" class="btn default button-previous">
-												<i class="m-icon-swapleft"></i> Back </a>
-												<a href="javascript:;" class="btn blue button-next">
-												Continue <i class="m-icon-swapright m-icon-white"></i>
-												</a>
-												<button type="submit" class=" btn blue button-submit">Submit</button>
-											</div>
-										</div>
-									</div>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-@stop
+                                </div>
+                                <div class="row" style="margin:0;padding:0;">
+                                    <h4 class="skill-display">Details:</h4>
+                                    <div class="col-md-12">
+                                        <div class="row" style="padding:0;">
+                                            
+                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                    <label class="detail-label">Education :</label>     
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                @if($post->education == 'twelth')
+                                                    12th
+                                                @else
+                                                {{$post->education}} 
+                                                @endif    
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row" style="padding:0;"> 
+                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                           
+                                                    <label class="detail-label">Skills :</label>                                                                  
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
+                                                    {{$post->linked_skill}}
+                                                 
+                                            </div>
+                                        </div>
+                                        <div class="row" style="padding:0;"> 
+                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                           
+                                                    <label class="detail-label">Job Type :</label>                                                                  
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
+                                                    {{ $post->time_for }}
+                                            </div>
+                                        </div>
+                                        <div class="row" style="padding:0;"> 
+                                            @if($post->locality != null && $post->city !=null)
+                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                           
+                                                    <label class="detail-label">Locality :</label>                                                                  
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
+                                                    {{ $post->locality }},{{ $post->city }} 
+                                            </div>
+                                            @elseif($post->locality == null && $post->city !=null)
+                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                           
+                                                    <label class="detail-label">Locality :</label>                                                                  
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
+                                                    {{ $post->city }} 
+                                            </div>
+                                            @endif
+                                        </div>
+                                        
+                                         <div class="row" style="padding:0;">
+                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                    <label class="detail-label">Salary (<i class="fa fa-rupee (alias)"></i>):</label>
+                                            </div>
+                                            @if($post->min_sal != null)
+                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                    {{ $post->min_sal }}-{{ $post->max_sal }}/{{ $post->salary_type }}
+                                            </div>
+                                            @else
+                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                    Not disclose
+                                            </div>
+                                            @endif
+                                        </div>
+                                        <div class="skill-display">Description : </div>
+                                        {{ $post->job_detail }}
+                                        
+                                        @if($post->post_type == 'job' && $post->reference_id != null)
+                                        <div class="skill-display">Reference Id&nbsp;: {{ $post->reference_id }} </div> 
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END TIMELINE ITEM -->
+                        </div>                                  
+                </div>                           
+            </div>
+        </div>
+    </div>
 
 
-@section('javascript')
-<!-- <script src="{{ asset('/assets/admin/pages/scripts/components-ion-sliders.js') }}" type="text/javascript"></script> -->
-<script>
-jQuery(document).ready(function() {       
-// init demo features
-   FormWizard.init();
-});
-</script>
-<script type="text/javascript">
-      function countChar(val) {
-        var len = val.value.length;
-        if (len >= 1000) {
-          val.value = val.value.substring(0, 1000);
-        } else {
-          $('#charNum').text(1000 - len);
-        }
-      };
-    </script>
-<script>
-	jQuery(document).ready(function() { 
-	    ComponentsIonSliders.init();
-	    ComponentsDropdowns.init();
-	    ComponentsEditors.init();
-	    ComponentsjQueryUISliders.init(); 
-	});   
-</script>
-<script src="http://maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
-<script type="text/javascript">
-    // preferred loc
-	var prefLocationArray = [];
-
-    // preferred loc    
-    var plselect = $("#prefered_location").select2();
-    plselect.val(prefLocationArray).trigger("change");
-
-  	var $eventSelect = $("#prefered_location"); 
-	$eventSelect.on("select2:unselect", function (e) {
-		// console.log("Removing: "+e.params.data.id);
-		// remove corresponding value from array
-		prefLocationArray = $.grep(prefLocationArray, function(value) {
-		  return value != e.params.data.id;
-		});
-
-		// remove select option for pref loc
-		$("#prefered_location option[value='"+e.params.data.id+"']").remove();		
-		if(prefLocationArray.length == 0){
-			plselect = $("#prefered_location").select2({ dataType: 'json', data: [] });
-		}else{
-			plselect = $("#prefered_location").select2({ dataType: 'json', data: prefLocationArray });
-		}
-		plselect.val(prefLocationArray).trigger("change"); 
-		// updated array
-	});
-
-    var prefLoc = $("#pref_loc");
-	function initPrefLoc() {
-		var options = {	types: ['(regions)'], componentRestrictions: {country: "in"}};
-		var input = document.getElementById('pref_loc');
-		var autocomplete = new google.maps.places.Autocomplete(input, options);
-		autocomplete.addListener('place_changed', onPlaceChanged);
-
-		function onPlaceChanged() {
-		  var place = autocomplete.getPlace();
-		  if (place.address_components) { 
-		  	// console.log(place.address_components);
-
-		  	var obj = place.address_components;		  	
-		  	var locality = '';
-	  		var city = '';
-	  		var state = '';
-		  	$.each( obj, function( key, value ) {
-		  		if($.inArray("sublocality", value.types)  > -1 ){
-		  			locality = value.long_name;
-		  		}
-		  		if($.inArray("locality", value.types)  > -1 ){
-		  			city = value.long_name;
-		  		}
-		  		if($.inArray("administrative_area_level_1", value.types)  > -1 ){
-		  			state = value.long_name;
-		  		}
-			});
-			// console.log("Locality: "+locality+" city: "+city+" state: "+state);
-
-			if(locality != '' && city != '' && state != '' ){
-				prefLocationArray.push(locality +"-"+ city +"-"+ state);	
-			}
-			if(locality == '' && city != '' && state != '' ){
-				prefLocationArray.push(city +"-" + state);	
-			}
-
-		  	setTimeout(function(){ prefLoc.val(''); prefLoc.focus();},0);	// clear field
-		  	
-		  	$("#prefered_location").select2({ dataType: 'json', data: prefLocationArray });
-        	plselect.val(prefLocationArray).trigger("change");
-
-		  } else { 
-		  	document.getElementById('autocomplete').placeholder = 'Your preferred location'; 
-		  }
-		}
-
-	}
-   google.maps.event.addDomListener(window, 'load', initPrefLoc);
-
-</script>
-<script type="text/javascript">
-$('.nstSlider').nstSlider({
-    "left_grip_selector": ".leftGrip",
-    "right_grip_selector": ".rightGrip",
-    "value_bar_selector": ".bar",
-    "value_changed_callback": function(cause, leftValue, rightValue) {
-        $(this).parent().find('.leftLabel').text(leftValue);
-        $(this).parent().find('.rightLabel').text(rightValue);
-    }
-});
-    $(function () {
-    	$(".hide-sal").hide();
-    	$(".show-salary").hide();
-    	$(".hide-sal-new").hide();
-        $("#hide-check").click(function () {
-            if ($(this).is(":checked")) {
-                $(".hide-sal").show();
-                $(".show-salary").show();
-                $(".hide-sal-new").show();
-            } else {
-                $(".hide-sal").hide();
-                $(".show-salary").hide();
-                $(".hide-sal-new").hide();
-            }
-        });
-    });
-</script>
-<script type="text/javascript">
-
-// $(document).ready(function () {
-// $('#salary-new').hide();
-// $('.three').hide();
-// $('.four').hide();
-// toggleFields();
-// $('#salary-type').change(function () {
-// toggleFields();
-// });
-// });
-// function toggleFields() {
-// if ($('#salary-type').val() == 'Daily' || $('#salary-type').val() == 'Hourly' || $('#salary-type').val() == 'Pervisit'){
-// $('#salary-new').show();
-// $('#salary-old').hide();
-// $('.one').hide();
-// $('.two').hide();
-// $('.three').show();
-// $('.four').show();
-// }else{
-// $('#salary-new').hide();
-// $('#salary-old').show();
-// $('.one').show();
-// $('.two').show();
-// $('.three').hide();
-// $('.four').hide();
-// }
-// }
-
-	 $(function () {
-        $("#hide-apply").click(function () {
-            if ($(this).is(":checked")) {
-                $(".show-apply").show();
-                 
-            } else {
-                $(".show-apply").hide();
-                
-            }
-        });
-    });
-</script>
-<script>
-$selectedSkills = $("#linked_skill_id").select2();
-$gotit = [];
-	$(function(){
-
-	 	function split( val ) {
-	      return val.split( /,\s*/ );
-	    }
-	    function extractLast( term ) {
-	      return split( term ).pop();
-	    }
-
-		$( "#newskill" )
-		.bind( "keydown", function( event ) {
-			if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
-			  event.preventDefault();
-			}
-		})
-		.autocomplete({
-			source: function( request, response ) {
-				// $.getJSON( "/job/skillSearch", {
-				// 	term: extractLast( request.term )
-				// }, response );
-
-				$.ajax({
-					url: '/job/skillSearch',
-					dataType: "json",
-					data: { term: extractLast( request.term ) },
-					success: function(data) {
-					if (data.length === 0) {
-						$('#add-new-skill').removeClass('hide');
-						$('#add-new-skill').addClass('show');
-					}else{
-						$('#add-new-skill').removeClass('show');
-						$('#add-new-skill').addClass('hide');
-					}
-					response(data);
-					}
-				});
-
-			},
-			search: function() {
-				var term = extractLast( this.value );
-				if ( term.length < 2 ) {
-					return false;
-				}
-			},
-			focus: function() {
-				return false;
-			},
-			select: function(event, ui) {
-				var termsId = [];
-
-				if($selectedSkills.val() != null){
-					termsId = $selectedSkills.val();
-				}
-
-				if(termsId.length != null){
-
-				}
-				termsId.push( ui.item.value );
-				$gotit.push( ui.item.value );
-
-				termsId.push( "" );
-				$selectedSkills.val(termsId).trigger("change"); 
-				$(this).val("");
-				return false;
-			}
-		});
-	});
 
 
-	$(document).ready(function(){
-		$('#add-new-skill').on('click',function(event){  	    
-		  	event.preventDefault();
-		  	if (!$('#newskill').val()) {
-		  		alert('Please enter some skill to add.');
-		  		return false;
-		  	}else{
-			  	var name = $('#newskill').val(); 
-			    $.ajaxSetup({
-					headers: {
-						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-					}
-				});
-			    $.ajax({
-			      url: "{{ url('job/newskill') }}",
-			      type: "POST",
-			      data: { name: name },
-			      cache : false,
-			      success: function(data){
-			        if(data > 0){
-			        	$newSkillList = new Array();
 
-			        	<?php $newSkillList = array(); ?>
-						@foreach($skills as $skill)
-							$newSkillList.push('<?php echo $skill; ?>');
-						@endforeach
 
-			        	$newSkillList.push($('#newskill').val());
-			        	// console.log($newSkillList);
-			        	$("#linked_skill_id").select2({
-			        		dataType: 'json',
-			        		data: $newSkillList
-			        	});
 
-			        	var selectedSkillId = [];
-			        	$newSkill = $('#newskill').val();
-			        	$newSkillId = data;
-			        	// $selectedSkill = $('#linked_skill').val();
-			        	// console.log($gotit);
-			        	if($gotit != null){
-							selectedSkillId = $gotit;
-						}
-						
-			        	selectedSkillId.push($newSkill);
-			        	// console.log(selectedSkillId);
-			        	// $('#linked_skill').val($selectedSkill+""+$newSkill+", ");
-			        	$selectedSkills.val(selectedSkillId).trigger("change"); 
-			        	$('#newskill').val("");
-			        }
-			      },
-			      error: function(data) {
-			      	alert('some error occured...');
-			      }
-			    }); 
-			    return false;
-			}
-		});
-		});
-</script>
-<script type="text/javascript">
 
-$(".job-role-ajax").select2({
-	placeholder: 'Enter a role',
-  ajax: {
-    url: "/post/jobroles/",
-    dataType: 'json',
-    delay: 250,
-    data: function (params) {
-      return {
-        q: params.term, // search term
-        page: params.page
-      };
-    },
-    processResults: function (data, params) {
-      return {
-        results: data
-      };
-    },
-    cache: true
-  },
-  escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
-  minimumInputLength: 2,
-  templateResult: formatRepo, // omitted for brevity, see the source of this page
-  templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
-});
 
-function formatRepo (repo) {
-      if (repo.loading) return repo.text;
+<li>
+                <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283" id="notification-list">
+                  @foreach($thanks as $not)
+                  <li>
+                  <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
+                    <li>
+                      <a href="inbox.html?a=view">
+                      <span class="photo">
+                      @if($not->fromuser != null)
+                        @if($not->fromuser->first()->induser != null)
+                          
+                          <img src="@if($not->fromuser->first()->induser->profile_pic != null){{ '/img/profile/'.$not->fromuser->first()->induser->profile_pic }}@else{{'/assets/images/ab.png'}}@endif" class="img-circle" width="40" height="40">                        
+                          
+                        @elseif($not->fromuser->first()->corpuser != null)
+                          
+                          <img src="@if($not->fromuser->first()->corpuser->logo_status != null){{ '/img/profile/'.$not->fromuser->first()->corpuser->logo_status }}@else{{'/assets/images/ab.png'}}@endif" class="img-circle" width="40" height="40">
+                          {{-- <div class=""><i class="icon-speedometer"></i> 55%</div> --}}
+                         
+                        @endif
+                      @else
+                        <img src="/assets/images/ab.png" class="img-circle" width="40" height="40">                 
+                      @endif
+                      </span>
+                      <span class="subject">
+                      <span class="from">
+                      {{$not->user->name}}</span>
+                      <span class="time">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($not->thanks_dtTime))->diffForHumans() }} </span>
+                      </span>
+                      <span class="message">
+                      has thanked your post : {{$not->unique_id}} </span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                </li>
+                 @endforeach
+                </ul>
+              </li>
 
-      var markup = "<div class='select2-result-repository clearfix'>" +
-        "<div class='select2-result-repository__meta'>" +
-          "<div class='select2-result-repository__title'><b>Role</b>: " + repo.role + "</div>";
 
-      markup += "<div class='select2-result-repository__statistics'>" +
-        "<div class='select2-result-repository__forks'><b>Functional area: </b> " + repo.functional_area + "</div>" +
-        "<div class='select2-result-repository__stargazers'><b>Industry</b>: " + repo.industry + "</div>" +
-      "</div>" +
-      "</div></div>";
 
-      return markup;
-    }
 
-    function formatRepoSelection (repo) {
-    	if(repo.role != undefined){
-    		// console.log(repo);
-    		return  "<b>Role:</b> "+repo.role+"<br/><b>Functional Area:</b> "+repo.functional_area+"<br/><b>Industry:</b> "+repo.industry;
-    	}      
-    }
 
-$(document).on('click', 'a', function(event, ui) {
-    var jrole = $(this).data('jrole');
 
-    $.ajaxSetup({
-        headjroleers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-      });
 
-    if(jrole != null){
-      event.preventDefault();
-      $('#all-roles').modal('hide');
-      $('#jobrole').select2('open');
-      $('.select2-search__field').val(jrole);
-      $('.select2-search__field').trigger('keyup');
-       // $('.select2-dropdown').hide();
-    }
-});
 
-</script>
-@stop
+
+
+
+              <select class="select2me form-control" name="industry">
+                                        <option value="Automotive/ Ancillaries">Automotive/ Ancillaries</option>
+                                        <option value="Banking/ Financial Services">Banking/ Financial Services</option>
+                                        <option value="Bio Technology & Life Sciences">Bio Technology & Life Sciences</option>
+                                        <option value="Chemicals/Petrochemicals">Chemicals/Petrochemicals</option>
+                                        <option value="Construction">Construction</option>
+                                        <option value="FMCG">FMCG</option>
+                                        <option value="Education">Education</option>
+                                        <option value="Entertainment/ Media/ Publishing">Entertainment/ Media/ Publishing</option>
+                                        <option value="Insurance">Insurance</option>
+                                        <option value="ITES/BPO">ITES/BPO</option>
+                                        <option value="IT/ Computers - Hardware">IT/ Computers - Hardware</option>
+                                        <option value="IT/ Computers - Software">IT/ Computers - Software</option>
+                                        <option value="KPO/Analytics">KPO/Analytics</option>
+                                        <option value="Machinery/ Equipment Mfg.">Machinery/ Equipment Mfg.</option>
+                                        <option value="Oil/ Gas/ Petroleum">Oil/ Gas/ Petroleum</option>
+                                        <option value="Pharmaceuticals">Pharmaceuticals</option>
+                                        <option value="Power/Energy">Power/Energy</option>
+                                        <option value="Real Estate">Real Estate</option>
+                                        <option value="Retailing">Retailing</option>
+                                        <option value="Telecom">Telecom</option>
+                                        <option value="Advertising/PR/Events">Advertising/PR/Events</option>
+                                        <option value="Agriculture/ Dairy Based">Agriculture/ Dairy Based</option>
+                                        <option value="Aviation/Aerospace">Aviation/Aerospace</option>
+                                        <option value="Beauty/Fitness/PersonalCare/SPA">Beauty/Fitness/PersonalCare/SPA</option>
+                                        <option value="Beverages/ Liquor">Beverages/ Liquor</option>
+                                        <option value="Cement">Cement</option>
+                                        <option value="Ceramics & Sanitary Ware">Ceramics & Sanitary Ware</option>
+                                        <option value="Consultancy">Consultancy</option>
+                                        <option value="Courier/ Freight/ Transportation">Courier/ Freight/ Transportation</option>
+                                        <option value="Law Enforcement/Security Services">Law Enforcement/Security Services</option>
+                                        <option value="E-Learning">E-Learning</option>
+                                        <option value="Shipping/ Marine Services">Shipping/ Marine Services</option>
+                                        <option value="Engineering, Procurement, Construction">Engineering, Procurement, Construction</option>
+                                        <option value="Environmental Service">Environmental Service</option>
+                                        <option value="Facility management">Facility management</option>
+                                        <option value="Fertilizer/ Pesticides">Fertilizer/ Pesticides</option>
+                                        <option value="Food & Packaged Food">Food & Packaged Food</option>
+                                        <option value="Textiles / Yarn / Fabrics / Garments">Textiles / Yarn / Fabrics / Garments</option>
+                                        <option value="Gems & Jewellery">Gems & Jewellery</option>
+                                        <option value="Government/ PSU/ Defence">Government/ PSU/ Defence</option>
+                                        <option value="Consumer Electronics/Appliances">Consumer Electronics/Appliances</option>
+                                        <option value="Hospitals/ Health Care">Hospitals/ Health Care</option>
+                                        <option value="Hotels/ Restaurant">Hotels/ Restaurant</option>
+                                        <option value="Import / Export">Import / Export</option>
+                                        <option value="Market Research">Market Research</option>
+                                        <option value="Medical Transcription">Medical Transcription</option>
+                                        <option value="Mining">Mining</option>
+                                        <option value="NGO">NGO</option>
+                                        <option value="Paper">Paper</option>
+                                        <option value="Printing / Packaging">Printing / Packaging</option>
+                                        <option value="Public Relations (PR)">Public Relations (PR)</option>
+                                        <option value="Travel / Tourism">Travel / Tourism</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+
+
+
+
+
+
+
+
+
+                                    <option @if($user->induser->industry=="Automotive/ Ancillaries") {{ $selected }} @endif value="Automotive/ Ancillaries">Automotive/ Ancillaries</option>
+                                        <option @if($user->induser->industry=="Banking/ Financial Services") {{ $selected }} @endif value="Banking/ Financial Services">Banking/ Financial Services</option>
+                                        <option @if($user->induser->industry=="Bio Technology & Life Sciences") {{ $selected }} @endif value="Bio Technology & Life Sciences">Bio Technology & Life Sciences</option>
+                                        <option @if($user->induser->industry=="Chemicals/Petrochemicals") {{ $selected }} @endif value="Chemicals/Petrochemicals">Chemicals/Petrochemicals</option>
+                                        <option @if($user->induser->industry=="Construction") {{ $selected }} @endif value="Construction">Construction</option>
+                                        <option @if($user->induser->industry=="FMCG") {{ $selected }} @endif value="FMCG">FMCG</option>
+                                        <option @if($user->induser->industry=="Education") {{ $selected }} @endif value="Education">Education</option>
+                                        <option @if($user->induser->industry=="Entertainment/ Media/ Publishing") {{ $selected }} @endif value="Entertainment/ Media/ Publishing">Entertainment/ Media/ Publishing</option>
+                                        <option @if($user->induser->industry=="Insurance">Insurance") {{ $selected }} @endif value="Insurance">Insurance</option>
+                                        <option @if($user->induser->industry=="ITES/BPO") {{ $selected }} @endif value="ITES/BPO">ITES/BPO</option>
+                                        <option @if($user->induser->industry=="IT/ Computers - Hardware") {{ $selected }} @endif value="IT/ Computers - Hardware">IT/ Computers - Hardware</option>
+                                        <option @if($user->induser->industry=="IT/ Computers - Software") {{ $selected }} @endif value="IT/ Computers - Software">IT/ Computers - Software</option>
+                                        <option @if($user->induser->industry=="KPO/Analytic") {{ $selected }} @endif value="KPO/Analytics">KPO/Analytics</option>
+                                        <option @if($user->induser->industry=="Machinery/ Equipment Mfg.") {{ $selected }} @endif value="Machinery/ Equipment Mfg.">Machinery/ Equipment Mfg.</option>
+                                        <option @if($user->induser->industry=="Oil/ Gas/ Petroleum") {{ $selected }} @endif value="Oil/ Gas/ Petroleum">Oil/ Gas/ Petroleum</option>
+                                        <option @if($user->induser->industry=="Pharmaceuticals") {{ $selected }} @endif value="Pharmaceuticals">Pharmaceuticals</option>
+                                        <option @if($user->induser->industry=="Power/Energy") {{ $selected }} @endif value="Power/Energy">Power/Energy</option>
+                                        <option @if($user->induser->industry=="Retailing") {{ $selected }} @endif value="Retailing">Retailing</option>
+                                        <option @if($user->induser->industry=="Telecom") {{ $selected }} @endif value="Telecom">Telecom</option>
+                                        <option @if($user->induser->industry=="Advertising/PR/Events") {{ $selected }} @endif value="Advertising/PR/Events">Advertising/PR/Events</option>
+                                        <option @if($user->induser->industry=="Agriculture/ Dairy Based") {{ $selected }} @endif value="Agriculture/ Dairy Based">Agriculture/ Dairy Based</option>
+                                        <option @if($user->induser->industry=="Aviation/Aerospace") {{ $selected }} @endif value="Aviation/Aerospace">Aviation/Aerospace</option>
+                                        <option @if($user->induser->industry=="Beauty/Fitness/PersonalCare/SPA") {{ $selected }} @endif value="Beauty/Fitness/PersonalCare/SPA">Beauty/Fitness/PersonalCare/SPA</option>
+                                        <option @if($user->induser->industry=="Beverages/ Liquor") {{ $selected }} @endif value="Beverages/ Liquor">Beverages/ Liquor</option>
+                                        <option @if($user->induser->industry=="Cement") {{ $selected }} @endif value="Cement">Cement</option>
+                                        <option @if($user->induser->industry=="Ceramics & Sanitary Ware") {{ $selected }} @endif value="Ceramics & Sanitary Ware">Ceramics & Sanitary Ware</option>
+                                        <option @if($user->induser->industry=="Consultancy") {{ $selected }} @endif value="Consultancy">Consultancy</option>
+                                        <option @if($user->induser->industry=="Courier/ Freight/ Transportation") {{ $selected }} @endif value="Courier/ Freight/ Transportation">Courier/ Freight/ Transportation</option>
+                                        <option @if($user->induser->industry=="Law Enforcement/Security Services") {{ $selected }} @endif value="Law Enforcement/Security Services">Law Enforcement/Security Services</option>
+                                        <option @if($user->induser->industry=="E-Learning") {{ $selected }} @endif value="E-Learning">E-Learning</option>
+                                        <option @if($user->induser->industry=="Shipping/ Marine Services") {{ $selected }} @endif value="Shipping/ Marine Services">Shipping/ Marine Services</option>
+                                        <option @if($user->induser->industry=="Engineering, Procurement, Construction") {{ $selected }} @endif value="Engineering, Procurement, Construction">Engineering, Procurement, Construction</option>
+                                        <option @if($user->induser->industry=="Environmental Service") {{ $selected }} @endif value="Environmental Service">Environmental Service</option>
+                                        <option @if($user->induser->industry=="Facility management") {{ $selected }} @endif value="Facility management">Facility management</option>
+                                        <option @if($user->induser->industry=="Fertilizer/ Pesticides") {{ $selected }} @endif value="Fertilizer/ Pesticides">Fertilizer/ Pesticides</option>
+                                        <option @if($user->induser->industry=="Food & Packaged Food") {{ $selected }} @endif value="Food & Packaged Food">Food & Packaged Food</option>
+                                        <option @if($user->induser->industry=="Textiles / Yarn / Fabrics / Garments") {{ $selected }} @endif value="Textiles / Yarn / Fabrics / Garments">Textiles / Yarn / Fabrics / Garments</option>
+                                        <option @if($user->induser->industry=="Gems & Jewellery") {{ $selected }} @endif value="Gems & Jewellery">Gems & Jewellery</option>
+                                        <option @if($user->induser->industry=="Government/ PSU/ Defence") {{ $selected }} @endif value="Government/ PSU/ Defence">Government/ PSU/ Defence</option>
+                                        <option @if($user->induser->industry=="Consumer Electronics/Appliances") {{ $selected }} @endif value="Consumer Electronics/Appliances">Consumer Electronics/Appliances</option>
+                                        <option @if($user->induser->industry=="Hospitals/ Health Care") {{ $selected }} @endif value="Hospitals/ Health Care">Hospitals/ Health Care</option>
+                                        <option @if($user->induser->industry=="Hotels/ Restaurant") {{ $selected }} @endif value="Hotels/ Restaurant">Hotels/ Restaurant</option>
+                                        <option @if($user->induser->industry=="Import / Export") {{ $selected }} @endif value="Import / Export">Import / Export</option>
+                                        <option @if($user->induser->industry=="Market Research") {{ $selected }} @endif value="Market Research">Market Research</option>
+                                        <option @if($user->induser->industry=="Medical Transcription") {{ $selected }} @endif value="Medical Transcription">Medical Transcription</option>
+                                        <option @if($user->induser->industry=="Mining") {{ $selected }} @endif value="Mining">Mining</option>
+                                        <option @if($user->induser->industry=="NGO") {{ $selected }} @endif value="NGO">NGO</option>
+                                        <option @if($user->induser->industry=="Paper") {{ $selected }} @endif value="Paper">Paper</option>
+                                        <option @if($user->induser->industry=="Printing / Packaging") {{ $selected }} @endif value="Printing / Packaging">Printing / Packaging</option>
+                                        <option @if($user->induser->industry=="Public Relations (PR)") {{ $selected }} @endif value="Public Relations (PR)">Public Relations (PR)</option>
+                                        <option @if($user->induser->industry=="Travel / Tourism") {{ $selected }} @endif value="Travel / Tourism">Travel / Tourism</option>
+                                        <option @if($user->induser->industry=="Other") {{ $selected }} @endif value="Other">Other</option>

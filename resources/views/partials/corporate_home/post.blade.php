@@ -130,15 +130,7 @@
 									</button>
 									<ul class="dropdown-menu dropdown-menu-share-home" role="menu" 
 										style="min-width:0;box-shadow:0 0 !important;padding: 0;">
-										<li style="border-bottom: 1px solid #ddd;">
-											<a href="#share-post" 
-											   data-toggle="modal" 
-											   class="jobtip sojt" 
-											   id="sojt-{{$post->id}}" 
-											   data-share-post-id="{{$post->id}}">
-												Share on Jobtip
-											</a>
-										</li>
+										
 										<li style="border-bottom: 1px solid #ddd;">
 											<a href="#share-by-email" data-toggle="modal" onclick="setPostId({{$post->id}})" 
 											   class="jobtip sbmail" id="sbmail-{{$post->id}}" 

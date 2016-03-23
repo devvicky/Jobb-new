@@ -10,6 +10,8 @@ use App\Skills;
 use DB;
 use App\FunctionalAreas;
 use App\Industry;
+use App\Functional_area_role_mapping;
+use App\Education;
 
 class SkillController extends Controller {
 
@@ -46,10 +48,9 @@ class SkillController extends Controller {
 	{
 		$title = 'skill';
 		$skills = Skills::lists('name', 'name');
-		$roles = DB::select(DB::raw('select id, name from roles'));
-		$functionalAreas = FunctionalAreas::lists('name', 'id');
-		$industry = Industry::lists('name','id');
-		return view('pages.postskill', compact('title', 'skills', 'roles', 'functionalAreas', 'industry'));
+		$farearoleList = Functional_area_role_mapping::orderBy('id')->get();
+		$education = Education::orderBy('level')->orderBy('name')->get();
+		return view('pages.postskill', compact('title', 'skills', 'farearoleList', 'education'));
 	}
 
 	/**
@@ -70,7 +71,9 @@ class SkillController extends Controller {
         $request['city'] = implode(',', $request['prefered_location']);
         $pref_locations = $request['prefered_location'];
         $request['unique_id'] = "S".rand(111,999).rand(111,999);
-
+        $temp = explode(', ', $request['role']);
+		$request['functional_area'] = $temp[0];
+		$request['role'] = $temp[1];
 
 		$post = Postjob::create($request->all());
 

@@ -229,8 +229,7 @@
 
 
 <!-- POST JOB & SKILL MODAL FORM-->
-<div class="modal fade" id="job-skill-post" tabindex="-1" role="basic" aria-hidden="true" style="background-color: black;
-    opacity: 0.7;">
+<div class="modal fade" id="job-skill-post" tabindex="-1" role="basic" aria-hidden="true" style="background-color: black;opacity:0.9;">
   <div class="modal-dialog">
     <div class="modal-content job-skill-create">
       <div id="magicmatch-posts-content" >

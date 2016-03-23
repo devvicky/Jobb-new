@@ -2,15 +2,15 @@
 <form class="otp-verify-form" action="/verify" method="post" id="mobile-otp-form" 
 		style="display:none" id="verify-otp">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
-	<div class="row">
+	<div class="row" style="margin: 35px -15px;">
 		<div class="col-md-2 col-sm-2"></div>
 		<div class="col-md-12 col-sm-6">
-			<h3 style="margin-bottom: 18px;color:khaki;font-size: 27px;text-shadow: 0px 1px 1px blue;">
+			<h3 style="margin-bottom: 18px;color: #8A855D;font-size: 24px;">
 				Email or Mobile Verification
 			</h3>
 
-			<p style="text-align: center;font-size: 15px;">
-				 Enter OTP received to verify your mobile.
+			<p style="text-align: center;font-size: 13px;">
+				 We have sent you an OTP on your registered mobile number. Please Enter OTP below.
 			</p>
 
 			@if ( Session::has('flash_message') ) 
@@ -40,7 +40,6 @@
 			<div class="form-actions" style="margin-top:25px;border-bottom: none;">			
 				 <button type="submit" class="btn uppercase login-signup-button" 
 				 		style="padding: 6px 45px;border-radius:2px;">Submit 
-				 		<i class="m-icon-swapright"></i>
 	            </button>
 	            <!-- <a href="/login" class="btn btn-info login">login</a> -->
 			</div>
@@ -55,7 +54,7 @@
 	<button type="submit" id="resend-otp-btn" class="btn btn-default pull-right" 
 			style="margin-left: 39px;cursor: pointer;color: #03C1B1;
 				    position: absolute;
-				    bottom: 24px;
+				    bottom: 60px;
 				    right: 0;">
 			Resend OTP
 	</button>

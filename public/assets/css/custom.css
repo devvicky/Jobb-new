@@ -19,7 +19,22 @@
 .hover-image{
   display: none;
 }
+
 .profile-userpic {
+    position: relative;
+    overflow: hidden;
+    width: 70px;
+    height: 70px;
+    border-radius: 8% !important;
+    margin: 0 17px;
+    background: #fff url("../images/ab.png") !important;
+    background-size: 100%;
+    /* text-align: center; */
+    cursor: pointer;
+    /* box-shadow: 0px 3px 3px lightgrey; */
+}
+
+.profile-userpic-old {
     position: relative;
     overflow: hidden;
     width: 128px;
@@ -36,13 +51,13 @@
 .profile-userpic-corp {
     position: relative;
     overflow: hidden;
-    width: 128px;
-    height: 128px;
+    width: 70px;
+    height: 70px;
     /*border-radius: 50% !important;*/
-    margin: auto;
+    margin: 0 17px;
     background: #fff url("../images/corpnew.jpg") !important;
     background-size: 100%;
-    text-align: center;
+    /*text-align: center;*/
     cursor: pointer;
     /*box-shadow: 0px 3px 3px lightgrey;*/
 }
@@ -82,8 +97,9 @@
     width: 100%;
     background: rgba(0, 0, 0, 0.5);
     height: 100%;
-    padding: 75% 0;
+    padding: 75% 10%;
 }
+
  .user-images:hover .hover-images{
         display: block;
 }
@@ -287,7 +303,7 @@ background-color:white;
 
 /* user short detail section in sidebar */
 .user-short-detail-container{
-    text-align: center;
+    /*text-align: center;*/
     color: #EEE;
 }
 
@@ -299,7 +315,7 @@ background-color:white;
     font-size: 20px;
     color: #EEE;
     padding: 3px 4px;
-    margin: 8px 0 0;
+    margin: 8px 15px 0;
 }
 
 .user-short-detail-container .user-company{
@@ -424,6 +440,8 @@ background-color:white;
 
 .post-icon-color{
     color: dimgray;
+    line-height: 2;
+    font-size: 12px;
 }
 
 .user-link, .user-link2{
@@ -844,10 +862,10 @@ form.search-form.search-form-expanded {
     margin: 6.5px 0;
 }
 .profile-usertitle-job {
-    text-transform: uppercase;
+    text-transform: capitalize;
     font-size: 12px;
-    padding: 0px 2px;
-    margin: 0 0 10px 0;
+    padding: 0px 4px;
+    margin: 0 0px 10px 15px;
     color: #ccc;
 }
 
@@ -2053,15 +2071,22 @@ body{
     display: none;
 }
 
+/*select2*/
 
 .select2-container .select2-selection--single {
-    height: 60px;
+    height: 35px;
 }
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
     color: #444;
-    line-height: 20px;
+    line-height: 33px;
 }
+
+.select2-container--default .select2-selection--single .select2-selection__arrow b{
+    margin-top: 1px;
+}
+
+/*select2 code end*/
 
 .preferences-css{
     margin: 5px 0 10px 0;
@@ -2117,4 +2142,21 @@ body{
 
 .show-contact{
     display: none;
+}
+
+
+.corp-remove-btn{
+    padding: 2px 10px;
+    box-shadow: 0 2px 3px lightgrey;
+    border-radius: 2px !important;
+    margin: 10px 0;
+}
+
+
+.resume-btn{
+    padding: 2px 5px;
+    background-color: dodgerblue !important;
+    border-color: dodgerblue !important;
+    box-shadow: 0 2px 3px lightgrey !important;
+    border-radius: 2px !important;
 }

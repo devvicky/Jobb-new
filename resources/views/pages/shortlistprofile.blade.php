@@ -41,7 +41,7 @@
 					@foreach($users as $user)
 					<div class="row" style="border-bottom:1px dotted lightgrey;padding: 5px 0;margin:0;">
 						
-						<div class="col-md-10 col-sm-10 col-xs-9">
+						<div class="col-md-8 col-sm-8 col-xs-8">
 							<a href="/profile/ind/{{$user->id}}" data-utype="ind">
 				      			{{ $user->fname }} {{ $user->lname }}</a>
 						     	 @if($user->id == $user->admin_id && $user->id != null)
@@ -53,7 +53,12 @@
 							 {{ $user->city }}
 							 
 						</div>
-						<div class="col-md-2 col-sm-2 col-xs-3"></div>
+						<div class="col-md-4 col-sm-4 col-xs-4">
+							<form action="/remove/sortlisted/{{$user->id}}" method="post">
+								<input type="hidden" name="_token" value="{{ csrf_token() }}">
+								<button class="btn btn-warning corp-remove-btn">Remove</button>
+							</form>
+						</div>
 						<div class="col-md-10 col-sm-10 col-xs-9">
 							<div class="col-md-8 col-sm-8 col-xs-12" style="padding:0 !important;margin: 5px 0;">
 				  				<i class="fa fa-envelope"></i> : {{$user->email}}<br>
@@ -90,6 +95,12 @@
 				  			<div id="profile-contacts-{{$user->id}}"></div>
 							 
 						</div>
+						<div class="col-md-4 col-sm-4 col-xs-4">
+							<form action="/remove/saved/{{$user->id}}" method="post">
+								<input type="hidden" name="_token" value="{{ csrf_token() }}">
+								<button class="btn btn-warning corp-remove-btn">Remove</button>
+							</form>
+						</div>
 						<div class="col-md-3 col-sm-3 col-xs-3" style="padding: 0;margin: 0 -3px;">
 							@if(!$profileFav->contains('profile_id', $user->id))
 							<form action="/profile/fav" method="post" id="profile-fav-{{$user->id}}" data-id="{{$user->id}}">
@@ -101,8 +112,6 @@
 									</button>
 								<!-- </div> -->
 							</form>
-							@else
-
 							@endif
 						</div>
 					</div>

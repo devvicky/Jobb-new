@@ -99,4 +99,29 @@ class WelcomeController extends Controller {
 		$contact->save();
 		return redirect('/');
 	}
+
+	public function welcomeJobPost($id){
+		$post = Postjob::orderBy('id', 'desc')
+						   ->with('indUser', 'corpUser')
+						   ->where('unique_id', '=', $id)
+						   ->get();
+		if($post != null){
+			$post = $post->first();
+		}
+
+		return view('pages.welcome_postdetails', compact('post'));
+	}
+
+	public function welcomeSkillPost($id){
+		$post = Postjob::orderBy('id', 'desc')
+						   ->with('indUser', 'corpUser')
+						   ->where('unique_id', '=', $id)
+						   ->get();
+		if($post != null){
+			$post = $post->first();
+		}
+
+		return view('pages.welcome_postdetails', compact('post'));
+	}
+	
 }

@@ -84,44 +84,42 @@
                                     <td class="matching-criteria-align"><a href="/individual/edit">Add Skills </a></td>
                                     @endif                                  
                                 </tr>
-                                <tr class="@if(strcasecmp($post->job_role->first()->industry, Auth::user()->induser->job_role->first()->industry) == 0) title-bacground-color @else title-bacground-color @endif">
+                                <tr class="@if(strcasecmp($post->industry, Auth::user()->induser->industry) == 0) title-bacground-color @else title-bacground-color @endif">
                                     <td colspan="2" class="matching-criteria-align">
-                                        @if(strcasecmp($post->job_role->first()->industry, Auth::user()->induser->job_role->first()->industry) == 0)
+                                        @if(strcasecmp($post->industry, Auth::user()->induser->industry) == 0)
                                         <i class="fa fa-check magic-match-icon-color"></i> <label class="title-color">Industry</label>
                                         @else
                                         <i class="fa fa-times"></i> <label class="title-color">Industry</label>
                                         @endif
                                     </td>
                                 </tr>
-                                <tr class="@if(strcasecmp($post->job_role->first()->industry, Auth::user()->induser->job_role->first()->industry) == 0) success @else danger-new @endif">
-                                    <!-- <td>
-                                        <label class="title-color">Job Role</label>
-                                    </td> -->
-                                    <td class="matching-criteria-align">{{ $post->job_role->first()->industry }}</td>
-                                    @if(Auth::user()->induser->industry != '[]')
-                                    <td class="matching-criteria-align">{{ Auth::user()->induser->job_role->first()->industry }}</td>
+                                <tr class="@if(strcasecmp($post->industry, Auth::user()->induser->industry) == 0) success @else danger-new @endif">
+                                    
+                                    <td class="matching-criteria-align">{{ $post->industry }}</td>
+                                    @if(Auth::user()->induser->industry != null)
+                                    <td class="matching-criteria-align">{{ Auth::user()->induser->industry }}</td>
                                     @else
-                                    <td class="matching-criteria-align"><a href="/individual/edit">Add Job Role </a></td>
+                                    <td class="matching-criteria-align"><a href="/individual/edit">Add Industry </a></td>
                                     @endif
                                 </tr>
-                                <tr class="@if(strcasecmp($post->job_role->first()->functional_area, Auth::user()->induser->job_role->first()->functional_area) == 0 && strcasecmp($post->job_role->first()->role, Auth::user()->induser->job_role->first()->role) == 0) title-bacground-color @else title-bacground-color @endif">
+                                <tr class="@if(strcasecmp($post->functional_area, Auth::user()->induser->functional_area) == 0 && strcasecmp($post->role, Auth::user()->induser->role) == 0) title-bacground-color @else title-bacground-color @endif">
                                     <td colspan="2" class="matching-criteria-align">
-                                       @if(strcasecmp($post->job_role->first()->functional_area, Auth::user()->induser->job_role->first()->functional_area) == 0 && strcasecmp($post->job_role->first()->role, Auth::user()->induser->job_role->first()->role) == 0)
+                                       @if(strcasecmp($post->functional_area, Auth::user()->induser->functional_area) == 0 && strcasecmp($post->role, Auth::user()->induser->role) == 0)
                                         <i class="fa fa-check magic-match-icon-color"></i> <label class="title-color">Functional Area - Role</label>
                                         @else
                                         <i class="fa fa-times"></i> <label class="title-color">Functional Area - Role</label>
                                         @endif
                                     </td>
                                 </tr>
-                                <tr class="@if(strcasecmp($post->job_role->first()->functional_area, Auth::user()->induser->job_role->first()->functional_area) == 0 && strcasecmp($post->job_role->first()->role, Auth::user()->induser->job_role->first()->role) == 0) success @else danger-new @endif">
+                                <tr class="@if(strcasecmp($post->functional_area, Auth::user()->induser->functional_area) == 0 && strcasecmp($post->role, Auth::user()->induser->role) == 0) success @else danger-new @endif">
                                     <!-- <td>
                                         <label class="title-color">Job Role</label>
                                     </td> -->
-                                    <td class="matching-criteria-align"> {{ $post->job_role->first()->functional_area }} - {{ $post->job_role->first()->role }}</td>
-                                    @if(Auth::user()->induser->job_role != '[]')
-                                    <td class="matching-criteria-align">{{ Auth::user()->induser->job_role->first()->functional_area }} - {{ Auth::user()->induser->job_role->first()->role }}</td>
+                                    <td class="matching-criteria-align"> {{ $post->functional_area }} - {{ $post->role }}</td>
+                                    @if(Auth::user()->induser->role != null)
+                                    <td class="matching-criteria-align">{{ Auth::user()->induser->functional_area }} - {{ Auth::user()->induser->role }}</td>
                                     @else
-                                    <td class="matching-criteria-align"><a href="/individual/edit">Add Functional Area & Role </a></td>
+                                    <td class="matching-criteria-align"><a href="/individual/edit">Add Job Role </a></td>
                                     @endif
                                 </tr>
                                 
@@ -158,22 +156,25 @@
                                     </td>
                                 </tr>
                                 <tr class="@if($post->education == Auth::user()->induser->education) success @else danger-new @endif">
-                                    <!-- <td>
-                                        <label class="title-color">Education</label>
-                                    </td> -->
+                                    
                                     <td class="matching-criteria-align">
                                         @if($post->education != null)
-                                            <?php $educations = collect(explode(',', $post->education)); ?>
+                                            <?php $educations = collect(explode('-', $post->education)); 
+                                                    $name = $educations[0];
+                                                    $branch = $educations[1];
+                                                    $level = $educations[2]; ?>
                                              @if(count($educations) > 0)
-                                                @foreach($educations as $edu)
-                                                    {{ $edu }} <br/>
-                                                @endforeach
+                                                {{$name}}-{{$branch}}
                                              @endif
                                         @endif
 
                                     </td>
                                     @if(Auth::user()->induser->education != null)
                                     <td class="matching-criteria-align">
+                                        <?php $educations = collect(explode('-', Auth::user()->induser->education)); 
+                                                    $name = $educations[0];
+                                                    $branch = $educations[1];
+                                                    $level = $educations[2]; ?>
                                         @if( 
                                             ( count($educations) > 0 && $educations->contains( Auth::user()->induser->education ) ) || 
                                             ( count($educations) == 1 )
@@ -186,14 +187,14 @@
                                                 ?>
                                                 @if(($postEdu[0] == 'Any graduate' && $usrEdu[2] == $postEdu[1]) || 
                                                     ($postEdu[0] == 'Any post graduate' && $usrEdu[2] == $postEdu[1]))
-                                                    <span style="color:green">{{Auth::user()->induser->education}} <br/></span>
+                                                    <span style="color:green">{{$name}}-{{$branch}} <br/></span>
                                                 @endif
                                            @else
-                                            <span style="color:green">{{Auth::user()->induser->education}} <br/></span>
+                                            <span style="color:green">{{$name}}-{{$branch}} <br/></span>
                                             @endif
                                         @else
                                             <span style="color:red">
-                                                {{Auth::user()->induser->education}} <br/>
+                                                {{$name}}-{{$branch}} <br/>
                                             </span>
                                         @endif
                                     </td>

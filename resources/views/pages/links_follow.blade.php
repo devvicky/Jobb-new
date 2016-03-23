@@ -10,9 +10,9 @@
 	 Do you want to add him as your new link?
 </div>
 <div class="modal-footer">		
-	<form action="/connections/newLink/{{$puid}}" method="post">				
+	<form action="/connections/newLink/{{$puid}}"  id="no-ind-unknown" method="post">				
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">	
-		<button type="submit" class="btn btn-sm blue">Yes</button>
+		<button type="submit" data-puid="{{$puid}}" class="btn btn-sm blue link-btn">Yes</button>
 		<button type="button" class="btn btn-sm default" data-dismiss="modal">No</button>
 	</form>															
 </div>
@@ -58,9 +58,9 @@
 	 Do you want to remove him from your link?
 </div>
 <div class="modal-footer">		
-	<form action="/connections/removeLink/{{$puid}}" method="post">				
+	<form action="/connections/removeLink/{{$puid}}" id="yes-ind" method="post">				
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">	
-		<button type="submit" class="btn btn-sm blue">Yes</button>
+		<button type="submit" data-puid="{{$puid}}" class="btn btn-sm blue link-remove-btn">Yes</button>
 		<button type="button" class="btn btn-sm default" data-dismiss="modal">No</button>
 	</form>															
 </div>
@@ -76,9 +76,9 @@
 	 Do you want to Follow?
 </div>
 <div class="modal-footer">		
-	<form action="/corporate/follow/{{$puid}}" method="post">				
+	<form action="/corporate/follow/{{$puid}}" id="no-corp" method="post">				
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">	
-		<button type="submit" class="btn btn-sm blue">Yes</button>
+		<button type="submit" data-pfid="{{$puid}}" class="btn btn-sm blue follow-btn">Yes</button>
 		<button type="button" class="btn btn-sm default" data-dismiss="modal">No</button>
 	</form>															
 </div>
@@ -94,9 +94,9 @@
 	 Do you want to unfollow?
 </div>
 <div class="modal-footer">		
-	<form action="/corporate/unfollow/{{$puid}}" method="post">				
+	<form action="/corporate/unfollow/{{$puid}}" id="yes-corp" method="post">				
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">	
-		<button type="submit" class="btn btn-sm blue">Yes</button>
+		<button type="submit" data-pfid="{{$puid}}" class="btn btn-sm blue unfollow-btn">Yes</button>
 		<button type="button" class="btn btn-sm default" data-dismiss="modal">No</button>
 	</form>															
 </div>

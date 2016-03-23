@@ -52,15 +52,18 @@
             @else
             <a id="ajax-demo" href="#profile-pic" data-toggle="modal" class="config">
                 @if($session_user->profile_pic == null && $session_user->fname != null)
-                  <div class="hover-image">Add</div>
+                  <div class="hover-image"><i class="fa fa-camera"></i> Add</div>
                 @endif      
                 @if($session_user->profile_pic != null)
                   <img src="/img/profile/{{ $session_user->profile_pic }}">
-                  <div class="hover-image"><i class="glyphicon glyphicon-edit"></i>Change</div>
+                  <div class="hover-image"><i class="glyphicon glyphicon-edit"></i>Edit</div>
                 @endif
             </a>
             @endif
+
           </div>
+          <div id="g1" class="gauge"></div>
+          <div style="font-size: 10px;margin: -15px 12px 0px;float: right;">Profile Complete</div>
           @else
           <div class="profile-userpic-corp user-image">
             <a id="ajax-demo" href="#profile-pic" data-toggle="modal" class="config">
@@ -69,22 +72,24 @@
                 @endif
                 @if($session_user->logo_status != null)
                   <img src="/img/profile/{{ $session_user->logo_status }}">
-                  <div class="hover-image"><i class="glyphicon glyphicon-edit"></i>Change</div>
+                  <div class="hover-image"><i class="glyphicon glyphicon-edit"></i>Edit</div>
                 @endif       
             </a>
           </div>
+          <div id="g1" class="gauge"></div>
+          <div style="font-size: 10px;margin: -15px 12px 0px;float: right;">Profile Complete</div>
           @endif
           <h3 class="form-title user-name">
             @if(Auth::user()->identifier == 1)
-           <a style="color: deepskyblue;text-decoration:none;" href="/profile/ind/{{$session_user->id}}" data-utype="ind"> 
-            {{ $session_user->fname }} {{ $session_user->lname }} </a>
+           <a style="color: #56D2FA;text-decoration:none;font-size:15px;" href="/profile/ind/{{$session_user->id}}" data-utype="ind"> 
+            {{ $session_user->fname }} {{ $session_user->lname }} </a>&nbsp;
             <a style="color: white;text-decoration:none;" href="/individual/edit" data-utype="ind"> 
               <i class="fa fa-edit (alias)"></i>
             </a>
             @else
-            <a style="color: deepskyblue;text-decoration:none;font-size:14px;" class="" href="/profile/corp/{{$session_user->id}}" data-utype="corp"> 
+            <a style="color: #56D2FA;text-decoration:none;font-size:14px;" class="" href="/profile/corp/{{$session_user->id}}" data-utype="corp"> 
              {{ $session_user->firm_name }} 
-            </a>
+            </a>&nbsp;
             <a style="color: white;text-decoration:none;" href="/corporate/edit" data-utype="ind"> 
               <i class="fa fa-edit (alias)"></i>
             </a>
@@ -95,31 +100,32 @@
             @endif
           </h3>
           @if(Auth::user()->identifier == 1)
-            @if($session_user->working_status == "Student")
+            @if($session_user->working_status == "Student" && $session_user->education != null)
             <div class="profile-usertitle-job">
-               {{ $session_user->education }} in {{ $session_user->branch }}, {{ $session_user->city }}
+              
+               Student, {{ $session_user->city }}
             </div>
             @elseif($session_user->working_status == "Searching Job")
             <div class="profile-usertitle-job">
-               {{ $session_user->working_status }} in {{ $session_user->prof_category }}, {{ $session_user->city }}
+               {{ $session_user->working_status }}, {{ $session_user->city }}
             </div>
             @elseif($session_user->working_status == "Freelanching")
             <div class="profile-usertitle-job">
-              @if($session_user->job_role != null)
-               {{ $session_user->job_role->first()->role }} {{ $session_user->working_status }}, {{ $session_user->city }}
+              @if($session_user->role != null)
+               {{ $session_user->role }} {{ $session_user->working_status }}, {{ $session_user->city }}
               @endif
             </div>
-            @elseif($session_user->job_role != null && $session_user->working_at !=null && $session_user->working_status == "Working")
+            @elseif($session_user->role != null && $session_user->working_at !=null && $session_user->working_status == "Working")
             <div class="profile-usertitle-job">
 
-              @if($session_user->job_role != '[]')
-               {{ $session_user->job_role->first()->role }} @ {{ $session_user->working_at }} 
+              @if($session_user->role != null)
+               {{ $session_user->role }} @ {{ $session_user->working_at }} 
                @endif
             </div>
-            @elseif($session_user->job_role != null && $session_user->working_at ==null && $session_user->working_status == "Working")
+            @elseif($session_user->role != null && $session_user->working_at ==null && $session_user->working_status == "Working")
             <div class="profile-usertitle-job">
-              @if($session_user->job_role != null)
-               {{ $session_user->job_role->first()->role }}, {{ $session_user->city }}
+              @if($session_user->role != null)
+               {{ $session_user->role }}, {{ $session_user->city }}
                @endif
             </div>
             @elseif($session_user->role == null && $session_user->working_at !=null && $session_user->working_status == "Working")
@@ -132,6 +138,9 @@
             </div>
             @endif
           @endif
+          
+          
+         
         </div>
       </li>
       @if (Auth::user()->identifier == 1 || Auth::user()->identifier == 2)
@@ -302,3 +311,57 @@
   </div>
 </div>
 <!-- END SIDEBAR1-->
+<style type="text/css">
+@media (min-width: 570px) {
+.gauge {
+    width: 70px;
+    height: 70px;
+    /*float: none;
+    margin: -25px auto -15px; */
+    position: absolute;
+    right: 13px;
+    top: 23px;   
+    }
+}
+@media (max-width: 570px) {
+    .gauge {
+      width: 70px;
+      height: 70px;
+      position: absolute;
+      right: 15px;
+      top: 105px;
+  }
+}
+</style>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+
+      var g1 = new JustGage({
+          id: "g1",
+          value: {{$profilePer}},
+          min: 0,
+          max: 100,
+          decimals: 0,
+          customSectors: [{
+            color: '#40F3B1',
+            lo: 75,
+            hi: 100
+          }, {
+            color: '#31b0d5',
+            lo: 50,
+            hi: 75
+          }, {
+            color: '#f0ad4e',
+            lo: 25,
+            hi: 50
+          }, {
+            color: '#c9302c',
+            lo: 0,
+            hi: 25
+          }],
+          gaugeWidthScale: 0.6,
+          hideMinMax: true
+      });
+
+  });
+</script>

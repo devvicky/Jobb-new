@@ -16,6 +16,7 @@ use DB;
 use App\FunctionalAreas;
 use App\Industry;
 use App\Education;
+use App\Functional_area_role_mapping;
 
 class ViewpageController extends Controller {
 	/**
@@ -121,7 +122,8 @@ class ViewpageController extends Controller {
 
 			$educationList = Education::orderBy('level')->orderBy('name')->where('name', '!=', '0')->get();
 			$location = Induser::where('id', '=', Auth::user()->induser_id)->first(['prefered_location']);
-			return view('pages.professional_page', compact('user', 'title', 'skills', 'roles', 'functionalAreas', 'industry', 'educationList', 'location'));
+			$farearoleList = Functional_area_role_mapping::orderBy('id')->get();
+			return view('pages.professional_page', compact('user', 'title', 'skills', 'roles', 'functionalAreas', 'industry', 'educationList', 'location', 'farearoleList'));
 		}else if(Auth::user()->identifier == 2){
 			$title = 'corpprofile_edit';
 			$user = User::where('id', '=', Auth::user()->id)->with('corpuser')->first();

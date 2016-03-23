@@ -41,27 +41,23 @@ var FormWizard = function () {
                         minlength: 10,
                         required: true
                     },
-                    prof_category: {
+                    job_detail: {
+                        minlength: 20,
+                        required: true
+                    },
+                    industry: {
                         required: true
                     },
                     role: {
                         required: true
                     },
-                    website_redirect_url: {
-                        required:true
-                    },
-                    job_detail: {
-                        minlength: 20,
+                    time_for:{
                         required: true
                     },
                     'linked_skill_id[]': {
                         required: true
                     },
-                    education: {
-                        required: true
-                        // minimum: 2
-                    },
-                    education2: {
+                    'education[]': {
                         required: true
                     },
                     'prefered_location[]': {
@@ -70,8 +66,8 @@ var FormWizard = function () {
                     post_duration: {
                         required: true
                     },
-                    time_for:{
-                        required: true
+                    website_redirect_url: {
+                        required:true
                     },
                     email_id: {
                         email: true,
@@ -99,8 +95,8 @@ var FormWizard = function () {
                 job_detail: {
                     required: "Enter Job Detail"
                 },
-                prof_category: {
-                    required: "Select Job Category"
+                industry: {
+                    required: "Select industry"
                 },
                 website_redirect_url:{
                     required: "Enter website URL"
@@ -108,14 +104,10 @@ var FormWizard = function () {
                 role: {
                     required: "Select Job Role"
                 },
-                education: {
+                'education[]': {
                     required: "Select Required Education"
-                    // minimum: "Select atleast 2 option"
                 },
-                 education2: {
-                    required: "Select Required Education"
-                    // minimum: "Select atleast 2 option"
-                },
+
                 'linked_skill_id[]': {
                     required: "You must add atleast one skill"
                 },

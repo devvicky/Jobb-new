@@ -78,6 +78,7 @@ class PagesController extends Controller {
 				$skills = Skills::lists('name', 'name');
 				$filter = Filter::where('post_type', '=', 'job')->where('from_user', '=', Auth::user()->id)->first();
 				$skillfilter = Filter::where('post_type', '=', 'skill')->where('from_user', '=', Auth::user()->id)->first();
+				$profilePercentage = $this->profilePercentage();
 				$jobPosts = Postjob::orderBy('id', 'desc')
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup', 'preferLocations')
 								   ->where('post_type', '=', 'job')
@@ -210,7 +211,7 @@ class PagesController extends Controller {
 
 				}
 				// return $searchskill;
-				return view('pages.home', compact('jobPosts', 'skillPosts', 'title', 'links', 'following', 'userSkills', 'skills', 'linksApproval', 'linksPending', 'share_links', 'share_groups', 'sort_by', 'sort_by_skill', 'filter', 'skillfilter'));
+				return view('pages.home', compact('jobPosts', 'skillPosts', 'title', 'links', 'following', 'userSkills', 'skills', 'linksApproval', 'linksPending', 'share_links', 'share_groups', 'sort_by', 'sort_by_skill', 'filter', 'skillfilter', 'profilePercentage'));
 				// return $skillPosts;
 			} elseif(Auth::user()->identifier == 2){
 				$sort_by = " ";
@@ -454,7 +455,7 @@ class PagesController extends Controller {
 		$follow->corporate_id = $id;
 		$follow->individual_id = Auth::user()->induser_id;
 		$follow->save();
-		return redirect('/home');
+		return 'success';
 	}
 
 	public function unfollow($id){
@@ -462,7 +463,7 @@ class PagesController extends Controller {
 						->where('individual_id', '=', Auth::user()->induser_id)
 						->first();
 		$follow->delete();
-		return redirect('/home');
+		return 'success';
 	}
 
 	public function followModal(){
@@ -593,7 +594,6 @@ class PagesController extends Controller {
 			$posted_by = Input::get('posted_by');
 			$post_title = Input::get('job_title');
 			$city = Input::get('prefered_location');
-			$prof_category = Input::get('prof_category');
 			$experience = Input::get('experience');
 			$time_for = Input::get('time_for');
 			$unique_id = Input::get('unique_id');
@@ -608,9 +608,11 @@ class PagesController extends Controller {
 			if($unique_id != null){
 				$jobPosts->where('unique_id', 'like', '%'.$unique_id.'%');
 			}
+
 			if($post_title != null){
-				$jobPosts->where('post_title', 'like', '%'.$post_title.'%');
+				$jobPosts->where('post_title', 'like', '%'.$post_title.'%')->orWhere('role', 'like', '%'.$post_title.'%');
 			}
+
 			if($city != null){
 				$p_locality = [];
 	    		$p_city = [];
@@ -630,15 +632,10 @@ class PagesController extends Controller {
 				$jobPosts->whereIn('post_preferred_locations.city', $p_city);
 			}
 
-			if($prof_category != null){
-				$jobPosts->where('prof_category', 'like', '%'.$prof_category.'%');
-			}
 			if($experience != null){
 				$jobPosts->whereRaw("$experience between min_exp and max_exp");
 			}
-			// if($experience != null){
-			// 	$jobPosts->whereRaw("min_exp = 0 and max_exp =".$experience);
-			// }
+
 			if($time_for != null){
 				$jobPosts->whereIn('time_for', $time_for);
 			}
@@ -652,10 +649,6 @@ class PagesController extends Controller {
 					$jobPosts->where('linked_skill', 'like', '%'.$skil.'%');
 				}
 			}
-			
-			// if($skill != null){
-			// 		$jobPosts->whereIn('linked_skill', $skills);
-			// 	}
 
 			$jobPosts = $jobPosts->groupBy('unique_id')->paginate(15);
 			if(Auth::user()->identifier == 1){
@@ -867,13 +860,14 @@ public function homeskillFilter(){
 			$skillPosts = Postjob::orderBy('postjobs.id', 'desc')
 								 ->with('indUser', 'corpUser', 'postActivity', 'preferLocations')
 							   	 ->leftjoin('post_preferred_locations', 'post_preferred_locations.post_id', '=', 'postjobs.id')
-							     ->where('individual_id', '!=', Auth::user()->induser_id);
+							     ->where('individual_id', '!=', Auth::user()->induser_id)
+							     ->where('post_type', '=', 'skill');
 
 		if($unique_id != null){
 			$skillPosts->where('unique_id', 'like', '%'.$unique_id.'%');
 		}
 		if($post_title != null){
-			$skillPosts->where('post_title', 'like', '%'.$post_title.'%');
+			$skillPosts->where('post_title', 'like', '%'.$post_title.'%')->orWhere('role', 'like', '%'.$post_title.'%');
 		}
 		if($city != null){
 				$p_locality = [];
@@ -1030,7 +1024,7 @@ public function homeskillFilter(){
 					$cityArray = explode(',', $city);
 					$users->whereIn('city', $cityArray);
 				}
-				if($role != 0 ){
+				if($role != null ){
 					$users->where('role', 'like', '%'.$role.'%');
 				}
 				if($working_at != null){
@@ -1950,6 +1944,28 @@ public function homeskillFilter(){
 		}
 	}
 
+	public function removeSortlisted($id){
+		$profileRemove = Corpsearchprofile::where('profile_id', '=', $id)
+										  ->where('user_id', '=', Auth::user()->id);
+		if($profileRemove != null){
+			$profileRemove->delete();
+		}
+		return redirect('/favouriteProfile');
+	}
+
+	public function removeSaved($id){
+		$removeprofileSaved = Corpsearchprofile::where('profile_id', '=', $id)
+										  ->where('user_id', '=', Auth::user()->id)
+										  ->first();
+		if($removeprofileSaved != null && $removeprofileSaved->save_contact != null){
+			$removeprofileSaved->save_profile = 0;
+			$removeprofileSaved->saveprofile_dtTime = new \DateTime();
+			$removeprofileSaved->save();
+		}elseif($removeprofileSaved->save_contact == null){
+			$removeprofileSaved->delete();
+		}
+		return redirect('/favouriteProfile');
+	}
 
 	public function saveProfile(Request $request){
 		$profileSave = Corpsearchprofile::where('profile_id', '=', $request['profileid'])
@@ -2360,7 +2376,7 @@ public function homeskillFilter(){
 		if (Auth::check()) {
 			$title = 'home';
 
-			if(Auth::user()->identifier == 1){
+			if(Auth::user()->identifier == 1 || Auth::user()->identifier == 2){
 				$sort_by =" ";
 				$sort_by_skill = " ";
 				$skills = Skills::lists('name', 'name');
@@ -2497,7 +2513,7 @@ public function homeskillFilter(){
 				}
 
 				if($role != 0 ){
-					$users->where('role', 'like', '%'.$role.'%');
+					$users->where('role', '=', $role);
 				}
 
 				if($prefered_jobtype != null){
@@ -2536,6 +2552,72 @@ public function homeskillFilter(){
 				// return $searchSkill;
 				return view('pages.corpsearchProfile', compact('users', 'title', 'type', 'corpsearchprofile', 'perProfile', 'skills', 'city', 'role', 'min_exp', 'max_exp', 'searchSkill', 'resume', 'prefered_jobtype'));
 		
+		}
+	}
+
+	public function profilePercentage(){
+		if(Auth::check()){
+			$profilePer = 0;
+			if(Auth::user()->induser->fname != null){
+				$profilePer = 1;
+			}
+			if(Auth::user()->induser->lname != null){
+				$profilePer = $profilePer + 1;
+			}
+			if(Auth::user()->induser->email != null){
+				$profilePer = $profilePer + 1;
+			}
+			if(Auth::user()->induser->mobile != null){
+				$profilePer = $profilePer + 1;
+			}
+			if(Auth::user()->induser->dob != null){
+				$profilePer = $profilePer + 1;
+			}
+			if(Auth::user()->induser->city != null){
+				$profilePer = $profilePer + 1;
+			}
+			if(Auth::user()->induser->fb_page != null){
+				$profilePer = $profilePer + 1;
+			}
+			if(Auth::user()->induser->in_page != null){
+				$profilePer = $profilePer + 1;
+			}
+			if(Auth::user()->induser->gender != null){
+				$profilePer = $profilePer + 1;
+			}
+			if(Auth::user()->induser->about_individual != null){
+				$profilePer = $profilePer + 1;
+			}
+			if(Auth::user()->induser->education != null){
+				$profilePer = $profilePer + 1;
+			}
+			if(Auth::user()->induser->experience != null){
+				$profilePer = $profilePer + 1;
+			}
+			if(Auth::user()->induser->working_status != null){
+				$profilePer = $profilePer + 1;
+			}
+			if(Auth::user()->induser->working_at != null){
+				$profilePer = $profilePer + 1;
+			}
+			if(Auth::user()->induser->role != null){
+				$profilePer = $profilePer + 1;
+			}
+			if(Auth::user()->induser->linked_skill != null){
+				$profilePer = $profilePer + 1;
+			}
+			if(Auth::user()->induser->resume != null){
+				$profilePer = $profilePer + 1;
+			}
+			if(Auth::user()->induser->prefered_location != null){
+				$profilePer = $profilePer + 1;
+			}
+			if(Auth::user()->induser->prefered_jobtype != null){
+				$profilePer = $profilePer + 1;
+			}
+
+			$profilePer = round(($profilePer/19)*100) ;
+			return $profilePer;
 		}
 	}
 }

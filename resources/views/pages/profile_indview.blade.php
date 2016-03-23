@@ -11,11 +11,11 @@
 			<li>
 				@if($utype == 'ind')
 				<div class="profile-userpic-view">
-					<img  src="@if($user->profile_pic != null){{ '/img/profile/'.$user->profile_pic }}@else{{'/assets/images/ab.png'}}@endif">
+					<img  src="@if($user->profile_pic != null){{ '/img/profile/'.$user->profile_pic }}@else{{'/assets/images/ab.png'}}@endif" style="width:100%">
 				</div>
 				@elseif($utype == 'corp')
 				<div class="profile-userpic-corp-view">
-					<img  src="@if($user->logo_status != null){{ '/img/profile/'.$user->logo_status }}@else{{'/assets/images/corpnew.jpg'}}@endif">
+					<img  src="@if($user->logo_status != null){{ '/img/profile/'.$user->logo_status }}@else{{'/assets/images/corpnew.jpg'}}@endif" style="width:100%">
 				</div>
 				@endif
 				<!-- <a href="javascript:;" class="profile-edits">
@@ -214,33 +214,29 @@
 							<span class="caption-subject font-green-haze bold uppercase" style="font-size:14px;">About Me</span>
 						</div>
 						@if($user->working_status == "Student")
-						<div class="profile-usertitle-job capitalize individual-detail">
-							 {{ $user->education }} in {{ $user->branch }}
+						<div class=" capitalize individual-detail">
+							 Student
 						</div>
 						@elseif($user->working_status == "Searching Job")
-						<div class="profile-usertitle-job capitalize individual-detail" >
+						<div class=" capitalize individual-detail" >
 							 {{ $user->working_status }}
 						</div>
-						@elseif($user->job_role != '[]' && $user->working_status == "Freelanching")
-						<div class="profile-usertitle-job capitalize individual-detail" >
-							 {{ $user->job_role->first()->role }} {{ $user->working_status }}
+						@elseif($user->role != null && $user->working_status == "Freelanching")
+						<div class=" capitalize individual-detail" >
+							 {{ $user->role }} {{ $user->working_status }}
 						</div>
-						@elseif($user->job_role != '[]' && $user->working_at !=null && $user->working_status == "Working")
-						<div class="profile-usertitle-job capitalize individual-detail" >
-							 {{ $user->job_role->first()->role }}, {{ $user->working_at }} 
+						@elseif($user->role != null && $user->working_at !=null && $user->working_status == "Working")
+						<div class=" capitalize individual-detail" >
+							 {{ $user->role }}, {{ $user->working_at }} 
 						</div>
-						@elseif($user->job_role != '[]' && $user->working_at ==null && $user->working_status == "Working")
-						<div class="profile-usertitle-job capitalize individual-detail">
-							 {{ $user->job_role->first()->role }}
+						@elseif($user->role != null && $user->working_at ==null && $user->working_status == "Working")
+						<div class=" capitalize individual-detail">
+							 {{ $user->role }}
 						</div>
 						@elseif($user->role == null && $user->working_at !=null && $user->working_status == "Working")
-						<div class="profile-usertitle-job capitalize individual-detail" >
+						<div class=" capitalize individual-detail" >
 							 {{ $user->woring_at }}
 						</div>
-						@elseif($user->role == null && $user->working_at ==null && $user->working_status == "Working")
-			            <div class="profile-usertitle-job capitalize individual-detail" >
-			               {{ $user->prof_category }}
-			            </div>
 						@endif
 					 @else
 					 <div class="caption">
@@ -248,33 +244,29 @@
 						<span class="caption-subject font-green-haze bold uppercase" style="font-size:14px;">About {{$user->fname}}</span>
 					</div>
 					@if($user->working_status == "Student")
-						<div class="profile-usertitle-job capitalize individual-detail">
-							 {{ $user->education }} in {{ $user->branch }}
+						<div class=" capitalize individual-detail">
+							 Student
 						</div>
 						@elseif($user->working_status == "Searching Job")
-						<div class="profile-usertitle-job capitalize individual-detail" >
+						<div class=" capitalize individual-detail" >
 							 {{ $user->working_status }}
 						</div>
-						@elseif($user->working_status == "Freelanching")
-						<div class="profile-usertitle-job capitalize individual-detail" >
-							 {{ $user->job_role->first()->role }} {{ $user->working_status }}
+						@elseif($user->role != null && $user->working_status == "Freelanching")
+						<div class=" capitalize individual-detail" >
+							 {{ $user->role }} {{ $user->working_status }}
 						</div>
-						@elseif($user->job_role != '[]' && $user->working_at !=null && $user->working_status == "Working")
-						<div class="profile-usertitle-job capitalize individual-detail" >
-							 {{ $user->job_role->first()->role }}, {{ $user->working_at }} 
+						@elseif($user->role != null && $user->working_at !=null && $user->working_status == "Working")
+						<div class=" capitalize individual-detail" >
+							 {{ $user->role }}, {{ $user->working_at }} 
 						</div>
-						@elseif($user->job_role != '[]' && $user->working_at ==null && $user->working_status == "Working")
-						<div class="profile-usertitle-job capitalize individual-detail">
-							 {{ $user->job_role->first()->role }}
+						@elseif($user->role != null && $user->working_at ==null && $user->working_status == "Working")
+						<div class=" capitalize individual-detail">
+							 {{ $user->role }}
 						</div>
 						@elseif($user->role == null && $user->working_at !=null && $user->working_status == "Working")
-						<div class="profile-usertitle-job capitalize individual-detail" >
+						<div class=" capitalize individual-detail" >
 							 {{ $user->woring_at }}
 						</div>
-						@elseif($user->role == null && $user->working_at ==null && $user->working_status == "Working")
-			            <div class="profile-usertitle-job capitalize individual-detail" >
-			               {{ $user->prof_category }}
-			            </div>
 						@endif
 					 @endif
 					@endif
@@ -371,9 +363,13 @@
 						<i class="fa fa-male"></i> {{$user->gender}}
 					</li>
 					@endif
-					@if($user->education != null && $user->education != null)
+					@if($user->education != null)
+					<?php $education = explode('-', $user->education); 
+							 		   $name = $education[0];
+							 		   $branch = $education[1];
+							 		   $level = $education[2];  ?>
 					<li class="capitalize">
-						<i class="fa fa-graduation-cap"></i> {{$user->education}} in {{$user->branch}}
+						<i class="fa fa-graduation-cap"></i> {{$name}} in {{$branch}}
 					</li>
 					@endif
 					@if($user->experience != null && $user->experience != 0)
@@ -436,7 +432,7 @@
 	<div class="portlet-body form">
 		<!-- BEGIN FORM-->
 			<div class="form-body">
-				@if($user->job_role != '[]' || $user->resume != null || $user->linked_skill != null)
+				@if($user->role != null || $user->resume != null || $user->linked_skill != null)
 				<div class="row">
 					@if(Auth::user()->id == $user->id)
 					<div class="col-md-12 col-sm-12 col-xs-12" style="padding:0;">
@@ -444,8 +440,8 @@
 							<label class="control-label col-md-4 col-xs-6">Industry</label>							
 							<div class="col-md-6 col-xs-6"> 
 								<p class="form-control-static view-page">
-									@if($user->job_role != '[]')
-									{{ $user->job_role->first()->industry }}
+									@if($user->industry != null)
+									{{ $user->industry }}
 									@else
 									<a href="/individual/edit#professional">Add Industry</a>
 									@endif
@@ -453,14 +449,14 @@
 							</div>
 						</div>
 					</div>
-					@elseif($user->job_role != '[]' && Auth::user()->induser_id != $user->id)
+					@elseif($user->industry != null && Auth::user()->induser_id != $user->id)
 					<div class="col-md-12 col-sm-12 col-xs-12" style="padding:0;">
 						<div class="form-group">
 							<label class="control-label col-md-4 col-xs-6">Industry</label>							
 							<div class="col-md-6 col-xs-6">
 								<p class="form-control-static view-page">
-									@if($user->job_role != '[]')
-									{{ $user->job_role->first()->industry }}
+									@if($user->industry != null)
+									{{ $user->industry }}
 									@else
 									{{$user->fname}} has not added 'Industry'
 									@endif
@@ -468,7 +464,7 @@
 							</div>
 						</div>
 					</div>
-					@elseif($user->job_role == null && Auth::user()->induser_id != $user->id)
+					@elseif($user->role == null && Auth::user()->induser_id != $user->id)
 					@endif
 					<!--/span-->
 					@if(Auth::user()->induser_id == $user->id)
@@ -477,8 +473,8 @@
 							<label class="control-label col-md-4 col-xs-6">Functional Area</label>
 							<div class="col-md-6 col-xs-6">
 								<p class="form-control-static view-page">
-									@if($user->job_role != '[]')
-									{{$user->job_role->first()->functional_area}}
+									@if($user->functional_area != null)
+									{{$user->functional_area}}
 									@else
 									<a href="/individual/edit#professional">Add Functional Area</a>
 									@endif
@@ -492,8 +488,8 @@
 							<label class="control-label col-md-4 col-xs-6">Functional Area</label>
 							<div class="col-md-6 col-xs-6">
 								<p class="form-control-static view-page">
-									@if($user->job_role != '[]')
-									{{ $user->job_role->first()->functional_area }}
+									@if($user->functional_area != null)
+									{{$user->functional_area}}
 									@else
 									{{$user->fname}} has not added 'Functional Area'
 									@endif
@@ -513,8 +509,8 @@
 							<label class="control-label col-md-4 col-xs-6">Role</label>
 							<div class="col-md-6 col-xs-6">
 								<p class="form-control-static view-page">
-									@if($user->job_role != '[]')
-									{{ $user->job_role->first()->role }}
+									@if($user->role != null)
+									{{ $user->role }}
 									@else
 									<a href="/individual/edit#professional">Add Role</a>
 									@endif
@@ -522,14 +518,14 @@
 							</div>
 						</div>
 					</div>
-					@elseif($user->job_role != '[]' && Auth::user()->induser_id != $user->id)
+					@elseif($user->role != null && Auth::user()->induser_id != $user->id)
 					<div class="col-md-12 col-sm-12 col-xs-12" style="padding:0;">
 						<div class="form-group">
 							<label class="control-label col-md-4 col-xs-6">Role</label>
 							<div class="col-md-6 col-xs-6">
 								<p class="form-control-static view-page">
-									@if($user->job_role != '[]')
-									{{ $user->job_role->first()->role }}
+									@if($user->role != null)
+									{{ $user->role }}
 									@else
 									{{$user->fname}} has not added 'Role'
 									 @endif
@@ -779,9 +775,9 @@
 							<i class="fa fa-phone-square"></i> : {{$user->mobile}}
 						</div>
 						<div class="col-md-4 col-sm-4 col-xs-12" style="padding:0 !important;margin: 5px 0;">
-							<button class="btn blue corp-profile-resume" style="">
+							<a href="/resume/{{$user->resume}}" target="_blank"><button class="btn blue corp-profile-resume" style="">
 							<i class="glyphicon glyphicon-download"></i> Resume
-						</button>
+						</button></a>
 						</div>
 					</div>
 					<div class="row">
@@ -805,13 +801,13 @@
 							<label class="control-label col-md-2 col-sm-2 col-xs-2" style="font-size:13px;"><i class="fa fa-envelope-o"></i> </label>
 							<div class="col-md-10 col-sm-10 col-xs-10" >
 								<p class="form-control-static view-page">
-									{{ $users->email }} 
-									@if($users->email_verify == 0)
+									{{ $user->user->email }} 
+									@if($user->user->email_verify == 0)
 									<a>
 										<i class="fa fa-exclamation-circle" 
 										style="color: #cb5a5e;"></i>
 									</a>
-									@elseif($users->email_verify == 1)
+									@elseif($user->user->email_verify == 1)
 										<i class="glyphicon glyphicon-ok-circle" style="color: #1EC71E;"></i>
 									@endif
 								</p>
@@ -827,13 +823,13 @@
 							<label class="control-label col-md-2 col-sm-2 col-xs-2"><i class="icon-call-end"></i> </label>
 							<div class="col-md-10 col-sm-10 col-xs-10">
 								<p class="form-control-static view-page">
-									{{ $users->mobile }} 
-									@if($users->mobile_verify == 0)
+									{{ $user->user->mobile }} 
+									@if($user->user->mobile_verify == 0)
 									<a>
 										<i class="fa fa-exclamation-circle" 
 										style="color: #cb5a5e;font-size: 16px;"></i>
 									</a>
-									@elseif($users->mobile_verify == 1)
+									@elseif($user->user->mobile_verify == 1)
 										<i class="glyphicon glyphicon-ok-circle" style="color: #1EC71E;font-size: 16px;"></i>
 									@endif
 								</p>
@@ -852,9 +848,10 @@
 							<div class="col-md-12 col-xs-12">
 								<p class="form-control-static view-page">
 									@if($user->resume != null)
-									 {{$user->resume_dtTime}} - {{$user->resume}}
+									<i class="fa fa-file-word-o"></i> :
+									<a href="/resume/{{$user->resume}}" target="_blank"><button class="btn btn-info small-btn resume-btn">{{$user->resume}}</button></a> ({{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $user->resume_dtTime)->format('Y-m-d') }})
 									 @else
-									 <a href="/individual/edit#tab_2-2">Upload Resume</a>
+									 <a href="/individual/edit#tab_2-2"><button class="btn btn-info small-btn resume-btn">Upload Resume</button></a>
 									 @endif
 								</p>
 							</div>
@@ -867,7 +864,7 @@
 							<div class="col-md-6 col-xs-6">
 								<p class="form-control-static view-page">
 									@if($user->resume != null)
-									 <a href="javascript:;" class="btn btn-xs blue" style="padding: 5px;"><i class="icon-eye"></i>&nbsp;View Resume</a>
+									 <a href="/resume/{{$user->resume}}"target="_blank"  class="btn btn-xs blue" style="padding:2px 5px;"><i class="icon-eye"></i>&nbsp;View Resume</a>
 									 @else
 									 {{$user->fname}} has not added 'Resume'
 									 @endif
