@@ -347,9 +347,9 @@ class JobController extends Controller {
 			$apply = new Postactivity();
 			$apply->post_id = $post_id;
 			if(Auth::user()->identifier == 1){
-				$apply->user_id = Auth::user()->induser_id;
+				$apply->user_id = Auth::user()->id;
 			}elseif(Auth::user()->identifier ==2){
-				$apply->user_id = Auth::user()->corpuser_id;
+				$apply->user_id = Auth::user()->id;
 			}
 			
 			$apply->contact_view = 1;

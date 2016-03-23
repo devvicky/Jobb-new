@@ -1096,7 +1096,10 @@ public function homeskillFilter(){
 
 	public function postDetail(){
 		if (Auth::check()) {		
-			$post = Postjob::with('indUser', 'corpUser', 'postActivity')->where('id', '=', Input::get('postid'))->first();
+			$post = Postjob::with('indUser', 'corpUser', 'postActivity')
+						   ->where('id', '=', Input::get('postid'))
+						   // ->leftjoin('postactivities', ' postactivities.post_id', '=', Input::get('postid'))
+						   ->first();
 			
 			return view('pages.mypost_details', compact('post'));
 			// return $post;
