@@ -981,14 +981,15 @@ $gotit = [];
 					dataType: "json",
 					data: { term: extractLast( request.term ) },
 					success: function(data) {
-					if (data.length === 0) {
-						$('#add-new-skill').removeClass('hide');
-						$('#add-new-skill').addClass('show');
-					}else{
-						$('#add-new-skill').removeClass('show');
-						$('#add-new-skill').addClass('hide');
-					}
-					response(data);
+						var result = $.grep(data, function(e){ return e.value == request.term; });
+						if (result.length == 0) {
+							$('#add-new-skill').removeClass('hide');
+							$('#add-new-skill').addClass('show');
+						}else{
+							$('#add-new-skill').removeClass('show');
+							$('#add-new-skill').addClass('hide');
+						}
+						response(data);
 					}
 				});
 
