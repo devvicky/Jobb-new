@@ -448,7 +448,7 @@
 																		  		
 														                    	<div class="col-md-4 col-sm-4 col-xs-4" style="font-size:12px;">
 														                    		
-														                    		<a data-toggle="modal" data-mpostid="{{$post->id}}" 
+														                    		<a data-toggle="modal" data-uid="{{$pa->id}}" data-mpostid="{{$post->id}}" 
 																						class="magic-font mypost_magicmatch btn btn-success magic-match-css" href="#mypost_magicmatch"
 																						 style="color: white;line-height: 1.7;text-decoration: none;">
 																						<i class="icon-speedometer magic-font" style="font-size:12px;"></i> {{$post->magic_match}} %
@@ -1677,6 +1677,7 @@ class="magic-font mypost_magicmatch btn btn-success magic-match-css" href="#mypo
 $('.myactivity-posts').on('click',function(event){  	    
   	event.preventDefault();
   	var post_id = $(this).parent().data('postid');
+  	var u_id = $(this).parent().data('uid');
   	console.log(post_id);
     $.ajaxSetup({
 		headers: {
@@ -1687,7 +1688,7 @@ $('.myactivity-posts').on('click',function(event){
     $.ajax({
       url: "/postdetail/detail",
       type: "post",
-      data: {postid: post_id},
+      data: {postid: post_id, uid: u_id},
       cache : false,
       success: function(data){
     	$('#myactivity-posts-content').html(data);

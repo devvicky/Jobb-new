@@ -98,9 +98,9 @@
                                     <!-- <td>
                                         <label class="title-color">Job Role</label>
                                     </td> -->
-                                    <td class="matching-criteria-align">{{ $post->job_role->first()->role }}</td>
+                                    <td class="matching-criteria-align">{{ $post->role }}</td>
                                     @if(Auth::user()->induser->role != null)
-                                    <td class="matching-criteria-align">{{ Auth::user()->induser->job_role->first()->role }}</td>
+                                    <td class="matching-criteria-align">{{ Auth::user()->induser->role }}</td>
                                     @else
                                     <td class="matching-criteria-align"><a href="/individual/edit">Add Job Role </a></td>
                                     @endif

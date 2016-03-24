@@ -339,7 +339,9 @@ class JobController extends Controller {
 		if($apply == null){
 			$apply = new Postactivity();
 			$apply->post_id = $post_id;
-			$apply->user_id = Auth::user()->id;			
+
+			$apply->user_id = Auth::user()->id;	
+			
 			$apply->contact_view = 1;
 			$apply->contact_view_dtTime = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'));
 			$apply->save();
