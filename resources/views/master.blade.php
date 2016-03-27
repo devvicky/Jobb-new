@@ -769,6 +769,26 @@ $(document).ready(function () {
     });
 });
 
+
+// profile check
+console.log( {{Auth::user()->profile_alerted}} );
+console.log( {{Auth::user()->profile_status}} );
+
+$alerted = {{Auth::user()->profile_alerted}};
+$profile_status = {{Auth::user()->profile_status}};
+
+if( $alerted == 0 && $profile_status <= 70 ){
+  alert("Your profile is "+$profile_status+"% completed. Please update it to get more job opportunities.");
+  $.ajax({
+    url: "/profile/alerted",
+    type: "get",
+    success: function(data){
+      console.log("alerted: "+data);
+    }
+  });
+}
+ 
+
 </script>
 @yield('javascript')
 

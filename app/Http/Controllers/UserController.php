@@ -763,5 +763,12 @@ class UserController extends Controller {
 		return $role;
 	}
 
+	// update profile %ge alert
+	public function profileAlertUpdate(){
+		$now = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'));
+		$alerted = User::where('id', '=', Auth::user()->id)->update(['profile_alert' => 1,'profile_alert_dtTime' => $now]);
+		return $alerted;
+	}
+
 		
 }

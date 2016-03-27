@@ -234,8 +234,9 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::get('report-abuse/action/warningemail/{post_id}', 'JobController@warningEmailForAbuse');
 
 	Route::post('post/sharebyemail', 'JobController@sharePostByEmail');
-
 	Route::get('profileedit/{role_id}', 'UserController@role_detail');
+
+	Route::get('profile/alerted', 'UserController@profileAlertUpdate');
 
 });
 
