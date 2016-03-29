@@ -19,12 +19,7 @@
             <ul class="nav navbar-nav navbar-right" id="main_navigation_menu">
               <li class="active"><a href="#header">Home</a></li>
               <li><a href="#services">Services</a></li>
-              <li><a href="#about">About</a></li>                   
-              <li><a href="#search">Search</a></li>
-              <!-- <li><a href="#why-chose">why</a></li>             
-              <li><a href="#pricing">Pricing</a></li>
-              <li><a href="#blog">Blog</a></li>
-              <li><a href="#team">Team</a></li> -->
+              <li><a href="#about">About</a></li>
               <li><a href="#contact">Contact</a></li>
               <li><a href="/login">Login</a></li>
             </ul>
@@ -41,12 +36,72 @@
         <div class="container">
           <div class="row">
             <div class="main-text">
-              <h1 class="wow" style="">Welcome To <span>Jobtip</span></h1>
-
-                <div id="slide" class="owl-carousel" style="margin: 0px 0 30px 0;">
+              <h1 class="wow" id="changerificwordspanid" style="">Search <span>Jobtip</span></h1>
+                <div class="row" style="margin: 0 -10px 0 5px !important;">
+                  <!-- <div class="col-md-2 col-sm-1"></div> -->
+                    <div class="col-md-12 col-sm-10">
+                    <form id="welcome-search" name="welcome_form" action="/welcome/post" method="post">
+                      <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                      <div class="col-md-5 col-sm-5" style="padding-left:0 !important;">
+                        <div class=" form-group">
+                          <div class="input-group">
+                            <span class="input-group-addon welcome-icon">
+                              <i class="fa fa-cogs" style="color:white;"></i>
+                            </span>
+                            <input type="text" required name="role" id="search-input" class="form-control welcome-inputbox" placeholder="Enter Keywords">
+                          </div>
+                        </div>    
+                      </div>
+                      <div id="welcome-city" class="col-md-4 col-sm-4 col-xs-6" style="padding-left:0 !important;">
+                        <div class="form-group">
+                          <div class="input-group">
+                            <span class="input-group-addon welcome-icon">
+                              <i class="fa fa-map-marker" style="color:white;"></i>
+                            </span>
+                            <input type="text" name="location" class="form-control welcome-inputbox" placeholder="City">                    
+                          </div>  
+                        </div>    
+                      </div>
+                      <div class="col-md-2 col-sm-3 col-xs-6" style="padding-left:0 !important;">
+                        <div class="form-group">
+                          <div class="input-group">
+                            <span class="input-group-addon welcome-icon">
+                              <i class="fa fa-briefcase" style="color:white;"></i>
+                            </span>
+                            <select class="form-control welcome-inputbox" name="experience" placeholder="Experience">
+                              <option value=""> Exp (in Years)</option>
+                              <option value="0">0</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
+                              <option value="8">8</option>
+                              <option value="9">9</option>
+                              <option value="10">10</option>
+                              <option value="11">11</option>
+                              <option value="12">12</option>
+                              <option value="13">13</option>
+                              <option value="14">14</option>
+                              <option value="15">15</option>
+                            </select>
+                          </div>
+                        </div>  
+                      </div>
+                      <div class="col-md-1 col-sm-12 col-xs-12" style="padding-left:0 !important;text-align:center;">
+                        <button type="submit" class="btn btn-small-welcome btn-search-welcome search-button-size" style="margin: -1px;padding: 3px 10px;width: 100%;">
+                          <i class="fa fa-search"></i>
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <div id="slide" class="owl-carousel" style="margin: 20px 0 30px 0;">
                   <div class="item">
                     <div class="con side-right">
-                      <span id="" class="uppercase new-css" style="font-weight:600;">
+                      <span id="" class="uppercase new-css" style="font-weight:400;">
                         Know about any job openings ?</span>
                     </div>
                     <div class="row side-right">
@@ -60,7 +115,7 @@
                           </div>
                           <div class="tile-object">
                             <div class="con side-right" style="">
-                              <span id="" class="uppercase new-css" style="font-weight:600;">Post Job tip</span>
+                              <span id="" class="uppercase new-css" style="font-weight:400;">Post Job tip</span>
                             </div>
                             
                           </div>
@@ -68,12 +123,12 @@
                       </div>
                     </div>
                     <div class="con side-right">
-                      <span id="" class="uppercase new-css" style="font-weight:600;">help your friends to get a job</span>
+                      <span id="" class="uppercase new-css" style="font-weight:400;">help your friends to get a job</span>
                     </div>
                   </div>
                   <div class="item">
                     <div class="con side-right">
-                      <span id="" class="uppercase new-css" style="font-weight:600;">
+                      <span id="" class="uppercase new-css" style="font-weight:400;">
                         looking for job change ?</span>
                     </div>
                     <div class="row side-right">
@@ -87,7 +142,7 @@
                           </div>
                           <div class="tile-object">
                             <div class='con'>
-                              <span id="" class="uppercase new-css" style="font-weight:600;">promote skills</span>
+                              <span id="" class="uppercase new-css" style="font-weight:400;">promote skills</span>
                             </div>
                              
                           </div>
@@ -98,12 +153,12 @@
                       </div>
                     </div>
                     <div class="con side-right">
-                      <span id="" class="uppercase new-css" style="font-weight:600;">choose where you want to work</span>
+                      <span id="" class="uppercase new-css" style="font-weight:400;">choose where you want to work</span>
                     </div>
                   </div>
                   <div class="item">
                     <div class="con side-right">
-                      <span id="" class="uppercase new-css" style="font-weight:600;">
+                      <span id="" class="uppercase new-css" style="font-weight:400;">
                         looking skilled people for startup ?</span>
                     </div>
                     <div class="row side-right">
@@ -117,7 +172,7 @@
                           </div>
                           <div class="tile-object">
                             <div class='con'>
-                              <span id="" class="uppercase new-css" style="font-weight:600;">Post Job tip</span>
+                              <span id="" class="uppercase new-css" style="font-weight:400;">Post Job tip</span>
                             </div>
                             
                           </div>
@@ -128,13 +183,13 @@
                       </div>
                     </div>
                     <div class="con side-right">
-                      <span id="" class="uppercase new-css" style="font-weight:600;">hire right talent to grow business</span>
+                      <span id="" class="uppercase new-css" style="font-weight:400;">hire right talent to grow business</span>
                     </div>
                   </div>
 
                   <div class="item">
                     <div class="con side-right">
-                      <span id="" class="uppercase new-css" style="font-weight:600;">
+                      <span id="" class="uppercase new-css" style="font-weight:400;">
                        ready to work ?</span>
                     </div>
                     <div class="row side-right">
@@ -148,7 +203,7 @@
                           </div>
                           <div class="tile-object">
                             <div class='con' >
-                              <span id="" class="uppercase new-css" style="font-weight:600;">promote skills</span>
+                              <span id="" class="uppercase new-css" style="font-weight:400;">promote skills</span>
                             </div>
                            
                           </div>
@@ -159,7 +214,7 @@
                       </div>
                     </div>
                      <div class="con side-right">
-                      <span id="" class="uppercase new-css" style="font-weight:600;">get right pay for your talent</span>
+                      <span id="" class="uppercase new-css" style="font-weight:400;">get right pay for your talent</span>
                     </div>
                   </div>
                 </div>
@@ -262,92 +317,7 @@
         </div>
       </div>
     </section>
-    <!-- End About Us Section -->   
-
-    <!-- Start About Us Section -->
-    <section id="search" class="about-section" style="height:650px; background-color:darkcyan;">
-      <div class="container">
-      <h1 class="section-title wow fadeIn search-header-css" data-wow-delay=".2s" >Search <span>Job tip</span></h1>
-        <div class="row">
-         <!--  <div id="slider" class="owl-carousel">
-            <div class="item"> -->
-              <div class="col-sm-12 col-md-12 wow fadeInRight" data-wow-offset="10">
-                <div class="side-right">
-                  <!-- Start welcome area -->
-                <div class="row" style="margin: 0 -10px 0 5px !important;">
-                  <!-- <div class="col-md-2 col-sm-1"></div> -->
-                    <div class="col-md-12 col-sm-10">
-                    <form id="welcome-search" name="welcome_form" action="/welcome/post" method="post">
-                      <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                      <div class="col-md-5 col-sm-5" style="padding-left:0 !important;">
-                        <div class=" form-group">
-                          <div class="input-group">
-                            <span class="input-group-addon welcome-icon">
-                              <i class="fa fa-cogs" style="color:white;"></i>
-                            </span>
-                            <input type="text" required name="role" id="search-input" class="form-control welcome-inputbox" placeholder="Enter Job role">
-                          </div>
-                        </div>    
-                      </div>
-                      
-                      <div id="welcome-city" class="col-md-4 col-sm-4 col-xs-6" style="padding-left:0 !important;">
-                        <div class="form-group">
-                          <div class="input-group">
-                            <span class="input-group-addon welcome-icon">
-                              <i class="fa fa-map-marker" style="color:white;"></i>
-                            </span>
-                            <input type="text" name="location" class="form-control welcome-inputbox" placeholder="City">                    
-                          </div>  
-                        </div>    
-                      </div>
-                      <div class="col-md-2 col-sm-3 col-xs-6" style="padding-left:0 !important;">
-                        <div class="form-group">
-                          <div class="input-group">
-                            <span class="input-group-addon welcome-icon">
-                              <i class="fa fa-briefcase" style="color:white;"></i>
-                            </span>
-                            <select class="form-control welcome-inputbox" name="experience" placeholder="Experience">
-                              <option value=""> Exp (in Years)</option>
-                              <option value="0">0</option>
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
-                              <option value="6">6</option>
-                              <option value="7">7</option>
-                              <option value="8">8</option>
-                              <option value="9">9</option>
-                              <option value="10">10</option>
-                              <option value="11">11</option>
-                              <option value="12">12</option>
-                              <option value="13">13</option>
-                              <option value="14">14</option>
-                              <option value="15">15</option>
-                            </select>
-                          </div>
-                        </div>  
-                      </div>
-                      <div class="col-md-1 col-sm-12 col-xs-12" style="padding-left:0 !important;text-align:center;">
-                        <button type="submit" class="btn btn-small-welcome btn-search-welcome search-button-size" style="margin: -1px;padding: 7px 10px;width: 100%;">
-                          <i class="fa fa-search"></i>
-                          
-                            <!-- Search -->
-                          
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-        <!-- End welcome area -->
-                </div>
-              </div>
-            <!-- </div>
-          </div> -->
-        </div>
-      </div>
-    </section>
-    <!-- End About Us Section -->   
+    <!-- End About Us Section -->      
     
     <!-- Start Contact Section -->
     <section id="contact">
@@ -386,41 +356,6 @@
     </section>
     <!-- End Contact Section -->
     
-    <!-- Start Clients Section -->
-    <!-- <section id="clients">
-      <div class="container">
-        <div class="row">
-          <div id="logo-slider" class="owl-carousel owl-theme">
-            <div class="item">
-              <a href="#"><img src="assets/startup/img/clients-logo/img1.png" alt=""></a>
-            </div>
-            <div class="item">
-              <a href="#"><img src="assets/startup/img/clients-logo/img2.png" alt=""></a>
-            </div>
-            <div class="item">
-              <a href="#"><img src="assets/startup/img/clients-logo/img3.png" alt=""></a>
-            </div>
-            <div class="item">
-              <a href="#"><img src="assets/startup/img/clients-logo/img4.png" alt=""></a>
-            </div>
-            <div class="item">
-              <a href="#"><img src="assets/startup/img/clients-logo/img5.png" alt=""></a>
-            </div>
-            <div class="item">
-              <a href="#"><img src="assets/startup/img/clients-logo/img6.png" alt=""></a>
-            </div>
-            <div class="item">
-              <a href="#"><img src="assets/startup/img/clients-logo/img7.png" alt=""></a>
-            </div>
-            <div class="item">
-              <a href="#"><img src="assets/startup/img/clients-logo/img8.png" alt=""></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section> -->
-    <!-- End Clients Section -->
-    
     <!-- Start Connected Section -->
     <section id="connected">
       <div class="container">
@@ -439,28 +374,28 @@
             <div class="col-sm-6 col-md-3 wow fadeInUp" data-wow-delay="0.2s">
               <div class="contact-item">
                 <a href="#"><i class="fa fa-envelope"></i></a>
-                <h5>Connect</h5>
-                <h4>connect@jobtip.in</h4>
+                <!-- <h5>Connect</h5> -->
+                <!-- <h4>connect@jobtip.in</h4> -->
               </div>
             </div>
             <div class="col-sm-6 col-md-3 wow fadeInUp" data-wow-delay="0.2s">
               <div class="contact-item">
                 <a href="http://jobtip.in/linkedin"><i class="fa fa-linkedin"></i></a>
-                <h5>Linkedin</h5>
+                <!-- <h5>Linkedin</h5> -->
                 <!-- <h4>@example.com</h4> -->
               </div>
             </div>
             <div class="col-sm-6 col-md-3 wow fadeInUp" data-wow-delay="0.2s">
               <div class="contact-item">
                 <a href="http://jobtip.in/facebook"><i class="fa fa-facebook"></i></a>
-                <h5>Facebook</h5>
+                <!-- <h5>Facebook</h5> -->
                 <!-- <h4>example.agency</h4> -->
               </div>
             </div>
             <div class="col-sm-6 col-md-3 wow fadeInUp" data-wow-delay="0.2s">
               <div class="contact-item">
                 <a href="http://jobtip.in/google"><i class="fa fa-google-plus"></i></a>
-                <h5>Google +</h5>
+                <!-- <h5>Google +</h5> -->
                 <!-- <h4>@example.com</h4> -->
               </div>
             </div>
@@ -512,14 +447,12 @@
     <!-- Main js -->
 <script src="/assets/startup/js/main.js"></script>
 <script type="text/javascript">
- // (function(){
+ (function(){
 
     // List your words here:
- /*   var words = [
-        'know about any job openings ?',
-        'looking skilled people for startup'.
-        'looking for job change ?',
-        'ready to work ?'
+    var words = [
+        'Search <span> Jobtip</span>',
+        'Search <span> Skills</span>'
         ], i = 0;
 
     setInterval(function(){
@@ -530,38 +463,8 @@
 
 })();
 
-(function(){
 
-    var beloWords = [
-        'help your friends to get a job',
-        'hire right talent to grow business',
-        'choose where you want to work',
-        'get right pay for your talent'
-        ], i = 0;
 
-    setInterval(function(){
-        $('#changerificwordspanbelowid').fadeOut(function(){
-            $(this).html(beloWords[i=(i+1)%beloWords.length]).fadeIn();
-        });
-    }, 3000);
-
-})();
-
-(function(){
-
-    var imageWords = [
-        'post job tip',
-        'promote skills'
-        ], i = 0;
-
-    setInterval(function(){
-        $('#imageid').fadeOut(function(){
-            $(this).html(imageWords[i=(i+1)%imageWords.length]).fadeIn();
-        });
-    }, 3000);
-
-})();
-*/
 </script>
 <script>
 

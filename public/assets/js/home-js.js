@@ -708,10 +708,7 @@ $(function() {
         .autocomplete({
             appendTo: '#job-skill-wrapper',
             source: function(request, response) {
-                // $.getJSON( "/job/skillSearch", {
-                //  term: extractLast( request.term )
-                // }, response );
-
+                
                 $.ajax({
                     url: '/job/skillSearch',
                     dataType: "json",
@@ -896,3 +893,57 @@ $(function() {
             }
         });
 });
+
+$(document).ready(function () {            
+//validation rules
+    var form = $('#job-filter');
+    var error = $('.alert-danger', form);
+    var success = $('.alert-success', form);
+    form.validate({
+        doNotHideMessage: true, //this option enables to show the error/success messages on tab switch.
+        errorElement: 'span', //default input error message container
+        errorClass: 'help-block help-block-error', // default input error message class
+        focusInvalid: false, // do not focus the last invalid input
+        rules: {
+           "time_for[]": {
+              required: true
+            }
+        },
+        messages: {
+            "time_for[]": {
+                required: 'Select atleast one Job Type'
+            }
+        },
+            invalidHandler: function (event, validator) { //display error alert on form submit   
+            success.hide();
+            error.show();
+            Metronic.scrollTo(error, -200);
+        },
+
+             highlight: function(element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+            unhighlight: function(element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) { // render error placement for each input type
+                    var icon = $(element).parent('.input-icon').children('i');
+                    icon.removeClass('fa-check').addClass("fa-warning");  
+                    icon.attr("data-original-title", error.text()).tooltip({'placement': 'left'});
+                   
+                },
+            success: function (label, element) {
+                    var icon = $(element).parent('.input-icon').children('i');
+                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                    icon.removeClass("fa-warning").addClass("fa-check");
+                },
+    });
+});
+
+
+
+function myFunction() {
+    document.getElementById("job-filter").reset();
+}

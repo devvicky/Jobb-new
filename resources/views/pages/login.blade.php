@@ -98,8 +98,7 @@ $(document).ready(function(){
 	            jQuery('.signup-tabopen').hide();
 	            jQuery('.login-tabopen').hide();
         		jQuery('.login-otp-tabopen').show();
-	        }
-	        else if(data.data.page == 'login' && data.data.mobile_verify == 0){
+	        }else if(data.data.page == 'login' && data.data.mobile_verify == 0){
 	        	$('#ind-msg-box').removeClass('alert alert-success');
 	            $('#ind-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
 	                $(this).show();
@@ -122,8 +121,7 @@ $(document).ready(function(){
 	            jQuery('.signup-tabopen').hide();
 	            jQuery('.login-tabopen').hide();
         		jQuery('.login-otp-tabopen').show();
-	        }
-	        else{          
+	        }else{          
 	            redirect(data.data.page);
 	            $(".login-signup-button").prop('disabled', true);
 	        }

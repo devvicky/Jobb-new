@@ -627,6 +627,14 @@
 					                                                                        <p class="form-control-static" data-display="role" style="margin: -5px 0;"></p>
 					                                                                </div>
 					                                                            </div>
+					                                                            <div class="row"> 
+					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                           
+					                                                                        <label class="detail-label">Job Type :</label>                                                                  
+					                                                                </div>
+					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
+					                                                                        <p class="form-control-static" data-display="time_for" style="margin: -5px 0;"></p>
+					                                                                </div>
+					                                                            </div>
 					                                                             <div class="row show-salary">
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">
 					                                                                        <label class="detail-label">Salary (<i class="fa fa-rupee (alias)"></i>):</label>

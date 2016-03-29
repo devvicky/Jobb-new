@@ -78,8 +78,9 @@ class JobController extends Controller {
 		}else{
 
 			$education = Education::all();
-
-			return view('pages.postjob', compact('title', 'skills', 'education'));
+			$farearoleList = Functional_area_role_mapping::orderBy('id')->get();
+			
+			return view('pages.postjob', compact('title', 'skills', 'education', 'farearoleList'));
 		}
 	}
 

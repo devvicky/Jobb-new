@@ -63,6 +63,8 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::get('job/post/{id}', 'PagesController@singleJobPost');
 	Route::get('skill/post/{id}', 'PagesController@singleSkillPost');
 
+	Route::post('job-filter/remove/{id}', 'PagesController@removeJobFilter');
+
 	Route::get('taggedjob/link/post/{id}', 'PagesController@singleJobPost');
 	Route::get('taggedskill/link/post/{id}', 'PagesController@singleSkillPost');
 	Route::get('taggedjob/group/post/{id}', 'PagesController@singleJobPost');

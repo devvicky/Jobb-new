@@ -49,7 +49,7 @@ var ComponentsDropdowns = function () {
         });
 
         $("#select2_sample5").select2({
-            tags: []
+            tags: ["individual", "company", "consultancy"]
         });
         //Tag for post job
          $("#select2_sample7").select2({
@@ -127,9 +127,10 @@ var ComponentsDropdowns = function () {
             allowClear: true
         });
 
-        $('#select2_sample_modal_2').select2({
-            placeholder: "Select a State",
-            allowClear: true
+        $('#select2-postedby').select2({
+            placeholder: "Select Posted By",
+            allowClear: true,
+            tags: ["individual", "company", "consultancy"]
         });
 
         $("#select2_sample_modal_3").select2({

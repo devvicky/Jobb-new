@@ -524,6 +524,7 @@ class PagesController extends Controller {
 					$filter->unique_id = Input::get('unique_id');
 					$filter->expired = Input::get('expired');
 					$filter->save_filter = Input::get('save_filter');
+					$filter->updated_at = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'));
 					$filter->save();
 				}elseif($filter == null){
 					$filter = new Filter();
@@ -596,7 +597,6 @@ class PagesController extends Controller {
 			$city = Input::get('prefered_location');
 			$experience = Input::get('experience');
 			$time_for = Input::get('time_for');
-			$unique_id = Input::get('unique_id');
 			$skill = Input::get('linked_skill_id');
 
 			if($post_type == 'job'){
@@ -605,15 +605,10 @@ class PagesController extends Controller {
 							   ->leftjoin('post_preferred_locations', 'post_preferred_locations.post_id', '=', 'postjobs.id')
 							   ->where('individual_id', '!=', Auth::user()->induser_id);
 
-			if($unique_id != null){
-				$jobPosts->where('unique_id', 'like', '%'.$unique_id.'%');
-			}
-
 			if($post_title != null){
 				$jobPosts->where('post_title', 'like', '%'.$post_title.'%')
-						 ->orWhere('job_detail', 'like', '%'.$post_title.'%')
-						 ->orWhere('role', 'like', '%'.$post_title.'%')
-						 ->orWhere('linked_skill', 'like', '%'.$post_title.'%');
+						 ->whereRaw("(job_detail like '%".$post_title."%' or role like '%".$post_title."%' or linked_skill like '%".$post_title."%')");
+						 
 			}
 
 			if($city != null){
@@ -739,7 +734,7 @@ class PagesController extends Controller {
 			// return $skill;
 				if($save_filter == 'savefilter'){
 					return view('pages.home', compact('jobPosts', 'skillPosts', 'linksApproval', 'linksPending', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'share_links', 'share_groups', 'sort_by', 'sort_by_skill', 'filter', 'skillfilter'))->withErrors([
-						'errors' => 'Filter Save successfully.',
+						'errors' => 'Filter Saved successfully.',
 					]);
 				}else{
 					return view('pages.home', compact('jobPosts', 'skillPosts', 'linksApproval', 'linksPending', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'share_links', 'share_groups', 'sort_by', 'sort_by_skill', 'filter', 'skillfilter'));
@@ -749,7 +744,23 @@ class PagesController extends Controller {
 		}	
 	}
 
-	
+	public function removeJobFilter($id){
+		$removeFilter = Filter::where('from_user', '=', $id)->where('post_type', '=', 'job');
+		if($removeFilter != null){
+			$removeFilter->delete();
+		}
+
+		if($removeFilter != null){
+			return redirect('/home')->withErrors([
+				'errors' => 'Filter Criteria Removed successfully.',
+			]);
+		}else{
+			return redirect('/home');
+		}
+		
+	}
+
+
 public function homeskillFilter(){
 	if (Auth::check()) {
 		$title = 'home';
@@ -1559,6 +1570,7 @@ public function homeskillFilter(){
 
 			$searchResultForJob = Postjob::where('post_title', 'like', '%'.$searchQuery.'%')
 										 ->orWhere('linked_skill', 'like', '%'.$searchQuery.'%')
+										 ->orWhere('post_compname', 'like', '%'.$searchQuery.'%')
 										 ->where('post_type', '=', 'job')
 									 	 ->paginate(10);
 

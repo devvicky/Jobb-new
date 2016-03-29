@@ -85,16 +85,17 @@ jQuery(document).ready(function() {
       $(".save-filter").delay(5000).fadeOut();
     });
 
-    
 
     //job Filter
     var skillArray = [];
     @if($filter != null)
+        @if($filter->linked_skill != null)
         <?php $array = explode(', ', $filter->linked_skill); ?> 
         @if(count($array) > 0)
             @foreach($array as $gt => $gta)
                 skillArray.push('<?php echo $gta; ?>');
             @endforeach
+        @endif
         @endif
     @else
         <?php $authSkill = explode(', ', Auth::user()->induser->linked_skill); ?> 
@@ -110,11 +111,13 @@ jQuery(document).ready(function() {
      //skill Filter
     var skillArray = [];
     @if($skillfilter != null)
+    @if($skillfilter->linked_skill != null)
     <?php $arrayskill = explode(', ', $skillfilter->linked_skill); ?> 
     @if(count($arrayskill) > 0)
     @foreach($arrayskill as $gt => $gta)
         skillArray.push('<?php echo $gta; ?>');
     @endforeach
+    @endif
     @endif
     @endif
     var skillselect = $("#linked_skillid").select2({ dataType: 'json', data: skillArray });
@@ -123,12 +126,23 @@ jQuery(document).ready(function() {
     // preferred loc
     var prefLocationArray = [];
     @if($filter != null)
-    <?php $arr = explode(', ', $filter->city); ?>
-    @if(count($arr) > 0) 
-    @foreach($arr as $ga => $gt)
-        prefLocationArray.push('<?php echo $gt; ?>');
-    @endforeach
-    @endif
+        @if($filter->city != null)
+            <?php $arr = explode(', ', $filter->city); ?>
+            @if(count($arr) > 0) 
+                @foreach($arr as $ga => $gt)
+                    prefLocationArray.push('<?php echo $gt; ?>');
+                @endforeach
+            @endif
+        @endif
+    @else
+        @if(Auth::user()->induser->prefered_location != null)
+            <?php $authCity = explode(', ', Auth::user()->induser->prefered_location); ?> 
+            @if(count($authCity) > 0)
+                @foreach($authCity as $pl => $gta)
+                    prefLocationArray.push('<?php echo $gta; ?>');
+                @endforeach
+            @endif
+        @endif
     @endif
     var plselect = $("#prefered_location").select2({ dataType: 'json', data: prefLocationArray });
     plselect.val(prefLocationArray).trigger("change");
@@ -213,6 +227,15 @@ jQuery(document).ready(function() {
                 currLocationArray.push('<?php echo $gt; ?>');
             @endforeach
         @endif
+     @else
+        @if(Auth::user()->induser->prefered_location != null)
+            <?php $authcurrCity = explode(', ', Auth::user()->induser->prefered_location); ?> 
+            @if(count($authcurrCity) > 0)
+                @foreach($authcurrCity as $pl => $gta)
+                    currLocationArray.push('<?php echo $gta; ?>');
+                @endforeach
+            @endif
+        @endif
     @endif
     var clselect = $("#current_location").select2({ dataType: 'json', data: currLocationArray });
     clselect.val(currLocationArray).trigger("change");
@@ -287,6 +310,14 @@ jQuery(document).ready(function() {
 
 </script>
 <script>
+    $(document).ready(function(){
+    $("#btn").click(function(){
+    /* Single line Reset function executes on click of Reset Button */
+    $("#job-filter")[0].reset();
+    $("#linked_skill_id").val(null).trigger("change"); 
+    $("#prefered_location").val(null).trigger("change");
+    });});
+
 // Experience slider
     
     $("#slider-range-max-skill").slider({
@@ -296,10 +327,12 @@ jQuery(document).ready(function() {
         max: 15,
         step: 1,
         slide: function (event, ui) {
-             $("#slider-range-experience").val(ui.value);   
+            $("#slider-range-experience").val(ui.value); 
+
         }
     });
-    $("#slider-range-experience").val($("#slider-range-max-skill").slider("value"));
+
+        $("#slider-range-experience").val($("#slider-range-max-skill").slider("value"));
 </script>
 <style type="text/css">
 /* required for preferred location */

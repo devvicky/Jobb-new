@@ -297,26 +297,28 @@
                             <div class=" capitalize">Skill: {{ $job->linked_skill }} </div>
                         </div>
                    	</div>
-                   	<div class="row post-postision" style="">
-                                                        
-                        @if($job->min_exp != null)
-                        <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code" style="">
-                        <small style="font-size:13px;color:dimgrey !important;"> <i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: {{ $job->min_exp}}-{{ $job->max_exp}} Yr</small>
-                        </div>
-                        @endif
-                        <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code elipsis-city-code" style="padding:0 12px;">
-                        <small style="font-size:13px;color:dimgrey !important;"> <i class="glyphicon glyphicon-map-marker post-icon-color"></i>&nbsp;: {{ $job->city }}</small>
-                        </div>
-                        <a href="/job/post/{{$job->unique_id}}" target="_blank" class="" >
-	                        <div class="col-md-6 col-sm-6 col-xs-4" style="#676565 !important;">
-	                           Details
+                   	<a href="/job/post/{{$job->unique_id}}">
+	                   	<div class="row post-postision" style="">
+	                                                        
+	                        @if($job->min_exp != null)
+	                        <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code" style="">
+	                        <small style="font-size:13px;color:dimgrey !important;"> <i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: {{ $job->min_exp}}-{{ $job->max_exp}} Yr</small>
 	                        </div>
-	                    </a>
-                       
-                    </div>
-					</div>
-
+	                        @endif
+	                        <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code elipsis-city-code" style="padding:0 12px;">
+	                        <small style="font-size:13px;color:dimgrey !important;"> <i class="glyphicon glyphicon-map-marker post-icon-color"></i>&nbsp;: {{ $job->city }}</small>
+	                        </div>
+	                        <a href="/job/post/{{$job->unique_id}}" target="_blank" class="" >
+		                        <div class="col-md-6 col-sm-6 col-xs-4" style="#676565 !important;">
+		                           Details
+		                        </div>
+		                    </a>
+	                       
+	                    </div>
+	                </a>
 				</div>
+
+			</div>
 				
 				@endforeach
 
@@ -423,23 +425,25 @@
                             
                         @endif
                     </div>
-                    <div class="row post-postision" style="">
-                                                        
-                        @if($skill->min_exp != null)
-                        <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code" style="">
-                        <small style="font-size:13px;color:dimgrey !important;"> <i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: {{ $skill->min_exp}}-{{ $skill->max_exp}} Yr</small>
-                        </div>
-                        @endif
-                        <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code elipsis-city-code" style="padding:0 12px;">
-                        <small style="font-size:13px;color:dimgrey !important;"> <i class="glyphicon glyphicon-map-marker post-icon-color"></i>&nbsp;: {{ $skill->city }}</small>
-                        </div>
-                        <a href="/skill/post/{{$skill->unique_id}}" target="_blank">
-	                        <div class="col-md-6 col-sm-6 col-xs-4" style="#676565 !important;">
-	                           Details
+                    <a href="/skill/post/{{$skill->unique_id}}">
+	                    <div class="row post-postision" style="">
+	                                                        
+	                        @if($skill->min_exp != null)
+	                        <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code" style="">
+	                        <small style="font-size:13px;color:dimgrey !important;"> <i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: {{ $skill->min_exp}}-{{ $skill->max_exp}} Yr</small>
 	                        </div>
-	                    </a>
-                       
-                    </div>
+	                        @endif
+	                        <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code elipsis-city-code" style="padding:0 12px;">
+	                        <small style="font-size:13px;color:dimgrey !important;"> <i class="glyphicon glyphicon-map-marker post-icon-color"></i>&nbsp;: {{ $skill->city }}</small>
+	                        </div>
+	                        <a href="/skill/post/{{$skill->unique_id}}" target="_blank">
+		                        <div class="col-md-6 col-sm-6 col-xs-4" style="#676565 !important;">
+		                           Details
+		                        </div>
+		                    </a>
+	                       
+	                    </div>
+	                </a>
                     </div>
 
                 </div>

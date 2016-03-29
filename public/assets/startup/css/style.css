@@ -45,9 +45,9 @@ img {
 .section-title {
   text-align: center;
   text-transform: uppercase;
-  color: #0BAFA0;
+  color: #1DEAD8;
   font-size: 50px;
-  font-weight: 700;
+  font-weight: 400;
   padding: 48px 20px;
 }
 .section-title span {
@@ -97,7 +97,7 @@ img {
 }
 #header .main-navigation {
   background: rgb(33, 33, 33);
-  border-bottom: 2px solid #0BAFA0;
+  /*border-bottom: 2px solid #0BAFA0;*/
   z-index: 99999999999;
 }
 #header .navbar-brand {
@@ -167,7 +167,7 @@ img {
   background-size: cover;
   color: #ffffff;
   text-align: center;
-  padding-top: 67px;
+  padding-top: 65px;
 }
 #intro .overlay {
   background: url("/assets/startup/img/background/bg-overlay.png") rgba(0, 0, 0, 0.6) repeat;
@@ -176,7 +176,7 @@ img {
   margin: 10px 0px;
 }
 #intro .main-text h1 {
-  font-weight: 700;
+  font-weight: 400;
   font-size: 50px;
   color: #ffffff;
   margin: 20px 0 40px 0;
@@ -212,7 +212,7 @@ img {
 
 @media (max-width: 570px) {
   #intro .main-text h1 {
-      font-weight: 700;
+      font-weight: 400;
       font-size: 25px;
       color: #ffffff;
       margin: 20px 0 40px 0;
@@ -225,9 +225,9 @@ img {
   .section-title {
     text-align: center;
     text-transform: uppercase;
-    color: #0BAFA0;
+    color: #1DEAD8;
     font-size: 28px;
-    font-weight: 700;
+    font-weight: 400;
     padding: 48px 20px;
 }
 
@@ -255,7 +255,7 @@ img {
 }
 }
 #intro .main-text h1 span {
-  color: #0BAFA0;
+  color: #1DEAD8;
 }
 #intro .main-text h2 {
   color: #ffffff;
