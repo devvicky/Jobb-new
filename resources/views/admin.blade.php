@@ -32,25 +32,41 @@ License: You must have a valid license purchased only from themeforest(the above
 <link href="../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
 <!-- END GLOBAL MANDATORY STYLES -->
 <!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
-<link href="../../assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css"/>
-<link href="../../assets/global/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css"/>
-<link href="../../assets/global/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css"/>
-
 <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-select/bootstrap-select.min.css"/>
 <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css"/>
 <link rel="stylesheet" type="text/css" href="/assets/global/plugins/jquery-multi-select/css/multi-select.css"/>
-<link rel="stylesheet" type="text/css" href="../../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
-<!-- END PAGE LEVEL PLUGIN STYLES -->
-<!-- BEGIN PAGE STYLES -->
-<link href="../../assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
-<!-- END PAGE STYLES -->
+
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css"/>
+
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-summernote/summernote.css">
+
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/jquery-tags-input/jquery.tagsinput.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/typeahead/typeahead.css">
+
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-editable/bootstrap-editable/css/bootstrap-editable.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-editable/inputs-ext/address/address.css"/>
+
+<script src="/assets/global/plugins/pace/pace.min.js" type="text/javascript"></script>
+<link href="/assets/global/plugins/pace/themes/pace-theme-minimal.css" rel="stylesheet" type="text/css"/><!-- END PAGE LEVEL STYLES -->
+
 <!-- BEGIN THEME STYLES -->
-<link href="../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
-<link href="../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+<link href="/assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
 <link href="../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
 <link href="../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css" id="style_color"/>
 <link href="../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
-<link href="{{ asset('/assets/custom_admin.css') }}" rel="stylesheet"/>
+<link href="/assets/custom_admin.css" rel="stylesheet"/>
+<link href="../../assets/css/custom.css" rel="stylesheet" type="text/css"/>
+<link href="../../assets/css/custom_new.css" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
 <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
@@ -94,7 +110,7 @@ License: You must have a valid license purchased only from themeforest(the above
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 					<img alt="" class="img-circle" src="../../assets/admin/layout/img/avatar3_small.jpg"/>
 					<span class="username username-hide-on-mobile">
-					{{Auth::user()->induser->fname}} </span>
+					 </span>
 					</a>
 				</li>
 				<!-- END USER LOGIN DROPDOWN -->
@@ -193,8 +209,15 @@ License: You must have a valid license purchased only from themeforest(the above
 				<li class="tooltips" data-container="body" data-placement="right" data-html="true" 
 					data-original-title="Report Abuse">
 					<a href="/controluser">
-						<i class="fa fa-warning"></i>
+						<i class="fa fa-plus"></i>
 						<span class="title">Admin Controller</span>
+					</a>
+				</li>
+				<li class="tooltips" data-container="body" data-placement="right" data-html="true" 
+					data-original-title="Report Abuse">
+					<a href="/usercreate">
+						<i class="fa fa-plus"></i>
+						<span class="title">Create User</span>
 					</a>
 				</li>
 				@if (Auth::guest())
@@ -259,24 +282,6 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="../../assets/global/plugins/respond.min.js"></script>
 <script src="../../assets/global/plugins/excanvas.min.js"></script> 
 <![endif]-->
-<<script src="../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
-<script src="../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
-<!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
-<script src="../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
-<script src="../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
-<script src="../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
-<script src="../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
-<script src="../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
-<script src="../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
-<script src="../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
-<!-- END CORE PLUGINS -->
-<!-- BEGIN PAGE LEVEL PLUGINS -->
-<script type="text/javascript" src="../../assets/global/plugins/select2/select2.min.js"></script>
-<script type="text/javascript" src="../../assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="../../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
-<script type="text/javascript" src="../../assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-<!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="../../assets/global/scripts/metronic.js" type="text/javascript"></script>
 <script src="../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
@@ -288,10 +293,99 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <script src="../../assets/admin/pages/scripts/index.js" type="text/javascript"></script>
 <script src="../../assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>
+
+<script src="/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="/assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
+<script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="/assets/admin/layout2/scripts/layout.js" type="text/javascript"></script>
+<script src="/assets/admin/layout2/scripts/demo.js" type="text/javascript"></script>
+<script src="/assets/admin/pages/scripts/components-form-tools.js" type="text/javascript"></script>
+<script type="text/javascript" src="/assets/global/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js"></script>
+<script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
+
+<script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="/assets/global/scripts/datatable.js"></script>
+<script src="/assets/admin/pages/scripts/table-ajax.js"></script>
+
+<script src="/assets/admin/pages/scripts/components-editors.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
+<script src="/assets/global/plugins/bootstrap-markdown/lib/markdown.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/bootstrap-markdown/js/bootstrap-markdown.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/bootstrap-summernote/summernote.min.js" type="text/javascript"></script>
+
+<script src="/assets/global/plugins/jquery-tags-input/jquery.tagsinput.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/typeahead/typeahead.bundle.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js"></script>
+
+<script src="/assets/admin/pages/scripts/form-wizard.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+
+<script type="text/javascript" src="/assets/global/plugins/moment.min.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery.mockjax.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/bootstrap-editable/bootstrap-editable/js/bootstrap-editable.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/bootstrap-editable/inputs-ext/address/address.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/bootstrap-editable/inputs-ext/wysihtml5/wysihtml5.js"></script>
+<script src="/assets/admin/pages/scripts/form-editable.js"></script>
+<script src="/assets/admin/pages/scripts/components-ion-sliders.js" type="text/javascript"></script>
+
+<script src="/assets/global/plugins/bootstrap-tabdrop/js/bootstrap-tabdrop.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/ion.rangeslider/js/ion-rangeSlider/ion.rangeSlider.min.js" type="text/javascript"></script>
+<script src="/assets/admin/pages/scripts/components-jqueryui-sliders.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/bootstrap-tabdrop/js/bootstrap-tabdrop.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/icheck/icheck.min.js"></script>
+{{-- <script src="/assets/ind_field.js"></script> --}}
+<script src="/assets/admin/pages/scripts/components-knob-dials.js"></script>
+<script src="/assets/global/plugins/jquery-knob/js/jquery.knob.js"></script>
+<script src="/assets/admin/pages/scripts/form-validation.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
+<script src="/assets/admin/pages/scripts/components-form-tools.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/bootstrap-markdown/lib/markdown.js"></script>
+{{-- <script src="/assets/searchableOptionList.js"></script> --}}
+<script src="/assets/sol.js"></script>
+<script src="/assets/multiple-select.js"></script>
+<script src = "/assets/js/jquery.mailtip.js"></script>
+<script src = "/assets/pqselect.dev.js"></script>
+<script src = "/assets/jquery.nstSlider.js"></script>
+<script src="/assets/ind_validation.js"></script>
+
+<script src="/assets/admin/pages/scripts/form-icheck.js"></script>
+<script src="/assets/global/plugins/icheck/icheck.min.js"></script>
+
+<script src="/assets/global/plugins/jcrop/js/jquery.color.js"></script>
+<script src="/assets/global/plugins/jcrop/js/jquery.Jcrop.min.js"></script>
+<script src="/assets/admin/pages/scripts/form-image-crop.js"></script>
+<script src="/assets/jquery.sumoselect.js"></script>
+<script src="/assets/Edubranch.js"></script>
+<script src="/assets/js/jquery.ui.touch-punch.min.js"></script>
+<script src="/assets/global/plugins/bootstrap-growl/jquery.bootstrap-growl.min.js"></script>
+
+<script src="/assets/admin/pages/scripts/components-jqueryui-sliders.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
-{{-- <script src="../../assets/admin/pages/scripts/charts-flotcharts.js"></script> --}}
-<script type="text/javascript" src="../../assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js"></script>
-<script src="../../assets/admin/pages/scripts/components-dropdowns.js"></script>
+<script src="/assets/js/jt-toast.js"></script>
+<script src="/assets/js/justgage.js"></script>
+<script src="/assets/js/raphael-2.1.4.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
+
 <!-- END PAGE LEVEL SCRIPTS -->
 <script>
 jQuery(document).ready(function() {    

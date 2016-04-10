@@ -5,51 +5,9 @@
 @endif
 	<div class="timeline-body-head">
 		<div class="timeline-body-head-caption" style="width:100%;margin:5px;">
-			@if(Auth::user()->induser_id == $post->individual_id && $post->individual_id != null)
-            @if(count($post->groupTagged) > 0)
-            @if($post->sharedGroupBy->first()->mode == 'shared')
-            <div class="row">
-                <div class="col-md-12">
-                    <!-- Post shared by user -->                        
-                    
-                    <div class="shared-by">
-                        {{$post->sharedGroupBy->first()->mode}} by 
-                        <b>{{$post->sharedGroupBy->first()->fname}} 
-                        {{$post->sharedGroupBy->first()->lname}}</b>
-                        to <b>{{$post->sharedToGroup->first()->group_name}}</b> group<br/>
-                    </div>
-                    
-                </div>
-            </div>
-            @endif
-        @endif
-        <div class="row">
-            <div class="col-md-4 col-sm-4 col-xs-12">
-                <a href="/profile/ind/{{$post->individual_id}}" class="link-label " data-utype="ind">
-                    <small>You</small>
-                </a>
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-12 elipsis-code">
-                <i class="fa fa-clock-o" style="font-size: 11px;"></i> 
-                <small>
-                    {{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }}
-                </small>
-            </div>
-        </div>
-        @elseif(Auth::user()->corpuser_id == $post->corporate_id && $post->corporate_id != null)
-        <div class="row">
-            <div class="col-md-4 col-sm-4 col-xs-12">
-                <a href="/profile/ind/{{$post->individual_id}}" class="link-label" data-utype="ind">
-                    <small>You</small>
-                </a>
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-12 elipsis-code">
-                <i class="fa fa-clock-o" style="font-size: 11px;"></i> 
-                <small>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }}</small>
-            </div>
-        </div>
-        @elseif($post->individual_id != null)
-            @if(count($post->groupTagged) > 0)
+			
+        @if($post->individual_id != null )
+            @if(count($post->groupTagged) > 0 && Auth::user()->identifier == 1)
             @if($post->sharedGroupBy->first()->mode == 'shared')
             <div class="row">
                 <div class="col-md-12">

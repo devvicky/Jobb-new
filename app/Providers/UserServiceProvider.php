@@ -116,8 +116,53 @@ class UserServiceProvider extends ServiceProvider {
 				if(Auth::user()->corpuser->username != null){
 					$profilePer = $profilePer + 1;
 				}
+				if(Auth::user()->corpuser->firm_type != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->corpuser->emp_count != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->corpuser->working_as != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->corpuser->slogan != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->corpuser->firm_email_id != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->corpuser->logo_status != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->corpuser->about_firm != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->corpuser->firm_address != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->corpuser->operating_since != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->corpuser->linked_skill != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->corpuser->website_url != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->corpuser->firm_phone != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->corpuser->industry != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->corpuser->role != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->corpuser->city != null){
+					$profilePer = $profilePer + 1;
+				}
 
-				$profilePer = round(($profilePer/20)*100) ;
+				$profilePer = round(($profilePer/17)*100) ;
 			}
 			$view->with('session_user', $user)->with('favourites', $favourites)
 											  ->with('thanksCount', $thanksCount)

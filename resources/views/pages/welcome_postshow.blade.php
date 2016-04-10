@@ -204,11 +204,6 @@
 				@endforeach
 
 			</div>
-			@if(count($jobPosts) > 0)
-			<div style="margin: 15px 25px;text-align:center;"><a href="/login">Show more Jobs</a></div>
-			@else
-			<div style="margin: 15px 25px;text-align:center;"><a href="/login">Search with other credential</a></div>
-			@endif
 		</div>
 		<div class="tab-pane active" id="tab_skill">
 			<div class="search-classic" style="">
@@ -216,7 +211,7 @@
 				<div class="row" style="margin:10px 0;">
 					<div class="col-md-2 col-sm-1"></div>
 					<div class="col-md-7 col-sm-10" style="border-bottom:1px solid lightgrey;background: rgba(229, 229, 229, 0.51);padding:0;">
-						<div class="col-md-2 col-sm-3 col-xs-3">
+						<div class="col-md-2 col-sm-3 col-xs-3" style="margin: 10px 0 0 0;">
 							@if($post->induser != null && !empty($post->induser->profile_pic))
 							<img class="timeline-badge-userpic welcome-userpic-box" src="/img/profile/{{ $post->induser->profile_pic }}" title="{{ $post->induser->fname }}">
 							
@@ -230,7 +225,7 @@
 							<img class="timeline-badge-userpic welcome-userpic-box" src="/assets/images/ab.png">
 							@endif
 						</div>
-						<div class="col-md-6 col-sm-6 col-xs-9">
+						<div class="col-md-6 col-sm-6 col-xs-9" style="margin: 10px 0 0 0;">
 							@if($post->individual_id != null)
 							<div class="row">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -310,11 +305,6 @@
 				@endforeach
 
 			</div>
-			@if(count($jobPosts) > 0)
-			<div style="margin: 15px 25px;text-align:center;"><a href="/login">Show more Skills</a></div>
-			@else
-			<div style="margin: 15px 25px;text-align:center;"><a href="/login">Search with other credential</a></div>
-			@endif
 		</div>
 	</div>
 </div>

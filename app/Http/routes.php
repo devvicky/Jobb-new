@@ -43,10 +43,14 @@ Route::post('forget', 'UserController@forgetPassword');
 Route::get('reset/password/{token}', 'UserController@resetPassword');
 Route::post('reset/password', 'UserController@postResetPassword');
 
+Route::get('reset/password/profile/{token}', 'UserController@resetPasswordProfile');
+Route::post('profile/reset/password', 'UserController@adminProfileResetPassword');
+
 Route::group(array('middleware' => 'auth'), function(){
 
 	Route::post('home', 'PagesController@homeFilter');
 	Route::post('home/skill', 'PagesController@homeskillFilter');
+	Route::post('home/skillfilter', 'PagesController@homecorpSkillFilter');
 
 	Route::post('search/profile', 'PagesController@searchProfile');
 	Route::post('search/ind/profile', 'PagesController@searchIndProfile');
@@ -59,6 +63,8 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::post('postdetail/detail', 'PagesController@postDetail');
 	Route::post('magicmatch/detail', 'PagesController@magicMatch');
 	Route::post('mypostmagicmatch/detail', 'PagesController@mypostmagicMatch');
+
+	Route::post('user/detail', 'PagesController@userDetails');
 
 	Route::get('job/post/{id}', 'PagesController@singleJobPost');
 	Route::get('skill/post/{id}', 'PagesController@singleSkillPost');
@@ -123,6 +129,7 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::post('connections/inviteFriend/{id}', 'ConnectionsController@inviteFriend');
 	Route::post('connections/destroy/{id}', 'ConnectionsController@destroy');
 	Route::post('connections/response/{id}', 'ConnectionsController@response');
+	Route::post('connections/responselink/{id}', 'ConnectionsController@responseLink');
 	Route::post('connections/newLink/{id}', 'ConnectionsController@newLink');
 	Route::post('connections/removeLink/{id}', 'ConnectionsController@removeLink');
 	Route::get('connections/friendlink/{utype}/{id}', 'ConnectionsController@friendLink');
@@ -155,14 +162,9 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::get('individual_view', 'ViewpageController@index');
 	Route::get('individual_view/create', 'ViewpageController@create');
 	Route::get('individual/edit', 'ViewpageController@edit_view');
-	Route::get('corporate/edit', 'ViewpageController@edit_view');
-	// Route::get('profile/{utype}/{id}', 'ViewpageController@corpindView');
-	// Route::get('individual/{id}/thanks', 'ViewpageController@thanks_view');	
-	// Route::get('individual/posts_view', 'ViewpageController@posts_view');	
+	Route::get('corporate/edit', 'ViewpageController@edit_view');	
 
 	Route::get('notify/{type}/{utype}/{id}', 'PagesController@notification');
-	// Route::get('notification/notification', 'PagesController@notification');
-	// Route::get('notification/notificationThanks', 'PagesController@notificationThanks');
 	Route::get('profile/{utype}/{id}', 'PagesController@profile');
 
 	// corporate follow/unfollow
@@ -180,6 +182,7 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::get('favourite', 'PagesController@favourite');
 	Route::get('postbyuser/{utype}/{id}', 'PagesController@postByUser');
 	Route::get('postingroup/{id}', 'PagesController@postInGroup');
+	Route::get('postedby/corporate/{id}', 'PagesController@postedByCorp');
 
 	Route::post('change/password', 'UserController@postChangePassword');
 	Route::post('report-abuse', 'JobController@reportAbuse');
@@ -187,6 +190,8 @@ Route::group(array('middleware' => 'auth'), function(){
 
 	Route::post('post/share', 'JobController@sharePost');
 	Route::post('/resendOTP', 'PagesController@resendOTP');
+
+	Route::post('notification/countremove/{id}', 'NotificationController@RemoveCount');
 
 	Route::post('/notification/mark-as-read/{id}', 'NotificationController@update');
 	Route::get('post/expire', 'JobController@expiringToday');
@@ -199,6 +204,8 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::get('home/skill/{sort_by_skill}', 'PagesController@homeskillSorting');
 
 	Route::get('mypost/post/{sort_by}', 'PagesController@myActivitySorting');
+	
+	Route::get('/mypost/single/{id}', 'PagesController@myPostSingle');
 
 	Route::get('home/contactus', 'PagesController@contactUs');
 	Route::get('login/aboutme', 'PagesController@aboutMe');
@@ -214,6 +221,8 @@ Route::group(array('middleware' => 'auth'), function(){
 
 	Route::get('dataUpdate', 'AdminController@create');
 	Route::get('controluser', 'AdminController@controlUser');
+	Route::get('usercreate', 'AdminController@createUser');
+	Route::post('createuserrequest', 'AdminController@createUserRequest');
 
 	Route::post('roles/addroles', 'AdminController@addNewRoles');
 	Route::get('roles/rolesSearch', 'AdminController@roleSearch');

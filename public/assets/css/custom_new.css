@@ -120,13 +120,15 @@ input:focus:-ms-input-placeholder { font-size: 12px !important; } */
 }
 
 @media screen and (min-width: 1000px) {
-.navigation-bar{
-  display: none;
+  .navigation-bar{
+    display: none;
+  }
 }
 
-#nav-than-fav{
-  display: none;
-}
+@media screen and (min-width: 450px) {
+  #nav-than-fav{
+    display: none;
+  }
 
 }
 
@@ -265,6 +267,11 @@ display:none !important;
 @media (min-width: 768px){
 .modal-dialog {
     width: 470px;
+    margin: 56px auto !important;
+}
+
+.modal-dialog-new {
+    width: 700px !important;
     margin: 56px auto !important;
 }
 
@@ -484,7 +491,7 @@ display: table;
 }
 
 .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{
-  border:2px solid #ddd;
+  border:1px solid #ddd;
 }
 
 .title-color{
@@ -493,11 +500,11 @@ display: table;
 }
 
 .title-bacground-color{
-  background-color: lavender !important;
+  background-color: #8EF98F !important;
 }
 
-.title-bacground-color:hover{
-  background-color: lavender !important;
+.title-bacground-nonmatch-color{
+  background-color: #F5B2B5 !important;
 }
 
 .content-color{

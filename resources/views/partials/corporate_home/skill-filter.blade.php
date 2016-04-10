@@ -38,6 +38,15 @@
 		</div>		
 	</div>
 </div>
+@if (count($errors) > 0)
+	<div class="alert alert-success save-filter">
+		<ul>
+			@foreach ($errors->all() as $error)
+				<li>{{ $error }}</li>
+			@endforeach
+		</ul>
+	</div>
+@endif
 <div id="homeskillfiltermodal" class="modal fade" tabindex="-1" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -46,7 +55,7 @@
 				aria-hidden="true" style="margin-top: 6px !important;"></button>
 				<h4 class="modal-title">Filter Skill Posts</h4>
 			</div>
-			<form name="filter_form" action="home/skill" method="post">
+			<form name="filter_form" action="/home/skillfilter" method="post">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<div class="modal-body">
 				<div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
@@ -88,13 +97,39 @@
 							</div>
 						</div>
 					</div>
+					<?php if($filter != null){
+						$temp = explode(', ', $filter->time_for);
+						$ft = "";
+						$pt = "";
+						$fr = "";
+						$wf = "";
+
+						if(in_array("Full Time", $temp)){
+							$ft = "active";
+
+						}
+						if(in_array("Part Time", $temp)){
+							$pt = "active";
+
+						}
+						if(in_array("Freelancer", $temp)){
+							$fr = "active";
+
+						}
+						if(in_array("Work from Home", $temp)){
+							$wf = "active";
+
+						}
+
+					} ?>
 					<div class="row" style="margin:0;">
 						<!-- <div class="col-md-12"> -->
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								 <div class="btn-group" data-toggle="buttons">
-					                <label class="btn default btn-filter " style="padding:0;">
+					                <label class="btn default btn-filter @if($filter != null) {{$ft}} @else active @endif" style="padding:0;">
 					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
-					                    <input type="checkbox" name="time_for[]" class="toggle">
+					                    <input type="checkbox" name="time_for[]" value="Full Time" class="toggle"
+					                     @if($filter != null) @if($ft != "") checked @endif @endif>
 					                    <a class="icon-btn icon-filter-btn jobtype-css">
 						                    <div class="jtype-name-css">
 						                    	Full<br/> Time
@@ -105,9 +140,10 @@
 							</div>
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								<div class="btn-group" data-toggle="buttons">
-					                <label class="btn default btn-filter" style="padding:0;">
+					                <label class="btn default btn-filter @if($filter != null) {{$pt}} @else active @endif" style="padding:0;">
 					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
-					                    <input type="checkbox" name="time_for[]" class="toggle">
+					                    <input type="checkbox" name="time_for[]" value="Part Time" class="toggle" 
+					                    @if($filter != null) @if($pt != "") checked @endif @endif>
 					                    <a class="icon-btn icon-filter-btn jobtype-css">
 						                    <div class="jtype-name-css">
 						                         Part<br/> Time
@@ -118,9 +154,10 @@
 							</div>
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								<div class="btn-group" data-toggle="buttons">
-					                <label class="btn default btn-filter" style="padding:0;">
+					                <label class="btn default btn-filter @if($filter != null) {{$fr}} @else active @endif" style="padding:0;">
 					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
-					                    <input type="checkbox" name="time_for[]" class="toggle">
+					                    <input type="checkbox" name="time_for[]" value="Freelancer" class="toggle" 
+					                    @if($filter != null) @if($fr != "") checked @endif @endif>
 					                    <a class="icon-btn icon-filter-btn jobtype-css">
 						                    <div class="jtype-name-css">
 						                    	<br/>
@@ -132,9 +169,10 @@
 							</div>
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
 								<div class="btn-group" data-toggle="buttons">
-					                <label class="btn default btn-filter" style="padding:0;">
+					                <label class="btn default btn-filter @if($filter != null) {{$wf}} @else active @endif" style="padding:0;">
 					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
-					                    <input type="checkbox" name="time_for[]" class="toggle">
+					                    <input type="checkbox" name="time_for[]" value="Work from Home" class="toggle" 
+					                    @if($filter != null) @if($wf != "") checked @endif @endif>
 					                    <a class="icon-btn icon-filter-btn jobtype-css">
 						                    <div class="jtype-name-css">
 						                         Work<br/>From Home
@@ -143,7 +181,6 @@
 					                </label>
 					            </div>
 							</div>
-							
 						<!-- </div> -->
 					</div>
 					<div class="row" style="margin: 15px 0 0 0;">

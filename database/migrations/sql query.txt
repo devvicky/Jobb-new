@@ -129,3 +129,7 @@ ALTER TABLE `postjobs`
 ALTER TABLE `users`
 	ADD COLUMN `profile_alert` INT(1) UNSIGNED NOT NULL AFTER `identifier`,
 	ADD COLUMN `profile_alert_dtTime` DATETIME NOT NULL AFTER `profile_alert`;
+
+
+ALTER TABLE `postjobs`
+	CHANGE COLUMN `locality` `show_contact` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8_unicode_ci' AFTER `contact_person`;

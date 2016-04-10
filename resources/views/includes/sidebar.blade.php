@@ -1,10 +1,28 @@
 <!-- BEGIN SIDEBAR1 -->
+<!-- <header id="header" class="alt">
+  <nav id="nav">
+    <ul>
+      <li class="special">
+        <a href="#menu" class="menuToggle"><span>Menu</span></a>
+        <div id="menu">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="generic.html">Generic</a></li>
+            <li><a href="elements.html">Elements</a></li>
+            <li><a href="#">Sign Up</a></li>
+            <li><a href="#">Log In</a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </nav>
+</header> -->
 <div class="page-sidebar-wrapper">
   <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
   <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
 
   <div class="page-sidebar navbar-collapse collapse " >
-   <div class="navigation-bar"><a href="javascript:;" class="menu-toggler responsive-toggler toggle-disp" data-toggle="collapse" data-target=".navbar-collapse">
+   <div class="navigation-bar"><a href="javascript:;" id="mobile-nav" class="menu-toggler responsive-toggler toggle-disp" data-toggle="collapse" data-target=".navbar-collapse">
       <i class="fa fa-bars" style="font-size: 18px;"></i>
     </a>
   </div>
@@ -62,8 +80,9 @@
             @endif
 
           </div>
-          <div id="g1" class="gauge"></div>
-          <div style="font-size: 10px;margin: -15px 12px 0px;float: right;">Profile Complete</div>
+
+          <!-- <div id="g1" class="gauge"></div>
+          <div style="font-size: 10px;margin: -15px 12px 0px;float: right;">Profile Complete</div> -->
           @else
           <div class="profile-userpic-corp user-image">
             <a id="ajax-demo" href="#profile-pic" data-toggle="modal" class="config">
@@ -76,27 +95,21 @@
                 @endif       
             </a>
           </div>
-          <div id="g1" class="gauge"></div>
-          <div style="font-size: 10px;margin: -15px 12px 0px;float: right;">Profile Complete</div>
+          <div style="margin: 10px 0 -15px 0;"> 
+              <label style="font-size:12px;">
+             <span class="badge badge-default @if($followCount > 0) show @else hide @endif" style="font-weight:500;background-color: transparent !important;border:1px solid white;">
+              {{$followCount}} Followers </span></label>
+          </div>
           @endif
           <h3 class="form-title user-name">
             @if(Auth::user()->identifier == 1)
            <a style="color: #56D2FA;text-decoration:none;font-size:15px;" href="/profile/ind/{{$session_user->id}}" data-utype="ind"> 
             {{ $session_user->fname }} {{ $session_user->lname }} </a>&nbsp;
-            <a style="color: white;text-decoration:none;" href="/individual/edit" data-utype="ind"> 
-              <i class="fa fa-edit (alias)"></i>
-            </a>
+            
             @else
             <a style="color: #56D2FA;text-decoration:none;font-size:14px;" class="" href="/profile/corp/{{$session_user->id}}" data-utype="corp"> 
              {{ $session_user->firm_name }} 
-            </a>&nbsp;
-            <a style="color: white;text-decoration:none;" href="/corporate/edit" data-utype="ind"> 
-              <i class="fa fa-edit (alias)"></i>
             </a>
-            <br>
-           <div> <label style="font-size:12px;">
-             <span class="badge badge-default @if($followCount > 0) show @else hide @endif" style="font-weight:500;background-color: darkseagreen !important;">
-              {{$followCount}} Followers </span></label></div>
             @endif
           </h3>
           @if(Auth::user()->identifier == 1)
@@ -138,17 +151,82 @@
             </div>
             @endif
           @endif
+         @if($profilePer <= 25)
+          <div class="progress" style="margin: 3px;border-radius: 13px !important;height:10px;">
+            <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" style="width:{{$profilePer}}%;color:black;">
+              
+            </div>
+          </div>
+           {{$profilePer}}% Profile Complete
+          @elseif($profilePer > 25 && $profilePer <=50)
+         <div class="progress" style="margin: 3px;border-radius: 13px !important;height:10px;">
+            <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" style="width:{{$profilePer}}%;color:black;">
+              
+            </div>
+          </div>
+           {{$profilePer}}% Profile Complete
+          @elseif($profilePer > 50 && $profilePer <=75)
+          <div class="progress" style="margin: 3px;border-radius: 13px !important;height:10px;">
+            <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" style="width:{{$profilePer}}%;color:black;">
+              
+            </div>
+          </div>
+           {{$profilePer}}% Profile Complete
+          @elseif($profilePer > 75)
+          <div class="progress" style="margin: 3px;border-radius: 13px !important;height:10px;">
+            <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" style="width:{{$profilePer}}%;color:black;background-color: #27D8CD;">
+               
+            </div>
+          </div>
+          {{$profilePer}}% Profile Complete
+          @endif
           
-          
-         
         </div>
       </li>
-      @if (Auth::user()->identifier == 1 || Auth::user()->identifier == 2)
+      @if (Auth::user()->identifier == 1)
       <li class="@if($title == 'home'){{'active'}}@endif">
         <a class="" href="/home">
         <i class=" icon-home"></i>
         <span class="title">
         Home</span>
+        <span class="selected">
+        </span>
+        </a>
+      </li>
+      <li class="">
+        <a class="" href="/individual/edit">
+        <i class="icon-link"></i>
+        <span class="title">
+        My Profile</span>
+        <span class="selected">
+        </span>
+        </a>
+      </li>
+      <li class="@if($title == 'mypost'){{'active'}}@endif">
+        <a class="" href="/mypost">
+        <i class=" icon-note"></i>
+        <span class="title">
+        My Activity</span>
+        <span class="selected">
+        </span>
+        </a>
+      </li>
+      @endif
+      @if (Auth::user()->identifier == 2)
+      <li class="@if($title == 'home'){{'active'}}@endif">
+        <a class="" href="/home">
+        <i class=" icon-home"></i>
+        <span class="title">
+        Home</span>
+        <span class="selected">
+        </span>
+        </a>
+      </li>
+      <li class="">
+        <a class="" href="/corporate/edit">
+        <i class="icon-link"></i>
+        <span class="title">
+        My Profile</span>
         <span class="selected">
         </span>
         </a>
@@ -164,6 +242,7 @@
       </li>
       @endif
       @if (Auth::user()->identifier == 1)
+      
       <li class="@if($title == 'connections'){{'active'}}@endif">
         <a class="" href="/links">
         <i class="icon-link"></i>
@@ -184,20 +263,12 @@
       </li>
       @endif
       @if (Auth::user()->identifier == 2)
-      <li class="@if($title == 'search_profile'){{'active'}}@endif">
-        <a class="" href="/searchProfile">
-        <i class="fa fa-search"></i>
-        <span class="title">
-        Search Profile</span>
-        <span class="selected">
-        </span>
-        </a>
-      </li>
+
       <li class="@if($title == 'favouriteprofile'){{'active'}}@endif">
         <a class="" href="/favouriteProfile">
         <i class="icon-users"></i>
         <span class="title">
-        Sortlisted Profile</span>
+        Saved Profile</span>
         <span class="selected">
         </span>
         </a>
@@ -311,57 +382,3 @@
   </div>
 </div>
 <!-- END SIDEBAR1-->
-<style type="text/css">
-@media (min-width: 570px) {
-.gauge {
-    width: 70px;
-    height: 70px;
-    /*float: none;
-    margin: -25px auto -15px; */
-    position: absolute;
-    right: 13px;
-    top: 23px;   
-    }
-}
-@media (max-width: 570px) {
-    .gauge {
-      width: 70px;
-      height: 70px;
-      position: absolute;
-      right: 15px;
-      top: 105px;
-  }
-}
-</style>
-<script>
-  document.addEventListener("DOMContentLoaded", function(event) {
-
-      var g1 = new JustGage({
-          id: "g1",
-          value: {{$profilePer}},
-          min: 0,
-          max: 100,
-          decimals: 0,
-          customSectors: [{
-            color: '#40F3B1',
-            lo: 75,
-            hi: 100
-          }, {
-            color: '#31b0d5',
-            lo: 50,
-            hi: 75
-          }, {
-            color: '#f0ad4e',
-            lo: 25,
-            hi: 50
-          }, {
-            color: '#c9302c',
-            lo: 0,
-            hi: 25
-          }],
-          gaugeWidthScale: 0.6,
-          hideMinMax: true
-      });
-
-  });
-</script>

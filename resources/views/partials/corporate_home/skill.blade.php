@@ -12,9 +12,17 @@
 				<?php $city = 'unspecified'; ?>
 				@if($post->preferLocations != '[]')
 					<?php $city = ''; ?>
-				@foreach($post->preferLocations as $pl)
-					<?php $city = $city . $pl->city .', '; ?>
-				@endforeach
+				@if(count($post->preferLocations) > 1)
+					@foreach($post->preferLocations as $pl)
+						
+						<?php $city = $city . $pl->city . ', '; ?>
+					@endforeach
+				@elseif(count($post->preferLocations) == 1)
+					@foreach($post->preferLocations as $pl)
+					
+						<?php $city = $city . $pl->city; ?>
+					@endforeach
+				@endif
 				@endif
 				@if($post->expired == 0)
 					@if($post->induser != null)	

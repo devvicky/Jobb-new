@@ -74,7 +74,7 @@ class SkillController extends Controller {
         $temp = explode(', ', $request['role']);
 		$request['functional_area'] = $temp[0];
 		$request['role'] = $temp[1];
-
+		$request['education'] = implode('-', $request['education']);
 		$post = Postjob::create($request->all());
 
 		// $post->skills()->attach($skillIds);

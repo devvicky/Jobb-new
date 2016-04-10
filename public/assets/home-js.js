@@ -214,9 +214,8 @@ $('.link-btn').live('click', function(event) {
 
         success: function(data) {
             if(data == 'success'){
-                $(".puid-"+puid).html('<button class="btn btn-xs disabled linkrequest-follow-icon-css"><i class="icon-hourglass (alias) " style="color:#777;font-size:8px;"></i> Link Requested</button>');
+                $(".puid-"+puid).html('<a href="#links-follow" data-toggle="modal" class="user-link" data-linked="no" data-utype="ind"><button class="btn btn-xs linkrequest-follow-icon-css"><i class="icon-hourglass (alias) " style="color:#F7F7F7;font-size:10px;"></i> Link Requested</button></a>');
                 $('#links-follow').modal('hide');
-                displayToast("Link Requested");
             }
         }
     });
@@ -247,9 +246,8 @@ $('.link-remove-btn').live('click', function(event) {
 
         success: function(data) {
             if(data == 'success'){
-                 $(".puid-"+puid).html('<button class="btn btn-xs unlink-follow-icon-css"><i class="icon-hourglass (alias)" style="color:dimgrey;font-size:8px;"></i> Add Link</button>');
+                 $(".puid-"+puid).html('<a href="#links-follow" data-toggle="modal" class="user-link3" data-linked="no" data-utype="ind"><button class="btn btn-xs unlink-follow-icon-css"><i class="icon-hourglass (alias)" style="color:dimgrey;font-size:10px;"></i> Add Link</button></a>');
                 $('#links-follow').modal('hide');
-
             }
         }
     });
@@ -280,9 +278,8 @@ $('.follow-btn').live('click', function(event) {
         success: function(data) {
             if(data == 'success'){
                 console.log(data);
-                 $(".pfid-"+puid).html('<a href="#links-follow" data-toggle="modal" class="user-link3" data-linked="no" data-utype="corp"><button class="btn btn-xs link-follow-icon-css"><i class="icon-check" style="color:#F7F7F7;font-size:10px;"></i> Following</button></a>');
+                 $(".pfid-"+puid).html('<a href="#links-follow" data-toggle="modal" class="user-link3" data-linked="no" data-utype="ind"><button class="btn btn-xs link-follow-icon-css"><i class="icon-check" style="color:#F7F7F7;font-size:10px;"></i> Following</button></a>');
                 $('#links-follow').modal('hide');
-                displayToast("Following");
             }
         }
     });
@@ -314,7 +311,7 @@ $('.unfollow-btn').live('click', function(event) {
         success: function(data) {
             if(data == 'success'){
                 console.log(data);
-                 $(".pfid-"+puid).html('<a href="#links-follow" data-toggle="modal" class="user-link3" data-linked="yes" data-utype="corp"><button class="btn btn-xs unlink-follow-icon-css"><i class="icon-plus" style="color:dimgrey;font-size:10px;"></i> Follow</button></a>');
+                 $(".pfid-"+puid).html('<a href="#links-follow" data-toggle="modal" class="user-link3" data-linked="no" data-utype="ind"><button class="btn btn-xs unlink-follow-icon-css"><i class="icon-plus" style="color:dimgrey;font-size:10px;"></i> Follow</button></a>');
                 $('#links-follow').modal('hide');
             }
         }

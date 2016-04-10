@@ -71,6 +71,7 @@
 <link href="/assets/global/plugins/ion.rangeslider/css/ion.rangeSlider.Metronic.css" rel="stylesheet"/>
 <link href="/assets/css/custom.css" rel="stylesheet"/>
 <link href="/assets/css/custom_new.css" rel="stylesheet"/>
+
 <script src="/assets/global/plugins/autosize/autosize.min.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL STYLES -->
 
@@ -93,7 +94,6 @@
 <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="/assets/component-btn.css"/>
-
 @yield('css')
 
 <style type="css/text" rel="stylesheet">
@@ -233,7 +233,6 @@ input:focus:-moz-placeholder { color:white !important; } /* FF 4-18 */
 input:focus::-moz-placeholder { color:white !important; } /* FF 19+ */
 input:focus:-ms-input-placeholder { color:white !important; } /* IE 10+ */
 
-
 </style>
 <!-- END THEME STYLES -->
 {{-- <link rel="shortcut icon" href="favicon.ico"/> --}}
@@ -293,7 +292,26 @@ input:focus:-ms-input-placeholder { color:white !important; } /* IE 10+ */
     <img src="/assets/loader.gif"><span> Please wait...</span>
   </div>
 </div>
-
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+         Your profile is {{Auth::user()->profile_status}}% completed. Please update it to get more job opportunities.
+      </div>
+      <div class="modal-footer">
+        <a href="/individual/edit" class="btn green" >Go to Edit Page</a>
+        <button type="button" class="btn blue" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
 <!--[if lt IE 9]>
@@ -769,17 +787,49 @@ $(document).ready(function () {
     });
 });
 
+//Link Request
+
+$('.notification-icon').live('click', function(event) {
+    event.preventDefault();
+    var id = $(this).data('id');
+    var formData = $('#notification_count').serialize();
+    var formAction = $('#notification_count').attr('action');
+    
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        url: formAction,
+        type: "post",
+        data: formData,
+        cache: false,
+
+        success: function(data) {
+            if(data == 'success'){
+
+            }
+        }
+    });
+    return false;
+});
 
 // profile check
-console.log( {{Auth::user()->profile_alerted}} );
-console.log( {{Auth::user()->profile_status}} );
+
+
+
+</script>
+<script type="text/javascript">
 
 $alerted = {{Auth::user()->profile_alerted}};
 $profile_status = {{Auth::user()->profile_status}};
 
+$(window).load(function () {
 if( $alerted == 0 && $profile_status <= 70 ){
-  alert("Your profile is "+$profile_status+"% completed. Please update it to get more job opportunities.");
-  $.ajax({
+    $('#myModal').modal('show');
+     $.ajax({
     url: "/profile/alerted",
     type: "get",
     success: function(data){
@@ -787,8 +837,7 @@ if( $alerted == 0 && $profile_status <= 70 ){
     }
   });
 }
- 
-
+});
 </script>
 @yield('javascript')
 

@@ -91,10 +91,13 @@ class JobController extends Controller {
 	 */
 	public function store(CreatePostjobRequest $request)
 	{
-		if(Auth::user()->identifier == 1)
+		if(Auth::user()->identifier == 1){
 			$request['individual_id'] = Auth::user()->induser_id;
-		else
+
+		}else{
 			$request['corporate_id'] = Auth::user()->corpuser_id;
+		}
+		
 		$request['post_type'] = 'job';
 		$request['education'] = implode(',', $request['education']);
 
@@ -337,6 +340,13 @@ class JobController extends Controller {
 							 ->first();		
 
 		$post_id = $request['contact'];
+		$postUser = Postjob::where('id', '=', $request['contact'])->first(['contact_person', 'email_id', 'phone']);
+
+			$data = [];
+			$data['contact'] = $postUser->contact_person;
+			$data['phone'] = $postUser->phone;
+			$data['email'] = $postUser->email_id;
+
 		if($apply == null){
 			$apply = new Postactivity();
 			$apply->post_id = $post_id;
@@ -346,6 +356,8 @@ class JobController extends Controller {
 			$apply->contact_view = 1;
 			$apply->contact_view_dtTime = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'));
 			$apply->save();
+			$data['date'] = $apply->contact_view_dtTime;
+			
 
 			// Notification entry
 			if($post_id != null){
@@ -372,13 +384,17 @@ class JobController extends Controller {
 				}
 
 			}			
-
-			return "contacted";
+			if(!empty($data) && $postUser != null){
+				return response()->json(['success'=>'success','data'=>$data, 'contacted'=>'contacted']);
+			}else{
+				return "contacted";
+			}
+			
 		}elseif($apply != null && $apply->contact_view == 0){
 			$apply->contact_view = 1;
 			$apply->contact_view_dtTime = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'));
 			$apply->save();
-
+			$data['date'] = $apply->contact_view_dtTime;
 			// Notification entry
 			if($post_id != null){
 				$to_user = 0;
@@ -405,7 +421,11 @@ class JobController extends Controller {
 
 			}
 
-			return "contacted";
+			if(!empty($data) && $postUser != null){
+				return response()->json(['success'=>'success','data'=>$data, 'contacted'=>'contacted']);
+			}else{
+				return "contacted";
+			}
 		}
 
 	}
@@ -534,7 +554,7 @@ class JobController extends Controller {
 	}
 
 	public function reportAbusePage(){
-		$reportedAbusivePosts = ReportAbuse::with('post')
+		$reportedAbusivePosts = ReportAbuse::with('post', 'user')
 									->groupBy('post_id')
 									->having(DB::raw('count(*)'), '>', 1)
 									->where('reported_for', 'like', '%1%')    					    

@@ -1,7 +1,93 @@
 @extends('master')
 
 @section('content')
-
+<div class="col-md-7 col-sm-8">
+<a class="advance-search btn advance-searched-profile">Modify</a>
+</div>
+<div class="row clearfix" style="margin-bottom:10px">	
+	<!-- BEGIN ADVANCED SEARCH -->
+	<div class="col-md-7 col-sm-8">
+		<div class="show-adsearch">
+			<form id="search-profile" action="/search/profile" method="post">
+		      	<input type="hidden" name="_token" value="{{ csrf_token() }}">
+				<!-- <div class="row-md-2"></div> -->
+				<div class="row" style="margin-bottom: 20px;margin-top: 10px;">
+					<div class="col-md-12 col-sm-12 col-xs-12 advance-len" style="margin:10px 0;">
+					  <div class="input-group" style="margin:0 auto;">
+					    <div class="icheck-inline">
+					      <label>
+					      	<input id="id_radio1" type="radio" checked name="type" value="people" class="">
+					      	People
+					      </label>
+					      <label>
+					      	<input id="id_radio2" type="radio" value="company" name="type" class="">
+					      	Company
+					      </label>
+					    </div>
+					  </div>
+					</div> 
+				</div>
+				<div class="row show-firm-type" style="margin: 0px auto; float: none; display: table;">
+					<div class="btn-group col-md-12 col-sm-12 col-xs-12" style="margin:10px;" data-toggle="buttons">
+						<label>
+							<input type="checkbox" class="icheck" 
+									name="firm_type[]" value="company"
+									data-checkbox="icheckbox_line-grey" 
+									data-label="Company" checked>
+						</label>												
+						<label>
+							<input type="checkbox" class="icheck" 
+									name="firm_type[]" value="consultancy"
+									data-checkbox="icheckbox_line-grey" 
+									data-label="Consultancy" checked>
+						</label>
+					</div>
+				</div>
+				<div class="row" style="margin:0;">
+					<div class="col-md-6 col-sm-6 col-xs-12">
+					  <div class="form-group">              
+					      <input type="text" name="name" class="form-control filter-input " 
+					      			placeholder="Enter Name or Email Id" required/>
+					  </div>  
+					</div>
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<input type="text" id="city" name="city" class="form-control" placeholder="Enter City">
+					</div>
+				</div>
+		       <div class="row" style="margin:0;">
+					<div class="col-md-12 col-sm-12 col-xs-12 hide-role">
+						<div class="form-group">
+							<input type="text" class="form-control" name="role" placeholder="Enter Keywords">
+						</div>					
+					</div>
+		        </div>
+				<div class="row show-comp" style="margin:0;">
+					<div class="col-md-6 col-sm-6 col-xs-12">
+					  	<div class="form-group">              
+					      <input type="text" name="working_at" class="form-control filter-input" placeholder="Working at">
+					  	</div>  
+					</div>
+					<div class="col-md-6 col-sm-6 col-xs-12">
+					  	<div class="form-group">              
+					      <input type="text" name="mobile" class="form-control filter-input " placeholder="Mobile No">
+					  	</div>  
+					</div>
+				</div>
+		      	<div class="row" style="margin-bottom: 10px;">
+			        <div class="col-md-12 col-sm-12 col-xs-12">
+						<div class="footer links-title center-css">              
+						  <button type="submit" class="btn blue "><i class="glyphicon glyphicon-search"></i> Search</button>	
+						</div> 
+						<div class="advance-search group-back-position">
+							<button type="button" class="btn" style="background-color:transparent;">
+							<i class="glyphicon glyphicon-chevron-left"></i> Back</button>
+						</div>
+			        </div>		        
+		      	</div>
+		    </form>
+		</div>
+	</div>
+</div>
 <div class="portlet light bordered" style="border: none !important;background:transparent">	
 	<div class="portlet-title">
 		<div class="caption links-title">
@@ -141,103 +227,26 @@
 
 	</div>
 </div>
-
-
-	
-
 					
 @stop
 
 @section('javascript')
-
 <script type="text/javascript">
-     $(document).ready(function () {
-     	// event.preventDefault();
-     	// var profileid = $(this).parent().data('profileid');
-     	$('.profile-show').hide();
-        $('.view-profile').click(function () {
-           $('.profile-show').show();
-           $('.view-profile').hide();
+$('.show-firm-type').hide();
+
+    jQuery('.advance-search').on('click', function(event) {
+	    jQuery('.show-adsearch').toggle('show');
+	    jQuery('.normal_search').toggle('hide');
     });
-   });
 
+    jQuery('#id_radio1').on('click', function(event) {
+	    jQuery('.show-comp').toggle('show');
+	    jQuery('.show-firm-type').toggle('hide');
+    });
 
-    $('.profile-fav-btn').live('click',function(event){  	    
-  	event.preventDefault();
-  	var post_id = $(this).parent().data('id');
-
-  	var formData = $('#profile-fav-'+post_id).serialize(); 
-    var formAction = $('#profile-fav-'+post_id).attr('action');
-    $count = $.trim($('#profilefavcount').text());
-    if($count.length == 0 || $count == ""){
-		$count = 0;
-	}
-    $.ajaxSetup({
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		}
-	});
-
-    $.ajax({
-      url: formAction,
-      type: "post",
-      data: formData,
-      cache : false,
-
-      success: function(data){
-     		// console.log(data);
-      	if(data.data.save_contact == 1 && data.success == 'success'){
-
- 			var out = '<div class="col-md-8 col-sm-8 col-xs-12" style="padding:0 !important;margin: 5px 0;">';
- 			out += '<i class="fa fa-envelope"></i> : '+data.data.email+'<br>';
- 			out += '<i class="fa fa-phone-square"></i> : '+data.data.mobile+'</div>';
- 			out += '<div class="col-md-4 col-sm-4 col-xs-12" style="padding:0 !important;margin: 5px 0;">';
- 			out += '<a class="btn blue corp-profile-resume" href="'+data.data.resume+'">'
- 			out += '<i class="glyphicon glyphicon-download"></i> Resume</a></div>';
-
- 			$("#profile-contacts-"+post_id).html(out);
- 			$("#profilefav-btn-"+post_id).hide();
- 			$('#profilefav-btn-'+post_id).prop('disabled', true);
-			
-        }else {
-        	// console.log(data);
-        }
-      }
-    }); 
-    return false;
-  }); 
-
-
- $('.profile-save-btn').live('click',function(event){  	    
-  	event.preventDefault();
-  	var post_id = $(this).parent().data('saveid');
-
-  	var formData = $('#profile-save-'+post_id).serialize(); 
-    var formAction = $('#profile-save-'+post_id).attr('action');
-    
-    $.ajaxSetup({
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		}
-	});
-
-    $.ajax({
-      url: formAction,
-      type: "post",
-      data: formData,
-      cache : false,
-
-      success: function(data){
-     		// console.log(data);
-      	if(data.data.save_profile == 1 && data.success == 'success'){
-			$('#profilesave-btn-'+post_id).css({'color':'#FFC823'});	
-        }else if(data.data.save_profile == 0){
-        	$('#profilesave-btn-'+post_id).css({'color':'transparent'});
-        }
-      }
-    }); 
-    return false;
-  }); 
+    jQuery('#id_radio2').on('click', function(event) {
+	    jQuery('.show-comp').toggle('hide');
+	    jQuery('.show-firm-type').toggle('show');
+    });
 </script>
-
 @stop

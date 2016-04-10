@@ -131,3 +131,145 @@ function displayToast($msg) {
         stackup_spacing: 10 // spacing between consecutively stacked growls.
     });
 }
+
+
+
+// modal job filter
+$selectedSkills = $("#linked_skill_id").select2();
+$gotit = [];
+$(function() {
+
+    function split(val) {
+        return val.split(/,\s*/);
+    }
+
+    function extractLast(term) {
+        return split(term).pop();
+    }
+
+    $("#newskill-job")
+        .bind("keydown", function(event) {
+            if (event.keyCode === $.ui.keyCode.TAB && $(this).autocomplete("instance").menu.active) {
+                event.preventDefault();
+            }
+        })
+        .autocomplete({
+            appendTo: '#job-skill-wrapper',
+            source: function(request, response) {
+                
+                $.ajax({
+                    url: '/job/skillSearch',
+                    dataType: "json",
+                    data: {
+                        term: extractLast(request.term)
+                    },
+                    success: function(data) {
+                        if (data.length === 0) {
+                            $('#add-new-skill').removeClass('hide');
+                            $('#add-new-skill').addClass('show');
+                        } else {
+                            $('#add-new-skill').removeClass('show');
+                            $('#add-new-skill').addClass('hide');
+                        }
+                        response(data);
+                    }
+                });
+
+            },
+            search: function() {
+                var term = extractLast(this.value);
+                if (term.length < 2) {
+                    return false;
+                }
+            },
+            focus: function() {
+                return false;
+            },
+            select: function(event, ui) {
+                var termsId = [];
+
+                if ($selectedSkills.val() != null) {
+                    termsId = $selectedSkills.val();
+                }
+
+                if (termsId.length != null) {
+
+                }
+                termsId.push(ui.item.value);
+                $gotit.push(ui.item.value);
+
+                termsId.push("");
+                $selectedSkills.val(termsId).trigger("change");
+                $(this).val("");
+                return false;
+            }
+        });
+});
+
+
+$skills = $("#linked_skillid").select2();
+$it = [];
+$(function() {
+
+    function split(val) {
+        return val.split(/,\s*/);
+    }
+
+    function extractLast(term) {
+        return split(term).pop();
+    }
+
+    $("#newskill")
+        .bind("keydown", function(event) {
+            if (event.keyCode === $.ui.keyCode.TAB && $(this).autocomplete("instance").menu.active) {
+                event.preventDefault();
+            }
+        })
+        .autocomplete({
+            appendTo: '#skill-wrapper',
+            source: function(request, response) {
+                
+                $.ajax({
+                    url: '/job/skillSearch',
+                    dataType: "json",
+                    data: {
+                        term: extractLast(request.term)
+                    },
+                    success: function(data) {
+                        
+                        response(data);
+                    }
+                });
+
+            },
+            search: function() {
+                var term = extractLast(this.value);
+                if (term.length < 2) {
+                    return false;
+                }
+            },
+            focus: function() {
+                return false;
+            },
+            select: function(event, ui) {
+                var termId = [];
+
+                if ($skills.val() != null) {
+                    termId = $skills.val();
+                }
+
+                if (termId.length != null) {
+
+                }
+                termId.push(ui.item.value);
+                $it.push(ui.item.value);
+
+                termId.push("");
+                $skills.val(termId).trigger("change");
+                $(this).val("");
+                return false;
+            }
+        });
+});
+
+

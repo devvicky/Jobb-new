@@ -82,11 +82,17 @@
 				</div>
 				<div class="row show-firm-type" style="margin: 0px auto; float: none; display: table;">
 					<div class="btn-group col-md-12 col-sm-12 col-xs-12" style="margin:10px;" data-toggle="buttons">
-						<label class="btn btn-default color-button check-font-size active" >
-							<input type="checkbox" name="firm_type[]" value="Company" class="toggle" checked> Company 
-						</label>
-						<label class="btn btn-default color-button check-font-size active">
-							<input type="checkbox" name="firm_type[]" value="Consultancy" class="toggle" checked> Consultancy 
+						<label>
+							<input type="checkbox" class="icheck" 
+									name="firm_type[]" value="Company"
+									data-checkbox="icheckbox_line-grey" 
+									data-label="Company" checked>
+						</label>												
+						<label>
+							<input type="checkbox" class="icheck" 
+									name="firm_type[]" value="Consultancy"
+									data-checkbox="icheckbox_line-grey" 
+									data-label="Consultancy" checked>
 						</label>
 					</div>
 				</div>
@@ -98,13 +104,13 @@
 					  </div>  
 					</div>
 					<div class="col-md-6 col-sm-6 col-xs-12">
-						<input type="text" id="city" name="city" class="form-control" placeholder="City">
+						<input type="text" id="city" name="city" class="form-control" placeholder="Enter City">
 					</div>
 				</div>
 		       <div class="row" style="margin:0;">
 					<div class="col-md-12 col-sm-12 col-xs-12 hide-role">
 						<div class="form-group">
-							<input type="text" class="form-control" name="role" placeholder="Enter Role">
+							<input type="text" class="form-control" name="role" placeholder="Enter Keywords">
 						</div>					
 					</div>
 		        </div>
@@ -136,7 +142,7 @@
 	</div>
 </div>
 <div class="row" style="margin:0 !important;">
-	<div class="col-md-7" style="padding-left:0 !important;margin:10px 0;">
+	<div class="col-md-7 col-sm-8" style="padding-left:0 !important;margin:10px 0;">
 		<div class=" input-icon right normal_search">
 			<i class="fa fa-search" style="color: darkcyan;right:80px;bottom:6px;"></i>
 			<input type="text" name="keywords" id="search-input" onkeydown="down()" onkeyup="up()" class="form-control" placeholder="Search Name or Email id" style="border: 1px solid darkcyan;margin:0 8px">
@@ -146,6 +152,7 @@
 		</div>	
 	</div>
 </div>
+
 <div class="portlet box green col-md-7 col-xs-12 col-sm-8" style="margin: 10px;">
 	<div class="portlet-title" style="float:left;padding:0;">
 		
@@ -192,7 +199,7 @@
 							</div>
 							<div class="col-md-6 col-sm-6 col-xs-6">
 								 <a href="/profile/ind/{{$connection->id}}" data-utype="ind" style="font-size:15px;">
-							     {{ $connection->fname }} {{ $connection->lname }}</a><br>
+							     {{ $connection->fname }} </a><br>
 							    <small>
                                 
 						        @if($connection->working_status == "Student")
@@ -201,7 +208,7 @@
                                 
                                 @elseif($connection->working_status == "Searching Job")
                                 
-                                     {{ $connection->working_status }} in {{ $connection->prof_category }}, {{ $connection->city }}
+                                      {{ $connection->city }}
                                 
                                 @elseif($connection->role != null && $connection->working_status == "Freelanching")
                                 
@@ -221,7 +228,7 @@
                                 
                                 @elseif($connection->role == null && $connection->working_at ==null && $connection->working_status == "Working")
                                 
-                                   {{ $connection->prof_category }}, {{ $connection->city }}
+                                   {{ $connection->city }}
                                
                                 @endif
 							      </small>
@@ -263,7 +270,7 @@
 					@if($linkrequestCount > 0)
 					@foreach(Auth::user()->induser->friendOf as $conreq)
 					@if($conreq->pivot->status == 0)
-					<div class="row search-user-tool" style="margin: 0px -35px 0px -9px;">	
+					<div class="row search-user-tool" style="margin: 0px -10px;">	
 						<div class="col-md-2 col-sm-3 col-xs-3">
 							<a href="#">
 						        <img class="media-object img-circle " 
@@ -303,13 +310,13 @@
                             
                             @elseif($conreq->role == null && $conreq->working_at ==null && $conreq->working_status == "Working")
                             
-                               {{ $conreq->prof_category }}, {{ $conreq->city }}
+                                {{ $conreq->city }}
                            
                             @endif
 						      </small>
 						</div>
 						<div class="col-md-3 col-sm-3 col-xs-3" style="margin: 0px -10px;padding:0;">
-							<form action="/connections/response/{{$conreq->pivot->id}}" id="accept-reject" method="post">
+							<form action="/connections/responselink/{{$conreq->pivot->id}}" id="accept-reject" method="post">
 								<input type="hidden" name="_token" value="{{ csrf_token() }}">
 								<button type="submit" name="action" value="accept" class="btn apply-ignore-font" style="padding: 0px 3px; background-color: white;">
 									<i class="icon-check icon-check-css-new"></i>
@@ -344,9 +351,14 @@
 								<a href="/profile/corp/{{$follow->id}}" class="link-label" data-utype="corp">
 							    		 		{{ $follow->firm_name }}
 							    		 	</a>
-							    		 	 <small>{{ $follow->firm_type }}</small><br>
-
-								
+							    		 	 <small>{{ $follow->firm_type }} </small><br>
+							    @if(count($follow->posts) > 1)
+							   <small> {{count($follow->posts)}} Job Posts</small>
+							    @elseif(count($follow->posts) == 1)
+							   <small> {{count($follow->posts)}} Job Post</small>
+							    @elseif(count($follow->posts) < 1)
+							   <small> No Post</small>
+							    @endif
 							</div>
 							<div class="col-md-3 col-sm-3 col-xs-3" style="margin:7px -7px;">
 								
@@ -358,6 +370,10 @@
 										<li style="border-bottom:1px solid lightgrey;">
 											<a href="/profile/corp/{{$follow->id}}" style="padding:5px 14px !important;">
 											<button class="btn btn-success connection-css">View Profile </button></a>
+										</li>
+										<li style="border-bottom:1px solid lightgrey;">
+											<a href="/postedby/corporate/{{$follow->id}}" style="padding:5px 14px !important;">
+											<button class="btn btn-success connection-css">View Jobs </button></a>
 										</li>
 										<li style="margin:5px 0;">
 											<form action="/links/corporate/unfollow, $follow->id" method="post">
@@ -470,7 +486,6 @@
 
 @section('javascript')
 <script src="/assets/ind_validation.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
 <script type="text/javascript">
 	function initialize() {
 		var options = {	types: ['(cities)'], componentRestrictions: {country: "in"}	};

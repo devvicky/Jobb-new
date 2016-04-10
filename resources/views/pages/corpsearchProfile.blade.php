@@ -94,18 +94,19 @@
 </div>
 @endif
 @if($title == 'Profilesearch')
+
 <div class="row" style="margin:15px;text-align:center;">
-	<div class="col-md-8 col-sm-8">
-		@if($city != null){{$city}} | @endif{{$min_exp}}-{{$max_exp}} Years @if($resume != '')| With Resume @endif @if($role > 0)|{{$role}} @endif @if ($prefered_jobtype != '') | {{$prefered_jobtype}} @endif
-	</div>
-</div>
-<div class="row" style="margin:15px;text-align:center;">
-	<div class="col-md-8 col-sm-8">
-		<a class="btn small-btn blue modifysearch">Modify</a>
+	<div class="col-md-8 col-sm-8" style="float: none; margin: 0 auto;">
+		<div class="col-md-2 col-sm-2">
+			<a class="btn small-btn blue modifysearch" style='padding: 2px 5px;border-radius: 3px !important;'>Modify</a>
+		</div>
+		<div class="col-md-10 col-sm-10 modifysearch" style="margin: 8px 0;text-align: left;">
+		@if($role != null){{$role}} | @endif {{$min_exp}}-{{$max_exp}} yrs @if($resume != '')| With Resume @endif @if($city != null) | {{$city}} @endif
+		</div>
 	</div>
 </div>
 <div class="row searchedprofile" style="margin:15px;">
-	<div class="col-md-8 col-sm-8">
+	<div class="col-md-8 col-sm-8" >
 		<h4 style="text-align: center;background-color: #908D8D; color: white; padding: 3px 0px;">
 			Search Profile 
 		</h4>
@@ -120,22 +121,11 @@
 	      <div class="row" style="margin:15px -15px 0;">
 	      	<div class="col-md-6 col-sm-6 col-xs-12 advance-len">
 				<div class="form-group">
-					<label style="font-weight: 500;">
-						Job Role
-					</label>
-					<div class="input-group">	
-						<span class="input-group-addon">
-							<i class="fa fa-cube" style="color:darkcyan;"></i>
-						</span>			
-						<select  class="job-role-ajax form-control new-role" name="role" id="jobrole">
-					  		<option value="0" selected="selected"></option>
-						</select>													
-					</div>
+					<input type="text" class="form-control" name="role" placeholder="Enter Keyword">
 				</div>					
 			</div>
 	        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">
 				<div class="form-group">
-					<label style="font-weight: 500;">Enter Skill</label>
 					<div style="position:relative;">
 						<input type="text" name="name" id="newskill" class="form-control" placeholder="Search for skill">
 							<!-- <button id="add-new-skill" style="position:absolute;right:0;top:0;" class="btn btn-success" type="button"><i class="icon-plus"></i> Add</button>	 -->
@@ -167,19 +157,17 @@
 	      <div class="row">
 			<div class="col-md-6 col-sm-6 col-xs-12 advance-len">
 	          	<div class="form-group">
-	          		<label class=" control-label" style="font-weight: 500;">Job Type</label>
-					<select  name="job_type"  placeholder="Select" class="SlectBox">
-						<option value="">--Select--</option>
+					<select  name="job_type[]" multiple placeholder="Select" class="form-control education-list">
+						<option value="">--Select Job Type--</option>
 				        <option value="Full Time">Full Time</option>
 						<option value="Part Time">Part Time</option>
 						<option value="Freelancer">Freelancer</option>
 						<option value="Work from home">Work from Home</option>
 				    </select>		
-				</div>  
+				</div> 
 	        </div>
 			<div class="col-md-6 col-sm-6 col-xs-12 advance-len">
 	          <div class="form-group">              
-	          	<label class=" control-label" style="font-weight: 500;">Location </label>
 	              <input type="text" id="city" name="city" class="form-control" placeholder="City: Pune, Hyderabad">
 	          </div>  
 	        </div>
@@ -202,16 +190,16 @@
 		
 @if(count($users) > 0)
 	<h4 style="text-align: center;background-color: #908D8D; color: white; padding: 3px 0px;">
-		Searched Profile <span class="badge" style="background-color: deepskyblue;">{{count($users)}} </span>
+	<span class="badge" style="background-color: deepskyblue;">{{count($users)}} </span> Profiles Found 
 	</h4>
 @foreach($users as $user)
 
-@if(Auth::user()->identifier == 2 && $user->user->email_verify == 1 || $user->user->mobile_verify == 1)	
-		<div style="margin: 10px 0;border-bottom: 1px solid #eee;">
+@if(Auth::user()->identifier == 2)	
+		<div style="margin: 10px 0;border: 1px solid #eee;padding: 0px 10px 0 10px;">
 	  	<div class="row show-profile">   
 	    	<div class="col-md-8 col-sm-8 col-xs-8" style="">
 		      <a href="/profile/ind/{{$user->id}}">
-		      	<h4 class="user-name" style="text-transform:capitalize">
+		      	<h4 class="user-name" style="text-transform:capitalize;    font-weight: 500;">
 		      		{{ $user->fname }} {{ $user->lname }}</h4></a>
 			 	@if($user->working_status == "Student")
                      {{ $user->education }} in {{ $user->branch }}, {{ $user->city }}
@@ -220,17 +208,17 @@
                 
                      {{ $user->working_status }} in {{ $user->prof_category }}, {{ $user->city }}
                 
-                @elseif($user->job_role != '[]' && $user->working_status == "Freelanching")
+                @elseif($user->role != null && $user->working_status == "Freelanching")
                 
-                     {{ $user->job_role->first()->role }} {{ $user->working_status }}, {{ $user->city }}
+                 {{ $user->role }} {{ $user->working_status }}<br/>@if($user->experience != null) <i class="fa fa-briefcase" style="color:#8A8989;"></i>  {{$user->experience}} yr @endif &nbsp; <i class="fa fa-map-marker" style="color:#8A8989;"></i> {{ $user->city }}
                 
-                @elseif($user->job_role != '[]' && $user->working_at !=null && $user->working_status == "Working")
+                @elseif($user->role != null && $user->working_at !=null && $user->working_status == "Working")
                 
-                     {{ $user->job_role->first()->role }} @ {{ $user->working_at }} 
+                  {{ $user->role }} @ {{ $user->working_at }}<br/>@if($user->experience != null) <i class="fa fa-briefcase" style="color:#8A8989;"></i>  {{$user->experience}} yr @endif &nbsp; <i class="fa fa-map-marker" style="color:#8A8989;"></i> {{ $user->city }} 
             
-                @elseif($user->job_role != '[]' && $user->working_at ==null && $user->working_status == "Working")
+                @elseif($user->role != null && $user->working_at ==null && $user->working_status == "Working")
                 
-                     {{ $user->job_role->first()->role }}, {{ $user->city }}
+                     {{ $user->role }}<br/>@if($user->experience != null) <i class="fa fa-briefcase" style="color:#8A8989;"></i>  {{$user->experience}} yr @endif &nbsp; <i class="fa fa-map-marker" style="color:#8A8989;"></i> {{ $user->city }}
                 
                 @elseif($user->role == null && $user->working_at !=null && $user->working_status == "Working")
                 
@@ -245,20 +233,21 @@
 	  			
 	  			
 			</div>
-			<div class="col-md-4 col-sm-4 col-xs-4" style="padding:0 !important;">
+			<div class="col-md-4 col-sm-4 col-xs-4" style="padding:0 !important;margin: 10px 0;">
 			      	<a data-toggle="modal" class="btn resume-button-css magic-profile-match" href="#static" style="padding: 2px 8px;">
 		    			<i class="icon-speedometer" style="font-size:12px;"></i> {{$perProfile}}%
 		    		</a>
 		    </div>	
-  		</div>
+  		</div><a class="btn blue corp-profile-resume user_detail" data-userid="{{$user->id}}" data-toggle="modal" href="#user_detail">Details</a>
   		
-  		<div class="row" style="margin: 10px 0;">
+  		<div class="row" style="margin: 5px 0;background: #EAEAEA;padding: 0px 0px 0 10px;">
   			@if(!$corpsearchprofile->contains('profile_id', $user->id))
        		@else
 	  			<div class="col-md-8 col-sm-8 col-xs-12" style="padding:0 !important;margin: 5px 0;">
 	            	@if($user->email != null)
 	  				<i class="fa fa-envelope"></i> : {{$user->email}}
-	  				@else<i class="fa fa-envelope"></i> : Not Available
+	  				@else
+	  				<i class="fa fa-envelope"></i> : Not Available
 	  				@endif<br>
 	  				@if($user->mobile != null)
 	  				<i class="fa fa-phone-square"></i> : {{$user->mobile}}
@@ -267,16 +256,20 @@
 	  				@endif
 	  			</div>
 	  			<div class="col-md-4 col-sm-4 col-xs-12" style="padding:0 !important;margin: 5px 0;">
-	  				<button class="btn blue corp-profile-resume" style="">
-						<i class="glyphicon glyphicon-download"></i> Resume
-					</button>
+	  				@if($user->resume != null)
+	  				<a href="/resume/{{$user->resume}}" target="_blank">
+	  					<button class="btn corp-profile-resume" style="color: dimgray !important;background-color:transparent;border: 1px solid dimgrey;">
+							<i class="glyphicon glyphicon-download"></i> Resume
+						</button>
+					</a>
+					@endif
 	  			</div>	
   			@endif
   			<div id="profile-contacts-{{$user->id}}"></div>
   		</div>
 
   		
-  		<div class="row" style="margin: 10px 0;">
+  		<div class="row" style="margin:5px 0;">
   			<div class="col-md-8 col-sm-8 col-xs-8" style="padding:0;">
 				@if(!$corpsearchprofile->contains('profile_id', $user->id))
 				<form action="/profile/fav" method="post" id="profile-fav-{{$user->id}}" data-id="{{$user->id}}">
@@ -299,137 +292,39 @@
 						<i class="fa fa-save (alias)" style="font-size: 14px;color:white;"></i> Save Profile
 					</button>
 				</form>
-				@elseif($corpsearchprofile->contains('profile_id', $user->id)->where('user_id', Auth::user()->corpuser_id)->first()->save_profile == 1)
-				<button>Saved</button>
-				@else
-				<form action="/profile/save" method="post" id="profile-save-{{$user->id}}" data-saveid="{{$user->id}}">
-					<input type="hidden" name="_token" value="{{ csrf_token() }}">
-					<input type="hidden" name="profileid" value="{{ $user->id }}">
-					<button id="profilesave-btn-{{$user->id}}" class="btn blue corp-profile-contact fav-btn profile-save-btn" type="button" style="">			
-						<i class="fa fa-save (alias)" style="font-size: 14px;color:white;"></i> Save Profile
-					</button>
-				</form>
 				@endif
 			</div>
   		</div>
 </div>
 @endif
-<div id="static" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-        <h4 class="modal-title">Profile Match</h4>
-      </div>
-      <div class="modal-body">
-        <table class="table table-bordered table-hover">
-          <thead style="border:0 !important;">
-          <tr style="border:0 !important;">     
-              <th class="col-md-6 col-sm-6 col-xs-6 matching-criteria-align">
-                   My Search
-              </th>
-              <th class="col-md-6 col-sm-6 col-xs-6 matching-criteria-align">
-                   Searched Profile
-              </th>
-          </tr>
-          </thead>
-          <tbody>
-            <tr class=" title-bacground-color ">
-                <td colspan="2" class="matching-criteria-align">
-                    <i class="fa fa-times"></i> <label class="title-color">Skills</label>
-                </td>
-            </tr>
-            <tr>
-              <td  class="matching-criteria-align">
-              	
-              </td>
-              <td  class="matching-criteria-align">
-                {{$user->linked_skill}}
-              </td>
-            </tr>
-            <tr>
-              <td colspan="2" class="matching-criteria-align">
-                Role
-              </td>
-            </tr>
-            <tr>
-              <td class="matching-criteria-align">
 
-              </td>
-              <td class="matching-criteria-align">
-                @if($user->job_role != '[]')
-                {{ $user->job_role->first()->role }}
-                @endif
-              </td>
-            </tr>
-            <tr>
-              <td colspan="2" class="matching-criteria-align">
-                Experience
-              </td>
-            </tr>
-            <tr>
-              <td class="matching-criteria-align">
-              	{{$min_exp}}-{{$max_exp}}
-              </td>
-              <td class="matching-criteria-align">
-                {{$user->experience}}
-              </td>
-            </tr>
-            <tr>
-              <td colspan="2" class="matching-criteria-align">
-                Profile with Resume only
-              </td>
-            </tr>
-            <tr>
-              <td class="matching-criteria-align">
-
-              </td>
-              <td class="matching-criteria-align">
-                @if($user->resume != null)
-                  <a class="btn small-btn ">View</a>
-                @endif
-              </td>
-            </tr>
-            <tr>
-              <td colspan="2" class="matching-criteria-align">
-                Job Type
-              </td>
-            </tr>
-            <tr>
-              <td class="matching-criteria-align">
-
-              </td>
-              <td class="matching-criteria-align">
-                {{$user->prefered_jobtype}}
-              </td>
-            </tr>
-            <tr>
-              <td colspan="2" class="matching-criteria-align">
-                City
-              </td>
-            </tr>
-            <tr>
-              <td class="matching-criteria-align">
-
-              </td>
-              <td class="matching-criteria-align">
-
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
 @endforeach
 <?php echo $users->render(); ?>
 </div>
 @else
-	<div class="btn btn-warning btn-lg">No profile matches</div>
+	<div class="col-md-12" style="text-align:center;border-top: 1px dotted lightgrey;">
+	<div class="btn btn-warning btn-lg" style="margin: 10px 0;">No profile matches</div>
+</div>
 @endif
 </div>
 @endif
+
+
+<!-- User Profile MODAL FORM-->
+<div class="modal fade" id="user_detail" tabindex="-1" role="basic" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-new">
+    <div class="modal-content">
+      <div id="user-detail-content" >
+        <div style="text-align:center;">
+          <img src="/assets/global/img/loading.gif"><span> Please wait...</span>
+        </div>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 @stop
 @section('javascript')
 
@@ -439,6 +334,26 @@ jQuery(document).ready(function() {
 });
 </script>
 <script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
+<script>
+// displayToast
+
+function displayToast($msg) {
+    $.bootstrapGrowl($msg, {
+        ele: 'body', // which element to append to
+        type: 'info', // (null, 'info', 'danger', 'success', 'warning')
+        offset: {
+            from: 'bottom',
+            amount: 10
+        }, // 'top', or 'bottom'
+        align: 'center', // ('left', 'right', or 'center')
+        width: 'auto', // (integer, or 'auto')
+        height: 'auto',
+        // delay: 3000, // Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
+        allow_dismiss: false, // If true then will display a cross to close the popup.
+        stackup_spacing: 10 // spacing between consecutively stacked growls.
+    });
+}
+</script>
 <script type="text/javascript">
 	function initialize() {
 		var options = {	types: ['(cities)'], componentRestrictions: {country: "in"}	};
@@ -461,6 +376,10 @@ jQuery(document).ready(function() {
             window.testSelAll = $('.testSelAll').SumoSelect({okCancelInMulti:true, selectAll:true });
             window.testSelAll2 = $('.testSelAll2').SumoSelect({selectAll:true });
         });
+
+        $(".education-list").select2({
+      placeholder: "Select Job Type"
+    });
 
 $selectedSkills = $("#linked_skill_id").select2();
 $gotit = [];
@@ -589,55 +508,7 @@ $gotit = [];
 			}
 		});
 
-		
-		$(".job-role-ajax").select2({
-		placeholder: 'Enter a role',
-		ajax: {
-		    url: "/post/jobroles/",
-		    dataType: 'json',
-		    delay: 250,
-		    data: function (params) {
-		      return {
-		        q: params.term, // search term
-		        page: params.page
-		      };
-		    },
-		    processResults: function (data, params) {
-		      console.log(data);
-		      return {
-		        results: data
-		      };
-		    },
-		    cache: true
-	  	},
-		escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
-		minimumInputLength: 2,
-		templateResult: formatRepo, // omitted for brevity, see the source of this page
-		templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
-	});
 
-	function formatRepo (repo) {
-		if (repo.loading) return repo.text;
-
-		var markup = "<div class='select2-result-repository clearfix'>" +
-		"<div class='select2-result-repository__meta'>" +
-		  "<div class='select2-result-repository__title'><b>Role</b>: " + repo.role + "</div>";
-
-		markup += "<div class='select2-result-repository__statistics'>" +
-		"<div class='select2-result-repository__forks'><b>Functional area: </b> " + repo.functional_area + "</div>" +
-		"<div class='select2-result-repository__stargazers'><b>Industry</b>: " + repo.industry + "</div>" +
-		"</div>" +
-		"</div></div>";
-
-		return markup;
-    }
-
-    function formatRepoSelection (repo) {
-    	if(repo.role != undefined){
-    		// console.log(repo);
-    		return  "<b>Role:</b> "+repo.role+"<br/><b>Functional Area:</b> "+repo.functional_area+"<br/><b>Industry:</b> "+repo.industry;
-    	}      
-    }
 		});
 </script>
 
@@ -688,14 +559,14 @@ $gotit = [];
  			out += '<i class="fa fa-envelope"></i> : '+data.data.email+'<br>';
  			out += '<i class="fa fa-phone-square"></i> : '+data.data.mobile+'</div>';
  			out += '<div class="col-md-4 col-sm-4 col-xs-12" style="padding:0 !important;margin: 5px 0;">';
- 			out += '<a class="btn blue corp-profile-resume" href="'+data.data.resume+'">'
+ 			out += '<a class="btn corp-profile-resume" style="color: dimgray !important;background-color:transparent;border: 1px solid dimgrey;" target="_blank" href="/resume/'+data.data.resume+'">'
  			out += '<i class="glyphicon glyphicon-download"></i> Resume</a></div>';
 
  			$("#profile-contacts-"+post_id).html(out);
  			$("#profilefav-btn-"+post_id).hide();
  			$("#profilesave-btn-"+post_id).hide();
  			$('#profilefav-btn-'+post_id).prop('disabled', true);
-			
+			displayToast("Profile Saved");
         }else {
         	// console.log(data);
         }
@@ -727,8 +598,9 @@ $gotit = [];
       success: function(data){
      		// console.log(data);
       	if(data.data.save_profile == 1 && data.success == 'success'){
-			$('#profilesave-btn-'+post_id).css({'color':'#FFC823'});
-			$('#profilesave-btn-'+post_id).text('Profile Saved');	
+			$('#profilesave-btn-'+post_id).css({'color':'#fff'});
+			$('#profilesave-btn-'+post_id).text('Profile Saved');
+			displayToast("Profile Saved");	
         }else if(data.data.save_profile == 0){
         	$('#profilesave-btn-'+post_id).css({'color':'white'});
         	$('#profilesave-btn-'+post_id).text('Save Profile');
@@ -737,5 +609,39 @@ $gotit = [];
     }); 
     return false;
   }); 
+</script>
+<script>
+// User Details
+
+$(document).ready(function() {
+    $('.user_detail').live('click', function(event) {
+        event.preventDefault();
+        var user_id = $(this).data('userid');
+
+        var clear = '<div style="text-align:center;"><img src="/assets/global/img/loading.gif"><span> Please wait...</span></div>';
+        $("#user-detail-content").html(clear);
+
+        // console.log(post_id);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: "/user/detail",
+            type: "post",
+            data: {
+                userid: user_id
+            },
+            cache: false,
+            success: function(data) {
+                $('#user-detail-content').html(data);
+                $('#user-detail').modal('show');
+            }
+        });
+        return false;
+    });
+});
 </script>
 @stop

@@ -56,12 +56,12 @@ class ConnectionsController extends Controller {
 
 		$followCount = Follow::Where('individual_id', '=', Auth::user()->induser_id)
 								->count('id');
-		$followNewCount = Follow::Where('corporate_id', '=', Auth::user()->induser_id)
-								 ->count('id');
-		$linkFollow = Corpuser::leftjoin('follows', 'corpusers.id', '=', 'follows.corporate_id')
-								->where('follows.individual_id', '=', Auth::user()->induser_id)
-								->get(['corpusers.id',
-									   'corpusers.firm_name',
+
+		$linkFollow = Corpuser::with('posts')
+							  ->leftjoin('follows', 'corpusers.id', '=', 'follows.corporate_id')
+							  ->where('follows.individual_id', '=', Auth::user()->induser_id)
+							  ->get(['corpusers.id',
+									  'corpusers.firm_name',
 									   'corpusers.firm_type',
 									   'corpusers.emp_count',
 									   'corpusers.logo_status',
@@ -69,7 +69,7 @@ class ConnectionsController extends Controller {
 									   'corpusers.city', 
 									   'follows.corporate_id',
 									   'follows.individual_id']);
-		return view('pages.connections', compact('title', 'user', 'linkFollow', 'linksCount', 'linkrequestCount', 'followCount', 'followNewCount'));
+		return view('pages.connections', compact('title', 'user', 'linkFollow', 'linksCount', 'linkrequestCount', 'followCount'));
 	}
 
 	/**
@@ -226,10 +226,46 @@ class ConnectionsController extends Controller {
 				$notification->save();
 			}
 
-		}elseif(Input::get('action') == 'reject'){
-			Connections::where('id', '=', $id)->update(['status' => 2]);
-		}
 		return redirect('/profile/ind/'.$cuid);
+
+		}elseif(Input::get('action') == 'reject'){
+			$cuid = Connections::where('id', '=', $id);
+			$cuid->delete();
+
+			return redirect('/links');
+		}
+		
+	}
+
+	public function responseLink($id)
+	{
+		if(Input::get('action') == 'accept'){
+			Connections::where('id', '=', $id)->update(['status' => 1]);
+
+			// notification
+			$cuid = Connections::where('id', '=', $id)->pluck('user_id');
+			$to_user = User::where('induser_id', '=', $cuid)->pluck('id');
+			if($to_user != null){
+				$notification = new Notification();
+				$notification->from_user = Auth::user()->id;
+				$notification->to_user = $to_user;
+				$notification->remark = 'has accepted your link request.';
+				$notification->operation = 'link response';
+				$notification->save();
+			}
+
+		return redirect('/links')->withErrors([
+				'errors' => 'Accepted',
+			]);;
+
+		}elseif(Input::get('action') == 'reject'){
+			$connectionDelete = Connections::where('id', '=', $id);
+			$connectionDelete->delete();
+
+			return redirect('/links')->withErrors([
+				'errors' => 'Rejected',
+			]);;
+		}
 	}
 
 	public function newLink($id)
@@ -239,6 +275,18 @@ class ConnectionsController extends Controller {
 			$connections->user_id=Auth::user()->induser_id;
 			$connections->connection_user_id=$id;
 			$connections->save();
+
+			// notification
+			$to_user = User::where('induser_id', '=', $id)->pluck('id');
+			if($to_user != null){
+				$notification = new Notification();
+				$notification->from_user = Auth::user()->id;
+				$notification->to_user = $to_user;
+				$notification->remark = 'has sent link request.';
+				$notification->operation = 'link request';
+				$notification->save();
+			}
+			
 		}catch (\Illuminate\Database\QueryException $e){
 		    $errorCode = $e->errorInfo[1];
 		    if($errorCode == 1062){
@@ -262,6 +310,7 @@ class ConnectionsController extends Controller {
 	{
 		$title = 'friendLink';
 		if($utype == 'ind'){
+			$linkName = Induser::findOrFail($id);
 			$linkFollow = Corpuser::leftjoin('follows', 'corpusers.id', '=', 'follows.corporate_id')
 								->where('follows.individual_id', '=', $id)
 								->get(['corpusers.id',
@@ -289,7 +338,7 @@ class ConnectionsController extends Controller {
 									 ->where('status', '=', 1)
 									 ->count('id');
 
-			return view('pages.friendlink', compact('title', 'linkFollow', 'connections', 'linksCount', 'followCount', 'utype'));
+			return view('pages.friendlink', compact('linkName', 'title', 'linkFollow', 'connections', 'linksCount', 'followCount', 'utype'));
 		}elseif($utype == 'corp'){
 			$followers = Corpuser::find($id)->followers;
 			return view('pages.friendlink', compact('title', 'followers', 'utype'));	

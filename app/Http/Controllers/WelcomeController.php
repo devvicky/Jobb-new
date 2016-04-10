@@ -45,21 +45,17 @@ class WelcomeController extends Controller {
 		$role = Input::get('role');
 		$experience = Input::get('experience');
 		$city = Input::get('location');
-		$jobPosts = Postjob::orderBy('postjobs.id', 'desc')
-						   ->with('indUser', 'corpUser');
-		$skillPosts = Postjob::orderBy('postjobs.id', 'desc')
-						   ->with('indUser', 'corpUser');
+		$jobPosts = Postjob::orderBy('id', 'desc')
+						   ->with('indUser', 'corpUser')
+						   ->where('post_type', '=', 'job');
+		$skillPosts = Postjob::orderBy('id', 'desc')
+						   ->with('indUser', 'corpUser')
+						   ->where('post_type', '=', 'skill');
 		if($role != null){
-			$jobPosts->leftJoin('industry_functional_area_role_mappings', 'industry_functional_area_role_mappings.id', '=', 'postjobs.role')
-					 ->leftJoin('roles', 'roles.id', '=', 'industry_functional_area_role_mappings.role')
-					 ->where('roles.name', 'like', '%'.$role.'%')
-					 ->where('postjobs.post_type', '=', 'job')
-					 ->orWhere('postjobs.post_title', 'like', '%'.$role.'%');
-			$skillPosts->leftJoin('industry_functional_area_role_mappings', 'industry_functional_area_role_mappings.id', '=', 'postjobs.role')
-					   ->leftJoin('roles', 'roles.id', '=', 'industry_functional_area_role_mappings.role')
-					   ->where('roles.name', 'like', '%'.$role.'%')
-					   ->where('postjobs.post_type', '=', 'skill')
-					   ->orWhere('postjobs.post_title', 'like', '%'.$role.'%');;
+			$jobPosts->where('post_title', 'like', '%'.$role.'%')
+						 ->whereRaw("(job_detail like '%".$role."%' or role like '%".$role."%' or linked_skill like '%".$role."%')");
+			$skillPosts->where('post_title', 'like', '%'.$role.'%')
+						 ->whereRaw("(job_detail like '%".$role."%' or role like '%".$role."%' or linked_skill like '%".$role."%')");
 		}
 		if($city != null){
 			$pattern = '/\s*,\s*/';
@@ -70,10 +66,8 @@ class WelcomeController extends Controller {
 			$skillPosts->whereIn('city', $cityArray);
 		}
 		if($experience != null){
-			$jobPosts->where('max_exp', '=', $experience)
-					 ->orWhere('min_exp', '=', $experience);
-			$skillPosts->where('max_exp', '=', $experience)
-			         ->orWhere('min_exp', '=', $experience);
+			$jobPosts->whereRaw("$experience between min_exp and max_exp");
+			$skillPosts->whereRaw("$experience between min_exp and max_exp");
 		}
 
 		$jobPosts = $jobPosts->paginate(15);

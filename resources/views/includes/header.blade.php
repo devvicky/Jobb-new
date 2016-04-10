@@ -30,7 +30,7 @@
           <!-- BEGIN NOTIFICATION DROPDOWN -->
           <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
           
-          <li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar">
+          <li class="dropdown dropdown-extended dropdown-inbox notification-icon"  id="header_inbox_bar">
             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"  data-close-others="true">
             @if($notificationsCount == 0)
             <i class="icon-bell icon-color"></i>
@@ -46,9 +46,11 @@
                 @else
                 <h3 style="color: #D7D7FF;font-weight: 500;"> No New Notification</h3>
                 @endif
+                @if($notificationsCount > 0)
                 <a class="@if($title == 'notify_view'){{'active'}}@endif" 
                     href="/notify/notification/@if(Auth::user()->identifier==1){{'ind'}}@elseif(Auth::user()->identifier==2){{'corp'}}@endif/{{Auth::user()->induser_id}}{{Auth::user()->corpuser_id}}" 
                     data-utype="app" style="color: #D7D7FF;">view all</a>
+                @endif
               </li>
               <li>
                 <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283" id="notification-list">
@@ -122,6 +124,7 @@
               </li>
             </ul>
           </li>
+        
           <!-- END NOTIFICATION DROPDOWN -->
           <li class="dropdown dropdown-extended dropdown-inbox thank-fav-icon" id="header_inbox_bar">
             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"  data-close-others="true">
@@ -139,14 +142,16 @@
                 @else
                 <h3 style="color: #D7D7FF;font-weight: 500;"> No Thanks</h3>
                 @endif
+                @if($thanksCount > 0)
                 <a class="@if($title == 'notify_view'){{'active'}}@endif" 
                     href="/notify/thanks/@if(Auth::user()->identifier==1){{'ind'}}@elseif(Auth::user()->identifier==2){{'corp'}}@endif/{{Auth::user()->induser_id}}{{Auth::user()->corpuser_id}}" data-utype="thank" style="color: #D7D7FF;">view all</a>
+                @endif
               </li>
               <li>
                 <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283" id="notification-list">
                   @foreach($thanks as $not)
                     <li>
-                      <a href="inbox.html?a=view">
+                      <a href="">
                       <span class="photo">
                       @if($not->fromuser != null)
                         @if($not->fromuser->first()->induser != null)

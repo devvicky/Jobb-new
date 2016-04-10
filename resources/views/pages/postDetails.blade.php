@@ -1,10 +1,12 @@
 @extends('master')
 @section('content')
+
 <div class="row" style="margin:0;">
     <div class="col-md-8" style="text-align: center;margin: 5px 0 -15px 0;">
         <h4 class="uppercase btn-success singlepost-title">
             <label class="">{{$post->post_type}} Detail</label> ({{$post->unique_id}})
         </h4>
+
     </div>
 </div>
 <?php $var = 1; ?>
@@ -80,17 +82,45 @@
                                             
                                         @endif
                                     </div>
+                                    <?php $city = 'unspecified'; ?>
+                                    @if($post->preferLocations != '[]')
+                                        <?php $city = ''; ?>
+                                    @if(count($post->preferLocations) > 1)
+                                        @foreach($post->preferLocations as $pl)
+                                            
+                                            <?php $city = $city . $pl->city . ', '; ?>
+                                        @endforeach
+                                    @elseif(count($post->preferLocations) == 1)
+                                        @foreach($post->preferLocations as $pl)
+                                        
+                                            <?php $city = $city . $pl->city; ?>
+                                        @endforeach
+                                    @endif
+                                    @endif
+
                                     <div class="row post-postision" style=""> 
-                                        @if($post->min_exp != null)
-                                        <div class="col-md-4 col-sm-4 col-xs-4" style="">
-                                        <small style="font-size:13px;color:dimgrey !important;"> <i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: {{ $post->min_exp}}-{{ $post->max_exp}} Yr</small>
+                                        @if($post->min_exp != null && $post->post_type == 'job')
+                                        <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code" style="">
+                                            <small style="font-size:13px;color:dimgrey !important;"> 
+                                                <i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: {{ $post->min_exp }} - {{ $post->max_exp }} Yr
+                                            </small>
+                                        </div>
+                                        @elseif($post->min_exp != null && $post->post_type == 'skill')
+                                        <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code" style="">
+                                            @if($post->min_exp == 0)
+                                            <small style="font-size:13px;color:dimgrey !important;"> 
+                                                <i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: Fresher
+                                            </small>
+                                            @else
+                                            <small style="font-size:13px;color:dimgrey !important;"> 
+                                                <i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: {{ $post->min_exp }} Yr
+                                            </small>
+                                            @endif
                                         </div>
                                         @endif
-                                        @if($post->city != null)
                                         <div class="col-md-8 col-sm-8 col-xs-8 elipsis-code-city" style="padding:0 12px;">
-                                        <small style="font-size:13px;color:dimgrey !important;"> <i class="glyphicon glyphicon-map-marker post-icon-color"></i>&nbsp;: {{ $post->city }}</small>
+                                        <small style="font-size:13px;color:dimgrey !important;"> <i class="glyphicon glyphicon-map-marker post-icon-color"></i>&nbsp;:@if($city != null) {{ $city }} @else {{$post->city}} @endif</small>
                                         </div>
-                                        @endif 
                                     </div>
 
                                     <div class="row" style="margin: 5px 0px; border-top: 1px solid whitesmoke;">
@@ -99,37 +129,25 @@
                                             @if($expired != 1)
                                         
                                             <div class="row" style="">  
-                                                <div class="col-md-3 col-sm-3 col-xs-3">
-                                                    @if(Auth::user()->identifier == 1 && $post->post_type == 'job' && Auth::user()->induser_id != $post->individual_id)
-                                        <div class="match" style="float: left; margin: 0px 3px;">
-                                            <?php $postSkills = array(); ?>
-                                            @foreach($post->skills as $skill)
-                                                <?php $postSkills[] = $skill->name; ?>
-                                            @endforeach
-                                            <?php 
-                                                $overlap = array_intersect($userSkills, $postSkills);
-                                                $counts  = array_count_values($overlap);
-                                            ?>
-                                            <!-- <div class="ribbon-wrapper3"> -->
-                                                    <!-- <div class="ribbon-front3"> -->
-                                                    
-                                            <a data-toggle="modal" data-mpostid="{{$post->id}}" class="magic-font magicmatch-posts" href="#magicmatch-posts" style="color: white;line-height: 1.7;text-decoration: none;"> 
-                                                @if($post->magic_match == 0)
-                                                <button class="btn btn-success magic-match-css"><i class="icon-speedometer magic-font" style="font-size:12px;"></i> 
-                                                    0 %
-                                                </button>
-                                                @else
-                                                <button class="btn btn-success magic-match-css"><i class="icon-speedometer magic-font" style="font-size:12px;"></i> 
-                                                    {{$post->magic_match}} %
-                                                </button>
-                                                @endif
-                                            </a>
-                                            
-                                        </div>
-
-                                        <!-- <div id="oval"></div> -->
-                                            @endif
+                                                @if($post->post_type == 'job') 
+                                                <div class="col-md-3 col-sm-3 col-xs-3" style="margin: 5px 0;">
+                                                    <div class="match" style="float: left; margin: 0px 3px;">
+                                                        <a data-toggle="modal" data-mpostid="{{$post->id}}" 
+                                                            class="magic-font magicmatch-posts btn btn-success magic-match-css" href="#magicmatch-posts"
+                                                             style="color: white;line-height: 1.7;text-decoration: none;">
+                                                            <i class="icon-speedometer magic-font" style="font-size:12px;"></i> {{$post->magic_match}} %
+                                                        </a>
+                                                    </div>
                                                 </div>
+                                                @elseif($post->post_type == 'skill')
+                                                <div class="col-md-3 col-sm-3 col-xs-4" style="margin: 4px 13px;">
+                                                    @if($post->time_for == 'Work from Home')
+                                                    <small class="label-success label-xs elipsis-code job-type-skill-css" style="">Work From Home</small>
+                                                    @else
+                                                    <div><small class="label-success label-xs job-type-skill-css">{{$post->time_for}}</small></div>
+                                                    @endif
+                                                </div>
+                                                @endif
                                                 <div class="col-md-3 col-sm-3 col-xs-3" style="padding:0 8px;">
                                                     <form action="/job/like" method="post" id="post-like-{{$post->id}}" data-id="{{$post->id}}">                        
                                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -153,8 +171,7 @@
                                                         </span>
                                                     </form> 
                                                 </div>
-                                                
-                                                @if(Auth::user()->induser_id != $post->individual_id && Auth::user()->identifier == 1)                                      
+                                                                                  
                                                     
                                                     @if($post->postactivity->where('user_id', Auth::user()->id)->isEmpty())
                                                     <div class="col-md-3 col-sm-3 col-xs-3">
@@ -172,10 +189,9 @@
                                                     <div class="col-md-3 col-sm-3 col-xs-3">
                                                     </div>
                                                     @endif
-                                                @endif
                                                 
-                                                <div  class="col-md-3 col-sm-3 col-xs-3" style="">
-                                                    <div class="dropup ">                                           
+                                                <div  class="col-md-3 col-sm-3 col-xs-3" style="text-align:center;">
+                                                    <div class="dropup " style="right:25px;">                                           
                                                         <button class="btn dropdown-toggle" type="button" 
                                                                 data-toggle="dropdown" title="Share" 
                                                                 style="background-color: transparent;border: 0;margin: 0px;">
@@ -212,7 +228,7 @@
                                                             </li>
                                                         </ul>                                                   
                                                     </div>
-                                                    <div class="report-css">
+                                                    <div class="report-detail-css">
                                              @if($expired != 1 && Auth::user()->induser_id != $post->individual_id )
                                                     <a data-toggle="modal" href="#basic-{{ $post->id }}">
                                                         <button class="report-button-css">
@@ -292,12 +308,12 @@
                                                     ?>
                                                     <a data-toggle="modal" data-mpostid="{{$post->id}}" class="magic-font magicmatch-posts" href="#magicmatch-posts" style="color: white;line-height: 1.7;text-decoration: none;"> 
                                                         @if($post->magic_match == 0)
-                                                        <button class="btn btn-success magic-match-css"><i class="icon-speedometer magic-font" style="font-size:12px;"></i> 
-                                                            0 %
+                                                        <button class="btn btn-success magic-match-css">
+                                                            <i class="icon-speedometer magic-font" style="font-size:12px;"></i> 0 %
                                                         </button>
                                                         @else
-                                                        <button class="btn btn-success magic-match-css"><i class="icon-speedometer magic-font" style="font-size:12px;"></i> 
-                                                            {{$post->magic_match}} %
+                                                        <button class="btn btn-success magic-match-css">
+                                                            <i class="icon-speedometer magic-font" style="font-size:12px;"></i> {{$post->magic_match}} %
                                                         </button>
                                                         @endif
                                                     </a>
@@ -338,89 +354,104 @@
                                 </div>
                                 <div class="row" style="margin:0;">
                                     <h4 class="skill-display">Details:</h4>
-                                    <div class="col-md-12">
+                                    <div class="col-md-12" style="padding:0;height: 250px;overflow: scroll;overflow-x: hidden;">
                                         <div class="row">
                                             
-                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <div class="col-md-4 col-sm-4 col-xs-4">
                                                     <label class="detail-label">Education :</label>     
                                             </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                                @if($post->education == 'twelth')
-                                                    12th
-                                                @else
-                                                {{$post->education}} 
-                                                @endif    
+                                            <div class="col-md-8 col-sm-8 col-xs-8">
+                                                @if($post->education != null)
+                                                    <?php $education = collect(explode(',', $post->education)); ?>
+                                                     @if(count($education) > 0)
+                                                        @foreach($education as $edu)
+                                                        <?php $educ = explode('-', $edu);
+                                                              $name = $educ[0];
+                                                              $branch = $educ[1]; ?>
+
+                                                            <label class="label-success education-label"> {{ $name }} @if($branch != " ")- {{ $branch }} @endif</label>
+                                                        @endforeach
+                                                     @endif
+                                                @endif   
                                             </div>
                                         </div>
                                         @if($post->industry != null)
                                          <div class="row">
-                                            <div class="col-md-6 col-sm-6 col-xs-6"> 
+                                            <div class="col-md-4 col-sm-4 col-xs-4"> 
                                                     <label class="detail-label">Industry :</label>
                                             </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <div class="col-md-8 col-sm-8 col-xs-8">
                                                     {{ $post->industry }}
                                             </div>
                                         </div>
                                         @endif
                                         @if($post->functional_area != null)
                                         <div class="row">
-                                            <div class="col-md-6 col-sm-6 col-xs-6"> 
+                                            <div class="col-md-4 col-sm-4 col-xs-4"> 
                                                     <label class="detail-label">Functional Area :</label>
                                             </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <div class="col-md-8 col-sm-8 col-xs-8">
                                                     {{ $post->functional_area }}
                                             </div>
                                         </div>
                                         @endif
                                         @if($post->role != null)
                                         <div class="row">
-                                            <div class="col-md-6 col-sm-6 col-xs-6"> 
+                                            <div class="col-md-4 col-sm-4 col-xs-4"> 
                                                     <label class="detail-label">Role :</label>
                                             </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <div class="col-md-8 col-sm-8 col-xs-8">
                                                     {{ $post->role }}
                                             </div>
                                         </div>
                                         @endif
                                         <div class="row"> 
-                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                           
+                                            <div class="col-md-4 col-sm-4 col-xs-4">                                                           
                                                     <label class="detail-label">Skills :</label>                                                                  
                                             </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-                                                    {{$post->linked_skill}}
+                                            <div class="col-md-8 col-sm-8 col-xs-8">  
+                                            <?php $skills = explode(',', $post->linked_skill) ?>                                                                                                                              
+                                                    @foreach($skills as $skill)
+                                                        <label class="label-success skill-label">{{ $skill }}</label>
+                                                    @endforeach
                                                  
                                             </div>
                                         </div>
                                         <div class="row"> 
-                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                           
+                                            <div class="col-md-4 col-sm-4 col-xs-4">                                                           
                                                     <label class="detail-label">Job Type :</label>                                                                  
                                             </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
+                                            <div class="col-md-8 col-sm-8 col-xs-8">                                                                                                                                
                                                     {{ $post->time_for }}
                                             </div>
                                         </div>
                                         <div class="row"> 
                                             @if( $post->city !=null)
-                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                           
+                                            <div class="col-md-4 col-sm-4 col-xs-4">                                                           
                                                     <label class="detail-label">Peferred Location :</label>                                                                  
                                             </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-                                                    {{ $post->city }} 
+                                            <div class="col-md-8 col-sm-8 col-xs-8">  
+                                                    @if($post->preferLocations != null)                                                                                                                              
+                                                    @foreach($post->preferLocations as $pl)
+                                                      <label class="label-success location-label">  @if($pl->locality != "none"){{$pl->locality}}-@endif{{$pl->city}}-{{$pl->state}}</label>
+                                                    @endforeach
+                                                    @else
+                                                    {{$post->city}}
+                                                    @endif
                                             </div>
-                                            
                                             @endif
                                         </div>
                                         
                                          <div class="row">
-                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <div class="col-md-4 col-sm-4 col-xs-4">
                                                     <label class="detail-label">Salary (<i class="fa fa-rupee (alias)"></i>):</label>
                                             </div>
                                             @if($post->min_sal != null)
-                                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                                    {{ $post->min_sal }}-{{ $post->max_sal }}/{{ $post->salary_type }}
+                                            <div class="col-md-8 col-sm-8 col-xs-8">
+                                                    {{ $post->min_sal }} - {{ $post->max_sal }} ({{ $post->salary_type }})
                                             </div>
                                             @else
-                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <div class="col-md-8 col-sm-8 col-xs-8">
                                                     Not disclose
                                             </div>
                                             @endif
@@ -428,12 +459,64 @@
                                         <div class="skill-display">Description : </div>
                                         {{ $post->job_detail }}
                                         
+                                        
                                         @if($post->post_type == 'job' && $post->reference_id != null)
                                         <div class="skill-display">Reference Id&nbsp;: {{ $post->reference_id }} </div> 
                                         @endif
+                                        
                                     </div>
                                 </div>
-                                
+                                @if($post->show_contact == "Public" && $expired == 0)
+                                @if($post->postactivity->where('user_id', Auth::user()->induser_id)->isEmpty())
+                                    
+                                @elseif($post->postactivity->where('user_id', Auth::user()->induser_id)->first()->contact_view == 1)
+                                   
+                                    <div style="    margin: 15px -15px;" class="skill-display">Contact Details : </div>
+                                    <div class="row" >
+                                        <div class="col-md-1 col-sm-6 col-xs-6">
+                                            <label class="detail-label"><i class="glyphicon glyphicon-user"></i> :</label>                
+                                        </div>
+                                        <div class="col-md-9 col-sm-6 col-xs-6">
+                                                {{ $post->contact_person }}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-1 col-sm-6 col-xs-6">
+                                            <label class="detail-label"><i class="glyphicon glyphicon-envelope"></i> :</label>                                  
+                                        </div>
+                                        <div class="col-md-9 col-sm-6 col-xs-6">
+                                                {{ $post->email_id }} 
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-1 col-sm-6 col-xs-6">
+                                            <label class="detail-label"><i class="glyphicon glyphicon-earphone"></i> :</label>                                  
+                                        </div>
+                                        <div class="col-md-9 col-sm-6 col-xs-6">
+                                                {{ $post->phone }} 
+                                        </div>
+                                    </div>
+                                    @else
+                                    
+                                    @endif
+                                    @else
+                                    <div class="skill-display">Contact Details : </div>
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <label class="detail-label" style="color: #BB4E4E;font-size: 12px;">Post owner has kept contact details Private.</label>                                  
+                                        </div>
+                                    </div>
+                                    @endif
+                                    
+                                    <div id="post-user-contact-{{$post->id}}"></div>
+                                    <div class="row" style=" margin: 15px -15px;">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <label class="detail-label" style="font-size: 11px;"><span class="required">*</span>
+                                                Your contact details will be shared to post owner on Apply / Contact.
+                                            </label>                                  
+                                        </div>
+                                    </div>
+                                    
                                  @if($expired == 0)
                                 <div style="margin:27px 0 0;">
                                     <!-- if corporate_id not null -->
@@ -454,13 +537,14 @@
                                                     @endif
                                             </form> 
                                         @elseif($post->postactivity->where('user_id', Auth::user()->induser_id)->first()->apply == 1 && Auth::user()->identifier == 1) 
-                                            <div class="col-md-6">
-                                                <button type="button" class="btn btn-sm bg-grey-steel apply-contact-btn" disabled="true">
+                                            <div class="col-md-12">
+                                                <button type="button" class="btn btn-sm bg-grey-steel apply-contact-btn">
                                                     Applied
                                                 </button>
-                                            </div>
-                                            <div id="applied_dTime" class="col-md-6">
-                                                ({{ $post->postactivity->where('user_id', Auth::user()->id)->first()->apply_dtTime }})
+                                                <label style="float:none;margin:0 auto; display:table;font-size:11px;color: #80898e !important;">
+                                                    {{ date('M d, h:m A', strtotime($post->postactivity->where('user_id', Auth::user()->induser_id)->first()->apply_dtTime)) }}
+                                                    
+                                                </label>
                                             </div>
                                         @else
                                         <form action="/job/apply" method="post" id="post-apply-{{$post->id}}" data-id="{{$post->id}}">  
@@ -483,45 +567,47 @@
                                                 </button>
                                             </form> 
                                         @elseif($post->postactivity->where('user_id', Auth::user()->induser_id)->first()->contact_view == 1) 
-                                             <div class="col-md-6">
-                                                <button type="button" class="btn btn-sm bg-grey-steel apply-contact-btn" disabled="true">
+                                             <div class="col-md-12">
+                                                <button type="button" class="btn btn-sm bg-grey-steel apply-contact-btn">
                                                     <i class="glyphicon glyphicon-ok"></i> Contacted
                                                 </button>
+                                                <label style="float:none;margin:0 auto; display:table;font-size:11px;color: #80898e !important;">
+                                                    {{ date('M d, h:m A', strtotime($post->postactivity->where('user_id', Auth::user()->induser_id)->first()->contact_view_dtTime)) }}
+                                                    
+                                                </label>
                                             </div>
-                                            <div class="col-md-6">
-                                                ({{ $post->postactivity->where('user_id', Auth::user()->id)->first()->contact_view_dtTime }})
-                                            </div>
+                                            
                                             @else
-                                        <form action="/job/contact" method="post" id="post-contact-{{$post->id}}" data-id="{{$post->id}}">  
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                            <input type="hidden" name="contact" value="{{ $post->id }}">
-                                            <button class="btn contact-btn green btn-sm apply-contact-btn" 
-                                                    id="contact-btn-{{$post->id}}" type="button">Contact
-                                            </button>
-                                        </form>                         
+                                            <form action="/job/contact" method="post" id="post-contact-{{$post->id}}" data-id="{{$post->id}}">  
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                <input type="hidden" name="contact" value="{{ $post->id }}">
+                                                <button class="btn contact-btn green btn-sm apply-contact-btn" 
+                                                        id="contact-btn-{{$post->id}}" type="button">Contact
+                                                </button>
+                                            </form> 
+                                                                    
                                         @endif  
+                                        <!-- <div id="post-date-"></div> -->
                                     @endif
                                 </div>
 
                                 @elseif($expired == 1)
-                                <div class="row" style="text-align:center;">
+                                <div class="row skill-display" style="text-align:center;    margin: 20px -15px;">
                                     @if(Auth::user()->induser_id != $post->individual_id && Auth::user()->identifier == 1) 
                                         @if($post->postactivity->where('user_id', Auth::user()->id)->isEmpty()) 
                                             <div class="col-md-4 col-sm-4 col-xs-4">
                                             </div>
                                         @elseif($post->postactivity->where('user_id', Auth::user()->id)->first()->apply == 1) 
-                                            <div class="col-md-4 col-sm-4 col-xs-4">
-                                                <i class="fa fa-check-square-o"></i><span class="hidden-sm hidden-xs"> Applied</span> 
+                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                <i class="fa fa-check-square-o"></i><span class="hidden-sm hidden-xs"> Applied ({{ $post->postactivity->where('user_id', Auth::user()->id)->first()->apply_dtTime }})</span> 
                                             </div>
-                                            {{ $post->postactivity->where('user_id', Auth::user()->id)->first()->apply_dtTime }}
                                         @elseif($post->postactivity->where('user_id', Auth::user()->id)->first()->contact_view == 1) 
-                                            <div class="col-md-4 col-sm-4 col-xs-4">
-                                                <i class="fa fa-check-square-o"></i><span class="hidden-sm hidden-xs"> Contacted</span> 
+                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                <i class="fa fa-check-square-o"></i><span class="hidden-sm hidden-xs"> Contacted </span> ({{ date('M d, Y', strtotime($post->postactivity->where('user_id', Auth::user()->id)->first()->contact_view_dtTime)) }}) 
                                             </div>
-                                            {{ $post->postactivity->where('user_id', Auth::user()->id)->first()->contact_view_dtTime }}
                                         @endif
-                                    <div class="col-md-4 col-sm-4 col-xs-4">
-                                        <i class="glyphicon glyphicon-ban-circle"></i> Expired
+                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                        <i class="glyphicon glyphicon-ban-circle"></i> Post Expired
                                     </div>
                                     @endif
                                 </div>                                      
@@ -653,10 +739,22 @@ $('.contact-btn').live('click',function(event){
       cache : false,
       success: function(data){
         // console.log("s:"+data);
-        if(data == "contacted"){
+        if(data.contacted == "contacted"){
             $('#contact-btn-'+post_id).prop('disabled', true);
             $('#contact-btn-'+post_id).text('Contacted');
             $('#show-hide-contacts').addClass('show-hide-new');
+            var show = '<div class="skill-display">Contact Details : </div>';
+            show += '<div class="row"><div class="col-md-1 col-sm-6 col-xs-6"><label class="detail-label"><i class="glyphicon glyphicon-user"></i> :</label> </div>';
+            show += '<div class="col-md-9 col-sm-6 col-xs-6">'+data.data.contact+'</div></div>';
+            show += '<div class="row"><div class="col-md-1 col-sm-6 col-xs-6"><label class="detail-label"><i class="glyphicon glyphicon-envelope"></i> :</label> </div>';
+            show += '<div class="col-md-9 col-sm-6 col-xs-6">'+data.data.email+'</div></div>';                          
+            show += '<div class="row"><div class="col-md-1 col-sm-6 col-xs-6"><label class="detail-label"><i class="glyphicon glyphicon-envelope"></i> :</label></div>';
+            show += '<div class="col-md-9 col-sm-6 col-xs-6">'+data.data.phone+'</div></div>';
+            $("#post-user-contact-"+post_id).html(show);
+
+            var dates = '<div class="col-md-12" style="text-align:center;"><i class="fa fa-calendar" style="font-size: 11px;color:dimgrey;"></i>'+data.data.date+'</div>';
+            $("#post-date-"+post_id).html(dates);
+            console.log(data.data.date);
         }
       }
     }); 

@@ -220,10 +220,13 @@
 													
 													<select class="form-control education-list" name="education[]" id="parent_selection" multiple style="border:1px solid #c4d5df">
 														@foreach($education as $edu)
-															@if($edu->name != '0')
-															<option value="{{$edu->branch}}-{{$edu->name}}-{{$edu->level}}">{{$edu->name}} ({{$edu->branch}})</option>
-															@else
-															<option value="{{$edu->name}}">{{$edu->branch}}</option>
+															@if($n != $edu->name && $edu->name != '0')
+																{{$n=$edu->name}}
+																<optgroup label="{{$edu->name}}">
+															@endif
+																<option value="{{$edu->name}}-{{$edu->branch}}-{{$edu->level}}">{{$edu->name}}-{{$edu->branch}}</option>
+															@if($n != $edu->name)
+																</optgroup>		
 															@endif
 														@endforeach
 													</select>
@@ -243,7 +246,7 @@
 									<div class="row">
 										<div class="col-md-6 col-sm-6 col-xs-12">
 											<div class="form-group">							
-												<label class=" control-label"><input type="checkbox" id="hide-check"> Salary </label>&nbsp;: 
+												<label class=" control-label"><input type="checkbox" checked id="hide-check"> Salary </label>&nbsp;: 
 														<label class="hide-sal input-sal-exp-label"><i class="fa fa-rupee (alias)" style="font-size:12px;"></i></label>
 														<input type="text" readonly id="slider-range-amount1" name="min_sal" class="input-sal-width hide-sal one" />
 														<!-- <input type="text" readonly id="slider-range-amount3" name="min_sal" class="input-sal-width hide-sal-new three" /> -->
@@ -277,20 +280,41 @@
 													<input type="text" id="pref_loc" name="pref_loc" 
 													class="form-control" placeholder="Select preferred location">									
 													
-												</div>		
-											</div>
-										</div>
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="form-group">
-												<label> Selected Prefered Location <span class="required">
-														* </span></label>
-												<div class="input-group">
-											{!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 
+												</div>	
+												{!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 
 																								   'aria-hidden'=>'true', 
 																								   'class'=>'form-control', 
 																								   'placeholder'=>'city', 
-																								   'multiple']) !!}
+																								   'multiple']) !!}	
+											</div>
+										</div>
+										<div class="col-md-6 show-apply-email">
+											<div class="form-group">
+												<label>Show Contact<span class="required">
+														* </span></label>
+												<div class="input-group">
+													<div class="md-radio-inline">
+														<div class="md-radio">
+															<input type="radio" checked id="radio6" name="show_contact" value="Public" class="md-radiobtn">
+															<label for="radio6" style="">
+															<span></span>
+															<span class="check"></span>
+															<span class="box"></span>
+															Public </label>
+														</div>
+														<div class="md-radio">
+															<input type="radio" id="radio7" name="show_contact" value="Private" class="md-radiobtn">
+															<label for="radio7" style="">
+															<span></span>
+															<span class="check"></span>
+															<span class="box"></span>
+															Private</label>
+														</div>
+													</div>	
+													<div id="radio_error"></div>					<!-- /input-group -->
 												</div>
+												<div class="public" style="color: firebrick;font-size: 11px;">Your Contact details will be seen on the post and people may directly contact you.</div>
+												<div class="private display-none" style="color: firebrick;font-size: 11px;">Your Contact details will not be seen on the post. You may have to contact people who have applied on this post.</div>
 											</div>
 										</div>
 									</div>
@@ -764,19 +788,24 @@ function loader(arg){
     	$(".hide-sal").hide();
     	$(".show-salary").hide();
     	$(".hide-sal-new").hide();
+    	$(".one").prop('disabled',true);
+    	$(".two").prop('disabled',true);
         $("#hide-check").click(function () {
             if ($(this).is(":checked")) {
                 $(".hide-sal").show();
                 $(".show-salary").show();
                 $(".hide-sal-new").show();
+                $(".one").prop('disabled',false);
+    			$(".two").prop('disabled',false);
             } else {
                 $(".hide-sal").hide();
                 $(".show-salary").hide();
                 $(".hide-sal-new").hide();
+                $(".one").prop('disabled',true);
+    			$(".two").prop('disabled',true);
             }
         });
     });
-
         $(function () {
         $("#resume-check").click(function () {
             if ($(this).is(":checked")) {
@@ -816,6 +845,23 @@ function loader(arg){
 		    jQuery('.hide-role').show();
 	    });
 	});
+
+	  $(function () {
+        $("#radio7").click(function () {
+            if ($(this).is(":checked")) {
+                $(".private").show();
+                $(".public").hide();
+                 
+            }
+        });
+        $("#radio6").click(function () {
+            if ($(this).is(":checked")) {
+                $(".private").hide();
+                $(".public").show();
+                 
+            }
+        });
+    });
 
     $('#connections').select2({
     placeholder: "Enter Name"

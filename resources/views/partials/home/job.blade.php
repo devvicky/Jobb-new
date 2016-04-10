@@ -11,11 +11,29 @@
 				<?php $city = 'unspecified'; ?>
 				@if($post->preferLocations != '[]')
 					<?php $city = ''; ?>
-				@foreach($post->preferLocations as $pl)
-					
-					<?php $city = $city . $pl->city .', '; ?>
-				@endforeach
+					@if(count($post->preferLocations) > 1)
+						@foreach($post->preferLocations as $pl)
+							<?php $city = $city . $pl->city .', '; ?>
+						@endforeach
+					@elseif(count($post->preferLocations) == 1)
+						@foreach($post->preferLocations as $pl)
+							<?php $city = $city . $pl->city; ?>
+						@endforeach
+					@endif
 				@endif
+				<?php $groupsTagged = array(); ?>
+                @foreach($post->groupTagged as $gt)
+                    <?php $groupsTagged[] = $gt->group_id; ?>
+                @endforeach
+				<?php
+                    $crossCheck = array_intersect($groupsTagged, $groups);
+                    $elements = array_count_values($crossCheck); ?>
+                            
+				@if($post->tagged->contains('user_id', Auth::user()->induser_id) || 
+                            $post->individual_id == Auth::user()->induser_id || 
+                            count($elements) > 0 || 
+                            (count($groupsTagged) == 0 && count($post->tagged) == 0))
+
 				@if($post->expired == 0)
 					@if($post->induser != null)	
 						@include('partials.home.post', ['userImgPath'	=>	$post->induser->profile_pic, 
@@ -80,7 +98,7 @@
 														'skill'			=>	$post->linked_skill,
 														'jobType'		=>	$post->time_for ])
 					@endif
-				@endif
+				@endif @endif
 			@endforeach					 			
 			</div>
 		</div>

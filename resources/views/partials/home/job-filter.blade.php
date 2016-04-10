@@ -9,11 +9,12 @@
 					<i class="fa fa-filter"></i> Filter <i class="fa fa-check-square-o"></i>
 				</a>
 			</div>
-			<div class="col-md-3 col-sm-3 col-xs-3" style="padding: 3px 0;">
-				<form action="/job-filter/remove/{{Auth::user()->id}}" method="post">
-					<input type="hidden" name="_token" value="{{ csrf_token() }}">
-					<button type="submit" class="btn" style="background-color:transparent;border:0;font-size:12px;"><i class="fa fa-times" style="color:red;font-size:12px;"></i> Clear</button>
-				</form>
+			<div class="col-md-3 col-sm-3 col-xs-3 filter-clear" style="padding: 3px 0;">
+				<a href="/home">
+					<button type="submit" name="clear" value="clear" class="btn" style="background-color:transparent;border:0;font-size:12px;">
+						<i class="fa fa-times" style="color:red;font-size:12px;"></i> Clear
+					</button>
+				</a>
 			</div>
 		@else
 		<div class="col-md-5 col-sm-5 col-xs-5">
@@ -22,7 +23,7 @@
 			</a>
 		</div>
 		@endif
-			<div class="col-md-7 col-sm-7 col-xs-7" style="text-align:right;">
+			<div class="col-md-7 col-sm-7 col-xs-7 filter-clear-123" style="text-align:right;">
 				<div class="btn-group">
 					<button class="btn btn-default btn-sm dropdown-toggle capitalize" type="button" data-toggle="dropdown" style="border: 0;color:#8c8c8c;background:transparent;">
 					<i class="glyphicon glyphicon-sort"></i> @if($sort_by != " ") {{$sort_by}} @else Date @endif<i class="fa fa-angle-down"></i>
@@ -76,7 +77,7 @@
 					<div class="col-md-2 col-sm-2 col-xs-2" style="margin: -7px -30px;">
 						@if($filter != null)
 							<form action="/job-filter/remove/{{Auth::user()->id}}" method="post">
-								<input type="hidden" name="_token" value="{{ csrf_token() }}">
+								<input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
 								<button type="submit" class="btn" style="background-color:transparent;border:0;font-size:12px;"><i class="glyphicon glyphicon-trash" style="color:red;font-size:12px;"></i> Remove</button>
 							</form>
 						@endif
@@ -84,7 +85,7 @@
 				</div>
 			</div>
 			<form id="job-filter" name="filter_form" action="/home" method="post">
-			<input type="hidden" name="_token" value="{{ csrf_token() }}">
+			<input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
 			<div class="modal-body">
 				<div class="" data-always-visible="1" data-rail-visible1="1">
 					<input type="hidden" name="post_type" value="job">
@@ -302,6 +303,15 @@
 		<div class="links-title" style="text-align: center; margin: 10px 0 30px 0;">
 			<i class=""></i>
 			<span class="caption-subject font-blue-hoki bold capitalize">Posts in Group "<span style="color: dimgrey;"> {{$groupUser->group_name}} </span>"</span>
+		</div>
+	<!-- </div>
+</div> -->
+@elseif($title == 'postByCorporate')
+<!-- <div class="portlet light bordered col-md-9">
+	<div class="portlet-title"> -->
+		<div class="links-title" style="text-align: center; margin: 10px 0 30px 0;">
+			<i class=""></i>
+			<span class="caption-subject font-blue-hoki bold capitalize">Posted by "<span style="color: dimgrey;"> {{$postCorp->firm_name}} </span>"</span>
 		</div>
 	<!-- </div>
 </div> -->

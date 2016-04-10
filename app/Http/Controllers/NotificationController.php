@@ -95,4 +95,10 @@ class NotificationController extends Controller {
 		}
 	}
 
+	public function RemoveCount($id){
+		$notificationCount = Notification::where('id', '=', $id)->update(['view_status' => 1]);
+		$notificationCount->save();
+		return 'success';
+	}
+
 }

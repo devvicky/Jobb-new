@@ -36,7 +36,8 @@ class Postjob extends Model {
 							'contact_person',
 							'corporate_id',
 							'unique_id',
-							'resume_required'
+							'resume_required',
+							'show_contact'
 						   ];
 
 	protected $appends = ['magic_match', 'job_role', 'expired', 'mypost_match'];

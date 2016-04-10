@@ -2,11 +2,11 @@
 
 @section('content')
 @if($utype == 'ind')
-<div class="portlet box green col-md-7">
+<div class="portlet box green col-md-7" style="margin:20px;">
 	<div class="portlet-title">
 		<div class="caption">
 			<i class="icon-users"></i>
-			Links			
+			{{$linkName->fname}} Links			
 		</div>
 	</div>
 	<div class="portlet-body">

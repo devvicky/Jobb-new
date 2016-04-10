@@ -190,11 +190,11 @@ class AuthController extends Controller {
 			        $data['message'] = 'login success';
 			        return response()->json(['success'=>true,'data'=>$data]);
 			    }
-			    /*else{
+			    else{
 			    	$data['page'] = 'login';
 			    	$data['user'] = 'valid';
-	    			$data['message'] = 'invalid login info';
-			    }*/
+	    			$data['message'] = 'Email or Password is incorrect';
+			    }
 			}else if($data['valid'] == 0){
 		    	$data['page'] = 'login';
 		    	$data['user'] = 'invalid';

@@ -14,4 +14,8 @@ class Corpuser extends Model {
 		return $this->belongsToMany('App\Induser', 'follows', 'corporate_id', 'individual_id');
 	}
 
+	public function posts(){
+        return $this->hasMany('App\Postjob', 'corporate_id', 'id');
+    }
+
 }

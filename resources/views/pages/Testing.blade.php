@@ -1,211 +1,354 @@
-<div class="row" style="margin:0;padding:0;">
-    <div class="col-md-8" style="text-align: center;margin: 5px 0 -15px 0;">
-        <h4 class="uppercase btn-success singlepost-title">
-            <label class="">{{$post->post_type}} Detail</label> ({{$post->unique_id}})
-        </h4>
-    </div>
-</div>
-<div class="portlet light bordered" 
- style="border: none !important; background:transparent; margin: 20px 0px;">                                     
-<div class="portlet-body form" id="posts">
-    <div class="form-body" id="post-items" style="padding:0;">                                          
-        <div class="row post-item" >
-                        
-                        <div class="col-md-8 home-post">
-
-                            <div class="timeline" >
-                                <!-- TIMELINE ITEM -->
-
-                              
-                                <div class="timeline-item time-item">
-                               
-                                    <div class="timeline-badge badge-margin">
-                                    @if($post->induser != null && !empty($post->induser->profile_pic))
-                                    <img class="timeline-badge-userpic userpic-box" src="/img/profile/{{ $post->induser->profile_pic }}" title="{{ $post->induser->fname }}">
-                                    
-                                    @elseif($post->corpuser != null && !empty($post->corpuser->logo_status))
-                                    <img class="" src="/img/profile/{{ $post->corpuser->logo_status }}" title="{{ $post->corpuser->firm_name }}">
-                                    
-                                    @elseif(empty($post->corpuser->logo_status) && $post->corpuser != null )
-                                    <img class="" src="/assets/images/corpnew.jpg">
-                                    
-                                    @elseif(empty($post->induser->profile_pic) && $post->induser != null)
-                                    <img class="timeline-badge-userpic userpic-box" src="/assets/images/ab.png">
-                                    
-                                    @endif
-                                    
-                                </div>
-                                    <div class="row post-postision" style="padding:0;">
-                                        <div class="col-md-12">
-                                            <div class="post-title-new capitalize">{{ $post->post_title }} </div>
-                                        </div>
-                                        @if($post->post_compname != null && $post->post_type == 'job')
-                                        <div class="col-md-12">
-                                            <div><small class="capitalize" style="font-size:13px;color:dimgrey !important;">Required at {{ $post->post_compname }}</small></div>
-                                        </div>
-                                            
-                                        @endif
-                                    </div>
-                                    <div class="row post-postision" style="padding:0;"> 
-                                        @if($post->min_exp != null)
-                                        <div class="col-md-4 col-sm-4 col-xs-4" style="">
-                                        <small style="font-size:13px;color:dimgrey !important;"> <i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: {{ $post->min_exp}}-{{ $post->max_exp}} Yr</small>
-                                        </div>
-                                        @endif
-                                        @if($post->city != null)
-                                        <div class="col-md-8 col-sm-8 col-xs-8 elipsis-code-city" style="padding:0 12px;">
-                                        <small style="font-size:13px;color:dimgrey !important;"> <i class="glyphicon glyphicon-map-marker post-icon-color"></i>&nbsp;: {{ $post->city }}</small>
-                                        </div>
-                                        @endif 
-                                    </div>
-
-                                    <div class="row" style="margin: 5px 0px; border-top: 1px solid whitesmoke;padding:0;">
-                                        <div class="col-md-12" style="margin: 3px -13px;">
-                                           
-                                            <div class="row" style="padding:0;">  
-                                                <div class="col-md-3 col-sm-3 col-xs-3">
-                                                    
-                                                    <div class="match" style="float: left; margin: 0px 3px;">      
-                                                        <a data-toggle="modal" data-mpostid="{{$post->id}}" class="magic-font magicmatch-posts" href="#magicmatch-posts" style="color: white;line-height: 1.7;text-decoration: none;"> 
-                                                            <button class="btn btn-success magic-match-css"><i class="icon-speedometer magic-font" style="font-size:12px;"></i> 
-                                                               
-                                                            </button>
-                                                            
-                                                        </a>
-                                                        
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-3" style="padding:0 8px;">                 
-                                                <button class="btn like-btn"  type="button" style="background-color: transparent;padding:3px;" title="Thanks">
-                                                    <i class="fa fa-thumbs-up thanks-icon" id="like-{{$post->id}}"></i>        
-                                                </button>
-                                                </div>
-                                                
-                                                <div  class="col-md-3 col-sm-3 col-xs-3" style="">
-                                                    <div class="dropup ">                                           
-                                                        <button class="btn dropdown-toggle" type="button" 
-                                                                data-toggle="dropdown" title="Share" 
-                                                                style="background-color: transparent;border: 0;margin: 0px;">
-                                                            <i class="fa fa-share-square-o" 
-                                                                style="font-size: 19px;color: darkslateblue;"></i>
-                                                        </button>
-                                                        <ul class="dropdown-menu dropdown-menu-share-home" role="menu" 
-                                                            style="min-width:0;box-shadow:0 0 !important;padding: 0;">
-                                                            <li style="border-bottom: 1px solid #ddd;">
-                                                                <a class="jobtip sojt" >
-                                                                    Share on Jobtip
-                                                                </a>
-                                                            </li>
-                                                            <li style="border-bottom: 1px solid #ddd;">
-                                                                <a class="jobtip sbmail">
-                                                                    Share by email
-                                                                </a>
-                                                            </li>
-                                                        </ul>                                                   
-                                                    </div>
-                                                    <div class="report-css">
-                                             
-                                                    <a href="/login">
-                                                        <button class="report-button-css">
-                                                            <i class="fa  fa-ellipsis-v" style="color:black;"></i>
-                                                        </button>
-                                                    </a>   
-                                                    </div>
-                                                </div>    
-                                            </div>
-                                            <div class="row" style="padding:0;">
-                                                
-                                                <div class="col-md-3 col-sm-3 col-xs-6" style="font-size:12px;text-align:center">
-                                                <!-- <div class="expired-css">                                                   -->
-                                                    <i class="glyphicon glyphicon-ban-circle" style="font-size:12px;color:dimgrey;"></i> Post Expired
-                                                <!-- </div> -->
-                                                </div> 
-                                            </div>                                          
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="row" style="margin:0;padding:0;">
-                                    <h4 class="skill-display">Details:</h4>
-                                    <div class="col-md-12">
-                                        <div class="row" style="padding:0;">
-                                            
-                                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                                    <label class="detail-label">Education :</label>     
-                                            </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                                @if($post->education == 'twelth')
-                                                    12th
-                                                @else
-                                                {{$post->education}} 
-                                                @endif    
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="row" style="padding:0;"> 
-                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-                                                    <label class="detail-label">Skills :</label>                                                                  
-                                            </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-                                                    {{$post->linked_skill}}
-                                                 
-                                            </div>
-                                        </div>
-                                        <div class="row" style="padding:0;"> 
-                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-                                                    <label class="detail-label">Job Type :</label>                                                                  
-                                            </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-                                                    {{ $post->time_for }}
-                                            </div>
-                                        </div>
-                                        <div class="row" style="padding:0;"> 
-                                            @if($post->locality != null && $post->city !=null)
-                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-                                                    <label class="detail-label">Locality :</label>                                                                  
-                                            </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-                                                    {{ $post->locality }},{{ $post->city }} 
-                                            </div>
-                                            @elseif($post->locality == null && $post->city !=null)
-                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-                                                    <label class="detail-label">Locality :</label>                                                                  
-                                            </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-                                                    {{ $post->city }} 
-                                            </div>
-                                            @endif
-                                        </div>
-                                        
-                                         <div class="row" style="padding:0;">
-                                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                                    <label class="detail-label">Salary (<i class="fa fa-rupee (alias)"></i>):</label>
-                                            </div>
-                                            @if($post->min_sal != null)
-                                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                                    {{ $post->min_sal }}-{{ $post->max_sal }}/{{ $post->salary_type }}
-                                            </div>
-                                            @else
-                                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                                    Not disclose
-                                            </div>
-                                            @endif
-                                        </div>
-                                        <div class="skill-display">Description : </div>
-                                        {{ $post->job_detail }}
-                                        
-                                        @if($post->post_type == 'job' && $post->reference_id != null)
-                                        <div class="skill-display">Reference Id&nbsp;: {{ $post->reference_id }} </div> 
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- END TIMELINE ITEM -->
-                        </div>                                  
-                </div>                           
+@extends('master')
+ @section('content')
+  @include('partials.home.home')
+<div class="modal fade" id="share-post" tabindex="-1" role="dialog" aria-labelledby="share-post" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Share post</h4>
             </div>
+            <form class="form-horizontal" id="modal-post-share-form" role="form" method="POST" action="/post/share">
+                <div class="modal-body">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="share_post_id" id="modal_share_post_id" value=""> @if(Auth::user()->induser)
+                    <div id="post-share-msg-box" style="display:none">
+                        <div id="post-share-msg"></div>
+                    </div>
+                    <div id="post-share-form-errors" style="display:none"></div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Who can see this Post</h4>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- 
+                            <label for="tag-group-all" style="padding: 5.5px 12px;">
+                              <input type="checkbox" id="tag-group-all" name="tag-group" value="all" class="md-radiobtn">
+                              Public 
+                            </label> 
+                            -->
+                            <label for="tag-group-links" style="padding: 5.5px 12px;">
+                                <input type="checkbox" id="tag-group-links" name="tag-group" value="links" class="md-radiobtn"> Links
+                            </label>
+                            <label for="tag-group-groups" style="padding: 5.5px 12px;">
+                                <input type="checkbox" id="tag-group-groups" name="tag-group" value="groups" class="md-radiobtn"> Groups
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" id="connections-list">
+                            <label>Links</label>
+                            {!! Form::select('share_links[]', $share_links, null, ['id'=>'connections', 'class'=>'form-control', 'multiple']) !!}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" id="groups-list">
+                            <label>Groups</label>
+                            {!! Form::select('share_groups[]', $share_groups, null, ['id'=>'groups', 'class'=>'form-control', 'multiple']) !!}
+                        </div>
+                    </div>
+                    @endif
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-sm btn-success" id="modal-post-share-btn">Share</button>
+                    <button type="button" class="btn btn-sm default" data-dismiss="modal">Close</button>
+                </div>
+            </form>
         </div>
+        <!-- /.modal-content -->
     </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- END SHARE MODAL FORM -->
+@stop
+@section('javascript')
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-56afb9b6a3affa13" async="async">
+</script>
+<script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
+<script src="/assets/home-js.js"></script>
+<script>
+jQuery(document).ready(function() {
+    ComponentsIonSliders.init();
+    ComponentsDropdowns.init();
+    ComponentsEditors.init();
+    UIBootstrapGrowl.init();
+    ComponentsjQueryUISliders.init();
+    // FormWizard.init();
+});
+    
+    $(function() {
+      $(".save-filter").delay(5000).fadeOut();
+    });
+
+
+    //job Filter
+    var skillArray = [];
+    @if($filter != null)
+        @if($filter->linked_skill != null)
+        <?php $array = explode(', ', $filter->linked_skill); ?> 
+        @if(count($array) > 0)
+            @foreach($array as $gt => $gta)
+                skillArray.push('<?php echo $gta; ?>');
+            @endforeach
+        @endif
+        @endif
+    @else
+        <?php $authSkill = explode(', ', Auth::user()->induser->linked_skill); ?> 
+        @if(count($authSkill) > 0)
+            @foreach($authSkill as $gt => $gta)
+                skillArray.push('<?php echo $gta; ?>');
+            @endforeach
+        @endif
+    @endif
+    var skillselect = $("#linked_skill_id").select2({ dataType: 'json', data: skillArray });
+    skillselect.val(skillArray).trigger("change");
+
+     //skill Filter
+    var skillArray = [];
+    @if($skillfilter != null)
+    @if($skillfilter->linked_skill != null)
+    <?php $arrayskill = explode(', ', $skillfilter->linked_skill); ?> 
+    @if(count($arrayskill) > 0)
+    @foreach($arrayskill as $gt => $gta)
+        skillArray.push('<?php echo $gta; ?>');
+    @endforeach
+    @endif
+    @endif
+    @endif
+    var skillselect = $("#linked_skillid").select2({ dataType: 'json', data: skillArray });
+    skillselect.val(skillArray).trigger("change");
+
+    // preferred loc
+    var prefLocationArray = [];
+    @if($filter != null)
+        @if($filter->city != null)
+            <?php $arr = explode(', ', $filter->city); ?>
+            @if(count($arr) > 0) 
+                @foreach($arr as $ga => $gt)
+                    prefLocationArray.push('<?php echo $gt; ?>');
+                @endforeach
+            @endif
+        @endif
+    @else
+        @if(Auth::user()->induser->prefered_location != null)
+            <?php $authCity = explode(', ', Auth::user()->induser->prefered_location); ?> 
+            @if(count($authCity) > 0)
+                @foreach($authCity as $pl => $gta)
+                    prefLocationArray.push('<?php echo $gta; ?>');
+                @endforeach
+            @endif
+        @endif
+    @endif
+    var plselect = $("#prefered_location").select2({ dataType: 'json', data: prefLocationArray });
+    plselect.val(prefLocationArray).trigger("change");
+
+    var $eventSelect = $("#prefered_location"); 
+    $eventSelect.on("select2:unselect", function (e) {
+        // console.log("Removing: "+e.params.data.id);
+        // remove corresponding value from array
+        prefLocationArray = $.grep(prefLocationArray, function(value) {
+          return value != e.params.data.id;
+        });
+
+        // remove select option for pref loc
+        $("#prefered_location option[value='"+e.params.data.id+"']").remove();      
+        if(prefLocationArray.length == 0){
+            plselect = $("#prefered_location").select2({ dataType: 'json', data: [] });
+        }else{
+            plselect = $("#prefered_location").select2({ dataType: 'json', data: prefLocationArray });
+        }
+        plselect.val(prefLocationArray).trigger("change"); 
+        // updated array
+    });
+
+    var prefLoc = $("#pref_loc");
+    function initPrefLoc() {
+        var options = { types: ['(regions)'], componentRestrictions: {country: "in"}};
+        var input = document.getElementById('pref_loc');
+        var autocomplete = new google.maps.places.Autocomplete(input, options);
+        autocomplete.addListener('place_changed', onPlaceChanged);
+
+        function onPlaceChanged() {
+          var place = autocomplete.getPlace();
+          if (place.address_components) { 
+            // console.log(place.address_components);
+
+            var obj = place.address_components;         
+            var locality = '';
+            var city = '';
+            var state = '';
+            $.each( obj, function( key, value ) {
+                if($.inArray("sublocality", value.types)  > -1 ){
+                    locality = value.long_name;
+                }
+                if($.inArray("locality", value.types)  > -1 ){
+                    city = value.long_name;
+                }
+                if($.inArray("administrative_area_level_1", value.types)  > -1 ){
+                    state = value.long_name;
+                }
+            });
+            // console.log("Locality: "+locality+" city: "+city+" state: "+state);
+
+            if(locality != '' && city != '' && state != '' ){
+                prefLocationArray.push(locality +"-"+ city +"-"+ state);    
+            }
+            if(locality == '' && city != '' && state != '' ){
+                prefLocationArray.push(city +"-" + state);  
+            }
+
+            setTimeout(function(){ prefLoc.val(''); prefLoc.focus();},0);   // clear field
+            
+            $("#prefered_location").select2({ dataType: 'json', data: prefLocationArray });
+            plselect.val(prefLocationArray).trigger("change");
+
+          } else { 
+            document.getElementById('autocomplete').placeholder = 'Your preferred location'; 
+          }
+        }
+
+    }
+   google.maps.event.addDomListener(window, 'load', initPrefLoc);
+
+</script>
+<script type="text/javascript">
+    // preferred loc
+    var currLocationArray = [];
+
+    @if($skillfilter != null)
+        <?php $arrCity = explode(', ', $skillfilter->city); ?>
+        @if(count($arrCity) > 0) 
+            @foreach($arrCity as $ga => $gt)
+                currLocationArray.push('<?php echo $gt; ?>');
+            @endforeach
+        @endif
+     @else
+        @if(Auth::user()->induser->prefered_location != null)
+            <?php $authcurrCity = explode(', ', Auth::user()->induser->prefered_location); ?> 
+            @if(count($authcurrCity) > 0)
+                @foreach($authcurrCity as $pl => $gta)
+                    currLocationArray.push('<?php echo $gta; ?>');
+                @endforeach
+            @endif
+        @endif
+    @endif
+    var clselect = $("#current_location").select2({ dataType: 'json', data: currLocationArray });
+    clselect.val(currLocationArray).trigger("change");
+
+    var $eventSelect = $("#current_location"); 
+    $eventSelect.on("select2:unselect", function (e) {
+        // console.log("Removing: "+e.params.data.id);
+        // remove corresponding value from array
+        currLocationArray = $.grep(currLocationArray, function(value) {
+          return value != e.params.data.id;
+        });
+
+        // remove select option for pref loc
+        $("#current_location option[value='"+e.params.data.id+"']").remove();       
+        if(currLocationArray.length == 0){
+            clselect = $("#current_location").select2({ dataType: 'json', data: [] });
+        }else{
+            clselect = $("#current_location").select2({ dataType: 'json', data: currLocationArray });
+        }
+        clselect.val(currLocationArray).trigger("change"); 
+        // updated array
+    });
+
+    var currLoc = $("#curr_loc");
+    function initCurrLoc() {
+        var options = { types: ['(regions)'], componentRestrictions: {country: "in"}};
+        var input = document.getElementById('curr_loc');
+        var autocomplete = new google.maps.places.Autocomplete(input, options);
+        autocomplete.addListener('place_changed', onPlaceChanged);
+
+        function onPlaceChanged() {
+          var place = autocomplete.getPlace();
+          if (place.address_components) { 
+            // console.log(place.address_components);
+
+            var obj = place.address_components;         
+            var locality = '';
+            var city = '';
+            var state = '';
+            $.each( obj, function( key, value ) {
+                if($.inArray("sublocality", value.types)  > -1 ){
+                    locality = value.long_name;
+                }
+                if($.inArray("locality", value.types)  > -1 ){
+                    city = value.long_name;
+                }
+                if($.inArray("administrative_area_level_1", value.types)  > -1 ){
+                    state = value.long_name;
+                }
+            });
+            // console.log("Locality: "+locality+" city: "+city+" state: "+state);
+
+            if(locality != '' && city != '' && state != '' ){
+                currLocationArray.push(locality +"-"+ city +"-"+ state);    
+            }
+            if(locality == '' && city != '' && state != '' ){
+                currLocationArray.push(city +"-" + state);  
+            }
+
+            setTimeout(function(){ currLoc.val(''); currLoc.focus();},0);   // clear field
+            
+            $("#current_location").select2({ dataType: 'json', data: currLocationArray });
+            clselect.val(currLocationArray).trigger("change");
+
+          } else { 
+            document.getElementById('autocomplete').placeholder = 'Your current location'; 
+          }
+        }
+
+    }
+   google.maps.event.addDomListener(window, 'load', initCurrLoc);
+
+</script>
+<script>
+    $(document).ready(function(){
+    $("#btn").click(function(){
+    /* Single line Reset function executes on click of Reset Button */
+    $("#job-filter")[0].reset();
+    $("#linked_skill_id").val(null).trigger("change"); 
+    $("#prefered_location").val(null).trigger("change");
+    });});
+
+// Experience slider
+    
+    $("#slider-range-max-skill").slider({
+        isRTL: Metronic.isRTL(),
+        range: "max",
+        min: 0,
+        max: 15,
+        step: 1,
+        slide: function (event, ui) {
+            $("#slider-range-experience").val(ui.value); 
+
+        }
+    });
+
+        $("#slider-range-experience").val($("#slider-range-max-skill").slider("value"));
+</script>
+<style type="text/css">
+/* required for preferred location */
+.pac-container {z-index:999999;}
+
+.pagination {
+    display: none;
+}
+
+#infscr-loading {
+    text-align: center;
+    display: block;
+    clear: both;
+    padding: 10px 0;
+}
+</style>
+<script src="/assets/js/jquery.infinitescroll.min.js"></script>
+<script src="/assets/js/myinfinite.js"></script>
+@stop
 
 
 
@@ -215,44 +358,103 @@
 
 
 
-<li>
-                <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283" id="notification-list">
-                  @foreach($thanks as $not)
-                  <li>
-                  <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
-                    <li>
-                      <a href="inbox.html?a=view">
-                      <span class="photo">
-                      @if($not->fromuser != null)
-                        @if($not->fromuser->first()->induser != null)
-                          
-                          <img src="@if($not->fromuser->first()->induser->profile_pic != null){{ '/img/profile/'.$not->fromuser->first()->induser->profile_pic }}@else{{'/assets/images/ab.png'}}@endif" class="img-circle" width="40" height="40">                        
-                          
-                        @elseif($not->fromuser->first()->corpuser != null)
-                          
-                          <img src="@if($not->fromuser->first()->corpuser->logo_status != null){{ '/img/profile/'.$not->fromuser->first()->corpuser->logo_status }}@else{{'/assets/images/ab.png'}}@endif" class="img-circle" width="40" height="40">
-                          {{-- <div class=""><i class="icon-speedometer"></i> 55%</div> --}}
-                         
-                        @endif
-                      @else
-                        <img src="/assets/images/ab.png" class="img-circle" width="40" height="40">                 
-                      @endif
-                      </span>
-                      <span class="subject">
-                      <span class="from">
-                      {{$not->user->name}}</span>
-                      <span class="time">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($not->thanks_dtTime))->diffForHumans() }} </span>
-                      </span>
-                      <span class="message">
-                      has thanked your post : {{$not->unique_id}} </span>
-                      </a>
-                    </li>
-                    
-                  </ul>
-                </li>
-                 @endforeach
-                </ul>
-              </li>
+
+
+
+<script>
+$(document).ready(function () {            
+//validation rules
+    var form = $('#create_user');
+    var error = $('.alert-danger', form);
+    var success = $('.alert-success', form);
+    form.validate({
+        doNotHideMessage: true, //this option enables to show the error/success messages on tab switch.
+        errorElement: 'span', //default input error message container
+        errorClass: 'help-block help-block-error', // default input error message class
+        focusInvalid: false, // do not focus the last invalid input
+        rules: {
+           fname: {
+              required: true,
+              minlength: 5
+            },
+            lname: {
+              required: true
+            },
+            dob: {
+                required: true
+            },
+            gender: {
+                required: true
+            },
+            city: {
+                required: true
+            },
+            mobile: {
+                required:true,
+                number: true,
+                maxlength:10,
+                minlength:10
+            },
+            email: {
+                required:true,
+                email:true,
+                minlength:10
+            },
+            about_individual: {
+                required:false,
+                maxlength:500,
+                minlength:50
+            },
+            education: {
+                required: true
+            },
+            experience: {
+                required: true
+            },
+            'linked_skill_id[]': {
+                required: true
+            },
+            prefered_jobtype: {
+                required: true
+            },
+            'prefered_location': {
+                required: true
+            }
+
+        },
+        messages: {
+            fname: {
+                required: 'Enter First Name'
+            }
+        },
+            invalidHandler: function (event, validator) { //display error alert on form submit   
+            success.hide();
+            error.show();
+            Metronic.scrollTo(error, -200);
+        },
+
+             highlight: function(element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+            unhighlight: function(element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) { // render error placement for each input type
+                    var icon = $(element).parent('.input-icon').children('i');
+                    icon.removeClass('fa-check').addClass("fa-warning");  
+                    icon.attr("data-original-title", error.text()).tooltip({'placement': 'left'});
+                   
+                },
+            success: function (label, element) {
+                    var icon = $(element).parent('.input-icon').children('i');
+                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                    icon.removeClass("fa-warning").addClass("fa-check");
+                },
+    });
+});
+</script>
 
 
 
@@ -261,122 +463,32 @@
 
 
 
+$alerted = {{Auth::user()->profile_alerted}};
+$profile_status = {{Auth::user()->profile_status}};
 
+if( $alerted == 0 && $profile_status <= 70 ){
+  window.alert = function(message){
+    $(document.createElement('div'))
+        .attr({title: 'Profile Update Alert', 'class': 'alert'})
+        .html(message)
+        .dialog({
+            buttons: {OK: function(){$(this).dialog('close');}},
+            close: function(){$(this).remove();},
+            draggable: true,
+            modal: true,
+            resizable: false,
+            width: 'auto'
+        });
+};
+  // $("Your profile is "+$profile_status+"% completed. Please update it to get more job opportunities.").dialog();
+  alert("Your profile is "+$profile_status+"% completed. Please update it to get more job opportunities.");
 
-
-              <select class="select2me form-control" name="industry">
-                                        <option value="Automotive/ Ancillaries">Automotive/ Ancillaries</option>
-                                        <option value="Banking/ Financial Services">Banking/ Financial Services</option>
-                                        <option value="Bio Technology & Life Sciences">Bio Technology & Life Sciences</option>
-                                        <option value="Chemicals/Petrochemicals">Chemicals/Petrochemicals</option>
-                                        <option value="Construction">Construction</option>
-                                        <option value="FMCG">FMCG</option>
-                                        <option value="Education">Education</option>
-                                        <option value="Entertainment/ Media/ Publishing">Entertainment/ Media/ Publishing</option>
-                                        <option value="Insurance">Insurance</option>
-                                        <option value="ITES/BPO">ITES/BPO</option>
-                                        <option value="IT/ Computers - Hardware">IT/ Computers - Hardware</option>
-                                        <option value="IT/ Computers - Software">IT/ Computers - Software</option>
-                                        <option value="KPO/Analytics">KPO/Analytics</option>
-                                        <option value="Machinery/ Equipment Mfg.">Machinery/ Equipment Mfg.</option>
-                                        <option value="Oil/ Gas/ Petroleum">Oil/ Gas/ Petroleum</option>
-                                        <option value="Pharmaceuticals">Pharmaceuticals</option>
-                                        <option value="Power/Energy">Power/Energy</option>
-                                        <option value="Real Estate">Real Estate</option>
-                                        <option value="Retailing">Retailing</option>
-                                        <option value="Telecom">Telecom</option>
-                                        <option value="Advertising/PR/Events">Advertising/PR/Events</option>
-                                        <option value="Agriculture/ Dairy Based">Agriculture/ Dairy Based</option>
-                                        <option value="Aviation/Aerospace">Aviation/Aerospace</option>
-                                        <option value="Beauty/Fitness/PersonalCare/SPA">Beauty/Fitness/PersonalCare/SPA</option>
-                                        <option value="Beverages/ Liquor">Beverages/ Liquor</option>
-                                        <option value="Cement">Cement</option>
-                                        <option value="Ceramics & Sanitary Ware">Ceramics & Sanitary Ware</option>
-                                        <option value="Consultancy">Consultancy</option>
-                                        <option value="Courier/ Freight/ Transportation">Courier/ Freight/ Transportation</option>
-                                        <option value="Law Enforcement/Security Services">Law Enforcement/Security Services</option>
-                                        <option value="E-Learning">E-Learning</option>
-                                        <option value="Shipping/ Marine Services">Shipping/ Marine Services</option>
-                                        <option value="Engineering, Procurement, Construction">Engineering, Procurement, Construction</option>
-                                        <option value="Environmental Service">Environmental Service</option>
-                                        <option value="Facility management">Facility management</option>
-                                        <option value="Fertilizer/ Pesticides">Fertilizer/ Pesticides</option>
-                                        <option value="Food & Packaged Food">Food & Packaged Food</option>
-                                        <option value="Textiles / Yarn / Fabrics / Garments">Textiles / Yarn / Fabrics / Garments</option>
-                                        <option value="Gems & Jewellery">Gems & Jewellery</option>
-                                        <option value="Government/ PSU/ Defence">Government/ PSU/ Defence</option>
-                                        <option value="Consumer Electronics/Appliances">Consumer Electronics/Appliances</option>
-                                        <option value="Hospitals/ Health Care">Hospitals/ Health Care</option>
-                                        <option value="Hotels/ Restaurant">Hotels/ Restaurant</option>
-                                        <option value="Import / Export">Import / Export</option>
-                                        <option value="Market Research">Market Research</option>
-                                        <option value="Medical Transcription">Medical Transcription</option>
-                                        <option value="Mining">Mining</option>
-                                        <option value="NGO">NGO</option>
-                                        <option value="Paper">Paper</option>
-                                        <option value="Printing / Packaging">Printing / Packaging</option>
-                                        <option value="Public Relations (PR)">Public Relations (PR)</option>
-                                        <option value="Travel / Tourism">Travel / Tourism</option>
-                                        <option value="Other">Other</option>
-                                    </select>
-
-
-
-
-
-
-
-
-
-                                    <option @if($user->induser->industry=="Automotive/ Ancillaries") {{ $selected }} @endif value="Automotive/ Ancillaries">Automotive/ Ancillaries</option>
-                                        <option @if($user->induser->industry=="Banking/ Financial Services") {{ $selected }} @endif value="Banking/ Financial Services">Banking/ Financial Services</option>
-                                        <option @if($user->induser->industry=="Bio Technology & Life Sciences") {{ $selected }} @endif value="Bio Technology & Life Sciences">Bio Technology & Life Sciences</option>
-                                        <option @if($user->induser->industry=="Chemicals/Petrochemicals") {{ $selected }} @endif value="Chemicals/Petrochemicals">Chemicals/Petrochemicals</option>
-                                        <option @if($user->induser->industry=="Construction") {{ $selected }} @endif value="Construction">Construction</option>
-                                        <option @if($user->induser->industry=="FMCG") {{ $selected }} @endif value="FMCG">FMCG</option>
-                                        <option @if($user->induser->industry=="Education") {{ $selected }} @endif value="Education">Education</option>
-                                        <option @if($user->induser->industry=="Entertainment/ Media/ Publishing") {{ $selected }} @endif value="Entertainment/ Media/ Publishing">Entertainment/ Media/ Publishing</option>
-                                        <option @if($user->induser->industry=="Insurance">Insurance") {{ $selected }} @endif value="Insurance">Insurance</option>
-                                        <option @if($user->induser->industry=="ITES/BPO") {{ $selected }} @endif value="ITES/BPO">ITES/BPO</option>
-                                        <option @if($user->induser->industry=="IT/ Computers - Hardware") {{ $selected }} @endif value="IT/ Computers - Hardware">IT/ Computers - Hardware</option>
-                                        <option @if($user->induser->industry=="IT/ Computers - Software") {{ $selected }} @endif value="IT/ Computers - Software">IT/ Computers - Software</option>
-                                        <option @if($user->induser->industry=="KPO/Analytic") {{ $selected }} @endif value="KPO/Analytics">KPO/Analytics</option>
-                                        <option @if($user->induser->industry=="Machinery/ Equipment Mfg.") {{ $selected }} @endif value="Machinery/ Equipment Mfg.">Machinery/ Equipment Mfg.</option>
-                                        <option @if($user->induser->industry=="Oil/ Gas/ Petroleum") {{ $selected }} @endif value="Oil/ Gas/ Petroleum">Oil/ Gas/ Petroleum</option>
-                                        <option @if($user->induser->industry=="Pharmaceuticals") {{ $selected }} @endif value="Pharmaceuticals">Pharmaceuticals</option>
-                                        <option @if($user->induser->industry=="Power/Energy") {{ $selected }} @endif value="Power/Energy">Power/Energy</option>
-                                        <option @if($user->induser->industry=="Retailing") {{ $selected }} @endif value="Retailing">Retailing</option>
-                                        <option @if($user->induser->industry=="Telecom") {{ $selected }} @endif value="Telecom">Telecom</option>
-                                        <option @if($user->induser->industry=="Advertising/PR/Events") {{ $selected }} @endif value="Advertising/PR/Events">Advertising/PR/Events</option>
-                                        <option @if($user->induser->industry=="Agriculture/ Dairy Based") {{ $selected }} @endif value="Agriculture/ Dairy Based">Agriculture/ Dairy Based</option>
-                                        <option @if($user->induser->industry=="Aviation/Aerospace") {{ $selected }} @endif value="Aviation/Aerospace">Aviation/Aerospace</option>
-                                        <option @if($user->induser->industry=="Beauty/Fitness/PersonalCare/SPA") {{ $selected }} @endif value="Beauty/Fitness/PersonalCare/SPA">Beauty/Fitness/PersonalCare/SPA</option>
-                                        <option @if($user->induser->industry=="Beverages/ Liquor") {{ $selected }} @endif value="Beverages/ Liquor">Beverages/ Liquor</option>
-                                        <option @if($user->induser->industry=="Cement") {{ $selected }} @endif value="Cement">Cement</option>
-                                        <option @if($user->induser->industry=="Ceramics & Sanitary Ware") {{ $selected }} @endif value="Ceramics & Sanitary Ware">Ceramics & Sanitary Ware</option>
-                                        <option @if($user->induser->industry=="Consultancy") {{ $selected }} @endif value="Consultancy">Consultancy</option>
-                                        <option @if($user->induser->industry=="Courier/ Freight/ Transportation") {{ $selected }} @endif value="Courier/ Freight/ Transportation">Courier/ Freight/ Transportation</option>
-                                        <option @if($user->induser->industry=="Law Enforcement/Security Services") {{ $selected }} @endif value="Law Enforcement/Security Services">Law Enforcement/Security Services</option>
-                                        <option @if($user->induser->industry=="E-Learning") {{ $selected }} @endif value="E-Learning">E-Learning</option>
-                                        <option @if($user->induser->industry=="Shipping/ Marine Services") {{ $selected }} @endif value="Shipping/ Marine Services">Shipping/ Marine Services</option>
-                                        <option @if($user->induser->industry=="Engineering, Procurement, Construction") {{ $selected }} @endif value="Engineering, Procurement, Construction">Engineering, Procurement, Construction</option>
-                                        <option @if($user->induser->industry=="Environmental Service") {{ $selected }} @endif value="Environmental Service">Environmental Service</option>
-                                        <option @if($user->induser->industry=="Facility management") {{ $selected }} @endif value="Facility management">Facility management</option>
-                                        <option @if($user->induser->industry=="Fertilizer/ Pesticides") {{ $selected }} @endif value="Fertilizer/ Pesticides">Fertilizer/ Pesticides</option>
-                                        <option @if($user->induser->industry=="Food & Packaged Food") {{ $selected }} @endif value="Food & Packaged Food">Food & Packaged Food</option>
-                                        <option @if($user->induser->industry=="Textiles / Yarn / Fabrics / Garments") {{ $selected }} @endif value="Textiles / Yarn / Fabrics / Garments">Textiles / Yarn / Fabrics / Garments</option>
-                                        <option @if($user->induser->industry=="Gems & Jewellery") {{ $selected }} @endif value="Gems & Jewellery">Gems & Jewellery</option>
-                                        <option @if($user->induser->industry=="Government/ PSU/ Defence") {{ $selected }} @endif value="Government/ PSU/ Defence">Government/ PSU/ Defence</option>
-                                        <option @if($user->induser->industry=="Consumer Electronics/Appliances") {{ $selected }} @endif value="Consumer Electronics/Appliances">Consumer Electronics/Appliances</option>
-                                        <option @if($user->induser->industry=="Hospitals/ Health Care") {{ $selected }} @endif value="Hospitals/ Health Care">Hospitals/ Health Care</option>
-                                        <option @if($user->induser->industry=="Hotels/ Restaurant") {{ $selected }} @endif value="Hotels/ Restaurant">Hotels/ Restaurant</option>
-                                        <option @if($user->induser->industry=="Import / Export") {{ $selected }} @endif value="Import / Export">Import / Export</option>
-                                        <option @if($user->induser->industry=="Market Research") {{ $selected }} @endif value="Market Research">Market Research</option>
-                                        <option @if($user->induser->industry=="Medical Transcription") {{ $selected }} @endif value="Medical Transcription">Medical Transcription</option>
-                                        <option @if($user->induser->industry=="Mining") {{ $selected }} @endif value="Mining">Mining</option>
-                                        <option @if($user->induser->industry=="NGO") {{ $selected }} @endif value="NGO">NGO</option>
-                                        <option @if($user->induser->industry=="Paper") {{ $selected }} @endif value="Paper">Paper</option>
-                                        <option @if($user->induser->industry=="Printing / Packaging") {{ $selected }} @endif value="Printing / Packaging">Printing / Packaging</option>
-                                        <option @if($user->induser->industry=="Public Relations (PR)") {{ $selected }} @endif value="Public Relations (PR)">Public Relations (PR)</option>
-                                        <option @if($user->induser->industry=="Travel / Tourism") {{ $selected }} @endif value="Travel / Tourism">Travel / Tourism</option>
-                                        <option @if($user->induser->industry=="Other") {{ $selected }} @endif value="Other">Other</option>
+  $.ajax({
+    url: "/profile/alerted",
+    type: "get",
+    success: function(data){
+      console.log("alerted: "+data);
+    }
+  });
+}
+ 

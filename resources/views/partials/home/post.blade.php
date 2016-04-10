@@ -26,7 +26,7 @@
 	                    @if($company != null)
 	                    <div class="col-md-12">
 	                        <div>
-	                        	<small class="capitalize" style="font-size:13px;color:dimgrey !important;">
+	                        	<small class="" style="font-size:13px;color:dimgrey !important;">
 	                        		Required at {{ $company }}
 	                        	</small>
 	                        </div>
@@ -37,16 +37,31 @@
 	                    </div> -->
 	                    <div class="col-md-12 col-sm-12 col-xs-12">
 	                        <div class=" capitalize" itemprop="name" style="font-size:13px;color:dimgrey !important;">
-	                       @if($postType == 'job') <small class="label-success label-xs job-type-skill-css">{{$jobType}}</small>&nbsp;&nbsp;@endif	Skills : {{$skill}}
+	                       @if($postType == 'job') <label class="label-success job-type-skill-css">{{$jobType}}</label>@endif <?php $skills = explode(',', $post->linked_skill) ?>                                                                                                                              
+                                                    @foreach($skills as $skill)
+                                                        <label class="label-success skill-label">{{ $skill }}</label>
+                                                    @endforeach
 	                        </div>
 	                    </div>
 	               	</div>
 	               	<div class="row post-postision" style="">
-	                    @if($expMin != null)
+	                    @if($expMin != null && $postType == 'job')
 	                    <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code" style="">
 	                    	<small style="font-size:13px;color:dimgrey !important;"> 
 	                    		<i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: {{ $expMin }} - {{ $expMax }} Yr
 	                    	</small>
+	                    </div>
+	                    @elseif($expMin != null && $postType == 'skill')
+	                    <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code" style="">
+	                    	@if($expMin == 0)
+	                    	<small style="font-size:13px;color:dimgrey !important;"> 
+	                    		<i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: Fresher
+	                    	</small>
+	                    	@else
+	                    	<small style="font-size:13px;color:dimgrey !important;"> 
+	                    		<i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: {{ $expMin }} Yr
+	                    	</small>
+	                    	@endif
 	                    </div>
 	                    @endif
 	                    <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code elipsis-city-code" style="padding:0 12px;">
@@ -150,7 +165,15 @@
 									</button>
 									<ul class="dropdown-menu dropdown-menu-share-home" role="menu" 
 										style="min-width:0;box-shadow:0 0 !important;padding: 0;">
-										
+										<li style="border-bottom: 1px solid #ddd;">
+                                            <a href="#share-post" 
+                                               data-toggle="modal" 
+                                               class="jobtip sojt" 
+                                               id="sojt-{{$post->id}}" 
+                                               data-share-post-id="{{$post->id}}">
+                                                Share on Jobtip
+                                            </a>
+                                        </li>
 										<li style="border-bottom: 1px solid #ddd;">
 											<a href="#share-by-email" data-toggle="modal" onclick="setPostId({{$post->id}})" 
 											   class="jobtip sbmail" id="sbmail-{{$post->id}}" 

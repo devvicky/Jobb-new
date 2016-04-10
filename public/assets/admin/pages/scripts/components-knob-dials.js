@@ -11,7 +11,7 @@ var ComponentsKnobDials = function () {
 
             // general knob
             $(".knob").knob({
-                'dynamicDraw': true,
+                'dynamicDraw': false,
                 'thickness': 0.2,
                 'tickColorizeValues': true,
                 'skin': 'tron'

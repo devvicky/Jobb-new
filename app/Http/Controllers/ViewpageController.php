@@ -116,21 +116,16 @@ class ViewpageController extends Controller {
 			$title = 'indprofile_edit';
 			$user = User::where('id', '=', Auth::user()->id)->with('induser')->first();
 			$skills = Skills::lists('name', 'name');
-			$roles = DB::select(DB::raw('select id, name from roles'));
-			$functionalAreas = FunctionalAreas::lists('name', 'id');
-			$industry = Industry::lists('name','id');
 
 			$educationList = Education::orderBy('level')->orderBy('name')->where('name', '!=', '0')->get();
 			$location = Induser::where('id', '=', Auth::user()->induser_id)->first(['prefered_location']);
 			$farearoleList = Functional_area_role_mapping::orderBy('id')->get();
-			return view('pages.professional_page', compact('user', 'title', 'skills', 'roles', 'functionalAreas', 'industry', 'educationList', 'location', 'farearoleList'));
+			return view('pages.professional_page', compact('user', 'title', 'skills', 'educationList', 'location', 'farearoleList'));
 		}else if(Auth::user()->identifier == 2){
 			$title = 'corpprofile_edit';
 			$user = User::where('id', '=', Auth::user()->id)->with('corpuser')->first();
 			$skills = Skills::lists('name', 'name');
-			$roles = DB::select(DB::raw('select id, name from roles'));
-			$functionalAreas = FunctionalAreas::lists('name', 'id');
-			return view('pages.firm_details', compact('user', 'title', 'skills', 'roles', 'functionalAreas', 'industry'));
+			return view('pages.firm_details', compact('user', 'title', 'skills'));
 		}
 	}
 

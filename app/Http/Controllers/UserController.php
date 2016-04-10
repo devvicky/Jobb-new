@@ -527,7 +527,52 @@ class UserController extends Controller {
 					$email = $user->email;
 					$fname = $user->name;
 					Mail::send('emails.auth.changepasswordconfirmation', array('fname'=>$fname), function($message) use ($email,$fname){
-				        $message->to($email, $fname)->subject('Jobtip - Password Reset!')->from('admin@jobtip.in', 'JobTip');
+				        $message->to($email, $fname)->subject('Jobtip - Password changed!')->from('admin@jobtip.in', 'JobTip');
+				    });
+				}
+				return redirect('/login');
+			}
+		}
+	}
+
+	public function resetPasswordProfile($token){
+		if($token != null){
+			$user = User::where('reset_code','=',$token)->first();
+			if($user!=null){
+				return view('pages.resetpasswordprofile', compact('token'));
+			}else{
+				return redirect('/login');
+			}
+		}else{
+			return redirect('/login');
+		}
+	}
+
+	public function adminProfileResetPassword(){
+		$validator = Validator::make(
+					    ['password' => Input::get('password'), 
+					     'password_confirmation' => Input::get('password_confirmation'),
+					     'token' => Input::get('token')
+					    ],
+					    ['password' => 'required|min:6|confirmed', 
+					     'password_confirmation' => 'required|min:6',
+					     'token' => 'required'
+					    ]
+					);
+		if ($validator->fails()) {
+	        return redirect()->back()->withErrors($validator->errors());
+	    }else{
+			$user = User::where('reset_code','=',Input::get('token'))->first();
+			if($user != null){
+				$user->password = bcrypt(Input::get('password'));
+				$user->reset_code = null;
+				$user->email_verify = 1;
+				$user->save();
+				if($user->email != null){
+					$email = $user->email;
+					$fname = $user->name;
+					Mail::send('emails.auth.changepasswordconfirmation', array('fname'=>$fname), function($message) use ($email,$fname){
+				        $message->to($email, $fname)->subject('Jobtip - Password Changed!')->from('admin@jobtip.in', 'JobTip');
 				    });
 				}
 				return redirect('/login');

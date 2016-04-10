@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class Induser extends Model {
 
 	protected $fillable = ['fname', 'lname', 'email', 'mobile', 'mobile_otp', 'email_vcode'];
-	protected $appends = ['job_role', 'preferred_locations'];
+	protected $appends = ['friends', 'job_role', 'preferred_locations'];
 
 	public function user(){
 		return $this->hasOne('app\user', 'induser_id', 'id');

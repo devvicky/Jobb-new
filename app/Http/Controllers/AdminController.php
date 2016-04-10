@@ -19,6 +19,9 @@ use App\User;
 use App\Industry_functional_area_mappings;
 use App\Industry_functional_area_role_mapping;
 use App\Admin_control;
+use App\Functional_area_role_mapping;
+use App\Education;
+use Mail;
 
 class AdminController extends Controller {
 
@@ -48,6 +51,7 @@ class AdminController extends Controller {
 			$faShow = FunctionalAreas::all();
 			$industry = Industry::lists('name','id');
 			$industryShow = Industry::all();
+			$skills = Skills::lists('name', 'id');
 			$indfunctionalMapping = Industry_functional_area_mappings::leftJoin('industries', 'industry_functional_area_mappings.industry', '=', 'industries.id')
 																	 ->leftJoin('functional_areas', 'industry_functional_area_mappings.functional_area', '=', 'functional_areas.id')
 																	 ->get([DB::raw('concat(industries.name, " - ", functional_areas.name) as name'), 'industry_functional_area_mappings.id as id'])
@@ -63,7 +67,7 @@ class AdminController extends Controller {
 			// $industryfarearoleShow = Industry_functional_area_role_mapping::leftJoin('roles', 'industry_functional_area_role_mapping.role', '=', 'roles.id')
 			// 															  ->get(['roles.name as name', $indfunctional]);
 			
-			return view('pages.adminUpdate', compact('title', 'roles', 'functionalAreas', 'industry', 'indfunctionalMapping', 'rolesShow', 'faShow', 'industryShow', 'industryfareaShow', 'industryfarearoleShow'));
+			return view('pages.adminUpdate', compact('title', 'skills', 'roles', 'functionalAreas', 'industry', 'indfunctionalMapping', 'rolesShow', 'faShow', 'industryShow', 'industryfareaShow', 'industryfarearoleShow'));
 			// return $indfunctionalMapping;
 		}else{
 			return redirect('/home');
@@ -296,6 +300,80 @@ class AdminController extends Controller {
 		}
 
 		return view('pages.control_users', compact('controlUpdate', 'controlCorp', 'controlInd'));
+	}
+
+	public function createUser(){
+		$skills = Skills::lists('name', 'name');
+		$educationList = Education::orderBy('level')->orderBy('name')->where('name', '!=', '0')->get();
+		$farearoleList = Functional_area_role_mapping::orderBy('id')->get();
+		return view('pages.create_users', compact('skills', 'educationList', 'farearoleList'));
+	}
+
+	public function createUserRequest(Request $request){
+
+		$skills = Skills::lists('name', 'name');
+		$educationList = Education::orderBy('level')->orderBy('name')->where('name', '!=', '0')->get();
+		$farearoleList = Functional_area_role_mapping::orderBy('id')->get();
+
+		$indUser = new Induser();
+		$indUser->fname = $request['fname'];
+		$indUser->lname = $request['lname'];
+		$indUser->gender = $request['gender'];
+		$indUser->city = $request['city'];
+		$indUser->about_individual = $request['about_individual'];
+		$indUser->education = $request['education'];
+		$indUser->experience = $request['experience'];
+		$indUser->working_status = $request['working_status'];
+		$indUser->working_at = $request['working_at'];
+		$indUser->industry = $request['industry'];
+		if($request['role'] != null){
+				$farea_role = $request['role'];
+				$temp = explode('-', $farea_role);
+				$indUser->functional_area = $temp[0];
+				$indUser->role = $temp[1];
+			}
+		if($request['linked_skill_id'] != null){
+				$indUser->linked_skill = implode(', ', $request['linked_skill_id']);
+			}
+			if($request['prefered_location'] != null){
+				$indUser->prefered_location = implode(', ', $request['prefered_location']);
+			}
+		$indUser->email = $request['email'];
+		$indUser->mobile = $request['mobile'];
+		$indUser->prefered_jobtype = $request['prefered_jobtype'];
+		$indUser->save();
+
+		$user = new User();
+		$user->name = $request['fname'].' '.$request['lname'];
+		$user->email = $request['email'];
+		$user->mobile = $request['mobile'];
+		$user->password = md5(rand(111111,999999));
+		$user->identifier = 1;
+
+		if($request['email'] != null){
+			$vcode = 'A'.rand(1111,9999);
+			$user->email_vcode = $vcode;
+		}
+		if($request['mobile'] != null){
+			$otp = rand(1111,9999);
+			$user->mobile_otp = $otp;
+		}
+
+		$resetCode = md5(rand(11111,99999));
+		$user->reset_code = $resetCode;
+		$indUser->user()->save($user);
+		$email = $request['email'];
+		if($request['email'] != null){
+			$email = $request['email'];
+			$fname = $request['fname'];
+			Mail::send('emails.auth.resetpassword', array('fname'=>$fname, 'token'=>$resetCode), function($message) use ($email,$fname){
+			        $message->to($email, $fname)->subject('Jobtip - Profile Created!')->from('admin@jobtip.in', 'JobTip');
+			    });
+		}
+		
+		return view('pages.create_users', compact('skills', 'educationList', 'farearoleList'))->withErrors([
+						'errors' => 'Profile Created Successfully.',
+					]);
 	}
 
 }

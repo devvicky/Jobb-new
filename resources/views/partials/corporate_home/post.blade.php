@@ -10,10 +10,10 @@
 					<img class="timeline-badge-userpic userpic-box" src="/assets/images/ab.png" alt="logo" title="{{ $userName }}">
 					@endif
 				</div>
-				@include('partials.home.image-linked')
+				@include('partials.corporate_home.image-linked')
 
 				@if($postType == 'skill')
-					@include('partials.home.favourite')
+					@include('partials.corporate_home.favourite')
 				@endif
 				
 				<div class="post-hover-act" data-postid="{{$post->id}}">
@@ -43,11 +43,23 @@
 	                    </div>
 	               	</div>
 	               	<div class="row post-postision" style="">
-	                    @if($expMin != null)
+	                    @if($expMin != null && $postType == 'job')
 	                    <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code" style="">
 	                    	<small style="font-size:13px;color:dimgrey !important;"> 
 	                    		<i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: {{ $expMin }} - {{ $expMax }} Yr
 	                    	</small>
+	                    </div>
+	                    @elseif($expMin != null && $postType == 'skill')
+	                    <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code" style="">
+	                    	@if($expMin == 0)
+	                    	<small style="font-size:13px;color:dimgrey !important;"> 
+	                    		<i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: Fresher
+	                    	</small>
+	                    	@else
+	                    	<small style="font-size:13px;color:dimgrey !important;"> 
+	                    		<i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: {{ $expMin }} Yr
+	                    	</small>
+	                    	@endif
 	                    </div>
 	                    @endif
 	                    <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code elipsis-city-code" style="padding:0 12px;">

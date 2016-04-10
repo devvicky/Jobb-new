@@ -17,11 +17,11 @@
           <!-- Start Navigation Menu -->
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right" id="main_navigation_menu">
-              <li class="active"><a href="#header">Home</a></li>
-              <li><a href="#services">Services</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
-              <li><a href="/login">Login</a></li>
+              <li class="active"><a data-toggle="collapse" data-target=".navbar-collapse" href="#header">Home</a></li>
+              <li><a data-toggle="collapse" data-target=".navbar-collapse" href="#services">Services</a></li>
+              <li><a data-toggle="collapse" data-target=".navbar-collapse" href="#about">About</a></li>
+              <li><a data-toggle="collapse" data-target=".navbar-collapse" href="#contact">Contact</a></li>
+              <li><a data-toggle="collapse" data-target=".navbar-collapse" href="/login">Login</a></li>
             </ul>
           </div>
           <!-- End Navigation Menu -->
@@ -58,7 +58,7 @@
                             <span class="input-group-addon welcome-icon">
                               <i class="fa fa-map-marker" style="color:white;"></i>
                             </span>
-                            <input type="text" name="location" class="form-control welcome-inputbox" placeholder="City">                    
+                            <input type="text" id="city" name="location" class="form-control welcome-inputbox" placeholder="City">                    
                           </div>  
                         </div>    
                       </div>
@@ -423,6 +423,23 @@
 @stop
 
 @section('javascript')
+<script type="text/javascript">
+function initialize() {
+    var options = { types: ['(cities)'], componentRestrictions: {country: "in"} };
+    var input = document.getElementById('city');
+    var autocomplete = new google.maps.places.Autocomplete(input, options);
+    autocomplete.addListener('place_changed', onPlaceChanged); 
+    function onPlaceChanged() {
+      var place = autocomplete.getPlace();
+      if (place.address_components) { city = place.address_components[0];
+        document.getElementById('city').value = city.long_name;
+      } else { document.getElementById('autocomplete').placeholder = 'Enter a city'; }
+    }
+  }
+   google.maps.event.addDomListener(window, 'load', initialize); 
+
+</script>
+
 <script src="/assets/startup/js/jquery-min.js"></script>
     <!-- Include Bootstrap plugin -->
 <script src="/assets/startup/js/bootstrap.min.js"></script>
@@ -446,6 +463,8 @@
 <script src="/assets/startup/js/modernizr-2.8.0.main.js"></script>
     <!-- Main js -->
 <script src="/assets/startup/js/main.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
+
 <script type="text/javascript">
  (function(){
 

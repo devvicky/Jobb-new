@@ -39,7 +39,7 @@
 				<div class="tab-pane active" id="tab_5_1">
 					@if(count($users) > 0)
 					@foreach($users as $user)
-					<div class="row" style="border-bottom:1px dotted lightgrey;padding: 5px 0;margin:0;">
+					<div class="row" style="padding: 5px 0;margin:0;">
 						
 						<div class="col-md-8 col-sm-8 col-xs-8">
 							<a href="/profile/ind/{{$user->id}}" data-utype="ind">
@@ -59,18 +59,31 @@
 								<button class="btn btn-warning corp-remove-btn">Remove</button>
 							</form>
 						</div>
-						<div class="col-md-10 col-sm-10 col-xs-9">
-							<div class="col-md-8 col-sm-8 col-xs-12" style="padding:0 !important;margin: 5px 0;">
-				  				<i class="fa fa-envelope"></i> : {{$user->email}}<br>
-				  				<i class="fa fa-phone-square"></i> : {{$user->mobile}}
-				  			</div>
-				  			<div class="col-md-4 col-sm-4 col-xs-12" style="padding:0 !important;margin: 5px 0;">
-				  				<button class="btn blue corp-profile-resume" style="">
+					</div>
+					<div class="row" style="border-bottom:1px dotted lightgrey;padding: 5px 0;margin:0;">
+						<div class="col-md-8 col-sm-8 col-xs-12">
+			  				@if($user->email != null)
+			  				<i class="fa fa-envelope"></i> : {{$user->email}}
+			  				@else
+			  				<i class="fa fa-envelope"></i> : Not Available
+			  				@endif<br>
+			  				@if($user->mobile != null)
+			  				<i class="fa fa-phone-square"></i> : {{$user->mobile}}
+			  				@else
+			  				<i class="fa fa-phone-square"></i> : Not Available
+			  				@endif
+			  			</div>
+			  			@if($user->resume != null)
+			  			<div class="col-md-4 col-sm-4 col-xs-12">
+			  				<a href="/resume/{{$user->resume}}" target="_blank">
+			  					<button class="btn corp-profile-resume" style="color: dimgray !important;background-color:transparent;border: 1px solid dimgrey;">
 									<i class="glyphicon glyphicon-download"></i> Resume
 								</button>
-				  			</div>
-						</div>
+							</a>
+			  			</div>
+			  			@endif
 					</div>
+					
 					@endforeach
 					@else
 					No Favourite Profile

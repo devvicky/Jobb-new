@@ -1,6 +1,5 @@
 @extends('master')
 
-<!--  -->
 @section('content')
 <?php $selected = 'selected'; ?> 
 
@@ -65,7 +64,7 @@
 										<span class="input-group-addon">
 											<i class="icon-calendar" style="color:darkcyan;"></i>
 										</span>
-										<input class="form-control date-picker" name="dob" size="16" type="text" value="{{ $user->induser->dob }}"/>
+										<input class="form-control " name="dob" size="16"  type="date" value="{{ $user->induser->dob }}"/>
 									</div>
 									<!-- <label>Check the privacy setting for showing Date of Birth</label> -->
 								</div>
@@ -136,6 +135,7 @@
 						</div>
 					<div class="row">
 						<div class="col-md-6 col-sm-6">
+							@if($user->mobile != null)
 							<div class="form-group">
 								<label>Mobile No 
 									@if($user->mobile != null && $user->mobile_verify == 1) 
@@ -173,13 +173,24 @@
 									</span>
 								</div>
 							</div>
+							@else
+							<div style="margin: 25px 0;">
+								<a href="#edit-me-modal" data-toggle="modal" data-type="mobile" class="change-me">
+											<i class="fa fa-plus"></i> Add Mobile No
+										</a>
+									</div>
+							@endif
 						</div>
 						<!--/span-->
 						<div class="col-md-6 col-sm-6">
+							@if($user->email != null)
 							<div class="form-group">
 								<label>Email Id 
-									@if($user->email_verify == 1) 
+									@if($user->email != null && $user->email_verify == 1) 
 										<small class="verified-css">Verified</small>
+									@elseif($user->email != null && $user->email_verify == 0)
+										<small class="not-verified-css">Not Verified</small>
+									@elseif($user->email == null)
 									@endif
 								</label>								
 								<div class="input-group">
@@ -208,6 +219,13 @@
 									</span>
 								</div>
 							</div>
+							@else
+							<div style="margin: 25px 0;">
+								<a href="#edit-me-modal" data-toggle="modal" data-type="email" class="change-me">
+											<i class="fa fa-plus"></i> Add Email Id
+										</a>
+									</div>
+							@endif
 						</div>
 						<!--/span-->
 					</div>
@@ -217,7 +235,7 @@
 								<label>Linkedin Id</label>									
 								<div class="input-group">
 									<span class="input-group-addon">
-										<i class="fa fa-map-marker"></i>
+										<i class="fa fa-linkedin"></i>
 									</span>
 									<input type="text" name="in_page" class="form-control" value="{{ $user->induser->in_page }}" placeholder="Linkedin Id">
 								</div>
@@ -229,7 +247,7 @@
 								<label>Facebook Id</label>
 								<div class="input-group">
 									<span class="input-group-addon">
-									<i class="fa fa-map-marker"></i>
+									<i class="fa fa-facebook"></i>
 									</span>
 									<input type="text" name="fb_page" class="form-control" value="{{ $user->induser->fb_page }}" placeholder="Facebook Id">
 								</div>
@@ -250,7 +268,6 @@
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<div class="form-body">
 				<div class="row">
-					<div class="" style=""></div>
 					<div class="col-md-12" style="">
 						<div class="row">
 							<div class="col-md-12">
@@ -261,7 +278,6 @@
 									<textarea id="textarea" rows="6" class="form-control " maxlength="500" name="about_individual" placeholder="write about your proffessional summary...">{{ $user->induser->about_individual }}</textarea>
 											<div id="textarea_feedback"></div>
 								</div>
-								
 							</div>
 						</div>	
 						<div class="row">
@@ -707,28 +723,28 @@
 <script type="text/javascript">
 	// Skill Details
 	var skillArray = [];
+	@if(Auth::user()->induser->linked_skill != null)
 	<?php $array = explode(', ', $user->induser->linked_skill); ?> 
 	@if(count($array) > 0)
 	@foreach($array as $gt => $gta)
 		skillArray.push('<?php echo $gta; ?>');
 	@endforeach
 	@endif
-	if(skillArray.length == 0){
-		var skillselect = $("#linked_skill_id").select2({ dataType: 'json', data: [] });
-	}else{
-		var skillselect = $("#linked_skill_id").select2({ dataType: 'json', data: skillArray });
-	}
+	@endif
+	var skillselect = $("#linked_skill_id").select2({ dataType: 'json', data: skillArray });
     
     skillselect.val(skillArray).trigger("change");
     
 
     // preferred loc
 	var prefLocationArray = [];
+	@if(Auth::user()->induser->prefered_location != null)
 	<?php $arr = explode(', ', $user->induser->prefered_location); ?>
 	@if(count($arr) > 0) 
 	@foreach($arr as $ga => $gt)
 		prefLocationArray.push('<?php echo $gt; ?>');
 	@endforeach
+	@endif
 	@endif
     var plselect = $("#prefered_location").select2({ dataType: 'json', data: prefLocationArray });
     plselect.val(prefLocationArray).trigger("change");
@@ -941,7 +957,7 @@ var text_max = 500;
 	//     var input = document.getElementById("workingAs");
 	//     input.disabled = obj.value == "Searching Job";
 	// }
-	$(document).ready(function () {
+$(document).ready(function () {
 toggleFields();
 $('#working_status').change(function () {
 toggleFields();
@@ -953,6 +969,10 @@ $("#workingat").attr('disabled','disabled').val('');
 else
 $("#workingat").removeAttr('disabled');
 }
+
+
+
+
 
 $gotit = [];
 	$(function(){
@@ -1258,74 +1278,6 @@ $gotit = [];
 		    jQuery('.hide-role').show();
 	    });
 	});
- 
-$(".job-role-ajax").select2({
-	placeholder: 'Enter a role',
-  ajax: {
-    url: "/post/jobroles/",
-    dataType: 'json',
-    delay: 250,
-    data: function (params) {
-      return {
-        q: params.term, // search term
-        page: params.page
-      };
-    },
-    processResults: function (data, params) {
-      console.log(data);
-      return {
-        results: data
-      };
-    },
-    cache: true
-  },
-  escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
-  minimumInputLength: 2,
-  templateResult: formatRepo, // omitted for brevity, see the source of this page
-  templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
-});
-
-function formatRepo (repo) {
-      if (repo.loading) return repo.text;
-
-      var markup = "<div class='select2-result-repository clearfix'>" +
-        "<div class='select2-result-repository__meta'>" +
-          "<div class='select2-result-repository__title'><b>Role</b>: " + repo.role + "</div>";
-
-      markup += "<div class='select2-result-repository__statistics'>" +
-        "<div class='select2-result-repository__forks'><b>Functional area: </b> " + repo.functional_area + "</div>" +
-        "<div class='select2-result-repository__stargazers'><b>Industry</b>: " + repo.industry + "</div>" +
-      "</div>" +
-      "</div></div>";
-
-      return markup;
-    }
-
-    function formatRepoSelection (repo) {
-    	if(repo.role != undefined){
-    		// console.log(repo);
-    		return  "<b>Role:</b> "+repo.role+"<br/><b>Functional Area:</b> "+repo.functional_area+"<br/><b>Industry:</b> "+repo.industry;
-    	}      
-    }
-
-$(document).on('click', 'a', function(event, ui) {
-    var jrole = $(this).data('jrole');
-
-    $.ajaxSetup({
-        headjroleers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-      });
-
-    if(jrole != null){
-      event.preventDefault();
-      $('#all-roles').modal('hide');
-      $('#jobrole').select2('open');
-      $('.select2-search__field').val(jrole);
-      $('.select2-search__field').trigger('keyup');
-       // $('.select2-dropdown').hide();
-    }
-});
 
 
 </script>

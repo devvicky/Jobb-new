@@ -71,7 +71,7 @@
 										<div class="form-group">								
 											<label>About Firm</label>										
 											<!-- <div class="input-group"> -->
-												<textarea id="textarea" rows="6" class="form-control " maxlength="250" name="about_firm" placeholder="write about your proffessional summary...">{{ $user->corpuser->about_firm }}</textarea>
+												<textarea id="textarea" rows="6" class="form-control " maxlength="500" name="about_firm" placeholder="write about your proffessional summary...">{{ $user->corpuser->about_firm }}</textarea>
 												<div id="textarea_feedback"></div>
 											<!-- </div> -->
 										</div>
@@ -135,21 +135,67 @@
 									<!--/span-->
 								</div>
 								<div class="row">
-									<div class="col-md-6 col-sm-6 col-xs-6">
-										<div class="form-group">
-											<label>Industry</label>
-											<div class="input-group">
-												<span class="input-group-addon">
-												<i class="fa fa-cubes"style="color:darkcyan;"></i>
-												</span>
-												<select name="industry" class="form-control" value="{{ $user->corpuser->industry }}">
-													<option value="">-- Select --</option>
-													<option @if($user->corpuser->industry == "IT") {{ $selected }} @endif value="IT">IT</option>
-													<option @if($user->corpuser->industry == "Fashion") {{ $selected }} @endif value="Fashion">Fashion</option>
-												</select>
-											</div>
-										</div>
-									</div>
+									<div class="col-md-6 col-sm-6 col-xs-12">
+								<div class="form-group">
+									<label>Industry <span class="required">*</span>
+									</label>
+									<select class="select2me form-control" name="industry">
+										<option value="">Select</option>
+										<option @if($user->corpuser->industry=="Automotive/ Ancillaries") {{ $selected }} @endif value="Automotive/ Ancillaries">Automotive/ Ancillaries</option>
+										<option @if($user->corpuser->industry=="Banking/ Financial Services") {{ $selected }} @endif value="Banking/ Financial Services">Banking/ Financial Services</option>
+										<option @if($user->corpuser->industry=="Bio Technology & Life Sciences") {{ $selected }} @endif value="Bio Technology & Life Sciences">Bio Technology & Life Sciences</option>
+										<option @if($user->corpuser->industry=="Chemicals/Petrochemicals") {{ $selected }} @endif value="Chemicals/Petrochemicals">Chemicals/Petrochemicals</option>
+										<option @if($user->corpuser->industry=="Construction") {{ $selected }} @endif value="Construction">Construction</option>
+										<option @if($user->corpuser->industry=="FMCG") {{ $selected }} @endif value="FMCG">FMCG</option>
+										<option @if($user->corpuser->industry=="Education") {{ $selected }} @endif value="Education">Education</option>
+										<option @if($user->corpuser->industry=="Entertainment/ Media/ Publishing") {{ $selected }} @endif value="Entertainment/ Media/ Publishing">Entertainment/ Media/ Publishing</option>
+										<option @if($user->corpuser->industry=="Insurance") {{ $selected }} @endif value="Insurance">Insurance</option>
+										<option @if($user->corpuser->industry=="ITES/BPO") {{ $selected }} @endif value="ITES/BPO">ITES/BPO</option>
+										<option @if($user->corpuser->industry=="IT/ Computers - Hardware") {{ $selected }} @endif value="IT/ Computers - Hardware">IT/ Computers - Hardware</option>
+										<option @if($user->corpuser->industry=="IT/ Computers - Software") {{ $selected }} @endif value="IT/ Computers - Software">IT/ Computers - Software</option>
+										<option @if($user->corpuser->industry=="KPO/Analytic") {{ $selected }} @endif value="KPO/Analytics">KPO/Analytics</option>
+										<option @if($user->corpuser->industry=="Machinery/ Equipment Mfg.") {{ $selected }} @endif value="Machinery/ Equipment Mfg.">Machinery/ Equipment Mfg.</option>
+										<option @if($user->corpuser->industry=="Oil/ Gas/ Petroleum") {{ $selected }} @endif value="Oil/ Gas/ Petroleum">Oil/ Gas/ Petroleum</option>
+										<option @if($user->corpuser->industry=="Pharmaceuticals") {{ $selected }} @endif value="Pharmaceuticals">Pharmaceuticals</option>
+										<option @if($user->corpuser->industry=="Power/Energy") {{ $selected }} @endif value="Power/Energy">Power/Energy</option>
+										<option @if($user->corpuser->industry=="Retailing") {{ $selected }} @endif value="Retailing">Retailing</option>
+										<option @if($user->corpuser->industry=="Telecom") {{ $selected }} @endif value="Telecom">Telecom</option>
+										<option @if($user->corpuser->industry=="Advertising/PR/Events") {{ $selected }} @endif value="Advertising/PR/Events">Advertising/PR/Events</option>
+										<option @if($user->corpuser->industry=="Agriculture/ Dairy Based") {{ $selected }} @endif value="Agriculture/ Dairy Based">Agriculture/ Dairy Based</option>
+										<option @if($user->corpuser->industry=="Aviation/Aerospace") {{ $selected }} @endif value="Aviation/Aerospace">Aviation/Aerospace</option>
+										<option @if($user->corpuser->industry=="Beauty/Fitness/PersonalCare/SPA") {{ $selected }} @endif value="Beauty/Fitness/PersonalCare/SPA">Beauty/Fitness/PersonalCare/SPA</option>
+										<option @if($user->corpuser->industry=="Beverages/ Liquor") {{ $selected }} @endif value="Beverages/ Liquor">Beverages/ Liquor</option>
+										<option @if($user->corpuser->industry=="Cement") {{ $selected }} @endif value="Cement">Cement</option>
+										<option @if($user->corpuser->industry=="Ceramics & Sanitary Ware") {{ $selected }} @endif value="Ceramics & Sanitary Ware">Ceramics & Sanitary Ware</option>
+										<option @if($user->corpuser->industry=="Consultancy") {{ $selected }} @endif value="Consultancy">Consultancy</option>
+										<option @if($user->corpuser->industry=="Courier/ Freight/ Transportation") {{ $selected }} @endif value="Courier/ Freight/ Transportation">Courier/ Freight/ Transportation</option>
+										<option @if($user->corpuser->industry=="Law Enforcement/Security Services") {{ $selected }} @endif value="Law Enforcement/Security Services">Law Enforcement/Security Services</option>
+										<option @if($user->corpuser->industry=="E-Learning") {{ $selected }} @endif value="E-Learning">E-Learning</option>
+										<option @if($user->corpuser->industry=="Shipping/ Marine Services") {{ $selected }} @endif value="Shipping/ Marine Services">Shipping/ Marine Services</option>
+										<option @if($user->corpuser->industry=="Engineering, Procurement, Construction") {{ $selected }} @endif value="Engineering, Procurement, Construction">Engineering, Procurement, Construction</option>
+										<option @if($user->corpuser->industry=="Environmental Service") {{ $selected }} @endif value="Environmental Service">Environmental Service</option>
+										<option @if($user->corpuser->industry=="Facility management") {{ $selected }} @endif value="Facility management">Facility management</option>
+										<option @if($user->corpuser->industry=="Fertilizer/ Pesticides") {{ $selected }} @endif value="Fertilizer/ Pesticides">Fertilizer/ Pesticides</option>
+										<option @if($user->corpuser->industry=="Food & Packaged Food") {{ $selected }} @endif value="Food & Packaged Food">Food & Packaged Food</option>
+										<option @if($user->corpuser->industry=="Textiles / Yarn / Fabrics / Garments") {{ $selected }} @endif value="Textiles / Yarn / Fabrics / Garments">Textiles / Yarn / Fabrics / Garments</option>
+										<option @if($user->corpuser->industry=="Gems & Jewellery") {{ $selected }} @endif value="Gems & Jewellery">Gems & Jewellery</option>
+										<option @if($user->corpuser->industry=="Government/ PSU/ Defence") {{ $selected }} @endif value="Government/ PSU/ Defence">Government/ PSU/ Defence</option>
+										<option @if($user->corpuser->industry=="Consumer Electronics/Appliances") {{ $selected }} @endif value="Consumer Electronics/Appliances">Consumer Electronics/Appliances</option>
+										<option @if($user->corpuser->industry=="Hospitals/ Health Care") {{ $selected }} @endif value="Hospitals/ Health Care">Hospitals/ Health Care</option>
+										<option @if($user->corpuser->industry=="Hotels/ Restaurant") {{ $selected }} @endif value="Hotels/ Restaurant">Hotels/ Restaurant</option>
+										<option @if($user->corpuser->industry=="Import / Export") {{ $selected }} @endif value="Import / Export">Import / Export</option>
+										<option @if($user->corpuser->industry=="Market Research") {{ $selected }} @endif value="Market Research">Market Research</option>
+										<option @if($user->corpuser->industry=="Medical Transcription") {{ $selected }} @endif value="Medical Transcription">Medical Transcription</option>
+										<option @if($user->corpuser->industry=="Mining") {{ $selected }} @endif value="Mining">Mining</option>
+										<option @if($user->corpuser->industry=="NGO") {{ $selected }} @endif value="NGO">NGO</option>
+										<option @if($user->corpuser->industry=="Paper") {{ $selected }} @endif value="Paper">Paper</option>
+										<option @if($user->corpuser->industry=="Printing / Packaging") {{ $selected }} @endif value="Printing / Packaging">Printing / Packaging</option>
+										<option @if($user->corpuser->industry=="Public Relations (PR)") {{ $selected }} @endif value="Public Relations (PR)">Public Relations (PR)</option>
+										<option @if($user->corpuser->industry=="Travel / Tourism") {{ $selected }} @endif value="Travel / Tourism">Travel / Tourism</option>
+										<option @if($user->corpuser->industry=="Other") {{ $selected }} @endif value="Other">Other</option>
+									</select>
+								</div>
+							</div>
 									<!--/span-->
 									<div class="col-md-6 col-sm-6 col-xs-6">
 										<div class="form-group">
@@ -200,8 +246,7 @@
 									<div class="col-md-12">
 										<div class="form-group">								
 											<label>Address</label>										
-												<textarea id="textarea_address" rows="6" class="form-control " maxlength="250" name="firm_address" placeholder="Enter your Address">
-													{{ $user->corpuser->firm_address }}</textarea>
+												<textarea id="textarea_address" rows="3" class="form-control " minlength="20" maxlength="200" name="firm_address" placeholder="Enter your Address">{{ $user->corpuser->firm_address }}</textarea>
 												<div id="textarea_feedback_address"></div>
 										</div>
 									</div>
@@ -244,7 +289,7 @@
 										<span class="input-group-addon">
 											<i class="fa fa-user" style="color:darkcyan;"></i>
 										</span>
-										<input type="text" name="username" class="form-control" value="{{ $user->corpuser->username }}" placeholder="Holder Name">
+										<input type="text" name="username" class="form-control" value="{{ $user->corpuser->username }}" placeholder="Handler Name">
 									</div>
 								</div>
 							</div>
@@ -431,7 +476,7 @@
 <script src="/assets/corp_validation.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
-	var text_max = 250;
+	var text_max = 500;
 		$('#textarea_feedback').html(text_max + ' characters remaining');
 
 		$('#textarea').keyup(function() {
@@ -443,7 +488,7 @@
 	});
 
   	$(document).ready(function() {
-	var text_maximum = 250;
+	var text_maximum = 200;
 		$('#textarea_feedback_address').html(text_maximum + ' characters remaining');
 
 		$('#textarea_address').keyup(function() {
@@ -472,11 +517,13 @@
 <script type="text/javascript">
 	// Skill Details
 	var skillArray = [];
+	@if($user->corpuser->linked_skill != null)
 	<?php $array = explode(', ', $user->corpuser->linked_skill); ?> 
 	@if(count($array) > 0)
 	@foreach($array as $gt => $gta)
 		skillArray.push('<?php echo $gta; ?>');
 	@endforeach
+	@endif
 	@endif
     var skillselect = $("#linked_skill_id").select2({ dataType: 'json', data: skillArray });
     skillselect.val(skillArray).trigger("change");
@@ -612,12 +659,13 @@ $gotit = [];
 		});
 });
 </script>
+
 <script>
 	jQuery(document).ready(function() {
 	    ComponentsDropdowns.init();
 	});  
 	$(document).ready(function () {   
-    var form = $('#cop_contact_validation');
+    var form = $('#corp_contact_validation');
     var error = $('.alert-danger', form);
     var success = $('.alert-success', form);
     form.validate({
@@ -626,32 +674,34 @@ $gotit = [];
         errorClass: 'help-block help-block-error', // default input error message class
         focusInvalid: false, // do not focus the last invalid input
         rules: {
-            firm_email_id : {
-                required : true
+            firm_email_id: {
+                required: true,
+                email: true
             },
-            city : {
-                required : true
-            },
-            state : {
-                required : true
-            },
-            firm_address: {
+            username: {
                 required: true
+            },
+            working_as: {
+                required: true
+            },
+            firm_phone: {
+                required: false,
+                number: true
             }
         },
         messages: {
             firm_email_id: {
-                required: "Enter Email Id"
+                required: "Enter Email Id",
+                email: "Enter Valid Email id"
             },
-            city: {
-                required: "Enter City"
+            username: {
+                required: "Enter Handler Name"
             },
-            state: {
-                required: "Select State"
+            working_as: {
+                required: "Select Working As"
             },
-            firm_address: {
-                required: "Enter Company/Consultancy Address",
-                minlength: 10
+            firm_phone: {
+                number: "Enter only digits"
             } 
         },
             invalidHandler: function (event, validator) { //display error alert on form submit   

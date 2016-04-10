@@ -13,15 +13,11 @@
 	      <div class="row" style="margin:15px -15px 0;">
 	      	<div class="col-md-6 col-sm-6 col-xs-12 advance-len">
 				<div class="form-group">
-					<label style="font-weight: 500;">
-						Enter Keyword
-					</label>
-					<input type="text" name="role" placeholder="Enter Keyword">
+					<input type="text" class="form-control" name="role" placeholder="Enter Keyword">
 				</div>					
 			</div>
 	        <div class="col-md-6 col-sm-6 col-xs-12 advance-len">
 				<div class="form-group">
-					<label style="font-weight: 500;">Enter Skill</label>
 					<div style="position:relative;" id="job-skill-wrapper">
 						<input type="text" name="name" id="newskill-job" class="form-control" placeholder="Search skill...">
 						{!! Form::select('linked_skill_id[]', $skills, null, ['id'=>'linked_skill_id', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Skills', 'multiple']) !!}		
@@ -54,9 +50,8 @@
 	      <div class="row">
 			<div class="col-md-6 col-sm-6 col-xs-12 advance-len">
 	          	<div class="form-group">
-	          		<label class=" control-label" style="font-weight: 500;">Job Type</label>
-					<select  name="job_type"  placeholder="Select" class="form-control">
-						<option value="">--Select--</option>
+					<select  name="job_type[]" multiple placeholder="Select" class="form-control education-list">
+						<option value="">--Select Job Type--</option>
 				        <option value="Full Time">Full Time</option>
 						<option value="Part Time">Part Time</option>
 						<option value="Freelancer">Freelancer</option>
@@ -66,8 +61,7 @@
 	        </div>
 			<div class="col-md-6 col-sm-6 col-xs-12 advance-len">
 	          <div class="form-group">              
-	          	<label class=" control-label" style="font-weight: 500;">Location </label>
-	              <input type="text" id="city" name="city" class="form-control" placeholder="City: Pune, Hyderabad">
+	              <input type="text" id="city" name="city" class="form-control" placeholder="Enter City: ex- Pune, Hyderabad">
 	          </div>  
 	        </div>
 		</div>

@@ -26,7 +26,7 @@
 			<div class="profile-usertitle-name text-capitalize" style="font-size: 18px;font-weight: 600;color:#5a7391;">
 				 {{ $user->fname }} {{ $user->lname }} {{ $user->firm_name }} <br> <small style="font-size: 13px;font-weight: 500;">{{ $user->slogan }}</small>
 			</div>
-
+			@if(Auth::user()->identifier == 1)
 			<!-- Connection status -->
 			@if($connectionStatus == 'friend' && Auth::user()->induser_id != $user->id)
 				<a href="/links" class="btn btn-success btn-responsive btn-xs btn-small" style="padding:4px 10px;border-radius:15px !important;">
@@ -64,7 +64,7 @@
 				</form> -->
 			@endif
 			<!-- end Connection status -->
-
+			@endif
 		</div>
 		@if(Auth::user()->induser_id == $user->id || Auth::user()->corpuser_id == $user->id)
 		<div class="row list-separated profile-stat" style="text-align:center;">
@@ -376,7 +376,7 @@
 					<li class="capitalize">
 						<i class="fa fa-briefcase"></i> {{ $user->experience }} Years
 					</li>
-					@elseif($user->experience == 0 )
+					@elseif($user->experience == 0 && $user->experience != null)
 					<li class="capitalize">
 						<i class="fa fa-briefcase"></i> Fresher
 					</li>
@@ -394,20 +394,26 @@
 				</ul>
 				@elseif($utype == 'corp')
 				<ul class="list-inline">
+					@if($user->operating_since != null)
 					<li>
 						<i class="fa fa-calendar"></i> {{$user->operating_since}}
 					</li>
+					@endif
+					@if($user->emp_count != null)
 					<li>
-						<i class="fa fa-users"></i> {{$user->emp_count}}
+						<i class="fa fa-users"></i> {{$user->emp_count}} Employees
 					</li>
-					
+					@endif
+					@if($user->linked_skill != null)
 					<li>
-						<i class="fa fa-male"></i> {{$user->linked_skill}}
+						<i class="fa fa-cogs"></i> {{$user->linked_skill}}
 					</li>
+					@endif
+					@if($user->city != null)
 					<li>
 						<i class="fa fa-map-marker"></i> {{$user->city}}
 					</li>
-					
+					@endif
 					<!-- <li>
 						<i class="fa fa-heart"></i> BASE Jumping
 					</li> -->
@@ -420,7 +426,7 @@
 </div>
 <!-- <div class="row" style="margin: 0;"> -->
 @if($utype == 'ind')
-<div class="portlet light bordered col-md-5" style="border-radius: 5px !important; ">
+<div class="portlet light bordered col-md-6" style="border-radius: 5px !important; ">
 	<div class="portlet-title">
 		<div class="caption">
 			<i class="icon-badge font-green-haze"></i>
@@ -482,7 +488,7 @@
 							</div>
 						</div>
 					</div>
-					@elseif($user->job_role != '[]' && Auth::user()->induser_id != $user->id)
+					@elseif($user->functional_area != null && Auth::user()->induser_id != $user->id)
 					<div class="col-md-12 col-sm-12 col-xs-12" style="padding:0;">
 						<div class="form-group">
 							<label class="control-label col-md-4 col-xs-6">Functional Area</label>
@@ -851,7 +857,7 @@
 									<i class="fa fa-file-word-o"></i> :
 									<a href="/resume/{{$user->resume}}" target="_blank"><button class="btn btn-info small-btn resume-btn">{{$user->resume}}</button></a> ({{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $user->resume_dtTime)->format('Y-m-d') }})
 									 @else
-									 <a href="/individual/edit#tab_2-2"><button class="btn btn-info small-btn resume-btn">Upload Resume</button></a>
+									 <a href="/individual/edit#professional"><button class="btn btn-info small-btn resume-btn">Upload Resume</button></a>
 									 @endif
 								</p>
 							</div>
@@ -898,7 +904,7 @@
 			<div class="form-body">
 				<div class="row">
 					@if($user->firm_address != null && Auth::user()->corpuser_id == $user->id)
-					<div class="col-md-6 col-sm-6 col-xs-12">
+					<div class="col-md-12 col-sm-12 col-xs-12">
 						<div class="form-group">
 							<label class="control-label col-md-4 col-xs-6">Address:</label>
 							<div class="col-md-8 col-xs-6">
@@ -913,7 +919,7 @@
 						</div>
 					</div>
 					@elseif($user->firm_address != null && Auth::user()->corpuser_id != $user->id)
-					<div class="col-md-6 col-sm-6 col-xs-12">
+					<div class="col-md-12 col-sm-12 col-xs-12">
 						<div class="form-group">
 							<label class="control-label col-md-4 col-xs-6">Address:</label>
 							<div class="col-md-8 col-xs-6">
@@ -1037,7 +1043,7 @@
 </div>
 @endif
 
-@if(Auth::user()->induser_id == $user->id)
+@if(Auth::user()->induser_id == $user->id && Auth::user()->identifier == 1 && $utype == 'ind')
 @if(count($taggedPosts) > 0 || count($taggedGroupPosts) > 0)
 <div class="row" style="margin:0;">
     <div class="col-md-9" style="text-align: center;border-bottom: 2px solid darkslateblue;margin: 0px 0 10px 0;">
@@ -1046,6 +1052,9 @@
         </h4>
     </div>
 </div>
+@foreach($followingPost as $fp)
+	{{$fp->id}}{{$fp->corporate_id}}{{$fp->post_title}}
+@endforeach
 <div class="portlet box blue col-md-9" style="margin-top:0;border:0;background: whitesmoke;">
 	<div class="portlet-title portlet-title-home" style="float:none;margin:0 auto; display:table;background: whitesmoke;padding: 0;">
 		<ul class="nav nav-tabs" style="padding:0;">
@@ -1071,6 +1080,7 @@
 			</li>
 		</ul>
 	</div>
+
 	<div class="portlet-body" style="background-color:whitesmoke;">
 		<div class="tab-content">
 			<div class="tab-pane active" id="link">

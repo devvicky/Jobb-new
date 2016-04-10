@@ -49,6 +49,7 @@ function redirect(url){
     window.location = url;
 }
 $(document).ready(function(){
+
   $('#individual-login-btn').on('click',function(event){        
     event.preventDefault();
 
@@ -79,6 +80,14 @@ $(document).ready(function(){
 	                $(this).show();
 	            });
 	            $('#ind-msg').text(data.data.message);
+	            console.log(data.data.page);
+	        }else if(data.data.page == 'login' && data.data.user == 'valid'){            
+	            $('#ind-msg-box').removeClass('alert alert-success');
+	            $('#ind-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
+	                $(this).show();
+	            });
+	            $('#ind-msg').text(data.data.message);
+	            console.log(data.data.page);
 	        }
 	        else if(data.data.page == 'login' && data.data.email_verify == 0){
 	        	$('#ind-msg-box').removeClass('alert alert-success');
@@ -98,7 +107,8 @@ $(document).ready(function(){
 	            jQuery('.signup-tabopen').hide();
 	            jQuery('.login-tabopen').hide();
         		jQuery('.login-otp-tabopen').show();
-	        }else if(data.data.page == 'login' && data.data.mobile_verify == 0){
+	        }
+	        else if(data.data.page == 'login' && data.data.mobile_verify == 0){
 	        	$('#ind-msg-box').removeClass('alert alert-success');
 	            $('#ind-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
 	                $(this).show();
@@ -122,11 +132,14 @@ $(document).ready(function(){
 	            jQuery('.login-tabopen').hide();
         		jQuery('.login-otp-tabopen').show();
 	        }else{          
-	            redirect(data.data.page);
-	            $(".login-signup-button").prop('disabled', true);
+	            if(data.success == true){
+	        		redirect(data.data.page);
+	        		$(".login-signup-button").prop('disabled', true);
+	        	}    
 	        }
 	      },
 	      error: function(data) {
+	      	console.log(data);
 	        loader('hide');
 	        $('#ind-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
 	                $(this).show();
@@ -168,6 +181,13 @@ $('#corporate-login-btn').on('click',function(event){
 	                $(this).show();
 	            });
 	            $('#corp-msg').text('Invalid user');
+	        }else if(data.data.page == 'login' && data.data.user == 'valid'){            
+	            $('#corp-msg-box').removeClass('alert alert-success');
+	            $('#corp-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
+	                $(this).show();
+	            });
+	            $('#corp-msg').text(data.data.message);
+	            console.log(data.data.page);
 	        }
 	        else if(data.data.page == 'login' && data.data.email_verify == 0){
 	        	$('#corp-msg-box').removeClass('alert alert-success');
@@ -403,52 +423,6 @@ $('#corporate-register-btn').on('click',function(event){
     return false;
   });
 
-// $('#corporate-register-btn').on('click',function(event){        
-//     event.preventDefault();
-
-//     loader('show');
-
-//     var formData = $('#corporate-register').serialize(); // form data as string
-//     var formAction = $('#corporate-register').attr('action'); // form handler url
-
-//     $.ajaxSetup({
-//         headers: {
-//             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//         }
-//     });
-
-//     $.ajax({
-//       url: formAction,
-//       type: "post",
-//       data: formData,
-//       cache : false,
-//       success: function(data){
-//         loader('hide');
-//         if(data == 'login'){
-//             $('#corp-msg-reg-box').removeClass('alert alert-success');
-//             $('#corp-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
-//                 $(this).show();
-//             });
-//             $('#corp-reg-msg').text('Invalid user');
-//         }else{
-//             $('#corp-msg-reg-box').removeClass('alert alert-danger');
-//             $('#corp-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
-//                 $(this).show();
-//             });
-//             $('#corp-reg-msg').text('Registration success');
-//             redirect(data);
-//         }
-//       },
-//       error: function(data) {
-//         loader('hide');
-//         $('#corp-msg-reg-box').addClass('alert alert-danger').fadeIn(1000, function(){
-//                 $(this).show();
-//         });
-//         $('#corp-reg-msg').text('Some error occured !');
-//       }
-//     }); 
-//     return false;
-//   });
 });
 
 $('#forget-password-btn').on('click',function(event){        

@@ -37,17 +37,32 @@
 	                    @endif
 	                    <div class="col-md-12">
 	                        <div class=" capitalize" itemprop="name" style="font-size:13px;color:dimgrey !important;">
-	                        @if($postType == 'job') <small class="label-success label-xs job-type-skill-css">{{$jobType}}</small>&nbsp;&nbsp;@endif	Skills : {{$skill}}
+	                        @if($postType == 'job') <label class="label-success job-type-skill-css">{{$jobType}}</label>@endif <?php $skills = explode(',', $post->linked_skill) ?>                                                                                                                              
+                                                    @foreach($skills as $skill)
+                                                        <label class="label-success skill-label">{{ $skill }}</label>
+                                                    @endforeach
 	                        </div>
 	                    </div>
 	               	</div>
 	               	
 	               	<div class="row post-postision" style="">
-	                    @if($expMin != null)
+	                    @if($expMin != null && $postType == 'job')
 	                    <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code" style="">
 	                    	<small style="font-size:13px;color:dimgrey !important;"> 
 	                    		<i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: {{ $expMin }} - {{ $expMax }} Yr
 	                    	</small>
+	                    </div>
+	                    @elseif($expMin != null && $postType == 'skill')
+	                    <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code" style="">
+	                    	@if($expMin == 0)
+	                    	<small style="font-size:13px;color:dimgrey !important;"> 
+	                    		<i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: Fresher
+	                    	</small>
+	                    	@else
+	                    	<small style="font-size:13px;color:dimgrey !important;"> 
+	                    		<i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: {{ $expMin }} Yr
+	                    	</small>
+	                    	@endif
 	                    </div>
 	                    @endif
 	                    <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code elipsis-city-code" style="padding:0 12px;">

@@ -25,10 +25,12 @@
 			<div class="tab-content" style="background-color:whitesmoke;">
 				<div class="tab-pane active" id="portlet_5_1">
 					<div class="row">
+						@if(count($posts) > 0)
 						@foreach($posts as $post)								
 						<div class="col-md-9">	
-						<div class="col-md-6 col-sm-6 col-xs-6"><small class="label-success label-xs" style="padding: 2px 10px; color: white;">{{ $post->post_type }}</small></div>											
+							<a href="/mypost/single/{{$post->unique_id}}" style="text-decoration:none;">
 							<div class="updates-style" style="background-color:white;" >
+								
 								@if(count($post->groupTagged) > 0)
 	                                        @if($post->sharedGroupBy->first()->mode == 'tagged')
 	                                        <div class="row">
@@ -46,61 +48,71 @@
                                     <small> {{$post->sharedBy->first()->mode}} by 
                                         {{$post->sharedBy->first()->fname}} {{$post->sharedBy->first()->lname}}</small>
                                         @endif
+                                        @if($post->post_type == 'job')
+										<small class="label-success label-xs capitalize" style="font-size: 12px;border-radius: 3px;padding: 2px 5px; color: white;">
+											{{ $post->post_type }}
+										</small>
+										@else
+										<small class="label-info label-xs capitalize" style="font-size: 12px;border-radius: 3px;padding: 2px 5px; color: white;">
+											{{ $post->post_type }}
+										</small>
+										@endif
+										&nbsp;
 								Post ID: {{$post->unique_id}} &nbsp; 
-								<small>
-									<i class="fa fa-clock-o" style="font-size: 11px;"></i>  {{ date('M d, Y', strtotime($post->created_at)) }}
+								<small style="color:dimgrey;">
+									<i class="fa fa-calendar" style="font-size: 11px;color:dimgrey;"></i>  {{ date('M d, Y', strtotime($post->created_at)) }}
 								</small>
 
 										<?php 
-										$strNew = $post->post_duration;
-                                        $strAdd = $strNew;
-                                        $strAdd = '+'.$strAdd.' day';
-								 		$strOld = $post->created_at;
-								 		$fresh = $strOld->modify($strAdd);
+											$strNew = $post->post_duration;
+	                                        $strAdd = $strNew;
+	                                        $strAdd = '+'.$strAdd.' day';
+									 		$strOld = $post->created_at;
+									 		$fresh = $strOld->modify($strAdd);
 
-								 		$currentDate = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'));
-								 		$expiryDate = new \Carbon\Carbon($fresh, 'Asia/Kolkata');
-								 		$difference = $currentDate->diff($expiryDate);
-								 		$remainingDays = $difference->format('%d');
-								 		$remainingHours = $difference->format('%h');
+									 		$currentDate = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'));
+									 		$expiryDate = new \Carbon\Carbon($fresh, 'Asia/Kolkata');
+									 		$difference = $currentDate->diff($expiryDate);
+									 		$remainingDays = $difference->format('%d');
+									 		$remainingHours = $difference->format('%h');
 
-								 		$dateExpire= $expiryDate->format('d M Y');
-								 		$dayExpire = $difference->format('%d');
-								 		if($currentDate >= $fresh){
-								 			$expired = 1;
-								 		}else{
-								 			$expired = 0;
-								 		}
-								  	?>
-								  	<div class="row">
+									 		$dateExpire= $expiryDate->format('d M Y');
+									 		$dayExpire = $difference->format('%d');
+									 		if($currentDate >= $fresh){
+									 			$expired = 1;
+									 		}else{
+									 			$expired = 0;
+									 		}
+									  	?>
+								  	<div class="row" style="margin: 5px -15px;">
 								  		<div class="col-md-12">
 								  			<span class="font-grey-cascade">
 													 <div class="post-title-new capitalize">{{ $post->post_title }}  </div>					 							
 											</span>
 								  		</div>
 								  		@if($expired == 0)
-								  		<div class="col-md-6 col-sm-6 col-xs-7">
-								  			<small style="font-size:13px;">Post expires in 
+								  		<div class="col-md-10 col-sm-10 col-xs-10">
+								  			<small style="font-size:13px;color: dimgrey !important;">Post expires in 
 									  			<button class="btn post-expire-duration-css"> 
 									  				{{($post->post_duration + $post->post_extended)}} days
 									  			</button>
 									  		</small>
 								  		</div>
-								  		<div class="col-md-6 col-sm-6 col-xs-5">
-								  			<div class="post-hover-act" data-postid="{{$post->id}}"><a class="myactivity-posts" data-toggle="modal" href="#myactivity-posts"> Details</a></div>
-								  		</div>
+								  		
 								  		@elseif($expired == 1 && $post->post_duration_extend == 0 || $post->post_duration_extend != 1)
-								  		<div class="col-md-6 col-sm-6 col-xs-7">
-								  			<small style="font-size:13px;">{{$dateExpire}}: Post Expired</small>
+								  		
+								  		<div class="col-md-10 col-sm-10 col-xs-10">
+								  			<small style="color:dimgrey;font-size:13px;">
+												<i class="fa fa-calendar" style="font-size: 11px;color:dimgrey;"></i> {{$dateExpire}}: Post Expired
+											</small>
 								  		</div>
-								  		<div class="col-md-6 col-sm-6 col-xs-5">
-								  			<div class="post-hover-act" data-postid="{{$post->id}}"><a class="myactivity-posts" data-toggle="modal" href="#myactivity-posts"> Details</a></div>
-								  		</div>
+								  		
 								  		@endif
+								  		<div class="col-md-2 col-sm-2 col-xs-2"><a href="/mypost/single/{{$post->unique_id}}" ><i class="fa  fa-ellipsis-v"></i></a></div>
 								  	</div>
 								<div class="row">
 								
-								<div class="col-md-6 col-sm-6 col-xs-6"><a href="/mypost/single/{{$post->unique_id}}" >Full Details</a></div>
+								
 								</div>
 								@if(Auth::user()->identifier == 2)
 								<li  class="active inline">    
@@ -120,6 +132,7 @@
 								} 
 								?>
 								</li>
+								&nbsp;|&nbsp;
 								@elseif(Auth::user()->identifier == 1)
 								<li class="active inline">
 								Contacted 
@@ -137,6 +150,7 @@
 								} 
 								?> 
 								</li>
+								&nbsp;|&nbsp;
 								@endif
 								<li class="inline">
 								Thanked
@@ -154,6 +168,7 @@
 								} 
 								?>
 								</li>
+								&nbsp;|&nbsp;
 								<li class="inline">
 								Shared
 
@@ -171,9 +186,17 @@
 								} 
 								?>
 								</li>
-							</div>				
+							</div>	
+							</a>			
 						</div>	
-						@endforeach		
+						@endforeach	
+						@else
+						<div class="col-md-9">	
+							<div class="updates-style" style="background-color:white;" >
+								You have not Posted anything on Jobtip!
+							</div>
+						</div>
+						@endif
 					</div>
 				</div>
 				@if(Auth::user()->identifier == 1)
@@ -181,7 +204,7 @@
 					<div class="row">
 						@foreach($myActivities as $myActivity)								
 						<div class="col-md-9">												
-							<div class="updates-style" style="background-color:white;" data-postid="{{$myActivity->post_id}}">{{$myActivity->time}}: {{$myActivity->identifier}} for {{$myActivity->post_title}}, {{$myActivity->post_compname}} 
+							<div class="updates-style" style="background-color:white;" data-postid="{{$myActivity->post_id}}"><i class="fa fa-calendar" style="font-size: 11px;"></i>  {{ date('M d, Y', strtotime($myActivity->time)) }}: {{$myActivity->identifier}} for {{$myActivity->post_title}}, {{$myActivity->post_compname}} 
 							<br>Post ID: {{$myActivity->unique_id}}  
 							<a class="myactivity-post taggedpost" data-toggle="modal" href="#myactivity-post">See the full Post </a>
 							</div>				

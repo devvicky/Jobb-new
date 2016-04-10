@@ -140,16 +140,18 @@ input:focus:-ms-input-placeholder { color:dimgrey !important; } /* IE 10+ */
 .login-tabopen{
     display: none ;
 }
-@media (min-width: 570px) {
+@media (min-width: 490px) {
   .signup-button{
-        
+      position: absolute;
+      top: 0px !important;
+      right: 0;  
 
   }
 }
 
-@media (max-width: 570px) {
+@media (max-width: 520px) {
   .signup-button{
-        position: absolute;
+      position: absolute;
       top: -48px;
       right: 0;
 
@@ -239,7 +241,7 @@ input:focus:-ms-input-placeholder { color:dimgrey !important; } /* IE 10+ */
 <script src="/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
 <script src="/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
 <script src="/assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
-<script src="/assets/global/plugins/jquery-validation/js/additional-methods.js" type="text/javascript"></script>
+<!-- <script src="/assets/global/plugins/jquery-validation/js/additional-methods.js" type="text/javascript"></script> -->
 <!-- END CORE PLUGINS -->
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 <script src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
@@ -262,7 +264,13 @@ input:focus:-ms-input-placeholder { color:dimgrey !important; } /* IE 10+ */
 <script src="../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <script src="../../assets/admin/pages/scripts/index.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
-
+<script type="text/javascript">
+        var RecaptchaOptions = {
+           theme : 'custom',
+           custom_theme_widget: 'recaptcha_widget'
+        };
+    </script>
+<script type="text/javascript" src="https://www.google.com/recaptcha/api/challenge?k=6LcrK9cSAAAAALEcjG9gTRPbeA0yAVsKd8sBpFpR"></script>
 @yield('javascript')
 
 <script>

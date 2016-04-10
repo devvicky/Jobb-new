@@ -171,27 +171,6 @@
 											</div>
 										</div>
 									</div>
-									<div class="row">
-										<div class="col-md-12 col-sm-12 col-xs-12">
-											<div class="form-group">
-												<label>Job Type <span class="required">
-												* </span></label>
-												<div class="input-group">
-													<span class="input-group-addon">
-														<i class="icon-hourglass" style="color:darkcyan;"></i>
-													</span>
-													<select name="time_for" class="form-control" style="z-index:0;">
-														<option value="">-- select --</option>
-														<option value="Full Time">Full Time</option>
-														<option value="Part Time">Part Time</option>
-														<option value="Freelancer">Freelancer</option>
-														<option value="Work from Home">Work from Home</option>
-													</select>
-												</div>
-											</div>
-										</div>
-									</div>
-									<input type="hidden" name="prof_category" value="prof_category">
 
 									@if(Auth::user()->identifier == 1)
 									<div class="row">
@@ -265,7 +244,27 @@
 											</div>
 										</div>
 									</div>	
-									@endif	
+									@endif
+									<div class="row">
+										<div class="col-md-6 col-sm-6 col-xs-6">
+											<div class="form-group">
+												<label>Job Type <span class="required">
+												* </span></label>
+												<div class="input-group">
+													<span class="input-group-addon">
+														<i class="icon-hourglass" style="color:darkcyan;"></i>
+													</span>
+													<select name="time_for" class="form-control" style="z-index:0;">
+														<option value="">-- select --</option>
+														<option value="Full Time">Full Time</option>
+														<option value="Part Time">Part Time</option>
+														<option value="Freelancer">Freelancer</option>
+														<option value="Work from Home">Work from Home</option>
+													</select>
+												</div>
+											</div>
+										</div>
+									</div>	
 								</div>
 								<div class="tab-pane" id="tab2">
 									<div class="row">
@@ -276,39 +275,29 @@
 													<input type="text" name="name" id="newskill" class="form-control" placeholder="Search for skill...">
 													<button id="add-new-skill" style="position:absolute;right:0;top:0;" class="btn btn-success" type="button"><i class="icon-plus"></i> Add</button>		
 												</div>
-											</div>
-										</div>
-										<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="form-group">
-												<label>Added Skills</label>
-												<div class="input-group">
 												{!! Form::select('linked_skill_id[]', $skills, null, ['id'=>'linked_skill_id', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Skills', 'multiple']) !!}
-												</div>
 											</div>
 										</div>
-									</div>
-									
-									<div class="row">
-										<div class="col-md-12 col-sm-12 col-xs-12">
+										<div class="col-md-6 col-sm-12 col-xs-12">
 											<div class="form-group">
-												
 												<label>  Education <span class="required">
 														* </span></label> <!-- Select Multiple <input type="checkbox" id="education-check" name="multiple_education" value="1" class="form-control"> -->
-												<div class="input-group single-education" >
+												<!-- <div class="input-group single-education" > -->
 													
 													<select class="form-control education-list" name="education[]" id="parent_selection" multiple style="border:1px solid #c4d5df">
 														@foreach($education as $edu)
-															@if($edu->name != '0')
-															<option value="{{$edu->name}}-{{$edu->branch}}-{{$edu->level}}">{{$edu->name}} ({{$edu->branch}})</option>
-															@else
-															<option value="{{$edu->name}}">{{$edu->branch}}</option>
+															@if($n != $edu->name && $edu->name != '0')
+																{{$n=$edu->name}}
+																<optgroup label="{{$edu->name}}">
+															@endif
+																<option value="{{$edu->name}}-{{$edu->branch}}-{{$edu->level}}">{{$edu->name}}-{{$edu->branch}}</option>
+															@if($n != $edu->name)
+																</optgroup>		
 															@endif
 														@endforeach
 													</select>
-												</div>
+												<!-- </div> -->
 											</div>
-
 										</div>
 									</div>
 									<div class="row">
@@ -366,19 +355,29 @@
 													<input type="text" id="pref_loc" name="pref_loc" 
 													class="form-control" placeholder="Select preferred location">									
 													
-												</div>		
-											</div>
-										</div>
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="form-group">
-												<label> Selected Prefered Location <span class="required">
-														* </span></label>
-												<div class="input-group">
-											{!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 
+												</div>
+												{!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 
 																								   'aria-hidden'=>'true', 
 																								   'class'=>'form-control', 
 																								   'placeholder'=>'city', 
-																								   'multiple']) !!}
+																								   'multiple']) !!}		
+											</div>
+										</div>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<div class="form-group new-margin-formgroup">
+												<label>Post Duration <span class="required">
+													* </span></label>
+												<div class="input-group">
+													<span class="input-group-addon">
+													<i class="icon-clock" style=" color: darkcyan;"></i>
+													</span>
+													<select name="post_duration" class="form-control" >
+														<option value="">--select--</option>					
+														<option value="3">3 Days</option>
+														<option value="7">7 Days</option>
+														<option value="15">15 Days</option>
+														<option value="30">30 Days</option>
+													</select>
 												</div>
 											</div>
 										</div>
@@ -408,22 +407,33 @@
 										
 									</div>
 									<div class="row">
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="form-group new-margin-formgroup">
-												<label>Post Duration <span class="required">
-													* </span></label>
+										<div class="col-md-6 show-apply-email">
+											<div class="form-group">
+												<label>Show Contact<span class="required">
+														* </span></label>
 												<div class="input-group">
-													<span class="input-group-addon">
-													<i class="icon-clock" style=" color: darkcyan;"></i>
-													</span>
-													<select name="post_duration" class="form-control" >
-														<option value="">--select--</option>					
-														<option value="3">3 Days</option>
-														<option value="7">7 Days</option>
-														<option value="15">15 Days</option>
-														<option value="30">30 Days</option>
-													</select>
+													<div class="md-radio-inline">
+														<div class="md-radio">
+															<input type="radio" checked id="radio6" name="show_contact" value="Public" class="md-radiobtn">
+															<label for="radio6" style="">
+															<span></span>
+															<span class="check"></span>
+															<span class="box"></span>
+															Public </label>
+														</div>
+														<div class="md-radio">
+															<input type="radio" id="radio7" name="show_contact" value="Private" class="md-radiobtn">
+															<label for="radio7" style="">
+															<span></span>
+															<span class="check"></span>
+															<span class="box"></span>
+															Private</label>
+														</div>
+													</div>	
+													<div id="radio_error"></div>					<!-- /input-group -->
 												</div>
+												<div class="public" style="color: firebrick;font-size: 11px;">Your Contact details will be seen on the post and people may directly contact you.</div>
+												<div class="private display-none" style="color: firebrick;font-size: 11px;">Your Contact details will not be seen on the post. You may have to contact people who have applied on this post.</div>
 											</div>
 										</div>
 										<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
@@ -723,7 +733,11 @@
 
 @section('javascript')
 <script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
-
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+});
+</script>
 <script type="text/javascript">
 	$(".education-list").select2({
 	  placeholder: "Select education"
@@ -995,7 +1009,7 @@ $('#textarea').keyup(function() {
         });
     });
 
-         $(function () {
+    $(function () {
 	 	$(".multiple-education").hide();
         $("#education-check").click(function () {
             if ($(this).is(":checked")) {
@@ -1006,6 +1020,23 @@ $('#textarea').keyup(function() {
                
                 $(".single-education").show();
                  $(".multiple-education").hide();
+            }
+        });
+    });
+
+    $(function () {
+        $("#radio7").click(function () {
+            if ($(this).is(":checked")) {
+                $(".private").show();
+                $(".public").hide();
+                 
+            }
+        });
+        $("#radio6").click(function () {
+            if ($(this).is(":checked")) {
+                $(".private").hide();
+                $(".public").show();
+                 
             }
         });
     });

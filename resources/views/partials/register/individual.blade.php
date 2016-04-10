@@ -127,6 +127,38 @@
 			<a href="/privacyprolicy" target="_blank" style="">Privacy Policy </a>
 		</label>
 		<div id="register_tnc_error"></div>
+	</div>
+	<div id="recaptcha_widget" class="form-recaptcha" style="margin: 15px 0px;">
+		<div class="form-recaptcha-img" style="width: 325px">
+			<a id="recaptcha_image" href="javascript:;">
+			</a>
+			<div class="recaptcha_only_if_incorrect_sol display-none" style="color:red">
+				 Incorrect please try again
+			</div>
+		</div>
+		<div class="input-group" style="width: 325px">
+			<input type="text" class="form-control" id="recaptcha_response_field" name="recaptcha_response_field">
+			<div class="input-group-btn">
+				<a class="btn default" href="javascript:Recaptcha.reload()">
+				<i class="fa fa-refresh"></i>
+				</a>
+				<a class="btn default recaptcha_only_if_image" href="javascript:Recaptcha.switch_type('audio')">
+				<i title="Get an audio CAPTCHA" class="fa fa-headphones"></i>
+				</a>
+				<a class="btn default recaptcha_only_if_audio" href="javascript:Recaptcha.switch_type('image')">
+				<i title="Get an image CAPTCHA" class="fa fa-picture-o"></i>
+				</a>
+				<a class="btn default" href="javascript:Recaptcha.showhelp()">
+				<i class="fa fa-question-circle"></i>
+				</a>
+			</div>
+		</div>
+		<p class="help-block">
+			<span class="recaptcha_only_if_image">
+			Enter the words above </span>
+			<span class="recaptcha_only_if_audio">
+			Enter the numbers you hear </span>
+		</p>
 	</div>									
 	<div class="form-actions" style="border-bottom: 0 !important;">
 		<label id="register-back-btn" 
