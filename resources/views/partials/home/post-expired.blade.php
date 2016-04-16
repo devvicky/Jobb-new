@@ -7,11 +7,8 @@
 			<!-- TIMELINE ITEM -->
 			<div class="timeline-item time-item-ex" itemscope itemtype="http://schema.org/Article">
 				<div class="timeline-badge badge-margin">
-					@if(!empty($userImgPath))
-					<img class="timeline-badge-userpic userpic-box" src="/img/profile/{{ $userImgPath }}" alt="logo" title="{{ $userName }}">
-					@else
-					<img class="timeline-badge-userpic userpic-box" src="/assets/images/ab.png" alt="logo" title="{{ $userName }}">
-					@endif
+					<img class="timeline-badge-userpic userpic-box demo" data-name="{{$userName}}" src="/img/profile/{{ $userImgPath }}" alt="logo" title="{{ $userName }}">
+					
 				</div>
 				@include('partials.home.image-linked')
 				@include('partials.home.favourite')
@@ -35,11 +32,22 @@
 	                        </div>
 	                    </div>
 	                    @endif
+	                    <?php $postSkills = []; 
+                            $postSkillArr = array_map('trim', explode(',', $post->linked_skill));
+                            $userSkillArr = array_map('trim', explode(',', Auth::user()->induser->linked_skill));
+                        ?>
+                        <?php 
+                            $matchedPost = array_intersect($postSkillArr, $userSkillArr);
+                            $unmatchedPost = array_diff($postSkillArr, $userSkillArr);
+                        ?>
 	                    <div class="col-md-12">
 	                        <div class=" capitalize" itemprop="name" style="font-size:13px;color:dimgrey !important;">
 	                        @if($postType == 'job') <label class="label-success job-type-skill-css">{{$jobType}}</label>@endif <?php $skills = explode(',', $post->linked_skill) ?>                                                                                                                              
-                                                    @foreach($skills as $skill)
-                                                        <label class="label-success skill-label">{{ $skill }}</label>
+                                                    @foreach($matchedPost as $m)
+                                                        <label class="label-success matched-skill-css">{{$m}}</label>
+                                                    @endforeach
+                                                    @foreach($unmatchedPost as $um)
+                                                      <label class="label-success skill-label">{{$um}}</label>
                                                     @endforeach
 	                        </div>
 	                    </div>

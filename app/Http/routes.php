@@ -12,6 +12,8 @@ Route::post('welcome/post', 'WelcomeController@welcomeSearch');
 Route::post('welcome/postdetails', 'WelcomeController@postDetails');
 Route::post('/contact', 'WelcomeController@contactUs');
 
+Route::get('email-test', 'PagesController@emailUITest');
+
 Route::get('welcome/job/post/{id}', 'WelcomeController@welcomeJobPost');
 Route::get('welcome/skill/post/{id}', 'WelcomeController@welcomeskillPost');
 
@@ -47,6 +49,8 @@ Route::get('reset/password/profile/{token}', 'UserController@resetPasswordProfil
 Route::post('profile/reset/password', 'UserController@adminProfileResetPassword');
 
 Route::group(array('middleware' => 'auth'), function(){
+
+
 
 	Route::post('home', 'PagesController@homeFilter');
 	Route::post('home/skill', 'PagesController@homeskillFilter');

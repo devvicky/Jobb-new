@@ -61,7 +61,7 @@
 	<!-- BEGIN ADVANCED SEARCH -->
 	<div class="col-md-7 col-sm-8">
 		<div class="show-adsearch">
-			<form id="search-profile" action="/search/profile" method="post">
+			<form id="search-profiles" action="/search/profile" method="post">
 		      	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<!-- <div class="row-md-2"></div> -->
 				<div class="row" style="margin-bottom: 20px;margin-top: 10px;">
@@ -99,7 +99,7 @@
 				<div class="row" style="margin:0;">
 					<div class="col-md-6 col-sm-6 col-xs-12">
 					  <div class="form-group">              
-					      <input type="text" name="name" class="form-control filter-input " 
+					      <input type="text" name="name" class="form-control filter-input group" 
 					      			placeholder="Enter Name or Email Id" />
 					  </div>  
 					</div>
@@ -122,7 +122,7 @@
 					</div>
 					<div class="col-md-6 col-sm-6 col-xs-12">
 					  	<div class="form-group">              
-					      <input type="text" name="mobile" class="form-control filter-input " placeholder="Mobile No">
+					      <input type="text" id="mobile" name="mobile" class="form-control filter-input group" placeholder="Mobile No">
 					  	</div>  
 					</div>
 				</div>
@@ -531,61 +531,82 @@
     jQuery('#id_radio1').on('click', function(event) {
 	    jQuery('.show-comp').toggle('show');
 	    jQuery('.show-firm-type').toggle('hide');
+	    jQuery('#mobile').addClass('group');
+	    $(this).closest('form').find("input[type=text], textarea").val("");
     });
 
     jQuery('#id_radio2').on('click', function(event) {
 	    jQuery('.show-comp').toggle('hide');
 	    jQuery('.show-firm-type').toggle('show');
+	    jQuery('#mobile').removeClass('group');
+	    $(this).closest('form').find("input[type=text], textarea").val("");
+
     });
+	
+</script>
+<script type="text/javascript">
+$(document).ready(function () {            
+    //validation rules
+    var form = $('#search-profiles');
+    var error = $('.alert-danger', form);
+    var success = $('.alert-success', form);
 
-	$(".job-role-ajax").select2({
-		placeholder: 'Enter a role',
-		ajax: {
-		    url: "/post/jobroles/",
-		    dataType: 'json',
-		    delay: 250,
-		    data: function (params) {
-		      return {
-		        q: params.term, // search term
-		        page: params.page
-		      };
-		    },
-		    processResults: function (data, params) {
-		      console.log(data);
-		      return {
-		        results: data
-		      };
-		    },
-		    cache: true
-	  	},
-		escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
-		minimumInputLength: 2,
-		templateResult: formatRepo, // omitted for brevity, see the source of this page
-		templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
-	});
 
-	function formatRepo (repo) {
-		if (repo.loading) return repo.text;
+    form.validate({
+        doNotHideMessage: true, //this option enables to show the error/success messages on tab switch.
+        errorElement: 'span', //default input error message container
+        errorClass: 'help-block help-block-error', // default input error message class
+        focusInvalid: false, // do not focus the last invalid input
+        ignore: [],
+        groups: {
+                    name: "name mobile"
+                },
+        rules: {
+            name: {
+                require_from_group: [1, '.group']
+            },
+            mobile: {
+                number: true,
+                minlength: 10,
+                require_from_group: [1, '.group']
+            },
+            city : {
+                required : false
+            },
+            "firm_type[]": {
+            	required: true
+            }
+        },
+        messages: {
+            mobile: {
+	            require_from_group: "Enter atleast Name or Mobile no"
+	        },
+	        phone: {
+	            maxlength: "Enter minimum 10 integer"
+	        }
+        },
+            invalidHandler: function (event, validator) { //display error alert on form submit   
+            success.hide();
+            error.show();
+            Metronic.scrollTo(error, -200);
+        },
 
-		var markup = "<div class='select2-result-repository clearfix'>" +
-		"<div class='select2-result-repository__meta'>" +
-		  "<div class='select2-result-repository__title'><b>Role</b>: " + repo.role + "</div>";
-
-		markup += "<div class='select2-result-repository__statistics'>" +
-		"<div class='select2-result-repository__forks'><b>Functional area: </b> " + repo.functional_area + "</div>" +
-		"<div class='select2-result-repository__stargazers'><b>Industry</b>: " + repo.industry + "</div>" +
-		"</div>" +
-		"</div></div>";
-
-		return markup;
-    }
-
-    function formatRepoSelection (repo) {
-    	if(repo.role != undefined){
-    		// console.log(repo);
-    		return  "<b>Role:</b> "+repo.role+"<br/><b>Functional Area:</b> "+repo.functional_area+"<br/><b>Industry:</b> "+repo.industry;
-    	}      
-    }
-
+             highlight: function(element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+            unhighlight: function(element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function(error, element) {
+            if(element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+         },
+    });
+});
 </script>
 @stop

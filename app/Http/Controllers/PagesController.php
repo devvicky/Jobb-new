@@ -83,7 +83,6 @@ class PagesController extends Controller {
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup', 'preferLocations')
 								   ->where('post_type', '=', 'job')
 								   ->where('individual_id', '!=', Auth::user()->induser_id)
-								   ->orWhere('corporate_id', '>', 0)
 								   ->whereRaw('postjobs.id in (select  pm.id from postjobs pm where pm.id in (
 													select p.id 
 														from postjobs p
@@ -107,6 +106,7 @@ class PagesController extends Controller {
 													select distinct put.post_id
 														from post_user_taggings put
 												)) ')
+								   ->orWhere('corporate_id', '>', 0)
 								   ->paginate(5);
 
 				$groups = Group::leftjoin('groups_users', 'groups_users.group_id', '=', 'groups.id')					
@@ -1206,12 +1206,14 @@ public function homecorpSkillFilter(){
 
 			$type = Input::get('type');
 			$firm_type = Input::get('firm_type');
-
+			// return $firm_type;
 			if($type == 'people'){
-				$users = Induser::with('user')->orderBy('id', 'desc');
+				$users = Induser::with('user')
+							    ->orderBy('id', 'desc')
+							    ->where('id', '!=', Auth::user()->induser_id);
 
 				if($name != null){
-					$users->whereRaw("(fname like '%".$name."%' or lname like '%".$name."%' or email like '%".$name."%')");
+					$users->whereRaw("(fname like '%".$name."%' or lname like '%".$name."%' or email = '".$name."')");
 
 				}
 				if($city != null){
@@ -1251,8 +1253,7 @@ public function homecorpSkillFilter(){
 				$users = Corpuser::with('user')->orderBy('id', 'desc');
 
 				if($name != null){
-					$users->where('firm_name', 'like', '%'.$name.'%')
-				 	      ->orWhere('firm_email_id', '=', $name);
+					$users->whereRaw("(firm_name like '%".$name."%' or firm_email_id = '".$name."')");;
 				}
 				if($city != null){
 					$pattern = '/\s*,\s*/';
@@ -2859,6 +2860,12 @@ public function homecorpSkillFilter(){
 		}else{
 			return redirect('login');
 		}	
+	}
+
+
+	public function emailUITest(){
+		$title = 'home';
+		return view('pages.email-test', compact( 'title'));
 	}
 
 }

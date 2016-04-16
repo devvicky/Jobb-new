@@ -1,14 +1,14 @@
 @extends('master')
 
 @section('content')
-<div class="col-md-7 col-sm-8">
+<div class="col-md-7 col-sm-10">
 <a class="advance-search btn advance-searched-profile">Modify</a>
 </div>
 <div class="row clearfix" style="margin-bottom:10px">	
 	<!-- BEGIN ADVANCED SEARCH -->
-	<div class="col-md-7 col-sm-8">
+	<div class="col-md-7 col-sm-10">
 		<div class="show-adsearch">
-			<form id="search-profile" action="/search/profile" method="post">
+			<form id="profilesearch" action="/search/profile" method="post">
 		      	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<!-- <div class="row-md-2"></div> -->
 				<div class="row" style="margin-bottom: 20px;margin-top: 10px;">
@@ -28,30 +28,30 @@
 					</div> 
 				</div>
 				<div class="row show-firm-type" style="margin: 0px auto; float: none; display: table;">
-					<div class="btn-group col-md-12 col-sm-12 col-xs-12" style="margin:10px;" data-toggle="buttons">
-						<label>
-							<input type="checkbox" class="icheck" 
-									name="firm_type[]" value="company"
-									data-checkbox="icheckbox_line-grey" 
-									data-label="Company" checked>
-						</label>												
-						<label>
-							<input type="checkbox" class="icheck" 
-									name="firm_type[]" value="consultancy"
-									data-checkbox="icheckbox_line-grey" 
-									data-label="Consultancy" checked>
-						</label>
+					<div class="form-group">
+						<div class="input-group">
+							<div class="icheck-inline">
+								<label>
+								<input type="checkbox" name="firm_type[]" class="icheck" value="company" data-checkbox="icheckbox_line-grey" data-label="Company">
+								</label>
+								<label>
+								<input type="checkbox" name="firm_type[]" checked class="icheck" value="consultancy" data-checkbox="icheckbox_line-grey" data-label="Consultancy">
+								</label>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="row" style="margin:0;">
 					<div class="col-md-6 col-sm-6 col-xs-12">
 					  <div class="form-group">              
-					      <input type="text" name="name" class="form-control filter-input " 
-					      			placeholder="Enter Name or Email Id" required/>
+					      <input type="text" id="name" name="name" class="form-control filter-input group" 
+					      			placeholder="Enter Name or Email Id"/>
 					  </div>  
 					</div>
 					<div class="col-md-6 col-sm-6 col-xs-12">
-						<input type="text" id="city" name="city" class="form-control" placeholder="Enter City">
+						<div class="form-group">
+							<input type="text" id="city" name="city" class="form-control" placeholder="Enter City">
+						</div>
 					</div>
 				</div>
 		       <div class="row" style="margin:0;">
@@ -69,7 +69,7 @@
 					</div>
 					<div class="col-md-6 col-sm-6 col-xs-12">
 					  	<div class="form-group">              
-					      <input type="text" name="mobile" class="form-control filter-input " placeholder="Mobile No">
+					      <input type="text" id="mobile" maxlength="10" name="mobile" class="form-control filter-input group" placeholder="Mobile No">
 					  	</div>  
 					</div>
 				</div>
@@ -98,13 +98,14 @@
 	<div class="portlet-body form">
 		<div class="form-body">
 			<div class="row">
-				<div class="col-md-7">
+				<div class="col-md-7 col-sm-10">
 					<!-- BEGIN FORM-->
-						@if($type == 'people' && Auth::user()->identifier == 1)	
+						@if($type == 'people')	
 						  	
+
 						  	@if(count($users) > 0)
 								@foreach($users as $user)
-
+									@if($user->user->email_verify == 1 || $user->user->mobile_verify == 1)
 								  	<div class="row" style="padding: 0 0 15px 0; margin: 0 0 15px 0;border-bottom: 1px solid #eee;">
 									    <div class="col-md-2 col-sm-3 col-xs-3">
 											<a href="#">
@@ -153,7 +154,7 @@
 									 	</div>
 									 	@endif
 								    </div>
-
+								    @endif
 								@endforeach
 								<?php echo $users->render(); ?>
 							@else
@@ -164,7 +165,7 @@
 
 							@if(count($users) > 0)
 								@foreach($users as $user)
-								
+									@if($user->user->email_verify == 1 || $user->user->mobile_verify == 1)
 									  <div class="row" style="padding: 0 0 15px 0; margin: 0 0 15px 0;border-bottom: 1px solid #eee;">
 									    <div class="col-md-2 col-sm-3 col-xs-3">
 									      <a href="#">
@@ -199,7 +200,8 @@
 													
 											@endif
 									 	</div>
-									    </div>  
+									</div>  
+									@endif
 								@endforeach
 								<?php echo $users->render(); ?>
 							@else
@@ -232,6 +234,22 @@
 
 @section('javascript')
 <script type="text/javascript">
+function initialize() {
+		var options = {	types: ['(cities)'], componentRestrictions: {country: "in"}	};
+		var input = document.getElementById('city');
+		var autocomplete = new google.maps.places.Autocomplete(input, options);
+		autocomplete.addListener('place_changed', onPlaceChanged); 
+		function onPlaceChanged() {
+		  var place = autocomplete.getPlace();
+		  if (place.address_components) { city = place.address_components[0];
+		  	document.getElementById('city').value = city.long_name;
+		  } else { document.getElementById('autocomplete').placeholder = 'Enter a city'; }
+		}
+	}
+    google.maps.event.addDomListener(window, 'load', initialize); 
+</script>
+
+<script type="text/javascript">
 $('.show-firm-type').hide();
 
     jQuery('.advance-search').on('click', function(event) {
@@ -242,11 +260,81 @@ $('.show-firm-type').hide();
     jQuery('#id_radio1').on('click', function(event) {
 	    jQuery('.show-comp').toggle('show');
 	    jQuery('.show-firm-type').toggle('hide');
+	    jQuery('#mobile').addClass('group');
+	    $(this).closest('form').find("input[type=text], textarea").val("");
     });
 
     jQuery('#id_radio2').on('click', function(event) {
 	    jQuery('.show-comp').toggle('hide');
 	    jQuery('.show-firm-type').toggle('show');
+	    jQuery('#mobile').removeClass('group');
+	    $(this).closest('form').find("input[type=text], textarea").val("");
+
     });
+</script>
+<script type="text/javascript">
+$(document).ready(function () {            
+    //validation rules
+    var form = $('#profilesearch');
+    var error = $('.alert-danger', form);
+    var success = $('.alert-success', form);
+
+
+    form.validate({
+        doNotHideMessage: true, //this option enables to show the error/success messages on tab switch.
+        errorElement: 'span', //default input error message container
+        errorClass: 'help-block help-block-error', // default input error message class
+        focusInvalid: false, // do not focus the last invalid input
+        ignore: [],
+        groups: {
+                    name: "name mobile"
+                },
+        rules: {
+            name: {
+                require_from_group: [1, '.group']
+            },
+            mobile: {
+                number: true,
+                minlength: 10,
+                require_from_group: [1, '.group']
+            },
+            city : {
+                required : false
+            },
+            "firm_type[]": {
+            	required: true
+            }
+        },
+        messages: {
+            mobile: {
+	            require_from_group: "Enter atleast Name or Mobile no"
+	        },
+	        phone: {
+	            maxlength: "Enter minimum 10 integer"
+	        }
+        },
+            invalidHandler: function (event, validator) { //display error alert on form submit   
+            success.hide();
+            error.show();
+            Metronic.scrollTo(error, -200);
+        },
+
+             highlight: function(element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+            unhighlight: function(element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function(error, element) {
+            if(element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+         },
+    });
+});
 </script>
 @stop

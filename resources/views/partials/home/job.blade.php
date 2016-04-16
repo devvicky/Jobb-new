@@ -28,7 +28,7 @@
 				<?php
                     $crossCheck = array_intersect($groupsTagged, $groups);
                     $elements = array_count_values($crossCheck); ?>
-                            
+
 				@if($post->tagged->contains('user_id', Auth::user()->induser_id) || 
                             $post->individual_id == Auth::user()->induser_id || 
                             count($elements) > 0 || 
@@ -103,6 +103,8 @@
 			</div>
 		</div>
 	</div>
+	@else
+	No Job Post
 @endif
 
 <div class="row">

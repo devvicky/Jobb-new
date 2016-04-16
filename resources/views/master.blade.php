@@ -415,8 +415,14 @@ input:focus:-ms-input-placeholder { color:white !important; } /* IE 10+ */
 <script src="/assets/js/jt-toast.js"></script>
 <script src="/assets/js/justgage.js"></script>
 <script src="/assets/js/raphael-2.1.4.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?libraries=places&region=IN" type="text/javascript"></script>
+<script data-cfasync='false' src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaopcFqNcx4rpHm6Z_iZOkrO8zcNn1GS8&libraries=places" type="text/javascript"></script>
+<script src="/assets/js/initial.js"></script>
 
+<script type="text/javascript">
+$(document).ready(function(){
+$('.demo').initial({width:80,height:80});
+})
+</script>
 <script>
 $(document).ready(function () {
     $('.show-contact').hide();

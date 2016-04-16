@@ -61,6 +61,8 @@
 			</div>
 		</div>
 	</div>
+	@else
+	No Skill Post
 @endif
 
 <div class="row">

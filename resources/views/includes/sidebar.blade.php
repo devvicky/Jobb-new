@@ -73,7 +73,7 @@
                   <div class="hover-image"><i class="fa fa-camera"></i> Add</div>
                 @endif      
                 @if($session_user->profile_pic != null)
-                  <img src="/img/profile/{{ $session_user->profile_pic }}">
+                  <img src="/img/profile/{{ $session_user->profile_pic }}" class="demo" data-name="{{$session_user->fname}}">
                   <div class="hover-image"><i class="glyphicon glyphicon-edit"></i>Edit</div>
                 @endif
             </a>
@@ -81,7 +81,7 @@
 
           </div>
 
-          <!-- <div id="g1" class="gauge"></div>
+          <!-- <div-> id="g1" class="gauge"></div>
           <div style="font-size: 10px;margin: -15px 12px 0px;float: right;">Profile Complete</div> -->
           @else
           <div class="profile-userpic-corp user-image">

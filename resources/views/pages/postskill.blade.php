@@ -210,6 +210,7 @@
 											</div>
 										</div>
 									</div>
+									<input type="text" id="confirm-skill" name="skill" style="display:none;">
 									<div class="row">
 										<div class="col-md-6 col-sm-6 col-xs-12">
 											<div class="form-group">
@@ -288,6 +289,8 @@
 																								   'multiple']) !!}	
 											</div>
 										</div>
+										
+										<input type="text" id="show_location" name="show-location" style="display:none;">
 										<div class="col-md-6 show-apply-email">
 											<div class="form-group">
 												<label>Show Contact<span class="required">
@@ -435,7 +438,7 @@
 			                                                                </div>
 			                                                               <!--  -->
 			                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                 
-			                                                                        <p class="form-control-static" data-display="linked_skill_id[]" style="margin: -5px 0;"></p>
+			                                                                        <p class="form-control-static" data-display="skill" style="margin: -5px 0;"></p>
 			                                                                </div>
 			                                                            </div>
 			                                                            <div class="row"> 
@@ -476,7 +479,7 @@
 			                                                                        <label class="detail-label">Prefered Location :</label>                                                                  
 			                                                                </div>
 			                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-			                                                                         <p class="form-control-static" data-display="prefered_location[]" style="margin: -5px 0;"></p>
+			                                                                         <p class="form-control-static" data-display="show-location" style="margin: -5px 0;"></p>
 			                                                                </div>
 			                                                            </div>
 			                                                            
@@ -616,6 +619,19 @@ $(".education-list").select2({
 			if(locality == '' && city != '' && state != '' ){
 				prefLocationArray.push(city +"-" + state);	
 			}
+
+			var selectedLoc = document.getElementById('show_location').value;
+		  	if(selectedLoc == '' && locality != '' && city != '' && state != ''){
+		  		selectedLoc = locality +"-"+ city +"-"+ state;
+		  	}else if(selectedLoc == '' && locality == '' && city != '' && state != ''){
+		  		selectedLoc = city +"-"+ state;
+		  	}else if(selectedLoc != '' && locality != '' && city != '' && state != ''){
+		  		selectedLoc = selectedLoc + ', ' +locality +"-"+ city +"-"+ state;
+		  	}else if(selectedLoc != '' && locality == '' && city != '' && state != ''){
+		  		selectedLoc = selectedLoc + ', ' + city +"-"+ state;
+		  	}
+
+		  	document.getElementById('show_location').value = selectedLoc;
 
 		  	setTimeout(function(){ prefLoc.val(''); prefLoc.focus();},0);	// clear field
 		  	
@@ -923,6 +939,12 @@ $gotit = [];
 			select: function(event, ui) {
 				var termsId = [];
 
+				$showSkill = split( $('#confirm-skill').val() );
+				$showSkill.pop();
+				$showSkill.push( ui.item.value );
+				$showSkill.push( "" );
+				$('#confirm-skill').val($showSkill.join( ", " ));
+
 				if($selectedSkills.val() != null){
 					termsId = $selectedSkills.val();
 				}
@@ -984,6 +1006,10 @@ $gotit = [];
 			        	if($gotit != null){
 							selectedSkillId = $gotit;
 						}
+
+
+						$sk = $('#confirm-skill').val();
+			        	$('#confirm-skill').val($sk+""+$newSkill+", ");
 						
 			        	selectedSkillId.push($newSkill);
 			        	// console.log(selectedSkillId);

@@ -148,7 +148,7 @@
                                                     @endif
                                                 </div>
                                                 @endif
-                                                <div class="col-md-3 col-sm-3 col-xs-3" style="padding:0 8px;">
+                                                <div class="col-md-2 col-sm-2 col-xs-2" style="padding:0 8px;">
                                                     <form action="/job/like" method="post" id="post-like-{{$post->id}}" data-id="{{$post->id}}">                        
                                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                         <input type="hidden" name="like" value="{{ $post->id }}">
@@ -174,19 +174,19 @@
                                                                                   
                                                     
                                                     @if($post->postactivity->where('user_id', Auth::user()->id)->isEmpty())
-                                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                                    <div class="col-md-2 col-sm-2 col-xs-2">
                                                     </div>
                                                     @elseif($post->postactivity->where('user_id', Auth::user()->id)->first()->apply == 1)
-                                                    <div class="col-md-3 col-sm-3 col-xs-3"  style="">                                                  
+                                                    <div class="col-md-2 col-sm-2 col-xs-2"  style="margin:5px -5px;">                                                  
                                                         <i class="fa fa-check-square-o" style="font-size:13px;"></i><span style="font-size:12px;" class="applied-css hidden-sm hidden-xs"> Applied</span> 
                                                     </div>
                                                     
                                                     @elseif($post->postactivity->where('user_id', Auth::user()->id)->first()->contact_view == 1)
-                                                    <div class="col-md-3 col-sm-3 col-xs-3"  style="">                                                  
+                                                    <div class="col-md-2 col-sm-2 col-xs-2"  style="margin:5px -5px;">                                                  
                                                         <i class="fa fa-check-square-o" style="font-size:13px;"></i><span style="font-size:12px;" class="hidden-sm hidden-xs"> Contacted</span> 
                                                     </div>
                                                     @else
-                                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                                    <div class="col-md-2 col-sm-2 col-xs-2">
                                                     </div>
                                                     @endif
                                                 
@@ -330,7 +330,7 @@
                                                     @if($post->postactivity->where('user_id', Auth::user()->id)->isEmpty())
                                                     
                                                     @elseif($post->postactivity->where('user_id', Auth::user()->id)->first()->apply == 1)
-                                                    <div class="col-md-3 col-sm-3 col-xs-3">                                                    
+                                                    <div class="col-md-3 col-sm-3 col-xs-3" style="margin: 5px -5px;">                                                    
                                                         <i class="fa fa-check-square-o" style="font-size:13px;color:dimgrey;"></i><span style="font-size:12px;" class="hidden-sm hidden-xs"> Applied</span> 
                                                     </div>
                                                     @endif
@@ -339,7 +339,7 @@
                                                     @if($post->postactivity->where('user_id', Auth::user()->id)->isEmpty())
                                                     
                                                     @elseif($post->postactivity->where('user_id', Auth::user()->id)->first()->contact_view == 1)
-                                                    <div class="col-md-3 col-sm-3 col-xs-3">                                                    
+                                                    <div class="col-md-3 col-sm-3 col-xs-3" style="margin: 5px -5px;">                                                    
                                                         <i class="fa fa-check-square-o" style="font-size:13px;color:dimgrey;"></i><span style="font-size:12px;" class="hidden-sm hidden-xs"> Contacted</span> 
                                                     </div>
                                                     @endif
@@ -452,7 +452,7 @@
                                             </div>
                                             @else
                                             <div class="col-md-8 col-sm-8 col-xs-8">
-                                                    Not disclose
+                                                    Not disclosed
                                             </div>
                                             @endif
                                         </div>
@@ -496,10 +496,9 @@
                                                 {{ $post->phone }} 
                                         </div>
                                     </div>
-                                    @else
-                                    
                                     @endif
-                                    @else
+                                    @elseif($post->postactivity->where('user_id', Auth::user()->induser_id)->isEmpty() && $post->show_contact == "Private")
+                                    @elseif($post->postactivity->where('user_id', Auth::user()->induser_id)->first()->contact_view == 1 && $post->show_contact == "Private")
                                     <div class="skill-display">Contact Details : </div>
                                     <div class="row">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -719,47 +718,7 @@ $('.apply-btn').live('click',function(event){
     return false;
   });
     
-$('.contact-btn').live('click',function(event){       
-    event.preventDefault();
-    var post_id = $(this).parent().data('id');
 
-    var formData = $('#post-contact-'+post_id).serialize(); 
-    var formAction = $('#post-contact-'+post_id).attr('action');
-    // console.log(post_id);
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    $.ajax({
-      url: formAction,
-      type: "post",
-      data: formData,
-      cache : false,
-      success: function(data){
-        // console.log("s:"+data);
-        if(data.contacted == "contacted"){
-            $('#contact-btn-'+post_id).prop('disabled', true);
-            $('#contact-btn-'+post_id).text('Contacted');
-            $('#show-hide-contacts').addClass('show-hide-new');
-            var show = '<div class="skill-display">Contact Details : </div>';
-            show += '<div class="row"><div class="col-md-1 col-sm-6 col-xs-6"><label class="detail-label"><i class="glyphicon glyphicon-user"></i> :</label> </div>';
-            show += '<div class="col-md-9 col-sm-6 col-xs-6">'+data.data.contact+'</div></div>';
-            show += '<div class="row"><div class="col-md-1 col-sm-6 col-xs-6"><label class="detail-label"><i class="glyphicon glyphicon-envelope"></i> :</label> </div>';
-            show += '<div class="col-md-9 col-sm-6 col-xs-6">'+data.data.email+'</div></div>';                          
-            show += '<div class="row"><div class="col-md-1 col-sm-6 col-xs-6"><label class="detail-label"><i class="glyphicon glyphicon-envelope"></i> :</label></div>';
-            show += '<div class="col-md-9 col-sm-6 col-xs-6">'+data.data.phone+'</div></div>';
-            $("#post-user-contact-"+post_id).html(show);
-
-            var dates = '<div class="col-md-12" style="text-align:center;"><i class="fa fa-calendar" style="font-size: 11px;color:dimgrey;"></i>'+data.data.date+'</div>';
-            $("#post-date-"+post_id).html(dates);
-            console.log(data.data.date);
-        }
-      }
-    }); 
-    return false;
-  });
 });
   </script>
 

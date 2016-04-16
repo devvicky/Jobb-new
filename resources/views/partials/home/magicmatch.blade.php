@@ -188,6 +188,7 @@
                                                     $postEdu = explode('-', $educations[0]); 
                                                     $usrEdu = explode('-', Auth::user()->induser->education); 
                                                 ?>
+
                                     @if(Auth::user()->induser->education != null)
                                     <td class="">
                                         @if( 

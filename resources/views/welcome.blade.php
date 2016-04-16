@@ -43,12 +43,13 @@
 <style type="text/css">
 
 input::-webkit-input-placeholder { color:white !important; }
-input:-moz-placeholder { color:white !important; } /* FF 4-18 */
-input::-moz-placeholder { color:white !important; } /* FF 19+ */
-input:-ms-input-placeholder { color:white !important; } /* IE 10+ */
+input:-moz-placeholder { color:white !important; }
+input::-moz-placeholder { color:white !important; } 
+input:-ms-input-placeholder { color:white !important; } 
 </style>
 </head>
 <body>
+@yield('css')
 
   @include('includes.analyticstracking')
   <!-- <div class="container display-content"> -->
