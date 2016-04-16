@@ -148,7 +148,7 @@ return [
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
 		'App\Providers\UserServiceProvider',
-
+		'App\Jobtip\Sms\SmsServiceProvider',
 	],
 
 	/*
@@ -200,6 +200,7 @@ return [
 		'Html'		=> 'Illluminate\Html\HtmlFacade',
 		'Image' 	=> 'Intervention\Image\Facades\Image',
 		'Socialize' => 'Laravel\Socialite\Facades\Socialite',
+		'Sms' 		=> 'App\Jobtip\Facades\Sms',
 
 	],
 

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Induser;
 use Mail;
+use Sms;
 
 class AuthController extends Controller {
 
@@ -139,6 +140,8 @@ class AuthController extends Controller {
 					$data['mobile_otp_expiry'] = $mobile_otp_expiry;
 					$data['diff'] = $difference;
 					$data['mobile'] = $request->input('email');
+
+					$mobileNumber = $request->input('email');
 					if($difference < 15 && $userForMobile->mobile_otp_attempt < 3){
 						// send old otp n increment the attempt
 						$mobile_otp_attemptInc = $userForMobile->mobile_otp_attempt + 1;
@@ -146,7 +149,11 @@ class AuthController extends Controller {
 
 						$data['mobile_verify'] = 0;
 						$data['valid'] = 1;
-			    		$data['message'] = 'Mobile number not yet verified. Please check your mobile for OTP. '.$userForMobile->mobile_otp;
+			    		$data['message'] = 'Mobile number not yet verified. Please check your mobile for OTP.';
+
+			    		$smsMsg = "Dear User, ".$userForMobile->mobile_otp." is your OTP for mobile verification.";
+			    		$data['delvStatus'] = SMS::send($mobileNumber, $smsMsg);
+
 					}else if($difference >= 15 && $userForMobile->mobile_otp_attempt < 3){
 						// regenerate otp, update otp, reset attempt n mobile_otp_expiry
 						$otp = rand(1111,9999);
@@ -156,7 +163,11 @@ class AuthController extends Controller {
 
 						$data['mobile_verify'] = 0;
 						$data['valid'] = 1;
-			    		$data['message'] = 'OTP sent to your registered mobile number. '.$otp;
+			    		$data['message'] = 'OTP sent to your registered mobile number.';
+
+			    		$smsMsg = "Dear User, ".$otp." is your OTP for mobile verification.";
+			    		$data['delvStatus'] = SMS::send($mobileNumber, $smsMsg);
+
 					}else if($userForMobile->mobile_otp_attempt == 3){
 						if($difference >= 30){
 							User::where('mobile', '=', $request->input('email'))->update(['mobile_otp_attempt' => 0]);

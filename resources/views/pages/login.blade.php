@@ -282,7 +282,7 @@ $('#individual-register-btn').on('click',function(event){
 	            if(data.data.otp != null && data.data.vcode != null ){
 		            $('.corporate-register-tab').hide();
 		            $('#mobile-otp-form').show();
-		            $('#ind-reg-msg').html('Registration successful ! <br/>Check your mobile/email for further instruction. <br/>Your otp: <b>'+data.data.otp+'</b> to verify mobile.');  
+		            $('#ind-reg-msg').html('Registration successful ! <br/>Check your mobile/email for further OTP/verification code. <br/>');  
 		            // console.log('both');
 
 		            $('#ind-msg-reg-box').removeClass('alert alert-danger');
@@ -296,7 +296,7 @@ $('#individual-register-btn').on('click',function(event){
 		        }else if(data.data.vcode != null && data.data.otp == null){
 		        	$('.corporate-register-tab').hide();
 		            $('#mobile-otp-form').show();
-		        	$('#ind-reg-msg').html('Registration successful ! <br/>Check your email for further instruction.');  
+		        	$('#ind-reg-msg').html('Registration successful ! <br/>Check your email for verification code.');  
 		        	// console.log('email');
 
 		        	$('#ind-msg-reg-box').removeClass('alert alert-danger');
@@ -310,7 +310,7 @@ $('#individual-register-btn').on('click',function(event){
 		        }else if(data.data.otp != null && data.data.vcode == null){
 		        	$('.corporate-register-tab').hide();
 		            $('#mobile-otp-form').show();
-		        	$('#ind-reg-msg').html('Registration successful ! <br/>Check your mobile for further instruction. <br/>	        		Your otp: <b>'+data.data.otp+'</b> to verify mobile.');  
+		        	$('#ind-reg-msg').html('Registration successful ! <br/>Check your mobile for OTP. <br/>');  
 		        	// console.log('mobile');
 
 		        	$('#ind-msg-reg-box').removeClass('alert alert-danger');
@@ -380,7 +380,7 @@ $('#corporate-register-btn').on('click',function(event){
 	           
 	        	$('.corporate-register-tab').hide();
 	            $('#mobile-otp-form').show();
-	        	$('#ind-reg-msg').html('Registration successful ! <br/>Check your email for further instruction.');  
+	        	$('#ind-reg-msg').html('Registration successful ! <br/>Check your email for verification code.');  
 	        	// console.log('email');
 
 	        	$('#ind-msg-reg-box').removeClass('alert alert-danger');

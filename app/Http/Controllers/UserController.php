@@ -21,6 +21,7 @@ use Mail;
 use Hash;
 use Redirect;
 use Socialize;
+use Sms;
 
 
 class UserController extends Controller {
@@ -109,11 +110,14 @@ class UserController extends Controller {
 				Mail::send('emails.welcome', array('fname'=>$fname, 'vcode'=>$vcode), function($message) use ($email,$fname){
 			        $message->to($email, $fname)->subject('Welcome to Jobtip!')->from('admin@jobtip.in', 'JobTip');
 			    });
-			    $data['vcode'] = $vcode;
+			    $data['vcode'] = 1;
 			}
 
 			if($request['mobile'] != null){
-				$data['otp'] = $otp;
+				$data['otp'] = 1;
+
+				$smsMsg = "Hi ".$request['fname'].", Welcome to Jobtip. ".$otp." is your OTP for mobile verification.";
+			    $data['delvStatus'] = SMS::send($request['mobile'], $smsMsg);
 			}
 
 			$data['page'] = 'login';
