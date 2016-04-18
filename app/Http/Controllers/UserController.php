@@ -116,7 +116,8 @@ class UserController extends Controller {
 			if($request['mobile'] != null){
 				$data['otp'] = 1;
 
-				$smsMsg = "Hi ".$request['fname'].", Welcome to Jobtip. ".$otp." is your OTP for mobile verification.";
+				// $smsMsg = "Hi ".$request['fname'].", Welcome to Jobtip. ".$otp." is your OTP for mobile verification.";
+				$smsMsg = "Thank you for registering Jobtip.in Your One Time Password (OTP) is ".$otp.". TnC applied. Visit www.jobtip.in";
 			    $data['delvStatus'] = SMS::send($request['mobile'], $smsMsg);
 			}
 

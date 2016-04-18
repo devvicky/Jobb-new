@@ -151,7 +151,8 @@ class AuthController extends Controller {
 						$data['valid'] = 1;
 			    		$data['message'] = 'Mobile number not yet verified. Please check your mobile for OTP.';
 
-			    		$smsMsg = "Dear User, ".$userForMobile->mobile_otp." is your OTP for mobile verification.";
+			    		// $smsMsg = "Dear User, ".$userForMobile->mobile_otp." is your OTP for mobile verification.";
+			    		$smsMsg = "Thank you for registering Jobtip.in Your One Time Password (OTP) is ".$userForMobile->mobile_otp.". TnC applied. Visit www.jobtip.in";
 			    		$data['delvStatus'] = SMS::send($mobileNumber, $smsMsg);
 
 					}else if($difference >= 15 && $userForMobile->mobile_otp_attempt < 3){
@@ -165,7 +166,8 @@ class AuthController extends Controller {
 						$data['valid'] = 1;
 			    		$data['message'] = 'OTP sent to your registered mobile number.';
 
-			    		$smsMsg = "Dear User, ".$otp." is your OTP for mobile verification.";
+			    		// $smsMsg = "Dear User, ".$otp." is your OTP for mobile verification.";
+			    		$smsMsg = "Thank you for registering Jobtip.in Your One Time Password (OTP) is ".$otp.". TnC applied. Visit www.jobtip.in";
 			    		$data['delvStatus'] = SMS::send($mobileNumber, $smsMsg);
 
 					}else if($userForMobile->mobile_otp_attempt == 3){
