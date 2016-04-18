@@ -278,13 +278,14 @@
 												{!! Form::select('linked_skill_id[]', $skills, null, ['id'=>'linked_skill_id', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Skills', 'multiple']) !!}
 											</div>
 										</div>
+										<input type="text" id="confirm-skill" name="skill" style="display:none;">
 										<div class="col-md-6 col-sm-12 col-xs-12">
 											<div class="form-group">
 												<label>  Education <span class="required">
 														* </span></label> <!-- Select Multiple <input type="checkbox" id="education-check" name="multiple_education" value="1" class="form-control"> -->
 												<!-- <div class="input-group single-education" > -->
 													
-													<select class="form-control education-list" name="education[]" id="parent_selection" multiple style="border:1px solid #c4d5df">
+													<select class="form-control education-list" name="education[]" id="education_show" multiple style="border:1px solid #c4d5df">
 														@foreach($education as $edu)
 															@if($n != $edu->name && $edu->name != '0')
 																{{$n=$edu->name}}
@@ -300,6 +301,7 @@
 											</div>
 										</div>
 									</div>
+									<input type="text" id="confirm-education" name="education-show" style="display:none;">
 									<div class="row">
 										<div class="col-md-6 col-sm-6 col-xs-12">
 											<div class="form-group">							
@@ -363,6 +365,7 @@
 																								   'multiple']) !!}		
 											</div>
 										</div>
+										<input type="text" id="show_location" name="show-location" style="display:none;">
 										<div class="col-md-6 col-sm-6 col-xs-12">
 											<div class="form-group new-margin-formgroup">
 												<label>Post Duration <span class="required">
@@ -617,7 +620,7 @@
 					                                                                </div>
 					                                                               
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                 
-					                                                                        <p class="form-control-static" data-display="linked_skill_id[]" style="margin: -5px 0;"></p>
+					                                                                        <p class="form-control-static" data-display="skill" style="margin: -5px 0;"></p>
 					                                                                    
 					                                                                </div>
 					                                                            </div>
@@ -659,7 +662,7 @@
 					                                                                        <label class="detail-label">Prefered Location :</label>                                                                  
 					                                                                </div>
 					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-					                                                                         <p class="form-control-static" data-display="prefered_location[]" style="margin: -5px 0;"></p>
+					                                                                         <p class="form-control-static" data-display="show-location" style="margin: -5px 0;"></p>
 					                                                                </div>
 					                                                            </div>
 					                                                            
@@ -805,6 +808,19 @@ $(document).ready(function(){
 				prefLocationArray.push(city +"-" + state);	
 			}
 
+			var selectedLoc = document.getElementById('show_location').value;
+		  	if(selectedLoc == '' && locality != '' && city != '' && state != ''){
+		  		selectedLoc = locality +"-"+ city +"-"+ state;
+		  	}else if(selectedLoc == '' && locality == '' && city != '' && state != ''){
+		  		selectedLoc = city +"-"+ state;
+		  	}else if(selectedLoc != '' && locality != '' && city != '' && state != ''){
+		  		selectedLoc = selectedLoc + ', ' +locality +"-"+ city +"-"+ state;
+		  	}else if(selectedLoc != '' && locality == '' && city != '' && state != ''){
+		  		selectedLoc = selectedLoc + ', ' + city +"-"+ state;
+		  	}
+		  	
+		  	document.getElementById('show_location').value = selectedLoc;
+
 		  	setTimeout(function(){ prefLoc.val(''); prefLoc.focus();},0);	// clear field
 		  	
 		  	$("#prefered_location").select2({ dataType: 'json', data: prefLocationArray });
@@ -818,6 +834,21 @@ $(document).ready(function(){
 	}
    google.maps.event.addDomListener(window, 'load', initPrefLoc);
 
+</script>
+<script type="text/javascript">
+
+	$('#education_show').on('change', function(){
+	var education = document.getElementById('education_show').value;
+	console.log(education);
+		if(education == ''){
+			education = ', ';
+		}else{
+			education = education + ', ';
+		}
+		
+	document.getElementById('confirm-education').value = education;
+
+});
 </script>
 <script>
 jQuery(document).ready(function() {       
@@ -1064,6 +1095,7 @@ $('#textarea').keyup(function() {
 </script>
 <script>
 $selectedSkills = $("#linked_skill_id").select2();
+
 $gotit = [];
 	$(function(){
 
@@ -1114,6 +1146,13 @@ $gotit = [];
 			},
 			select: function(event, ui) {
 				var termsId = [];
+				
+				$showSkill = split( $('#confirm-skill').val() );
+				$showSkill.pop();
+				$showSkill.push( ui.item.value );
+				$showSkill.push( "" );
+				$('#confirm-skill').val($showSkill.join( ", " ));
+
 
 				if($selectedSkills.val() != null){
 					termsId = $selectedSkills.val();
@@ -1122,6 +1161,7 @@ $gotit = [];
 				if(termsId.length != null){
 
 				}
+
 				termsId.push( ui.item.value );
 				$gotit.push( ui.item.value );
 
@@ -1176,12 +1216,19 @@ $gotit = [];
 			        	if($gotit != null){
 							selectedSkillId = $gotit;
 						}
+
+						$sk = $('#confirm-skill').val();
+			        	$('#confirm-skill').val($sk+""+$newSkill+", ");
 						
 			        	selectedSkillId.push($newSkill);
 			        	// console.log(selectedSkillId);
 			        	// $('#linked_skill').val($selectedSkill+""+$newSkill+", ");
 			        	$selectedSkills.val(selectedSkillId).trigger("change"); 
 			        	$('#newskill').val("");
+
+
+
+			        	$
 			        }
 			      },
 			      error: function(data) {
@@ -1192,6 +1239,35 @@ $gotit = [];
 			}
 		});
 		});
+
+
+
+$('#linked_skill_id').on('change', function(){
+	function split( val ) {
+	      return val.split( /,\s*/ );
+	    }
+	    function extractLast( term ) {
+	      return split( term ).pop();
+	    }
+
+	    $(function(){
+	    	$( "#newskill" )
+		.bind( "keydown", function( event ) {
+			if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
+			  event.preventDefault();
+			}
+		})
+	    .autocomplete({
+		select: function(ui){
+			$showSkill = split( $('#confirm-skill').val() );
+		$showSkill.pop();
+		$showSkill.push( ui.item.value );
+		$showSkill.push( "" );
+		$('#confirm-skill').val($showSkill.join( ", " ));
+		}
+	});
+	 });   
+	});
 </script>
 <script type="text/javascript">
 	 

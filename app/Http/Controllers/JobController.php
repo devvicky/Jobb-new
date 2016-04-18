@@ -340,12 +340,21 @@ class JobController extends Controller {
 							 ->first();		
 
 		$post_id = $request['contact'];
-		$postUser = Postjob::where('id', '=', $request['contact'])->first(['contact_person', 'email_id', 'phone']);
-
+		$postUser = Postjob::where('id', '=', $request['contact'])->first(['contact_person', 'email_id', 'phone', 'show_contact']);
 			$data = [];
-			$data['contact'] = $postUser->contact_person;
-			$data['phone'] = $postUser->phone;
-			$data['email'] = $postUser->email_id;
+			if($postUser->show_contact == "Public"){
+
+				$data['contact'] = $postUser->contact_person;
+				$data['phone'] = $postUser->phone;
+				$data['email'] = $postUser->email_id;
+				$data['show'] = $postUser->show_contact;
+			}elseif($postUser->show_contact == "Private"){
+				$data['contact'] = "Private";
+				$data['phone'] = "Private";
+				$data['email'] = "Private";
+				$data['show'] = $postUser->show_contact;
+			}
+			
 
 		if($apply == null){
 			$apply = new Postactivity();
@@ -925,6 +934,8 @@ class JobController extends Controller {
 				$sharePostId = $request['share_post_email_id'];
 				
 				$post = Postjob::findOrFail($sharePostId);
+
+
 				$data = [];
 				$data['email'] = '';
 				if($post!=null){
@@ -940,13 +951,19 @@ class JobController extends Controller {
 
 						    if(Auth::user()->identifier == 1){
 						    	$from_user = Auth::user()->induser->fname;
+						    	$post_user = Postjob::leftjoin('indusers', 'indusers.id', '=', 'postjobs.individual_id')
+						    						->where('postjobs.id', '=', $sharePostId)
+						    						->first(['indusers.fname']);
 						    }elseif(Auth::user()->identifier == 2){
 						        $from_user = Auth::user()->corpuser->firm_name;
+						        $post_user = Postjob::leftjoin('corpusers', 'corpusers.id', '=', 'postjobs.corporate_id')
+						    						->where('postjobs.id', '=', $sharePostId)
+						    						->first(['corpusers.firm_name']);
 						    }
 
 							if($to_user != null){
-								Mail::send('emails.post-sharing', array('from_user'=>$from_user, 'post'=>$post), function($message) use ($to_user, $from_user){
-							        $message->to($to_user, 'User')->subject($from_user+': Shared a post from Jobtip!')->from('admin@jobtip.in', 'JobTip');
+								Mail::send('emails.post-sharing', array('from_user'=>$from_user, 'post'=>$post, 'post_user'=>$post_user), function($message) use ($to_user, $from_user){
+							        $message->to($to_user, 'User')->subject($from_user.' '.'has shared a Job Tip')->from('admin@jobtip.in', 'JobTip');
 							    });	
 							    $data['email'] = $data['email'] . $to_user.' - ';
 							}

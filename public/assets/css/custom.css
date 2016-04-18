@@ -27,7 +27,7 @@
     height: 110px;
     border-radius: 8% !important;
     margin: 0 auto;
-    background: #fff url("../images/ab.png") !important;
+    background: #fff !important;
     background-size: 100%;
     /* text-align: center; */
     cursor: pointer;
@@ -346,8 +346,8 @@ background-color:white;
     line-height: 1.8;
     font-weight: 500;
     float: left;
-    bottom: 2px;
-    left: 37px;
+    bottom: 5px;
+    left: 55px;
 }
 
 .badge-like-skill{
@@ -667,15 +667,25 @@ ul{
     margin: 0 2px;
 }
 
-.apply-contact-btn{
-    margin: 4px auto;
+/*.ab{
+margin: 4px auto;
+float: none;
+display: table;
+padding: 5px 30px;
+border-radius: 5px !important;
+font-size: 14px;
+}*/
+
+.apply-contact-btn {
+        /* margin: 4px auto; */
     float: none;
     display: table;
-   /* margin-top: -39px;*/
-    padding: 5px 30px;
-    /*box-shadow: 0 3px 5px gray;*/
-    border-radius: 5px !important;
-    font-size: 14px;
+    /* margin-top: -39px; */
+    width: 85%;
+    /* padding: 3px 20px; */
+    /* box-shadow: 0 3px 5px gray; */
+    border-radius: 2px !important;
+    font-size: 13px;
 }
 
 .expire-btn{
@@ -1019,16 +1029,24 @@ div[class*='icheckbox_'], div[class*='iradio_'] {
 }
 
 .magic-match-css{
+    color: white;
+    line-height: 1.7;
     padding: 0px 5px;
     margin: 0px 10px;
     font-size: 12px;
-    background-color: #276467 !important;
-    border-color: #276467 !important;
-    box-shadow: 0px 2px 2px #988A8A;
+    background-color: #f3565d !important;
+    border-color: #f3565d !important;
+    box-shadow: 0px 2px 2px #B34B4B;
+    text-decoration: none;
+    border-radius: 2px !important;
 }
 
 .magic-match-css:hover, .magic-match-css.hover{
-    background-color: #276469 !important;
+    background-color: #EC212A!important;
+    box-shadow: 0px 1px 1px #988A8A;
+    border-color: #f3565d!important;
+    border-radius: 2px !important;
+
 }
 
 .dropdown-menu-sort:before, .dropdown-toggle > .dropdown-menu-sort:before, .btn-group > .dropdown-menu-sort:before {
@@ -1110,6 +1128,13 @@ button.btn.btn-xs.linkrequest-follow-icon-css {
         right: -10px;
         bottom: 8px;
     }
+
+    .report-css-home{
+        float: right;
+        position: absolute;
+        right: -10px;
+        top: 8px;
+    }
     .report-detail-css{
         float: right;
         position: absolute;
@@ -1124,6 +1149,13 @@ button.btn.btn-xs.linkrequest-follow-icon-css {
         position: absolute;
         right: 10px;
         bottom: 8px;
+    }
+
+     .report-css-home{
+        float: right;
+        position: absolute;
+        right: 10px;
+        top: 8px;
     }
 
     .report-detail-css{
@@ -1144,11 +1176,11 @@ button.btn.btn-xs.linkrequest-follow-icon-css {
 
 .job-type-skill-css {
     padding: 0 5px;
-    border-radius: 2px !important;
-    color: #666;
-    background-color: #E0E0E0;
+    border-radius: 2px!important;
+    color: #fafcfb;
+    background-color: #337ab7;
     font-size: 12px;
-    border: 1px solid lightgray;
+    border: 1px solid #337ab7;
 }
 
 .portlet > .portlet-title-mypost > .nav-tabs > li.active > a, .portlet > .portlet-title-mypost > .nav-tabs > li:hover > a {
@@ -1159,7 +1191,7 @@ button.btn.btn-xs.linkrequest-follow-icon-css {
 
 .post-title-new{
     font-weight: 500;
-    color: dodgerblue;
+    color: #337ab7;
     font-size: 17px;
     text-decoration: none;
 }
@@ -2280,4 +2312,22 @@ body{
     border-radius: 2px !important;
     box-shadow: 0 1px 3px lightgrey;
     background-color: whitesmoke;
+}
+
+.matched-skill-css{
+    padding: 0 5px;
+    border-radius: 2px!important;
+    color: #fafcfb;
+    background-color: #45b6af;
+    font-size: 12px;
+    border: 1px solid #45b6af;
+
+}
+
+.like-btn-css{
+    background-color: transparent;
+    padding: 5px;
+    border: 1px solid #AAA;
+    border-radius: 100% !important;
+    box-shadow: 0 1px 3px #9C9C9C;
 }

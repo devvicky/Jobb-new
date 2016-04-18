@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
+@extends('welcome')
+
+@section('css')
 <style type="text/css">
 .col-md-12{
-    position: relative;
+	position: relative;
 min-height: 1px;
 padding-right: 15px;
 padding-left: 15px;
@@ -75,7 +75,7 @@ body {
 /* ------------------------------------- 
         ELEMENTS 
 ------------------------------------- */
-a { color: #00FFD2;}
+a { color: white;}
 
 .btn {
     text-decoration:none;
@@ -111,7 +111,7 @@ table.social {
     text-decoration: none;
     color: #FFF;
     font-weight: bold;
-    /* display: block; */
+     display: block; 
     text-align: center;
 }
 
@@ -284,53 +284,24 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
     border-radius: 5px !important;
     margin: 15px 0 0 0;
 }
-
 </style>
-</head>
+@stop
+ @section('content')
 
-<body bgcolor="#FFFFFF">
 
-
-<div style="margin: 10px 8px;color:dimgrey;">
+ <div style="margin: 10px 20px;color:dimgrey;">
     <h4>Hi, </h4>
+<p style="color:dimgrey;">I found below job opprtunity matching your skills. </p>
 
-    @if($post->post_type == 'job')
-    <p style="color:dimgrey;">I found below job opportunity matching your skills. </p>
-    <h3 style="text-transform: capitalize;font-size:20px;">{{$post->post_type}} Title: {{$post->post_title}} ({{$post->min_exp}} - {{$post->max_exp}} yrs)</h3>
-    @elseif($post->post_type == 'skill')
-    <p style="color:dimgrey;">One of our friend has promoted skills and searching for job tips.</p>
-    <h3 style="text-transform: capitalize;font-size:20px;">{{$post->post_type}} Title: {{$post->post_title}} ({{$post->min_exp}} yrs)</h3>
-    @endif
+<h3>Job Title</h3> 
+(min exp- max exp yrs)<br/>
+Company name:<br/>
+location:<br/>
+Required Skills: s1, s2<br/>
+Posted by: post Owner name on post dttime<br/>
 
-    @if($post->post_compname != null)
-    <label style="font-weight:600;">Company name:</label> {{$post->post_compname}}<br/>
-    @endif
-    <label style="font-weight:600;">Location:</label> {{$post->city}}<br/>
-    <label style="font-weight:600;">Required Skills:</label> {{$post->linked_skill}}<br/>
-    @if($post->contact_person != null)
-    <label style="font-weight:500;font-size:12px;">Posted by:{{$post_user->fname}} on {{ date('M d, Y', strtotime($post->created_at)) }}</label><br/>
-    @else
-    Date: {{ date('M d, Y', strtotime($post->created_at)) }}
-    @endif
+<a href="http://jobtip.in" class="btn apply-css">Contact</a>
 </div>
-
-<div style="margin: 25px 8px;">
-@if($post->post_type == 'job')
-<a href="http://jobtip.in/welcome/job/post/{{$post->unique_id}}" style="background-color: #21BDAF;
-    color: white;
-    padding: 10px 60px;
-    border-radius: 5px !important;
-    margin: 15px 0 0 0;" >Contact
-</a>
-@else
-<a href="http://jobtip.in/welcome/skill/post/{{$post->unique_id}}" style="background-color: #21BDAF;
-    color: white;
-    padding: 10px 60px;
-    border-radius: 5px !important;
-    margin: 15px 0 0 0;" >Contact
-</a>
-@endif
-    </div>
 <!-- BODY -->
 
 
@@ -345,7 +316,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
                 <table>
                     <tr>
                         <td>
-                            <img src="http://jobtip.in/assets/jobtip-banner.jpg" />
+                            <img src="/assets/jobtip-banner.jpg"/>
                         </td>
                     </tr>
                
@@ -366,43 +337,17 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
                 <tr>
                     <td>
                         <!-- social & contact -->
-                        <table class="social" width="100%" style="background-color: #444;">
+                        <table class="social" width="100%" style="background-color:#444">
                             <tr>
                                 <td>
                                     
                                     <!--- column 1 -->
-                                    <table align="left" class="column" style="width: 280px;
-    min-width: 279px;
-    float: left;">
+                                    <table align="left" class="column">
                                         <tr>
                                             <td>                
                                                 
                                                 <h5 style=" color: #EAEAEA;font-weight: 500;">Connect with Us:</h5>
-                                                <p class=""><a href="http://jobtip.in/facebook" style="padding: 5px 10px;
-    font-size: 12px;
-    margin-bottom: 10px;
-    text-decoration: none;
-    color: #FFF;
-    font-weight: bold;
-    display: block;
-    text-align: center;
-    background-color: #3861B7!important;" class="">Facebook</a> <a href="http://jobtip.in/linkedin" style="padding: 5px 10px;
-    font-size: 12px;
-    margin-bottom: 10px;
-    text-decoration: none;
-    color: #FFF;
-    font-weight: bold;
-    display: block;
-    text-align: center;
-    background-color: #02B0FF!important" class="\">Linkedin</a> <a href="http://jobtip.in/google" style="padding: 5px 10px;
-    font-size: 12px;
-    margin-bottom: 10px;
-    text-decoration: none;
-    color: #FFF;
-    font-weight: bold;
-    display: block; 
-    text-align: center;
-    background-color: #DB4A39!important;" class="">Google+</a></p>
+                                                <p class=""><a href="http://jobtip.in/facebook" class="soc-btn fb">Facebook</a> <a href="http://jobtip.in/linkedin" class="soc-btn tw">Linkedin</a> <a href="http://jobtip.in/google" class="soc-btn gp">Google+</a></p>
                         
                                                 
                                             </td>
@@ -410,43 +355,42 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
                                     </table><!-- /column 1 -->  
                                     
                                     <!--- column 2 -->
-                                    <table align="left" class="column" style="width: 280px;
-    min-width: 279px;
-    float: left;">
+                                    <table align="left" class="column">
                                         <tr>
                                             <td>                
                                                                             
-                                                <h5 style=" color: #EAEAEA;font-weight: 500;">Contact Us:</h5>                                             
-                                                <p><strong>
+                                                <h5 style=" color: #EAEAEA;font-weight: 500;">Contact Info:</h5>                                             
+                                                <p>
+                                                    <strong>
                                                                 <a href="emailto:connect@jobtip.in" style="    background-color: #21bdaf;
     padding: 3px 10px;
     text-decoration: none;
     display: block;
     text-align: center;
     font-weight: 400;
-    font-size: 14px;color:white;    margin: 10px 0;">
+    font-size: 14px;    margin: 10px 0;">
                                                                     connect@jobtip.in
                                                                 </a>
                                                             </strong>
-                                                            <strong>
+                                                             <strong>
                                                                 <a href="emailto:connect@jobtip.in" style="    background-color: #21bdaf;
     padding: 3px 10px;
     text-decoration: none;
     display: block;
     text-align: center;
     font-weight: 400;
-    font-size: 14px;color:white;    margin: 10px 0;">
+    font-size: 14px;    margin: 10px 0;">
                                                                     info@jobtip.in
                                                                 </a>
                                                             </strong>
-                                                            <strong>
+                                                             <strong>
                                                                 <a href="emailto:connect@jobtip.in" style="    background-color: #21bdaf;
     padding: 3px 10px;
     text-decoration: none;
     display: block;
     text-align: center;
     font-weight: 400;
-    font-size: 14px; color:white;   margin: 10px 0;">
+    font-size: 14px;    margin: 10px 0;">
                                                                     +91 11111 11111
                                                                 </a>
                                                             </strong>
@@ -454,6 +398,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
                 
                                             </td>
                                         </tr>
+                                        
                                     </table><!-- /column 2 -->
                                     
                                     <span class="clear"></span> 
@@ -481,6 +426,4 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
         <td></td>
     </tr>
 </table><!-- /BODY -->
-
-</body>
-</html>
+@stop

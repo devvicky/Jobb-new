@@ -738,7 +738,6 @@
 			<div class="form-body">
 				@if(Auth::user()->induser_id == $user->id)
 				<div class="row" >
-					
 					<!-- <div class="col-md-12 col-sm-12 col-xs-12"> -->
 						<div class="form-group">
 							<label class="control-label col-md-2 col-sm-2 col-xs-2" style="font-size:13px;"><i class="fa fa-envelope-o"></i></label>
@@ -774,76 +773,78 @@
 						</div>
 					</div>
 					@endif
-					@if(Auth::user()->induser_id != $user->id)
-					<div class="row show-contact" style="">
-				        <div class="col-md-8 col-sm-8 col-xs-12" style="padding:0 !important;margin: 5px 0;">
-							<i class="fa fa-envelope"></i> : {{$user->email}}<br>
-							<i class="fa fa-phone-square"></i> : {{$user->mobile}}
-						</div>
-						<div class="col-md-4 col-sm-4 col-xs-12" style="padding:0 !important;margin: 5px 0;">
-							<a href="/resume/{{$user->resume}}" target="_blank"><button class="btn blue corp-profile-resume" style="">
-							<i class="glyphicon glyphicon-download"></i> Resume
-						</button></a>
-						</div>
-					</div>
-					<div class="row">
-						<a class="btn green contact-view">
-							<i class="glyphicon glyphicon-earphone" style="font-size:11px;"></i> Contact
-						</a>
-					</div>
-					@if(Auth::user()->induser_id != $user->id && $user->email_show == 'None' && $user->mobile_show == 'None')
-						<div class="form-group">
-							<label class="control-label col-md-2 col-sm-2 col-xs-2" style="font-size:13px;"><i class="fa fa-envelope-o"></i> </label>
-							<div class="col-md-10 col-sm-10 col-xs-10" >
-								<p class="form-control-static view-page">
-									{{$user->fname}} {{$user->lname}} has kept Contact detail private.
-								</p>
+					@if(Auth::user()->induser_id != $user->id && $user->email_show == 'Links' && $user->mobile_show == 'Links')
+						<div class="row show-contact" style="">
+					        <div class="col-md-8 col-sm-8 col-xs-12" style="padding:0 !important;margin: 5px 0;">
+								<i class="fa fa-envelope"></i> : {{$user->email}}<br>
+								<i class="fa fa-phone-square"></i> : {{$user->mobile}}
+							</div>
+							<div class="col-md-4 col-sm-4 col-xs-12" style="padding:0 !important;margin: 5px 0;">
+								<a href="/resume/{{$user->resume}}" target="_blank"><button class="btn blue corp-profile-resume" style="">
+								<i class="glyphicon glyphicon-download"></i> Resume
+							</button></a>
 							</div>
 						</div>
-					@endif
-					@if($connectionStatus == 'friend' && Auth::user()->induser_id != $user->id && $user->dob_show == 'Links')
-					<!-- <div class="col-md-12 col-sm-12 col-xs-12"> -->
-						<div class="form-group">
-							<label class="control-label col-md-2 col-sm-2 col-xs-2" style="font-size:13px;"><i class="fa fa-envelope-o"></i> </label>
-							<div class="col-md-10 col-sm-10 col-xs-10" >
-								<p class="form-control-static view-page">
-									{{ $user->user->email }} 
-									@if($user->user->email_verify == 0)
-									<a>
-										<i class="fa fa-exclamation-circle" 
-										style="color: #cb5a5e;"></i>
-									</a>
-									@elseif($user->user->email_verify == 1)
-										<i class="glyphicon glyphicon-ok-circle" style="color: #1EC71E;"></i>
-									@endif
-								</p>
-							</div>
+						<div class="row">
+							<a class="btn green contact-view">
+								<i class="glyphicon glyphicon-earphone" style="font-size:11px;"></i> Contact
+							</a>
 						</div>
-					<!-- </div> -->
-					@elseif(Auth::user()->induser_id != $user->id && $user->email_show == 'None')
-					@endif
+						@if(Auth::user()->induser_id != $user->id && $user->email_show == 'None' && $user->mobile_show == 'None')
+							<div class="form-group">
+								<label class="control-label col-md-2 col-sm-2 col-xs-2" style="font-size:13px;"><i class="fa fa-envelope-o"></i> </label>
+								<div class="col-md-10 col-sm-10 col-xs-10" >
+									<p class="form-control-static view-page">
+										{{$user->fname}} {{$user->lname}} has kept Contact detail private.
+									</p>
+								</div>
+							</div>
+						@endif
+						@if($connectionStatus == 'friend' && Auth::user()->induser_id != $user->id && $user->dob_show == 'Links')
+						<!-- <div class="col-md-12 col-sm-12 col-xs-12"> -->
+							<div class="form-group">
+								<label class="control-label col-md-2 col-sm-2 col-xs-2" style="font-size:13px;"><i class="fa fa-envelope-o"></i> </label>
+								<div class="col-md-10 col-sm-10 col-xs-10" >
+									<p class="form-control-static view-page">
+										{{ $user->user->email }} 
+										@if($user->user->email_verify == 0)
+										<a>
+											<i class="fa fa-exclamation-circle" 
+											style="color: #cb5a5e;"></i>
+										</a>
+										@elseif($user->user->email_verify == 1)
+											<i class="glyphicon glyphicon-ok-circle" style="color: #1EC71E;"></i>
+										@endif
+									</p>
+								</div>
+							</div>
+						<!-- </div> -->
+						@elseif(Auth::user()->induser_id != $user->id && $user->email_show == 'None')
+						@endif
 					<!--/span-->
-					@if($connectionStatus == 'friend' && Auth::user()->induser_id != $user->id && $user->dob_show == 'Links')
-					<!-- <div class="col-md-12 col-sm-12 col-xs-12"> -->
-						<div class="form-group">
-							<label class="control-label col-md-2 col-sm-2 col-xs-2"><i class="icon-call-end"></i> </label>
-							<div class="col-md-10 col-sm-10 col-xs-10">
-								<p class="form-control-static view-page">
-									{{ $user->user->mobile }} 
-									@if($user->user->mobile_verify == 0)
-									<a>
-										<i class="fa fa-exclamation-circle" 
-										style="color: #cb5a5e;font-size: 16px;"></i>
-									</a>
-									@elseif($user->user->mobile_verify == 1)
-										<i class="glyphicon glyphicon-ok-circle" style="color: #1EC71E;font-size: 16px;"></i>
-									@endif
-								</p>
+						@if($connectionStatus == 'friend' && Auth::user()->induser_id != $user->id && $user->dob_show == 'Links')
+						<!-- <div class="col-md-12 col-sm-12 col-xs-12"> -->
+							<div class="form-group">
+								<label class="control-label col-md-2 col-sm-2 col-xs-2"><i class="icon-call-end"></i> </label>
+								<div class="col-md-10 col-sm-10 col-xs-10">
+									<p class="form-control-static view-page">
+										{{ $user->user->mobile }} 
+										@if($user->user->mobile_verify == 0)
+										<a>
+											<i class="fa fa-exclamation-circle" 
+											style="color: #cb5a5e;font-size: 16px;"></i>
+										</a>
+										@elseif($user->user->mobile_verify == 1)
+											<i class="glyphicon glyphicon-ok-circle" style="color: #1EC71E;font-size: 16px;"></i>
+										@endif
+									</p>
+								</div>
 							</div>
-						</div>
-					@elseif(Auth::user()->induser_id != $user->id && $user->mobile_show == 'None')
-	
-					@endif
+						@elseif(Auth::user()->induser_id != $user->id && $user->mobile_show == 'None' )
+						
+						@endif
+					@elseif(Auth::user()->induser_id != $user->id && $user->mobile_show == 'None' || $user->email_show == 'None')
+					{{$user->fname }} has made Contact Details Private
 					@endif
 					<!--/span-->
 					<div class="row" style="margin: 10px -30px;">
@@ -858,21 +859,6 @@
 									<a href="/resume/{{$user->resume}}" target="_blank"><button class="btn btn-info small-btn resume-btn">{{$user->resume}}</button></a> ({{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $user->resume_dtTime)->format('Y-m-d') }})
 									 @else
 									 <a href="/individual/edit#professional"><button class="btn btn-info small-btn resume-btn">Upload Resume</button></a>
-									 @endif
-								</p>
-							</div>
-						</div>
-					</div>
-					@elseif($user->resume != null && Auth::user()->induser_id != $user->id)
-					<div class="col-md-12 col-sm-12 col-xs-12" style="padding:0;">
-						<div class="form-group">
-							
-							<div class="col-md-6 col-xs-6">
-								<p class="form-control-static view-page">
-									@if($user->resume != null)
-									 <a href="/resume/{{$user->resume}}"target="_blank"  class="btn btn-xs blue" style="padding:2px 5px;"><i class="icon-eye"></i>&nbsp;View Resume</a>
-									 @else
-									 {{$user->fname}} has not added 'Resume'
 									 @endif
 								</p>
 							</div>

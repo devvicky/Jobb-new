@@ -109,7 +109,7 @@ $('.like-btn').live('click', function(event) {
             if (data > $count) {
                 $('#like-count-' + post_id).text(data);
                 $('#like-' + post_id).css({
-                    'color': 'darkseagreen'
+                    'color': '#337ab7'
                 });
                 $('#like-count-' + post_id).removeClass('hide');
                 $('#like-count-' + post_id).addClass('show');
@@ -900,3 +900,52 @@ $(function() {
 function myFunction() {
     document.getElementById("job-filter").reset();
 }
+
+
+$('.contact-btn').live('click',function(event){       
+    event.preventDefault();
+    var post_id = $(this).parent().data('id');
+
+    var formData = $('#post-contact-'+post_id).serialize(); 
+    var formAction = $('#post-contact-'+post_id).attr('action');
+    // console.log(post_id);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+      url: formAction,
+      type: "post",
+      data: formData,
+      cache : false,
+      success: function(data){
+        // console.log("s:"+data);
+        if(data.contacted == "contacted"){
+            $('#contact-btn-'+post_id).prop('disabled', true);
+            $('#contact-btn-'+post_id).text('Contacted');
+            $('#show-hide-contacts').addClass('show-hide-new');
+            if(data.data.show == "Public"){
+                var show = '<div class="skill-display">Contact Details : </div>';
+                show += '<div class="row"><div class="col-md-1 col-sm-6 col-xs-6"><label class="detail-label"><i class="glyphicon glyphicon-user"></i> :</label> </div>';
+                show += '<div class="col-md-9 col-sm-6 col-xs-6">'+data.data.contact+'</div></div>';
+                show += '<div class="row"><div class="col-md-1 col-sm-6 col-xs-6"><label class="detail-label"><i class="glyphicon glyphicon-envelope"></i> :</label> </div>';
+                show += '<div class="col-md-9 col-sm-6 col-xs-6">'+data.data.email+'</div></div>';                          
+                show += '<div class="row"><div class="col-md-1 col-sm-6 col-xs-6"><label class="detail-label"><i class="glyphicon glyphicon-envelope"></i> :</label></div>';
+                show += '<div class="col-md-9 col-sm-6 col-xs-6">'+data.data.phone+'</div></div>';
+                $("#post-user-contact-"+post_id).html(show);
+            }else if(data.data.show == "Private"){
+                var show = '<div class="skill-display">Contact Details : </div>';
+                show += '<div class="col-md-12 col-sm-12 col-xs-12"><label class="detail-label" style="color: #BB4E4E;font-size: 12px;">Post owner has kept contact details Private.</label></div>';
+                $("#post-user-contact-"+post_id).html(show);
+            }
+            
+            var dates = '<div class="col-md-12" style="text-align:center;"><i class="fa fa-calendar" style="font-size: 11px;color:dimgrey;"></i>'+data.data.date+'</div>';
+            $("#post-date-"+post_id).html(dates);
+            console.log(data.data.date);
+        }
+      }
+    }); 
+    return false;
+  });

@@ -69,6 +69,8 @@
 
 <script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
 <script src="/assets/js/home-js.js"></script>
+
+
 <script>
 jQuery(document).ready(function() {
     ComponentsIonSliders.init();

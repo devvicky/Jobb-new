@@ -4,11 +4,8 @@
 			<!-- TIMELINE ITEM -->
 			<div class="timeline-item time-item" itemscope itemtype="http://schema.org/Article">
 				<div class="timeline-badge badge-margin">
-					@if(!empty($userImgPath))
-					<img class="timeline-badge-userpic userpic-box" src="/img/profile/{{ $userImgPath }}" alt="logo" title="{{ $userName }}">
-					@else
-					<img class="timeline-badge-userpic userpic-box" src="/assets/images/ab.png" alt="logo" title="{{ $userName }}">
-					@endif
+					<img class="timeline-badge-userpic userpic-box demo" data-name="{{$userName}}" src="/img/profile/{{ $userImgPath }}" alt="logo" title="{{ $userName }}">
+					
 				</div>
 				@include('partials.home.image-linked')
 				@include('partials.home.favourite')
@@ -32,14 +29,26 @@
 	                        </div>
 	                    </div>
 	                    @endif
+
+	                    <?php $postSkills = []; 
+                            $postSkillArr = array_map('trim', explode(',', $post->linked_skill));
+                            $userSkillArr = array_map('trim', explode(',', Auth::user()->induser->linked_skill));
+                        ?>
+                        <?php 
+                            $matchedPost = array_intersect($postSkillArr, $userSkillArr);
+                            $unmatchedPost = array_diff($postSkillArr, $userSkillArr);
+                        ?>
 	                    <!-- <div class="col-md-3 col-sm-3 col-xs-12">
 	                    	<div><small class="label-success label-xs job-type-skill-css">{{$jobType}}</small></div>
 	                    </div> -->
 	                    <div class="col-md-12 col-sm-12 col-xs-12">
 	                        <div class=" capitalize" itemprop="name" style="font-size:13px;color:dimgrey !important;">
-	                       @if($postType == 'job') <label class="label-success job-type-skill-css">{{$jobType}}</label>@endif <?php $skills = explode(',', $post->linked_skill) ?>                                                                                                                              
-                                                    @foreach($skills as $skill)
-                                                        <label class="label-success skill-label">{{ $skill }}</label>
+	                     @if($postType == 'job')  <label class="label-success job-type-skill-css">{{$jobType}}</label> @endif                                                                                                                             
+                                                    @foreach($matchedPost as $m)
+                                                        <label class="label-success matched-skill-css">{{$m}}</label>
+                                                    @endforeach
+                                                    @foreach($unmatchedPost as $um)
+                                                      <label class="label-success skill-label">{{$um}}</label>
                                                     @endforeach
 	                        </div>
 	                    </div>
@@ -91,39 +100,39 @@
 							@elseif($postType == 'skill')
 							<div class="col-md-3 col-sm-3 col-xs-4" style="margin: 4px 13px;">
 								@if($post->time_for == 'Work from Home')
-								<small class="label-success label-xs elipsis-code job-type-skill-css" style="">Work From Home</small>
+								<small class="label-success label-xs elipsis-code job-type-skill-css" style="padding:2px 5px !important;">Work From Home</small>
 								@else
-								<div><small class="label-success label-xs job-type-skill-css">{{$jobType}}</small></div>
+								<div><small class="label-success job-type-skill-css" style="padding:2px 5px !important;">{{$jobType}}</small></div>
 								@endif
 							</div>
 							@endif
 							@if($postType == 'job')
-							<div class="col-md-2 col-sm-2 col-xs-3" style="padding:0 8px;">
+							<div class="col-md-2 col-sm-2 col-xs-3" style="padding:2px 20px;">
 								<form action="/job/like" method="post" id="post-like-{{$post->id}}" data-id="{{$post->id}}">						
 									<input type="hidden" name="_token" value="{{ csrf_token() }}">
 									<input type="hidden" name="like" value="{{ $post->id }}">
-							<button class="btn like-btn"  type="button" style="background-color: transparent;padding:3px;" title="Thanks">
+							<button class="btn like-btn like-btn-css"  type="button" style="" title="Thanks">
 								@if($post->postactivity->where('user_id', Auth::user()->id)->isEmpty())					
 									 <i class="fa fa-thumbs-up thanks-icon" id="like-{{$post->id}}"></i>
 								@elseif($post->postactivity->where('user_id', Auth::user()->id)->first()->thanks == 1) 
 
-									 <i class="fa fa-thumbs-up thanks-icon" id="like-{{$post->id}}" style="color:darkseagreen;"></i>
+									 <i class="fa fa-thumbs-up thanks-icon" id="like-{{$post->id}}" style="color:#337ab7;"></i>
 
 								@else
 									 <i class="fa fa-thumbs-up thanks-icon" id="like-{{$post->id}}"></i>		
 								@endif
 							</button>
 							@elseif($postType == 'skill')
-							<div class="col-md-2 col-sm-2 col-xs-2" style="padding:0 8px;margin: 0 15px 0 -15px;">
+							<div class="col-md-2 col-sm-2 col-xs-2" style="padding:2px 20px;margin: 0 15px 0 -15px;">
 								<form action="/job/like" method="post" id="post-like-{{$post->id}}" data-id="{{$post->id}}">						
 									<input type="hidden" name="_token" value="{{ csrf_token() }}">
 									<input type="hidden" name="like" value="{{ $post->id }}">
-							<button class="btn like-btn"  type="button" style="background-color: transparent;padding:3px;" title="Thanks">
+							<button class="btn like-btn like-btn-css"  type="button" style="" title="Thanks">
 								@if($post->postactivity->where('user_id', Auth::user()->id)->isEmpty())					
 									 <i class="fa fa-thumbs-up thanks-icon" id="like-{{$post->id}}"></i>
 								@elseif($post->postactivity->where('user_id', Auth::user()->id)->first()->thanks == 1) 
 
-									 <i class="fa fa-thumbs-up thanks-icon" id="like-{{$post->id}}" style="color:darkseagreen;"></i>
+									 <i class="fa fa-thumbs-up thanks-icon" id="like-{{$post->id}}" style="color:#337ab7;"></i>
 
 								@else
 									 <i class="fa fa-thumbs-up thanks-icon" id="like-{{$post->id}}"></i>		
@@ -138,61 +147,82 @@
 									</span>
 								</form>	
 							</div>
-							
-							@if($userId != Auth::user()->induser_id && Auth::user()->identifier == 1)												
-								@if($post->postactivity->where('user_id', Auth::user()->id)->isEmpty())
-								<div class="col-md-2 col-sm-2 col-xs-2">
-								</div>
-								@elseif($post->postactivity->where('user_id', Auth::user()->id)->first()->apply == 1)
-								<div class="col-md-2 col-sm-2 col-xs-3"  style="margin: 5px -5px;">													
-									<i class="fa fa-check-square-o" style="font-size:13px;"></i><span style="font-size:12px;" class="applied-css hidden-sm hidden-xs"> Applied</span> 
-								</div>
-								@elseif($post->postactivity->where('user_id', Auth::user()->id)->first()->contact_view == 1)
-								<div class="col-md-2 col-sm-2 col-xs-2"  style="margin: 5px -5px;">													
-									<i class="fa fa-check-square-o" style="font-size:13px;"></i><span style="font-size:12px;" class="hidden-sm hidden-xs"> Contacted</span> 
-								</div>
-								@endif
+							@if($userId != Auth::user()->induser_id && Auth::user()->identifier == 1)
+							 @if($post->corporate_id != null && Auth::user()->id != $post->individual_id &&  Auth::user()->identifier == 1)     
+                                        @if($post->postactivity->where('user_id', Auth::user()->induser_id)->isEmpty())
+                                        <div class="col-md-3 col-sm-5 col-xs-5" style="margin:3px 0;">
+                                            <form action="/job/apply" method="post" id="post-apply-{{$post->id}}" data-id="{{$post->id}}">  
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                <input type="hidden" name="apply" value="{{ $post->id }}">
+                                                @if($post->website_redirect_url != null)
+                                                    <button class="btn apply-btn blue btn-sm apply-contact-btn" 
+                                                        onclick="window.location='{{ $post->website_redirect_url }}';"   type="button">Apply
+                                                    </button>   
+                                                @else
+                                                    <button class="btn apply-btn blue btn-sm apply-contact-btn" 
+                                                            id="apply-btn-{{$post->id}}" type="button">Apply
+                                                    </button>
+                                                    @endif
+                                            </form> 
+                                        </div>
+                                        @elseif($post->postactivity->where('user_id', Auth::user()->induser_id)->first()->apply == 1 && Auth::user()->identifier == 1) 
+                                            <div class="col-md-3 col-sm-5 col-xs-5" style="margin:3px 0;">
+                                                <button type="button" class="btn btn-sm bg-grey-steel apply-contact-btn">
+                                                    <i class="fa fa-check-square-o" style="font-size:13px;"></i><span style="font-size:12px;" class="applied-css hidden-xs"> Applied</span> 
+                                                </button>
+                                            </div>
+                                        @else
+                                        <div class="col-md-3 col-sm-5 col-xs-5" style="margin:3px 0;">
+	                                        <form action="/job/apply" method="post" id="post-apply-{{$post->id}}" data-id="{{$post->id}}">  
+	                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+	                                            <input type="hidden" name="apply" value="{{ $post->id }}">
+	                                            <button class="btn apply-btn blue btn-sm apply-contact-btn" 
+	                                                    id="apply-btn-{{$post->id}}" type="button">Apply
+	                                            </button>
+	                                        </form>  
+                                        </div>                       
+                                        @endif
+                                    
+                                    @endif  
+                                    @if($post->individual_id != null && Auth::user()->id != $post->individual_id)       
+                                        @if($post->postactivity->where('user_id', Auth::user()->induser_id)->isEmpty())
+                                            <div class="col-md-3 col-sm-5 col-xs-5" style="margin:3px 0;">
+	                                            <form action="/job/contact" method="post" id="post-contact-{{$post->id}}" data-id="{{$post->id}}">  
+	                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+	                                                <input type="hidden" name="contact" value="{{ $post->id }}">
+	                                                <button class="btn contact-btn green btn-sm apply-contact-btn" 
+	                                                        id="contact-btn-{{$post->id}}" type="button">Contact
+	                                                </button>
+	                                            </form> 
+	                                        </div>
+                                        @elseif($post->postactivity->where('user_id', Auth::user()->induser_id)->first()->contact_view == 1) 
+                                             <div class="col-md-3 col-sm-5 col-xs-5" style="margin:3px 0;">
+                                                <button type="button" class="btn btn-sm bg-grey-steel apply-contact-btn">
+                                                    <i class="fa fa-check-square-o" style="font-size:13px;"></i><span style="font-size:12px;" class=" hidden-xs"> Contacted</span> 
+                                                </button>
+                                            </div>
+                                            
+                                            @else
+                                            <div class="col-md-3 col-sm-5 col-xs-5" style="margin:3px 0;">
+	                                            <form action="/job/contact" method="post" id="post-contact-{{$post->id}}" data-id="{{$post->id}}">  
+	                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+	                                                <input type="hidden" name="contact" value="{{ $post->id }}">
+	                                                <button class="btn contact-btn green btn-sm apply-contact-btn" 
+	                                                        id="contact-btn-{{$post->id}}" type="button">Contact
+	                                                </button>
+	                                            </form> 
+	                                        </div>
+                                                                    
+                                        @endif  
+                                        <!-- <div id="post-date-"></div> -->
+                                    @endif
+																			
+								
 							@endif
 							
-							<div  class="col-md-3 col-sm-3 col-xs-3" style="padding:0;float:right;">
-							    <div class="dropup ">											
-									<button class="btn dropdown-toggle" type="button" 
-											data-toggle="dropdown" title="Share" 
-											style="background-color: transparent;border: 0;margin: 0px;">
-										<i class="fa fa-share-square-o" 
-											style="font-size: 19px;color: darkslateblue;"></i>
-										<span class="badge-share" id="share-count-{{ $post->id }}">@if($post->postactivity->sum('share') > 0){{ $post->postactivity->sum('share') }}@endif</span>
-									</button>
-									<ul class="dropdown-menu dropdown-menu-share-home" role="menu" 
-										style="min-width:0;box-shadow:0 0 !important;padding: 0;">
-										<li style="border-bottom: 1px solid #ddd;">
-                                            <a href="#share-post" 
-                                               data-toggle="modal" 
-                                               class="jobtip sojt" 
-                                               id="sojt-{{$post->id}}" 
-                                               data-share-post-id="{{$post->id}}">
-                                                Share on Jobtip
-                                            </a>
-                                        </li>
-										<li style="border-bottom: 1px solid #ddd;">
-											<a href="#share-by-email" data-toggle="modal" onclick="setPostId({{$post->id}})" 
-											   class="jobtip sbmail" id="sbmail-{{$post->id}}" 
-											   data-share-post-id="{{$post->id}}">
-												Share by email
-											</a>
-										</li>
-										<li style="padding: 4px 0 0px;margin: auto;display: table;">		
-											<!-- Go to www.addthis.com/dashboard to customize your tools -->
-											<div class="addthis_sharing_toolbox" 
-												data-url="http://jobtip.in/post/{{$post->unique_id}}/social" 
-												data-title="{{$post->post_title}}"
-												data-description="{{ $post->job_detail }}"
-												data-media="http://jobtip.in/jt_logo.png">
-											</div>
-										</li>
-									</ul>													
-								</div>
-								<div class="report-css">
+							<div  class="col-md-1 col-sm-1 col-xs-1" style="padding:0;float:right;">
+							    
+								<div class="report-css-home">
 						
 								<a data-toggle="modal" href="#basic-{{ $post->id }}">
 									<button class="report-button-css">
