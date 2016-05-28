@@ -15,8 +15,11 @@ use App\Filter;
 use App\User;
 use App\Corpsearchprofile;
 use App\Industry_functional_area_role_mapping;
+use App\Education;
+use App\Functional_area_role_mapping;
 use Auth;
 use DB;
+use Mail;
 use Input;
 use App\Group;
 use App\ReportAbuse;
@@ -32,10 +35,22 @@ class PagesController extends Controller {
 	public function index(){
 		$title = 'Welcome';
 		$jobPosts = Postjob::orderBy('id', 'desc')
-						   ->with('indUser', 'corpUser');
+						   ->with('indUser', 'corpUser')
+						   ->where('post_type', '=', 'job')->take(5)->get();
 		$skillPosts = Postjob::orderBy('id', 'desc')
-						   ->with('indUser', 'corpUser');
-		return view('pages.index', compact('title', 'jobPosts', 'skillPosts'));
+						   ->with('indUser', 'corpUser')
+						   ->where('post_type', '=', 'skill')->take(5)->get();
+		$companyAccounts = Corpuser::orderBy('id', 'desc')
+								   ->with('user')
+								   ->where('logo_status', '!=', 'null')
+								   ->take(6)->get();
+		$userAccounts = Induser::orderBy('id', 'desc')
+								   ->with('user')
+								   ->where('profile_pic', '!=', 'null')
+								   ->take(3)->get();
+		// $jobPosts->get();
+		// $skillPosts->get();
+		return view('pages.index', compact('title', 'jobPosts', 'skillPosts', 'companyAccounts', 'userAccounts'));
 	}
 
 	public function about(){
@@ -59,9 +74,11 @@ class PagesController extends Controller {
 
 	public function login(){
 		if (Auth::check()) {
+			$title = 'login';
 			return redirect("/home");
 		}else{
-			return view('pages.login');
+			$title = 'login';
+			return view('pages.login', compact('title'));
 		}
 	}
 
@@ -76,13 +93,18 @@ class PagesController extends Controller {
 				// $searchskill = implode(',', $searchskill);
 				// $searchskill = explode(',', $searchskill);
 				$skills = Skills::lists('name', 'name');
+				$submitFilter = " ";
 				$filter = Filter::where('post_type', '=', 'job')->where('from_user', '=', Auth::user()->id)->first();
 				$skillfilter = Filter::where('post_type', '=', 'skill')->where('from_user', '=', Auth::user()->id)->first();
-
+				// $mobileReg = User::where('induser_id', '=', Auth::user()->induser_id)
+				// 						 ->where('mobile', '=', '9686458736')
+				// 						 ->first(['mobile']);
+				// return $mobileReg;
 				$jobPosts = Postjob::orderBy('id', 'desc')
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup', 'preferLocations')
 								   ->where('post_type', '=', 'job')
 								   ->where('individual_id', '!=', Auth::user()->induser_id)
+								   ->where('inactive', '=', 0)
 								   ->whereRaw('postjobs.id in (select  pm.id from postjobs pm where pm.id in (
 													select p.id 
 														from postjobs p
@@ -120,6 +142,7 @@ class PagesController extends Controller {
 									 ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup', 'preferLocations')
 									 ->where('post_type', '=', 'skill')
 									 ->where('individual_id', '!=', Auth::user()->induser_id)
+									 ->where('inactive', '=', 0)
 									 ->whereRaw('postjobs.id in (select  pm.id from postjobs pm where pm.id in (
 													select p.id 
 														from postjobs p
@@ -217,7 +240,7 @@ class PagesController extends Controller {
 
 				}
 				// return $searchskill;
-				return view('pages.home', compact('jobPosts', 'skillPosts', 'groups', 'title', 'links', 'following', 'userSkills', 'skills', 'linksApproval', 'linksPending', 'share_links', 'share_groups', 'sort_by', 'sort_by_skill', 'filter', 'skillfilter'));
+				return view('pages.home', compact('jobPosts', 'skillPosts', 'groups', 'title', 'links', 'following', 'userSkills', 'skills', 'linksApproval', 'linksPending', 'share_links', 'share_groups', 'sort_by', 'sort_by_skill', 'filter', 'skillfilter', 'submitFilter'));
 				// return $skillPosts;
 			} elseif(Auth::user()->identifier == 2){
 				$sort_by = " ";
@@ -229,6 +252,7 @@ class PagesController extends Controller {
 				$skillPosts = Postjob::orderBy('id', 'desc')
 									 ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 									 ->where('post_type', '=', 'skill')
+									 ->where('inactive', '=', 0)
 									 ->paginate(5);
 
 				if(Auth::user()->corpuser_id != null){
@@ -280,23 +304,24 @@ class PagesController extends Controller {
 			if(Auth::user()->identifier == 1){
 				$posts = Postjob::with('induser', 'postActivity', 'postactivity.user', 'taggedUser', 'taggedGroup')
 								->where('individual_id', '=', Auth::user()->induser_id)
+								->where('inactive', '=', 0)
 								->orderBy('id', 'desc')->get();
-				$myActivities = DB::select('(select pa.id,pa.user_id,pa.post_id,"Thanks" as identifier,pa.thanks as activity, pa.thanks_dtTime as time,pj.unique_id, pj.post_title, pj.post_compname
+				$myActivities = DB::select('(select pa.id,pa.user_id,pa.post_id,"Thanks" as identifier,pa.thanks as activity, pa.thanks_dtTime as time,pj.unique_id, pj.post_type, pj.post_title, pj.post_compname
 										from postactivities pa 
 										join postjobs pj on pj.id = pa.post_id
 										where pa.user_id=? and pa.thanks = 1)
 										union
-										(select pa.id,pa.user_id,pa.post_id,"Shared" as identifier,pa.share as share, pa.share_dtTime as time,pj.unique_id, pj.post_title, pj.post_compname
+										(select pa.id,pa.user_id,pa.post_id,"Shared" as identifier,pa.share as share, pa.share_dtTime as time,pj.unique_id,pj.post_type, pj.post_title, pj.post_compname
 										from postactivities pa 
 										join postjobs pj on pj.id = pa.post_id
 										where pa.user_id=? and pa.share = 1)
 										union
-										(select pa.id,pa.user_id,pa.post_id,"Applied" as identifier,pa.apply as activity, pa.apply_dtTime as time,pj.unique_id,pj.post_title, pj.post_compname
+										(select pa.id,pa.user_id,pa.post_id,"Applied" as identifier,pa.apply as activity, pa.apply_dtTime as time,pj.unique_id, pj.post_type, pj.post_title, pj.post_compname
 										from postactivities pa 
 										join postjobs pj on pj.id = pa.post_id
 										where pa.user_id=? and pa.apply = 1)
 										union
-										(select pa.id,pa.user_id,pa.post_id,"Contacted" as identifier,pa.contact_view as activity,pa.contact_view_dtTime as time,pj.unique_id, pj.post_title, pj.post_compname
+										(select pa.id,pa.user_id,pa.post_id,"Contacted" as identifier,pa.contact_view as activity,pa.contact_view_dtTime as time,pj.unique_id, pj.post_type, pj.post_title, pj.post_compname
 										from postactivities pa 
 										join postjobs pj on pj.id = pa.post_id
 										where pa.user_id=? and pa.contact_view = 1)
@@ -323,11 +348,36 @@ class PagesController extends Controller {
 								->lists('name', 'id');
 
 				}
+
+				$user = User::where('id', '=', Auth::user()->id)->with('induser')->first();
+				$skills = Skills::lists('name', 'name');
+				$thanks = Postactivity::with('user', 'post')
+								      ->join('postjobs', 'postjobs.id', '=', 'postactivities.post_id')
+									  ->where('postjobs.individual_id', '=', Auth::user()->induser_id)
+									  ->where('postjobs.inactive', '=', 0)
+									  ->where('postactivities.thanks', '=', 1)
+								      ->orderBy('postactivities.id', 'desc')
+								      ->sum('postactivities.thanks');
+				$linksCount = Connections::where('user_id', '=', Auth::user()->induser_id)
+									->where('status', '=', 1)
+									->orWhere('connection_user_id', '=', Auth::user()->induser_id)
+									->where('status', '=', 1)
+									->count('id');
+				$educationList = Education::orderBy('level')->orderBy('name')->where('name', '!=', '0')->get();
+				$location = Induser::where('id', '=', Auth::user()->induser_id)->first(['prefered_location']);
+				$farearoleList = Functional_area_role_mapping::orderBy('id')->get();
 				// return $myActivities;
 			}else if(Auth::user()->identifier == 2){
 				$posts = Postjob::with('corpuser')->where('corporate_id', '=', Auth::user()->corpuser_id)->orderBy('id', 'desc')->get();
+				$user = User::where('id', '=', Auth::user()->id)->with('corpuser')->first();
+				$thanks = Postactivity::with('user', 'post')
+								      ->join('postjobs', 'postjobs.id', '=', 'postactivities.post_id')
+									  ->where('postjobs.corporate_id', '=', Auth::user()->corpuser_id)
+									  ->where('postactivities.thanks', '=', 1)
+								      ->orderBy('postactivities.id', 'desc')
+								      ->sum('postactivities.thanks');
 			}
-			return view('pages.mypostcontent', compact('posts', 'title', 'myActivities', 'share_links', 'share_groups'));
+			return view('pages.mypostcontent', compact('posts', 'title', 'myActivities', 'user', 'share_links', 'share_groups', 'skills', 'educationList', 'location', 'farearoleList', 'thanks', 'linksCount'));
 		}else{
 			return redirect('login');
 		}	
@@ -406,19 +456,27 @@ class PagesController extends Controller {
 
   	public function notification($type, $utype, $id){
         $title = $type;
+
+
         if($utype == 'ind'){
 	        if($type == 'notification'){
+	        	$notificationCount = Notification::where('to_user', '=', Auth::user()->id)->get();
+				
+	        	foreach ($notificationCount as $not ) {
+	        		$not->view_status = 1;
+					$not->save();
+	        	}
+
 	            $notificationList = Notification::with('fromUser', 'toUser')->where('to_user', '=', Auth::user()->id)
 										     ->orderBy('id', 'desc')->paginate(20);
 				
-				// $notificationCount = Notification::where('to_user', '=', Auth::user()->id)->first();
-				// $notificationCount->view_status = 1;
-				// $notificationCount->save();
+				
 
 			}elseif($type == 'thanks'){
 	            $notificationList = Postactivity::with('user', 'post')
 												->join('postjobs', 'postjobs.id', '=', 'postactivities.post_id')
 												->where('postjobs.individual_id', '=', $id)
+												->where('postjobs.inactive', '=', 0)
 												->where('postactivities.thanks', '=', 1)
 												->orderBy('postactivities.id', 'desc')
 												->take(25)
@@ -429,6 +487,7 @@ class PagesController extends Controller {
 	            $notificationList = Postactivity::with('user', 'post')
 												->join('postjobs', 'postjobs.id', '=', 'postactivities.post_id')
 												->where('postjobs.corporate_id', '=', $id)
+												->where('postjobs.inactive', '=', 0)
 												->where('postactivities.apply', '=', 1)
 												->orderBy('postactivities.id', 'desc')
 												->take(25)
@@ -437,6 +496,7 @@ class PagesController extends Controller {
 	            $notificationList = Postactivity::with('user', 'post')
 												->join('postjobs', 'postjobs.id', '=', 'postactivities.post_id')
 												->where('postjobs.corporate_id', '=', $id)
+												->where('postjobs.inactive', '=', 0)
 												->where('postactivities.thanks', '=', 1)
 												->orderBy('postactivities.id', 'desc')
 												->take(25)
@@ -452,6 +512,7 @@ class PagesController extends Controller {
 		$thanks = Postactivity::with('user', 'post')
 						      ->join('postjobs', 'postjobs.id', '=', 'postactivities.post_id')
 							  ->where('postjobs.individual_id', '=', Auth::user()->induser_id)
+							  ->where('postjobs.inactive', '=', 0)
 							  ->where('postactivities.thanks', '=', 1)
 						      ->orderBy('postactivities.id', 'desc')
 						      ->take(25)
@@ -462,14 +523,15 @@ class PagesController extends Controller {
 	public function profile($utype,$id)
 	{		
 		$title = 'profile';
+
 		if($utype == 'ind'){
 			$user = Induser::with('user')->findOrFail($id);
-			$thanks = Postactivity::with('user', 'post')
-							      ->join('postjobs', 'postjobs.id', '=', 'postactivities.post_id')
-								  ->where('postjobs.individual_id', '=', $id)
-								  ->where('postactivities.thanks', '=', 1)
-							      ->orderBy('postactivities.id', 'desc')
-							      ->sum('postactivities.thanks');
+			// $thanks = Postactivity::with('user', 'post')
+			// 				      ->join('postjobs', 'postjobs.id', '=', 'postactivities.post_id')
+			// 					  ->where('postjobs.individual_id', '=', $id)
+			// 					  ->where('postactivities.thanks', '=', 1)
+			// 				      ->orderBy('postactivities.id', 'desc')
+			// 				      ->sum('postactivities.thanks');
 			$posts = Postjob::where('individual_id', '=', $id)->count('id');
 			$linksCount = Connections::where('user_id', '=', $id)
 								->where('status', '=', 1)
@@ -482,6 +544,16 @@ class PagesController extends Controller {
 			$connectionRequestStatus = Connections::where('connection_user_id', '=', Auth::user()->induser_id)
 												  ->where('user_id', '=', $id)
 												  ->first(['status', 'id']);
+
+			$notifications = Notification::with('fromUser', 'toUser')->where('to_user', '=', Auth::user()->id)
+										     ->orderBy('id', 'desc')->get();
+
+			$thanks = Postactivity::with('user', 'post')
+								      ->join('postjobs', 'postjobs.id', '=', 'postactivities.post_id')
+									  ->where('postjobs.individual_id', '=', $id)
+									  ->where('postactivities.thanks', '=', 1)
+								      ->orderBy('postactivities.id', 'desc')
+								      ->get();
 
 			// connection status
 			$connectionStatus = 'add';
@@ -500,7 +572,7 @@ class PagesController extends Controller {
 				$connectionStatus = 'friend';
 			}
 
-			$taggedPosts = $this->usersPost();
+			// $taggedPosts = $this->usersPost();
 			$taggedGroupPosts = $this->usersGroupPost();
 			$followingPost = $this->followingPost();
 
@@ -509,6 +581,7 @@ class PagesController extends Controller {
 			$thanks = Postactivity::with('user', 'post')
 							      ->join('postjobs', 'postjobs.id', '=', 'postactivities.post_id')
 								  ->where('postjobs.corporate_id', '=', $id)
+								  ->where('postjobs.inactive', '=', 0)
 								  ->where('postactivities.thanks', '=', 1)
 							      ->orderBy('postactivities.id', 'desc')
 							      ->sum('postactivities.thanks');
@@ -524,33 +597,41 @@ class PagesController extends Controller {
                 $connectionId = $followStatus->id;
             }
 
-            $taggedPosts = $this->usersPost();
+            // $taggedPosts = $this->usersPost();
 			$taggedGroupPosts = $this->usersGroupPost();
 			$followingPost = $this->followingPost();
 		}	
-		return view('pages.profile_indview', compact('title','thanks','posts','linksCount','user','connectionStatus','utype','connectionId', 'followCount', 'linkSharePost', 'taggedPosts', 'taggedGroupPosts', 'followingPost'));
+
+		return view('pages.profile_view', compact('title','thanks','posts','linksCount','user','connectionStatus','utype','connectionId', 'followCount', 'linkSharePost', 'taggedGroupPosts', 'followingPost', 'notifications'));
 	}
 
 	public function usersGroupPost(){
-		$groupPosts = DB::select('select p.unique_id, p.id, p.post_title, p.linked_skill, p.post_compname, p.post_type, gu.user_id, pgt.group_id as poe, pgt.tag_share_by, indg.fname, pgt.mode, pgt.created_at
+		$groupPosts = DB::select('select p.unique_id, p.id, p.post_title, p.linked_skill, p.city, p.post_compname, p.time_for, p.post_type, p.min_exp, p.max_exp, gu.user_id, pgt.group_id as poe, pgt.tag_share_by, indg.fname, pgt.mode, pgt.created_at
 								from postjobs p
 								LEFT JOIN post_group_taggings pgt on pgt.post_id = p.id
 								left join groups_users gu on gu.group_id = pgt.group_id
 								left join indusers ind on ind.id = gu.user_id 
 								left join indusers indg on indg.id = pgt.tag_share_by
-								where ind.id = ?', [Auth::user()->induser_id]);
+								where ind.id = ?
+								union
+								select p.unique_id, p.id, p.post_title, p.linked_skill, p.post_compname, p.time_for, p.min_exp, p.max_exp, p.post_type, put.post_id, ind.id, put.user_id as poe, put.tag_share_by, inds.fname, put.mode, put.created_at
+								from postjobs p
+								left join post_user_taggings put on put.post_id = p.id 
+								left join indusers ind on ind.id = put.user_id
+								left join indusers inds on inds.id = put.tag_share_by
+								where ind.id = ?', [Auth::user()->induser_id, Auth::user()->induser_id]);
 		return $groupPosts;
 	}
 
-	public function usersPost(){
-		$posts = DB::select('select p.unique_id, p.post_title, p.linked_skill, p.post_compname, p.post_type, put.post_id, ind.id, put.user_id as poe, put.tag_share_by, inds.fname, put.mode, put.created_at
-							from postjobs p
-							left join post_user_taggings put on put.post_id = p.id 
-							left join indusers ind on ind.id = put.user_id
-							left join indusers inds on inds.id = put.tag_share_by
-							where ind.id = ?', [Auth::user()->induser_id]);
-		return $posts;
-	}
+	// public function usersPost(){
+	// 	$posts = DB::select('select p.unique_id, p.post_title, p.linked_skill, p.post_compname, p.post_type, put.post_id, ind.id, put.user_id as poe, put.tag_share_by, inds.fname, put.mode, put.created_at
+	// 						from postjobs p
+	// 						left join post_user_taggings put on put.post_id = p.id 
+	// 						left join indusers ind on ind.id = put.user_id
+	// 						left join indusers inds on inds.id = put.tag_share_by
+	// 						where ind.id = ?', [Auth::user()->induser_id]);
+	// 	return $posts;
+	// }
 
 	public function followingPost(){
 		$following = DB::select('select f.corporate_id, p.id, p.post_title from postjobs p 
@@ -616,6 +697,7 @@ class PagesController extends Controller {
 			$save_filter = Input::get('save_filter');
 			$clear = Input::get('clear');
 			$filter= Filter::where('from_user', '=', Auth::user()->id)->where('post_type', '=', 'job')->first();
+			$submitFilter = Input::get('submit-filter');
 			if($save_filter == 'savefilter'){
 				if(Auth::user()->identifier == 1 && $post_type == 'job'){
 				if($filter != null){
@@ -663,17 +745,20 @@ class PagesController extends Controller {
 			}
 
 			$posted_by = Input::get('posted_by');
+			// return $posted_by;
 			$post_title = Input::get('job_title');
 			$city = Input::get('prefered_location');
 			$experience = Input::get('experience');
 			$time_for = Input::get('time_for');
 			$skill = Input::get('linked_skill_id');
+			$industry = Input::get('industry');
 
 			if($post_type == 'job'){
 			$jobPosts = Postjob::orderBy('postjobs.id', 'desc')
 							   ->with('indUser', 'corpUser', 'postActivity', 'preferLocations')
 							   ->leftjoin('post_preferred_locations', 'post_preferred_locations.post_id', '=', 'postjobs.id')
-							   ->where('individual_id', '!=', Auth::user()->induser_id);
+							   ->where('individual_id', '!=', Auth::user()->induser_id)
+							   ->where('inactive', '=', 0);
 
 			if($post_title != null){
 				$jobPosts->where('post_title', 'like', '%'.$post_title.'%')
@@ -700,9 +785,14 @@ class PagesController extends Controller {
 				$jobPosts->whereIn('post_preferred_locations.city', $p_city);
 			}
 
-			if($experience != null){
-				$jobPosts->whereRaw("$experience between min_exp and max_exp");
+			if($industry != null){
+				$jobPosts->where('industry', 'like', '%'.$industry.'%');
 			}
+
+
+			// if($experience != null){
+			// 	$jobPosts->whereRaw("$experience between min_exp and max_exp");
+			// }
 
 			if($time_for != null){
 				$jobPosts->whereIn('time_for', $time_for);
@@ -711,6 +801,21 @@ class PagesController extends Controller {
 			if($post_type == 'job'){
 				$jobPosts->where('post_type', '=', $post_type);
 			}
+
+			// if($posted_by != []){
+			// 	if(in_array("individual", $posted_by) && in_array("company", $posted_by)){
+			// 		$jobPosts->where('individual_id', '>', 0)
+			// 				 ->where('corporate_id', '>', 0);
+			// 	}elseif(in_array("company", $posted_by) && in_array("consultancy", $posted_by)){
+			// 		$jobPosts->where('individual_id', '=', 'null')
+			// 				 ->where('corporate_id', '>', 0);
+			// 	}elseif(in_array("individual", $posted_by)){
+			// 		$jobPosts->where('individual_id', '>', 0);
+			// 	}elseif(in_array("consultancy", $posted_by)){
+			// 		$jobPosts->leftjoin('corpusers', 'corpusers.id', '=', 'postjobs.corporate_id')
+			// 				 ->where('corpusers.firm_type', '=', 'consultancy');
+			// 	}
+			// }
 
 			if($skill != null){
 				foreach ($skill as $skil) {
@@ -799,15 +904,16 @@ class PagesController extends Controller {
 									 ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 									 ->where('post_type', '=', 'skill')
 									 ->where('individual_id', '!=', Auth::user()->induser_id)
+									 ->where('postjobs.inactive', '=', 0)
 									 ->paginate(15);
 			}
 			// return $skill;
 				if($save_filter == 'savefilter'){
-					return view('pages.home', compact('jobPosts', 'skillPosts', 'linksApproval', 'linksPending', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'share_links', 'share_groups', 'sort_by', 'sort_by_skill', 'filter', 'skillfilter'))->withErrors([
+					return view('pages.home', compact('jobPosts', 'skillPosts', 'linksApproval', 'linksPending', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'share_links', 'share_groups', 'sort_by', 'sort_by_skill', 'filter', 'skillfilter', 'submitFilter'))->withErrors([
 						'errors' => 'Filter Saved successfully.',
 					]);
 				}else{
-					return view('pages.home', compact('jobPosts', 'skillPosts', 'linksApproval', 'linksPending', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'share_links', 'share_groups', 'sort_by', 'sort_by_skill', 'filter', 'skillfilter'));
+					return view('pages.home', compact('jobPosts', 'skillPosts', 'linksApproval', 'linksPending', 'title', 'links', 'groups', 'following', 'userSkills', 'skills', 'share_links', 'share_groups', 'sort_by', 'sort_by_skill', 'filter', 'skillfilter', 'submitFilter'));
 				}
 			}else{
 				return redirect('login');
@@ -942,6 +1048,7 @@ public function homeskillFilter(){
 			$skillPosts = Postjob::orderBy('postjobs.id', 'desc')
 								 ->with('indUser', 'corpUser', 'postActivity', 'preferLocations')
 							   	 ->leftjoin('post_preferred_locations', 'post_preferred_locations.post_id', '=', 'postjobs.id')
+							     ->where('postjobs.inactive', '=', 0)
 							     ->where('postjobs.post_type', '=', 'skill');
 
 		
@@ -1057,6 +1164,7 @@ public function homeskillFilter(){
 									 ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 									 ->where('post_type', '=', 'job')
 									 ->where('individual_id', '!=', Auth::user()->induser_id)
+									 ->where('postjobs.inactive', '=', 0)
 									 ->paginate(15);
 
 	}
@@ -1141,6 +1249,7 @@ public function homecorpSkillFilter(){
             $skillPosts = Postjob::orderBy('postjobs.id', 'desc')
                                  ->with('indUser', 'corpUser', 'postActivity', 'preferLocations')
                                  ->where('postjobs.post_type', '=', 'skill')
+                                 ->where('postjobs.inactive', '=', 0)
                                  ->leftjoin('post_preferred_locations', 'post_preferred_locations.post_id', '=', 'postjobs.id');
 
         
@@ -1362,6 +1471,7 @@ public function homecorpSkillFilter(){
 							->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 							->where('post_type', '=', 'job')
 							->where('individual_id', '!=', Auth::user()->induser_id)
+							->where('postjobs.inactive', '=', 0)
 							->whereRaw('id in (select post_id from postactivities where user_id = '.Auth::user()->id.' and fav_post = 1)')
 							->paginate(15);
 			
@@ -1369,6 +1479,7 @@ public function homecorpSkillFilter(){
 							->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 							->where('post_type', '=', 'skill')
 							->where('individual_id', '!=', Auth::user()->induser_id)
+							->where('postjobs.inactive', '=', 0)
 							->whereRaw('id in (select post_id from postactivities where user_id = '.Auth::user()->id.' and fav_post = 1)')
 							->paginate(15);	
 			
@@ -1532,11 +1643,13 @@ public function homecorpSkillFilter(){
 				$jobPosts = Postjob::orderBy('id', 'desc')->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 							->where('post_type', '=', 'job')
 							->where('postjobs.individual_id', '=', $id)
+							->where('postjobs.inactive', '=', 0)
 							->where('individual_id', '!=', Auth::user()->induser_id)
 							->paginate(15);
 				$skillPosts = Postjob::orderBy('id', 'desc')->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 							->where('post_type', '=', 'skill')
 							->where('postjobs.individual_id', '=', $id)
+							->where('postjobs.inactive', '=', 0)
 							->where('individual_id', '!=', Auth::user()->induser_id)
 							->paginate(15);
 				$links = DB::select('select id from indusers
@@ -1598,11 +1711,13 @@ public function homecorpSkillFilter(){
 				$jobPosts = Postjob::orderBy('id', 'desc')->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 							->where('post_type', '=', 'job')
 							->where('postjobs.individual_id', '=', $id)
+							->where('postjobs.inactive', '=', 0)
 							->where('individual_id', '!=', Auth::user()->induser_id)
 							->paginate(15);
 				$skillPosts = Postjob::orderBy('id', 'desc')->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 							->where('post_type', '=', 'skill')
 							->where('postjobs.individual_id', '=', $id)
+							->where('postjobs.inactive', '=', 0)
 							->where('individual_id', '!=', Auth::user()->induser_id)
 							->paginate(15);
 			}
@@ -1739,29 +1854,35 @@ public function homecorpSkillFilter(){
 		$following = collect($following);
 
 		if($searchQuery != null){
-			$searchResultForInd = Induser::with('user')
-										 ->where('fname', 'like', '%'.$searchQuery.'%')
-										 ->orWhere('lname', 'like', '%'.$searchQuery.'%')
-										 ->orWhere('email', '=', $searchQuery)
-										 ->orWhere('mobile', '=', $searchQuery)
+			$searchResultForInd = Induser::leftjoin('users', 'users.induser_id', '=', 'indusers.id')
+										 ->where('users.inactive', '=', 0)
+										 ->where('users.email_verify', '=', 1)
+										 ->where('users.mobile_verify', '=', 1)
+										 ->whereRaw("(indusers.fname like '%".$searchQuery."%' or indusers.lname like '%".$searchQuery."%' or indusers.email like '%".$searchQuery."%' or indusers.mobile like '%".$searchQuery."%')")
 										 ->paginate(10);
 
-			$searchResultForCorp = Corpuser::with('user')
-										   ->where('firm_name', 'like', '%'.$searchQuery.'%')
-										   ->orWhere('firm_email_id', '=', $searchQuery)
-										   ->orWhere('firm_phone', '=', $searchQuery)
+			$searchResultForCorp = Corpuser::leftjoin('users', 'users.corpuser_id', '=', 'corpusers.id')
+										   ->where('users.inactive', '=', 0)
+										   ->where('users.email_verify', '=', 1)
+										   ->where('users.mobile_verify', '=', 1)
+										   ->whereRaw("(corpusers.firm_name like '%".$searchQuery."%' or corpusers.firm_email_id like '%".$searchQuery."%' or corpusers.firm_phone like '%".$searchQuery."%')")
 										   ->paginate(10);
 
-			$searchResultForJob = Postjob::where('post_title', 'like', '%'.$searchQuery.'%')
-										 ->orWhere('linked_skill', 'like', '%'.$searchQuery.'%')
-										 ->orWhere('post_compname', 'like', '%'.$searchQuery.'%')
+			$searchResultForJob = Postjob::orderBy('id', 'desc')
+										 ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup', 'preferLocations')
 										 ->where('post_type', '=', 'job')
+										 ->where('inactive', '=', 0)
+										 ->where('individual_id', '!=', Auth::user()->induser_id)
+										 ->whereRaw("(post_title like '%".$searchQuery."%' or linked_skill like '%".$searchQuery."%' or post_compname like '%".$searchQuery."%')")
 									 	 ->paginate(10);
 
-			$searchResultForSkill = Postjob::where('post_title', 'like', '%'.$searchQuery.'%')
-										   ->orWhere('linked_skill', 'like', '%'.$searchQuery.'%')
-									       ->where('post_type', '=', 'skill')
+			$searchResultForSkill = Postjob::orderBy('id', 'desc')
+										   ->where('post_type', '=', 'skill')
+										   ->where('inactive', '=', 0)
+										   ->where('individual_id', '!=', Auth::user()->induser_id)
+										   ->whereRaw("(post_title like '%".$searchQuery."%' or linked_skill like '%".$searchQuery."%')")
 									 	   ->paginate(10);
+
 
 			return view('pages.search', compact('title', 
 												'searchQuery', 
@@ -1795,6 +1916,7 @@ public function homecorpSkillFilter(){
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 								   ->where('post_type', '=', 'job')
 								   ->where('individual_id', '!=', Auth::user()->induser_id)
+								   ->where('inactive', '=', 0)
 								   ->orWhere('corporate_id', '>', 0)
 								   ->paginate(15);
 				}elseif($sort_by == 'magic-match' && $post_type == 'job'){
@@ -1802,6 +1924,7 @@ public function homecorpSkillFilter(){
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 								   ->where('post_type', '=', 'job')
 								   ->where('individual_id', '!=', Auth::user()->induser_id)
+								   ->where('inactive', '=', 0)
 								   ->orWhere('corporate_id', '>', 0)
 								   ->get();								   
 
@@ -1822,6 +1945,7 @@ public function homecorpSkillFilter(){
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 								   ->where('post_type', '=', 'job')
 								   ->where('individual_id', '!=', Auth::user()->induser_id)
+								   ->where('inactive', '=', 0)
 								   ->orWhere('corporate_id', '>', 0)
 								   ->paginate(15);
 				}elseif($sort_by == 'corporate' && $post_type == 'job'){
@@ -1830,6 +1954,7 @@ public function homecorpSkillFilter(){
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 								   ->where('post_type', '=', 'job')
 								   ->where('individual_id', '!=', Auth::user()->induser_id)
+								   ->where('inactive', '=', 0)
 								   ->orWhere('corporate_id', '>', 0)
 								   ->paginate(15);
 				}else{
@@ -1837,6 +1962,7 @@ public function homecorpSkillFilter(){
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 								   ->where('post_type', '=', 'job')
 								   ->where('individual_id', '!=', Auth::user()->induser_id)
+								   ->where('inactive', '=', 0)
 								   ->orWhere('corporate_id', '>', 0)
 								   ->paginate(15);
 				}
@@ -1845,6 +1971,7 @@ public function homecorpSkillFilter(){
 									 ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 									 ->where('post_type', '=', 'skill')
 									 ->where('individual_id', '!=', Auth::user()->induser_id)
+									 ->where('inactive', '=', 0)
 									 ->paginate(15);
 
 				$links = DB::select('select id from indusers
@@ -1951,6 +2078,7 @@ public function homecorpSkillFilter(){
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 								   ->where('post_type', '=', 'skill')
 								   ->where('individual_id', '!=', Auth::user()->induser_id)
+								   ->where('inactive', '=', 0)
 								   ->paginate(15);
 				}elseif($sort_by_skill == 'jobtype' && $post_type == 'skill'){
 
@@ -1958,6 +2086,7 @@ public function homecorpSkillFilter(){
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 								   ->where('post_type', '=', 'skill')
 								   ->where('individual_id', '!=', Auth::user()->induser_id)
+								   ->where('inactive', '=', 0)
 								   ->paginate(15);
 					// sort( $skillPosts, SORT_FLAG_CASE );
 				}
@@ -1966,6 +2095,7 @@ public function homecorpSkillFilter(){
 									 ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 									 ->where('post_type', '=', 'job')
 									 ->where('individual_id', '!=', Auth::user()->induser_id)
+									 ->where('inactive', '=', 0)
 									 ->paginate(15);
 
 				$links = DB::select('select id from indusers
@@ -2076,13 +2206,14 @@ public function homecorpSkillFilter(){
 			$profileFav->savecontact_dtTime = new \DateTime();
 			$profileFav->save();
 
-			$profileUser = Induser::where('id', '=', $request['profileid'])->first(['id', 'mobile', 'email', 'resume']);
-			
+			$companyDetails = Corpuser::where('id', '=', Auth::user()->corpuser_id)->first();
+			$email = $companyDetails->firm_email_id;
+			$fname = $companyDetails->firm_name;
+			Mail::send('emails.Corptoadmin', array('fname'=>$fname), function($message) use ($email,$fname){
+		        $message->to('admin@jobtip.in', 'Jobtip')->subject($fname.' has contacted for the profile')->from($email, $fname);
+		    });
+
 			$data = [];
-			$data['profile_id'] = $profileUser->id;
-			$data['mobile'] = $profileUser->mobile;
-			$data['email'] = $profileUser->email;
-			$data['resume'] = $profileUser->resume;
 			$data['save_contact'] = $profileFav->save_contact;
 
 			if(!empty($data) && $profileFav->id > 0 && $profileUser != null){
@@ -2100,13 +2231,9 @@ public function homecorpSkillFilter(){
 			$profileFav->saveprofile_dtTime = new \DateTime();
 			$profileFav->save();
 
-			$profileUser = Induser::where('id', '=', $request['profileid'])->first(['id', 'mobile', 'email', 'resume']);
+			
 			
 			$data = [];
-			$data['profile_id'] = $profileUser->id;
-			$data['mobile'] = $profileUser->mobile;
-			$data['email'] = $profileUser->email;
-			$data['resume'] = $profileUser->resume;
 			$data['save_contact'] = $profileFav->save_contact;
 
 			if(!empty($data) && $profileFav->id > 0 && $profileUser != null){
@@ -2203,7 +2330,9 @@ public function homecorpSkillFilter(){
 		$data['profile_id'] = $profileUser->id;
 		$data['mobile'] = $profileUser->mobile;
 		$data['email'] = $profileUser->email;
-		$data['resume'] = $profileUser->resume;
+		if($profileUser->resume != null){
+			$data['resume'] = $profileUser->resume;
+		}
 		$data['save_profile'] = $profileSave->save_profile;
 
 		if(!empty($data) && $profileSave->id > 0 && $profileUser != null){
@@ -2366,16 +2495,19 @@ public function homecorpSkillFilter(){
 	}
 
 
-	public function myActivitySorting($sort_by){
+	public function myActivitySorting($sort_by,$id){
 		if (Auth::check()) {
 			$title = 'mypost';
 
 			if(Auth::user()->identifier == 1 || Auth::user()->identifier == 2){
 
+				$posts = Postjob::where('unique_id', '=', $id)
+				                ->leftjoin('postactivities', 'postactivities.post_id', '=', 'postjobs.id');
+
 				if($sort_by == 'date'){
-					$posts = Postjob::orderBy('created_at', 'asc')
+					$posts->orderBy('postactivities.created_at', 'asc')
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
-								   ->where('individual_id', '!=', Auth::user()->induser_id)
+								   ->where('postjobs.individual_id', '!=', Auth::user()->induser_id)
 								   ->paginate(15);
 				}elseif($sort_by == 'magic-match'){
 					$posts = Postjob::orderBy('created_at', 'asc')
@@ -2475,9 +2607,16 @@ public function homecorpSkillFilter(){
 				$sort_by =" ";
 				$sort_by_skill = " ";
 				$skills = Skills::lists('name', 'name');
+				$postviewCount = Postjob::where('unique_id', '=', $id)->first();
+				if($postviewCount != null){
+					$postviewCount->postview_count = $postviewCount->postview_count + 1;
+					$postviewCount->save();
+				}
+				
 				$post = Postjob::orderBy('id', 'desc')
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 								   ->where('unique_id', '=', $id)
+								   ->where('inactive', '=', 0)
 								   ->get();
 				if($post != null){
 					$post = $post->first();
@@ -2485,6 +2624,7 @@ public function homecorpSkillFilter(){
 
 				$postUser = Postjob::join('indusers', 'indusers.id', '=', 'postjobs.individual_id')
 								   ->where('unique_id', '=', $id)
+								   ->where('inactive', '=', 0)
 								   ->first();
 
 				$links = DB::select('select id from indusers
@@ -2585,6 +2725,7 @@ public function homecorpSkillFilter(){
 				$post = Postjob::orderBy('id', 'desc')
 								   ->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 								   ->where('unique_id', '=', $id)
+								   ->where('inactive', '=', 0)
 								   ->get();
 				if($post != null){
 					$post = $post->first();
@@ -2592,6 +2733,7 @@ public function homecorpSkillFilter(){
 
 				$postUser = Postjob::join('indusers', 'indusers.id', '=', 'postjobs.individual_id')
 								   ->where('unique_id', '=', $id)
+								   ->where('inactive', '=', 0)
 								   ->first();
 
 				$links = DB::select('select id from indusers
@@ -2778,11 +2920,13 @@ public function homecorpSkillFilter(){
 							->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 							->where('post_type', '=', 'job')
 							->where('corporate_id', '=', $id)
+							->where('inactive', '=', 0)
 							->paginate(15);
 				$skillPosts = Postjob::orderBy('id', 'desc')							
 							->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 							->where('post_type', '=', 'skill')
 							->where('individual_id', '!=', Auth::user()->induser_id)
+							->where('inactive', '=', 0)
 							->paginate(15);
 
 				$links = DB::select('select id from indusers
@@ -2860,6 +3004,17 @@ public function homecorpSkillFilter(){
 		}else{
 			return redirect('login');
 		}	
+	}
+
+	public function postDelete($id){
+		$postdelete = Postjob::where('unique_id', '=', $id)
+							 ->where('individual_id', '=', Auth::user()->induser_id)
+							 ->first();
+		if($postdelete != null){
+			$postdelete->inactive = 1;
+			$postdelete->save();
+		}
+		return redirect('/mypost');
 	}
 
 

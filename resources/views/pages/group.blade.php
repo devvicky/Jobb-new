@@ -1,115 +1,180 @@
 @extends('master')
 
 @section('content')
-
-<div class="portlet light bordered col-md-6">
-	<div class="portlet-title">
-		<div class="caption links-title">
-			<span class="caption-subject font-blue-hoki bold uppercase">Groups</span>
-			<a id="ajax-demo" href="#create-group" data-toggle="modal" class="config pull-right" style="text-decoration: none;">
-				<label>
-					<i class="glyphicon glyphicon-plus-sign" style="font-size:14px;color:#46AFA6;"></i>
-				</label> 
-				<label style="font-size: 15px;"> Create new</label>				
-			</a> 
-		</div>
-	</div>
-	<div class="portlet-body form">
-		<div class="form-body">
-
-			@if(count($groups)>0)
-			@foreach($groups as $group)
-			<div style="border: 1px dotted lightgray; margin:10px 0">
-				<div class="row" style="margin: 7px 0;padding: 7px 0px 0 0px;">
-					<div class="col-md-12 col-sm-12 col-xs-12">
-						<a href="/group/{{ $group->id }}" class="group-title-css">
-							{{ $group->group_name }}
-						</a>
-						@if($group->posts_count == 1)
-						<button class="btn btn-success" style="padding: 0 8px;    border-radius: 15px !important; background-color: deepskyblue;border-color: deepskyblue;">
-							<a href="/postingroup/{{$group->id}}" style="color:white;">
-								{{$group->posts_count}} Post
-							</a>
-						</button>
-						@elseif($group->posts_count > 1)
-						<button class="btn btn-success" style="padding: 0 8px;    border-radius: 15px !important; background-color: deepskyblue;border-color: deepskyblue;">
-							<a href="/postingroup/{{$group->id}}" style="color:white;">
-								{{$group->posts_count}} Posts
-							</a>
-						</button>
-						@else
-						<button class="btn btn-success" style="border-radius: 15px !important; background-color: darkgray; padding: 0 8px;border-color: darkgray !important;">
-							No Post
-						</button>
-						@endif
+<div class="row margin-top-10">
+	<div class="col-md-12">
+		<!-- BEGIN PROFILE SIDEBAR -->
+		<div class="profile-sidebar" style="width: 250px;">
+			<!-- PORTLET MAIN -->
+			<div class="portlet light profile-sidebar-portlet">
+				<!-- SIDEBAR USERPIC -->
+				<div class="profile-userpic">
+					<a id="ajax-demo" href="#profile-pic" data-toggle="modal" class="config">
+	                    @if(Auth::user()->induser->profile_pic == null && $user->induser->fname != null)
+	                      <div class="hover-image"><i class="fa fa-camera"></i> Add</div>
+	                    @endif      
+	                    @if(Auth::user()->induser->profile_pic != null)
+	                      <img src="/img/profile/{{ Auth::user()->induser->profile_pic }}" class="img-responsive">
+	                      <div class="hover-image"><i class="glyphicon glyphicon-edit"></i>Edit</div>
+	                    @else
+	                      <img src="/img/profile/{{ Auth::user()->induser->profile_pic }}" class="demo-new" data-name="{{Auth::user()->induser->fname}}">
+	                      <div class="hover-image"><i class="glyphicon glyphicon-edit"></i>Edit</div>
+	                    @endif
+	                </a>
+				</div>
+				<!-- END SIDEBAR USERPIC -->
+				<!-- SIDEBAR USER TITLE -->
+				<div class="profile-usertitle">
+					<div class="profile-usertitle-name">
+						 {{ Auth::user()->induser->fname }} {{ Auth::user()->induser->lname }}
+					</div>
+					<div class="profile-usertitle-job">
+						@if(Auth::user()->induser->role != null) {{Auth::user()->induser->role}} @endif 
 					</div>
 				</div>
-				<div class="row" style="margin:10px 0">
-					<div class="col-md-4 col-sm-4 col-xs-3">
-						<i class="fa fa-users" style="color:dimgrey;"></i> ({{count($group->users)}})
-					</div>
-					<div class="col-md-4 col-sm-4 col-xs-5 group-align">
-						@if($group->admin->id == Auth::user()->induser_id)
-						<i class="icon-shield"></i> You
-						@else
-						<a href="/profile/ind/{{$group->admin()->first()->id}}"><i class="icon-shield"></i> {{$group->admin()->first()->fname}}</a>
-						@endif
-					</div>
-					@if($group->admin->id == Auth::user()->induser_id)
-					<div class="col-md-4 col-sm-4 col-xs-4 group-align">
-							<a href="/group/{{ $group->id }}" style="color: dodgerblue;font-weight: 600;">
-								<i class="fa fa-edit (alias)"></i> Edit
-							</a>
-					</div>
-					@else
-					<div class="col-md-4 col-sm-4 col-xs-4 group-align">
+				<!-- END SIDEBAR USER TITLE -->
+				<!-- SIDEBAR MENU -->
+				<div class="profile-usermenu">
+					<ul class="nav" style="padding:0;">
+						<li class="active">
+							<a href="#tab_1_1" data-toggle="tab"><i class=" icon-user"></i>Groups</a>
+						</li>
 						
-							<a href="/group/{{ $group->id }}" style="color: dodgerblue;font-weight: 600;">
-								<i class="fa fa-plus-circle"></i> Add
-							</a>
-						
+						<li>
+							<a href="#tab_1_2" data-toggle="tab"><i class="icon-briefcase"></i>Create Group</a>
+						</li>
+					</ul>
+				</div>
+				<!-- END MENU -->
+				<!-- PORTLET MAIN -->
+			</div>
+			<div class="portlet light">
+				<!-- <div class="row list-separated profile-stat">
+					<label>Note :</label>
+				</div>
+				<div class="row list-separated profile-stat">
+					<label><span class="required">*</span> Click on Group Name to see the details</label>
+				</div> -->
+			</div>
+			<!-- END PORTLET MAIN -->
+		</div>
+		<div class="profile-content">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="tab-content">
+						<div class="tab-pane active" id="tab_1_1">
+							<div class="row">
+								<div class="col-md-9">
+									@if(count($groups)>0)
+									@foreach($groups as $group)
+									<!-- BEGIN PORTLET -->
+									<div class="portlet light " style="background-color:white;">
+										<div class="portlet-title">
+											<div class="caption caption-md">
+												<a href="/group/{{ $group->id }}">
+													<span class="caption-subject font-blue-madison bold uppercase" style="font-size: 14px;">
+														{{ $group->group_name }}
+													</span>
+												</a>
+												@if($group->posts_count == 1)
+												<button class="btn btn-success" style="padding: 0 5px;border-radius: 3px !important; background-color: deepskyblue;border-color: deepskyblue;">
+													<a href="/postingroup/{{$group->id}}" style="color:white;font-size: 12px;">
+														{{$group->posts_count}} Post
+													</a>
+												</button><br/>
+												@elseif($group->posts_count > 1)
+												<button class="btn btn-success" style="padding: 0 5px;border-radius: 3px !important; background-color: deepskyblue;border-color: deepskyblue;">
+													<a href="/postingroup/{{$group->id}}" style="color:white;font-size: 12px;">
+														{{$group->posts_count}} Posts
+													</a>
+												</button><br/>
+												@else
+												<button class="btn btn-success" style="padding: 0 5px;border-radius: 3px !important;font-size: 12px; background-color: darkgray;border-color: darkgray !important;">
+													No Post
+												</button><br/>
+												@endif
+												<label style="font-size: 11px;opacity:0.8;">Created Date: {{ date('d M Y', strtotime($group->created_at)) }}</label>
+											</div>
+											<div>
+												
+											</div>
+										</div>
+										<div class="portlet-body" style="padding-top:0;">
+											<div class="table-scrollable table-scrollable-borderless" style="margin:0 !important;">
+												<table class="table table-hover table-light">
+													<thead>
+														<tr class="uppercase">
+															<th width="30%" style="font-size: 11px;text-align:center;">
+																 Created By
+															</th>
+															<th width="30%" style="font-size: 11px;text-align:center;">
+																 No of Users
+															</th>
+															<th width="30%" style="font-size: 11px;text-align:center;">
+																 Modify
+															</th>
+														</tr>
+													</thead>
+													<tr>
+														<td style="text-align:center;">
+															@if($group->admin->id == Auth::user()->induser_id)
+															You
+															@else
+															<a href="/profile/ind/{{$group->admin()->first()->id}}">{{$group->admin()->first()->fname}}</a>
+															@endif
+														</td>
+														<td style="text-align:center;">{{count($group->users)}}</td>
+														<td style="text-align:center;">
+															@if($group->admin->id == Auth::user()->induser_id)
+																<a href="/group/{{ $group->id }}" style="color: dodgerblue;font-weight: 600;">
+																	<i class="fa fa-edit (alias)"></i> Edit
+																</a>
+															@else
+																<a href="/group/{{ $group->id }}" style="color: dodgerblue;font-weight: 600;">
+																	<i class="fa fa-plus-circle"></i> Add
+																</a>
+															@endif
+														</td>
+													</tr>
+												</table>
+											</div>
+										</div>
+									</div>
+									<!-- END PORTLET -->
+									@endforeach
+									@endif
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane" id="tab_1_2">
+							<div class="row">
+								<div class="col-md-9">
+									<!-- BEGIN PORTLET -->
+									<div class="portlet light " style="background-color:white;">
+										<div class="portlet-title">
+											<div class="caption caption-md">
+												<i class="icon-bar-chart theme-font hide"></i>
+												<span class="caption-subject font-blue-madison bold uppercase">Create Group</span>
+											</div>
+										</div>
+										<div class="portlet-body">
+											<a id="ajax-demo" href="#create-group" data-toggle="modal" class="btn btn-sm btn-success" style="text-decoration: none;">
+												Create				
+											</a> 
+										</div>
+									</div>
+									<!-- END PORTLET -->
+								</div>
+							</div>
+						</div>
 					</div>
-					@endif
 				</div>
 			</div>
-			@endforeach
-			@endif
 		</div>
-	 </div>
+	</div>	
 </div>
 
 
-<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
-<div class="modal fade" id="create-group" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  	<div class="modal-dialog" style="width: 300px;">
-	    <div class="modal-content">
-	    	<form action="/group/store" class="horizontal-form" method="post">
-				<input type="hidden" name="_token" value="{{ csrf_token() }}">
-		     	<div class="modal-header">
-			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-			        <h4 class="modal-title">New Group</h4>
-			     </div>
-				<div class="modal-body">
-					<div class="form-group">
-						<div class="input-group">
-							<span class="input-group-addon">
-								<i class="fa fa-users" style="color:darkcyan;"></i>
-							</span>
-							<input type="text" name="group_name" maxlength="30" class="form-control" placeholder="Enter Group name">
-						</div>
-					</div>	      		
-	     		</div>
-				<div class="modal-footer">
-					<button type="submit" class="btn btn-success">Create</button>
-					<button type="button" class="btn default" data-dismiss="modal">Close</button>
-				</div>
-			</form>
-		</div>
-	    <!-- /.modal-content -->
- 	</div>
-  	<!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
 <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 @stop
 

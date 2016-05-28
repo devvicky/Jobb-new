@@ -243,26 +243,8 @@
   		<div class="row" style="margin: 5px 0;background: #EAEAEA;padding: 0px 0px 0 10px;">
   			@if(!$corpsearchprofile->contains('profile_id', $user->id))
        		@else
-	  			<div class="col-md-8 col-sm-8 col-xs-12" style="padding:0 !important;margin: 5px 0;">
-	            	@if($user->email != null)
-	  				<i class="fa fa-envelope"></i> : {{$user->email}}
-	  				@else
-	  				<i class="fa fa-envelope"></i> : Not Available
-	  				@endif<br>
-	  				@if($user->mobile != null)
-	  				<i class="fa fa-phone-square"></i> : {{$user->mobile}}
-	  				@else
-	  				<i class="fa fa-phone-square"></i> : Not Available
-	  				@endif
-	  			</div>
-	  			<div class="col-md-4 col-sm-4 col-xs-12" style="padding:0 !important;margin: 5px 0;">
-	  				@if($user->resume != null)
-	  				<a href="/resume/{{$user->resume}}" target="_blank">
-	  					<button class="btn corp-profile-resume" style="color: dimgray !important;background-color:transparent;border: 1px solid dimgrey;">
-							<i class="glyphicon glyphicon-download"></i> Resume
-						</button>
-					</a>
-					@endif
+	  			<div class="col-md-12 col-sm-12 col-xs-12" style="padding:0 !important;margin: 5px 0;">
+	            	Thank you for showing interest in this profile. Jobtip.in will contact you shortly.
 	  			</div>	
   			@endif
   			<div id="profile-contacts-{{$user->id}}"></div>
@@ -555,12 +537,8 @@ $gotit = [];
      		// console.log(data);
       	if(data.data.save_contact == 1 && data.success == 'success'){
 
- 			var out = '<div class="col-md-8 col-sm-8 col-xs-12" style="padding:0 !important;margin: 5px 0;">';
- 			out += '<i class="fa fa-envelope"></i> : '+data.data.email+'<br>';
- 			out += '<i class="fa fa-phone-square"></i> : '+data.data.mobile+'</div>';
- 			out += '<div class="col-md-4 col-sm-4 col-xs-12" style="padding:0 !important;margin: 5px 0;">';
- 			out += '<a class="btn corp-profile-resume" style="color: dimgray !important;background-color:transparent;border: 1px solid dimgrey;" target="_blank" href="/resume/'+data.data.resume+'">'
- 			out += '<i class="glyphicon glyphicon-download"></i> Resume</a></div>';
+ 			var out = '<div class="col-md-12 col-sm-12 col-xs-12" style="padding:0 !important;margin: 5px 0;">';
+ 			out += 'Thank you for showing interest in this profile. Jobtip.in will contact you shortly.';
 
  			$("#profile-contacts-"+post_id).html(out);
  			$("#profilefav-btn-"+post_id).hide();

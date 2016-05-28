@@ -34,12 +34,14 @@
 <link href="/assets/startup/css/normalize.css" rel="stylesheet">
 <link href="/assets/css/custom.css" rel="stylesheet">
 <link href="/assets/css/custom_new.css" rel="stylesheet"/>
+<link href="/assets/admin/pages/css/timeline.css" rel="stylesheet"/>
   <!-- Extras -->
 <link rel="stylesheet" type="text/css" href="/assets/startup/extras/animate.css">
 <link rel="stylesheet" type="text/css" href="/assets/startup/extras/lightbox.css">
 <link rel="stylesheet" type="text/css" href="/assets/startup/extras/owl/owl.carousel.css">
 <link rel="stylesheet" type="text/css" href="/assets/startup/extras/owl/owl.theme.css">
 <link rel="stylesheet" type="text/css" href="/assets/startup/extras/owl/owl.transitions.css">
+<link href="/assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css">
 <style type="text/css">
 
 input::-webkit-input-placeholder { color:white !important; }

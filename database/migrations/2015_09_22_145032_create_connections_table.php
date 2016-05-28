@@ -18,8 +18,8 @@ class CreateConnectionsTable extends Migration {
 			$table->integer('user_id')->unsigned();
 			$table->integer('connection_user_id')->unsigned();
 			$table->integer('status')->default(0);
-			$table->foreign('user_id')->references('id')->on('indusers');
-            $table->foreign('connection_user_id')->references('id')->on('indusers');
+			$table->foreign('user_id')->references('id')->on('indusers')->onDelete('cascade');
+            $table->foreign('connection_user_id')->references('id')->on('indusers')->onDelete('cascade');
 			$table->timestamps();
 		});
 	}

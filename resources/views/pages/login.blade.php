@@ -2,7 +2,7 @@
 
 @section('content')
 
-	<div class="content" style="background-color: transparent !important;padding:0;">
+	<div class="content" style="background-color: #fdfdfd !important;padding:0;">
 
 		@include('partials.login.login')
 		@include('partials.register.register')
@@ -282,8 +282,8 @@ $('#individual-register-btn').on('click',function(event){
 	            if(data.data.otp != null && data.data.vcode != null ){
 		            $('.corporate-register-tab').hide();
 		            $('#mobile-otp-form').show();
-		            $('#ind-reg-msg').html('Registration successful ! <br/>Check your mobile/email for further OTP/verification code. <br/>');  
-		            // console.log('both');
+		            $('#ind-reg-msg').html('Registration successful ! <br/>Check your mobile/email for further instruction. <br/>Your otp: <b>'+data.data.otp+'</b> to verify mobile.');  
+	            	// console.log('both');
 
 		            $('#ind-msg-reg-box').removeClass('alert alert-danger');
 		            $('#ind-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){
@@ -310,8 +310,8 @@ $('#individual-register-btn').on('click',function(event){
 		        }else if(data.data.otp != null && data.data.vcode == null){
 		        	$('.corporate-register-tab').hide();
 		            $('#mobile-otp-form').show();
-		        	$('#ind-reg-msg').html('Registration successful ! <br/>Check your mobile for OTP. <br/>');  
-		        	// console.log('mobile');
+		        	$('#ind-reg-msg').html('Registration successful ! <br/>Check your mobile/email for further instruction. <br/>Your otp: <b>'+data.data.otp+'</b> to verify mobile.');  
+	            	// console.log('mobile');
 
 		        	$('#ind-msg-reg-box').removeClass('alert alert-danger');
 		            $('#ind-msg-reg-box').addClass('alert alert-success').fadeIn(1000, function(){

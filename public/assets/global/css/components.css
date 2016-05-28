@@ -26,9 +26,9 @@ ul,
 code,
 pre,
 li {
-  -webkit-border-radius: 0 !important;
-  -moz-border-radius: 0 !important;
-  border-radius: 0 !important;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0 ;
+  border-radius: 0;
 }
 
 /* except below bootstrap elements */
@@ -2292,27 +2292,7 @@ Customized Bootstrap Buttons
 .btn-circle {
   border-radius: 25px !important;
 }
-.btn-circlenew {
-  border-radius: 40px !important;
-  width: 70px;
-  height: 70px;
-  background-color: #fb5f61;
-  border: 5px solid lightgrey;
-}
-.btn-circlenew1 {
-  border-radius: 40px !important;
-  width: 70px;
-  height: 70px;
-  background-color: #eab124;
-  border: 5px solid lightgrey;
-}
-.btn-circlenew2 {
-  border-radius: 40px !important;
-  width: 70px;
-  height: 70px;
-  background-color: #1bb54d;
-  border: 5px solid lightgrey;
-}
+
 .btn-circle-right {
   border-radius: 0 25px 25px 0 !important;
 }
@@ -4975,7 +4955,7 @@ Portlets
 }
 .portlet.light > .portlet-title {
   padding: 0;
-  min-height: 48px;
+  min-height: 40px;
 }
 .portlet.light > .portlet-title > .caption {
   color: #666;
@@ -4991,7 +4971,7 @@ Portlets
   margin-top: 3px;
 }
 .portlet.light > .portlet-title > .caption.caption-md > .caption-subject {
-  font-size: 15px;
+  font-size: 13px;
 }
 .portlet.light > .portlet-title > .caption.caption-md > i {
   font-size: 14px;
@@ -6077,7 +6057,7 @@ Customized Bootstrap Tabs
 }
 .nav-tabs > li > a,
 .nav-pills > li > a {
-  font-size: 9px;
+  font-size: 13px;
   -webkit-border-radius: 4px 4px 0 0;
   -moz-border-radius: 4px 4px 0 0;
   -ms-border-radius: 4px 4px 0 0;

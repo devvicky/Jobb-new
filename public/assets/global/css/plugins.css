@@ -580,7 +580,7 @@ Bootstrap Wizard
 }
 .form-wizard .steps > li > a.step > .desc {
   display: inline-block;
-  font-size: 14px;
+  font-size: 12px;
   /*font-weight: 300;*/
 }
 .form-wizard .steps > li > a.step > .desc > i {
@@ -2483,7 +2483,7 @@ iCheck
   margin-left: 15px;
 }
 .icheck-inline > label:first-child {
-  margin-left: 0;
+  margin-left: 15px;
 }
 
 div[class*='icheckbox_'],

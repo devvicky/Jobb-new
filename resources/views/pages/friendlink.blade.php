@@ -1,7 +1,26 @@
 @extends('master')
 
 @section('content')
+
 @if($utype == 'ind')
+<!-- BEGIN PAGE BREADCRUMB -->
+<div class="page-bar">
+	<ul class="page-breadcrumb">
+		<li>
+			<i class="fa fa-home"></i>
+			<a href="/home">home</a>
+			<i class="fa fa-angle-right"></i>
+		</li>
+		<li>
+			<a href="/profile/ind/{{$linkName->id}}">{{$linkName->fname}} Profile</a>
+			<i class="fa fa-angle-right"></i>
+		</li>
+		<li class="active">
+			{{$linkName->fname}} Link
+		</li>
+	</ul>
+</div>
+<!-- END PAGE BREADCRUMB -->
 <div class="portlet box green col-md-7" style="margin:20px;">
 	<div class="portlet-title">
 		<div class="caption">

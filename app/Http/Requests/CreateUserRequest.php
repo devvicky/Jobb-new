@@ -27,7 +27,8 @@ class CreateUserRequest extends Request {
 			'mobile'				=>	'required_without:email|unique:indusers|numeric|min:10',
 			'password'				=>	'required|min:6|max:15|confirmed',
 			'password_confirmation' => 'required|min:6',
-			'tnc'					=> 'required'
+			'tnc'					=> 'required',
+			'g-recaptcha-response'  => 'required'
 		];
 	}
 

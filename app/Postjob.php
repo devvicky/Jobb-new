@@ -19,7 +19,6 @@ class Postjob extends Model {
 							'min_exp',
 							'max_exp', 
 							'min_sal', 
-							'max_sal', 
 							'salary_type',
 							'job_detail', 
 							'linked_skill', 
@@ -28,16 +27,17 @@ class Postjob extends Model {
 							'education', 
 							'website_redirect_url', 
 							'email_id',
-							'alt_emailid',
 							'phone',
-							'alt_phone',
 							'individual_id',
 							'reference_id',
 							'contact_person',
 							'corporate_id',
 							'unique_id',
 							'resume_required',
-							'show_contact'
+							'show_contact',
+							'about_company',
+							'job_agreement',
+							'candidate_availablity'
 						   ];
 
 	protected $appends = ['magic_match', 'job_role', 'expired', 'mypost_match'];

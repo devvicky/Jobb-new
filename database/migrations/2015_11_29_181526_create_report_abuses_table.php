@@ -20,10 +20,10 @@ class CreateReportAbusesTable extends Migration {
 			$table->string('reported_for', 255);
 			$table->integer('action_taken')->unsigned();			
 
-			$table->foreign('post_id')->references('id')->on('postjobs');
-			$table->foreign('reported_by')->references('id')->on('indusers');
+			$table->foreign('post_id')->references('id')->on('postjobs')->onDelete('cascade');
+			$table->foreign('reported_by')->references('id')->on('indusers')->onDelete('cascade');
 			$table->unique(array('post_id', 'reported_by'));
-			$table->foreign('action_taken')->references('id')->on('report_abuse_actions');
+			// $table->foreign('action_taken')->references('id')->on('report_abuse_actions')->onDelete('cascade');
 			$table->timestamps();
 		});
 	}

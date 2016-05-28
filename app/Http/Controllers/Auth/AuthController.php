@@ -55,6 +55,7 @@ class AuthController extends Controller {
     		$data['email_verify'] = 0;
 	    	$email_verify = User::where('email', '=', $request->input('email'))
 	    						->where('identifier', '=', $type)
+	    						->where('inactive', '=', 0)
 	    						->orWhere('email', '=', $request->input('email'))
 	    						->where('identifier', '=', 3)
 	    						->pluck('email_verify');
@@ -120,6 +121,7 @@ class AuthController extends Controller {
     		$data['mobile_verify'] = 0;
 	    	$mobile_verify = User::where('mobile', '=', $request->input('email'))
 	    						 ->where('identifier', '=', $type)
+	    						 ->where('inactive', '=', 0)
 	    						 ->orWhere('mobile', '=', $request->input('email'))
 	    						 ->where('identifier', '=', 3)
 	    						 ->pluck('mobile_verify');
@@ -151,7 +153,6 @@ class AuthController extends Controller {
 						$data['valid'] = 1;
 			    		$data['message'] = 'Mobile number not yet verified. Please check your mobile for OTP.';
 
-			    		// $smsMsg = "Dear User, ".$userForMobile->mobile_otp." is your OTP for mobile verification.";
 			    		$smsMsg = "Thank you for registering Jobtip.in Your One Time Password (OTP) is ".$userForMobile->mobile_otp.". TnC applied. Visit www.jobtip.in";
 			    		$data['delvStatus'] = SMS::send($mobileNumber, $smsMsg);
 
@@ -166,7 +167,6 @@ class AuthController extends Controller {
 						$data['valid'] = 1;
 			    		$data['message'] = 'OTP sent to your registered mobile number.';
 
-			    		// $smsMsg = "Dear User, ".$otp." is your OTP for mobile verification.";
 			    		$smsMsg = "Thank you for registering Jobtip.in Your One Time Password (OTP) is ".$otp.". TnC applied. Visit www.jobtip.in";
 			    		$data['delvStatus'] = SMS::send($mobileNumber, $smsMsg);
 

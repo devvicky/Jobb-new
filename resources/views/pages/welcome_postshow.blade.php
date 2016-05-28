@@ -1,4 +1,4 @@
-@extends('privacy-policy-term-condition')
+@extends('login')
 
 @section('content')
 
@@ -105,102 +105,129 @@
 		<div class="tab-pane active" id="tab_job">
 			<div class="search-classic" style="">
 				@foreach($jobPosts as $post)
-				<div class="row" style="margin:10px 0;">
-					<div class="col-md-2 col-sm-1"></div>
-					<div class="col-md-7 col-sm-10" style="border-bottom:1px solid lightgrey;background: rgba(229, 229, 229, 0.51);padding:0;">
-						<div class="col-md-2 col-sm-3 col-xs-3" style="margin: 10px 0 0 0;">
-							@if($post->induser != null && !empty($post->induser->profile_pic))
-							<img class="timeline-badge-userpic welcome-userpic-box" src="/img/profile/{{ $post->induser->profile_pic }}" title="{{ $post->induser->fname }}">
-							
-							@elseif($post->corpuser != null && !empty($post->corpuser->logo_status))
-							<img class="welcome-userpic-box" src="/img/profile/{{ $post->corpuser->logo_status }}" title="{{ $post->corpuser->firm_name }}">
-							
-							@elseif(empty($post->corpuser->logo_status) && $post->corpuser != null )
-							<img class="welcome-userpic-box" src="/assets/images/corpnew.jpg">
-							
-							@elseif(empty($post->induser->profile_pic) && $post->induser != null)
-							<img class="timeline-badge-userpic welcome-userpic-box" src="/assets/images/ab.png">
-							@endif
-						</div>
-						<div class="col-md-6 col-sm-6 col-xs-9" style="margin: 10px 0 0 0;">
-							@if($post->individual_id != null)
-							<div class="row">
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <a href="/profile/ind/{{$post->individual_id}}" class="job-name-css" style="color: ;">
-                                        {{ $post->induser->fname}} {{ $post->induser->lname}}
-                                    </a>
-                                </div> 
-                                <div class="col-md-6 col-sm-6 col-xs-6">
-                                   <a href="/login"> <button class="btn btn-xs unlink-follow-icon-css"><i class="fa fa-unlink (alias) icon-size" style="color:dimgrey;"></i> Add Link</button></a>
-                                </div>
-                                <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <i class="fa fa-clock-o job-icon-color" style="font-size: 11px;"></i> 
-                                    <small class="job-time-css" style="color:#676565 !important;">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }}</small>
-                                </div>
-                               
-                            </div>
-                            @elseif($post->corporate_id != null)
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <a href="/profile/corp/{{$post->corporate_id}}" class="job-name-css">
-                                        {{ $post->corpuser->firm_name}}
-                                    </a>
-                                </div>
-                                <div class="col-md-6 col-md-6 col-xs-12">
-                                	<span class="firm-type-left" style="margin: 2px 0;">{{ $post->corpuser->firm_type}}</span> 
-									<a href="/login"> <button class="btn btn-xs unlink-follow-icon-css" style="margin: 2px 3px;"><i class="icon-plus icon-size" style="color:dimgrey;"></i> Follow</button> </a>
-                                </div>
-                                <div class="col-md-6 col-sm-6 col-xs-8">
-                                    <i class="fa fa-clock-o job-icon-color" style="font-size: 11px;"></i> 
-                                    <small class="job-time-css" style="color:#676565 !important;">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }}</small>
-                                </div>
-                                 
-                            </div>
-                            @endif
-						</div>
-					<div class="row post-postision" style="cursor:pointer;">
-						<a href="/welcome/job/post/{{$post->unique_id}}" target="_blank">
-                        <div class="col-md-12">
-                            <div class="post-title-new capitalize" style="color:;">{{ $post->post_title }} </div>
-                        </div>
-                        @if($post->post_compname != null && $post->post_type == 'job')
-                        <div class="col-md-12">
-                            <div><small class="capitalize" style="font-size:13px;color:#676565 !important">Required at {{ $post->post_compname }}</small></div>
-                        </div>
-                            
-                        @endif
-                   	<!-- </div>
-                   	<div class="row post-postision" style=""> -->
-                                                        
-                       <div class="col-md-6 col-sm-6 col-xs-6" style="">                                 
-                        @if($post->min_exp != null)
-                        <small style="font-size:13px;color:#676565 !important"> <i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: {{ $post->min_exp}}-{{ $post->max_exp}} Yr</small>
-                        @endif
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-6 elipsis-code elipsis-city-code" style="padding:0 12px;">
-                        @if($post->city != null)
-                        <small style="font-size:13px;color:#676565 !important;"> <i class="glyphicon glyphicon-map-marker post-icon-color"></i>&nbsp;: 
-                        	{{ $post->city }}
-                        </small>
-                        @endif
-                        </div>
-                    </a>
-                    </div>
-                    <div class="row" style="border-top: 1px solid lightgrey;margin: 10px 0px 0px 0;">
-                    	<a href="/login"><div class="col-md-3 col-sm-3 col-xs-3" style="text-align:center;line-height: 2;">
-                    		<i class="fa fa-thumbs-up" style="color:darkseagreen;font-size: 20px; margin: 9px 0;"></i>
-                    	</div></a>
-                    	<a href="/login"><div class="col-md-6 col-sm-6 col-xs-6" style="text-align:center;margin: 5px 0;">
-                    		<button class="btn blue" style="padding: 2px 20px;">Apply</button>
-                    	</div></a>
-						<a href="/login"><div class="col-md-3 col-sm-3 col-xs-3" style="text-align:center;line-height: 2;">
-                    		<i class="fa fa-share-square-o" style="color:darkslateblue;font-size: 20px; margin: 9px 0;"></i>
-                    	</div></a>
-                    </div>
-				</div>
+				<div class="row post-item" style="margin: 10px 0;">
+                                        <div class="col-md-9 home-post" style="">
+                                                <div class="timeline"  style="    border: 1px solid #eee;
+    border-radius: 5px;">
+                                                        <!-- TIMELINE ITEM -->
+                                                        <div class="timeline-item time-item" itemscope itemtype="http://schema.org/Article">
+                                                                <div class="timeline-badge badge-margin">
+                                                                        @if($post->induser != null && !empty($post->induser->profile_pic))
+                                                                                <img class="timeline-badge-userpic userpic-box" src="/img/profile/{{ $post->induser->profile_pic }}" title="{{ $post->induser->fname }}">
+                                                                                
+                                                                                @elseif($post->corpuser != null && !empty($post->corpuser->logo_status))
+                                                                                <img class="" src="/img/profile/{{ $post->corpuser->logo_status }}" title="{{ $post->corpuser->firm_name }}">
+                                                                                
+                                                                                @elseif(empty($post->corpuser->logo_status) && $post->corpuser != null )
+                                                                                <img class="" src="/assets/images/corpnew.jpg">
+                                                                                
+                                                                                @elseif(empty($post->induser->profile_pic) && $post->induser != null)
+                                                                                <img class="timeline-badge-userpic userpic-box" src="/assets/images/ab.png">
+                                                                                @endif
+                                                                </div>
+                                                                <div class="timeline-body " style="background-color: white;">
+                                                                        <div class="timeline-body-head">
+                                                                                <div class="timeline-body-head-caption" style="width:100%;margin:5px;">
+                                                                                        @if($post->individual_id != null)
+                                                                                        <div class="row">
+                                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                    <a href="/profile/ind/{{$post->individual_id}}" class="post-name-css">
+                                                                        {{ $post->induser->fname}} {{ $post->induser->lname}}
+                                                                    </a>
+                                                                </div>
+                                                                <div class="col-md-4 col-sm-4 col-xs-6 elipsis-code">
+                                                                   <small class="post-time-css" itemprop="datePublished" content="{{$post->created_at}}">
+                                                                    {{ date('d M Y', strtotime($post->created_at)) }}
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                            @elseif($post->corporate_id != null)
+                                                            <div class="row">
+                                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                    <a href="/profile/corp/{{$post->corporate_id}}" class="post-name-css">
+                                                                        {{ $post->corpuser->firm_name}}
+                                                                    </a>
+                                                                </div>
+                                                                <div class="col-md-4 col-sm-4 col-xs-12 elipsis-code">
+                                                                    <small class="post-time-css" itemprop="datePublished" content="{{$post->created_at}}">
+                                                                    {{ date('d M Y', strtotime($post->created_at)) }}
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                            @endif
+                                                                                </div>
+                                                                        </div>
+                                                                </div>
+                                                                <a href="welcome/job/post/{{$post->unique_id}}">
+                                    <div class="row post-postision" style="cursor:pointer;border-top: 1px solid #e9edef;">
+                                                <div class="col-md-12">
+                                                    <div class="post-title-new capitalize">{{ $post->post_title }} ({{ $post->min_exp}} yrs) </div>
+                                                </div>
+                                                @if($post->post_compname != null && $post->post_type == 'job')
+                                                <div class="col-md-12" style="margin-top: 10px;">
+                                                    <div><small class="capitalize" style="font-size:13px;color:dimgrey !important;">{{ $post->post_compname }}&nbsp;&nbsp;&nbsp; {{ $post->city }}</small></div>
+                                                </div>
+                                                @else
+                                                <div class="col-md-12" style="margin-top: 10px;">
+                                                   <div><small class="capitalize" style="font-size:13px;color:dimgrey !important;">
+                                                            {{ $post->city }}
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                                @endif
+                                                <div class="col-md-12" style="margin-top: 10px;">
+                                                    <div class=" capitalize" itemprop="name" style="font-size:13px;color:dimgrey !important;">
+                                                                     @if($post->post_type == 'job')  <label class="label-success job-type-skill-css">{{$post->time_for}}</label> @endif                                                                                                                             
+                                                                                            <?php $skills = explode(',', $post->linked_skill); ?>
+                                                                                            @foreach($skills as $skill)
+                                                                                           <label class="label-success welcome-skill-label">
+                                                                                            {{$skill}}
+                                                                                        </label>
+                                                                                        @endforeach
+                                                                </div>
+                                                </div>
+                                                </div>
+                                                <div class="row post-postision" style="">                        
+                                                
+                                                </div>
+                                                </a>
+                                                <div class="row" style="margin: 5px 0px;">
+                                                                        <div class="col-md-12" style="margin: 3px -13px;">
+                                                                                <div class="row" style="">
+                                                                                        <div class="col-md-5 col-sm-5 col-xs-5" style="margin: 5px 0;">
+                                                                                                <div class="match" style="float: left; margin: 0px 3px;">
+                                                                                                        <a data-toggle="modal" data-mpostid="{{$post->id}}" 
+                                                                                                                class="magic-font magicmatch-posts btn btn-success magic-match-css" href="#magicmatch-posts"
+                                                                                                                 style="color: white;line-height: 1.7;text-decoration: none;">
+                                                                                                                <i class="icon-speedometer magic-font" style="font-size:12px;"></i> Magic Match
+                                                                                                        </a>
+                                                                                                </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-5 col-sm-5 col-xs-5" style="line-height: 1.9;">
+                                                                                            @if($post->post_type == 'job')
+                                                                                                <a href="/job/post/{{$post->unique_id}}" target="_blank">
+                                                                                            @endif
+                                                                                            <button class="btn btn-sm btn-primary view-detail-btn" style="border-radius: 25px !important;">View Detail</button>
+                                                                                            </a>
+                                                                                        </div>
+                                                                                        <div class="col-md-2 col-sm-2 col-xs-2" style="margin: 5px -12px;">
+                                                                                            <form action="/job/fav" method="post" id="post-fav-{{$post->id}}" data-id="{{$post->id}}">
+                                                                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                                                                <input type="hidden" name="fav_post" value="{{ $post->id }}">
 
-			</div>
-				
+                                                                                                <button class="btn fav-btn " type="button" 
+                                                                                                        style="background-color: transparent;padding:0 10px;border:0">
+                                                                                                    <i class="fa fa-star" id="fav-btn-{{$post->id}}" style="font-size: 20px;color:rgb(183, 182, 182);"></i>  
+                                                                                                </button>   
+                                                                                            </form>
+                                                                                        </div>  
+                                                                                </div>
+                                                                        </div>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                    </div>
+                            </div>
 				@endforeach
 
 			</div>
@@ -208,100 +235,122 @@
 		<div class="tab-pane active" id="tab_skill">
 			<div class="search-classic" style="">
 				@foreach($skillPosts as $post)
-				<div class="row" style="margin:10px 0;">
-					<div class="col-md-2 col-sm-1"></div>
-					<div class="col-md-7 col-sm-10" style="border-bottom:1px solid lightgrey;background: rgba(229, 229, 229, 0.51);padding:0;">
-						<div class="col-md-2 col-sm-3 col-xs-3" style="margin: 10px 0 0 0;">
-							@if($post->induser != null && !empty($post->induser->profile_pic))
-							<img class="timeline-badge-userpic welcome-userpic-box" src="/img/profile/{{ $post->induser->profile_pic }}" title="{{ $post->induser->fname }}">
-							
-							@elseif($post->corpuser != null && !empty($post->corpuser->logo_status))
-							<img class="welcome-userpic-box" src="/img/profile/{{ $post->corpuser->logo_status }}" title="{{ $post->corpuser->firm_name }}">
-							
-							@elseif(empty($post->corpuser->logo_status) && $post->corpuser != null )
-							<img class="welcome-userpic-box" src="/assets/images/corpnew.jpg">
-							
-							@elseif(empty($post->induser->profile_pic) && $post->induser != null)
-							<img class="timeline-badge-userpic welcome-userpic-box" src="/assets/images/ab.png">
-							@endif
-						</div>
-						<div class="col-md-6 col-sm-6 col-xs-9" style="margin: 10px 0 0 0;">
-							@if($post->individual_id != null)
-							<div class="row">
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <a href="/profile/ind/{{$post->individual_id}}" class="job-name-css" style="color: ;">
-                                        {{ $post->induser->fname}} {{ $post->induser->lname}}
-                                    </a>
-                                </div> 
-                                <div class="col-md-6 col-sm-6 col-xs-6">
-                                   <a href="/login"> <button class="btn btn-xs unlink-follow-icon-css"><i class="fa fa-unlink (alias) icon-size" style="color:dimgrey;"></i> Add Link</button></a>
-                                </div>
-                                <div class="col-md-6 col-sm-6 col-xs-8">
-                                    <i class="fa fa-clock-o job-icon-color" style="font-size: 11px;"></i> 
-                                    <small class="job-time-css" style="color:#676565 !important;">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }}</small>
-                                </div>
-                            </div>
-                            @elseif($post->corporate_id != null)
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <a href="/profile/corp/{{$post->corporate_id}}" class="job-name-css">
-                                        {{ $post->corpuser->firm_name}}
-                                    </a>
-                                </div>
-                                <div class="col-md-6 col-md-6 col-xs-12">
-                                	<span class="firm-type-left" style="margin: 2px 0;">{{ $post->corpuser->firm_type}}</span> 
-									  
-                                </div>
-                                <div class="col-md-6 col-sm-6 col-xs-8">
-                                    <i class="fa fa-clock-o job-icon-color" style="font-size: 11px;"></i> 
-                                    <small class="job-time-css" style="color:#676565 !important;">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }}</small>
-                                </div>
-                                 
-                            </div>
-                            @endif
-						</div>
-						<div class="row post-postision" style="cursor:pointer;">
-							<a href="/welcome/skill/post/{{$post->unique_id}}" target="_blank">
-	                        <div class="col-md-12">
-	                            <div class="post-title-new capitalize" style="color:;">{{ $post->post_title }} </div>
-	                        </div>
-	                        @if($post->post_compname != null && $post->post_type == 'job')
-	                        <div class="col-md-12">
-	                            <div><small class="capitalize" style="font-size:13px;color:#676565 !important">Required at {{ $post->post_compname }}</small></div>
-	                        </div>
-	                            
-	                        @endif
-	                   
-	                                                        
-	                       <div class="col-md-6 col-sm-6 col-xs-6" style="">                                 
-	                        @if($post->min_exp != null)
-	                        <small style="font-size:13px;color:#676565 !important"> <i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: {{ $post->min_exp}}-{{ $post->max_exp}} Yr</small>
-	                        @endif
-	                        </div>
-	                        <div class="col-md-6 col-sm-6 col-xs-6 elipsis-code elipsis-city-code" style="padding:0 12px;">
-	                        @if($post->city != null)
-	                        <small style="font-size:13px;color:#676565 !important;"> <i class="glyphicon glyphicon-map-marker post-icon-color"></i>&nbsp;: 
-	                        	{{ $post->city }}
-	                        </small>
-	                        @endif
-	                        </div>
-	                    </a>
-	                    </div>
-                    <div class="row" style="border-top: 1px solid lightgrey;margin: 10px 0px 0px 0;">
-                    	<a href="/login"><div class="col-md-3 col-sm-3 col-xs-3" style="text-align:center;line-height: 2;">
-                    		<i class="fa fa-thumbs-up" style="color:darkseagreen;font-size: 20px; margin: 9px 0;"></i>
-                    	</div></a>
-                    	<a href="/login"><div class="col-md-6 col-sm-6 col-xs-6" style="text-align:center;margin: 5px 0;">
-                    		<button class="btn green" style="padding: 2px 20px;">Contact</button>
-                    	</div></a>
-						<a href="/login"><div class="col-md-3 col-sm-3 col-xs-3" style="text-align:center;line-height: 2;">
-                    		<i class="fa fa-share-square-o" style="color:darkslateblue;font-size: 20px; margin: 9px 0;"></i>
-                    	</div></a>
-                    </div>
-				</div>
+				<div class="row post-item" style="margin: 10px 0;">
+                                        <div class="col-md-9 home-post" style="">
+                                                <div class="timeline"  style="    border: 1px solid #eee;
+    border-radius: 5px;">
+                                                        <!-- TIMELINE ITEM -->
+                                                        <div class="timeline-item time-item" itemscope itemtype="http://schema.org/Article">
+                                                                <div class="timeline-badge badge-margin">
+                                                                        @if($post->induser != null && !empty($post->induser->profile_pic))
+                                                                                <img class="timeline-badge-userpic userpic-box" src="/img/profile/{{ $post->induser->profile_pic }}" title="{{ $post->induser->fname }}">
+                                                                                
+                                                                                @elseif($post->corpuser != null && !empty($post->corpuser->logo_status))
+                                                                                <img class="" src="/img/profile/{{ $post->corpuser->logo_status }}" title="{{ $post->corpuser->firm_name }}">
+                                                                                
+                                                                                @elseif(empty($post->corpuser->logo_status) && $post->corpuser != null )
+                                                                                <img class="" src="/assets/images/corpnew.jpg">
+                                                                                
+                                                                                @elseif(empty($post->induser->profile_pic) && $post->induser != null)
+                                                                                <img class="timeline-badge-userpic userpic-box" src="/assets/images/ab.png">
+                                                                                @endif
+                                                                </div>
+                                                                <div class="timeline-body " style="background-color: white;">
+                                                                        <div class="timeline-body-head">
+                                                                                <div class="timeline-body-head-caption" style="width:100%;margin:5px;">
+                                                                                        @if($post->individual_id != null)
+                                                                                        <div class="row">
+                                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                    <a href="/profile/ind/{{$post->individual_id}}" class="post-name-css">
+                                                                        {{ $post->induser->fname}} {{ $post->induser->lname}}
+                                                                    </a>
+                                                                </div>
+                                                                <div class="col-md-4 col-sm-4 col-xs-6 elipsis-code">
+                                                                   <small class="post-time-css" itemprop="datePublished" content="{{$post->created_at}}">
+                                                                    {{ date('d M Y', strtotime($post->created_at)) }}
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                            @elseif($post->corporate_id != null)
+                                                            <div class="row">
+                                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                    <a href="/profile/corp/{{$post->corporate_id}}" class="post-name-css">
+                                                                        {{ $post->corpuser->firm_name}}
+                                                                    </a>
+                                                                </div>
+                                                                <div class="col-md-4 col-sm-4 col-xs-12 elipsis-code">
+                                                                    <small class="post-time-css" itemprop="datePublished" content="{{$post->created_at}}">
+                                                                    {{ date('d M Y', strtotime($post->created_at)) }}
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                            @endif
+                                                                                </div>
+                                                                        </div>
+                                                                </div>
+                                                                <a href="/job/post/{{$post->unique_id}}">
+                                    <div class="row post-postision" style="cursor:pointer;border-top: 1px solid #e9edef;">
+                                                <div class="col-md-12">
+                                                    <div class="post-title-new capitalize">{{ $post->post_title }} ({{ $post->min_exp}} yrs) </div>
+                                                </div>
+                                                @if($post->post_compname != null && $post->post_type == 'job')
+                                                <div class="col-md-12" style="margin-top: 10px;">
+                                                    <div><small class="capitalize" style="font-size:13px;color:dimgrey !important;">{{ $post->post_compname }}&nbsp;&nbsp;&nbsp; {{ $post->city }}</small></div>
+                                                </div>
+                                                @else
+                                                <div class="col-md-12" style="margin-top: 10px;">
+                                                   <div><small class="capitalize" style="font-size:13px;color:dimgrey !important;">
+                                                            {{ $post->city }}
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                                @endif
+                                                <div class="col-md-12" style="margin-top: 10px;">
+                                                    <div class=" capitalize" itemprop="name" style="font-size:13px;color:dimgrey !important;">
+                                                                                                                                                                                                  
+                                                                                            <?php $skills = explode(',', $post->linked_skill); ?>
+                                                                                            @foreach($skills as $skill)
+                                                                                           <label class="label-success welcome-skill-label">
+                                                                                            {{$skill}}
+                                                                                        </label>
+                                                                                        @endforeach
+                                                                </div>
+                                                </div>
+                                                </div>
+                                                <div class="row post-postision" style="">                        
+                                                
+                                                </div>
+                                                </a>
+                                                <div class="row" style="margin: 5px 0px;">
+                                                                        <div class="col-md-12" style="margin: 3px -13px;">
+                                                                                <div class="row" style="">
+                                                                                        <div class="col-md-5 col-sm-5 col-xs-5" style="margin: 5px 0;">
+                                                                                        <label class="label-success job-type-skill-css">{{$post->time_for}}</label>
+                                                                                        </div>
+                                                                                        <div class="col-md-5 col-sm-5 col-xs-5" style="line-height: 1.9;">
+                                                                                            
+                                                                                                <a href="/skill/post/{{$post->unique_id}}" target="_blank">
+                                                                                            <button class="btn btn-sm btn-primary view-detail-btn" style="border-radius: 25px !important;">View Detail</button>
+                                                                                            </a>
+                                                                                        </div>
+                                                                                        <div class="col-md-2 col-sm-2 col-xs-2" style="margin: 5px -12px;">
+                                                                                            <form action="/job/fav" method="post" id="post-fav-{{$post->id}}" data-id="{{$post->id}}">
+                                                                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                                                                <input type="hidden" name="fav_post" value="{{ $post->id }}">
 
-			</div>
-				
+                                                                                                <button class="btn fav-btn " type="button" 
+                                                                                                        style="background-color: transparent;padding:0 10px;border:0">
+                                                                                                    <i class="fa fa-star" id="fav-btn-{{$post->id}}" style="font-size: 20px;color:rgb(183, 182, 182);"></i>  
+                                                                                                </button>   
+                                                                                            </form>
+                                                                                        </div>  
+                                                                                </div>
+                                                                        </div>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                    </div>
+                            </div>
 				@endforeach
 
 			</div>

@@ -113,11 +113,17 @@ $('.like-btn').live('click', function(event) {
                 });
                 $('#like-count-' + post_id).removeClass('hide');
                 $('#like-count-' + post_id).addClass('show');
+                $('#like-button-'+post_id).addClass('blue');
+                $('#like-button-'+post_id).css({'background-color': '#2386ca !important'});
+                $('#like-button-'+post_id).css({'border-color': '#337ab7'});
                 displayToast("Thanks");
             } else if (data < $count && data != 0) {
                 $('#like-' + post_id).css({
                     'color': 'lightslategray'
                 });
+                $('#like-button-'+post_id).removeClass('blue');
+                $('#like-button-'+post_id).css({'background-color': 'transparent !important'});
+                $('#like-button-'+post_id).css({'border-color': 'lightslategray'});
                 $('#like-count-' + post_id).text(data);
                 $('#like-count-' + post_id).removeClass('hide');
                 $('#like-count-' + post_id).addClass('show');
@@ -126,6 +132,10 @@ $('.like-btn').live('click', function(event) {
                 $('#like-' + post_id).css({
                     'color': 'lightslategray'
                 });
+                $('#like-button-'+post_id).removeClass('border-css');
+                $('#like-button-'+post_id).removeClass('blue');
+                $('#like-button-'+post_id).css({'background-color': 'transparent !important'});
+                $('#like-button-'+post_id).css({'border-color': 'lightslategray'});
                 $('#like-count-' + post_id).removeClass('show');
                 $('#like-count-' + post_id).addClass('hide');
                 $('#like-count-' + post_id).text(data);
@@ -214,7 +224,7 @@ $('.link-btn').live('click', function(event) {
 
         success: function(data) {
             if(data == 'success'){
-                $(".puid-"+puid).html('<button class="btn btn-xs disabled linkrequest-follow-icon-css"><i class="icon-hourglass (alias) " style="color:#777;font-size:8px;"></i> Link Requested</button>');
+                $(".puid-"+puid).html('<a href="" class="btn btn-icon-only btn-circle grey-cascade"><i class="icon-hourglass (alias)"></i></a>');
                 $('#links-follow').modal('hide');
                 displayToast("Link Requested");
             }
@@ -435,7 +445,7 @@ function displayToast($msg) {
         align: 'center', // ('left', 'right', or 'center')
         width: 'auto', // (integer, or 'auto')
         height: 'auto',
-        // delay: 3000, // Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
+        delay: 4000, // Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
         allow_dismiss: false, // If true then will display a cross to close the popup.
         stackup_spacing: 10 // spacing between consecutively stacked growls.
     });
@@ -923,21 +933,26 @@ $('.contact-btn').live('click',function(event){
       success: function(data){
         // console.log("s:"+data);
         if(data.contacted == "contacted"){
-            $('#contact-btn-'+post_id).prop('disabled', true);
-            $('#contact-btn-'+post_id).text('Contacted');
+            $('#contact-btn-'+post_id).removeClass('green');
+            $('#contact-btn-'+post_id).addClass('green');
+            $('#contact-btn-'+post_id).prop('disabled',true);
+            var contact = '<i class="glyphicon glyphicon-ok"></i><span style="color: white !important;"> Contacted</span>';
+            $('#contact-btn-'+post_id).html(contact);
+            // $('#contact-btn-'+post_id).prop('disabled', true);
+            // $('#contact-btn-'+post_id).text('Contacted');
+            var detail_show = '<div class="col-md-12 col-sm-12 col-xs-12"><label class="detail-label" style="font-size: 11px;"><span class="required">*</span>Your contact details have been shared to post owner.</label> </div>';
+            $('contact-note-shared').html(detail_show);
             $('#show-hide-contacts').addClass('show-hide-new');
+            $('contact-note-shared').removeClass('contact-share');
+            $('#contact-note').addClass('contact-share');
+            displayToast("Your Contact details have been shared with post owner. ");
             if(data.data.show == "Public"){
-                var show = '<div class="skill-display">Contact Details : </div>';
-                show += '<div class="row"><div class="col-md-1 col-sm-6 col-xs-6"><label class="detail-label"><i class="glyphicon glyphicon-user"></i> :</label> </div>';
-                show += '<div class="col-md-9 col-sm-6 col-xs-6">'+data.data.contact+'</div></div>';
-                show += '<div class="row"><div class="col-md-1 col-sm-6 col-xs-6"><label class="detail-label"><i class="glyphicon glyphicon-envelope"></i> :</label> </div>';
-                show += '<div class="col-md-9 col-sm-6 col-xs-6">'+data.data.email+'</div></div>';                          
-                show += '<div class="row"><div class="col-md-1 col-sm-6 col-xs-6"><label class="detail-label"><i class="glyphicon glyphicon-envelope"></i> :</label></div>';
-                show += '<div class="col-md-9 col-sm-6 col-xs-6">'+data.data.phone+'</div></div>';
+                var show = '<div class="row" style="margin: 0 0 10px 0;"><div class="col-md-12 col-sm-12 col-xs-12"><label class="detail-label"><i class="fa fa-envelope" style="font-size:15px;"></i>&nbsp;&nbsp;'+data.data.email+'</label> </div></div>';
+                show += '<div class="row" style="margin: 0 0 10px 0;"><div class="col-md-12 col-sm-12 col-xs-12"><label class="detail-label"><i class="fa fa-phone-square" style="font-size:16px;"></i>&nbsp;&nbsp;'+data.data.phone+'</label> </div></div>';  
+                
                 $("#post-user-contact-"+post_id).html(show);
             }else if(data.data.show == "Private"){
-                var show = '<div class="skill-display">Contact Details : </div>';
-                show += '<div class="col-md-12 col-sm-12 col-xs-12"><label class="detail-label" style="color: #BB4E4E;font-size: 12px;">Post owner has kept contact details Private.</label></div>';
+                var show = '<div class="col-md-12 col-sm-12 col-xs-12"><label class="detail-label" style="color: #BB4E4E;font-size: 12px;">Post owner has kept contact details Private.</label></div>';
                 $("#post-user-contact-"+post_id).html(show);
             }
             
@@ -949,3 +964,45 @@ $('.contact-btn').live('click',function(event){
     }); 
     return false;
   });
+
+
+
+$(document).ready(function(){
+$('.apply-btn').live('click',function(event){         
+    event.preventDefault();
+    var post_id = $(this).parent().data('id');
+
+    var formData = $('#post-apply-'+post_id).serialize(); 
+    var formAction = $('#post-apply-'+post_id).attr('action');
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+      url: formAction,
+      type: "post",
+      data: formData,
+      cache : false,
+      success: function(data){
+        if(data == "applied"){
+            $('#apply-btn-'+post_id).prop('disabled', true);
+            $('#apply-btn-'+post_id).text('Applied');
+            $('#show-hide-contacts').addClass('show-hide-new');
+        }
+      }
+    }); 
+    return false;
+  });
+    
+
+});
+
+
+// $(document).ready(function () {
+//     $('#save').click(function (){
+//         $('.filtersave').css({'color':'#1f897f'});
+//     });
+// });

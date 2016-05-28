@@ -1,47 +1,34 @@
 @extends('master')
 
 @section('content')
-												
-<div class="row" style="margin:5px;">
-	<div class="col-md-9">
-		<label class="post-job-heading">
-			Do you know about any job openings<br>
-			Share Job Tip here for FREE !!
-		</label>	
-		<div class="portlet box" id="form_wizard_1">			
-			<div class="portlet-body form">
-				<form action="/skill/store" method="post" id="submit_form" 
+<form action="/skill/store" method="post" id="submit_form" 
 					  data-toggle="validator" role="form" class="form-horizontal">
-					<input type="hidden" name="_token" value="{{ csrf_token() }}">
+					<input type="hidden" name="_token" value="{{ csrf_token() }}">																
+<div class="row" style="margin:-5px;">
+		<div class="col-md-11" style="padding: 0;">
+		<div class="portlet box" id="form_wizard_1">			
+			<div class="portlet-body form"  style="background-color: transparent;">
+				
 					<div class="form-wizard">
 						<div class="form-body">
-							<ul class="nav nav-pills nav-justified steps">
+							<ul class="nav nav-pills nav-justified steps">							
 								<li>
 									<a href="#tab1" data-toggle="tab" class="step">
-									<!-- <span class="number">
-									1 </span> -->
-									<span class="desc">
-									<i class="fa fa-check"></i>Skill Detail </span>
-									</a>
+										<span class="desc">Skill Details</span>
+									</a>									
 								</li>
 								<li>
-									<a href="#tab2" data-toggle="tab" class="step active">
-									<!-- <span class="number">
-									3 </span> -->
-									<span class="desc">
-									<i class="fa fa-check"></i>Contact Detail</span>
-									</a>
+									<a href="#tab3" data-toggle="tab" class="step active">							
+										<span class="desc">Other Details</span>
+									</a>									
 								</li>
 								<li>
-									<a href="#tab4" data-toggle="tab" class="step">
-									<!-- <span class="number">
-									4 </span> -->
-									<span class="desc">
-									<i class="fa fa-check"></i>Confirm </span>
-									</a>
+									<a href="#tab4" data-toggle="tab" class="step">									
+										<span class="desc">Confirm Post</span>
+									</a>									
 								</li>
 							</ul>
-							<div id="bar" class="progress progress-striped" role="progressbar">
+							<div id="bar" class="progress progress-striped" role="progressbar" style="margin-bottom: -7px;">
 								<div class="progress-bar progress-bar-success"></div>
 							</div>
 							<div class="tab-content">
@@ -63,488 +50,737 @@
 									Your form validation is successful!
 								</div> -->
 								<div class="tab-pane active" id="tab1">
-									<input type="hidden" name="post_id" value"rand(11111,99999)">
 									<div class="row">
-										<div class="col-md-12">
-											<div class="form-group">
-												<div class="input-icon right">
-													<i class="fa"></i>
-													<label>Skill Title <span class="required">*</span></label>
-													<div class="input-group">
-														<span class="input-group-addon">
-															<i class="fa fa-flag" style="color:darkcyan;"></i>
-														</span>
-														<input type="text" name="post_title" class="form-control" 
-															   placeholder="Skill Title" required>
+		                                <div class="col-md-8">
+		                                    <!-- BEGIN PORTLET -->
+		                                    <div class="portlet light " style="background-color:white;">
+		                                        <div class="portlet-title">
+		                                            <div class="caption caption-md">
+		                                                <i class="icon-bar-chart theme-font hide"></i>
+		                                                <span class="caption-subject font-blue-madison bold uppercase">Skill Details</span>
+		                                            </div>
+		                                        </div>
+		                                        <div class="portlet-body">
+		                                            <div class="row">
+		                                              <div class="col-md-12">
+		                                                <div class="form-group">
+		                                                  <div class="input-icon right">
+		                                                    <i class="fa"></i>
+		                                                    <label>Skill Title <span class="required">*</span></label>
+		                                                    <div class="input-group">
+		                                                      <span class="input-group-addon">
+		                                                        <i class="fa fa-flag" style="color:darkcyan;"></i>
+		                                                      </span>
+		                                                      <input type="text" name="post_title" class="form-control" 
+		                                                           placeholder="Skill Title" required>
+		                                                    </div>
+		                                                  </div>
+		                                                </div>
+		                                              </div>
+		                                            </div>
+		                                            <div class="row">
+		                                                <div class="col-md-6 col-sm-6 col-xs-12">
+		                                                  <div class="form-group">
+		                                                    <label>Industry <span class="required">*</span>
+		                                                    </label>
+		                                                    <select class="select2me form-control" name="industry">
+		                                                      <option value="">Select</option>
+		                                                      <option value="Automotive/ Ancillaries">Automotive/ Ancillaries</option>
+		                                                      <option value="Banking/ Financial Services">Banking/ Financial Services</option>
+		                                                      <option value="Bio Technology & Life Sciences">Bio Technology & Life Sciences</option>
+		                                                      <option value="Chemicals/Petrochemicals">Chemicals/Petrochemicals</option>
+		                                                      <option value="Construction">Construction</option>
+		                                                      <option value="FMCG">FMCG</option>
+		                                                      <option value="Education">Education</option>
+		                                                      <option value="Entertainment/ Media/ Publishing">Entertainment/ Media/ Publishing</option>
+		                                                      <option value="Insurance">Insurance</option>
+		                                                      <option value="ITES/BPO">ITES/BPO</option>
+		                                                      <option value="IT/ Computers - Hardware">IT/ Computers - Hardware</option>
+		                                                      <option value="IT/ Computers - Software">IT/ Computers - Software</option>
+		                                                      <option value="KPO/Analytics">KPO/Analytics</option>
+		                                                      <option value="Machinery/ Equipment Mfg.">Machinery/ Equipment Mfg.</option>
+		                                                      <option value="Oil/ Gas/ Petroleum">Oil/ Gas/ Petroleum</option>
+		                                                      <option value="Pharmaceuticals">Pharmaceuticals</option>
+		                                                      <option value="Power/Energy">Power/Energy</option>
+		                                                      <option value="Real Estate">Real Estate</option>
+		                                                      <option value="Retailing">Retailing</option>
+		                                                      <option value="Telecom">Telecom</option>
+		                                                      <option value="Advertising/PR/Events">Advertising/PR/Events</option>
+		                                                      <option value="Agriculture/ Dairy Based">Agriculture/ Dairy Based</option>
+		                                                      <option value="Aviation/Aerospace">Aviation/Aerospace</option>
+		                                                      <option value="Beauty/Fitness/PersonalCare/SPA">Beauty/Fitness/PersonalCare/SPA</option>
+		                                                      <option value="Beverages/ Liquor">Beverages/ Liquor</option>
+		                                                      <option value="Cement">Cement</option>
+		                                                      <option value="Ceramics & Sanitary Ware">Ceramics & Sanitary Ware</option>
+		                                                      <option value="Consultancy">Consultancy</option>
+		                                                      <option value="Courier/ Freight/ Transportation">Courier/ Freight/ Transportation</option>
+		                                                      <option value="Law Enforcement/Security Services">Law Enforcement/Security Services</option>
+		                                                      <option value="E-Learning">E-Learning</option>
+		                                                      <option value="Shipping/ Marine Services">Shipping/ Marine Services</option>
+		                                                      <option value="Engineering, Procurement, Construction">Engineering, Procurement, Construction</option>
+		                                                      <option value="Environmental Service">Environmental Service</option>
+		                                                      <option value="Facility management">Facility management</option>
+		                                                      <option value="Fertilizer/ Pesticides">Fertilizer/ Pesticides</option>
+		                                                      <option value="Food & Packaged Food">Food & Packaged Food</option>
+		                                                      <option value="Textiles / Yarn / Fabrics / Garments">Textiles / Yarn / Fabrics / Garments</option>
+		                                                      <option value="Gems & Jewellery">Gems & Jewellery</option>
+		                                                      <option value="Government/ PSU/ Defence">Government/ PSU/ Defence</option>
+		                                                      <option value="Consumer Electronics/Appliances">Consumer Electronics/Appliances</option>
+		                                                      <option value="Hospitals/ Health Care">Hospitals/ Health Care</option>
+		                                                      <option value="Hotels/ Restaurant">Hotels/ Restaurant</option>
+		                                                      <option value="Import / Export">Import / Export</option>
+		                                                      <option value="Market Research">Market Research</option>
+		                                                      <option value="Medical Transcription">Medical Transcription</option>
+		                                                      <option value="Mining">Mining</option>
+		                                                      <option value="NGO">NGO</option>
+		                                                      <option value="Paper">Paper</option>
+		                                                      <option value="Printing / Packaging">Printing / Packaging</option>
+		                                                      <option value="Public Relations (PR)">Public Relations (PR)</option>
+		                                                      <option value="Travel / Tourism">Travel / Tourism</option>
+		                                                      <option value="Other">Other</option>
+		                                                  </select>
+		                                                  </div>
+		                                                </div>
+		                                                <div class="col-md-6 col-sm-6 col-xs-12">
+		                                                  <div class="form-group">
+		                                                    <label>
+		                                                      Job Role <span class="required">*</span>
+		                                                    </label>
+		                                                    <select class="select2me form-control" name="role">
+		                                                      <option value="">Select</option>
+		                                                      {{$n=""}}
+		                                                      @foreach($farearoleList as $farearole)
+		                                                      @if($n != $farearole->functional_area)
+		                                                        {{$n=$farearole->functional_area}}
+		                                                        <optgroup label="{{$farearole->functional_area}}">
+		                                                      @endif
+		                                                      <option value="{{$farearole->functional_area}}, {{$farearole->role}}">{{$farearole->role}}</option>
+		                                                      @if($n != $farearole->functional_area)
+		                                                          </optgroup>   
+		                                                        @endif
+		                                                      @endforeach
+		                                                    </select>
+		                                                  </div>
+		                                                </div>
+		                                              </div>
+		                                          <div class="row">
+		                                            <div class="col-md-6 col-sm-6 col-xs-12">
+		                                              <div class="form-group">
+		                                                <label>Search Skills</label>
+		                                                <div style="position:relative;">
+		                                                  <input type="text" name="name" id="newskill" class="form-control skill-border-css" placeholder="Search for skill...">
+		                                                  <button id="add-new-skill" class="btn btn-success skill-add-button-css" type="button"><i class="icon-plus"></i> Add</button>    
+		                                                </div>
+		                                                {!! Form::select('linked_skill_id[]', $skills, null, ['id'=>'linked_skill_id', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Skills', 'multiple']) !!}
+		                                              </div>
+		                                            </div>
+		                                            <input type="text" id="confirm-skill" name="skill" style="display:none;">
+		                                            <div class="col-md-6 col-sm-6 col-xs-6">
+		                                              <div class="form-group">              
+		                                                <label class=" control-label">Experience</label>
+		                                                <div class="input-group">
+		                                                  <select class="form-control" name="min_exp">
+		                                                    <!-- <option>Select</option> -->
+		                                                    <option value="0">0</option>
+		                                                    <option value="1">1</option>
+		                                                    <option value="2">2</option>
+		                                                    <option value="3">3</option>
+		                                                    <option value="4">4</option>
+		                                                    <option value="5">5</option>
+		                                                    <option value="6">6</option>
+		                                                    <option value="7">7</option>
+		                                                    <option value="8">8</option>
+		                                                    <option value="9">9</option>
+		                                                    <option value="10">10</option>
+		                                                    <option value="11">11</option>
+		                                                    <option value="12">12</option>
+		                                                    <option value="13">13</option>
+		                                                    <option value="14">14</option>
+		                                                    <option value="15">15</option>
+		                                                  </select>
+		                                                  <span class="input-group-addon">
+		                                                    Years
+		                                                  </span>
+		                                                </div>
+		                                              </div>
+		                                            </div>
+		                                          </div>
+		                                        </div>
+		                                    </div>
+		                                    
+		                                    <!-- END PORTLET -->
+		                                    <!-- BEGIN PORTLET -->
+		                                    <div class="portlet light " style="background-color:white;">
+		                                        <div class="portlet-title">
+		                                            <div class="caption caption-md">
+		                                                <i class="icon-bar-chart theme-font hide"></i>
+		                                                <span class="caption-subject font-blue-madison bold uppercase">Skill Description</span>
+		                                            </div>
+		                                        </div>
+		                                        <div class="portlet-body">
+		                                            <div class="row">
+		                                                <div class="col-md-12">
+		                                                    <div class="form-group">
+		                                                        <label>Roles & Responsibilities <span class="required">*</span></label>  
+		                                                        <textarea id="textarea" rows="6" class="form-control autosizeme" name="job_detail" maxlength="1000" ></textarea>
+		                                                        <div id="textarea_feedback"></div>
+		                                                    </div>
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                    <!-- END PORTLET -->
+		                                    <!-- BEGIN PORTLET -->
+		                                    <div class="portlet light " style="background-color:white;">
+		                                        <div class="portlet-title">
+		                                            <div class="caption caption-md">
+		                                                <i class="icon-bar-chart theme-font hide"></i>
+		                                                <span class="caption-subject font-blue-madison bold uppercase">Other Details</span>
+		                                            </div>
+		                                        </div>
+		                                        <div class="portlet-body">
+		                                            <div class="row">
+		                                                <div class="col-md-6 col-sm-12 col-xs-12">
+		                                                    <div class="form-group">
+		                                                        <label> Education <span class="required">
+		                                                                * </span>
+		                                                                <button type="button" class="btn btn-default" style="background-color:transparent;border:0;padding: 0;" data-toggle="tooltip" data-placement="top" title="You can select multiple Education values">
+																  			<i class="icon-info" style="color: #337ab7;font-size:15px;"></i>
+																  		</button>
+		                                                        </label> <!-- Select Multiple <input type="checkbox" id="education-check" name="multiple_education" value="1" class="form-control"> -->
+		                                                        <!-- <div class="input-group single-education" > -->
+		                                                            
+		                                                            <select class="form-control education-list" name="education[]" id="education_show" multiple style="border:1px solid #c4d5df">
+		                                                                @foreach ($education as $educ)
+		                                                                    @if($educ->branch == "-")
+		                                                                    <option value="{{$educ->name}}- -{{$educ->level}}" style="font-weight:600 !important;">{{$educ->name}}</option>
+		                                                                    @endif
+		                                                                @endforeach
+		                                                                @foreach($education as $edu)
+		                                                                    @if($n != $edu->name && $edu->name != '0' && $edu->branch != "-")
+		                                                                        {{$n=$edu->name}}
+		                                                                        <optgroup label="{{$edu->name}}">
+		                                                                    @endif
+		                                                                    @if($edu->branch != "-")
+		                                                                        <option value="{{$edu->name}}-{{$edu->branch}}-{{$edu->level}}">{{$edu->name}}-{{$edu->branch}}</option>
+		                                                                    @endif
+		                                                                    @if($n != $edu->name && $edu->branch != "-")
+		                                                                        </optgroup>     
+		                                                                    @endif
+		                                                                @endforeach
+		                                                            </select>
+		                                                        <!-- </div> -->
+		                                                    </div>
+		                                                </div>
+		                                                <div class="col-md-6 col-sm-6 col-xs-12">
+		                                                    <div class="form-group new-margin-formgroup">
+		                                                        <label>Post Duration <span class="required">
+		                                                            * </span></label>
+		                                                        <div class="input-group">
+		                                                            <span class="input-group-addon">
+		                                                            <i class="icon-clock" style=" color: darkcyan;"></i>
+		                                                            </span>
+		                                                            <select name="post_duration" class="form-control" >
+		                                                                <option value="">--select--</option>                    
+		                                                                <option value="3">3 Days</option>
+		                                                                <option value="7">7 Days</option>
+		                                                                <option value="15">15 Days</option>
+		                                                                <option value="30">30 Days</option>
+		                                                            </select>
+		                                                        </div>
+		                                                    </div>
+		                                                </div>
+		                                            </div>
+		                                            <div class="row">
+		                                                <div class="col-md-6 col-sm-6 col-xs-12">
+		                                                    <div class="form-group">
+		                                                        <label>Select Prefered Location <span class="required">
+		                                                                * </span></label>
+		                                                        <div class="input-group">
+		                                                            <span class="input-group-addon" style="border-bottom: 0;border-bottom-left-radius: 0;">
+		                                                                <i class="fa fa-map-marker"></i>
+		                                                            </span>
+
+		                                                            <input type="text" id="pref_loc" name="pref_loc" 
+		                                                            class="form-control" placeholder="Select preferred location" style="border-bottom: 0;border-bottom-left-radius: 0;border-bottom-right-radius:0;">                                   
+		                                                            
+		                                                        </div>
+		                                                        {!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 
+		                                                                                                           'aria-hidden'=>'true', 
+		                                                                                                           'class'=>'form-control', 
+		                                                                                                           'placeholder'=>'city', 
+		                                                                                                           'multiple']) !!}     
+		                                                    </div>
+		                                                </div>
+		                                                <input type="text" id="show_location" name="show-location" style="display:none;">
+		                                                <div class="col-md-6 col-sm-6 col-xs-12">
+		                                            		<div class="form-group">
+		                                                        <label class=" control-label">I am Available</label>
+		                                                        <div class="input-group">
+		                                                            <span class="input-group-addon">
+		                                                                <i class="fa fa-clock-o"></i>
+		                                                            </span>
+		                                                            <select  name="candidate_availablity" class=" form-control" style="">                                    
+			                                                            <option selected="selected" value="0">Immediate</option>
+			                                                            <option value="7">in 7 Days </option>
+			                                                            <option value="15">in 15 Days</option>
+			                                                            <option value="30">in 30 Days</option>
+			                                                            <option value="45">in 45 Days</option>
+			                                                            <option value="60">in Two Months</option> 
+			                                                            <option value="90">in Three Months</option> 
+			                                                        </select>
+		                                                        </div>
+		                                                    </div>
+		                                            	</div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                    <!-- END PORTLET -->
+		                                </div>
+		                                <div class="col-md-4" style="    margin: 7px 0 0px 0;">
+										    <div class="company-card" style="">
+										        <div class="company-card-image">
+										            <span>Posted By</span>
+										            @if(Auth::user()->induser->profile_pic != null)
+										            <a href="">
+										                <img src="/img/profile/{{ Auth::user()->induser->profile_pic }}" alt="">
+										            </a>
+										            @elseif(Auth::user()->induser->profile_pic == null)
+										            <div class=" badge-margin post-image-css">
+										                <i class="fa fa-user" style="font-size: 80px;margin: 50px 30px;color: #555;"></i> 
+										            </div>
+										            @endif
+
+										            <div class="profile-usertitle-name" style="margin-top: 10px;">
+										                {{Auth::user()->induser->fname}}
+										            </div>
+										            <div class="profile-usertitle-job">
+										                @if(Auth::user()->induser->role != null) {{Auth::user()->induser->role}} @endif 
+										            </div>
+										        </div><!-- /.company-card-image -->
+										        
+										        <div class="company-card-data">
+		                                            
+										        	<div class="row show-apply-email" style="margin:0 10px">
+												        <div class="col-md-12 ">
+													        <div class="form-group">
+													            <label>Show Contact<span class="required">
+													                    * </span></label>
+													            <div class="input-group">
+													                <div class="md-radio-inline">
+													                    <div class="md-radio">
+													                        <input type="radio" checked id="radio6" data-title="Public" name="show_contact" value="Public" class="md-radiobtn">
+													                        <label for="radio6" style="">
+													                        <span></span>
+													                        <span class="check"></span>
+													                        <span class="box" style="border: 2px solid white;"></span>
+													                        Public </label>
+													                    </div>
+													                    <div class="md-radio">
+													                        <input type="radio" id="radio7" data-title="Private" name="show_contact" value="Private" class="md-radiobtn">
+													                        <label for="radio7" style="">
+													                        <span></span>
+													                        <span class="check"></span>
+													                        <span class="box" style="border: 2px solid white;"></span>
+													                        Private</label>
+													                    </div>
+													                </div>  
+													                <div id="radio_error"></div>                    <!-- /input-group -->
+													            </div>
+													            <div class="public" style="color: rgb(255, 208, 173);font-size: 11px;">Your Contact details will be shown on the post and people may directly contact you.</div>
+													            <div class="private display-none" style="color: rgb(255, 208, 173);font-size: 11px;">Your Contact details will not be shown on the post. You may have to contact people who have applied on this post.</div>
+													        </div>
+													    </div>
 													</div>
-												</div>
-											</div>
+													<div class="row show-apply-email" style="margin:0 10px">
+										                <div class="col-md-12 col-sm-12">
+										                    <div class="form-group">
+										                        <label>Email Id</label>
+										                        <div class="input-group">
+										                        <span class="input-group-addon" style="background-color: transparent;">
+										                        <i class="icon-envelope" style="color:#29DCDC;"></i>
+										                        
+										                        </span>
+										                        <input type="text" name="email_id" value="{{ Auth::user()->email }}" class="form-control group" placeholder="Email Id" style="color: white;">
+										                        </div>
+										                    </div>
+										                </div>
+										                <!--/span-->
+										                <!-- <div class="col-md-2"></div> -->
+										                <div class="col-md-12 col-sm-12">
+										                    <div class="form-group">
+										                        <label>Phone No</label>
+										                        <div class="input-group">
+										                        <span class="input-group-addon">
+										                        <i class="icon-call-end" style="color:#29DCDC;"></i>
+										                        </span>
+										                        <input type="text" name="phone" minlength="10" maxlength="10" value="{{ Auth::user()->mobile }}"  class="form-control group" placeholder="Phone No" style="color: white;">
+										                        
+										                        </div>
+										                    </div>
+										                </div>
+										                <!--/span-->
+										            </div>
+										        </div><!-- /.company-card-data -->
+										    </div>
 										</div>
-									</div>
-									<div class="row">
-									<div class="col-md-12">
-										<div class="form-group">
-											<label>Skill Details <span class="required">*</span></label>								
-											<textarea id="textarea" rows="6" class="form-control autosizeme" name="job_detail" maxlength="1000" ></textarea>
-												<div id="textarea_feedback"></div>
-										</div>
-									</div>
-									</div>
-
-
-									<div class="row">
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="form-group">
-												<label>Industry <span class="required">*</span>
-												</label>
-												<select class="select2me form-control" name="industry">
-													<option value="">Select</option>
-			                                        <option value="Automotive/ Ancillaries">Automotive/ Ancillaries</option>
-			                                        <option value="Banking/ Financial Services">Banking/ Financial Services</option>
-			                                        <option value="Bio Technology & Life Sciences">Bio Technology & Life Sciences</option>
-			                                        <option value="Chemicals/Petrochemicals">Chemicals/Petrochemicals</option>
-			                                        <option value="Construction">Construction</option>
-			                                        <option value="FMCG">FMCG</option>
-			                                        <option value="Education">Education</option>
-			                                        <option value="Entertainment/ Media/ Publishing">Entertainment/ Media/ Publishing</option>
-			                                        <option value="Insurance">Insurance</option>
-			                                        <option value="ITES/BPO">ITES/BPO</option>
-			                                        <option value="IT/ Computers - Hardware">IT/ Computers - Hardware</option>
-			                                        <option value="IT/ Computers - Software">IT/ Computers - Software</option>
-			                                        <option value="KPO/Analytics">KPO/Analytics</option>
-			                                        <option value="Machinery/ Equipment Mfg.">Machinery/ Equipment Mfg.</option>
-			                                        <option value="Oil/ Gas/ Petroleum">Oil/ Gas/ Petroleum</option>
-			                                        <option value="Pharmaceuticals">Pharmaceuticals</option>
-			                                        <option value="Power/Energy">Power/Energy</option>
-			                                        <option value="Real Estate">Real Estate</option>
-			                                        <option value="Retailing">Retailing</option>
-			                                        <option value="Telecom">Telecom</option>
-			                                        <option value="Advertising/PR/Events">Advertising/PR/Events</option>
-			                                        <option value="Agriculture/ Dairy Based">Agriculture/ Dairy Based</option>
-			                                        <option value="Aviation/Aerospace">Aviation/Aerospace</option>
-			                                        <option value="Beauty/Fitness/PersonalCare/SPA">Beauty/Fitness/PersonalCare/SPA</option>
-			                                        <option value="Beverages/ Liquor">Beverages/ Liquor</option>
-			                                        <option value="Cement">Cement</option>
-			                                        <option value="Ceramics & Sanitary Ware">Ceramics & Sanitary Ware</option>
-			                                        <option value="Consultancy">Consultancy</option>
-			                                        <option value="Courier/ Freight/ Transportation">Courier/ Freight/ Transportation</option>
-			                                        <option value="Law Enforcement/Security Services">Law Enforcement/Security Services</option>
-			                                        <option value="E-Learning">E-Learning</option>
-			                                        <option value="Shipping/ Marine Services">Shipping/ Marine Services</option>
-			                                        <option value="Engineering, Procurement, Construction">Engineering, Procurement, Construction</option>
-			                                        <option value="Environmental Service">Environmental Service</option>
-			                                        <option value="Facility management">Facility management</option>
-			                                        <option value="Fertilizer/ Pesticides">Fertilizer/ Pesticides</option>
-			                                        <option value="Food & Packaged Food">Food & Packaged Food</option>
-			                                        <option value="Textiles / Yarn / Fabrics / Garments">Textiles / Yarn / Fabrics / Garments</option>
-			                                        <option value="Gems & Jewellery">Gems & Jewellery</option>
-			                                        <option value="Government/ PSU/ Defence">Government/ PSU/ Defence</option>
-			                                        <option value="Consumer Electronics/Appliances">Consumer Electronics/Appliances</option>
-			                                        <option value="Hospitals/ Health Care">Hospitals/ Health Care</option>
-			                                        <option value="Hotels/ Restaurant">Hotels/ Restaurant</option>
-			                                        <option value="Import / Export">Import / Export</option>
-			                                        <option value="Market Research">Market Research</option>
-			                                        <option value="Medical Transcription">Medical Transcription</option>
-			                                        <option value="Mining">Mining</option>
-			                                        <option value="NGO">NGO</option>
-			                                        <option value="Paper">Paper</option>
-			                                        <option value="Printing / Packaging">Printing / Packaging</option>
-			                                        <option value="Public Relations (PR)">Public Relations (PR)</option>
-			                                        <option value="Travel / Tourism">Travel / Tourism</option>
-			                                        <option value="Other">Other</option>
-			                                    </select>
-											</div>
-										</div>
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="form-group">
-												<label>Role <span class="required">*</span>
-												</label>
-												<select class="select2me form-control" name="role">
-													<option value="">Select</option>
-													{{$n=""}}
-													@foreach($farearoleList as $farearole)
-													@if($n != $farearole->functional_area)
-														{{$n=$farearole->functional_area}}
-														<optgroup label="{{$farearole->functional_area}}">
-													@endif
-													<option value="{{$farearole->functional_area}}, {{$farearole->role}}">{{$farearole->functional_area}}-{{$farearole->role}}</option>
-													@if($n != $farearole->functional_area)
-															</optgroup>		
-														@endif
-													@endforeach
-												</select>
-											</div>
-											
-										</div>
-									</div>
-									<input type="hidden" name="functional_area">
-
-									<!-- </select> -->
-									<div class="row">
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="form-group">
-												<label>Job Type <span class="required">
-												* </span></label>
-												<div class="input-group">
-													<span class="input-group-addon">
-														<i class="icon-hourglass" style="color:darkcyan;"></i>
-													</span>
-													<select name="time_for" class="form-control" style="z-index:0;">
-														<option value="">-- select --</option>
-														<option value="Full Time">Full Time</option>
-														<option value="Part Time">Part Time</option>
-														<option value="Freelancer">Freelancer</option>
-														<option value="Work from Home">Work from Home</option>
-													</select>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="form-group">
-												<label>Search Skills</label>
-												<div style="position:relative;">
-													<input type="text" name="name" id="newskill" class="form-control" placeholder="Search for skill...">
-													<button id="add-new-skill" style="position:absolute;right:0;top:0;" class="btn btn-success" type="button"><i class="icon-plus"></i> Add</button>		
-												</div>
-												{!! Form::select('linked_skill_id[]', $skills, null, ['id'=>'linked_skill_id', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Skills', 'multiple']) !!}
-											</div>
-										</div>
-									</div>
-									<input type="text" id="confirm-skill" name="skill" style="display:none;">
-									<div class="row">
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="form-group">
-												
-												<label>  Education <span class="required">
-														* </span></label>
-												<div class="input-group single-education" >
-													
-													<select class="form-control education-list" name="education[]" id="parent_selection" multiple style="border:1px solid #c4d5df">
-														@foreach($education as $edu)
-															@if($n != $edu->name && $edu->name != '0')
-																{{$n=$edu->name}}
-																<optgroup label="{{$edu->name}}">
-															@endif
-																<option value="{{$edu->name}}-{{$edu->branch}}-{{$edu->level}}">{{$edu->name}}-{{$edu->branch}}</option>
-															@if($n != $edu->name)
-																</optgroup>		
-															@endif
-														@endforeach
-													</select>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="form-group">							
-												<label style="font-size:13px;font-weight:500;">Experience</label> : <input readonly id="slider-range-experience" name="min_exp" class="filter-range-experience" /> Years
-												<div id="slider-range-max-skill" class="slider bg-purple">
-												</div>
-											</div>
-										</div>
-									</div>	
+		                            </div>	
 								</div>
-								<div class="tab-pane" id="tab2">
+								
+								<div class="tab-pane" id="tab3">
 									<div class="row">
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="form-group">							
-												<label class=" control-label"><input type="checkbox" checked id="hide-check"> Salary </label>&nbsp;: 
-														<label class="hide-sal input-sal-exp-label"><i class="fa fa-rupee (alias)" style="font-size:12px;"></i></label>
-														<input type="text" readonly id="slider-range-amount1" name="min_sal" class="input-sal-width hide-sal one" />
-														<!-- <input type="text" readonly id="slider-range-amount3" name="min_sal" class="input-sal-width hide-sal-new three" /> -->
-														<label class="hide-sal input-sal-exp-label">- <i class="fa fa-rupee (alias)" style="font-size:12px;"></i></label>
-														<input type="text" readonly id="slider-range-amount2" name="max_sal" class="input-sal-width hide-sal two" />
-														<!-- <input type="text" readonly id="slider-range-amount4" name="max_sal" class="input-sal-width hide-sal four" /> -->
-												<select id="salary-type"  name="salary_type" class="hide-sal-new input-sal-exp-label" style="border-top: 0px;border-left: 0;border-right: 0;width:75px">									
-													<option selected="selected" value="Monthly">Monthly</option>
-													<option value="Weekly">Weekly</option>
-													<option value="Daily">Daily</option>
-													<option value="Hourly">Hourly</option>
-													<option value="Pervisit">Per Visit</option>	
-												</select>
-												<div id="salary-old" class="hide-sal">
-													<div id="slider-range" class="slider bg-gray"></div>
-													
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="form-group">
-												<label>Select Prefered Location <span class="required">
-														* </span></label>
-												<div class="input-group">
-													<span class="input-group-addon">
-														<i class="fa fa-map-marker"></i>
-													</span>
+		                                <div class="col-md-8">
+		                                    <!-- BEGIN PORTLET -->
+		                                    <div class="portlet light " style="background-color:white;">
+		                                        <div class="portlet-title">
+		                                            <div class="caption caption-md">
+		                                                <i class="icon-bar-chart theme-font hide"></i>
+		                                                <span class="caption-subject font-blue-madison bold uppercase">Other Requirements</span>
+		                                            </div>
+		                                        </div>
+		                                        <div class="portlet-body">
+		                                            <div class="row">
+		                                                <div class="col-md-6 col-sm-6 col-xs-12">
+		                                                    <div class="form-group">
+		                                                        <label>Job Type <span class="required">
+		                                                        * </span></label>
+		                                                        <div class="input-group">
+		                                                            <span class="input-group-addon">
+		                                                                <i class="icon-hourglass" style="color:darkcyan;"></i>
+		                                                            </span>
+		                                                            <select name="time_for" class="form-control">
+		                                                                <option value="">-- select --</option>
+		                                                                <option value="Full Time">Full Time</option>
+		                                                                <option value="Part Time">Part Time</option>
+		                                                                <option value="Freelancer">Freelancer</option>
+		                                                                <option value="Work from Home">Work from Home</option>
+		                                                            </select>
+		                                                        </div>
+		                                                    </div>
+		                                                </div>
+		                                                <div class="col-md-6">
+		                                                    <label class="contro-label">Job Agreement</label>
+		                                                    <div class="form-group">
+		                                                         <div class="input-group">
+		                                                            <span class="input-group-addon">
+		                                                                <i class="fa fa-inr"></i>
+		                                                            </span>
+		                                                            <select class="form-control" name="job_agreement">
+		                                                                <option value="">Select</option>
+		                                                                <option value="Contract">Contract</option>
+		                                                                <option value="Permanent">Permanent</option>
+		                                                                <option value="One Time Project">One Time Project</option>
+		                                                            </select>
+		                                                        </div>
+		                                                    </div>
+		                                                </div>
+		                                            </div>
+		                                            <div class="row">
+		                                            	<div class="col-md-6 col-sm-6 col-xs-12">
+		                                                    <div class="form-group">
+		                                                        
+		                                                        <label class=" control-label"> Salary</label>
+		                                                        <div class="input-group">
+		                                                            <span class="input-group-addon">
+		                                                                <i class="fa fa-rupee (alias)"></i>
+		                                                            </span>
+		                                                            <input class="form-control" name="min_sal" id="minsal" style="width:60%;">
+		                                                            <select id="salary-type"  name="salary_type" class="input-sal-exp-label form-control" style="border-left:0;width:40%">                                    
+			                                                            <option selected="selected" value="Monthly">Monthly</option>
+			                                                            <option value="Weekly">Weekly</option>
+			                                                            <option value="Daily">Daily</option>
+			                                                            <option value="Hourly">Hourly</option>
+			                                                            <option value="Pervisit">Per Visit</option> 
+			                                                        </select>
+		                                                        </div>
+		                                                    </div>
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                    <!-- END PORTLET -->
+		                                    <!-- BEGIN PORTLET -->
+		                                    <div class="portlet light " style="background-color:white;">
+		                                      <div class="portlet-title">
+		                                        <div class="caption caption-md">
+		                                          <i class="icon-bar-chart theme-font hide"></i>
+		                                          <span class="caption-subject font-blue-madison bold uppercase">Your Details</span>
+		                                        </div>
+		                                      </div>
+		                                        <div class="portlet-body">
+		                                            <div class="row">
+		                                                <div class="col-md-12">
+		                                                    <div class="form-group">
+		                                                        <label>About Me</label>
+		                                                        <textarea id="textareas" rows="6" class="form-control autosizeme" name="about_company" maxlength="1000" >
+		                                                        	@if(Auth::user()->identifier == 1 && Auth::user()->induser->about_individual != null)
+		                                                        		{{Auth::user()->induser->about_individual}}
+		                                                        	@endif
+		                                                        </textarea>
+		                                                        <div id="textarea_feedback"></div>
+		                                                    </div>
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                    <!-- END PORTLET -->
+		                                </div>
+		                                <div class="col-md-4" style="    margin: 7px 0 0px 0;">
+										    <div class="company-card" style="background-color: white;">
+										        <div class="company-card-image">
+										            <span>Posted By</span>
+										            @if(Auth::user()->induser->profile_pic != null)
+										            <a href="">
+										                <img src="/img/profile/{{ Auth::user()->induser->profile_pic }}" alt="">
+										            </a>
+										            @elseif(Auth::user()->induser->profile_pic == null)
+										            <div class=" badge-margin post-image-css">
+										                <i class="fa fa-user" style="font-size: 65px;margin: 40px 29px;color: lightgray;"></i> 
+										            </div>
+										            @endif
 
-													<input type="text" id="pref_loc" name="pref_loc" 
-													class="form-control" placeholder="Select preferred location">									
-													
-												</div>	
-												{!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 
-																								   'aria-hidden'=>'true', 
-																								   'class'=>'form-control', 
-																								   'placeholder'=>'city', 
-																								   'multiple']) !!}	
-											</div>
+										            <div class="profile-usertitle-name" style="margin-top: 10px;">
+										                {{Auth::user()->induser->fname}}
+										            </div>
+										            <div class="profile-usertitle-job">
+										                @if(Auth::user()->induser->role != null) {{Auth::user()->induser->role}} @endif 
+										            </div>
+										        </div><!-- /.company-card-image -->
+										        
+										        <div class="company-card-data">
+										        	<div class="row show-apply-email" style="margin:0 10px">
+												        <div class="col-md-12 ">
+													        <div class="form-group">
+													            <label>Show Contact:</label>
+													            <p class="form-control-static-msg" data-display-msg="show_contact"></p>
+													            
+													        </div>
+													    </div>
+													</div>
+													<div class="row show-apply-email" style="margin:0 10px">
+										                <div class="col-md-12 col-sm-12">
+										                    <div class="form-group">
+										                        <label>Email Id: </label>
+										                         <p class="form-control-static-msg" data-display-msg="email_id"></p>
+										                    </div>
+										                </div>
+										                <!--/span-->
+										                <!-- <div class="col-md-2"></div> -->
+										                <div class="col-md-12 col-sm-12">
+										                    <div class="form-group">
+										                        <label>Phone No: </label>
+										                         <p class="form-control-static-msg" data-display-msg="phone"></p>
+										                    </div>
+										                </div>
+										                <!--/span-->
+										            </div>
+										        </div><!-- /.company-card-data -->
+										    </div>
 										</div>
-										
-										<input type="text" id="show_location" name="show-location" style="display:none;">
-										<div class="col-md-6 show-apply-email">
-											<div class="form-group">
-												<label>Show Contact<span class="required">
-														* </span></label>
-												<div class="input-group">
-													<div class="md-radio-inline">
-														<div class="md-radio">
-															<input type="radio" checked id="radio6" name="show_contact" value="Public" class="md-radiobtn">
-															<label for="radio6" style="">
-															<span></span>
-															<span class="check"></span>
-															<span class="box"></span>
-															Public </label>
-														</div>
-														<div class="md-radio">
-															<input type="radio" id="radio7" name="show_contact" value="Private" class="md-radiobtn">
-															<label for="radio7" style="">
-															<span></span>
-															<span class="check"></span>
-															<span class="box"></span>
-															Private</label>
-														</div>
-													</div>	
-													<div id="radio_error"></div>					<!-- /input-group -->
-												</div>
-												<div class="public" style="color: firebrick;font-size: 11px;">Your Contact details will be seen on the post and people may directly contact you.</div>
-												<div class="private display-none" style="color: firebrick;font-size: 11px;">Your Contact details will not be seen on the post. You may have to contact people who have applied on this post.</div>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="form-group new-margin-formgroup">
-												<label>Post Duration <span class="required">
-													* </span></label>
-												<div class="input-group">
-													<span class="input-group-addon">
-													<i class="icon-clock" style=" color: darkcyan;"></i>
-													</span>
-													<select name="post_duration" class="form-control" >
-														<option value="">--select--</option>					
-														<option value="90">3 Months</option>
-														<option value="180">6 Months</option>
-														<option value="270">9 Months</option>
-													</select>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="form-group">
-												<label>Contact Person</label>
-												<div class="input-group">
-												<span class="input-group-addon">
-												<i class="glyphicon glyphicon-user" style="color:darkcyan;"></i>
-												</span>
-												<input type="text" name="contact_person" value="{{ Auth::user()->name }}" class="form-control" placeholder="Contact Person">
-												</div>
-											</div>
-										</div>
-									</div>
-									
-									<div class="row">
-									<!-- <div class="show-apply"> -->
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="form-group">
-												<label>Email Id (Registered)</label>
-												<div class="input-group">
-												<span class="input-group-addon">
-												<i class="icon-envelope" style="color:darkcyan;"></i>
-												</span>
-												<input type="text" name="email_id" value="{{ Auth::user()->email }}" class="form-control group" placeholder="">
-												
-												</div>
-											</div>
-										</div>
-										<!--/span-->
-										<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="form-group">
-												<label>Phone No (Registered)</label>
-												<div class="input-group">
-												<span class="input-group-addon">
-												<i class="icon-call-end" style="color:darkcyan;"></i>
-												</span>
-												<input type="text" name="phone" value="{{ Auth::user()->mobile }}"  class="form-control group" placeholder="">
-												
-												</div>
-											</div>
-										</div>
-										<!--/span-->	
-									<!-- </div> -->
-								</div>
-									<div class="form-group">
-									
-									</div>
+		                            </div>
 								</div>
 								<div class="tab-pane" id="tab4">
 									
 									<input type="hidden" name="post_type">
 										<div class="form-body">
-											
-
-											<div class="row">	
-											  	<div class="col-md-12"><hr style="margin:0 0 15px 0"></div>
-											</div>
-											
 											<div class="row">																				
-												<div class="col-md-12" style="padding:0;">												
-														<div class="timeline" style="padding:0;">
-														<!-- TIMELINE ITEM -->
-														<div class="timeline-item time-item" style="box-shadow:0 0 !important;">
-															<div class="timeline-body" style="margin: 0;">
-																<div class="timeline-body-content col-md-7" style="margin: 0px 15px 20px;">
-																	<div style="font-weight: 600;color: black;font-size: 16px;">
-																		<p class="form-control-static" data-display="post_title"></p>
-																	</div>
-																	<div>
-																	 	<div> 
-																	 		<h4 style="font-weight: 400; margin: -5px 0;"> 
-																	 			<p class="form-control-static" data-display="post_compname"></p> 
-																	 		</h4>
-																	 	</div>  
-																	</div>     
-			                                                         <div class="row">
-			                                                            <div class="row">
-			                                                            
-				                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-				                                                                    <label class="detail-label"> Experience : </label>     
-				                                                            </div>
-				                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-																						<p class="form-control-static" data-display="min_exp" style="margin: -5px 0;"></p> Years  
-				                                                            </div>
-				                                                        </div>
-				                                                        <div class="row">
-				                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-				                                                                <label class="detail-label">Education :</label>     
-				                                                            </div>
-				                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-				                                                                <p class="form-control-static" data-display="education[]" style="margin: -5px 0;"></p>
-				                                                            </div>
-				                                                        </div>
-			                                                            <div class="row"> 
-			                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-			                                                                        <label class="detail-label">Skills :</label>                                                                  
-			                                                                </div>
-			                                                               <!--  -->
-			                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                 
-			                                                                        <p class="form-control-static" data-display="skill" style="margin: -5px 0;"></p>
-			                                                                </div>
-			                                                            </div>
-			                                                            <div class="row"> 
-			                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-			                                                                        <label class="detail-label">Industry :</label>                                                                  
-			                                                                </div>
-			                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-			                                                                        <p class="form-control-static" data-display="industry" style="margin: -5px 0;"></p>
-			                                                                </div>
-			                                                            </div>
-			                                                            <div class="row"> 
-			                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-			                                                                        <label class="detail-label">Job Role :</label>                                                                  
-			                                                                </div>
-			                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-			                                                                        <p class="form-control-static" data-display="role" style="margin: -5px 0;"></p>
-			                                                                </div>
-			                                                            </div>
-			                                                            <div class="row"> 
-			                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-			                                                                        <label class="detail-label">Job Type :</label>                                                                  
-			                                                                </div>
-			                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-			                                                                        <p class="form-control-static" data-display="time_for" style="margin: -5px 0;"></p>
-			                                                                </div>
-			                                                            </div>
-			                                                             <div class="row show-salary">
-			                                                                <div class="col-md-6 col-sm-6 col-xs-6">
-			                                                                        <label class="detail-label">Salary (<i class="fa fa-rupee (alias)"></i>):</label>
-			                                                                </div>
-			                                                                <div class="col-md-6 col-sm-6 col-xs-6">
-			                                                                        <p class="form-control-static" data-display="min_sal"></p>-<p class="form-control-static" data-display="max_sal"></p> <p class="form-control-static" data-display="salary_type"></p>
-			                                                                </div>
-			                                                            </div>
-			                                                            <div class="row"> 
-			                                                                
-			                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-			                                                                        <label class="detail-label">Prefered Location :</label>                                                                  
-			                                                                </div>
-			                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-			                                                                         <p class="form-control-static" data-display="show-location" style="margin: -5px 0;"></p>
-			                                                                </div>
-			                                                            </div>
-			                                                            
-			                                                            <div class="skill-display">Description : </div>
-			                                                            	<p class="form-control-static" data-display="job_detail"></p>
-
-			                                                            <!-- <div class="">Reference Id&nbsp;:<p class="form-control-static" data-display="reference_id"></p> </div>  -->
-
-																	
-																	<div >Post Duration: <p class="form-control-static" data-display="post_duration"></p></div>
-																	<div class="skill-display">Contact Details:<br> </div>
-																	<label class="show-apply">Apply on Company Website:<p class="form-control-static" data-display="website_redirect_url"></p></label><br>
-																	<div id="con" class="show-apply-email" style="margin: -25px 0;">
-																	<i class="icon-user" style="color:darkslategrey;font-size: 16px;"></i> : <p class="form-control-static" data-display="contact_person"></p><br>
-																			
-																		<i class="glyphicon glyphicon-envelope" style="color: #13B8D4;font-size: 16px;"></i>&nbsp;:<p class="form-control-static" data-display="email_id"></p>
-																		 
-																	<br>
-																		<i class="glyphicon glyphicon-earphone" style="color: green;font-size: 16px;"></i>&nbsp;:<p class="form-control-static" data-display="phone"></p>
-																		</div> 
-																	<!-- <div class="skill-display" style="margin: 25px 0;">Post Id&nbsp;: Null (Auto generated after submit.) </div>  -->
-																</div>		
-																
+												<div class="col-md-8" style="padding:0;">
+													<!-- BEGIN PORTLET -->
+													
+													<!-- END PORTLET -->
+													<!-- BEGIN PORTLET -->
+													<!-- <div class="portlet light " style="background-color:white;">
+														<div class="portlet-title">
+															<div class="caption caption-md">
+																<i class="icon-bar-chart theme-font hide"></i>
+																<span class="caption-subject font-blue-madison bold uppercase">Change Password</span>
 															</div>
-															
 														</div>
+														<div class="portlet-body">
+															<a  href="#change-password" data-toggle="modal" class="btn btn-sm green-haze">
+																	Change </a>
+														</div>
+													</div> -->
+													<!-- END PORTLET -->
+													<!-- BEGIN PORTLET -->
+										            <div class="portlet light " style="">
+										                <!-- <div class="portlet-title">
+										                    <div class="caption caption-md">
+										                        <i class="icon-bar-chart theme-font hide"></i>
+										                        <span class="caption-subject font-blue-madison bold uppercase">Portlet</span>
+										                    </div>
+										                </div> -->
+										                <div class="portlet-body">
+										                    <div class="table-scrollable" style="border: 0;margin: -8px 0 0px 0 !important;">
+										                        <table class="table table-bordered table-bordered-detail table-hover">
+										                            <tbody>
+										                                <tr class="table-row-bg" style="border-top:0;">
+										                                    <td style="border-top:0;">
+										                                         Industry
+										                                    </td>
+										                                    <td style="border-top:0;">
+										                                         <p class="form-control-static" data-display="industry" style="margin: -5px 0;"></p>
+										                                    </td>
+										                                    
+										                                </tr>
+										                                <tr class="table-row-bg">
+										                                    <td>
+										                                         Functional Area & Role
+										                                    </td>
+										                                    <td>
+										                                         <p class="form-control-static" data-display="role" style="margin: -5px 0;"></p>
+										                                    </td>
+										                                   
+										                                </tr>
+										                                <tr class="table-row-bg">
+										                                    <td>
+										                                         Education
+										                                    </td>
+										                                    <td>
+										                                         <p class="form-control-static" data-display="education[]" style="margin: -5px 0;"></p>
+										                                    </td>
+										                                    
+										                                </tr>
+										                                <tr class="table-row-bg">
+										                                    <td>
+										                                         Skill
+										                                    </td>
+										                                    <td>
+										                                         <p class="form-control-static" data-display="skill" style="margin: -5px 0;"></p>
+										                                    </td>
+										                                </tr>
+										                                <tr class="table-row-bg">
+										                                    <td>
+										                                         Job Type
+										                                    </td>
+										                                    <td>
+										                                         <p class="form-control-static" data-display="time_for"></p>
+										                                    </td>
+										                                </tr>
+										                                <tr class="table-row-bg">
+										                                    <td>
+										                                         Salary
+										                                    </td>
+										                                    <td>
+										                                         <p class="form-control-static" data-display="min_sal"></p> (<p class="form-control-static" data-display="salary_type"></p>)
+										                                    </td>
+										                                </tr>
+										                            </tbody>
+										                        </table>
+										                    </div>
+										                </div>
+										            </div>
+										            <!-- END PORTLET -->
+		                                            <!-- BEGIN PORTLET -->
+										            <div class="portlet light " style="background-color:white;">
+										                <div class="portlet-title">
+										                    <div class="caption caption-md">
+										                        <i class="icon-bar-chart theme-font hide"></i>
+										                        <span class="caption-subject font-blue-madison bold uppercase">Description</span>
+										                    </div>
+										                </div>
+										                <div class="portlet-body">
+										                    <p class="form-control-static" data-display="job_detail"></p>
+										                </div>
+										            </div>
+										            <!-- END PORTLET -->
+										            <!-- BEGIN PORTLET -->
+										            <div class="portlet light " style="background-color:white;">
+										                <div class="portlet-title">
+										                    <div class="caption caption-md">
+										                        <i class="icon-bar-chart theme-font hide"></i>
+										                        <span class="caption-subject font-blue-madison bold uppercase">About Compnay</span>
+										                    </div>
+										                </div>
+										                <div class="portlet-body">
+										                	<p class="form-control-static" data-display="post_compname" style="font-size:16px;"></p><br/>
+										                	Reference Id - <p class="form-control-static" data-display="reference_id"></p><br/>
+										                    Details - <p class="form-control-static" data-display="about_company"></p>
+										                </div>
+										            </div>
+										            <!-- END PORTLET -->		
+													<div class="g-recaptcha" data-sitekey="{{ env('RE_CAP_SITE') }}" style="float: none;margin: 7px auto;display: table;"></div>	
+												</div>
+												<div class="col-md-4" style="    margin: 7px 0 0px 0;">
+												    <div class="company-card" style="background-color: white;">
+												        <div class="company-card-image">
+												            <span>Posted By</span>
+												            @if(Auth::user()->induser->profile_pic != null)
+												            <a href="">
+												                <img src="/img/profile/{{ Auth::user()->induser->profile_pic }}" alt="">
+												            </a>
+												            @elseif(Auth::user()->induser->profile_pic == null)
+												            <div class=" badge-margin post-image-css">
+												                <i class="fa fa-user" style="font-size: 65px;margin: 40px 29px;color: lightgray;"></i> 
+												            </div>
+												            @endif
 
-														<!-- END TIMELINE ITEM -->
-													</div>
-												</div>	
-												
-												<!-- END TIMELINE ITEM -->
-											
+												            <div class="profile-usertitle-name" style="margin-top: 10px;">
+												                {{Auth::user()->induser->fname}}
+												            </div>
+												            <div class="profile-usertitle-job">
+												                @if(Auth::user()->induser->role != null) {{Auth::user()->induser->role}} @endif 
+												            </div>
+												        </div><!-- /.company-card-image -->
+												        
+												        <div class="company-card-data">
+												        	
+												        	<div class="row show-apply-email" style="margin:0 10px">
+														        <div class="col-md-12 ">
+															        <div class="form-group">
+															            <label>Show Contact: <span class="required">
+															                    * </span></label>
+															            <p class="form-control-static" data-display="show_contact"></p>
+															            
+															        </div>
+															    </div>
+															</div>
+															<div class="row show-apply-email" style="margin:0 10px">
+												                <div class="col-md-12 col-sm-12">
+												                    <div class="form-group">
+												                        <label>Email Id: </label>
+												                         <p class="form-control-static" data-display="email_id"></p>
+												                    </div>
+												                </div>
+												                <!--/span-->
+												                <!-- <div class="col-md-2"></div> -->
+												                <div class="col-md-12 col-sm-12">
+												                    <div class="form-group">
+												                        <label>Phone No: </label>
+												                         <p class="form-control-static" data-display="phone"></p>
+												                    </div>
+												                </div>
+												                <!--/span-->
+												            </div>
+												        </div><!-- /.company-card-data -->
+												    </div>
+												</div>
 											</div>
-														
-													
-													<!-- END FORM-->
-													
-										
+										</div>
 									</div>
+								</div>
+							<div class="form-actions">
+								<div style="margin: auto;display: table;">
+									<a href="javascript:;" class="btn default button-previous">
+										<i class="m-icon-swapleft"></i> Back 
+									</a>
+									<a href="javascript:;" class="btn blue button-next">
+										Continue <i class="m-icon-swapright m-icon-white"></i>
+									</a>
+									<!-- <a href="javascript:;" class="btn green ">
+									Submit <i class="m-icon-swapright m-icon-white"></i>
+									</a> -->
+									<button type="submit" class=" btn blue button-submit">Submit</button>
 								</div>
 							</div>
 						</div>
-						<div class="form-actions">
-							<div style="margin: auto;display: table;">
-								<a href="javascript:;" class="btn default button-previous">
-									<i class="m-icon-swapleft"></i> Back 
-								</a>
-								<a href="javascript:;" class="btn blue button-next">
-									Continue <i class="m-icon-swapright m-icon-white"></i>
-								</a>
-								<!-- <a href="javascript:;" class="btn green ">
-								Submit <i class="m-icon-swapright m-icon-white"></i>
-								</a> -->
-								<button type="submit" class=" btn blue button-submit">Submit</button>
-							</div>
-						</div>
 					</div>
-				</form>
-			</div>
 		</div>
 	</div>
 </div>
 
-
+</div>
+</form>
 <div id="loader" style="display:none;z-index:9999;background:white" class="page-loading">
 	<img src="/assets/loader.gif"><span> Please wait...</span>
 </div>
@@ -554,10 +790,21 @@
 
 @section('javascript')
 <script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+});
+</script>
 <script type="text/javascript">
-$(".education-list").select2({
+	$(".education-list").select2({
 	  placeholder: "Select education"
 	});
+
+	$("#linked_skill_id").select2({
+	  placeholder: "No Added Skill"
+	});
+
     // preferred loc
 	var prefLocationArray = [];
 
@@ -630,7 +877,7 @@ $(".education-list").select2({
 		  	}else if(selectedLoc != '' && locality == '' && city != '' && state != ''){
 		  		selectedLoc = selectedLoc + ', ' + city +"-"+ state;
 		  	}
-
+		  	
 		  	document.getElementById('show_location').value = selectedLoc;
 
 		  	setTimeout(function(){ prefLoc.val(''); prefLoc.focus();},0);	// clear field
@@ -647,6 +894,21 @@ $(".education-list").select2({
    google.maps.event.addDomListener(window, 'load', initPrefLoc);
 
 </script>
+<script type="text/javascript">
+
+// 	$('#education_show').on('change', function(){
+// 	var education = document.getElementById('education_show').value;
+// 	console.log(education);
+// 		if(education == ''){
+// 			education = ', ';
+// 		}else{
+// 			education = education + ', ';
+// 		}
+		
+// 	document.getElementById('confirm-education').value = education;
+
+// });
+</script>
 <script>
 jQuery(document).ready(function() {       
 	ComponentsIonSliders.init();  
@@ -659,18 +921,7 @@ jQuery(document).ready(function() {
 </script>
 
 <script type="text/javascript">
- $(document).ready(function() {
-var text_max = 1000;
-$('#textarea_feedback').html(text_max + ' characters remaining');
-
-$('#textarea').keyup(function() {
-    var text_length = $('#textarea').val().length;
-    var text_remaining = text_max - text_length;
-
-    $('#textarea_feedback').html(text_remaining + ' characters remaining');
-});
-
-});
+ 
 </script>
 <script>
     $(document).ready(function () {
@@ -693,55 +944,26 @@ function loader(arg){
     }
 }
 
-// Experience slider
-    
-    $("#slider-range-max-skill").slider({
-        isRTL: Metronic.isRTL(),
-        range: "max",
-        min: 0,
-        max: 15,
-        step: 1,
-        slide: function (event, ui) {
-             $("#slider-range-experience").val(ui.value);   
-        }
-    });
-    $("#slider-range-experience").val($("#slider-range-max-skill").slider("value"));
+$(document).ready(function() {
+var text_max = 1000;
+$('#textarea_feedback').html(text_max + ' characters remaining');
 
-// $(document).ready(function () {
-// $('#salary-new').hide();
-// $('.three').hide();
-// $('.four').hide();
-// toggleFields();
-// $('#salary-type').change(function () {
-// toggleFields();
-// });
-// });
-// function toggleFields() {
-// if ($('#salary-type').val() == 'Daily' || $('#salary-type').val() == 'Hourly' || $('#salary-type').val() == 'Pervisit'){
-// $('#salary-new').show();
-// $('#salary-old').hide();
-// $('.one').hide();
-// $('.two').hide();
-// $('.three').show();
-// $('.four').show();
-// }else{
-// $('#salary-new').hide();
-// $('#salary-old').show();
-// $('.one').show();
-// $('.two').show();
-// $('.three').hide();
-// $('.four').hide();
-// }
-// }
+$('#textarea').keyup(function() {
+    var text_length = $('#textarea').val().length;
+    var text_remaining = text_max - text_length;
 
+    $('#textarea_feedback').html(text_remaining + ' characters remaining');
+});
+
+});
 
 
 	function countChar(val) {
 		var len = val.value.length;
-		if (len >= 1000) {
-			val.value = val.value.substring(0, 1000);
+		if (len >= 500) {
+			val.value = val.value.substring(0, 500);
 		} else {
-			$('#charNum').text(1000 - len);
+			$('#charNum').text(500 - len);
 		}
 	};
    
@@ -822,6 +1044,7 @@ function loader(arg){
             }
         });
     });
+
         $(function () {
         $("#resume-check").click(function () {
             if ($(this).is(":checked")) {
@@ -840,29 +1063,33 @@ function loader(arg){
         $("#hide-apply").click(function () {
             if ($(this).is(":checked")) {
                 $(".show-apply").show();
+                $(".apply-here").show();
                 $(".show-apply-email").hide();
                  
             } else {
                 $(".show-apply-email").show();
                 $(".show-apply").hide();
+                $(".apply-here").hide();
             }
         });
     });
-        
-	  $(document).ready(function () {
-     	$('.show-far').hide();
-	    jQuery('.hide-far').on('click', function(event) {
-		    jQuery('.show-far').show();
-		    jQuery('.hide-role').hide();
-	    });
 
-	    jQuery('.back-role').on('click', function(event) {
-		    jQuery('.show-far').hide();
-		    jQuery('.hide-role').show();
-	    });
-	});
+    $(function () {
+	 	$(".multiple-education").hide();
+        $("#education-check").click(function () {
+            if ($(this).is(":checked")) {
+                $(".multiple-education").show();
+                $(".single-education").hide();
+                 
+            } else {
+               
+                $(".single-education").show();
+                 $(".multiple-education").hide();
+            }
+        });
+    });
 
-	  $(function () {
+    $(function () {
         $("#radio7").click(function () {
             if ($(this).is(":checked")) {
                 $(".private").show();
@@ -878,6 +1105,20 @@ function loader(arg){
             }
         });
     });
+	  
+
+	  $(document).ready(function () {
+     	$('.show-far').hide();
+	    jQuery('.hide-far').on('click', function(event) {
+		    jQuery('.show-far').show();
+		    jQuery('.hide-role').hide();
+	    });
+
+	    jQuery('.back-role').on('click', function(event) {
+		    jQuery('.show-far').hide();
+		    jQuery('.hide-role').show();
+	    });
+	});
 
     $('#connections').select2({
     placeholder: "Enter Name"
@@ -1140,5 +1381,4 @@ $gotit = [];
         }
     }); 
 </script>
-
 @stop

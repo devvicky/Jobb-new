@@ -167,7 +167,7 @@ Page Header
 /* Page sidebar */
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover,
 .page-sidebar {
-  background-color: #20404A;
+  background-color: white;
   /* Default sidebar */
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu,
@@ -177,14 +177,14 @@ Page Header
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a,
 .page-sidebar .page-sidebar-menu > li > a {
-  border-top: 1px solid #536372;
-  color: #f2f4f6;
+  /*border-top: 1px solid #536372;*/
+  color: #337ab7;
 }
 @media (max-width: 991px) {
   .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a,
   .page-sidebar .page-sidebar-menu > li > a {
     /* 991px */
-    border-top: 1px solid #5e7081;
+    /*border-top: 1px solid #5e7081;*/
   }
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a > i,
@@ -205,8 +205,8 @@ Page Header
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li:hover > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.open > a,
 .page-sidebar .page-sidebar-menu > li:hover > a,
 .page-sidebar .page-sidebar-menu > li.open > a {
-  background: #20404A;
-  color: white;
+      color: #f3565d;
+    background: #FDECEC;
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li:hover > a > i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.open > a > i,
 .page-sidebar .page-sidebar-menu > li:hover > a > i,
@@ -223,13 +223,13 @@ Page Header
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active.open > a,
 .page-sidebar .page-sidebar-menu > li.active > a,
 .page-sidebar .page-sidebar-menu > li.active.open > a {
-  background:#20404A;
-  color: white;
+  background: white;
+    color: #f3565d;
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a:hover, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active.open > a:hover,
 .page-sidebar .page-sidebar-menu > li.active > a:hover,
 .page-sidebar .page-sidebar-menu > li.active.open > a:hover {
-  background: #20404A;
+  background: white;
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a > i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active.open > a > i,
 .page-sidebar .page-sidebar-menu > li.active > a > i,
@@ -358,7 +358,7 @@ Page Footer
     
   }
   .page-boxed .page-container {
-    background-color: #20404A;
+    background-color: white;
   }
   .page-boxed.page-sidebar-reversed .page-container {
     border-left: 0;

@@ -253,7 +253,7 @@ Login page
   }
 
   .login .content {
-    width: 312px;
+    width: 300px;
     /*margin-top: 10px;*/
   }
 .login .contentP {
@@ -280,6 +280,21 @@ Login page
   
  
   
+}
+
+.page-header .page-header-top .top-menu-login {
+    margin: 13px 0 0;
+    padding: 0;
+    float: right;
+}
+
+@media (max-width: 480px){
+  .page-header .page-header-top .top-menu-login {
+    display: block;
+    clear: both;
+        margin-top: -20px;
+    margin-right: 65px;
+}
 }
 
 

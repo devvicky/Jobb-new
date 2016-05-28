@@ -19,9 +19,9 @@ class CreatePostUserTaggingsTable extends Migration {
             $table->integer('user_id')->unsigned();
             $table->string('mode', 50);
             $table->integer('tag_share_by')->unsigned();
-            $table->foreign('post_id')->references('id')->on('postjobs');
-            $table->foreign('user_id')->references('id')->on('indusers');
-            $table->foreign('tag_share_by')->references('id')->on('indusers');
+            $table->foreign('post_id')->references('id')->on('postjobs')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('indusers')->onDelete('cascade');
+            $table->foreign('tag_share_by')->references('id')->on('indusers')->onDelete('cascade');
 			$table->timestamps();
 		});
 	}

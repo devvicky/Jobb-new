@@ -2,6 +2,7 @@
 use Input;
 use App\Postjob;
 use App\Contact_us;
+use App\feedback_welcome;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
@@ -77,14 +78,15 @@ class WelcomeController extends Controller {
 		// return $jobPosts;
 	}
 
-	public function postDetails(){		
+	public function postDetails(){	
+		$title = 'Post_details';	
 			$post = Postjob::with('indUser', 'corpUser', 'postActivity')->where('id', '=', Input::get('postid'))->first();
 			
-			return view('pages.welcome_postdetails', compact('post'));
+			return view('pages.welcome_postdetails', compact('post', 'title'));
 			// return $post;
 	}
 
-	public function contactUs(Request $request){
+	public function contactsUs(Request $request){
 		$contact = new Contact_us();
 		$contact->name = $request['name'];
 		$contact->email = $request['email'];
@@ -94,7 +96,19 @@ class WelcomeController extends Controller {
 		return redirect('/');
 	}
 
+	public function contactUs(Request $request){
+		$contact = new Contact_us();
+		$contact->name = $request['name'];
+		$contact->email = $request['email'];
+		$contact->phone = $request['phone'];
+		$contact->message = $request['message'];
+		$contact->save();
+
+		return response()->json(['success'=>'success']);
+	}
+
 	public function welcomeJobPost($id){
+		$title = 'Post_details';
 		$post = Postjob::orderBy('id', 'desc')
 						   ->with('indUser', 'corpUser')
 						   ->where('unique_id', '=', $id)
@@ -103,10 +117,11 @@ class WelcomeController extends Controller {
 			$post = $post->first();
 		}
 
-		return view('pages.welcome_postdetails', compact('post'));
+		return view('pages.welcome_postdetails', compact('post', 'title'));
 	}
 
 	public function welcomeSkillPost($id){
+		$title = 'Post_details';
 		$post = Postjob::orderBy('id', 'desc')
 						   ->with('indUser', 'corpUser')
 						   ->where('unique_id', '=', $id)
@@ -115,7 +130,62 @@ class WelcomeController extends Controller {
 			$post = $post->first();
 		}
 
-		return view('pages.welcome_postdetails', compact('post'));
+		return view('pages.welcome_postdetails', compact('post', 'title'));
+	}
+
+	public function feedbackWelcome()
+	{
+		$title = 'Feedback';
+		return view('pages.feedback_welcome', compact('title'));
+	}
+
+	public function feedbackWelcomeStore(){
+		$feedback = new Feedback_welcome();
+		$feedback->email_id = Input::get('experience');
+		$feedback->experience = Input::get('experience');
+		$feedback->usability = Input::get('usability');
+		$feedback->comments = Input::get('comments');
+		$feedback->promotion = Input::get('promotion');
+		$feedback->device_info = Input::get('device_info');
+		if(Input::get('concerns') != null){
+			$feedback->concerns = implode(', ', Input::get('concerns'));
+		}
+		$feedback->refer = Input::get('refer');
+		$feedback->save();
+
+
+		return redirect('/feedback/welcome')->withErrors([
+						'errors' => 'Thank You for your valuable Feedback.',
+					]);
+	}
+
+	public function subscribeEmail(){
+		$subscribe = new Induser();
+		$name = explode('@', Input::get('email'));
+		$subscribe->email = Input::get('email');
+		$subscribe->fname = $name[0];
+		if(Input::get('email') != null){
+			$vcode = 'A'.rand(1111,9999);
+			$subscribe->email_vcode = $vcode;
+		}
+		$subscribe->save();
+
+		$subscribeUser = new User();
+		$subscribeUser->email = Input::get('email');
+		if(Input::get('email') != null){
+			$vcode = 'A'.rand(1111,9999);
+			$subscribeUser->email_vcode = $vcode;
+		}
+		
+		$subscribe->save();
+		if(Input::get('email')!= null){
+				$email = Input::get('email');
+				$fname = $name[0];
+				$vcode = Induser::where('email', '=', Input::get('email'))->pluck('email_vcode');
+				Mail::send('emails.welcome', array('fname'=>$fname, 'vcode'=>$vcode), function($message) use ($email,$fname){
+			        $message->to($email, $fname)->subject('Welcome to Jobtip!')->from('admin@jobtip.in', 'JobTip');
+			    });
+			}
 	}
 	
 }

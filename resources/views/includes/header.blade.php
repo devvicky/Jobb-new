@@ -10,7 +10,7 @@
     <!-- END LOGO -->
     <!-- BEGIN RESPONSIVE MENU TOGGLER -->
     <a href="javascript:;" class="menu-toggler responsive-toggler toggle-display" data-toggle="collapse" data-target=".navbar-collapse">
-      <i class="fa fa-bars" style="color: #B9D649;"></i>
+      <i class="fa fa-bars" style="color: #eeeeee;"></i>
     </a>
     <!-- END RESPONSIVE MENU TOGGLER -->
     <!-- BEGIN PAGE ACTIONS -->
@@ -33,9 +33,9 @@
           <li class="dropdown dropdown-extended dropdown-inbox notification-icon"  id="header_inbox_bar">
             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"  data-close-others="true">
             @if($notificationsCount == 0)
-            <i class="icon-bell icon-color"></i>
+            <i class="icon-bell icon-color" style="font-size:17px;"></i>
             @elseif($notificationsCount > 0)
-            <i class="icon-bell" style="color: #3DF9A2;font-size:20px;"></i>
+            <i class="icon-bell" style="color: #3DF9A2;font-size:17px;"></i>
             @endif
             <span class="badge badge-notification badge-default @if($notificationsCount > 0) show @else hide @endif" style="background-color: lightcoral !important;">{{$notificationsCount}}</span>
             </a>
@@ -129,9 +129,9 @@
           <li class="dropdown dropdown-extended dropdown-inbox thank-fav-icon" id="header_inbox_bar">
             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"  data-close-others="true">
             @if($thanksCount > 0)
-            <i class="icon-like" style="color: #CBF9CB; font-size:20px !important;"></i>
+            <i class="icon-like" style="color: #CBF9CB; font-size:17px !important;"></i>
             @elseif($thanksCount == 0)
-            <i class="icon-like icon-color" ></i>
+            <i class="icon-like icon-color" style="font-size:17px !important;"></i>
             @endif
             <span class="badge badge-default badge-thanks  @if($thanksCount > 0) show @else hide @endif" id="like-count" style="background-color:lightcoral !important;">{{$thanksCount}}</span>
             </a>
@@ -186,9 +186,9 @@
           <li class="dropdown dropdown-extended dropdown-tasks thank-fav-icon" id="header_task_bar">
             <a href="/favourite" data-utype="fav" class="dropdown-toggle @if($title == 'notify_view'){{'active'}}@endif"  data-close-others="true">
                @if(count($favourites) > 0)
-              <i class="icon-star" style="color: #F7D672; font-size:20px !important;"></i>
+              <i class="icon-star" style="color: #F7D672; font-size:17px !important;"></i>
               @elseif(count($favourites) == 0)
-              <i class="icon-star icon-color" ></i>
+              <i class="icon-star icon-color" style="font-size:17px !important;"></i>
               @endif
                             
               <span class="myfavcount badge badge-favourite badge-default @if(count($favourites) > 0) show @else hide @endif" 
@@ -205,15 +205,14 @@
           
           <!-- END USER LOGIN DROPDOWN -->
         </ul>
-        <div class="btn-group" style="margin: 0px 17px;float:right">
-          <a class="btn btn-circle" style="background-color:#45b6af !important;color:white;" 
-          data-toggle="modal" href="#job-skill-post">
-             Post
-          </a>
-      </div>
+        <div class="btn-group post-ad-header" style="margin: 0px 17px;float:right">
+            <a class="btn post-button" data-toggle="modal" href="#job-skill-post">
+               Post Free Ad
+            </a>
+        </div>
       </div>
       <!-- Search -->
-      <form class="search-form search-form-expanded" action="/search/" method="GET">
+      <form class="search-form search-form-expanded" id="header-search" action="/search/" method="GET">
         <div class="input-group search-input-box">
           <input type="text" class="form-control search-field" 
                  placeholder="Search..." name="query" pattern=".{3,}" required title="3 characters minimum"

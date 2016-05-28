@@ -116,11 +116,89 @@ class ViewpageController extends Controller {
 			$title = 'indprofile_edit';
 			$user = User::where('id', '=', Auth::user()->id)->with('induser')->first();
 			$skills = Skills::lists('name', 'name');
-
+			$thanks = Postactivity::with('user', 'post')
+							      ->join('postjobs', 'postjobs.id', '=', 'postactivities.post_id')
+								  ->where('postjobs.individual_id', '=', Auth::user()->induser_id)
+								  ->where('postjobs.inactive', '=', 0)
+								  ->where('postactivities.thanks', '=', 1)
+							      ->orderBy('postactivities.id', 'desc')
+							      ->sum('postactivities.thanks');
+			$posts = Postjob::where('individual_id', '=', Auth::user()->induser_id)->count('id');
+			$linksCount = Connections::where('user_id', '=', Auth::user()->induser_id)
+								->where('status', '=', 1)
+								->orWhere('connection_user_id', '=', Auth::user()->induser_id)
+								->where('status', '=', 1)
+								->count('id');
 			$educationList = Education::orderBy('level')->orderBy('name')->where('name', '!=', '0')->get();
 			$location = Induser::where('id', '=', Auth::user()->induser_id)->first(['prefered_location']);
 			$farearoleList = Functional_area_role_mapping::orderBy('id')->get();
-			return view('pages.professional_page', compact('user', 'title', 'skills', 'educationList', 'location', 'farearoleList'));
+
+			$acc_id = "";
+			$profilePer = 0;
+				if(Auth::user()->induser->fname != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->lname != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->email != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->mobile != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->dob != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->city != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->fb_page != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->in_page != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->gender != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->about_individual != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->education != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->experience != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->working_status != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->working_at != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->role != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->linked_skill != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->resume != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->prefered_location != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->prefered_jobtype != null){
+					$profilePer = $profilePer + 1;
+				}
+				if(Auth::user()->induser->profile_pic != null){
+					$profilePer = $profilePer + 1;
+				}
+
+				$profilePer = round(($profilePer/20)*100) ;
+
+			return view('pages.professional_page', compact('user', 'acc_id', 'title', 'skills', 'educationList', 'location', 'farearoleList', 'thanks', 'linksCount', 'posts', 'profilePer'));
 		}else if(Auth::user()->identifier == 2){
 			$title = 'corpprofile_edit';
 			$user = User::where('id', '=', Auth::user()->id)->with('corpuser')->first();

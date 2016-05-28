@@ -28,6 +28,7 @@ New Profile Page
   -webkit-border-radius: 50% !important;
   -moz-border-radius: 50% !important;
   border-radius: 50% !important;
+  display: table;
 }
 
 .profile-usertitle {
@@ -135,14 +136,14 @@ New Profile Page
 }
 
 .profile-desc-link i {
-  width: 22px;
-  font-size: 19px;
+  /*width: 22px;*/
+  font-size: 12px !important;
   color: #abb6c4;
   margin-right: 5px;
 }
 
 .profile-desc-link a {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
   color: #5b9bd1;
 }

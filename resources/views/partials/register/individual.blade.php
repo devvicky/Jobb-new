@@ -119,7 +119,9 @@
 				   placeholder="Re-Type Password">
 			</div>
 		</div>
-	</div>														
+	</div>		
+	<div id="example1" style="float: none;margin: 15px auto;display: table;"></div>
+	<!-- <div class="g-recaptcha" data-sitekey="{{ env('RE_CAP_SITE') }}" style="float: none;margin: 15px auto;display: table;"></div>													 -->
 	<div class="form-group margin-top-20 margin-bottom-20">
 		<label style="font-size: 13px;color: #827E7E !important;">
 			<input type="checkbox" checked id="t-n-c" name="tnc"/> I agree to the 
@@ -128,38 +130,7 @@
 		</label>
 		<div id="register_tnc_error"></div>
 	</div>
-	<div id="recaptcha_widget" class="form-recaptcha" style="margin: 15px 0px;">
-		<div class="form-recaptcha-img" style="width: 325px">
-			<a id="recaptcha_image" href="javascript:;">
-			</a>
-			<div class="recaptcha_only_if_incorrect_sol display-none" style="color:red">
-				 Incorrect please try again
-			</div>
-		</div>
-		<div class="input-group" style="width: 325px">
-			<input type="text" class="form-control" id="recaptcha_response_field" name="recaptcha_response_field">
-			<div class="input-group-btn">
-				<a class="btn default" href="javascript:Recaptcha.reload()">
-				<i class="fa fa-refresh"></i>
-				</a>
-				<a class="btn default recaptcha_only_if_image" href="javascript:Recaptcha.switch_type('audio')">
-				<i title="Get an audio CAPTCHA" class="fa fa-headphones"></i>
-				</a>
-				<a class="btn default recaptcha_only_if_audio" href="javascript:Recaptcha.switch_type('image')">
-				<i title="Get an image CAPTCHA" class="fa fa-picture-o"></i>
-				</a>
-				<a class="btn default" href="javascript:Recaptcha.showhelp()">
-				<i class="fa fa-question-circle"></i>
-				</a>
-			</div>
-		</div>
-		<p class="help-block">
-			<span class="recaptcha_only_if_image">
-			Enter the words above </span>
-			<span class="recaptcha_only_if_audio">
-			Enter the numbers you hear </span>
-		</p>
-	</div>									
+									
 	<div class="form-actions" style="border-bottom: 0 !important;">
 		<label id="register-back-btn" 
 			   style="position: absolute; right: 36px;bottom: 12px; font-weight:400;color:#7B7B7B;cursor: pointer;font-size:15px;">

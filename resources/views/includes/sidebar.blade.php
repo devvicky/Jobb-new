@@ -22,165 +22,150 @@
   <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
 
   <div class="page-sidebar navbar-collapse collapse " >
-   <div class="navigation-bar"><a href="javascript:;" id="mobile-nav" class="menu-toggler responsive-toggler toggle-disp" data-toggle="collapse" data-target=".navbar-collapse">
+  <!--  <div class="navigation-bar"><a href="javascript:;" id="mobile-nav" class="menu-toggler responsive-toggler toggle-disp" data-toggle="collapse" data-target=".navbar-collapse">
       <i class="fa fa-bars" style="font-size: 18px;"></i>
     </a>
-  </div>
-   <div class="row  nav-thank-fav" id="nav-than-fav">
-      <div class="col-md-4 col-sm-4 col-xs-4">
-        <a href="/notify/thanks/@if(Auth::user()->identifier==1){{'ind'}}@elseif(Auth::user()->identifier==2){{'corp'}}@endif/{{Auth::user()->induser_id}}{{Auth::user()->corpuser_id}}" data-utype="thank"
-         class="icon-btn @if($title == 'notify_view'){{'active'}}@endif" style="border: 0 !important;background-color: transparent !important;min-width:55px !important;">
-          @if($thanksCount > 0)
-          <i class="icon-like" style="color: #CBF9CB; font-size:20px !important;"></i>
-          @elseif($thanksCount == 0)
-          <i class="icon-like icon-color" ></i>
-          @endif
-          <div style="color: whitesmoke;">
-             Thanks
-          </div>
-          <span class="badge badge-danger badge-thanks @if($thanksCount > 0) show @else hide @endif" style="background-color:lightcoral;right:8px !important;">
-          {{$thanksCount}}</span>
-        </a>
-      </div>
-      <div class="col-md-4 col-sm-4 col-xs-4">
-        <a href="/favourite" class="icon-btn" style="border: 0 !important;background-color: transparent !important;">
-          <i class="icon-star" style="color:#F7D672;font-size:20px"></i>
-          <div style="color: whitesmoke;">
-           Favourites
-          </div>
-
-          <span class="myfavcount badge badge-favourite badge-default @if(count($favourites) > 0) show @else hide @endif" 
-                id="myfavcount" style="background-color:lightcoral;right:15px !important;">{{count($favourites)}}
-          </span>
-        </a>
-      </div>
-    </div>
+  </div> -->
+   
     <!-- BEGIN SIDEBAR MENU1 -->
     <ul class="page-sidebar-menu page-sidebar-menu-compact page-sidebar-menu-hover-submenu thank-fav-icon-disp" data-slide-speed="200"  data-auto-scroll="false" data-slide-speed="200">
       
           <!-- BEGIN USER LOGIN DROPDOWN -->
-      <li >
-        <div class="user-short-detail-container">
-           @if(Auth::user()->identifier == 1)
-          <div class="profile-userpic user-image">
-            @if($session_user->reg_via == 'facebook')
-              <img src="{{ $session_user->avatar }}" style="width:150px"/>
-            @elseif($session_user->reg_via == 'google')
-              <img src="{{ $session_user->avatar }}0" style="width:150px"/>
-            @else
-            <a id="ajax-demo" href="#profile-pic" data-toggle="modal" class="config">
-                @if($session_user->profile_pic == null && $session_user->fname != null)
-                  <div class="hover-image"><i class="fa fa-camera"></i> Add</div>
-                @endif      
-                @if($session_user->profile_pic != null)
-                  <img src="/img/profile/{{ $session_user->profile_pic }}" class="demo" data-name="{{$session_user->fname}}">
-                  <div class="hover-image"><i class="glyphicon glyphicon-edit"></i>Edit</div>
+      <li style="margin: 20px 0 10px 0;">
+          <div class="btn-group post-ad-button" style="margin: 0 2px;">
+              <a class="btn post-button" data-toggle="modal" href="#job-skill-post" style="padding: 5px 49.5px;">
+                 Post Free Ad
+              </a>
+          </div>
+      </li>
+      <li style="margin:3px;">
+        <div class="user-short-detail-container sidebar-image-box" style="width: 189px;">
+          <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-4">
+              @if(Auth::user()->identifier == 1)
+              <div class="profile-userpic user-image">
+                @if($session_user->reg_via == 'facebook')
+                  <img src="{{ $session_user->avatar }}" style="width:150px"/>
+                @elseif($session_user->reg_via == 'google')
+                  <img src="{{ $session_user->avatar }}0" style="width:150px"/>
+                @else
+                <a id="ajax-demo" href="#profile-pic" data-toggle="modal" class="config">
+                    @if($session_user->profile_pic == null && $session_user->fname != null)
+                      <div class="hover-image"><i class="fa fa-camera"></i> Add</div>
+                    @endif      
+                    @if($session_user->profile_pic != null)
+                      <img src="/img/profile/{{ $session_user->profile_pic }}" class="">
+                      <div class="hover-image"><i class="glyphicon glyphicon-edit"></i>Edit</div>
+                    @else
+                      <img src="/img/profile/{{ $session_user->profile_pic }}" class="demo-new" data-name="{{$session_user->fname}}">
+                      <div class="hover-image"><i class="glyphicon glyphicon-edit"></i>Edit</div>
+                    @endif
+                </a>
                 @endif
-            </a>
-            @endif
 
-          </div>
+              </div>
 
-          <!-- <div-> id="g1" class="gauge"></div>
-          <div style="font-size: 10px;margin: -15px 12px 0px;float: right;">Profile Complete</div> -->
-          @else
-          <div class="profile-userpic-corp user-image">
-            <a id="ajax-demo" href="#profile-pic" data-toggle="modal" class="config">
-                @if($session_user->logo_status == null && $session_user->firm_name != null)
-                  <div class="hover-image">Add</div>
-                @endif
-                @if($session_user->logo_status != null)
-                  <img src="/img/profile/{{ $session_user->logo_status }}">
-                  <div class="hover-image"><i class="glyphicon glyphicon-edit"></i>Edit</div>
-                @endif       
-            </a>
-          </div>
-          <div style="margin: 10px 0 -15px 0;"> 
-              <label style="font-size:12px;">
-             <span class="badge badge-default @if($followCount > 0) show @else hide @endif" style="font-weight:500;background-color: transparent !important;border:1px solid white;">
-              {{$followCount}} Followers </span></label>
-          </div>
-          @endif
-          <h3 class="form-title user-name">
-            @if(Auth::user()->identifier == 1)
-           <a style="color: #56D2FA;text-decoration:none;font-size:15px;" href="/profile/ind/{{$session_user->id}}" data-utype="ind"> 
-            {{ $session_user->fname }} {{ $session_user->lname }} </a>&nbsp;
-            
-            @else
-            <a style="color: #56D2FA;text-decoration:none;font-size:14px;" class="" href="/profile/corp/{{$session_user->id}}" data-utype="corp"> 
-             {{ $session_user->firm_name }} 
-            </a>
-            @endif
-          </h3>
-          @if(Auth::user()->identifier == 1)
-            @if($session_user->working_status == "Student" && $session_user->education != null)
-            <div class="profile-usertitle-job">
-              
-               Student, {{ $session_user->city }}
-            </div>
-            @elseif($session_user->working_status == "Searching Job")
-            <div class="profile-usertitle-job">
-               {{ $session_user->working_status }}, {{ $session_user->city }}
-            </div>
-            @elseif($session_user->working_status == "Freelanching")
-            <div class="profile-usertitle-job">
-              @if($session_user->role != null)
-               {{ $session_user->role }} {{ $session_user->working_status }}, {{ $session_user->city }}
+              <!-- <div-> id="g1" class="gauge"></div>
+              <div style="font-size: 10px;margin: -15px 12px 0px;float: right;">Profile Complete</div> -->
+              @else
+              <div class="profile-userpic-corp user-image">
+                <a id="ajax-demo" href="#profile-pic" data-toggle="modal" class="config">
+                    @if($session_user->logo_status == null && $session_user->firm_name != null)
+                      <div class="hover-image">Add</div>
+                    @endif
+                    @if($session_user->logo_status != null)
+                      <img src="/img/profile/{{ $session_user->logo_status }}">
+                      <div class="hover-image"><i class="glyphicon glyphicon-edit"></i>Edit</div>
+                    @endif       
+                </a>
+              </div>
+              <div style="margin: 10px 0 -15px 0;"> 
+                  <label style="font-size:12px;">
+                 <span class="badge badge-default @if($followCount > 0) show @else hide @endif" style="font-weight:500;background-color: transparent !important;border:1px solid white;">
+                  {{$followCount}} Followers </span></label>
+              </div>
               @endif
             </div>
-            @elseif($session_user->role != null && $session_user->working_at !=null && $session_user->working_status == "Working")
-            <div class="profile-usertitle-job">
+            <div class="col-md-8 col-sm-8 col-xs-8">
+              <h3 class="form-title user-name">
+                @if(Auth::user()->identifier == 1)
+               <a style="color: #13B0E2;text-decoration: none;font-size: 16px;font-weight: 500;" href="/profile/ind/{{$session_user->id}}" data-utype="ind"> 
+                {{ $session_user->fname }} </a>&nbsp;
+                
+                @else
+                <a style="color: #13B0E2;text-decoration: none;font-size: 16px;font-weight: 500;" class="" href="/profile/corp/{{$session_user->id}}" data-utype="corp"> 
+                 {{ $session_user->firm_name }} 
+                </a>
+                @endif
+              </h3>
+              @if(Auth::user()->identifier == 1)
+                @if($session_user->working_status == "Student" && $session_user->education != null)
+                <div class="profile-usertitle-job">
+                  
+                   Student
+                </div>
+                @elseif($session_user->working_status == "Searching Job")
+                <div class="profile-usertitle-job">
+                   {{ $session_user->working_status }}
+                </div>
+                @elseif($session_user->working_status == "Freelanching")
+                <div class="profile-usertitle-job">
+                  @if($session_user->role != null)
+                   {{ $session_user->role }}
+                  @endif
+                </div>
+                @elseif($session_user->role != null && $session_user->working_at !=null && $session_user->working_status == "Working")
+                <div class="profile-usertitle-job">
 
-              @if($session_user->role != null)
-               {{ $session_user->role }} @ {{ $session_user->working_at }} 
-               @endif
+                  @if($session_user->role != null)
+                   {{ $session_user->role }} 
+                   @endif
+                </div>
+                @elseif($session_user->role != null && $session_user->working_at ==null && $session_user->working_status == "Working")
+                <div class="profile-usertitle-job">
+                  @if($session_user->role != null)
+                   {{ $session_user->role }}
+                   @endif
+                </div>
+                @elseif($session_user->role == null && $session_user->working_at !=null && $session_user->working_status == "Working")
+                <div class="profile-usertitle-job">
+                   {{ $session_user->woring_at }}
+                </div>
+                @endif
+              @endif
             </div>
-            @elseif($session_user->role != null && $session_user->working_at ==null && $session_user->working_status == "Working")
-            <div class="profile-usertitle-job">
-              @if($session_user->role != null)
-               {{ $session_user->role }}, {{ $session_user->city }}
-               @endif
+            <div class="col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
+              @if($profilePer <= 25)
+              <div class="progress" style="margin: 3px;border-radius: 13px !important;height:10px;background-color: #ddd;">
+                <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" style="width:{{$profilePer}}%;color:black;">
+                  
+                </div>
+              </div>
+              <label style="font-size:12px;color:#777;"> {{$profilePer}}% Profile Complete</label>
+              @elseif($profilePer > 25 && $profilePer <=50)
+             <div class="progress" style="margin: 3px;border-radius: 13px !important;height:10px;background-color: #ddd;">
+                <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" style="width:{{$profilePer}}%;color:black;">
+                  
+                </div>
+              </div>
+              <label style="font-size:12px;color:#777;"> {{$profilePer}}% Profile Complete</label>
+              @elseif($profilePer > 50 && $profilePer <=75)
+              <div class="progress" style="margin: 3px;border-radius: 13px !important;height:10px;background-color: #ddd;">
+                <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" style="width:{{$profilePer}}%;color:black;">
+                  
+                </div>
+              </div>
+               <label style="font-size:12px;color:#777;"> {{$profilePer}}% Profile Complete</label>
+              @elseif($profilePer > 75)
+              <div class="progress" style="margin: 3px;border-radius: 13px !important;height:10px;background-color: #ddd;">
+                <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" style="width:{{$profilePer}}%;color:black;background-color: #27D8CD;">
+                   
+                </div>
+              </div>
+              <label style="font-size:12px;color:#777;"> {{$profilePer}}% Profile Complete</label>
+              @endif
             </div>
-            @elseif($session_user->role == null && $session_user->working_at !=null && $session_user->working_status == "Working")
-            <div class="profile-usertitle-job">
-               {{ $session_user->woring_at }}, {{ $session_user->city }}
-            </div>
-            @elseif($session_user->role == null && $session_user->working_at ==null && $session_user->working_status == "Working")
-            <div class="profile-usertitle-job">
-               {{ $session_user->prof_category }}, {{ $session_user->city }}
-            </div>
-            @endif
-          @endif
-         @if($profilePer <= 25)
-          <div class="progress" style="margin: 3px;border-radius: 13px !important;height:10px;">
-            <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" style="width:{{$profilePer}}%;color:black;">
-              
-            </div>
-          </div>
-           {{$profilePer}}% Profile Complete
-          @elseif($profilePer > 25 && $profilePer <=50)
-         <div class="progress" style="margin: 3px;border-radius: 13px !important;height:10px;">
-            <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" style="width:{{$profilePer}}%;color:black;">
-              
-            </div>
-          </div>
-           {{$profilePer}}% Profile Complete
-          @elseif($profilePer > 50 && $profilePer <=75)
-          <div class="progress" style="margin: 3px;border-radius: 13px !important;height:10px;">
-            <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" style="width:{{$profilePer}}%;color:black;">
-              
-            </div>
-          </div>
-           {{$profilePer}}% Profile Complete
-          @elseif($profilePer > 75)
-          <div class="progress" style="margin: 3px;border-radius: 13px !important;height:10px;">
-            <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" style="width:{{$profilePer}}%;color:black;background-color: #27D8CD;">
-               
-            </div>
-          </div>
-          {{$profilePer}}% Profile Complete
-          @endif
-          
+          </div> 
         </div>
       </li>
       @if (Auth::user()->identifier == 1)
@@ -193,7 +178,7 @@
         </span>
         </a>
       </li>
-      <li class="">
+      <li class="@if($title == 'indprofile_edit'){{'active'}}@endif">
         <a class="" href="/individual/edit">
         <i class="icon-link"></i>
         <span class="title">
@@ -222,7 +207,7 @@
         </span>
         </a>
       </li>
-      <li class="">
+      <li class="@if($title == 'corpprofile_edit'){{'active'}}@endif">
         <a class="" href="/corporate/edit">
         <i class="icon-link"></i>
         <span class="title">
@@ -243,7 +228,7 @@
       @endif
       @if (Auth::user()->identifier == 1)
       
-      <li class="@if($title == 'connections'){{'active'}}@endif">
+      <li class="@if($title == 'links'){{'active'}}@endif">
         <a class="" href="/links">
         <i class="icon-link"></i>
         <span class="title">
@@ -276,95 +261,23 @@
       @endif
       
       @if (Auth::user()->identifier == 1 || Auth::user()->identifier == 2)
-      <li>
-        <a href="/home">
-        <i class="icon-eye"></i>
-        <span class="title">
-        Related Jobs </span>
-        <span class="selected">
+      <li class="@if($title == 'feedback'){{'active'}}@endif">
+        <a href="/feedback/create">
+              <i class="icon-star"></i>&nbsp;Feedback
+              <span class="selected">
         </span>
-        
-        </a>
-        <!-- <ul class="sub-menu">
-          <li>
-            <a class="ajaxify" href="layout_ajax_content_2.html">
-            Ajax Link Sample 1 </a>
-          </li>
-          <li>
-            <a class="ajaxify" href="layout_ajax_content_3.html">
-            Ajax Link Sample 2 </a>
-          </li>
-          <li>
-            <a class="ajaxify" href="layout_ajax_content_2.html">
-            Ajax Link Sample 3 </a>
-          </li>
-          <li>
-            <a class="ajaxify" href="layout_ajax_content_3.html">
-            Ajax Link Sample 4 </a>
-          </li>
-        </ul> -->
+            </a>
+
       </li>
-      <!-- <li>
-        <a href="javascript:;">
-        <i class="icon-shuffle"></i>
-        <span class="title">
-        Community </span>
-        <span class="selected">
-        </span>
-        
-        </a>
-        <ul class="sub-menu">
-          <li>
-            <a class="ajaxify" href="layout_ajax_content_2.html">
-            Ajax Link Sample 1 </a>
-          </li>
-          <li>
-            <a class="ajaxify" href="layout_ajax_content_3.html">
-            Ajax Link Sample 2 </a>
-          </li>
-          <li>
-            <a class="ajaxify" href="layout_ajax_content_2.html">
-            Ajax Link Sample 3 </a>
-          </li>
-          <li>
-            <a class="ajaxify" href="layout_ajax_content_3.html">
-            Ajax Link Sample 4 </a>
-          </li>
-        </ul>
-      </li> -->
       @endif
-      <li>
-        <a href="javascript:;">
+      <li class="@if($title == 'AccountSetting'){{'active'}}@endif">
+        <a href="/accountsetting">
         <i class="icon-settings"></i>
         <span class="title">
         Setting </span>
         <span class="selected">
         </span>
-        
         </a>
-        <ul class="sub-menu">
-          <li>
-            <a href="#change-password" data-toggle="modal">
-              <i class="icon-user"></i>&nbsp;Change password 
-            </a>
-          </li>
-         <!--  <li>
-            <a class="ajaxify" href="accountsetting.html">
-              <i class="icon-user"></i>&nbsp;Account 
-            </a>
-          </li>
-          <li>
-            <a class="ajaxify" href="notification.html">
-              <i class="icon-bulb"></i>&nbsp;Notification 
-            </a>
-          </li> -->
-          <li>
-            <a href="/feedback/create">
-              <i class="icon-star"></i>&nbsp;Feedback
-            </a>
-          </li>
-          
-        </ul>
       </li>
       @if (Auth::guest())
       @else

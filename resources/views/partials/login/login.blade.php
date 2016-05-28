@@ -1,16 +1,16 @@
 <!-- BEGIN LOGIN -->
 <div class="portlet box blue col-md-12 login-tag" 
-	 style="margin-top:0;border:0;background-color: transparent !important;margin: 50px auto;float: none;padding:0;">
+	 style="margin-top:0;border:0;background-color: transparent !important;margin: 10px auto;float: none;padding:0;">
 		
 	<div class="portlet-title portlet-title-login" 
 		 style="float:none;margin:0 auto; display:table;background-color: transparent !important;padding: 0;">
 
 		<ul class="nav nav-tabs" style="padding:0;">
-			<li class="active home-tab-width-job" >
+			<li class="active login-tab-width-job" >
 				<a href="#people" data-toggle="tab" class="job-skill-tab">
 				<i class="icon-user" style=""></i> PEOPLE </a>
 			</li>
-			<li class="home-tab-width-skill">
+			<li class="login-tab-width-skill">
 				<a href="#company" data-toggle="tab" class="job-skill-tab">
 				<i class="fa fa-university" style=""></i> COMPANY </a>
 			</li>

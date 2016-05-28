@@ -8,7 +8,7 @@ New Timeline
 /* Cubic Bezier Transition */
 .timeline {
   margin: 0;
-  padding: 9px;
+  padding: 7px 0 0px 0;
   position: relative;
   margin-bottom: 0px;
 }
@@ -32,8 +32,8 @@ New Timeline
 .timeline-badge {
   float: left;
   position: relative;
-  height: 60px;
-  width: 60px;
+  height: 45px;
+    width: 45px;
 }
 
 .timeline-badge-userpic {
@@ -177,8 +177,8 @@ New Timeline
   }
 
   .timeline-badge {
-    width: 55px;
-    height: 55px;
+    width: 45px;
+    height: 45px;
   }
 
   .timeline-badge-userpic {

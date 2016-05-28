@@ -4,11 +4,11 @@
 	<div class="portlet-title portlet-title-login" 
 		 style="float:none;margin:0 auto; display:table;background: transparent !important;padding: 0;">
 		<ul class="nav nav-tabs" style="padding:0;">
-			<li class="active home-tab-width-job" >
+			<li class="active login-tab-width-job" >
 				<a href="#people-reg" data-toggle="tab" class="job-skill-tab">
 				<i class="icon-user" style=""></i> People </a>
 			</li>
-			<li class="home-tab-width-skill">
+			<li class="login-tab-width-skill">
 				<a href="#company-reg" data-toggle="tab" class="job-skill-tab">
 				<i class="fa fa-university" style=""></i> Company </a>
 			</li>

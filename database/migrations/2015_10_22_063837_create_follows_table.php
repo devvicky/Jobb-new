@@ -17,8 +17,8 @@ class CreateFollowsTable extends Migration {
 			$table->increments('id');
 			$table->integer('corporate_id')->unsigned();
 			$table->integer('individual_id')->unsigned();
-			$table->foreign('corporate_id')->references('id')->on('corpusers');
-			$table->foreign('individual_id')->references('id')->on('indusers');
+			$table->foreign('corporate_id')->references('id')->on('corpusers')->onDelete('cascade');
+			$table->foreign('individual_id')->references('id')->on('indusers')->onDelete('cascade');
 			$table->timestamps();
 		});
 	}

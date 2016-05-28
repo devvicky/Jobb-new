@@ -19,7 +19,7 @@ class CreateUserPreferredLocationTable extends Migration {
             $table->string('locality', 100);
             $table->string('city', 100);
             $table->string('state', 100);
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 			$table->timestamps();
 		});
 	}

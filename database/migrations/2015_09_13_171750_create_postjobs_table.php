@@ -54,8 +54,8 @@ class CreatePostjobsTable extends Migration {
                   $table->unsignedInteger('inactive')->default(0);
                   $table->unsignedInteger('rowStatus')->default(0);
 
-                  $table->foreign('individual_id')->references('id')->on('indusers');
-                  $table->foreign('corporate_id')->references('id')->on('corpusers');
+                  $table->foreign('individual_id')->references('id')->on('indusers')->onDelete('cascade');
+                  $table->foreign('corporate_id')->references('id')->on('corpusers')->onDelete('cascade');
 			$table->timestamps();
 		});
 	}

@@ -345,7 +345,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
                 <table>
                     <tr>
                         <td>
-                            <img src="http://jobtip.in/assets/jobtip-banner.jpg" />
+                            <img src="http://jobtip.in/assets/jobtip-banner.jpg" style="width:70.5%;"/>
                         </td>
                     </tr>
                
@@ -462,7 +462,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
                             </tr>
                              <tr>
                     <td align="center" style="border-top: 1px dotted #46E5FF;">
-                        <p style="color:darkblue;">
+                        <p style="color:white;">
                             <a href="jobtip.in/termcondition" target="_blank" style="color: #00CEFF;">Terms</a> |
                             <a href="jobtip.in/privacyprolicy" target="_blank" style="color: #00CEFF;">Privacy</a> |
                             <a href="#" style="color: #00CEFF;"><unsubscribe>Unsubscribe</unsubscribe></a>

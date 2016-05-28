@@ -7,6 +7,9 @@ use App\Corpuser;
 use App\Follow;
 use App\Postactivity;
 use App\Notification;
+use App\Connections;
+use App\Groups_users;
+use App\Postjob;
 
 class UserServiceProvider extends ServiceProvider {
 
@@ -17,7 +20,7 @@ class UserServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		view()->composer('includes.sidebar', function($view){
+		view()->composer('includes-update.header', function($view){
 			
 			$thanksCount = 0;
 			$followCount = 0;
@@ -34,6 +37,20 @@ class UserServiceProvider extends ServiceProvider {
 									  ->where('postactivities.thanks', '=', 1)
 								      ->orderBy('postactivities.id', 'desc')
 								      ->sum('postactivities.thanks');
+				$linksCount = Connections::where('user_id', '=', Auth::user()->induser_id)
+								 ->where('status', '=', 1)
+								 ->orWhere('connection_user_id', '=', Auth::user()->induser_id)
+								 ->where('status', '=', 1)
+								 ->count('id');
+				$linkrequestCount = Connections::where('connection_user_id', '=', Auth::user()->induser_id)
+									   ->where('status', '=', 0)
+									   ->count('id');
+
+				$groupCount = Groups_users::where('user_id', '=', Auth::user()->induser_id)
+										  ->count('id');
+
+				$postCount = Postjob::where('individual_id', '=', Auth::user()->induser_id)
+									 ->count('id');
 
 				$profilePer = 0;
 				if(Auth::user()->induser->fname != null){
@@ -104,6 +121,11 @@ class UserServiceProvider extends ServiceProvider {
 				$followCount = Follow::where('corporate_id', '=', 1)
 								->orWhere('individual_id', '=', 1)
 								->count('id');
+				$linksCount = "";
+				$linkrequestCount = "";
+				$groupCount ="";
+				$postCount = Postjob::where('corporate_id', '=', Auth::user()->corpuser_id)
+									 ->count('id');
 				$favourites = Postactivity::with('user')
 									      ->where('fav_post', '=', 1)
 									      ->where('user_id', '=', Auth::user()->id)
@@ -164,13 +186,19 @@ class UserServiceProvider extends ServiceProvider {
 
 				$profilePer = round(($profilePer/17)*100) ;
 			}
+
+			
 			$view->with('session_user', $user)->with('favourites', $favourites)
 											  ->with('thanksCount', $thanksCount)
 											  ->with('followCount', $followCount)
-											  ->with('profilePer', $profilePer);
+											  ->with('profilePer', $profilePer)
+											  ->with('linkrequest', $linkrequestCount)
+											  ->with('linkCount', $linksCount)
+											  ->with('groupCount', $groupCount)
+											  ->with('postCount', $postCount);
 		});
 
-		view()->composer('includes.header', function($view){
+		view()->composer('includes-update.header', function($view){
 			if(Auth::user()->identifier == 1 || Auth::user()->identifier == 2 || Auth::user()->identifier == 3){
 				$applications = Postactivity::with('user', 'post')
 											->join('postjobs', 'postjobs.id', '=', 'postactivities.post_id')

@@ -18,7 +18,7 @@ class CreateGroupsTable extends Migration {
 			$table->string('group_name');
 			$table->integer('admin_id')->unsigned();
 			$table->integer('rowStatus')->default(0)->unsigned();
-			$table->foreign('admin_id')->references('id')->on('indusers');
+			$table->foreign('admin_id')->references('id')->on('indusers')->onDelete('cascade');
 			$table->timestamps();
 		});
 	}

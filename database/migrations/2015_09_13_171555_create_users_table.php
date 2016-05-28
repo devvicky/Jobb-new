@@ -37,8 +37,8 @@ class CreateUsersTable extends Migration {
 
             $table->rememberToken();
 			$table->timestamps();		
-			$table->foreign('corpuser_id')->references('id')->on('corpusers');
-			$table->foreign('induser_id')->references('id')->on('indusers');
+			$table->foreign('corpuser_id')->references('id')->on('corpusers')->onDelete('cascade');
+			$table->foreign('induser_id')->references('id')->on('indusers')->onDelete('cascade');
 		});
 	}
 

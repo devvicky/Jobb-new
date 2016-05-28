@@ -100,7 +100,8 @@
 		</div>
 
 	</div>
-
+	<div id="example2" style="float: none;margin: 15px auto;display: table;"></div>
+	<!-- <div class="g-recaptcha" data-sitekey="{{ env('RE_CAP_SITE') }}" style="float: none;margin: 15px auto;display: table;"></div>									 -->
 	<div class="form-group">
 		<label style="font-size: 13px;color: #827E7E !important;">
 			<input type="checkbox" checked name="ctnc"/> I agree to the 

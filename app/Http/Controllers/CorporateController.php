@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Input;
 use App\Http\Requests\CreateCorpRequest;
 use App\Http\Requests\CreateImgUploadRequest;
 use Mail;
+use ReCaptcha\ReCaptcha;
 
 class CorporateController extends Controller {
 
@@ -40,6 +41,24 @@ class CorporateController extends Controller {
 		return view('pages.firm_details', compact('user', 'title', 'skills'));
 	}
 
+	public function captchaCheck()
+    {
+
+        $response = Input::get('g-recaptcha-response');
+        $remoteip = $_SERVER['REMOTE_ADDR'];
+        $secret   = env('RE_CAP_SECRET');
+
+        $recaptcha = new ReCaptcha($secret);
+        $resp = $recaptcha->verify($response, $remoteip);
+        if ($resp->isSuccess()) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+
 	/**
 	 * Store a newly created resource in storage.
 	 *
@@ -47,6 +66,14 @@ class CorporateController extends Controller {
 	 */
 	public function store(CreateCorpRequest $request)
 	{
+
+		if($this->captchaCheck() == false)
+        {
+            return redirect()->back()
+                ->withErrors(['Wrong Captcha'])
+                ->withInput();
+        }
+		
 		if($request->ajax()){
 			DB::beginTransaction();
 			$vcode = "";
@@ -235,6 +262,41 @@ class CorporateController extends Controller {
 			return redirect('/profile/corp/'.$id);
 		}else{
 			return 'some error occured.';
+		}
+	}
+
+	public function firmUpdate(Request $request){
+		$firmupdate = Corpuser::where('id', '=', $request['userid'])->first();
+
+		if($firmupdate != null){
+			$firmupdate->firm_name = $request['firm_name'];
+			$firmupdate->slogan = $request['slogan'];
+			$firmupdate->about_firm = $request['about_firm'];
+			$firmupdate->firm_type = $request['firm_type'];
+			$firmupdate->operating_since = $request['operating_since'];
+			$firmupdate->save();
+
+			return response()->json(['success'=>'success']);
+		}else{
+			return response()->json(['success'=>'fail']);
+		}
+	}
+
+	public function otherdetailsUpdate(Request $request){
+		$otherdetailsupdate = Corpuser::where('id', '=', $request['userid'])->first();
+
+		if($otherdetailsupdate != null){
+			$otherdetailsupdate->industry = $request['industry'];
+			$otherdetailsupdate->emp_count = $request['emp_count'];
+			if($request['linked_skill'] != null){
+				$otherdetailsupdate->linked_skill = implode(', ', $request['linked_skill']);
+			}
+			$otherdetailsupdate->website_url = $request['website_url'];
+			$otherdetailsupdate->save();
+
+			return response()->json(['success'=>'success']);
+		}else{
+			return response()->json(['success'=>'fail']);
 		}
 	}
 }

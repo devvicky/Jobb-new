@@ -12,6 +12,15 @@ use App\Corpuser;
 use App\Skills;
 use App\User;
 use App\Role;
+use App\Accountdetail;
+use App\Postjob;
+use App\Postactivity;
+use App\Connections;
+use App\FunctionalAreas;
+use App\Education;
+use App\Functional_area_role_mapping;
+use App\Security_check;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests\CreateUserRequest;
@@ -22,7 +31,8 @@ use Hash;
 use Redirect;
 use Socialize;
 use Sms;
-
+use App\Traits\CaptchaTrait;
+use ReCaptcha\ReCaptcha;
 
 class UserController extends Controller {
 
@@ -50,6 +60,23 @@ class UserController extends Controller {
 		// return $skills;
 	}
 
+	public function captchaCheck()
+    {
+
+        $response = Input::get('g-recaptcha-response');
+        $remoteip = $_SERVER['REMOTE_ADDR'];
+        $secret   = env('RE_CAP_SECRET');
+
+        $recaptcha = new ReCaptcha($secret);
+        $resp = $recaptcha->verify($response, $remoteip);
+        if ($resp->isSuccess()) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
 	/**
 	 * Store a newly created resource in storage.
 	 *
@@ -57,11 +84,21 @@ class UserController extends Controller {
 	 */
 	public function store(CreateUserRequest $request)
 	{
+
+		if($this->captchaCheck() == false)
+        {
+            return redirect()->back()
+                ->withErrors(['Wrong Captcha'])
+                ->withInput();
+        }
+		        
 		if($request->ajax()){
 			DB::beginTransaction();
 			$vcode = "";
 			$otp = "";
 			try{
+
+
 				$indUser = new Induser();
 				$indUser->fname = $request['fname'];
 				$indUser->lname = $request['lname'];
@@ -114,11 +151,10 @@ class UserController extends Controller {
 			}
 
 			if($request['mobile'] != null){
-				$data['otp'] = 1;
+				$data['otp'] = $otp;
 
-				// $smsMsg = "Hi ".$request['fname'].", Welcome to Jobtip. ".$otp." is your OTP for mobile verification.";
-				$smsMsg = "Thank you for registering Jobtip.in Your One Time Password (OTP) is ".$otp.". TnC applied. Visit www.jobtip.in";
-			    $data['delvStatus'] = SMS::send($request['mobile'], $smsMsg);
+				// $smsMsg = "Thank you for registering Jobtip.in Your One Time Password (OTP) is ".$otp.". TnC applied. Visit www.jobtip.in";
+			 //    $data['delvStatus'] = SMS::send($request['mobile'], $smsMsg);
 			}
 
 			$data['page'] = 'login';
@@ -206,100 +242,9 @@ class UserController extends Controller {
 	 */
 	public function update($id)
 	{
-		$data = Induser::where('id', '=', $id)->first();
-		if($data != null){
-			if(Input::file('resume') != null){
-				if(Input::file('resume')->isValid()) {
-					$destinationPath = 'resume/';
-					$extension = Input::file('resume')->getClientOriginalExtension();
-					$fileName = rand(11111,99999).'.'.$extension;
-					$path = $destinationPath.$fileName;
-					Input::file('resume')->move($destinationPath, $fileName);
-
-				}			
-				$data->resume = $fileName;
-				$data->resume_dtTime  = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'));
-			}
-			$data->education = Input::get('education');
-			$data->branch = Input::get('branch');
-			$data->prof_category = Input::get('prof_category');
-			$data->experience = Input::get('experience');
-			$data->industry = Input::get('industry');
-			if(Input::get('role') != null){
-				$farea_role = Input::get('role');
-				$temp = explode('-', $farea_role);
-				$data->functional_area = $temp[0];
-				$data->role = $temp[1];
-			}
-			
-			$data->working_at = Input::get('working_at');
-			$data->working_status = Input::get('working_status');
-			if(Input::get('linked_skill_id') != null){
-				$data->linked_skill = implode(', ', Input::get('linked_skill_id'));
-			}
-			if(Input::get('prefered_location') != null){
-				$data->prefered_location = implode(', ', Input::get('prefered_location'));
-			}
-			$data->about_individual = Input::get('about_individual');
-			$data->prefered_jobtype = Input::get('prefered_jobtype');
-			// $pref_locations = Input::get('prefered_location');
-			$data->save();
-			// if (!empty($pref_locations)) {
-			// 	foreach ($pref_locations as $loc) {
-		 //        	$tempArr = explode('-', $loc);
-		 //        	if(count($tempArr) == 3){
-		 //        		$data->preferredLocation()->attach( $loc, array('locality' => $tempArr[0], 'city' => $tempArr[1], 'state' => $tempArr[2]) );
-		 //        	}
-		 //        	if(count($tempArr) == 2){
-		 //        		$data->preferredLocation()->attach( $loc, array('locality' => 'none', 'city' => $tempArr[0], 'state' => $tempArr[1]) );
-		 //        	}
-		 //        }
-		 //    }
-			return redirect('/profile/ind/'.$id);
-		}else{
-			return 'some error occured.';
-		}
+		
 	}
 
-	public function privacyUpdate($id)
-	{
-		$data = Induser::where('id', '=', $id)->first();
-		if($data != null){
-			$data->email_show = Input::get('email_show');
-			$data->dob_show = Input::get('dob_show');
-			$data->mobile_show = Input::get('mobile_show');
-			$data->save();
-			return redirect('/profile/ind/'.$id);
-		}else{
-			return 'some error occured.';
-		}
-	}
-
-	public function preferenceUpdate($id){
-		$data = Induser::where('id', '=', $id)->first();
-		if($data != null){
-			
-			$data->prefered_location = implode(', ', Input::get('prefered_location'));
-			$data->prefered_jobtype = Input::get('prefered_jobtype');
-			$pref_locations = Input::get('prefered_location');
-			$data->save();
-			
-			if (!empty($pref_locations)) {
-				foreach ($pref_locations as $loc) {
-		        	$tempArr = explode('-', $loc);
-		        	if(count($tempArr) == 3){
-		        		$data->preferredLocation()->attach( $loc, array('locality' => $tempArr[0], 'city' => $tempArr[1], 'state' => $tempArr[2]) );
-		        	}
-		        	if(count($tempArr) == 2){
-		        		$data->preferredLocation()->attach( $loc, array('locality' => 'none', 'city' => $tempArr[0], 'state' => $tempArr[1]) );
-		        	}
-		        }
-		    }
-			return redirect('/individual/edit#privacy');
-		}else{
-			return 'some error occured.';
-		}
-	}
 
 	/**
 	 * Remove the specified resource from storage.
@@ -312,36 +257,118 @@ class UserController extends Controller {
 		//
 	}
 
-	public function basicUpdate(){
-		$data = Induser::where('id', '=', Auth::user()->induser_id)->first();
-		if($data != null){
-			$data->fname = Input::get('fname');
-			$data->lname = Input::get('lname');
-			$data->dob = Input::get('dob');
-			$data->gender = Input::get('gender');
-			$data->city = Input::get('city');
-			$data->email = Input::get('email');
-			$data->mobile = Input::get('mobile');
-			$data->in_page = Input::get('in_page');
-			$data->fb_page = Input::get('fb_page');
-			// if (!empty($curr_locations)) {
-			// 	foreach ($curr_locations as $loc) {
-		 //        	$tempArr = explode('-', $loc);
-		 //        	if(count($tempArr) == 3){
-		 //        		$data->c_locality = $tempArr[0];
-		 //        		$data->city = $tempArr[1];
-		 //        		$data->state = $tempArr[2];
-		 //        	}
-		 //        	if(count($tempArr) == 2){
-			//         	$data->c_locality = 'none';
-		 //        		$data->city = $tempArr[0];
-		 //        		$data->state = $tempArr[1];
-			//         }
-		 //        }
-		 //    }
-			$data->save();
-			// $message = 'Personal Tab successfully Updated'
-			return redirect('/individual/edit#professional');
+	public function personalInfo(Request $request){
+		$personinfo = Induser::where('id', '=', $request['userid'])->first();
+		$personuser = User::where('induser_id', '=', $request['userid'])->first();
+
+		if($personinfo != null  && $personuser != null){
+			$personinfo->fname = $request['fname'];
+			$personinfo->lname = $request['lname'];
+			$personinfo->dob = $request['dob'];
+			$personinfo->gender = $request['gender'];
+			$personinfo->save();
+			$personuser->name = $request['fname'] .' '. $request['lname'];
+			$personuser->save();
+
+			$data = [];
+			$data['fullname'] = $personinfo->fname.' '.$personinfo->lname;
+			return response()->json(['success'=>'success', 'data'=>$data]);
+		}else{
+			return response()->json(['success'=>'fail']);
+		}
+	}
+
+	public function contactInfo(Request $request){
+		$contactinfo = Induser::where('id', '=', $request['userid'])->first();
+
+		if($contactinfo != null){
+			$contactinfo->fb_page = $request['fb_page'];
+			$contactinfo->in_page = $request['in_page'];
+			$contactinfo->save();
+
+			return response()->json(['success'=>'success']);
+		}else{
+			return response()->json(['success'=>'fail']);
+		}
+	}
+
+	public function addressUpdate(Request $request){
+		$addressupdate = Induser::where('id', '=', $request['userid'])->first();
+
+		if($addressupdate != null){
+			$addressupdate->address_1 = $request['address_1'];
+			$addressupdate->address_2 = $request['address_2'];
+			$addressupdate->city = $request['city'];
+			$addressupdate->save();
+
+			return response()->json(['success'=>'success']);
+		}else{
+			return response()->json(['success'=>'fail']);
+		}
+	}
+
+	public function professionalUpdate(Request $request){
+		$professionalupdate = Induser::where('id', '=', $request['userid'])->first();
+
+		if($professionalupdate != null){
+			
+			$professionalupdate->education = $request['education'];
+			$professionalupdate->branch = $request['branch'];
+			$professionalupdate->prof_category = $request['prof_category'];
+			$professionalupdate->experience = $request['experience'];
+			$professionalupdate->industry = $request['industry'];
+			if($request['role'] != null){
+				$farea_role = $request['role'];
+				$temp = explode('-', $farea_role);
+				$professionalupdate->functional_area = $temp[0];
+				$professionalupdate->role = $temp[1];
+			}
+			
+			$professionalupdate->working_at = $request['working_at'];
+			$professionalupdate->working_status = $request['working_status'];
+			if($request['linked_skill_id'] != null){
+				$professionalupdate->linked_skill = implode(', ', $request['linked_skill_id']);
+			}
+			$professionalupdate->about_individual = $request['about_individual'];
+			$professionalupdate->save();
+			return response()->json(['success'=>'success']);
+		}else{
+			return response()->json(['success'=>'fail']);
+		}
+	}
+
+	public function preferenceUpdate(Request $request){
+		$preferenceupdate = Induser::where('id', '=', $request['userid'])->first();
+
+		if($preferenceupdate != null){
+			$preferenceupdate->prefered_jobtype = $request['prefered_jobtype'];
+			$preferenceupdate->job_agreement = $request['job_agreement'];
+			$preferenceupdate->expected_salary = $request['expected_salary'];
+			$preferenceupdate->salary_type = $request['salary_type'];
+			$preferenceupdate->candidate_availablity = $request['candidate_availablity'];
+			if($request['prefered_location'] != null){
+				$preferenceupdate->prefered_location = implode(',', $request['prefered_location']);
+			}
+			$preferenceupdate->save();
+
+			return response()->json(['success'=>'success']);
+		}else{
+			return response()->json(['success'=>'fail']);
+		}
+	}
+
+	public function privacyUpdate(Request $request){
+		$privacyUpdate = Induser::where('id', '=', $request['userid'])->first();
+
+		if($privacyUpdate != null){
+			$privacyUpdate->email_show = $request['email_show'];
+			$privacyUpdate->mobile_show = $request['mobile_show'];
+			$privacyUpdate->dob_show = $request['dob_show'];
+			$privacyUpdate->save();
+
+			return response()->json(['success'=>'success']);
+		}else{
+			return response()->json(['success'=>'fail']);
 		}
 	}
 
@@ -397,43 +424,152 @@ class UserController extends Controller {
 
 	public function edit_me(){
 		$type = Input::get('type');
-		return view('pages.mobile_email_modal', compact('type'));
+		$otp = " ";
+		$otpEnc = " ";
+		return view('pages.mobile_email_modal', compact('type', 'otp', 'otpEnc'));
+	}
+
+	public function delete_me(){
+		$type = Input::get('type');
+		return view('pages.delete_email_mobile', compact('type'));
+	}
+
+	public function delete_mobile_me(){
+		$user = User::where('induser_id', '=', Auth::user()->induser_id)->first();
+		$induser = Induser::where('id', '=', Auth::user()->induser_id)->first();
+		$user->mobile = "";
+		$induser->mobile = "";
+		$user->mobile_verify = 0;
+		$user->save();
+		$induser->save();
+		return redirect('/profile/ind/'.$user->induser_id);
+	}
+
+	public function delete_email_me(){
+		$user = User::where('induser_id', '=', Auth::user()->induser_id)->first();
+		$induser = Induser::where('id', '=', Auth::user()->induser_id)->first();
+		$user->email = "";
+		$induser->email = "";
+		$user->email_verify = 0;
+		$user->save();
+		$induser->save();
+		return redirect('/profile/ind/'.$user->induser_id);
 	}
 
 	public function sendOTP(){
 		$type = 'mobile-otp';
 		$mobile = Input::get('mobile_no');
+
+		$user = User::where('mobile', '=', $mobile)->pluck('id');
+		$data = [];
+		if($user == null){
+
 		$otp = rand(1111,9999);
-		$otpEnc = md5($otp);
-		return view('pages.verify_email_mobile', compact('mobile', 'otpEnc', 'type', 'otp'));
+
+		$check_no = Security_check::where('user_id', '=', Auth::user()->id)
+								  ->where('mobile', '=', $mobile)
+								  ->where('status', '=', 'Not Verified')
+								  ->first();
+		if($check_no != null){
+			$data['oen'] = 'OTPALREADYSEND';
+			$data['msg'] = 'OTP already send. Please Check your Message box.';
+			return response()->json(['success'=>true, 'data'=>$data]);
+			}else{
+				$s_check = new Security_check();
+				$s_check->user_id = Auth::user()->id;
+				$s_check->verify_for = "Mobile";
+				$s_check->mobile = $mobile;
+				$s_check->otp = $otp;
+				$s_check->status = "Not Verified";
+				$s_check->save();
+				$otpEnc = md5($otp);
+
+				// $user_new = User::where('id', '=', Auth::user()->id)->first();
+				// $user_new->mobile_otp = $otpEnc;
+				// $user_new->save();
+				$smsMsg = "Thank you for registering Jobtip.in Your One Time Password (OTP) is ".$otp.". TnC applied. Visit www.jobtip.in";
+				$data['delvStatus'] = SMS::send($mobile, $smsMsg);
+				$data['oen'] = $otpEnc;
+				$data['msg'] = 'Check your Mobile for OTP';
+				$data['type'] = 'mobile-otp';
+				return response()->json(['success'=>true,'data'=>$data]);
+				// return view('pages.verify_email_mobile', compact('mobile', 'otpEnc', 'type', 'otp'));
+			}	
+		}else{
+			$data['oen'] = null;
+			$data['msg'] = 'Entered Mobile number is already in use. Please try any other number.';
+			return response()->json(['success'=>true, 'data'=>$data]);
+			// return 'Entered Mobile number is already in use. Please try any other number.';
+		}				 
+		
 	}
 
 	public function verifyOTP(){
-		$mobile = Input::get('mobile');
-		$otp = md5(Input::get('mobile_otp'));
-		$otpEnc = Input::get('motpenc');
-		if($otp == $otpEnc){
-			Induser::where('id', '=', Auth::user()->induser_id)->update(['mobile' => $mobile]);
-			Induser::where('id', '=', Auth::user()->induser_id)->update(['mobile_verify' => 1]);
-			User::where('induser_id', '=', Auth::user()->induser_id)->update(['mobile' => $mobile]);
-			User::where('induser_id', '=', Auth::user()->induser_id)->update(['mobile_verify' => 1]);
-			return 'verification-success';
+		$otp =Input::get('mobile_otp');
+		$check_otp = Security_check::where('user_id', '=', Auth::user()->id)
+								   ->where('verify_for', '=', 'Mobile')
+								   ->where('status', '=', 'Not Verified')
+								   ->first();
+
+		if($otp == $check_otp->otp){
+		$mobile = $check_otp->mobile;
+		$check_otp->status = "Verified";
+		$check_otp->save();
+		Induser::where('id', '=', Auth::user()->induser_id)->update(['mobile' => $mobile]);
+		Induser::where('id', '=', Auth::user()->induser_id)->update(['mobile_verify' => 1]);
+		User::where('induser_id', '=', Auth::user()->induser_id)->update(['mobile' => $mobile]);
+		User::where('induser_id', '=', Auth::user()->induser_id)->update(['mobile_verify' => 1]);
+		return 'verification-success';
 		}else{
 			return 'verification-failure';
 		}
 	}
 
+	public function OTPresend(){
+		$otp = rand(1111,9999);
+        $resend_otp = Security_check::where('user_id', '=', Auth::user()->id)
+                     ->where('verify_for', '=', 'Mobile')
+                     ->where('status', '=', 'Not Verified')
+                     ->first();
+        $data = [];
+        if($resend_otp != null && $resend_otp->resend_attemp <= 3){
+          $mobile = $resend_otp->mobile;
+          $resend_otp->otp = $otp;
+          $resend_otp->resend_attemp = $resend_otp->resend_attemp + 1;
+          $resend_otp->save();
+
+          
+	        $smsMsg = "Thank you for registering Jobtip.in Your One Time Password (OTP) is ".$otp.". TnC applied. Visit www.jobtip.in";
+	        $data['delvStatus'] = SMS::send($mobile, $smsMsg);
+	        $data['msg'] = 'Check your Mobile for OTP';
+	        $data['types'] = 'mobile-otp';
+	        return response()->json(['success'=>true,'data'=>$data]);
+        }else if($resend_otp != null && $resend_otp->resend_attemp > 3){
+        	$data['msg'] = 'You attemped 3 times.';
+	        return response()->json(['success'=>true,'data'=>$data]);
+        }          
+        
+      }
+
 	public function sendEVC(){
 		$type = 'email-verification-code-send';
 		$email = Input::get('new_email');
-		$code = 'A'.Auth::user()->induser_id.rand(1111,9999);
-		$codeEnc = md5($code);
-		$user = User::where('induser_id','=',Auth::user()->induser_id)->first();
-		$fname = $user->name;
-		Mail::send('emails.auth.email_change', array('fname'=>$fname, 'code'=>$code), function($message) use ($email,$fname){
-	        $message->to($email, $fname)->subject('Jobtip - Email Change!')->from('admin@jobtip.in', 'JobTip');
-	    });
-		return view('pages.verify_email_mobile', compact('email', 'codeEnc', 'type', 'code'));
+		$mobileReg = User::where('email', '=', $email)->first(['id']);
+
+		if($mobileReg == []){
+			$code = 'A'.Auth::user()->induser_id.rand(1111,9999);
+			$codeEnc = md5($code);
+			$user = User::where('induser_id','=',Auth::user()->induser_id)->first();
+			$fname = $user->name;
+			Mail::send('emails.auth.email_change', array('fname'=>$fname, 'code'=>$code), function($message) use ($email,$fname){
+		        $message->to($email, $fname)->subject('Jobtip - Email Change!')->from('admin@jobtip.in', 'JobTip');
+		    });
+			return view('pages.verify_email_mobile', compact('email', 'codeEnc', 'type', 'code'));
+		}else{
+			$data = [];
+			return 'Entered Email ID is already in use. Please try any other email id.';
+		}	
+		
 	}
 
 	public function verifyEVC(){
@@ -498,7 +634,7 @@ class UserController extends Controller {
 
 	public function resetPassword($token){
 		if($token != null){
-			$user = User::where('reset_code','=',$token)->first();
+			$user = User::where('reset_code', '=', $token)->first();
 			if($user!=null){
 				return view('pages.resetpassword', compact('token'));
 			}else{
@@ -820,5 +956,69 @@ class UserController extends Controller {
 		return $alerted;
 	}
 
+	public function accountSetting(){
+		$title = "AccountSetting";
+		$acc_id = "";
+		$user = User::with('induser')->where('id', '=', Auth::user()->id)->first();
+		return view('pages.account_delete', compact('title', 'user', 'acc_id'));
+	}
 		
+	public function accountDelete(){
+		$title = "AccountSetting";
+		$acc_id = Input::get('account_id');
+		$password = bcrypt(Input::get('password'));
+		$skills = Skills::lists('name', 'name');
+		$thanks = Postactivity::with('user', 'post')
+						      ->join('postjobs', 'postjobs.id', '=', 'postactivities.post_id')
+							  ->where('postjobs.individual_id', '=', Auth::user()->induser_id)
+							  ->where('postjobs.inactive', '=', 0)
+							  ->where('postactivities.thanks', '=', 1)
+						      ->orderBy('postactivities.id', 'desc')
+						      ->sum('postactivities.thanks');
+		$posts = Postjob::where('individual_id', '=', Auth::user()->induser_id)->count('id');
+		$linksCount = Connections::where('user_id', '=', Auth::user()->induser_id)
+							->where('status', '=', 1)
+							->orWhere('connection_user_id', '=', Auth::user()->induser_id)
+							->where('status', '=', 1)
+							->count('id');
+		$educationList = Education::orderBy('level')->orderBy('name')->where('name', '!=', '0')->get();
+		$location = Induser::where('id', '=', Auth::user()->induser_id)->first(['prefered_location']);
+		$farearoleList = Functional_area_role_mapping::orderBy('id')->get();
+		$userDetail = User::where('induser_id','=',Auth::user()->induser_id)->first();
+		$token = 'AD'.rand(11111,99999).rand(11111,99999);
+			if( Hash::check(Input::get('password'), $userDetail->password) ){
+				$user = User::with('induser')->where('id', '=', Auth::user()->id)->first();
+				return view('pages.professional_page', compact('title', 'user', 'acc_id', 'skills', 'educationList', 'location', 'farearoleList', 'thanks', 'linksCount', 'posts'));
+			}else{
+				return redirect('/mypost');
+			}
+	}
+
+	public function deleteProfileAccount(){
+
+		$user = User::where('induser_id','=',Auth::user()->induser_id)->first();
+		$induser = Induser::where('id','=',Auth::user()->induser_id)->first();
+		$accountDetail = new Accountdetail();
+
+		$accountDetail->name = $user->name;
+		$accountDetail->emailid = $user->email;
+		$accountDetail->mobile = $user->mobile;
+		$accountDetail->profile_created_date = $user->created_at;
+		$accountDetail->reason = Input::get('reason');
+		$accountDetail->comments = Input::get('comments');
+		$accountDetail->save();
+		if($accountDetail != null){
+			$user->delete();
+			$induser->delete();
+			// $userpost = Postjob::where('individual_id', '=', Auth::user()->induser_id)->get();
+			// foreach ($userpost as $up ) {
+			// 	$up->inactive = 1;
+			// 	$up->save();
+			// }
+			// $user->inactive = 1;
+			// $user->save();
+
+		}
+		return redirect('/auth/logout');
+	}
 }

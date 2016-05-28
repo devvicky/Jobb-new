@@ -1,6 +1,6 @@
 @extends('master')
  @section('content')
-  @include('partials.home.home')
+  @include('partials.home.home-update')
 <div class="modal fade" id="share-post" tabindex="-1" role="dialog" aria-labelledby="share-post" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -309,6 +309,36 @@ jQuery(document).ready(function() {
    google.maps.event.addDomListener(window, 'load', initCurrLoc);
 
 </script>
+
+
+<script type="text/javascript">
+$(document).ready(function () {
+    // toggleexpFields();
+    // toggleexpmaxFields();
+    $('#minexp').change(function () {
+    toggleexpFields();
+    });
+    $('#maxexp').change(function () {
+    toggleexpmaxFields();
+    });
+});
+function toggleexpFields() {
+    if($('#minexp').val() > $('#maxexp').val()){
+        $('.maxexp').css({'border-color':'#962626'});
+    }else{
+        $('.maxexp').css({'border-color':'#c4d5df'});
+    }
+}
+
+function toggleexpmaxFields() {
+    if($('#maxexp').val() < $('#minexp').val()){
+        $('.maxexp').css({'border-color':'#962626'});
+    }else{
+        $('.maxexp').css({'border-color':'#c4d5df'});
+    }
+}
+
+</script>
 <script>
     $(document).ready(function(){
     $("#btn").click(function(){
@@ -334,6 +364,62 @@ jQuery(document).ready(function() {
 
         $("#slider-range-experience").val($("#slider-range-max-skill").slider("value"));
 </script>
+<script type="text/javascript">
+$(document).ready(function () {            
+//validation rules
+    var form = $('#job-fil');
+    var error = $('.alert-danger', form);
+    var success = $('.alert-success', form);
+    form.validate({
+        doNotHideMessage: true, //this option enables to show the error/success messages on tab switch.
+        errorElement: 'span', //default input error message container
+        errorClass: 'help-block help-block-error', // default input error message class
+        focusInvalid: false, // do not focus the last invalid input
+        rules: {
+           "time_for[]": {
+              required: true
+            }
+        },
+        message:{
+            "time_for[]": {
+                required: "Job type is required"
+            }
+        },
+            invalidHandler: function (event, validator) { //display error alert on form submit   
+            success.hide();
+            error.show();
+            Metronic.scrollTo(error, -200);
+        },
+
+             highlight: function(element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+            unhighlight: function(element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) { // render error placement for each input type
+                    var icon = $(element).parent('.input-icon').children('i');
+                    icon.removeClass('fa-check').addClass("fa-warning");  
+                    icon.attr("data-original-title", error.text()).tooltip({'placement': 'left'});
+                   
+                },
+            success: function (label, element) {
+                    var icon = $(element).parent('.input-icon').children('i');
+                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                    icon.removeClass("fa-warning").addClass("fa-check");
+                },
+    });
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+    jQuery('#filter-code').on('click', function(event) {
+            jQuery('.filter-show').toggle('show');
+        });
+});
+</script>
 <style type="text/css">
 /* required for preferred location */
 .pac-container {z-index:999999;}
@@ -349,6 +435,7 @@ jQuery(document).ready(function() {
     padding: 10px 0;
 }
 </style>
-<script src="/assets/js/jquery.infinitescroll.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-infinitescroll/2.1.0/jquery.infinitescroll.min.js" type="text/javascript"></script>
+<!-- <script src="/assets/js/jquery.infinitescroll.js"></script> -->
 <script src="/assets/js/myinfinite.js"></script>
 @stop

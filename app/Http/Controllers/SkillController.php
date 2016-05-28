@@ -12,6 +12,8 @@ use App\FunctionalAreas;
 use App\Industry;
 use App\Functional_area_role_mapping;
 use App\Education;
+use ReCaptcha\ReCaptcha;
+use Input;
 
 class SkillController extends Controller {
 
@@ -53,6 +55,24 @@ class SkillController extends Controller {
 		return view('pages.postskill', compact('title', 'skills', 'farearoleList', 'education'));
 	}
 
+
+	public function captchaCheck()
+    {
+
+        $response = Input::get('g-recaptcha-response');
+        $remoteip = $_SERVER['REMOTE_ADDR'];
+        $secret   = env('RE_CAP_SECRET');
+
+        $recaptcha = new ReCaptcha($secret);
+        $resp = $recaptcha->verify($response, $remoteip);
+        if ($resp->isSuccess()) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
 	/**
 	 * Store a newly created resource in storage.
 	 *
@@ -60,6 +80,14 @@ class SkillController extends Controller {
 	 */
 	public function store(CreatePostskillRequest $request)
 	{
+
+		if($this->captchaCheck() == false)
+        {
+            return redirect()->back()
+                ->withErrors(['Wrong Captcha'])
+                ->withInput();
+        }
+		        
 		if(Auth::user()->identifier == 1)
 			$request['individual_id'] = Auth::user()->induser_id;
 		else
@@ -110,7 +138,14 @@ class SkillController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		$title = 'skill';
+		$skills = Skills::lists('name', 'name');
+		$farearoleList = Functional_area_role_mapping::orderBy('id')->get();
+		$education = Education::orderBy('level')->orderBy('name')->get();
+		$postskill = Postjob::where('unique_id', '=', $id)
+						      ->where('individual_id', '=', Auth::user()->induser_id)
+						      ->first();
+		return view('pages.postskill_edit', compact('title', 'skills', 'farearoleList', 'education', 'postskill'));
 	}
 
 	/**
@@ -121,7 +156,47 @@ class SkillController extends Controller {
 	 */
 	public function update($id)
 	{
-		//
+		$updatePost = Postjob::where('unique_id', '=', $id)
+							 ->where('individual_id', '=', Auth::user()->induser_id)
+							 ->first();
+		if($updatePost != null){
+			$updatePost->post_title = Input::get('post_title');
+			$updatePost->job_detail = Input::get('job_detail');
+			$updatePost->industry = Input::get('industry');
+			$temp = explode('-', Input::get('role'));
+			$updatePost->functional_area = $temp[0];
+			$updatePost->role = $temp[1];
+			$updatePost->time_for = Input::get('time_for');
+			$updatePost->education = implode(',', Input::get('education'));
+			$updatePost->linked_skill = implode(',', Input::get('linked_skill_id'));
+			$updatePost->min_exp = Input::get('min_exp');
+			$updatePost->min_sal = Input::get('min_sal');
+			$updatePost->max_sal = Input::get('max_sal');
+			$updatePost->city = implode(',', Input::get('prefered_location'));
+			$pref_locations = Input::get('prefered_location');
+			$updatePost->website_redirect_url = Input::get('website_redirect_url');
+			$updatePost->resume_required = Input::get('resume_required');
+			$updatePost->show_contact = Input::get('show_contact');
+			$updatePost->save();
+
+			$preferedLocation = PostPreferredLocation::where('post_id', '=', $updatePost->id)->get();
+			foreach ($preferedLocation as $pl ) {
+				$pl->delete();
+			}
+			
+			foreach ($pref_locations as $loc) {
+	        	$tempArr = explode('-', $loc);
+	        	if(count($tempArr) == 3){
+	        		$updatePost->preferredLocation()->attach( $loc, array('locality' => $tempArr[0], 'city' => $tempArr[1], 'state' => $tempArr[2]) );
+	        	}
+	        	if(count($tempArr) == 2){
+	        		$updatePost->preferredLocation()->attach( $loc, array('locality' => 'none', 'city' => $tempArr[0], 'state' => $tempArr[1]) );
+	        	}
+	        }
+			return redirect('/mypost/single/'.$id);
+		}else{
+			return redirect('/mypost');
+		}
 	}
 
 	/**

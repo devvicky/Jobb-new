@@ -1,43 +1,34 @@
 @extends('master')
 
 @section('content')
-																
-<div class="row" style="margin:5px;">
-	<div class="col-md-9">
-		<label class="post-job-heading">
-			Do you know about any job openings<br>
-			Share Job Tip here for FREE !!
-		</label>	
-		<div class="portlet box" id="form_wizard_1">			
-			<div class="portlet-body form">
-				<form action="/job/store" method="post" id="submit_form" 
+<form action="/job/store" method="post" id="submit_form" 
 					  data-toggle="validator" role="form" class="form-horizontal">
-					<input type="hidden" name="_token" value="{{ csrf_token() }}">
+					<input type="hidden" name="_token" value="{{ csrf_token() }}">																
+<div class="row" style="margin:-5px;">
+		<div class="col-md-11" style="padding: 0;">
+		<div class="portlet box" id="form_wizard_1">			
+			<div class="portlet-body form"  style="background-color: transparent;">
+				
 					<div class="form-wizard">
 						<div class="form-body">
 							<ul class="nav nav-pills nav-justified steps">							
 								<li>
 									<a href="#tab1" data-toggle="tab" class="step">
-										<span class="desc">Job</span>
-									</a>									
-								</li>
-								<li>
-									<a href="#tab2" data-toggle="tab" class="step">									
-										<span class="desc">Skills </span>
+										<span class="desc">Job Details</span>
 									</a>									
 								</li>
 								<li>
 									<a href="#tab3" data-toggle="tab" class="step active">							
-										<span class="desc">Contact</span>
+										<span class="desc">Other Details</span>
 									</a>									
 								</li>
 								<li>
 									<a href="#tab4" data-toggle="tab" class="step">									
-										<span class="desc">Confirm</span>
+										<span class="desc">Confirm Post</span>
 									</a>									
 								</li>
 							</ul>
-							<div id="bar" class="progress progress-striped" role="progressbar">
+							<div id="bar" class="progress progress-striped" role="progressbar" style="margin-bottom: -7px;">
 								<div class="progress-bar progress-bar-success"></div>
 							</div>
 							<div class="tab-content">
@@ -59,674 +50,974 @@
 									Your form validation is successful!
 								</div> -->
 								<div class="tab-pane active" id="tab1">
-									<input type="hidden" name="post_id" value"rand(11111,99999)">
 									<div class="row">
-										<div class="col-md-12">
-											<div class="form-group">
-												<div class="input-icon right">
-													<i class="fa"></i>
-													<label>Job Title <span class="required">*</span></label>
-													<div class="input-group">
-														<span class="input-group-addon">
-															<i class="fa fa-flag" style="color:darkcyan;"></i>
-														</span>
-														<input type="text" name="post_title" class="form-control" 
-															   placeholder="Job Title" required>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12">
-											<div class="form-group">
-												<label>Job Details <span class="required">*</span></label>	
-												<textarea id="textarea" rows="6" class="form-control autosizeme" name="job_detail" maxlength="1000" ></textarea>
-												<div id="textarea_feedback"></div>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="form-group">
-												<label>Industry <span class="required">*</span>
-												</label>
-												<select class="select2me form-control" name="industry">
-													<option value="">Select</option>
-			                                        <option value="Automotive/ Ancillaries">Automotive/ Ancillaries</option>
-			                                        <option value="Banking/ Financial Services">Banking/ Financial Services</option>
-			                                        <option value="Bio Technology & Life Sciences">Bio Technology & Life Sciences</option>
-			                                        <option value="Chemicals/Petrochemicals">Chemicals/Petrochemicals</option>
-			                                        <option value="Construction">Construction</option>
-			                                        <option value="FMCG">FMCG</option>
-			                                        <option value="Education">Education</option>
-			                                        <option value="Entertainment/ Media/ Publishing">Entertainment/ Media/ Publishing</option>
-			                                        <option value="Insurance">Insurance</option>
-			                                        <option value="ITES/BPO">ITES/BPO</option>
-			                                        <option value="IT/ Computers - Hardware">IT/ Computers - Hardware</option>
-			                                        <option value="IT/ Computers - Software">IT/ Computers - Software</option>
-			                                        <option value="KPO/Analytics">KPO/Analytics</option>
-			                                        <option value="Machinery/ Equipment Mfg.">Machinery/ Equipment Mfg.</option>
-			                                        <option value="Oil/ Gas/ Petroleum">Oil/ Gas/ Petroleum</option>
-			                                        <option value="Pharmaceuticals">Pharmaceuticals</option>
-			                                        <option value="Power/Energy">Power/Energy</option>
-			                                        <option value="Real Estate">Real Estate</option>
-			                                        <option value="Retailing">Retailing</option>
-			                                        <option value="Telecom">Telecom</option>
-			                                        <option value="Advertising/PR/Events">Advertising/PR/Events</option>
-			                                        <option value="Agriculture/ Dairy Based">Agriculture/ Dairy Based</option>
-			                                        <option value="Aviation/Aerospace">Aviation/Aerospace</option>
-			                                        <option value="Beauty/Fitness/PersonalCare/SPA">Beauty/Fitness/PersonalCare/SPA</option>
-			                                        <option value="Beverages/ Liquor">Beverages/ Liquor</option>
-			                                        <option value="Cement">Cement</option>
-			                                        <option value="Ceramics & Sanitary Ware">Ceramics & Sanitary Ware</option>
-			                                        <option value="Consultancy">Consultancy</option>
-			                                        <option value="Courier/ Freight/ Transportation">Courier/ Freight/ Transportation</option>
-			                                        <option value="Law Enforcement/Security Services">Law Enforcement/Security Services</option>
-			                                        <option value="E-Learning">E-Learning</option>
-			                                        <option value="Shipping/ Marine Services">Shipping/ Marine Services</option>
-			                                        <option value="Engineering, Procurement, Construction">Engineering, Procurement, Construction</option>
-			                                        <option value="Environmental Service">Environmental Service</option>
-			                                        <option value="Facility management">Facility management</option>
-			                                        <option value="Fertilizer/ Pesticides">Fertilizer/ Pesticides</option>
-			                                        <option value="Food & Packaged Food">Food & Packaged Food</option>
-			                                        <option value="Textiles / Yarn / Fabrics / Garments">Textiles / Yarn / Fabrics / Garments</option>
-			                                        <option value="Gems & Jewellery">Gems & Jewellery</option>
-			                                        <option value="Government/ PSU/ Defence">Government/ PSU/ Defence</option>
-			                                        <option value="Consumer Electronics/Appliances">Consumer Electronics/Appliances</option>
-			                                        <option value="Hospitals/ Health Care">Hospitals/ Health Care</option>
-			                                        <option value="Hotels/ Restaurant">Hotels/ Restaurant</option>
-			                                        <option value="Import / Export">Import / Export</option>
-			                                        <option value="Market Research">Market Research</option>
-			                                        <option value="Medical Transcription">Medical Transcription</option>
-			                                        <option value="Mining">Mining</option>
-			                                        <option value="NGO">NGO</option>
-			                                        <option value="Paper">Paper</option>
-			                                        <option value="Printing / Packaging">Printing / Packaging</option>
-			                                        <option value="Public Relations (PR)">Public Relations (PR)</option>
-			                                        <option value="Travel / Tourism">Travel / Tourism</option>
-			                                        <option value="Other">Other</option>
-			                                    </select>
-											</div>
-										</div>
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="form-group">
-												<label>
-													Job Role <span class="required">*</span>
-												</label>
-												<select class="select2me form-control" name="role">
-													<option value="">Select</option>
-													{{$n=""}}
-													@foreach($farearoleList as $farearole)
-													@if($n != $farearole->functional_area)
-														{{$n=$farearole->functional_area}}
-														<optgroup label="{{$farearole->functional_area}}">
-													@endif
-													<option value="{{$farearole->functional_area}}, {{$farearole->role}}">{{$farearole->role}}</option>
-													@if($n != $farearole->functional_area)
-															</optgroup>		
-														@endif
-													@endforeach
-												</select>
-											</div>
-										</div>
-									</div>
+		                                <div class="col-md-8">
+		                                    <!-- BEGIN PORTLET -->
+		                                    <div class="portlet light " style="background-color:white;">
+		                                        <div class="portlet-title">
+		                                            <div class="caption caption-md">
+		                                                <i class="icon-bar-chart theme-font hide"></i>
+		                                                <span class="caption-subject font-blue-madison bold uppercase">Job Details</span>
+		                                            </div>
+		                                        </div>
+		                                        <div class="portlet-body">
+		                                            <div class="row">
+		                                              <div class="col-md-12">
+		                                                <div class="form-group">
+		                                                  <div class="input-icon right">
+		                                                    <i class="fa"></i>
+		                                                    <label>Job Title <span class="required">*</span></label>
+		                                                    <div class="input-group">
+		                                                      <span class="input-group-addon">
+		                                                        <i class="fa fa-flag" style="color:darkcyan;"></i>
+		                                                      </span>
+		                                                      <input type="text" name="post_title" class="form-control" 
+		                                                           placeholder="Job Title" required>
+		                                                    </div>
+		                                                  </div>
+		                                                </div>
+		                                              </div>
+		                                            </div>
+		                                            <div class="row">
+		                                                <div class="col-md-6 col-sm-6 col-xs-12">
+		                                                  <div class="form-group">
+		                                                    <label>Industry <span class="required">*</span>
+		                                                    </label>
+		                                                    <select class="select2me form-control" name="industry">
+		                                                      <option value="">Select</option>
+		                                                      <option value="Automotive/ Ancillaries">Automotive/ Ancillaries</option>
+		                                                      <option value="Banking/ Financial Services">Banking/ Financial Services</option>
+		                                                      <option value="Bio Technology & Life Sciences">Bio Technology & Life Sciences</option>
+		                                                      <option value="Chemicals/Petrochemicals">Chemicals/Petrochemicals</option>
+		                                                      <option value="Construction">Construction</option>
+		                                                      <option value="FMCG">FMCG</option>
+		                                                      <option value="Education">Education</option>
+		                                                      <option value="Entertainment/ Media/ Publishing">Entertainment/ Media/ Publishing</option>
+		                                                      <option value="Insurance">Insurance</option>
+		                                                      <option value="ITES/BPO">ITES/BPO</option>
+		                                                      <option value="IT/ Computers - Hardware">IT/ Computers - Hardware</option>
+		                                                      <option value="IT/ Computers - Software">IT/ Computers - Software</option>
+		                                                      <option value="KPO/Analytics">KPO/Analytics</option>
+		                                                      <option value="Machinery/ Equipment Mfg.">Machinery/ Equipment Mfg.</option>
+		                                                      <option value="Oil/ Gas/ Petroleum">Oil/ Gas/ Petroleum</option>
+		                                                      <option value="Pharmaceuticals">Pharmaceuticals</option>
+		                                                      <option value="Power/Energy">Power/Energy</option>
+		                                                      <option value="Real Estate">Real Estate</option>
+		                                                      <option value="Retailing">Retailing</option>
+		                                                      <option value="Telecom">Telecom</option>
+		                                                      <option value="Advertising/PR/Events">Advertising/PR/Events</option>
+		                                                      <option value="Agriculture/ Dairy Based">Agriculture/ Dairy Based</option>
+		                                                      <option value="Aviation/Aerospace">Aviation/Aerospace</option>
+		                                                      <option value="Beauty/Fitness/PersonalCare/SPA">Beauty/Fitness/PersonalCare/SPA</option>
+		                                                      <option value="Beverages/ Liquor">Beverages/ Liquor</option>
+		                                                      <option value="Cement">Cement</option>
+		                                                      <option value="Ceramics & Sanitary Ware">Ceramics & Sanitary Ware</option>
+		                                                      <option value="Consultancy">Consultancy</option>
+		                                                      <option value="Courier/ Freight/ Transportation">Courier/ Freight/ Transportation</option>
+		                                                      <option value="Law Enforcement/Security Services">Law Enforcement/Security Services</option>
+		                                                      <option value="E-Learning">E-Learning</option>
+		                                                      <option value="Shipping/ Marine Services">Shipping/ Marine Services</option>
+		                                                      <option value="Engineering, Procurement, Construction">Engineering, Procurement, Construction</option>
+		                                                      <option value="Environmental Service">Environmental Service</option>
+		                                                      <option value="Facility management">Facility management</option>
+		                                                      <option value="Fertilizer/ Pesticides">Fertilizer/ Pesticides</option>
+		                                                      <option value="Food & Packaged Food">Food & Packaged Food</option>
+		                                                      <option value="Textiles / Yarn / Fabrics / Garments">Textiles / Yarn / Fabrics / Garments</option>
+		                                                      <option value="Gems & Jewellery">Gems & Jewellery</option>
+		                                                      <option value="Government/ PSU/ Defence">Government/ PSU/ Defence</option>
+		                                                      <option value="Consumer Electronics/Appliances">Consumer Electronics/Appliances</option>
+		                                                      <option value="Hospitals/ Health Care">Hospitals/ Health Care</option>
+		                                                      <option value="Hotels/ Restaurant">Hotels/ Restaurant</option>
+		                                                      <option value="Import / Export">Import / Export</option>
+		                                                      <option value="Market Research">Market Research</option>
+		                                                      <option value="Medical Transcription">Medical Transcription</option>
+		                                                      <option value="Mining">Mining</option>
+		                                                      <option value="NGO">NGO</option>
+		                                                      <option value="Paper">Paper</option>
+		                                                      <option value="Printing / Packaging">Printing / Packaging</option>
+		                                                      <option value="Public Relations (PR)">Public Relations (PR)</option>
+		                                                      <option value="Travel / Tourism">Travel / Tourism</option>
+		                                                      <option value="Other">Other</option>
+		                                                  </select>
+		                                                  </div>
+		                                                </div>
+		                                                <div class="col-md-6 col-sm-6 col-xs-12">
+		                                                  <div class="form-group">
+		                                                    <label>
+		                                                      Job Role <span class="required">*</span>
+		                                                    </label>
+		                                                    <select class="select2me form-control" name="role">
+		                                                      <option value="">Select</option>
+		                                                      {{$n=""}}
+		                                                      @foreach($farearoleList as $farearole)
+		                                                      @if($n != $farearole->functional_area)
+		                                                        {{$n=$farearole->functional_area}}
+		                                                        <optgroup label="{{$farearole->functional_area}}">
+		                                                      @endif
+		                                                      <option value="{{$farearole->functional_area}}, {{$farearole->role}}">{{$farearole->role}}</option>
+		                                                      @if($n != $farearole->functional_area)
+		                                                          </optgroup>   
+		                                                        @endif
+		                                                      @endforeach
+		                                                    </select>
+		                                                  </div>
+		                                                </div>
+		                                              </div>
+		                                          <div class="row">
+		                                            <div class="col-md-6 col-sm-6 col-xs-12">
+		                                              <div class="form-group">
+		                                                <label>Search Skills</label>
+		                                                <div style="position:relative;">
+		                                                  <input type="text" name="name" id="newskill" class="form-control skill-border-css" placeholder="Search for skill...">
+		                                                  <button id="add-new-skill" class="btn btn-success skill-add-button-css" type="button"><i class="icon-plus"></i> Add</button>    
+		                                                </div>
+		                                                {!! Form::select('linked_skill_id[]', $skills, null, ['id'=>'linked_skill_id', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Skills', 'multiple']) !!}
+		                                              </div>
+		                                            </div>
+		                                            <input type="text" id="confirm-skill" name="skill" style="display:none;">
+		                                            <div class="col-md-3 col-sm-3 col-xs-6">
+		                                              <div class="form-group">              
+		                                                <label class=" control-label">Experience (Min)</label>
+		                                                <div class="input-group">
+		                                                  <select class="form-control" id="exp_min" name="min_exp">
+		                                                    <!-- <option>Select</option> -->
+		                                                    <option value="0">0</option>
+		                                                    <option value="1">1</option>
+		                                                    <option value="2">2</option>
+		                                                    <option value="3">3</option>
+		                                                    <option value="4">4</option>
+		                                                    <option value="5">5</option>
+		                                                    <option value="6">6</option>
+		                                                    <option value="7">7</option>
+		                                                    <option value="8">8</option>
+		                                                    <option value="9">9</option>
+		                                                    <option value="10">10</option>
+		                                                    <option value="11">11</option>
+		                                                    <option value="12">12</option>
+		                                                    <option value="13">13</option>
+		                                                    <option value="14">14</option>
+		                                                    <option value="15">15</option>
+		                                                  </select>
+		                                                  <span class="input-group-addon">
+		                                                    Years
+		                                                  </span>
+		                                                </div>
+		                                              </div>
+		                                            </div>
+		                                            <div class="col-md-3 col-sm-3 col-xs-6">
+		                                              <div class="form-group">              
+		                                                <label class=" control-label">Experience (Max)</label>
+		                                                <div class="input-group">
+		                                                  <select class="form-control maxexp" id="exp_max" name="max_exp">
+		                                                    <!-- <option>Select</option> -->
+		                                                    <option value="0">0</option>
+		                                                    <option value="1">1</option>
+		                                                    <option value="2">2</option>
+		                                                    <option value="3">3</option>
+		                                                    <option value="4">4</option>
+		                                                    <option value="5">5</option>
+		                                                    <option value="6">6</option>
+		                                                    <option value="7">7</option>
+		                                                    <option value="8">8</option>
+		                                                    <option value="9">9</option>
+		                                                    <option value="10">10</option>
+		                                                    <option value="11">11</option>
+		                                                    <option value="12">12</option>
+		                                                    <option value="13">13</option>
+		                                                    <option value="14">14</option>
+		                                                    <option value="15">15</option>
+		                                                  </select>
+		                                                  <span class="input-group-addon">
+		                                                    Years
+		                                                  </span>
+		                                                </div>
+		                                              </div>
+		                                            </div>
+		                                          </div>
+		                                        </div>
+		                                    </div>
+		                                    
+		                                    <!-- END PORTLET -->
+		                                    <!-- BEGIN PORTLET -->
+		                                    <div class="portlet light " style="background-color:white;">
+		                                        <div class="portlet-title">
+		                                            <div class="caption caption-md">
+		                                                <i class="icon-bar-chart theme-font hide"></i>
+		                                                <span class="caption-subject font-blue-madison bold uppercase">Job Description</span>
+		                                            </div>
+		                                        </div>
+		                                        <div class="portlet-body">
+		                                            <div class="row">
+		                                                <div class="col-md-12">
+		                                                    <div class="form-group">
+		                                                        <label>Roles & Responsibilities <span class="required">*</span></label>  
+		                                                        <textarea id="textarea" rows="6" class="form-control autosizeme" name="job_detail" maxlength="1000" ></textarea>
+		                                                        <div id="textarea_feedback"></div>
+		                                                    </div>
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                    <!-- END PORTLET -->
+		                                    <!-- BEGIN PORTLET -->
+		                                    <div class="portlet light " style="background-color:white;">
+		                                        <div class="portlet-title">
+		                                            <div class="caption caption-md">
+		                                                <i class="icon-bar-chart theme-font hide"></i>
+		                                                <span class="caption-subject font-blue-madison bold uppercase">Other Details</span>
+		                                            </div>
+		                                        </div>
+		                                        <div class="portlet-body">
+		                                            <div class="row">
+		                                                <div class="col-md-6 col-sm-12 col-xs-12">
+		                                                    <div class="form-group">
+		                                                        <label> Minimum Education <span class="required">
+		                                                                * </span>
+		                                                                <button type="button" class="btn btn-default" style="background-color:transparent;border:0;padding: 0;" data-toggle="tooltip" data-placement="top" title="You can select multiple Education values">
+																  			<i class="icon-info" style="color: #337ab7;font-size:15px;"></i>
+																  		</button>
+		                                                        </label> <!-- Select Multiple <input type="checkbox" id="education-check" name="multiple_education" value="1" class="form-control"> -->
+		                                                        <!-- <div class="input-group single-education" > -->
+		                                                            
+		                                                            <select class="form-control education-list" name="education[]" id="education_show" multiple style="border:1px solid #c4d5df">
+		                                                                @foreach ($education as $educ)
+		                                                                    @if($educ->branch == "-")
+		                                                                    <option value="{{$educ->name}}- -{{$educ->level}}" style="font-weight:600 !important;">{{$educ->name}}</option>
+		                                                                    @endif
+		                                                                @endforeach
+		                                                                @foreach($education as $edu)
+		                                                                    @if($n != $edu->name && $edu->name != '0' && $edu->branch != "-")
+		                                                                        {{$n=$edu->name}}
+		                                                                        <optgroup label="{{$edu->name}}">
+		                                                                    @endif
+		                                                                    @if($edu->branch != "-")
+		                                                                        <option value="{{$edu->name}}-{{$edu->branch}}-{{$edu->level}}">{{$edu->name}}-{{$edu->branch}}</option>
+		                                                                    @endif
+		                                                                    @if($n != $edu->name && $edu->branch != "-")
+		                                                                        </optgroup>     
+		                                                                    @endif
+		                                                                @endforeach
+		                                                            </select>
+		                                                        <!-- </div> -->
+		                                                    </div>
+		                                                </div>
+		                                                <div class="col-md-6 col-sm-6 col-xs-12">
+		                                                    <div class="form-group new-margin-formgroup">
+		                                                        <label>Post Duration <span class="required">
+		                                                            * </span></label>
+		                                                        <div class="input-group">
+		                                                            <span class="input-group-addon">
+		                                                            <i class="icon-clock" style=" color: darkcyan;"></i>
+		                                                            </span>
+		                                                            <select name="post_duration" class="form-control" >
+		                                                                <option value="">--select--</option>                    
+		                                                                <option value="3">3 Days</option>
+		                                                                <option value="7">7 Days</option>
+		                                                                <option value="15">15 Days</option>
+		                                                                <option value="30">30 Days</option>
+		                                                            </select>
+		                                                        </div>
+		                                                    </div>
+		                                                </div>
+		                                            </div>
+		                                            <div class="row">
+		                                                <div class="col-md-6 col-sm-6 col-xs-12">
+		                                                    <div class="form-group">
+		                                                        <label>Select Prefered Location <span class="required">
+		                                                                * </span></label>
+		                                                        <div class="input-group">
+		                                                            <span class="input-group-addon" style="border-bottom: 0;border-bottom-left-radius: 0;">
+		                                                                <i class="fa fa-map-marker"></i>
+		                                                            </span>
 
-									@if(Auth::user()->identifier == 1)
-									<div class="row">
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="form-group">
-												<div class="input-icon right">
-														<i class="fa"></i>
-													<label>Company Name</label>
-													<div class="input-group">
-														<span class="input-group-addon">
-															<i class="fa fa-building" style="color:darkcyan;"></i>
-														</span>
-														<input type="text" id="comp_name_1" style="z-index:0;" name="post_compname" class="form-control" placeholder="Company Name">
+		                                                            <input type="text" id="pref_loc" name="pref_loc" 
+		                                                            class="form-control" placeholder="Select preferred location" style="border-bottom: 0;border-bottom-left-radius: 0;border-bottom-right-radius:0;">                                   
+		                                                            
+		                                                        </div>
+		                                                        {!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 
+		                                                                                                           'aria-hidden'=>'true', 
+		                                                                                                           'class'=>'form-control', 
+		                                                                                                           'placeholder'=>'city', 
+		                                                                                                           'multiple']) !!}     
+		                                                    </div>
+		                                                </div>
+		                                                <input type="text" id="show_location" name="show-location" style="display:none;">
+		                                                <div class="col-md-6 col-sm-6 col-xs-12">
+		                                            		<div class="form-group">
+		                                                        <label class=" control-label">Candidate Availability</label>
+		                                                        <div class="input-group">
+		                                                            <span class="input-group-addon">
+		                                                                <i class="fa fa-clock-o"></i>
+		                                                            </span>
+		                                                            <select  name="candidate_availablity" class=" form-control" style="">                                    
+			                                                            <option selected="selected" value="0">Immediate</option>
+			                                                            <option value="7">in 7 Days </option>
+			                                                            <option value="15">in 15 Days</option>
+			                                                            <option value="30">in 30 Days</option>
+			                                                            <option value="45">in 45 Days</option>
+			                                                            <option value="60">in Two Months</option> 
+			                                                            <option value="90">in Three Months</option> 
+			                                                        </select>
+		                                                        </div>
+		                                                    </div>
+		                                            	</div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                    <!-- END PORTLET -->
+		                                </div>
+		                                <div class="col-md-4" style="    margin: 7px 0 0px 0;">
+										    <div class="company-card">
+										        <div class="company-card-image">
+										            <span>Posted By</span>
+										            @if(Auth::user()->identifier == 1)
+										            @if(Auth::user()->induser->profile_pic != null)
+										            <a href="">
+										                <img src="/img/profile/{{ Auth::user()->induser->profile_pic }}" alt="">
+										            </a>
+										            @elseif(Auth::user()->induser->profile_pic == null)
+										            <div class=" badge-margin post-image-css">
+										                <i class="fa fa-user" style="font-size: 80px;margin: 50px 30px;color: #555;"></i> 
+										            </div>
+										            @endif
+
+										            <div class="profile-usertitle-name" style="margin-top: 10px;">
+										                {{Auth::user()->induser->fname}}
+										            </div>
+										            <div class="profile-usertitle-job">
+										                @if(Auth::user()->induser->role != null) {{Auth::user()->induser->role}} @endif 
+										            </div>
+										            @elseif(Auth::user()->identifier == 2)
+										            @if(Auth::user()->corpuser->logo_status != null)
+										            <a href="">
+										                <img src="/img/profile/{{ Auth::user()->corpuser->logo_status }}" alt="">
+										            </a>
+										            @elseif(Auth::user()->corpuser->logo_status == null)
+										            <div class=" badge-margin post-image-css">
+										                <i class="fa fa-user" style="font-size: 80px;margin: 50px 30px;color: #555;"></i> 
+										            </div>
+										            @endif
+
+										            <div class="profile-usertitle-name" style="margin-top: 10px;">
+										                {{Auth::user()->corpuser->firm_name}}
+										            </div>
+										            <div class="profile-usertitle-job">
+										                @if(Auth::user()->corpuser->slogan != null) {{Auth::user()->corpuser->slogan}} @endif 
+										            </div>
+										            @endif
+										        </div><!-- /.company-card-image -->
+										        
+										        <div class="company-card-data">
+		                                            <div class="row" style="margin: 0 5px;">
+		                                                <div class="col-md-12">
+		                                                    <div class="form-group" style="margin-bottom: 0;">
+		                                                        <label><input id="hide-apply" name="apply-check" type="checkbox"></label><label style="color: #eee;">&nbsp;Apply On Company Website</label>
+		                                                        <div  class="input-group show-apply">
+		                                                            <input type="text" name="website_redirect_url" class="form-control" value="" placeholder="http://">
+		                                                        </div>
+		                                                    </div>
+		                                                </div>
+		                                            </div>
+		                                            <h2 class="decorated show-apply-email" style="margin: 0px 10px 8px 10px;color: rgb(202, 225, 236);">
+														<span style="font-size: 12px;">OR</span>
+													</h2>
+										        	<div class="row show-apply-email" style="margin:0 10px">
+												        <div class="col-md-12 ">
+													        <div class="form-group">
+													            <label style="color: #eee;">Show Contact<span class="required">
+													                    * </span></label>
+													            <div class="input-group">
+													                <div class="md-radio-inline">
+													                    <div class="md-radio">
+													                        <input type="radio" checked id="radio6" data-title="Public" name="show_contact" value="Public" class="md-radiobtn">
+													                        <label for="radio6" style="color:#eee;">
+													                        <span></span>
+													                        <span class="check"></span>
+													                        <span class="box" style="border: 2px solid white;"></span>
+													                        Public </label>
+													                    </div>
+													                    <div class="md-radio">
+													                        <input type="radio" id="radio7" data-title="Private" name="show_contact" value="Private" class="md-radiobtn">
+													                        <label for="radio7" style="color:#eee;">
+													                        <span></span>
+													                        <span class="check"></span>
+													                        <span class="box" style="border: 2px solid white;"></span>
+													                        Private</label>
+													                    </div>
+													                </div>  
+													                <div id="radio_error"></div>                    <!-- /input-group -->
+													            </div>
+													            <div class="public" style="color: rgb(255, 208, 173);font-size: 11px;">Your Contact details will be shown on the post and people may directly contact you.</div>
+													            <div class="private display-none" style="color: rgb(255, 208, 173);font-size: 11px;">Your Contact details will not be shown on the post. You may have to contact people who have applied on this post.</div>
+													        </div>
+													    </div>
 													</div>
-												</div>
-											</div>
+													<div class="row show-apply-email" style="margin:0 10px">
+										                <div class="col-md-12 col-sm-12">
+										                    <div class="form-group">
+										                        <label style="color:#eee;">Email Id</label>
+										                        <div class="input-group">
+										                        <span class="input-group-addon" style="background-color: transparent;">
+										                        <i class="icon-envelope" style="color:#29DCDC;"></i>
+										                        
+										                        </span>
+										                        <input type="text" name="email_id" value="{{ Auth::user()->email }}" class="form-control group" placeholder="Email Id" style="color: white;">
+										                        </div>
+										                    </div>
+										                </div>
+										                <!--/span-->
+										                <!-- <div class="col-md-2"></div> -->
+										                <div class="col-md-12 col-sm-12">
+										                    <div class="form-group">
+										                        <label style="color:#eee;">Phone No</label>
+										                        <div class="input-group">
+										                        <span class="input-group-addon">
+										                        <i class="icon-call-end" style="color:#29DCDC;"></i>
+										                        </span>
+										                        <input type="text" name="phone" minlength="10" maxlength="10" value="{{ Auth::user()->mobile }}"  class="form-control group" placeholder="Phone No" style="color: white;">
+										                        
+										                        </div>
+										                    </div>
+										                </div>
+										                <!--/span-->
+										            </div>
+										        </div><!-- /.company-card-data -->
+										    </div>
 										</div>
-										<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="form-group">
-												<label>Reference Id</label>
-												<div class="input-group">
-													<span class="input-group-addon">
-														<i class="fa fa-info" style="color:darkcyan;"></i>
-													</span>
-													<input type="text" id="ref_id_1" style="z-index:0;" name="reference_id" class="form-control" placeholder="Reference Id">
-												</div>
-											</div>
-										</div>
-									</div>	
-									@elseif(Auth::user()->identifier == 2 && Auth::user()->corpuser->firm_type == "consultancy")
-									<div class="row">
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="form-group">
-												<div class="input-icon right">
-														<i class="fa"></i>
-													<label>Company Name</label>
-													<div class="input-group">
-														<span class="input-group-addon">
-															<i class="fa fa-building" style="color:darkcyan;"></i>
-														</span>
-														<input type="text" id="comp_name_2" name="post_compname" class="form-control" placeholder="Company Name">
-													</div>
-												</div>
-											</div>
-										</div>
-										<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="form-group">
-												<label>Reference Id</label>
-												<div class="input-group">
-													<span class="input-group-addon">
-														<i class="fa fa-info" style="color:darkcyan;"></i>
-													</span>
-													<input type="text" id="ref_id_2" name="reference_id" class="form-control" placeholder="Reference Id">
-												</div>
-											</div>
-										</div>
-									</div>	
-									@elseif(Auth::user()->identifier == 2 && Auth::user()->corpuser->firm_type == "company")
-									<div class="row">
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="form-group">
-												<label>Reference Id</label>
-												<div class="input-group">
-													<span class="input-group-addon">
-														<i class="fa fa-info" style="color:darkcyan;"></i>
-													</span>
-													<input type="text" id="ref_id_3" name="reference_id" style="z-index:0;" class="form-control" placeholder="Reference Id">
-												</div>
-											</div>
-										</div>
-									</div>	
-									@endif
-									<div class="row">
-										<div class="col-md-6 col-sm-6 col-xs-6">
-											<div class="form-group">
-												<label>Job Type <span class="required">
-												* </span></label>
-												<div class="input-group">
-													<span class="input-group-addon">
-														<i class="icon-hourglass" style="color:darkcyan;"></i>
-													</span>
-													<select name="time_for" class="form-control" style="z-index:0;">
-														<option value="">-- select --</option>
-														<option value="Full Time">Full Time</option>
-														<option value="Part Time">Part Time</option>
-														<option value="Freelancer">Freelancer</option>
-														<option value="Work from Home">Work from Home</option>
-													</select>
-												</div>
-											</div>
-										</div>
-									</div>	
+		                            </div>	
 								</div>
-								<div class="tab-pane" id="tab2">
-									<div class="row">
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="form-group">
-												<label>Search Skills</label>
-												<div style="position:relative;">
-													<input type="text" name="name" id="newskill" class="form-control" placeholder="Search for skill...">
-													<button id="add-new-skill" style="position:absolute;right:0;top:0;" class="btn btn-success" type="button"><i class="icon-plus"></i> Add</button>		
-												</div>
-												{!! Form::select('linked_skill_id[]', $skills, null, ['id'=>'linked_skill_id', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Skills', 'multiple']) !!}
-											</div>
-										</div>
-										<input type="text" id="confirm-skill" name="skill" style="display:none;">
-										<div class="col-md-6 col-sm-12 col-xs-12">
-											<div class="form-group">
-												<label>  Education <span class="required">
-														* </span></label> <!-- Select Multiple <input type="checkbox" id="education-check" name="multiple_education" value="1" class="form-control"> -->
-												<!-- <div class="input-group single-education" > -->
-													
-													<select class="form-control education-list" name="education[]" id="education_show" multiple style="border:1px solid #c4d5df">
-														@foreach($education as $edu)
-															@if($n != $edu->name && $edu->name != '0')
-																{{$n=$edu->name}}
-																<optgroup label="{{$edu->name}}">
-															@endif
-																<option value="{{$edu->name}}-{{$edu->branch}}-{{$edu->level}}">{{$edu->name}}-{{$edu->branch}}</option>
-															@if($n != $edu->name)
-																</optgroup>		
-															@endif
-														@endforeach
-													</select>
-												<!-- </div> -->
-											</div>
-										</div>
-									</div>
-									<input type="text" id="confirm-education" name="education-show" style="display:none;">
-									<div class="row">
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="form-group">							
-												<label class=" control-label">Experience </label>&nbsp;: 
-														<input type="text" readonly id="slider-range-exp1" name="min_exp" class="input-exp-width" /> - 
-														<input type="text" readonly id="slider-range-exp2" name="max_exp" class="input-exp-width" /> Years
-												<div id="slider-range-exp" class="slider bg-gray" style="    z-index: 0;">
-													</div>
-													
-											</div>
-										</div>
-										<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
-										
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="form-group">							
-												<label class=" control-label"><input type="checkbox" id="hide-check"> Salary </label>&nbsp;: 
-														<label class="hide-sal input-sal-exp-label"><i class="fa fa-rupee (alias)" style="font-size:12px;"></i></label>
-														<input type="text" readonly id="slider-range-amount1" name="min_sal" class="input-sal-width hide-sal one" />
-														<!-- <input type="text" readonly id="slider-range-amount3" name="min_sal" class="input-sal-width hide-sal-new three" /> -->
-														<label class="hide-sal input-sal-exp-label">- <i class="fa fa-rupee (alias)" style="font-size:12px;"></i></label>
-														<input type="text" readonly id="slider-range-amount2" name="max_sal" class="input-sal-width hide-sal two" />
-														<!-- <input type="text" readonly id="slider-range-amount4" name="max_sal" class="input-sal-width hide-sal four" /> -->
-												<select id="salary-type"  name="salary_type" class="hide-sal-new input-sal-exp-label" style="border-top: 0px;border-left: 0;border-right: 0;width:75px">									
-													<option selected="selected" value="Monthly">Monthly</option>
-													<option value="Weekly">Weekly</option>
-													<option value="Daily">Daily</option>
-													<option value="Hourly">Hourly</option>
-													<option value="Pervisit">Per Visit</option>	
-												</select>
-												<div id="salary-old" class="hide-sal">
-													<div id="slider-range" class="slider bg-gray"></div>
-													
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="form-group">
-										
-									</div>
-								</div>
+								
 								<div class="tab-pane" id="tab3">
-									
 									<div class="row">
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="form-group">
-												<label>Select Prefered Location <span class="required">
-														* </span></label>
-												<div class="input-group">
-													<span class="input-group-addon">
-														<i class="fa fa-map-marker"></i>
-													</span>
+		                                <div class="col-md-8">
+		                                    <!-- BEGIN PORTLET -->
+		                                    <div class="portlet light " style="background-color:white;">
+		                                        <div class="portlet-title">
+		                                            <div class="caption caption-md">
+		                                                <i class="icon-bar-chart theme-font hide"></i>
+		                                                <span class="caption-subject font-blue-madison bold uppercase">Other Requirements</span>
+		                                            </div>
+		                                        </div>
+		                                        <div class="portlet-body">
+		                                            <div class="row">
+		                                                <div class="col-md-6 col-sm-6 col-xs-12">
+		                                                    <div class="form-group">
+		                                                        <label>Job Type <span class="required">
+		                                                        * </span></label>
+		                                                        <div class="input-group">
+		                                                            <span class="input-group-addon">
+		                                                                <i class="icon-hourglass" style="color:darkcyan;"></i>
+		                                                            </span>
+		                                                            <select name="time_for" class="form-control">
+		                                                                <option value="">-- select --</option>
+		                                                                <option value="Full Time">Full Time</option>
+		                                                                <option value="Part Time">Part Time</option>
+		                                                                <option value="Freelancer">Freelancer</option>
+		                                                                <option value="Work from Home">Work from Home</option>
+		                                                            </select>
+		                                                        </div>
+		                                                    </div>
+		                                                </div>
+		                                                <div class="col-md-6">
+		                                                    <label class="contro-label">Job Agreement</label>
+		                                                    <div class="form-group">
+		                                                         <div class="input-group">
+		                                                            <span class="input-group-addon">
+		                                                                <i class="fa fa-inr"></i>
+		                                                            </span>
+		                                                            <select class="form-control" name="job_agreement">
+		                                                                <option value="">Select</option>
+		                                                                <option value="Contract">Contract</option>
+		                                                                <option value="Permanent">Permanent</option>
+		                                                                <option value="One Time Project">One Time Project</option>
+		                                                            </select>
+		                                                        </div>
+		                                                    </div>
+		                                                </div>
+		                                            </div>
+		                                            <div class="row">
+		                                            	<div class="col-md-6 col-sm-6 col-xs-12">
+		                                                    <div class="form-group">
+		                                                        
+		                                                        <label class=" control-label"> Salary</label>
+		                                                        <div class="input-group">
+		                                                            <span class="input-group-addon">
+		                                                                <i class="fa fa-rupee (alias)"></i>
+		                                                            </span>
+		                                                            <input class="form-control" name="min_sal" id="minsal" style="width:60%;">
+		                                                            <select id="salary-type"  name="salary_type" class="input-sal-exp-label form-control" style="border-left:0;width:40%">                                    
+			                                                            <option selected="selected" value="Monthly">Month</option>
+			                                                            <option value="Week">Weekly</option>
+			                                                            <option value="Day">Daily</option>
+			                                                            <option value="Hour">Hourly</option>
+			                                                            <option value="Onvisit">Per Visit</option> 
+			                                                        </select>
+		                                                        </div>
+		                                                    </div>
+		                                                </div>
+		                                                
+		                                                <div class="col-md-6 col-sm-6 col-xs-12 show-apply-email">
+		                                                	<label class=" control-label">Resume Required</label>
+		                                                	<div class="form-group">
+													            <div class="input-group">
+													                <div class="md-radio-inline">
+													                    <div class="md-radio">
+													                        <input type="radio"  id="radio8" data-title="Yes" name="resume_required" value="1" class="md-radiobtn">
+													                        <label for="radio8" style="">
+													                        <span></span>
+													                        <span class="check"></span>
+													                        <span class="box"></span>
+													                        Yes </label>
+													                    </div>
+													                    <div class="md-radio">
+													                        <input type="radio" checked id="radio9" data-title="No" name="resume_required" value="0" class="md-radiobtn">
+													                        <label for="radio9" style="">
+													                        <span></span>
+													                        <span class="check"></span>
+													                        <span class="box"></span>
+													                        No</label>
+													                    </div>
+													                </div>  
+													                <div id="radio_error"></div>                    <!-- /input-group -->
+													            </div>
+													        </div>
+		                                                </div>
+		                                            </div>
+		                                            <div class="row">
+		                                            	
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                    <!-- END PORTLET -->
+		                                    <!-- BEGIN PORTLET -->
+		                                    <div class="portlet light " style="background-color:white;">
+		                                      <div class="portlet-title">
+		                                        <div class="caption caption-md">
+		                                          <i class="icon-bar-chart theme-font hide"></i>
+		                                          <span class="caption-subject font-blue-madison bold uppercase">Company Details</span>
+		                                        </div>
+		                                      </div>
+		                                        <div class="portlet-body">
+		                                            <div class="row">
+		                                                <div class="col-md-6 col-sm-6 col-xs-12">
+		                                                    <div class="form-group">
+		                                                        <div class="input-icon right">
+		                                                                <i class="fa"></i>
+		                                                            <label>Company Name</label>
+		                                                            <div class="input-group">
+		                                                                <span class="input-group-addon">
+		                                                                    <i class="fa fa-building" style="color:darkcyan;"></i>
+		                                                                </span>
+		                                                                <input type="text" id="comp_name_1" style="z-index:0;" name="post_compname" class="form-control" placeholder="Company Name">
+		                                                            </div>
+		                                                        </div>
+		                                                    </div>
+		                                                </div>
+		                                                <!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
+		                                                <div class="col-md-6 col-sm-6 col-xs-12">
+		                                                    <div class="form-group">
+		                                                        <label>Reference Id</label>
+		                                                        <div class="input-group">
+		                                                            <span class="input-group-addon">
+		                                                                <i class="fa fa-info" style="color:darkcyan;"></i>
+		                                                            </span>
+		                                                            <input type="text" id="ref_id_1" style="z-index:0;" name="reference_id" class="form-control" placeholder="Reference Id">
+		                                                        </div>
+		                                                    </div>
+		                                                </div>
+		                                            </div>
+		                                            <div class="row">
+		                                                <div class="col-md-12">
+		                                                    <div class="form-group">
+		                                                        <label>About Company</label>
+		                                                        <textarea id="textareas" rows="6" class="form-control autosizeme" name="about_company" maxlength="1000" >
+		                                                        	@if(Auth::user()->identifier == 2 && Auth::user()->corpuser->about_firm != null)
+		                                                        		{{Auth::user()->corpuser->about_firm}}
+		                                                        	@endif
+		                                                        </textarea>
+		                                                        <div id="textarea_feedback"></div>
+		                                                    </div>
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                    <!-- END PORTLET -->
+		                                </div>
+		                                <div class="col-md-4" style="    margin: 7px 0 0px 0;">
+										    <div class="company-card">
+										        <div class="company-card-image">
+										            <span>Posted By</span>
+										            @if(Auth::user()->identifier == 1)
+										            @if(Auth::user()->induser->profile_pic != null)
+										            <a href="">
+										                <img src="/img/profile/{{ Auth::user()->induser->profile_pic }}" alt="">
+										            </a>
+										            @elseif(Auth::user()->induser->profile_pic == null)
+										            <div class=" badge-margin post-image-css">
+										                <i class="fa fa-user" style="font-size: 65px;margin: 40px 29px;color: lightgray;"></i> 
+										            </div>
+										            @endif
 
-													<input type="text" id="pref_loc" name="pref_loc" 
-													class="form-control" placeholder="Select preferred location">									
-													
-												</div>
-												{!! Form::select('prefered_location[]', [], null, ['id'=>'prefered_location', 
-																								   'aria-hidden'=>'true', 
-																								   'class'=>'form-control', 
-																								   'placeholder'=>'city', 
-																								   'multiple']) !!}		
-											</div>
-										</div>
-										<input type="text" id="show_location" name="show-location" style="display:none;">
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="form-group new-margin-formgroup">
-												<label>Post Duration <span class="required">
-													* </span></label>
-												<div class="input-group">
-													<span class="input-group-addon">
-													<i class="icon-clock" style=" color: darkcyan;"></i>
-													</span>
-													<select name="post_duration" class="form-control" >
-														<option value="">--select--</option>					
-														<option value="3">3 Days</option>
-														<option value="7">7 Days</option>
-														<option value="15">15 Days</option>
-														<option value="30">30 Days</option>
-													</select>
-												</div>
-											</div>
-										</div>
-									</div>
+										            <div class="profile-usertitle-name" style="margin-top: 10px;">
+										                {{Auth::user()->induser->fname}}
+										            </div>
+										            <div class="profile-usertitle-job">
+										                @if(Auth::user()->induser->role != null) {{Auth::user()->induser->role}} @endif 
+										            </div>
+										            @elseif(Auth::user()->identifier == 2)
+										            @if(Auth::user()->corpuser->logo_status != null)
+										            <a href="">
+										                <img src="/img/profile/{{ Auth::user()->corpuser->logo_status }}" alt="">
+										            </a>
+										            @elseif(Auth::user()->corpuser->logo_status == null)
+										            <div class=" badge-margin post-image-css">
+										                <i class="fa fa-user" style="font-size: 65px;margin: 40px 29px;color: lightgray;"></i> 
+										            </div>
+										            @endif
 
-									<div class="row">
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="form-group">
-											<label style="margin-left: -5px;"><input id="hide-apply" name="apply-check" type="checkbox"></label><label>&nbsp;Apply On Company Website</label>
-											<div  class="input-group show-apply">
-												<input type="text" name="website_redirect_url" class="form-control" value="" placeholder="http://">
-											</div>
-											</div>
+										            <div class="profile-usertitle-name" style="margin-top: 10px;">
+										                {{Auth::user()->corpuser->firm_name}}
+										            </div>
+										            <div class="profile-usertitle-job">
+										                @if(Auth::user()->corpuser->slogan != null) {{Auth::user()->corpuser->slogan}} @endif 
+										            </div>
+										            @endif
+										        </div><!-- /.company-card-image -->
+										        
+										        <div class="company-card-data">
+										        	<div class="row apply-here" style="margin:0 10px">
+										        		<div class="col-md-12">
+										        			<div class="form-group">
+										        				<label>Apply here:</label>
+										        				<p class="form-control-static-msg" data-display-msg="website_redirect_url"></p>
+										        			</div>
+										        		</div>
+										        	</div>
+										        	<div class="row show-apply-email" style="margin:0 10px">
+												        <div class="col-md-12 ">
+													        <div class="form-group">
+													            <label>Show Contact:</label>
+													            <p class="form-control-static-msg" data-display-msg="show_contact"></p>
+													        </div>
+													    </div>
+													</div>
+													<div class="row show-apply-email" style="margin:0 10px">
+										                <div class="col-md-12 col-sm-12">
+										                    <div class="form-group">
+										                        <label><i class="fa fa-envelope"></i> </label>&nbsp;&nbsp; <p class="form-control-static-msg" data-display-msg="email_id"></p>
+										                    </div>
+										                </div>
+										                <!--/span-->
+										                <!-- <div class="col-md-2"></div> -->
+										                <div class="col-md-12 col-sm-12">
+										                    <div class="form-group">
+										                        <label><i class="fa fa-phone-square"></i> </label>&nbsp;&nbsp; <p class="form-control-static-msg" data-display-msg="phone"></p>
+										                    </div>
+										                </div>
+										                <!--/span-->
+										            </div>
+										        </div><!-- /.company-card-data -->
+										    </div>
 										</div>
-										<!-- <div class="col-md-2 col-sm-2"></div> -->
-										<div class="col-md-6 col-sm-6 col-xs-12 show-apply-email">
-											<div class="form-group">
-											<!-- <label>Job Title</label> -->
-												<div class="input-group">
-													<label style="margin-left: -5px;">
-														<input type="checkbox" id="resume-check" name="resume_required" value="1" class="form-control">
-													</label>
-													<label>Resume Required to apply for this Job</label>
-												</div>
-											</div>
-										</div>
-										
-									</div>
-									<div class="row">
-										<div class="col-md-6 show-apply-email">
-											<div class="form-group">
-												<label>Show Contact<span class="required">
-														* </span></label>
-												<div class="input-group">
-													<div class="md-radio-inline">
-														<div class="md-radio">
-															<input type="radio" checked id="radio6" name="show_contact" value="Public" class="md-radiobtn">
-															<label for="radio6" style="">
-															<span></span>
-															<span class="check"></span>
-															<span class="box"></span>
-															Public </label>
-														</div>
-														<div class="md-radio">
-															<input type="radio" id="radio7" name="show_contact" value="Private" class="md-radiobtn">
-															<label for="radio7" style="">
-															<span></span>
-															<span class="check"></span>
-															<span class="box"></span>
-															Private</label>
-														</div>
-													</div>	
-													<div id="radio_error"></div>					<!-- /input-group -->
-												</div>
-												<div class="public" style="color: firebrick;font-size: 11px;">Your Contact details will be seen on the post and people may directly contact you.</div>
-												<div class="private display-none" style="color: firebrick;font-size: 11px;">Your Contact details will not be seen on the post. You may have to contact people who have applied on this post.</div>
-											</div>
-										</div>
-										<!-- <div class="col-md-2 col-sm-2 col-xs-2"></div> -->
-										@if(Auth::user()->identifier == 2)
-										<div class="col-md-6 col-sm-6 show-apply-email">
-											<div class="form-group">
-												<label>Contact Person</label>
-												<div class="input-group">
-												<span class="input-group-addon">
-												<i class="glyphicon glyphicon-user" style="color:darkcyan;"></i>
-												</span>
-												<input type="text" name="contact_person" value="{{ Auth::user()->corpuser->username }}" class="form-control" placeholder="Contact Person">
-												</div>
-											</div>
-										</div>
-										@else
-										<div class="col-md-6 col-sm-6 show-apply-email">
-											<div class="form-group">
-												<label>Contact Person</label>
-												<div class="input-group">
-												<span class="input-group-addon">
-												<i class="glyphicon glyphicon-user" style="color:darkcyan;"></i>
-												</span>
-												<input type="text" name="contact_person" value="{{ Auth::user()->name }}" class="form-control" placeholder="Contact Person">
-												</div>
-											</div>
-										</div>
-										@endif
-										
-										
-									</div>
-										<!--/span-->
-									<div class="row show-apply-email">
-										<div class="col-md-6 col-sm-6">
-											<div class="form-group">
-												<label>Email Id (Registered)</label>
-												<div class="input-group">
-												<span class="input-group-addon" >
-												<i class="icon-envelope" style="color:darkcyan;"></i>
-												
-												</span>
-												<input type="text" name="email_id" value="{{ Auth::user()->email }}" class="form-control group" placeholder="">
-												</div>
-											</div>
-										</div>
-										<!--/span-->
-										<!-- <div class="col-md-2"></div> -->
-										<div class="col-md-6 col-sm-6">
-											<div class="form-group">
-												<label>Phone No (Registered)</label>
-												<div class="input-group">
-												<span class="input-group-addon">
-												<i class="icon-call-end" style="color:darkcyan;"></i>
-												</span>
-												<input type="text" name="phone" minlength="10" maxlength="10" value="{{ Auth::user()->mobile }}"  class="form-control group" placeholder="">
-												
-												</div>
-											</div>
-										</div>
-										<!--/span-->
-									</div>
-									<div class="form-group">
-									
-									</div>
+		                            </div>
 								</div>
 								<div class="tab-pane" id="tab4">
 									
 									<input type="hidden" name="post_type">
 										<div class="form-body">
-											@if(Auth::user()->induser)
-											<div class="row">	
-												<div class="col-md-12">											
-													<h4>You want to Share this Job Tip with : </h4>
-												</div>
-												
-											<!-- <div class="form-group">
-												<select multiple="multiple" name="time_for"  placeholder="Select" class="SlectBox">
-											       <option selected value="Full Time">Full Time</option>
-													<option selected value="Part Time">Part Time</option>
-													<option selected value="Freelancer">Freelancer</option>
-													<option selected value="Work from Home">Work from Home</option>
-											    </select>		
-											</div> -->
-												<div class="col-md-12">
-													<div class="row">
-														<div class="col-md-12 col-sm-12">
-															<label class="add-everyone" for="tag-group-all" style="padding: 5.5px 12px;">
-																<input type="checkbox" id="tag-group-all" name="tag-group" value="all" class="md-radiobtn">
-																<i class="fa fa-globe"></i> Everyone 
-															</label>
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-md-3 col-sm-3">
-															<label class="add-group" for="tag-group-groups" style="padding: 5.5px 12px;">
-																<input type="checkbox" id="tag-group-groups" name="tag-group" value="groups" class="md-radiobtn" >														
-																<i class="icon-users"></i> Groups 
-															</label>
-														</div>
-														<div class="col-md-9 col-sm-9">
-															<div class="form-group hide-group" style="border-bottom: 1px solid lightgrey;">
-																{!! Form::select('groups[]', $groups, null, ['id'=>'groups', 'placeholder' => 'Add Groups', 'class'=>'form-control', 'multiple']) !!}	
-															</div>	
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-md-3 col-sm-3">
-															<label class="add-link" for="tag-group-links" style="padding: 5.5px 12px;">
-																<input type="checkbox" id="tag-group-links" name="tag-group" value="links" class="md-radiobtn" >
-																<i class="icon-link"></i> Links 
-															</label>
-														</div>
-														<div class="col-md-9 col-sm-9">
-															<div class="form-group hide-link" style="border-bottom: 1px solid lightgrey;">	
-																							
-																 {!! Form::select('connections[]', $connections, null, ['placeholder' => 'Add Links', 'id' => 'connections', 'class' => 'form-control', 'multiple']) !!}
-															</div>	
-														</div>
-													</div>
-												</div>
-											</div>
-
-											<div class="row">	
-											  	<div class="col-md-12"><hr style="margin:0 0 15px 0"></div>
-											</div>
-
-											
-											@endif	
-											<?php $var = 1; ?>
-											
 											<div class="row">																				
-												<div class="col-md-12" style="padding:0;">												
-														<div class="timeline" style="padding:0;">
-														<!-- TIMELINE ITEM -->
-														<div class="timeline-item time-item" style="box-shadow:0 0 !important;">
-															<div class="timeline-body" style="margin: 0;">
-																<div class="timeline-body-content col-md-7" style="margin: 0px 15px 20px;">
-																	<div style="font-weight: 600;color: black;font-size: 16px;">
-																		<p class="form-control-static" data-display="post_title"></p>
-																	</div>
-					                                                         <div class="row">
-					                                                            <!-- <div class="col-md-6 col-sm-6 col-xs-6"> 
-					                                                                    <label class="detail-label">Job Role :</label>
-					                                                            </div>
-					                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-					                                                                   <p class="form-control-static" data-display="role" style="margin: -5px 0;"></p>
-					                                                            </div>
-					                                                            </div> -->
-					                                                            <div class="row">
-					                                                            
-						                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-						                                                                    <label class="detail-label"> Company Name : </label>     
-						                                                            </div>
-						                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-						                                                                         <p class="form-control-static" data-display="post_compname" style="margin: -5px 0;"></p>
-																								
-						                                                            </div>
-						                                                        </div>
-					                                                            <div class="row">
-					                                                            
-						                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-						                                                                    <label class="detail-label"> Experience : </label>     
-						                                                            </div>
-						                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-						                                                                         <p class="form-control-static" data-display="min_exp" style="margin: -5px 0;"></p> -
-																								<p class="form-control-static" data-display="max_exp" style="margin: -5px 0;"></p> Years  
-						                                                            </div>
-						                                                        </div>
-						                                                        <div class="row">
-						                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-						                                                                <label class="detail-label">Education :</label>     
-						                                                            </div>
-						                                                            <div class="col-md-6 col-sm-6 col-xs-6">
-						                                                                <p class="form-control-static" data-display="education[]" style="margin: -5px 0;"></p>
-						                                                            </div>
-						                                                        </div>
-						                                                        
-					                                                            <div class="row"> 
-					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-					                                                                        <label class="detail-label">Skills :</label>                                                                  
-					                                                                </div>
-					                                                               
-					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                 
-					                                                                        <p class="form-control-static" data-display="skill" style="margin: -5px 0;"></p>
-					                                                                    
-					                                                                </div>
-					                                                            </div>
-					                                                            <div class="row"> 
-					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-					                                                                        <label class="detail-label">Industry :</label>                                                                  
-					                                                                </div>
-					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-					                                                                        <p class="form-control-static" data-display="industry" style="margin: -5px 0;"></p>
-					                                                                </div>
-					                                                            </div>
-					                                                            <div class="row"> 
-					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-					                                                                        <label class="detail-label">Role :</label>                                                                  
-					                                                                </div>
-					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-					                                                                        <p class="form-control-static" data-display="role" style="margin: -5px 0;"></p>
-					                                                                </div>
-					                                                            </div>
-					                                                            <div class="row"> 
-					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-					                                                                        <label class="detail-label">Job Type :</label>                                                                  
-					                                                                </div>
-					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-					                                                                        <p class="form-control-static" data-display="time_for" style="margin: -5px 0;"></p>
-					                                                                </div>
-					                                                            </div>
-					                                                             <div class="row show-salary">
-					                                                                <div class="col-md-6 col-sm-6 col-xs-6">
-					                                                                        <label class="detail-label">Salary (<i class="fa fa-rupee (alias)"></i>):</label>
-					                                                                </div>
-					                                                                <div class="col-md-6 col-sm-6 col-xs-6">
-					                                                                        <p class="form-control-static" data-display="min_sal"></p>-<p class="form-control-static" data-display="max_sal"></p> <p class="form-control-static" data-display="salary_type"></p>
-					                                                                </div>
-					                                                            </div>
-					                                                            <div class="row"> 
-					                                                                
-					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-					                                                                        <label class="detail-label">Prefered Location :</label>                                                                  
-					                                                                </div>
-					                                                                <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-					                                                                         <p class="form-control-static" data-display="show-location" style="margin: -5px 0;"></p>
-					                                                                </div>
-					                                                            </div>
-					                                                            
-					                                                            <div class="skill-display">Description : </div>
-					                                                            	<p class="form-control-static" data-display="job_detail"></p>
-
-					                                                            <div class="">Reference Id&nbsp;:<p class="form-control-static" data-display="reference_id"></p> </div> 
-
-																			
-																			<div >Post Duration: <p class="form-control-static" data-display="post_duration"></p></div>
-																			<div class="skill-display">Contact Details:<br> </div>
-																			<label class="show-apply">Apply on Company Website:<p class="form-control-static" data-display="website_redirect_url"></p></label><br>
-																			<div id="con" class="show-apply-email" style="margin: -25px 0;">
-																			<i class="icon-user" style="color:darkslategrey;font-size: 16px;"></i> : <p class="form-control-static" data-display="contact_person"></p><br>
-																					
-																				<i class="glyphicon glyphicon-envelope" style="color: #13B8D4;font-size: 16px;"></i>&nbsp;:<p class="form-control-static" data-display="email_id"></p>
-																				 
-																			<br>
-																				<i class="glyphicon glyphicon-earphone" style="color: green;font-size: 16px;"></i>&nbsp;:<p class="form-control-static" data-display="phone"></p>
-																				</div> 
-																			<!-- <div class="skill-display" style="margin: 25px 0;">Post Id&nbsp;: Null (Auto generated after submit.) </div>  -->
-																</div>		
-																
+												<div class="col-md-8" style="padding:0;">												
+													@if(Auth::user()->induser)
+													<!-- BEGIN PORTLET -->
+													<div class="portlet light " style="background-color:white;">
+														<div class="portlet-title">
+															<div class="caption caption-md">
+																<i class="icon-bar-chart theme-font hide"></i>
+																<span class="caption-subject font-blue-madison bold uppercase">Share this Post with</span>
 															</div>
-															
 														</div>
-
-														<!-- END TIMELINE ITEM -->
+														<div class="portlet-body">
+															<div class="row">	
+																<div class="col-md-12">
+																	<div class="row">
+																		<div class="col-md-12 col-sm-12">
+																			<label class="add-everyone" for="tag-group-all" style="padding: 5.5px 12px;">
+																				<input type="checkbox" id="tag-group-all" name="tag-group" value="all" class="md-radiobtn">
+																				<i class="fa fa-globe"></i> Everyone 
+																			</label>
+																		</div>
+																	</div>
+																	<div class="row">
+																		<div class="col-md-3 col-sm-3">
+																			<label class="add-group" for="tag-group-groups" style="padding: 5.5px 12px;">
+																				<input type="checkbox" id="tag-group-groups" name="tag-group" value="groups" class="md-radiobtn" >														
+																				<i class="icon-users"></i> Groups 
+																			</label>
+																		</div>
+																		<div class="col-md-9 col-sm-9">
+																			<div class="form-group hide-group" style="border-bottom: 1px solid lightgrey;">
+																				{!! Form::select('groups[]', $groups, null, ['id'=>'groups', 'placeholder' => 'Add Groups', 'class'=>'form-control', 'multiple']) !!}	
+																			</div>	
+																		</div>
+																	</div>
+																	<div class="row">
+																		<div class="col-md-3 col-sm-3">
+																			<label class="add-link" for="tag-group-links" style="padding: 5.5px 12px;">
+																				<input type="checkbox" id="tag-group-links" name="tag-group" value="links" class="md-radiobtn" >
+																				<i class="icon-link"></i> Links 
+																			</label>
+																		</div>
+																		<div class="col-md-9 col-sm-9">
+																			<div class="form-group hide-link" style="border-bottom: 1px solid lightgrey;">	
+																											
+																				 {!! Form::select('connections[]', $connections, null, ['placeholder' => 'Add Links', 'id' => 'connections', 'class' => 'form-control', 'multiple']) !!}
+																			</div>	
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
 													</div>
-												</div>	
-												
-												<!-- END TIMELINE ITEM -->
-											
+													@endif
+													<!-- END PORTLET -->
+													<!-- BEGIN PORTLET -->
+													<!-- <div class="portlet light " style="background-color:white;">
+														<div class="portlet-title">
+															<div class="caption caption-md">
+																<i class="icon-bar-chart theme-font hide"></i>
+																<span class="caption-subject font-blue-madison bold uppercase">Change Password</span>
+															</div>
+														</div>
+														<div class="portlet-body">
+															<a  href="#change-password" data-toggle="modal" class="btn btn-sm green-haze">
+																	Change </a>
+														</div>
+													</div> -->
+													<!-- END PORTLET -->
+													<!-- BEGIN PORTLET -->
+										            <div class="portlet light " style="">
+										                <!-- <div class="portlet-title">
+										                    <div class="caption caption-md">
+										                        <i class="icon-bar-chart theme-font hide"></i>
+										                        <span class="caption-subject font-blue-madison bold uppercase">Portlet</span>
+										                    </div>
+										                </div> -->
+										                <div class="portlet-body">
+										                    <div class="table-scrollable" style="border: 0;margin: -8px 0 0px 0 !important;">
+										                        <table class="table table-bordered table-bordered-detail table-hover">
+										                            <tbody>
+										                                <tr class="table-row-bg" style="border-top:0;">
+										                                    <td style="border-top:0;">
+										                                         Industry
+										                                    </td>
+										                                    <td style="border-top:0;">
+										                                         <p class="form-control-static" data-display="industry" style="margin: -5px 0;"></p>
+										                                    </td>
+										                                    
+										                                </tr>
+										                                <tr class="table-row-bg">
+										                                    <td>
+										                                         Functional Area & Role
+										                                    </td>
+										                                    <td>
+										                                         <p class="form-control-static" data-display="role" style="margin: -5px 0;"></p>
+										                                    </td>
+										                                   
+										                                </tr>
+										                                <tr class="table-row-bg">
+										                                    <td>
+										                                         Education
+										                                    </td>
+										                                    <td>
+										                                         <p class="form-control-static" data-display="education[]" style="margin: -5px 0;"></p>
+										                                    </td>
+										                                    
+										                                </tr>
+										                                <tr class="table-row-bg">
+										                                    <td>
+										                                         Skill
+										                                    </td>
+										                                    <td>
+										                                         <p class="form-control-static" data-display="skill" style="margin: -5px 0;"></p>
+										                                    </td>
+										                                </tr>
+										                                <tr class="table-row-bg">
+										                                    <td>
+										                                         Job Type
+										                                    </td>
+										                                    <td>
+										                                         <p class="form-control-static" data-display="time_for"></p>
+										                                    </td>
+										                                </tr>
+										                                <tr class="table-row-bg">
+										                                    <td>
+										                                         Salary
+										                                    </td>
+										                                    <td>
+										                                        <i class="fa fa-inr" style="font-size:12px;"></i> <p class="form-control-static" data-display="min_sal"></p> / <p class="form-control-static" data-display="salary_type"></p>
+										                                    </td>
+										                                </tr>
+										                                <tr class="table-row-bg">
+										                                    <td>
+										                                        Joining Period
+										                                    </td>
+										                                    <td>
+										                                        <p class="form-control-static" data-display="candidate_availablity"></p>
+										                                    </td>
+										                                </tr>
+										                                <tr class="table-row-bg">
+										                                    <td>
+										                                         Job Agreement
+										                                    </td>
+										                                    <td>
+										                                        <p class="form-control-static" data-display="job_agreement"></p>
+										                                    </td>
+										                                </tr>
+										                            </tbody>
+										                        </table>
+										                    </div>
+										                </div>
+										            </div>
+										            <!-- END PORTLET -->
+		                                            <!-- BEGIN PORTLET -->
+										            <div class="portlet light " style="background-color:white;">
+										                <div class="portlet-title">
+										                    <div class="caption caption-md">
+										                        <i class="icon-bar-chart theme-font hide"></i>
+										                        <span class="caption-subject font-blue-madison bold uppercase">Description</span>
+										                    </div>
+										                </div>
+										                <div class="portlet-body">
+										                    <p class="form-control-static" data-display="job_detail"></p>
+										                </div>
+										            </div>
+										            <!-- END PORTLET -->
+										            <!-- BEGIN PORTLET -->
+										            <div class="portlet light " style="background-color:white;">
+										                <div class="portlet-title">
+										                    <div class="caption caption-md">
+										                        <i class="icon-bar-chart theme-font hide"></i>
+										                        <span class="caption-subject font-blue-madison bold uppercase">About Compnay</span>
+										                    </div>
+										                </div>
+										                <div class="portlet-body">
+										                	<p class="form-control-static" data-display="post_compname" style="font-size:16px;"></p><br/>
+										                	Reference Id - <p class="form-control-static" data-display="reference_id"></p><br/>
+										                    Details - <p class="form-control-static" data-display="about_company"></p>
+										                </div>
+										            </div>
+										            <!-- END PORTLET -->
+															
+													
+												</div>
+												<div class="col-md-4" style="    margin: 7px 0 0px 0;">
+												    <div class="company-card">
+												        <div class="company-card-image">
+												            <span>Posted By</span>
+												            @if(Auth::user()->identifier == 1)
+												            @if(Auth::user()->induser->profile_pic != null)
+												            <a href="">
+												                <img src="/img/profile/{{ Auth::user()->induser->profile_pic }}" alt="">
+												            </a>
+												            @elseif(Auth::user()->induser->profile_pic == null)
+												            <div class=" badge-margin post-image-css">
+												                <i class="fa fa-user" style="font-size: 80px;margin: 50px 30px;color: #555;"></i> 
+												            </div>
+												            @endif
+
+												            <div class="profile-usertitle-name" style="margin-top: 10px;">
+												                {{Auth::user()->induser->fname}}
+												            </div>
+												            <div class="profile-usertitle-job">
+												                @if(Auth::user()->induser->role != null) {{Auth::user()->induser->role}} @endif 
+												            </div>
+												            @elseif(Auth::user()->identifier == 2)
+												            @if(Auth::user()->corpuser->logo_status != null)
+												            <a href="">
+												                <img src="/img/profile/{{ Auth::user()->corpuser->logo_status }}" alt="">
+												            </a>
+												            @elseif(Auth::user()->corpuser->logo_status == null)
+												            <div class=" badge-margin post-image-css">
+												                <i class="fa fa-user" style="font-size: 65px;margin: 40px 29px;color: lightgray;"></i> 
+												            </div>
+												            @endif
+
+												            <div class="profile-usertitle-name" style="margin-top: 10px;">
+												                {{Auth::user()->corpuser->firm_name}}
+												            </div>
+												            <div class="profile-usertitle-job">
+												                @if(Auth::user()->corpuser->slogan != null) {{Auth::user()->corpuser->slogan}} @endif 
+												            </div>
+												            @endif
+												        </div><!-- /.company-card-image -->
+												        
+												        <div class="company-card-data">
+												        	<div class="row apply-here" style="margin:0 10px">
+												        		<div class="col-md-12">
+												        			<div class="form-group">
+												        				<label>Apply here:</label>
+												        				<p class="form-control-static" data-display="website_redirect_url"></p>
+												        			</div>
+												        		</div>
+												        	</div>
+												        	<div class="row show-apply-email" style="margin:0 10px">
+														        <div class="col-md-12 ">
+															        <div class="form-group">
+															            <label>Show Contact: <span class="required">
+															                    * </span></label>
+															            <p class="form-control-static" data-display="show_contact"></p>
+															            
+															        </div>
+															    </div>
+															</div>
+															<div class="row show-apply-email" style="margin:0 10px">
+												                <div class="col-md-12 col-sm-12">
+												                    <div class="form-group">
+												                        <label>Email Id: </label>
+												                         <p class="form-control-static" data-display="email_id"></p>
+												                    </div>
+												                </div>
+												                <!--/span-->
+												                <!-- <div class="col-md-2"></div> -->
+												                <div class="col-md-12 col-sm-12">
+												                    <div class="form-group">
+												                        <label>Phone No: </label>
+												                         <p class="form-control-static" data-display="phone"></p>
+												                    </div>
+												                </div>
+												                <!--/span-->
+												            </div>
+												        </div><!-- /.company-card-data -->
+												    </div>
+												</div>
 											</div>
-														
-													
-													<!-- END FORM-->
-													
-										<?php $var++; ?>
+										</div>
+										<div class="g-recaptcha" data-sitekey="{{ env('RE_CAP_SITE') }}" style="float: none;margin: 7px auto;display: table;"></div>	
 									</div>
+								</div>
+							<div class="form-actions">
+
+								<div style="margin: auto;display: table;">
+									<a href="javascript:;" class="btn default button-previous">
+										<i class="m-icon-swapleft"></i> Back 
+									</a>
+									<a href="javascript:;" class="btn blue button-next">
+										Continue <i class="m-icon-swapright m-icon-white"></i>
+									</a>
+									<!-- <a href="javascript:;" class="btn green ">
+									Submit <i class="m-icon-swapright m-icon-white"></i>
+									</a> -->
+									<button type="submit" class=" btn blue button-submit">Submit</button>
 								</div>
 							</div>
 						</div>
-						<div class="form-actions">
-							<div style="margin: auto;display: table;">
-								<a href="javascript:;" class="btn default button-previous">
-									<i class="m-icon-swapleft"></i> Back 
-								</a>
-								<a href="javascript:;" class="btn blue button-next">
-									Continue <i class="m-icon-swapright m-icon-white"></i>
-								</a>
-								<!-- <a href="javascript:;" class="btn green ">
-								Submit <i class="m-icon-swapright m-icon-white"></i>
-								</a> -->
-								<button type="submit" class=" btn blue button-submit">Submit</button>
-							</div>
-						</div>
 					</div>
-				</form>
-			</div>
 		</div>
 	</div>
 </div>
 
+</div>
+</form>
 <div id="loader" style="display:none;z-index:9999;background:white" class="page-loading">
 	<img src="/assets/loader.gif"><span> Please wait...</span>
 </div>
@@ -736,6 +1027,12 @@
 
 @section('javascript')
 <script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
+<script src="/assets/js/jminmaxselect-0.5.2.min.js"></script>
+<script type="text/javascript">
+	$('#exp_min').jMinMaxSelect({
+	    maxSelect: '#exp_max'
+	});
+</script>
 <script>
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip(); 
@@ -744,6 +1041,10 @@ $(document).ready(function(){
 <script type="text/javascript">
 	$(".education-list").select2({
 	  placeholder: "Select education"
+	});
+
+	$("#linked_skill_id").select2({
+	  placeholder: "No Added Skill"
 	});
 
     // preferred loc
@@ -885,33 +1186,6 @@ function loader(arg){
     }
 }
 
-
-// $(document).ready(function () {
-// $('#salary-new').hide();
-// $('.three').hide();
-// $('.four').hide();
-// toggleFields();
-// $('#salary-type').change(function () {
-// toggleFields();
-// });
-// });
-// function toggleFields() {
-// if ($('#salary-type').val() == 'Daily' || $('#salary-type').val() == 'Hourly' || $('#salary-type').val() == 'Pervisit'){
-// $('#salary-new').show();
-// $('#salary-old').hide();
-// $('.one').hide();
-// $('.two').hide();
-// $('.three').show();
-// $('.four').show();
-// }else{
-// $('#salary-new').hide();
-// $('#salary-old').show();
-// $('.one').show();
-// $('.two').show();
-// $('.three').hide();
-// $('.four').hide();
-// }
-// }
 $(document).ready(function() {
 var text_max = 1000;
 $('#textarea_feedback').html(text_max + ' characters remaining');
@@ -1031,11 +1305,13 @@ $('#textarea').keyup(function() {
         $("#hide-apply").click(function () {
             if ($(this).is(":checked")) {
                 $(".show-apply").show();
+                $(".apply-here").show();
                 $(".show-apply-email").hide();
                  
             } else {
                 $(".show-apply-email").show();
                 $(".show-apply").hide();
+                $(".apply-here").hide();
             }
         });
     });
@@ -1095,7 +1371,6 @@ $('#textarea').keyup(function() {
 </script>
 <script>
 $selectedSkills = $("#linked_skill_id").select2();
-
 $gotit = [];
 	$(function(){
 
@@ -1146,13 +1421,12 @@ $gotit = [];
 			},
 			select: function(event, ui) {
 				var termsId = [];
-				
+
 				$showSkill = split( $('#confirm-skill').val() );
 				$showSkill.pop();
 				$showSkill.push( ui.item.value );
 				$showSkill.push( "" );
 				$('#confirm-skill').val($showSkill.join( ", " ));
-
 
 				if($selectedSkills.val() != null){
 					termsId = $selectedSkills.val();
@@ -1161,7 +1435,6 @@ $gotit = [];
 				if(termsId.length != null){
 
 				}
-
 				termsId.push( ui.item.value );
 				$gotit.push( ui.item.value );
 
@@ -1217,6 +1490,7 @@ $gotit = [];
 							selectedSkillId = $gotit;
 						}
 
+
 						$sk = $('#confirm-skill').val();
 			        	$('#confirm-skill').val($sk+""+$newSkill+", ");
 						
@@ -1225,10 +1499,6 @@ $gotit = [];
 			        	// $('#linked_skill').val($selectedSkill+""+$newSkill+", ");
 			        	$selectedSkills.val(selectedSkillId).trigger("change"); 
 			        	$('#newskill').val("");
-
-
-
-			        	$
 			        }
 			      },
 			      error: function(data) {
@@ -1239,35 +1509,6 @@ $gotit = [];
 			}
 		});
 		});
-
-
-
-$('#linked_skill_id').on('change', function(){
-	function split( val ) {
-	      return val.split( /,\s*/ );
-	    }
-	    function extractLast( term ) {
-	      return split( term ).pop();
-	    }
-
-	    $(function(){
-	    	$( "#newskill" )
-		.bind( "keydown", function( event ) {
-			if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
-			  event.preventDefault();
-			}
-		})
-	    .autocomplete({
-		select: function(ui){
-			$showSkill = split( $('#confirm-skill').val() );
-		$showSkill.pop();
-		$showSkill.push( ui.item.value );
-		$showSkill.push( "" );
-		$('#confirm-skill').val($showSkill.join( ", " ));
-		}
-	});
-	 });   
-	});
 </script>
 <script type="text/javascript">
 	 

@@ -22,11 +22,12 @@ class CreatePostjobRequest extends Request {
 	public function rules()
 	{
 		return [
-			'post_title'	=>	'required',
-			'role'			=>	'required',
-			'time_for'		=>	'required',
-			'alt_emailid'	=>	'email',
-			'alt_phone'		=> 	'numeric'
+			'post_title'			=>	'required',
+			'role'					=>	'required',
+			'time_for'				=>	'required',
+			'alt_emailid'			=>	'email',
+			'alt_phone'				=> 	'numeric',
+			'g-recaptcha-response'  => 'required'
 
 		];
 	}

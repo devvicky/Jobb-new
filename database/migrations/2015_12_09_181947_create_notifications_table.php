@@ -21,8 +21,8 @@ class CreateNotificationsTable extends Migration {
 			$table->string('operation', 100)->nullable();
 			$table->unsignedInteger('view_status')->default(0);
 			$table->timestamps();
-			$table->foreign('from_user')->references('id')->on('users');
-			$table->foreign('to_user')->references('id')->on('users');
+			$table->foreign('from_user')->references('id')->on('users')->onDelete('cascade');
+			$table->foreign('to_user')->references('id')->on('users')->onDelete('cascade');
 		});
 	}
 

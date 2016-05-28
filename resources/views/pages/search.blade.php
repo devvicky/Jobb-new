@@ -47,17 +47,16 @@
 </div>
 
 <div class="tabbable-line" style="margin:7px;">
-
 	<ul class="nav nav-tabs " style="padding:0">
 		<li>
-			<a href="#tab_ind" data-toggle="tab">Individual
+			<a href="#tab_ind" data-toggle="tab">People
 				@if(count($searchResultForInd) > 0)
 					<span class="badge" style="background-color: deepskyblue;">{{count($searchResultForInd)}}</span>
 				@endif 
 			</a>
 		</li>
 		<li>
-			<a href="#tab_corp" data-toggle="tab">Corporate
+			<a href="#tab_corp" data-toggle="tab">Company
 				@if(count($searchResultForCorp) > 0)
 					<span class="badge" style="background-color: deepskyblue;">{{count($searchResultForCorp)}}</span>
 				@endif 
@@ -78,13 +77,15 @@
 			</a>
 		</li>
 	</ul>
-	<div class="tab-content">
+	<div class="tab-content" style="background-color:transparent;">
 
 		<div class="tab-pane active" id="tab_ind">
 			<div class="search-classic">
+
 				<p>About {{count($searchResultForInd)}} results for "{{$searchQuery}}"</p>		
 				@foreach($searchResultForInd as $ind)
-				@if($ind->user->email_verify == 1 || $ind->user->mobile_verify == 1)
+				
+					
 				<div class="row search-user-tool" style="margin:0;">
 				<div class="col-md-7">					
 						<div class="col-md-2 col-sm-3 col-xs-3">
@@ -152,7 +153,7 @@
 							</div>	    
 					</div>
 				</div>
-				@endif
+				
 				@endforeach
 
 				<?php echo $searchResultForInd->fragment('tab_tab_ind')->render(); ?>
@@ -165,7 +166,7 @@
 				<p>About {{count($searchResultForCorp)}} results for "{{$searchQuery}}"</p>
 
 				@foreach($searchResultForCorp as $corp)
-				@if($corp->user->email_verify == 1 || $corp->user->mobile_verify == 1)
+				
 				<div class="row search-user-tool" style="margin:0;">
 						<div class="col-md-7">		
 							<div class="col-md-2 col-sm-2 col-xs-3">
@@ -186,7 +187,6 @@
 							</div>
 					   </div> 
 					</div>
-					@endif
 				@endforeach
 
 				<?php echo $searchResultForCorp->fragment('tab_tab_corp')->render(); ?>
@@ -198,128 +198,211 @@
 				
 
 				@foreach($searchResultForJob as $job)
-				<div class="row" style="margin:0;">
-					<div class="col-md-7" style="border-bottom:1px solid lightgrey;">
-						<div class="col-md-3 col-sm-3 col-xs-3">
-							@if($job->induser != null && !empty($job->induser->profile_pic))
-							<img class="timeline-badge-userpic userpic-box" src="/img/profile/{{ $job->induser->profile_pic }}" title="{{ $job->induser->fname }}">
-							
-							@elseif($job->corpuser != null && !empty($job->corpuser->logo_status))
-							<img class="" src="/img/profile/{{ $job->corpuser->logo_status }}" title="{{ $job->corpuser->firm_name }}">
-							
-							@elseif(empty($job->corpuser->logo_status) && $job->corpuser != null )
-							<img class="" src="/assets/images/corpnew.jpg">
-							
-							@elseif(empty($job->induser->profile_pic) && $job->induser != null)
-							<img class="timeline-badge-userpic userpic-box" src="/assets/images/ab.png">
-							@endif
-						</div>
-						<div class="col-md-9 col-sm-9 col-xs-9">
-							@if($job->individual_id != null)
-							<div class="row">
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <a href="/profile/ind/{{$job->individual_id}}" class="job-name-css">
-                                        {{ $job->induser->fname}} {{ $job->induser->lname}}
-                                    </a>
-                                </div>
-                                
-                                	@if($job->individual_id != null && Auth::user()->induser_id != $job->individual_id && Auth::user()->identifier == 1)
-										<div class="col-md-4 col-md-4 col-xs-6">
-										<div class="" data-puid="{{$job->individual_id}}" style="margin:4px 0;">
-											@if($links->contains('id', $job->individual_id) )
-											<a href="#links-follow" data-toggle="modal" class="user-link" data-linked="yes" data-utype="ind">
-												<button class="btn btn-xs link-follow-icon-css"><i class="fa fa-link (alias) icon-size" style="color:white;"></i> Linked</button>
-											</a>
-											@elseif($linksPending->contains('id', $job->individual_id) )
-											<a href="#links-follow" data-toggle="modal" class="user-link" data-linked="no" data-utype="ind">
-												<button class="btn btn-xs linkrequest-follow-icon-css"><i class="icon-hourglass (alias) " style="color:dimgrey;font-size:10px;"></i> Link Requested</button>
-											</a>
-											@elseif($linksApproval->contains('id', $job->individual_id) )
-											<a href="#links-follow " data-toggle="modal" class="user-link" data-linked="no" data-utype="ind">
-												<button class="btn btn-xs linkrequest-follow-icon-css"><i class=" icon-hourglass (alias) " style="color:dimgrey;font-size:10px;"></i> Link Requested</button>
-											</a>
-											@elseif($following->contains('id', $job->individual_id))
-											<a href="#links-follow" class="user-link2" data-toggle="modal" data-linked="yes" data-utype="ind">
-												<button class="btn btn-xs link-follow-icon-css"><i class="fa fa-link (alias) icon-size" style="color:white;"></i></button>
-											</a>
-											@else
-											<a href="#links-follow" data-toggle="modal" class="user-link3" data-linked="no" data-utype="ind">
-												<button class="btn btn-xs unlink-follow-icon-css"><i class="fa fa-unlink (alias) icon-size" style="color:dimgrey;"></i> Add Link</button>
-											</a>
-											@endif
-										</div>
-                                	</div>
-                                @endif
-                                <div class="col-md-4 col-sm-4 col-xs-6 elipsis-code">
-                                    <i class="fa fa-clock-o job-icon-color" style="font-size: 11px;"></i> 
-                                    <small class="job-time-css">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($job->created_at))->diffForHumans() }}</small>
-                                </div>
+				
+<div class="row post-item ">
+    <div class="col-md-7 home-post">
+        <div class="timeline" >
+            <!-- TIMELINE ITEM -->
+            <div class="timeline-item time-item" itemscope itemtype="http://schema.org/Article">
+                @if($job->induser->profile_pic != null && $job->individual_id != null)
+                <div class="timeline-badge badge-margin">
+                    <img class="timeline-badge-userpic userpic-box"  src="/img/profile/{{ $job->induser->profile_pic }}" alt="logo">      
+                </div>
+                @elseif($job->induser->profile_pic == null && $job->individual_id != null)
+                <div class="timeline-badge badge-margin" style="border: 1px solid lightgray;border-radius: 23px;">
+                    <i class="fa fa-user" style="font-size:25px;margin: 14px 11.5px;color: lightgray;"></i> 
+                </div>
+                @endif
+                <div class="post-hover-act" data-postid="{{$job->id}}">
+                    <!-- <a class="myactivity-posts" data-toggle="modal" href="#myactivity-posts"> -->
+                    @if($job->post_type == 'job')
+                        <a href="/job/post/{{$job->unique_id}}" target="_blank">
+                    @elseif($job->post_type == 'skill')
+                       <a href="/skill/post/{{$job->unique_id}}" target="_blank">
+                    @endif
+                    <div class="row post-postision" style="cursor:pointer;">
+                        <div class="col-md-12">
+                            <div class="post-title-new capitalize" itemprop="name">
+                                @if($job->individual_id != Auth::user()->induser_id && Auth::user()->identifier == 1)                                               
+                                    @if($job->postactivity->where('user_id', Auth::user()->id)->isEmpty())
+                                    <!-- <div class="col-md-3 col-sm-3 col-xs-2">
+                                    </div> -->
+                                    @elseif($job->postactivity->where('user_id', Auth::user()->id)->first()->apply == 1)
+                                    <!-- <div class="col-md-3 col-sm-3 col-xs-2"  style="line-height: 1.9;">                                                     -->
+                                        <i class="fa fa-check-square-o" style="font-size: 15px;color: #1C55C1;"></i>&nbsp;&nbsp;
+                                    <!-- </div> -->
+                                    @elseif($job->postactivity->where('user_id', Auth::user()->id)->first()->contact_view == 1)
+                                    <!-- <div class="col-md-3 col-sm-3 col-xs-2"  style="line-height: 1.9;">                                                     -->
+                                        <i class="fa fa-check-square-o" style="font-size: 15px;color: #1C55C1;"></i> &nbsp;&nbsp;
+                                    <!-- </div> -->
+                                    @endif
+                                @endif 
+                                {{ $job->post_title }}</div>
+                        </div>
+                        @if($job->post_compname != null)
+                        <div class="col-md-12" style="margin-bottom: 5px;">
+                            <div>
+                                <small class="" style="font-size:13px;color:dimgrey !important;">
+                                    Required at {{ $job->post_compname }}
+                                </small>
                             </div>
-                            @elseif($job->corporate_id != null)
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <a href="/profile/corp/{{$job->corporate_id}}" class="job-name-css">
-                                        {{ $job->corpuser->firm_name}}
-                                    </a>
-                                </div>
-                                <div class="col-md-4 col-md-4 col-xs-12">
-                                	<span class="firm-type-left" style="margin: 2px 0;">{{ $job->corpuser->firm_type}}</span> 
-									<span class="follow-icon-right" data-puid="{{$job->corporate_id}}">
-											@if($following->contains('id', $job->corporate_id))
-											<a href="#links-follow" data-toggle="modal" class="user-link" data-linked="yes" data-utype="corp">
-												<button class="btn btn-xs link-follow-icon-css"><i class="icon-check icon-size" style="color:white;"></i> Following</button>
-											</a>
-										@else
-											<a href="#links-follow" data-toggle="modal" class="user-link3" data-linked="no" data-utype="corp">
-												<button class="btn btn-xs unlink-follow-icon-css"><i class="icon-plus icon-size" style="color:dimgrey;"></i> Follow</button>
-											</a>
-										@endif
-									</span>    
-                                </div>
-                                <div class="col-md-4 col-sm-4 col-xs-12 elipsis-code">
-                                    <i class="fa fa-clock-o job-icon-color" style="font-size: 11px;"></i> 
-                                    <small class="job-time-css">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($job->created_at))->diffForHumans() }}</small>
-                                </div>
+                        </div>
+                        @endif
+                        <?php $jobSkills = []; 
+			                            $jobSkillArr = array_map('trim', explode(',', $job->linked_skill));
+			                            $userSkillArr = array_map('trim', explode(',', Auth::user()->induser->linked_skill));
+			                        ?>
+			                        <?php 
+			                            $matchedPost = array_intersect($jobSkillArr, $userSkillArr);
+			                            $unmatchedPost = array_diff($jobSkillArr, $userSkillArr);
+			                        ?>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            
+                            <div class=" capitalize" itemprop="name" style="font-size:13px;color:dimgrey !important;">
+                         @if($job->post_type == 'job')  <label class="label-success job-type-skill-css">{{$job->post_type}}</label> @endif                                                                                                                             
+                                                    @foreach($matchedPost as $m)
+                                                        <label class="label-success matched-skill-css">{{$m}}</label>
+                                                    @endforeach
+                                                    @foreach($unmatchedPost as $um)
+                                                      <label class="label-success skill-label">{{$um}}</label>
+                                                    @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row post-postision" style="">
+                        
+                        @if($job->min_exp != null && $job->post_type == 'job')
+                        <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code" style="">
+                            <small style="font-size:13px;color:dimgrey !important;"> 
+                                <i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: {{ $job->min_exp }} Yr
+                            </small>
+                        </div>
+                        @elseif($job->min_exp != null && $job->post_type == 'skill')
+                        <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code" style="">
+                            @if($job->min_exp == 0)
+                            <small style="font-size:13px;color:dimgrey !important;"> 
+                                <i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: Fresher
+                            </small>
+                            @else
+                            <small style="font-size:13px;color:dimgrey !important;"> 
+                                <i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: {{ $job->min_exp }} Yr
+                            </small>
+                            @endif
+                        </div>
+                        @endif
+                        <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code elipsis-city-code" style="padding:0 12px;">
+                            <small style="font-size:13px;color:dimgrey !important;"> 
+                                <i class="glyphicon glyphicon-map-marker post-icon-color"></i>&nbsp;: {{ $city or 'unspecified'}}
+                            </small>
+                        </div>    
+                       
+                    </div>
+                    </a>
+                </div>
+                <?php 
+                        $tempMatch = 0;
+                        if($job->min_exp <= Auth::user()->induser->experience && $job->max_exp >= Auth::user()->induser->experience){
+                            $tempMatch = $tempMatch + 1;
+                        }
+
+                        if(strcasecmp($job->role, Auth::user()->induser->role) == 0){
+                            $tempMatch = $tempMatch + 1;
+                        }
+
+                        if($job->time_for == Auth::user()->induser->prefered_jobtype){
+                            $tempMatch = $tempMatch + 1;
+                        }
+
+                        if($job->magic_match >= 65 && $tempMatch == 3){
+                            $match = "ExcellentMatch";
+                        }elseif($job->magic_match >= 65 && $tempMatch != 3){
+                            $match = "GoodMatch";
+                        }elseif($job->magic_match < 65 && $job->magic_match >= 35 && $tempMatch == 3){
+                            $match = "GoodMatch";
+                        }elseif($job->magic_match < 65 && $job->magic_match >= 35 && $tempMatch != 3){
+                            $match = "QuickCheck";
+                        }elseif($job->magic_match < 35){
+                            $match = "QuickCheck";
+                        }
+
+                     ?>
+                <div class="row" style="margin: 5px 0px;">
+                    <div class="col-md-12" style="margin: 3px -13px;">
+                        <div class="row" style="">
+                            @if($job->post_type == 'job') 
+                            @if($match == 'GoodMatch')
+								<div class="col-md-5 col-sm-5 col-xs-5">
+									<a data-toggle="modal" data-mpostid="{{$job->id}}" 
+										class="magic-font magicmatch-posts" href="#magicmatch-posts"
+										 style="color: white;line-height: 1.7;text-decoration: none;"> 
+										 <div class="ribbon ribbon-shadow ribbon-color-good uppercase">
+									<i class="icon-speedometer magic-font" style="font-size:10px;"></i> &nbsp;Good Match</div>
+									</a>
+								</div>
+								@elseif($match == 'ExcellentMatch')
+								<div class="col-md-5 col-sm-5 col-xs-5">
+									<a data-toggle="modal" data-mpostid="{{$job->id}}" 
+										class="magic-font magicmatch-posts" href="#magicmatch-posts"
+										 style="color: white;line-height: 1.7;text-decoration: none;"> 
+										 <div class="ribbon ribbon-shadow ribbon-color-excellent uppercase">
+									<i class="icon-speedometer magic-font" style="font-size:10px;"></i> &nbsp;Excellent Match</div>
+									</a>
+								</div>
+								@elseif($match == 'QuickCheck')
+								<div class="col-md-5 col-sm-5 col-xs-5">
+									<a data-toggle="modal" data-mpostid="{{$job->id}}" 
+										class="magic-font magicmatch-posts" href="#magicmatch-posts"
+										 style="color: white;line-height: 1.7;text-decoration: none;"> 
+										 <div class="ribbon ribbon-shadow ribbon-color-quick uppercase">
+									<i class="icon-speedometer magic-font" style="font-size:10px;"></i> &nbsp;Quick Look</div>
+									</a>
+								</div>
+								@endif
+                            @elseif($job->post_type == 'skill')
+                            <div class="col-md-5 col-sm-5 col-xs-5" style="margin: 8px 1px;">
+                                @if($job->time_for == 'Work from Home')
+                                <small class="label-success label-xs elipsis-code job-type-skill-css" style="padding:2px 5px !important;">Work From Home</small>
+                                @else
+                                <div><small class="label-success job-type-skill-css" style="padding:2px 5px !important;">{{$jobType}}</small></div>
+                                @endif
                             </div>
                             @endif
-						</div>
-						<div class="row post-postision" style="cursor:pointer;">
-                        <div class="col-md-12">
-                            <div class="post-title-new capitalize">{{ $job->post_title }} </div>
-                        </div>
-                        @if($job->post_compname != null && $job->post_type == 'job')
-                        <div class="col-md-12">
-                            <div><small class="capitalize" style="font-size:13px;color:dimgrey !important;">Required at {{ $job->post_compname }}</small></div>
-                        </div>
-                            
-                        @endif
-                        <div class="col-md-12">
-                            <div class=" capitalize">Skill: {{ $job->linked_skill }} </div>
-                        </div>
-                   	</div>
-                   	<a href="/job/post/{{$job->unique_id}}">
-	                   	<div class="row post-postision" style="">
-	                                                        
-	                        @if($job->min_exp != null)
-	                        <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code" style="">
-	                        <small style="font-size:13px;color:dimgrey !important;"> <i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: {{ $job->min_exp}}-{{ $job->max_exp}} Yr</small>
-	                        </div>
-	                        @endif
-	                        <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code elipsis-city-code" style="padding:0 12px;">
-	                        <small style="font-size:13px;color:dimgrey !important;"> <i class="glyphicon glyphicon-map-marker post-icon-color"></i>&nbsp;: {{ $job->city }}</small>
-	                        </div>
-	                        <a href="/job/post/{{$job->unique_id}}" target="_blank" class="" >
-		                        <div class="col-md-6 col-sm-6 col-xs-4" style="#676565 !important;">
-		                           Details
-		                        </div>
-		                    </a>
-	                       
-	                    </div>
-	                </a>
-				</div>
+                            <div class="col-md-5 col-sm-5 col-xs-5" style="line-height: 1.9;">
+                                @if($job->post_type == 'job')
+                                    <a href="/job/post/{{$job->unique_id}}" target="_blank">
+                                @elseif($job->post_type == 'skill')
+                                   <a href="/skill/post/{{$job->unique_id}}" target="_blank">
+                                @endif
+                                <button class="btn btn-sm btn-primary view-detail-btn" style="border-radius: 25px !important;">View Detail</button>
+                                </a>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-2" style="margin: 5px -12px;">
+                                @if(Auth::user()->induser_id != $job->individual_id )
+                                <form action="/job/fav" method="post" id="post-fav-{{$job->id}}" data-id="{{$job->id}}">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    <input type="hidden" name="fav_post" value="{{ $job->id }}">
 
-			</div>
-				
+                                    <button class="btn fav-btn " type="button" 
+                                            style="background-color: transparent;padding:0 10px;border:0">
+                                        @if($job->postactivity->where('user_id', Auth::user()->id)->isEmpty())
+                                        <i class="fa fa-star" id="fav-btn-{{$job->id}}" style="font-size: 20px;color:rgb(183, 182, 182);"></i>
+                                        @elseif($job->postactivity->where('user_id', Auth::user()->id)->first()->fav_post == 1) 
+                                        <i class="fa fa-star" id="fav-btn-{{$job->id}}" style="font-size: 20px;color:#FFC823;"></i>
+                                        @else
+                                        <i class="fa fa-star" id="fav-btn-{{$job->id}}" style="font-size: 20px;color:rgb(183, 182, 182);"></i>
+                                        @endif  
+                                    </button>   
+                                </form>
+                                @endif
+                            </div>  
+                        </div>
+                    </div>                                                                                          
+                </div>                                          
+            </div>
+        </div>
+    </div>
+</div>
+        <!-- END TIMELINE ITEM -->
 				@endforeach
 
 				<?php echo $searchResultForJob->fragment('tab_tab_job')->render(); ?>
@@ -329,125 +412,158 @@
 		<div class="tab-pane" id="tab_skill">
 			<div class="search-classic">
 				@foreach($searchResultForSkill as $skill)
-				<div class="row" style="margin:0;">
-                    <div class="col-md-7" style="border-bottom:1px solid lightgrey;">
-                        <div class="col-md-3 col-sm-3 col-xs-3">
-                            @if($skill->induser != null && !empty($skill->induser->profile_pic))
-                            <img class="timeline-badge-userpic userpic-box" src="/img/profile/{{ $skill->induser->profile_pic }}" title="{{ $skill->induser->fname }}">
-                            
-                            @elseif($skill->corpuser != null && !empty($skill->corpuser->logo_status))
-                            <img class="" src="/img/profile/{{ $skill->corpuser->logo_status }}" title="{{ $skill->corpuser->firm_name }}">
-                            
-                            @elseif(empty($skill->corpuser->logo_status) && $skill->corpuser != null )
-                            <img class="" src="/assets/images/corpnew.jpg">
-                            
-                            @elseif(empty($skill->induser->profile_pic) && $skill->induser != null)
-                            <img class="timeline-badge-userpic userpic-box" src="/assets/images/ab.png">
-                            @endif
-                        </div>
-                        <div class="col-md-9 col-sm-9 col-xs-9">
-                            @if($skill->individual_id != null)
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <a href="/profile/ind/{{$skill->individual_id}}" class="job-name-css">
-                                        {{ $skill->induser->fname}} {{ $skill->induser->lname}}
-                                    </a>
-                                </div>
-                                
-                                    @if($skill->individual_id != null && Auth::user()->induser_id != $skill->individual_id && Auth::user()->identifier == 1)
-                                        <div class="col-md-4 col-md-4 col-xs-6">
-                                        <div class="" data-puid="{{$skill->individual_id}}" style="margin:4px 0;">
-                                            @if($links->contains('id', $skill->individual_id) )
-                                            <a href="#links-follow" data-toggle="modal" class="user-link" data-linked="yes" data-utype="ind">
-                                                <button class="btn btn-xs link-follow-icon-css"><i class="fa fa-link (alias) icon-size" style="color:white;"></i> Linked</button>
-                                            </a>
-                                            @elseif($linksPending->contains('id', $skill->individual_id) )
-                                            <a href="#links-follow" data-toggle="modal" class="user-link" data-linked="no" data-utype="ind">
-                                                <button class="btn btn-xs linkrequest-follow-icon-css"><i class="icon-hourglass (alias) " style="color:dimgrey;font-size:10px;"></i> Link Requested</button>
-                                            </a>
-                                            @elseif($linksApproval->contains('id', $skill->individual_id) )
-                                            <a href="#links-follow " data-toggle="modal" class="user-link" data-linked="no" data-utype="ind">
-                                                <button class="btn btn-xs linkrequest-follow-icon-css"><i class=" icon-hourglass (alias) " style="color:dimgrey;font-size:10px;"></i> Link Requested</button>
-                                            </a>
-                                            @elseif($following->contains('id', $skill->individual_id))
-                                            <a href="#links-follow" class="user-link2" data-toggle="modal" data-linked="yes" data-utype="ind">
-                                                <button class="btn btn-xs link-follow-icon-css"><i class="fa fa-link (alias) icon-size" style="color:white;"></i></button>
-                                            </a>
-                                            @else
-                                            <a href="#links-follow" data-toggle="modal" class="user-link3" data-linked="no" data-utype="ind">
-                                                <button class="btn btn-xs unlink-follow-icon-css"><i class="fa fa-unlink (alias) icon-size" style="color:dimgrey;"></i> Add Link</button>
-                                            </a>
-                                            @endif
-                                        </div>
-                                    </div>
-                                @endif
-                                <div class="col-md-4 col-sm-4 col-xs-6 elipsis-code">
-                                    <i class="fa fa-clock-o job-icon-color" style="font-size: 11px;"></i> 
-                                    <small class="job-time-css">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($skill->created_at))->diffForHumans() }}</small>
-                                </div>
-                            </div>
-                            @elseif($skill->corporate_id != null)
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <a href="/profile/corp/{{$skill->corporate_id}}" class="job-name-css">
-                                        {{ $skill->corpuser->firm_name}}
-                                    </a>
-                                </div>
-                                <div class="col-md-4 col-md-4 col-xs-12">
-                                    <span class="firm-type-left" style="margin: 2px 0;">{{ $skill->corpuser->firm_type}}</span> 
-                                    <span class="follow-icon-right" data-puid="{{$skill->corporate_id}}">
-                                            @if($following->contains('id', $skill->corporate_id))
-                                            <a href="#links-follow" data-toggle="modal" class="user-link" data-linked="yes" data-utype="corp">
-                                                <button class="btn btn-xs link-follow-icon-css"><i class="icon-check icon-size" style="color:white;"></i> Following</button>
-                                            </a>
-                                        @else
-                                            <a href="#links-follow" data-toggle="modal" class="user-link3" data-linked="no" data-utype="corp">
-                                                <button class="btn btn-xs unlink-follow-icon-css"><i class="icon-plus icon-size" style="color:dimgrey;"></i> Follow</button>
-                                            </a>
-                                        @endif
-                                    </span>    
-                                </div>
-                                <div class="col-md-4 col-sm-4 col-xs-12 elipsis-code">
-                                    <i class="fa fa-clock-o job-icon-color" style="font-size: 11px;"></i> 
-                                    <small class="job-time-css">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($skill->created_at))->diffForHumans() }}</small>
-                                </div>
-                            </div>
-                            @endif
-                        </div>
-                        <div class="row post-postision" style="cursor:pointer;">
-                        <div class="col-md-12">
-                            <div class="post-title-new capitalize">{{ $skill->post_title }} </div>
-                        </div>
-                        @if($skill->post_compname != null && $skill->post_type == 'job')
-                        <div class="col-md-12">
-                            <div><small class="capitalize" style="font-size:13px;color:dimgrey !important;">Required at {{ $skill->post_compname }}</small></div>
-                        </div>
-                            
-                        @endif
-                    </div>
-                    <a href="/skill/post/{{$skill->unique_id}}">
-	                    <div class="row post-postision" style="">
-	                                                        
-	                        @if($skill->min_exp != null)
-	                        <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code" style="">
-	                        <small style="font-size:13px;color:dimgrey !important;"> <i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: {{ $skill->min_exp}}-{{ $skill->max_exp}} Yr</small>
-	                        </div>
-	                        @endif
-	                        <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code elipsis-city-code" style="padding:0 12px;">
-	                        <small style="font-size:13px;color:dimgrey !important;"> <i class="glyphicon glyphicon-map-marker post-icon-color"></i>&nbsp;: {{ $skill->city }}</small>
-	                        </div>
-	                        <a href="/skill/post/{{$skill->unique_id}}" target="_blank">
-		                        <div class="col-md-6 col-sm-6 col-xs-4" style="#676565 !important;">
-		                           Details
-		                        </div>
-		                    </a>
-	                       
-	                    </div>
-	                </a>
-                    </div>
-
+				<div class="row post-item ">
+    <div class="col-md-7 home-post">
+        <div class="timeline" >
+            <!-- TIMELINE ITEM -->
+            <div class="timeline-item time-item" itemscope itemtype="http://schema.org/Article">
+                @if($skill->induser->profile_pic != null && $skill->individual_id != null)
+                <div class="timeline-badge badge-margin">
+                    <img class="timeline-badge-userpic userpic-box"  src="/img/profile/{{ $skill->induser->profile_pic }}" alt="logo">      
                 </div>
-                
+                @elseif($skill->induser->profile_pic == null && $skill->individual_id != null)
+                <div class="timeline-badge badge-margin" style="border: 1px solid lightgray;border-radius: 23px;">
+                    <i class="fa fa-user" style="font-size:25px;margin: 14px 11.5px;color: lightgray;"></i> 
+                </div>
+                @endif
+                <div class="post-hover-act" data-postid="{{$skill->id}}">
+                    <!-- <a class="myactivity-posts" data-toggle="modal" href="#myactivity-posts"> -->
+                    @if($skill->post_type == 'job')
+                        <a href="/job/post/{{$skill->unique_id}}" target="_blank">
+                    @elseif($skill->post_type == 'skill')
+                       <a href="/skill/post/{{$skill->unique_id}}" target="_blank">
+                    @endif
+                    <div class="row post-postision" style="cursor:pointer;">
+                        <div class="col-md-12">
+                            <div class="post-title-new capitalize" itemprop="name">
+                                @if($skill->individual_id != Auth::user()->induser_id && Auth::user()->identifier == 1)                                               
+                                    @if($skill->postactivity->where('user_id', Auth::user()->id)->isEmpty())
+                                    <!-- <div class="col-md-3 col-sm-3 col-xs-2">
+                                    </div> -->
+                                    @elseif($skill->postactivity->where('user_id', Auth::user()->id)->first()->apply == 1)
+                                    <!-- <div class="col-md-3 col-sm-3 col-xs-2"  style="line-height: 1.9;">                                                     -->
+                                        <i class="fa fa-check-square-o" style="font-size: 15px;color: #1C55C1;"></i>&nbsp;&nbsp;
+                                    <!-- </div> -->
+                                    @elseif($skill->postactivity->where('user_id', Auth::user()->id)->first()->contact_view == 1)
+                                    <!-- <div class="col-md-3 col-sm-3 col-xs-2"  style="line-height: 1.9;">                                                     -->
+                                        <i class="fa fa-check-square-o" style="font-size: 15px;color: #1C55C1;"></i> &nbsp;&nbsp;
+                                    <!-- </div> -->
+                                    @endif
+                                @endif 
+                                {{ $skill->post_title }}</div>
+                        </div>
+                        @if($skill->post_compname != null)
+                        <div class="col-md-12" style="margin-bottom: 5px;">
+                            <div>
+                                <small class="" style="font-size:13px;color:dimgrey !important;">
+                                    Required at {{ $skill->post_compname }}
+                                </small>
+                            </div>
+                        </div>
+                        @endif
+                        <?php $skillSkills = []; 
+                                        $skillSkillArr = array_map('trim', explode(',', $skill->linked_skill));
+                                        $userSkillArr = array_map('trim', explode(',', Auth::user()->induser->linked_skill));
+                                    ?>
+                                    <?php 
+                                        $matchedPost = array_intersect($skillSkillArr, $userSkillArr);
+                                        $unmatchedPost = array_diff($skillSkillArr, $userSkillArr);
+                                    ?>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            
+                            <div class=" capitalize" itemprop="name" style="font-size:13px;color:dimgrey !important;">
+                         @if($skill->post_type == 'job')  <label class="label-success job-type-skill-css">{{$skill->post_type}}</label> @endif                                                                                                                             
+                                                    @foreach($matchedPost as $m)
+                                                        <label class="label-success matched-skill-css">{{$m}}</label>
+                                                    @endforeach
+                                                    @foreach($unmatchedPost as $um)
+                                                      <label class="label-success skill-label">{{$um}}</label>
+                                                    @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row post-postision" style="">
+                        
+                        @if($skill->min_exp != null && $skill->post_type == 'job')
+                        <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code" style="">
+                            <small style="font-size:13px;color:dimgrey !important;"> 
+                                <i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: {{ $skill->min_exp }} Yr
+                            </small>
+                        </div>
+                        @elseif($skill->min_exp != null && $skill->post_type == 'skill')
+                        <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code" style="">
+                            @if($skill->min_exp == 0)
+                            <small style="font-size:13px;color:dimgrey !important;"> 
+                                <i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: Fresher
+                            </small>
+                            @else
+                            <small style="font-size:13px;color:dimgrey !important;"> 
+                                <i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: {{ $skill->min_exp }} Yr
+                            </small>
+                            @endif
+                        </div>
+                        @endif
+                        <div class="col-md-4 col-sm-4 col-xs-4 elipsis-code elipsis-city-code" style="padding:0 12px;">
+                            <small style="font-size:13px;color:dimgrey !important;"> 
+                                <i class="glyphicon glyphicon-map-marker post-icon-color"></i>&nbsp;: {{ $city or 'unspecified'}}
+                            </small>
+                        </div>    
+                       
+                    </div>
+                    </a>
+                </div>
+                <div class="row" style="margin: 5px 0px;">
+                    <div class="col-md-12" style="margin: 3px -13px;">
+                        <div class="row" style="">
+                            @if($skill->post_type == 'job') 
+                            <div class="col-md-5 col-sm-5 col-xs-5">
+                                
+                            </div>
+                            @elseif($skill->post_type == 'skill')
+                            <div class="col-md-5 col-sm-5 col-xs-5" style="margin: 8px 1px;">
+                                @if($skill->time_for == 'Work from Home')
+                                <small class="label-success label-xs elipsis-code job-type-skill-css" style="padding:2px 5px !important;">Work From Home</small>
+                                @else
+                                <div><small class="label-success job-type-skill-css" style="padding:2px 5px !important;">{{$skill->time_for}}</small></div>
+                                @endif
+                            </div>
+                            @endif
+                            <div class="col-md-5 col-sm-5 col-xs-5" style="line-height: 1.9;">
+                                @if($skill->post_type == 'job')
+                                    <a href="/job/post/{{$skill->unique_id}}" target="_blank">
+                                @elseif($skill->post_type == 'skill')
+                                   <a href="/skill/post/{{$skill->unique_id}}" target="_blank">
+                                @endif
+                                <button class="btn btn-sm btn-primary view-detail-btn" style="border-radius: 25px !important;">View Detail</button>
+                                </a>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-2" style="margin: 5px -12px;">
+                                @if(Auth::user()->induser_id != $skill->individual_id )
+                                <form action="/job/fav" method="post" id="post-fav-{{$skill->id}}" data-id="{{$skill->id}}">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    <input type="hidden" name="fav_post" value="{{ $skill->id }}">
+
+                                    <button class="btn fav-btn " type="button" 
+                                            style="background-color: transparent;padding:0 10px;border:0">
+                                        @if($skill->postactivity->where('user_id', Auth::user()->id)->isEmpty())
+                                        <i class="fa fa-star" id="fav-btn-{{$skill->id}}" style="font-size: 20px;color:rgb(183, 182, 182);"></i>
+                                        @elseif($skill->postactivity->where('user_id', Auth::user()->id)->first()->fav_post == 1) 
+                                        <i class="fa fa-star" id="fav-btn-{{$skill->id}}" style="font-size: 20px;color:#FFC823;"></i>
+                                        @else
+                                        <i class="fa fa-star" id="fav-btn-{{$skill->id}}" style="font-size: 20px;color:rgb(183, 182, 182);"></i>
+                                        @endif  
+                                    </button>   
+                                </form>
+                                @endif
+                            </div>  
+                        </div>
+                    </div>                                                                                          
+                </div>                                          
+            </div>
+        </div>
+    </div>
+</div>
+
 				@endforeach
 
 				<?php echo $searchResultForSkill->fragment('tab_tab_skill')->render(); ?>
@@ -460,6 +576,7 @@
 @stop
 
 @section('javascript')
+<script src="/assets/js/home-js.js"></script>
 <script type="text/javascript">
 	if (location.hash !== '') {
     	$('.nav-tabs a[href="' + location.hash.replace('tab_','') + '"]').tab('show');

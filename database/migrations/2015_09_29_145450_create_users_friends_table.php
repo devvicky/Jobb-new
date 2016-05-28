@@ -17,8 +17,8 @@ class CreateUsersFriendsTable extends Migration {
 			$table->integer('user_id')->unsigned();
 			$table->integer('friend_id')->unsigned();
 
-			$table->foreign('user_id')->references('id')->on('indusers');
-			$table->foreign('friend_id')->references('id')->on('indusers');
+			$table->foreign('user_id')->references('id')->on('indusers')->onDelete('cascade');
+			$table->foreign('friend_id')->references('id')->on('indusers')->onDelete('cascade');
 
 			$table->primary(array('user_id', 'friend_id'));
 			

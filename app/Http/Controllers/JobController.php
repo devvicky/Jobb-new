@@ -23,7 +23,7 @@ use App\ReportAbuseAction;
 use App\PostPreferredLocation;
 use App\Education;
 use App\Functional_area_role_mapping;
-
+use ReCaptcha\ReCaptcha;
 use Auth;
 use Mail;
 use Input;
@@ -41,6 +41,8 @@ class JobController extends Controller {
 	{
 		//
 	}
+
+
 
 	/**
 	 * Show the form for creating a new resource.
@@ -76,13 +78,29 @@ class JobController extends Controller {
 
 			return view('pages.postjob', compact('title', 'skills', 'connections', 'groups', 'education', 'farearoleList'));
 		}else{
-
 			$education = Education::all();
 			$farearoleList = Functional_area_role_mapping::orderBy('id')->get();
 			
 			return view('pages.postjob', compact('title', 'skills', 'education', 'farearoleList'));
 		}
 	}
+
+	public function captchaCheck()
+    {
+
+        $response = Input::get('g-recaptcha-response');
+        $remoteip = $_SERVER['REMOTE_ADDR'];
+        $secret   = env('RE_CAP_SECRET');
+
+        $recaptcha = new ReCaptcha($secret);
+        $resp = $recaptcha->verify($response, $remoteip);
+        if ($resp->isSuccess()) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 
 	/**
 	 * Store a newly created resource in storage.
@@ -91,6 +109,15 @@ class JobController extends Controller {
 	 */
 	public function store(CreatePostjobRequest $request)
 	{
+
+
+		if($this->captchaCheck() == false)
+        {
+            return redirect()->back()
+                ->withErrors(['Wrong Captcha'])
+                ->withInput();
+        }
+		        
 		if(Auth::user()->identifier == 1){
 			$request['individual_id'] = Auth::user()->induser_id;
 
@@ -155,6 +182,8 @@ class JobController extends Controller {
 		return redirect("/mypost");
 	}
 
+
+
 	/**
 	 * Display the specified resource.
 	 *
@@ -174,7 +203,45 @@ class JobController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		$title = 'job';
+		$skills = Skills::lists('name', 'name');
+		if(Auth::user()->identifier == 1){
+			$postjob = Postjob::where('unique_id', '=', $id)
+						      ->where('individual_id', '=', Auth::user()->induser_id)
+						      ->first();
+
+			$connections=Induser::whereRaw('indusers.id in (
+											select connections.user_id as id from connections
+											where connections.connection_user_id=?
+											 and connections.status=1
+											union 
+											select connections.connection_user_id as id from connections
+											where connections.user_id=?
+											 and connections.status=1
+								)', [Auth::user()->induser_id, Auth::user()->induser_id])
+							->get(['id','fname'])
+							->lists('fname','id');
+
+			$groups = Group::leftjoin('groups_users', 'groups_users.group_id', '=', 'groups.id')					
+						->where('groups.admin_id', '=', Auth::user()->induser_id)
+						->orWhere('groups_users.user_id', '=', Auth::user()->induser_id)
+						->groupBy('groups.id')
+						->get(['groups.id as id', 'groups.group_name as name'])
+						->lists('name', 'id');
+
+			$education = Education::orderBy('level')->orderBy('name')->get();
+			$farearoleList = Functional_area_role_mapping::orderBy('id')->get();
+
+			return view('pages.postjob_edit', compact('title', 'skills', 'connections', 'groups', 'education', 'farearoleList', 'postjob'));
+		}else{
+			$postjob = Postjob::where('unique_id', '=', $id)
+						      ->where('corporate_id', '=', Auth::user()->corpuser_id)
+						      ->first();
+			$education = Education::all();
+			$farearoleList = Functional_area_role_mapping::orderBy('id')->get();
+			
+			return view('pages.postjob_edit', compact('title', 'skills', 'education', 'farearoleList', 'postjob'));
+		}
 	}
 
 	/**
@@ -185,7 +252,77 @@ class JobController extends Controller {
 	 */
 	public function update($id)
 	{
-		//
+		$updatePost = Postjob::where('unique_id', '=', $id)
+							 ->where('individual_id', '=', Auth::user()->induser_id)
+							 ->first();
+		if($updatePost != null){
+			$updatePost->post_title = Input::get('post_title');
+			$updatePost->job_detail = Input::get('job_detail');
+			$updatePost->industry = Input::get('industry');
+			$temp = explode('-', Input::get('role'));
+			$updatePost->functional_area = $temp[0];
+			$updatePost->role = $temp[1];
+			$updatePost->post_compname = Input::get('post_compname');
+			$updatePost->reference_id = Input::get('reference_id');
+			$updatePost->time_for = Input::get('time_for');
+			$updatePost->education = implode(',', Input::get('education'));
+			$updatePost->linked_skill = implode(',', Input::get('linked_skill_id'));
+			$updatePost->min_exp = Input::get('min_exp');
+			$updatePost->max_exp = Input::get('max_exp');
+			$updatePost->min_sal = Input::get('min_sal');
+			$updatePost->max_sal = Input::get('max_sal');
+			$updatePost->city = implode(',', Input::get('prefered_location'));
+			$pref_locations = Input::get('prefered_location');
+			$updatePost->website_redirect_url = Input::get('website_redirect_url');
+			$updatePost->resume_required = Input::get('resume_required');
+			$updatePost->show_contact = Input::get('show_contact');
+			$updatePost->save();
+
+			$preferedLocation = PostPreferredLocation::where('post_id', '=', $updatePost->id)->get();
+			foreach ($preferedLocation as $pl ) {
+				$pl->delete();
+			}
+
+			foreach ($pref_locations as $loc) {
+	        	$tempArr = explode('-', $loc);
+	        	if(count($tempArr) == 3){
+	        		$updatePost->preferredLocation()->attach( $loc, array('locality' => $tempArr[0], 'city' => $tempArr[1], 'state' => $tempArr[2]) );
+	        	}
+	        	if(count($tempArr) == 2){
+	        		$updatePost->preferredLocation()->attach( $loc, array('locality' => 'none', 'city' => $tempArr[0], 'state' => $tempArr[1]) );
+	        	}
+	        }
+
+	        if(Input::get('connections') != null){
+			$taggedUsers = Input::get('connections');
+			$updatePost->taggeduser()->attach($taggedUsers, array('mode' => 'tagged', 'tag_share_by' => Auth::user()->induser_id));
+
+			$induserIds = implode(', ', $taggedUsers);
+			$userIds = User::whereRaw('induser_id in ('.$induserIds.')')->get(['id']);
+			foreach($userIds as $r){
+			    $to_user = $r->id;
+				if($to_user != null){
+					$notification = new Notification();
+					$notification->from_user = Auth::user()->id;
+					$notification->to_user = $to_user;
+					$notification->remark = 'has tagged you to post: '.$updatePost->unique_id;
+					$notification->operation = 'user tagging';
+					$notification->save();
+				}
+			}
+
+		}
+		if(Input::get('groups') != null){
+			$taggedGroups = Input::get('groups');
+			$updatePost->taggedGroup()->attach($taggedGroups, array('mode' => 'tagged', 'tag_share_by' => Auth::user()->induser_id));
+		}		
+
+
+			return redirect('/mypost/single/'.$id);
+		}else{
+			return redirect('/mypost');
+		}
+
 	}
 
 	/**
@@ -1001,6 +1138,25 @@ class JobController extends Controller {
 
 		}else{
 			return redirect("/home");
+		}
+	}
+
+	public function mypostContactStatus(Request $request){
+		$status = Postactivity::where('post_id', '=', $request['postid'])
+		                      ->where('user_id', '=', $request['userid'])
+		                      ->first();
+		if($status != null){
+			$status->status = $request['status'];
+			$status->save();
+		}
+
+		$data = [];
+		$data['contact_status'] = $status->status;
+
+		if(!empty($data)){
+			return response()->json(['success'=>'success','data'=>$data]);
+		}else{
+			return response()->json(['success'=>'fail','data'=>$data]);
 		}
 	}
 

@@ -187,8 +187,19 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 					$result = 1;
 				}
 			}			
+		}elseif(Auth::user()->identifier == 2){
+			if(!starts_with(Auth::user()->profile_alert_dtTime, '0000')){
+				$alerted = Auth::user()->profile_alert;
+				$alertedAt = new \Carbon\Carbon(Auth::user()->profile_alert_dtTime, 'Asia/Kolkata');
+				$now = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'));
+				$difference = $now->diffInDays($alertedAt);
+				if($difference >= 1 && ($alerted == 0 || $alerted == 1) ){
+					$result = 0;
+				}elseif($difference == 0 && $alerted == 1){
+					$result = 1;
+				}
+			}			
 		}
 		return $result;
 	}
-
 }

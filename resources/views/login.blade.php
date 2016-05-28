@@ -53,6 +53,44 @@
 <link href="/assets/css/custom_new.css" rel="stylesheet"/>
 <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+
+
+<!-- new css -->
+
+<!-- BEGIN THEME STYLES -->
+<link href="/assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+<link href="/assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/admin/layout3/css/layout.css" rel="stylesheet" type="text/css"/>
+<!-- <link id="style_color" href="/assets/admin/layout3/css/themes/grey.css" rel="stylesheet" type="text/css"/> -->
+<link href="/assets/admin/layout3/css/custom.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/css/custom.css" rel="stylesheet"/>
+<link href="/assets/css/custom_new.css" rel="stylesheet"/>
+<link href="/assets/css/normalize-content.css" rel="stylesheet"/>
+<script src="/assets/global/plugins/autosize/autosize.min.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL STYLES -->
+<link href="/assets/global/plugins/icheck/skins/all.css" rel="stylesheet"/>
+
+<link href="/assets/global/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet"/>
+
+<link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/assets/component-btn.css"/>
+
+<!-- end new css -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- END THEME STYLES -->
 <link rel="shortcut icon" href="favicon.ico"/>
 <style type="text/css" rel="stylesheet">
@@ -165,69 +203,144 @@ input:focus:-ms-input-placeholder { color:dimgrey !important; } /* IE 10+ */
 <body class="login" style="overflow-y:scroll">
 
 @include('includes.analyticstracking')
-
 <!-- BEGIN HEADER -->
-<div class="page-header navbar navbar-fixed-top" style="background-color: transparent !important;">
-  <!-- BEGIN HEADER INNER -->
-  <div class="page-header-inner">
-    <!-- BEGIN LOGO -->
-    <div class="page-logo">
-      <a href="/home">
-      <img src="/assets/logo.png" alt="logo" class="logo-default" style="width: 150px;margin: 5px 0;" />
-      </a>
-    </div>
-    <!-- END LOGO -->
-    <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-   
-    <!-- END RESPONSIVE MENU TOGGLER -->
-    <!-- BEGIN TOP NAVIGATION MENU -->
-    <div class="top-menu">
-      <ul class="nav navbar-nav pull-right">        
+<div class="page-header">
+  <!-- BEGIN HEADER TOP -->
+  <div class="page-header-top">
+    <div class="container" >
+      <!-- BEGIN LOGO -->
+      <div class="page-logo">
+       <a class="" href="/login"><img src="/assets/logo.png" class="big-logo" />
+          <img src="/assets/small-logo.png" class="small-logo" />  </a>
+      </div>
+      <!-- END LOGO -->
+      <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+      <a href="javascript:;" class="menu-toggler"></a>
+      <!-- END RESPONSIVE MENU TOGGLER -->
+      <!-- BEGIN TOP NAVIGATION MENU -->
+      <div class="top-menu-login">
+        <ul class="nav navbar-nav pull-right">        
         <!-- BEGIN USER LOGIN DROPDOWN -->
-        <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-        <li>
-          <div class="signup-tabopen">
-            <a id="signup-tabopen" style="padding-bottom: 11px;padding-top: 11px;background-color: transparent;">
-            <button class="btn welcome-signup-css signup-button" style="">
-              Sign Up
-            </button>
-            </a>
-          </div>
-        </li>
-        <li >
-          <div class="login-tabopen">
-            <a id="login-tabopen" style="padding-bottom: 11px;padding-top: 11px;background-color: transparent;">
-            <button class="btn welcome-signup-css signup-button" style="">
-              Login Now
-            </button>
-            </a>
-          </div>
-        </li>
-        <li >
-          <div class="login-otp-tabopen">
-            <a id="login-otp-tabopen" style="padding-bottom: 11px;padding-top: 11px;background-color: transparent;">
-            <button class="btn welcome-signup-css signup-button" style="">
-              Login Now
-            </button>
-            </a>
-          </div>
-        </li>
-      </ul>
+          <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+          <li class="@if($title == 'Post_details') show @else hide @endif">
+            <div class="signup-tabopen">
+              <a href="/login" id="signup-tabopen" style="padding-bottom: 11px;padding-top: 11px;background-color: transparent;">
+              <button class="btn welcome-signup-css" style="">
+                Login
+              </button>
+              </a>
+            </div>
+          </li>
+          <li>
+            <div class="signup-tabopen">
+              <a class="@if($title == 'login') show @else hide @endif" id="signup-tabopen" style="padding-bottom: 11px;padding-top: 11px;background-color: transparent;">
+              <button class="btn welcome-signup-css signup-button" style="">
+                Sign Up
+              </button>
+              </a>
+            </div>
+          </li>
+          <li >
+            <div class="login-tabopen">
+              <a class="@if($title == 'login') show @else hide @endif" id="login-tabopen" style="padding-bottom: 11px;padding-top: 11px;background-color: transparent;">
+              <button class="btn welcome-signup-css signup-button" style="">
+                Login Now
+              </button>
+              </a>
+            </div>
+          </li>
+          <li >
+            <div class="login-otp-tabopen">
+              <a class="@if($title == 'login') show @else hide @endif" id="login-otp-tabopen" style="padding-bottom: 11px;padding-top: 11px;background-color: transparent;">
+              <button class="btn welcome-signup-css signup-button" style="">
+                Login Now
+              </button>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <!-- END TOP NAVIGATION MENU -->
     </div>
-    <!-- END TOP NAVIGATION MENU -->
   </div>
-  <!-- END HEADER INNER -->
+  <!-- END HEADER TOP -->
+  <!-- BEGIN HEADER MENU -->
+  <div class="page-header-menu">
+    <div class="container" >
+     
+      <!-- BEGIN MEGA MENU -->
+      <!-- DOC: Apply "hor-menu-light" class after the "hor-menu" class below to have a horizontal menu with white background -->
+      <!-- DOC: Remove data-hover="dropdown" and data-close-others="true" attributes below to disable the dropdown opening on mouse hover -->
+      <div class="hor-menu ">
+        <ul class="nav navbar-nav" style="padding:0;">
+          <li>
+            <a href="/"><i class="icon-cup"></i> Welcome</a>
+          </li>
+          <li>
+            <a href="/"> <i class="icon-basket"></i> Post Job</a>
+          </li>
+          <li>
+            <a href="/"><i class="icon-basket"></i> Promote Skill</a>
+          </li>
+          <li class="@if($title == 'Feedback') active @endif ">
+            <a href="/feedback/welcome"><i class="icon-diamond"></i> Feedback</a>
+          </li>
+          <li>
+            <a href="/"><i class="icon-speech"></i> About</a>
+          </li>
+          <li>
+            <a href="/"><i class="icon-info"></i> Contact</a>
+          </li>
+          <li class="@if($title == 'login') active @endif">
+            <a href="/login"><i class="icon-login"></i> Login</a>
+          </li>
+        </ul>
+      </div>
+      <!-- END MEGA MENU -->
+    </div>
+  </div>
+  <!-- END HEADER MENU -->
 </div>
 <!-- END HEADER -->
-<!-- BEGIN LOGO -->
-<div class="container display-content">
-   
-  @yield('content')
+
+<div class="clearfix"></div>
+
+<div class="container" style="padding: 0 !important;">
+
+  <!-- BEGIN CONTAINER -->
+  <div class="page-container">
+    
+    
+
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+      <div class="page-content clearfix">
+
+        <!-- customizer -->
+
+        <div class="page-content-body" style="margin:0px;">
+        @yield('content')
+        </div>
+
+      </div>
+      <!-- BEGIN CONTENT -->
+    </div>
+    <!-- END CONTENT -->
+    <!-- BEGIN QUICK SIDEBAR -->
+    <!--Cooming Soon...-->
+    <!-- END QUICK SIDEBAR -->
+  </div>
+  <!-- END CONTAINER -->
+
+  
 </div>
 
-<div class="copyright">
-   2015 © Jobtip.in
-</div>
+<!-- BEGIN LOGO -->
+<!-- <div class="container display-content">
+   
+</div> -->
+
+@include('includes.footer')
 
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
@@ -251,6 +364,7 @@ input:focus:-ms-input-placeholder { color:dimgrey !important; } /* IE 10+ */
 <script src="/assets/global/plugins/bootstrap-tabdrop/js/bootstrap-tabdrop.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
+
 <script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>
 <script src="/assets/admin/pages/scripts/login.js" type="text/javascript"></script>
 <script src="/assets/admin/pages/scripts/form-icheck.js"></script>
@@ -263,6 +377,29 @@ input:focus:-ms-input-placeholder { color:dimgrey !important; } /* IE 10+ */
 <script src="../../assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <script src="../../assets/admin/pages/scripts/index.js" type="text/javascript"></script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-56afb9b6a3affa13" async="async"></script>
+<!-- <script src='https://www.google.com/recaptcha/api.js'></script> -->
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+<script type="text/javascript">
+      var verifyCallback = function(response) {
+        alert(response);
+      };
+      var widgetId1;
+      var widgetId2;
+      var onloadCallback = function() {
+        // Renders the HTML element with id 'example1' as a reCAPTCHA widget.
+        // The id of the reCAPTCHA widget is assigned to 'widgetId1'.
+        widgetId1 = grecaptcha.render('example1', {
+          'sitekey' : '6Ld6UB0TAAAAAJEd1MycAu-5sg-WYCwUgIeIQ0h_',
+          'theme' : 'light'
+        });
+        widgetId2 = grecaptcha.render(document.getElementById('example2'), {
+          'sitekey' : '6Ld6UB0TAAAAAJEd1MycAu-5sg-WYCwUgIeIQ0h_',
+          'theme' : 'dark'
+        });
+      };
+    </script>
+
 <!-- END PAGE LEVEL SCRIPTS -->
 <script type="text/javascript">
         var RecaptchaOptions = {
@@ -270,7 +407,6 @@ input:focus:-ms-input-placeholder { color:dimgrey !important; } /* IE 10+ */
            custom_theme_widget: 'recaptcha_widget'
         };
     </script>
-<script type="text/javascript" src="https://www.google.com/recaptcha/api/challenge?k=6LcrK9cSAAAAALEcjG9gTRPbeA0yAVsKd8sBpFpR"></script>
 @yield('javascript')
 
 <script>

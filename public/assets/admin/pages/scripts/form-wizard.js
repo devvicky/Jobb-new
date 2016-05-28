@@ -60,6 +60,20 @@ var FormWizard = function () {
                     'education[]': {
                         required: true
                     },
+                    min_exp: {
+                        required: true
+                    },
+                    max_exp: {
+                        required: true
+                    },
+                    min_sal: {
+                        required: false,
+                        number: true
+                    },
+                    max_sal: {
+                        required: false,
+                        number: true
+                    },
                     'prefered_location[]': {
                         required: true
                     },
@@ -110,6 +124,18 @@ var FormWizard = function () {
 
                 'linked_skill_id[]': {
                     required: "You must add atleast one skill"
+                },
+                min_exp: {
+                    required: "Select Experience"
+                },
+                max_exp: {
+                    required: "Select Experience"
+                },
+                min_sal: {
+                    number: "Enter only digits"
+                },
+                max_max: {
+                    number: "Enter only digits"
                 },
                 'prefered_location[]': {
                     required: "Please specify location"
@@ -178,6 +204,22 @@ var FormWizard = function () {
                 });
             }
 
+            var displayConfirmtab3 = function() {
+                $('#tab3 .form-control-static-msg', form).each(function(){
+                    var input = $('[name="'+$(this).attr("data-display-msg")+'"]', form);
+                    if (input.is(":radio")) {
+                        input = $('[name="'+$(this).attr("data-display-msg")+'"]:checked', form);
+                    }
+                    if (input.is(":text") || input.is("textarea")) {
+                        $(this).html(input.val());
+                    } else if (input.is("select")) {
+                        $(this).html(input.find('option:selected').text())
+                    } else if (input.is(":radio") && input.is(":checked")) {
+                        $(this).html(input.attr("data-title"));
+                    }
+                });
+            }
+
             var handleTitle = function(tab, navigation, index) {
                 var total = navigation.find('li').length;
                 var current = index + 1;
@@ -192,6 +234,7 @@ var FormWizard = function () {
 
                 if (current == 1) {
                     $('#form_wizard_1').find('.button-previous').hide();
+
                 } else {
                     $('#form_wizard_1').find('.button-previous').show();
                 }
@@ -203,6 +246,7 @@ var FormWizard = function () {
                 } else {
                     $('#form_wizard_1').find('.button-next').show();
                     $('#form_wizard_1').find('.button-submit').hide();
+                    displayConfirmtab3();
                 }
                 Metronic.scrollTo($('.page-title'));
             }

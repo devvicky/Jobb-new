@@ -1,236 +1,562 @@
 @extends('master')
 
 @section('content')
-
-<div class="myactivity-head col-md-9" style="margin: 10px 0 0 0;">
-	<i class="icon-trophy"></i> My Activity
-</div>
-<div class="portlet box blue col-md-9" style="border:0;">
-	<div class="portlet-title portlet-title-mypost" style="float:left;">
-		<ul class="nav nav-tabs" style="padding-left: 5px;">
-			<li class="active">
-				<a href="#portlet_5_1" class="label-new" data-toggle="tab">
-				<i class="icon-note"></i> My Posts </a>
-			</li>
-			@if(Auth::user()->identifier == 1)
-			<li>
-				<a href="#portlet_5_2" class="label-new" data-toggle="tab">
-				<i class="icon-list"></i> My Updates </a>
-			</li>
-			@endif
-		</ul>
-	</div>
-	<div class="portlet-body" style="background-color:whitesmoke;padding:2px">
-		<div class="tabbable-custom">
-			<div class="tab-content" style="background-color:whitesmoke;">
-				<div class="tab-pane active" id="portlet_5_1">
-					<div class="row">
-						@if(count($posts) > 0)
-						@foreach($posts as $post)								
-						<div class="col-md-9">	
-							<a href="/mypost/single/{{$post->unique_id}}" style="text-decoration:none;">
-							<div class="updates-style" style="background-color:white;" >
+<!-- BEGIN PAGE BREADCRUMB -->
+<ul class="page-breadcrumb breadcrumb">
+	<li>
+		<a href="/home">Home</a><i class="fa fa-circle"></i>
+	</li>
+	<li class="active">
+		My Activity
+	</li>
+</ul>
+<!-- END PAGE BREADCRUMB -->
+<div class="row margin-top-10">
+	<div class="col-md-12">
+		<!-- BEGIN PROFILE SIDEBAR -->
+		<div class="profile-sidebar" style="width: 250px;">
+			<!-- PORTLET MAIN -->
+			<div class="portlet light profile-sidebar-portlet">
+				@if(Auth::user()->identifier == 1)
+				<!-- SIDEBAR USERPIC -->
+				<div class="profile-userpic">
+					<a id="ajax-demo" href="#profile-pic" data-toggle="modal" class="config">
+	                    @if($user->induser->profile_pic == null && $user->induser->fname != null)
+	                      <div class="hover-image"><i class="fa fa-camera"></i> Add</div>
+	                    @endif      
+	                    @if($user->induser->profile_pic != null)
+	                      <img src="/img/profile/{{ $user->induser->profile_pic }}" class="img-responsive">
+	                      <div class="hover-image"><i class="glyphicon glyphicon-edit"></i>Edit</div>
+	                    @else
+	                      <img src="/img/profile/{{ $user->induser->profile_pic }}" class="demo-new" data-name="{{$user->induser->fname}}">
+	                      <div class="hover-image"><i class="glyphicon glyphicon-edit"></i>Edit</div>
+	                    @endif
+	                </a>
+				</div>
+				<!-- END SIDEBAR USERPIC -->
+				<!-- SIDEBAR USER TITLE -->
+				<div class="profile-usertitle">
+					<div class="profile-usertitle-name">
+						 {{ $user->induser->fname }} {{ $user->induser->lname }}
+					</div>
+					<div class="profile-usertitle-job">
+						@if($user->induser->role != null) {{$user->induser->role}} @endif 
+					</div>
+				</div>
+				<!-- END SIDEBAR USER TITLE -->
+				@elseif(Auth::user()->identifier == 2)
+				<!-- SIDEBAR USERPIC -->
+				<div class="profile-userpic">
+					<a id="ajax-demo" href="#profile-pic" data-toggle="modal" class="config">
+	                    @if($user->corpuser->logo_status == null && $user->corpuser->firm_name != null)
+	                      <div class="hover-image"><i class="fa fa-camera"></i> Add</div>
+	                    @endif      
+	                    @if($user->corpuser->logo_status != null)
+	                      <img src="/img/profile/{{ $user->corpuser->logo_status }}" class="img-responsive">
+	                      <div class="hover-image"><i class="glyphicon glyphicon-edit"></i>Edit</div>
+	                    @else
+	                      <img src="/img/profile/{{ $user->corpuser->logo_status }}" class="demo-new" data-name="">
+	                      <div class="hover-image"><i class="glyphicon glyphicon-edit"></i>Edit</div>
+	                    @endif
+	                </a>
+				</div>
+				<!-- END SIDEBAR USERPIC -->
+				<!-- SIDEBAR USER TITLE -->
+				<div class="profile-usertitle">
+					<div class="profile-usertitle-name">
+						 {{ $user->corpuser->firm_name }}
+					</div>
+					<div class="profile-usertitle-job">
+						@if($user->corpuser->slogan != null) {{$user->corpuser->slogan}} @endif 
+					</div>
+				</div>
+				<!-- END SIDEBAR USER TITLE -->
+				@endif
+				<!-- SIDEBAR MENU -->
+				<div class="profile-usermenu">
+					<ul class="nav" style="padding:0;">
+						
+						<li class="active">
+							<a href="#tab_1_1" data-toggle="tab"><i class=" icon-user"></i> Manage Posts</a>
+						</li>
+						@if(Auth::user()->identifier == 1)
+						<li>
+							<a href="#tab_1_2" data-toggle="tab"><i class="icon-settings"></i>Acitivity Log</a>
+						</li>
+						@endif
+					</ul>
+					
+				</div>
+				<!-- END MENU -->
+				<!-- PORTLET MAIN -->
+			</div>
+			<div class="portlet light">
+				<div class="row list-separated profile-stat" style="text-align:center;">
+					@if(Auth::user()->identifier == 1)
+					<div class="col-md-4 col-sm-4 col-xs-4 @if($title == 'connections'){{'active'}}@endif" style="padding:0;">
+						<a href="/connections/create" class="icon-btn icon-btn-new">
+							<i class="icon-link"></i>
+							<div>
+								 Links
+							</div>
+							<span class="badge badge-danger @if($linksCount > 0) show @else hide @endif" style="background-color: #26a69a;">
+							{{$linksCount}} </span>
+						</a>
+					</div>
+					@endif
+					<div class="col-md-4 col-sm-4 col-xs-4 @if($title == 'notify_view'){{'active'}}@endif" style="padding:0;">
+						<a href="/notify/thanks/ind/{{Auth::user()->induser_id}}" data-utype="thank" class="icon-btn icon-btn-new">
+							<i class="icon-like"></i>
+							<div>
+								 Thanks
+							</div>
+							<span class="badge badge-danger  @if($thanks > 0) show @else hide @endif" style="background-color: #3598dc;">
+							{{$thanks}}</span>
+						</a>
+					</div>
+					<div class="col-md-4 col-sm-4 col-xs-4 @if($title == 'mypost'){{'active'}}@endif" style="padding:0;">
+						<a href="/mypost" class="icon-btn icon-btn-new">
+							<i class="icon-note"></i>
+							<div>
+								 Posts
+							</div>
+							<span class="badge badge-danger  @if(count($posts) > 0) show @else hide @endif">
+							{{count($posts)}} </span>
+						</a>
+					</div>
+				</div>
+				
+			</div>
+			<!-- END PORTLET MAIN -->
+		</div>
+		<!-- BEGIN PROFILE CONTENT -->
+		<div class="profile-content">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="tab-content" style="background-color: transparent;">
+					<!-- PERSONAL INFO TAB -->
+					<div class="tab-pane active" id="tab_1_1">
+						<div class="tabbable-line">
+							<ul class="nav nav-tabs ">
+								<li class="active">
+									<a href="#tab_15_1" data-toggle="tab" style="font-size: 14px;">
+									Active Post</a>
+								</li>
+								<li>
+									<a href="#tab_15_2" data-toggle="tab" style="font-size: 14px;">
+									Expired Post</a>
+								</li>
 								
-								@if(count($post->groupTagged) > 0)
-	                                        @if($post->sharedGroupBy->first()->mode == 'tagged')
-	                                        <div class="row">
-	                                            <div class="col-md-12">
-		                                            <div class="shared-by">
-		                                                You have tagged to <b>{{$post->sharedToGroup->first()->group_name}}</b> group<br/>
-		                                            </div>
-	                                            </div>
-	                                        </div>
-	                                        @endif
-	                                    @endif
-                                     @if($post->tagged->contains('user_id', Auth::user()->induser_id) && 
-                                        $post->sharedBy->first()->mode == 'tagged')
-                                        
-                                    <small> {{$post->sharedBy->first()->mode}} by 
-                                        {{$post->sharedBy->first()->fname}} {{$post->sharedBy->first()->lname}}</small>
-                                        @endif
-                                        @if($post->post_type == 'job')
-										<small class="label-success label-xs capitalize" style="font-size: 12px;border-radius: 3px;padding: 2px 5px; color: white;">
-											{{ $post->post_type }}
-										</small>
-										@else
-										<small class="label-info label-xs capitalize" style="font-size: 12px;border-radius: 3px;padding: 2px 5px; color: white;">
-											{{ $post->post_type }}
-										</small>
-										@endif
-										&nbsp;
-								Post ID: {{$post->unique_id}} &nbsp; 
-								<small style="color:dimgrey;">
-									<i class="fa fa-calendar" style="font-size: 11px;color:dimgrey;"></i>  {{ date('M d, Y', strtotime($post->created_at)) }}
-								</small>
-
+							</ul>
+							<div class="tab-content" style="background-color: transparent;">
+								<div class="tab-pane active" id="tab_15_1">
+									<div class="row">
+										@if(count($posts) > 0)
+										@foreach($posts as $post)	
 										<?php 
-											$strNew = $post->post_duration;
-	                                        $strAdd = $strNew;
-	                                        $strAdd = '+'.$strAdd.' day';
-									 		$strOld = $post->created_at;
-									 		$fresh = $strOld->modify($strAdd);
+															$strNew = $post->post_duration;
+					                                        $strAdd = $strNew;
+					                                        $strAdd = '+'.$strAdd.' day';
+													 		$strOld = $post->created_at;
+													 		$fresh = $strOld->modify($strAdd);
 
-									 		$currentDate = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'));
-									 		$expiryDate = new \Carbon\Carbon($fresh, 'Asia/Kolkata');
-									 		$difference = $currentDate->diff($expiryDate);
-									 		$remainingDays = $difference->format('%d');
-									 		$remainingHours = $difference->format('%h');
+													 		$currentDate = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'));
+													 		$expiryDate = new \Carbon\Carbon($fresh, 'Asia/Kolkata');
+													 		$difference = $currentDate->diff($expiryDate);
+													 		$remainingDays = $difference->format('%d');
+													 		$remainingHours = $difference->format('%h');
 
-									 		$dateExpire= $expiryDate->format('d M Y');
-									 		$dayExpire = $difference->format('%d');
-									 		if($currentDate >= $fresh){
-									 			$expired = 1;
-									 		}else{
-									 			$expired = 0;
-									 		}
-									  	?>
-								  	<div class="row" style="margin: 5px -15px;">
-								  		<div class="col-md-12">
-								  			<span class="font-grey-cascade">
-													 <div class="post-title-new capitalize">{{ $post->post_title }}  </div>					 							
-											</span>
-								  		</div>
-								  		@if($expired == 0)
-								  		<div class="col-md-10 col-sm-10 col-xs-10">
-								  			<small style="font-size:13px;color: dimgrey !important;">Post expires in 
-									  			<button class="btn post-expire-duration-css"> 
-									  				{{($post->post_duration + $post->post_extended)}} days
-									  			</button>
-									  		</small>
-								  		</div>
-								  		
-								  		@elseif($expired == 1 && $post->post_duration_extend == 0 || $post->post_duration_extend != 1)
-								  		
-								  		<div class="col-md-10 col-sm-10 col-xs-10">
-								  			<small style="color:dimgrey;font-size:13px;">
-												<i class="fa fa-calendar" style="font-size: 11px;color:dimgrey;"></i> {{$dateExpire}}: Post Expired
-											</small>
-								  		</div>
-								  		
-								  		@endif
-								  		<div class="col-md-2 col-sm-2 col-xs-2"><a href="/mypost/single/{{$post->unique_id}}" ><i class="fa  fa-ellipsis-v"></i></a></div>
-								  	</div>
-								<div class="row">
-								
-								
+													 		$dateExpire= $expiryDate->format('d M Y');
+													 		$dayExpire = $difference->format('%d');
+													 		if($currentDate >= $fresh){
+													 			$expired = 1;
+													 		}else{
+													 			$expired = 0;
+													 		}
+													  	?>		
+										@if($expired == 0)	
+										<div class="col-md-9">
+										<!-- BEGIN PORTLET -->
+											<div class="portlet light " style="background-color:white;">
+												
+												<div class="portlet-body" style="padding-top: 1px;">
+													<a href="/mypost/single/{{$post->unique_id}}" style="text-decoration:none;">
+														@if(count($post->groupTagged) > 0)
+							                                        @if($post->sharedGroupBy->first()->mode == 'tagged')
+							                                        <div class="row">
+							                                            <div class="col-md-12">
+								                                            <div class="shared-by">
+								                                                You have tagged to <b>{{$post->sharedToGroup->first()->group_name}}</b> group<br/>
+								                                            </div>
+							                                            </div>
+							                                        </div>
+							                                        @endif
+							                                    @endif
+						                                     @if($post->tagged->contains('user_id', Auth::user()->induser_id) && 
+						                                        $post->sharedBy->first()->mode == 'tagged')
+						                                        
+						                                    <small> {{$post->sharedBy->first()->mode}} by 
+						                                        {{$post->sharedBy->first()->fname}} {{$post->sharedBy->first()->lname}}</small>
+						                                        @endif
+						                                <div class="row">
+						                                	<div class="col-md-9">
+						                                		@if($post->post_type == 'job')
+																<small class="badge badge-success capitalize" style="font-size: 12px;border-radius: 3px;padding: 2px 5px; color: white;">
+																	{{ $post->post_type }}
+																</small>
+																@else
+																<small class="badge badge-primary capitalize" style="font-size: 12px;border-radius: 3px;padding: 2px 5px; color: white;">
+																	{{ $post->post_type }}
+																</small>
+																@endif
+
+																&nbsp;&nbsp;<span class="caption-subject font-blue-madison bold uppercase" style="font-size: 12px;">{{ $post->post_title }}</span>
+						                                	</div>
+						                                	<div class="col-md-3">
+						                                		<small class="font-grey-cascade">
+																	<i class="fa fa-calendar font-grey-cascade" style="font-size: 11px;"></i>&nbsp;&nbsp;{{ date('M d, Y', strtotime($post->created_at)) }}
+																</small>
+						                                	</div>
+						                                </div>
+													<a href="/mypost/single/{{$post->unique_id}}" style="text-decoration:none;">
+												  	<div class="row" style="margin: 8px -15px;border-bottom: 1px solid #eee;padding: 0px 0 10px 0;">
+												  		@if($expired == 0)
+												  		<div class="col-md-8 col-sm-8 col-xs-8">
+												  			<small class="font-grey-cascade" style="font-size:13px;">Post expires in 
+													  			<button class="btn post-expire-duration-css font-grey-cascade"> 
+													  				{{($post->post_duration + $post->post_extended)}} days
+													  			</button>
+													  		</small>
+												  		</div>
+												  		@endif
+												  		<div class="col-md-2 col-sm-2 col-xs-2"><a href="/mypost/single/{{$post->unique_id}}" ><i class="fa  fa-ellipsis-v"></i></a></div>
+												  	</div>
+												  </a>
+													<div class="" >
+														@if(Auth::user()->identifier == 2)
+														<li  class="active inline">    
+														<a href="/mypost/single/{{$post->unique_id}}" style="text-decoration:none;">
+															Applied </a>
+
+														<?php $i=0; ?>
+														@foreach($post->postactivity as $pa)
+														@if($pa->apply == 1) <?php $i++; ?> @endif
+														@endforeach
+														<?php 
+														$uid = $post->unique_id;
+														if($i>0){
+														echo "<a href='/mypost/single/$uid' style='text-decoration:none;'><span class='badge' style='background-color: deepskyblue;'>";
+
+														        echo $i;
+														    
+														echo "</span></a>";
+														} 
+														?>
+														</li>
+														&nbsp;|&nbsp;
+														@elseif(Auth::user()->identifier == 1)
+														<li class="active inline">
+														<a href="/mypost/single/{{$post->unique_id}}" style="text-decoration:none;">
+															Contacted </a>
+														<?php $i=0; ?>
+														@foreach($post->postactivity as $pa)
+														@if($pa->contact_view == 1) <?php $i++; ?> @endif
+														@endforeach
+														<?php 
+														$uid = $post->unique_id;
+														if($i>0){
+														echo "<a href='/mypost/single/$uid' style='text-decoration:none;'><span class='badge' style='background-color: deepskyblue;'>";
+
+														        echo $i;
+														    
+														echo "</span></a>";
+														} 
+														?> 
+														</li>
+														&nbsp;|&nbsp;
+														@endif
+														<li class="inline">
+														<a href="/mypost/single/{{$post->unique_id}}" style="text-decoration:none;">
+															Thanked</a>
+														<?php $i=0; ?>
+														@foreach($post->postactivity as $pa)
+														@if($pa->thanks == 1) <?php $i++; ?> @endif
+														@endforeach
+														<?php 
+														$uid = $post->unique_id;
+														if($i>0){
+														echo "<a href='/mypost/single/$uid' style='text-decoration:none;'><span class='badge' style='background-color: deepskyblue;'>";
+
+														        echo $i;
+														    
+														echo "</span></a>";
+														} 
+														?>
+														</li>
+														&nbsp;|&nbsp;
+														<li class="inline">
+														<a href="/mypost/single/{{$post->unique_id}}" style="text-decoration:none;">
+															Shared</a>
+
+														<?php $i=0; ?>
+														@foreach($post->postactivity as $pa)
+														@if($pa->share == 1) <?php $i++; ?> @endif
+														@endforeach
+														<?php 
+														$uid = $post->unique_id;
+														if($i>0){
+														echo "<a href='/mypost/single/$uid' style='text-decoration:none;'><span class='badge' style='background-color: deepskyblue;'>";
+
+														        echo $i;
+														    
+														echo "</span></a>";
+														} 
+														?>
+														</li>
+													</div>	
+													</a>
+												</div>
+											</div>
+											<!-- END PORTLET -->
+										</div>	  
+										@endif	
+										@endforeach	
+										@else
+										<div class="col-md-12">	
+											<div class="updates-style" style="background-color:white;" >
+												You have not Posted anything on Jobtip!
+											</div>
+										</div>
+										@endif
+									</div>
 								</div>
-								@if(Auth::user()->identifier == 2)
-								<li  class="active inline">    
-								Applied 
+								<div class="tab-pane" id="tab_15_2">
+									<div class="row">
+									@if(count($posts) > 0)
+									@foreach($posts as $post)
+										<?php 
+														$strNew = $post->post_duration;
+				                                        $strAdd = $strNew;
+				                                        $strAdd = '+'.$strAdd.' day';
+												 		$strOld = $post->created_at;
+												 		$fresh = $strOld->modify($strAdd);
 
-								<?php $i=0; ?>
-								@foreach($post->postactivity as $pa)
-								@if($pa->apply == 1) <?php $i++; ?> @endif
-								@endforeach
-								<?php 
-								if($i>0){
-								echo "<span class='badge' style='background-color: deepskyblue;'>";
+												 		$currentDate = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'));
+												 		$expiryDate = new \Carbon\Carbon($fresh, 'Asia/Kolkata');
+												 		$difference = $currentDate->diff($expiryDate);
+												 		$remainingDays = $difference->format('%d');
+												 		$remainingHours = $difference->format('%h');
 
-								        echo $i;
-								    
-								echo "</span>";
-								} 
-								?>
-								</li>
-								&nbsp;|&nbsp;
-								@elseif(Auth::user()->identifier == 1)
-								<li class="active inline">
-								Contacted 
-								<?php $i=0; ?>
-								@foreach($post->postactivity as $pa)
-								@if($pa->contact_view == 1) <?php $i++; ?> @endif
-								@endforeach
-								<?php 
-								if($i>0){
-								echo "<span class='badge' style='background-color: deepskyblue;'>";
+												 		$dateExpire= $expiryDate->format('d M Y');
+												 		$dayExpire = $difference->format('%d');
+												 		if($currentDate >= $fresh){
+												 			$expired = 1;
+												 		}else{
+												 			$expired = 0;
+												 		}
+												  	?>		
+									@if($expired == 1)
+									<div class="col-md-9">
+										<!-- BEGIN PORTLET -->
+										<div class="portlet light " style="background-color:white;">
+											
+											<div class="portlet-body" style="padding-top: 1px;">
+												<a href="/mypost/single/{{$post->unique_id}}" style="text-decoration:none;">
+													@if(count($post->groupTagged) > 0)
+						                                        @if($post->sharedGroupBy->first()->mode == 'tagged')
+						                                        <div class="row">
+						                                            <div class="col-md-12">
+							                                            <div class="shared-by">
+							                                                You have tagged to <b>{{$post->sharedToGroup->first()->group_name}}</b> group<br/>
+							                                            </div>
+						                                            </div>
+						                                        </div>
+						                                        @endif
+						                                    @endif
+					                                     @if($post->tagged->contains('user_id', Auth::user()->induser_id) && 
+					                                        $post->sharedBy->first()->mode == 'tagged')
+					                                        
+					                                    <small> {{$post->sharedBy->first()->mode}} by 
+					                                        {{$post->sharedBy->first()->fname}} {{$post->sharedBy->first()->lname}}</small>
+					                                        @endif
+					                                <div class="row">
+					                                	<div class="col-md-9">
+					                                		@if($post->post_type == 'job')
+															<small class="badge badge-success capitalize" style="font-size: 12px;border-radius: 3px;padding: 2px 5px; color: white;">
+																{{ $post->post_type }}
+															</small>
+															@else
+															<small class="badge badge-primary capitalize" style="font-size: 12px;border-radius: 3px;padding: 2px 5px; color: white;">
+																{{ $post->post_type }}
+															</small>
+															@endif
 
-								echo $i;
+															&nbsp;&nbsp;<span class="caption-subject font-blue-madison bold uppercase" style="font-size: 12px;">{{ $post->post_title }}</span>
+					                                	</div>
+					                                	<div class="col-md-3">
+					                                		<small class="font-grey-cascade">
+																<i class="fa fa-calendar font-grey-cascade" style="font-size: 11px;"></i>&nbsp;&nbsp;{{$dateExpire}}
+															</small>
+					                                	</div>
+					                                </div>
+					                                <div class="row" style="margin: 8px -15px;border-bottom: 1px solid #eee;padding: 0px 0 10px 0;">
+												  		<div class="col-md-10 col-sm-10 col-xs-10">
+												  			<small class="font-grey-cascade">
+																 Post Expired
+															</small>
+												  		</div>
+												  		<div class="col-md-2 col-sm-2 col-xs-2"><a href="/mypost/single/{{$post->unique_id}}" ><i class="fa  fa-ellipsis-v"></i></a></div>
+												  	
+														<div class="col-md-6">
+															<a href="/post/delete/{{$post->unique_id}}"><button class="btn btn-danger delete-post-css">Delete Post</button></a>
+														</div>
+													</div>
+													<div class="">	
+														  	
+														@if(Auth::user()->identifier == 2)
+															<li  class="active inline">    
+															<a href="/mypost/single/{{$post->unique_id}}" style="text-decoration:none;">
+																Applied </a>
 
-								echo "</span>";
-								} 
-								?> 
-								</li>
-								&nbsp;|&nbsp;
-								@endif
-								<li class="inline">
-								Thanked
-								<?php $i=0; ?>
-								@foreach($post->postactivity as $pa)
-								@if($pa->thanks == 1) <?php $i++; ?> @endif
-								@endforeach
-								<?php 
-								if($i>0){
-								echo "<span class='badge' style='background-color: deepskyblue;'>";
+															<?php $i=0; ?>
+															@foreach($post->postactivity as $pa)
+															@if($pa->apply == 1) <?php $i++; ?> @endif
+															@endforeach
+															<?php 
+															$uid = $post->unique_id;
+															if($i>0){
+															echo "<a href='/mypost/single/$uid' style='text-decoration:none;'><span class='badge' style='background-color: deepskyblue;'>";
 
-								echo $i;
+															        echo $i;
+															    
+															echo "</span></a>";
+															} 
+															?>
+															</li>
+															&nbsp;|&nbsp;
+															@elseif(Auth::user()->identifier == 1)
+															<li class="active inline">
+															<a href="/mypost/single/{{$post->unique_id}}" style="text-decoration:none;">
+																Contacted </a>
+															<?php $i=0; ?>
+															@foreach($post->postactivity as $pa)
+															@if($pa->contact_view == 1) <?php $i++; ?> @endif
+															@endforeach
+															<?php 
+															$uid = $post->unique_id;
+															if($i>0){
+															echo "<a href='/mypost/single/$uid' style='text-decoration:none;'><span class='badge' style='background-color: deepskyblue;'>";
 
-								echo "</span>";
-								} 
-								?>
-								</li>
-								&nbsp;|&nbsp;
-								<li class="inline">
-								Shared
+															        echo $i;
+															    
+															echo "</span></a>";
+															} 
+															?> 
+															</li>
+															&nbsp;|&nbsp;
+															@endif
+															<li class="inline">
+															<a href="/mypost/single/{{$post->unique_id}}" style="text-decoration:none;">
+																Thanked</a>
+															<?php $i=0; ?>
+															@foreach($post->postactivity as $pa)
+															@if($pa->thanks == 1) <?php $i++; ?> @endif
+															@endforeach
+															<?php 
+															$uid = $post->unique_id;
+															if($i>0){
+															echo "<a href='/mypost/single/$uid' style='text-decoration:none;'><span class='badge' style='background-color: deepskyblue;'>";
 
-								<?php $i=0; ?>
-								@foreach($post->postactivity as $pa)
-								@if($pa->share == 1) <?php $i++; ?> @endif
-								@endforeach
-								<?php 
-								if($i>0){
-								echo "<span class='badge' style='background-color: deepskyblue;'>";
+															        echo $i;
+															    
+															echo "</span></a>";
+															} 
+															?>
+															</li>
+															&nbsp;|&nbsp;
+															<li class="inline">
+															<a href="/mypost/single/{{$post->unique_id}}" style="text-decoration:none;">
+																Shared</a>
 
-								echo $i;
+															<?php $i=0; ?>
+															@foreach($post->postactivity as $pa)
+															@if($pa->share == 1) <?php $i++; ?> @endif
+															@endforeach
+															<?php 
+															$uid = $post->unique_id;
+															if($i>0){
+															echo "<a href='/mypost/single/$uid' style='text-decoration:none;'><span class='badge' style='background-color: deepskyblue;'>";
 
-								echo "</span>";
-								} 
-								?>
-								</li>
-							</div>	
-							</a>			
-						</div>	
-						@endforeach	
-						@else
-						<div class="col-md-9">	
-							<div class="updates-style" style="background-color:white;" >
-								You have not Posted anything on Jobtip!
+															        echo $i;
+															    
+															echo "</span></a>";
+															} 
+															?>
+															</li>
+													</div>	
+													</a>			
+											</div>
+										</div>
+										<!-- END PORTLET -->
+									</div>		
+									@endif
+									@endforeach	
+									@else
+									<div class="col-md-9">	
+										<div class="updates-style" style="background-color:white;" >
+											You have not Posted anything on Jobtip!
+										</div>
+									</div>
+									@endif
+								</div>
+								</div>
 							</div>
 						</div>
-						@endif
 					</div>
-				</div>
-				@if(Auth::user()->identifier == 1)
-				<div class="tab-pane" id="portlet_5_2">
-					<div class="row">
-						@foreach($myActivities as $myActivity)								
-						<div class="col-md-9">												
-							<div class="updates-style" style="background-color:white;" data-postid="{{$myActivity->post_id}}"><i class="fa fa-calendar" style="font-size: 11px;"></i>  {{ date('M d, Y', strtotime($myActivity->time)) }}: {{$myActivity->identifier}} for {{$myActivity->post_title}}, {{$myActivity->post_compname}} 
-							<br>Post ID: {{$myActivity->unique_id}}  
-							<a class="myactivity-post taggedpost" data-toggle="modal" href="#myactivity-post">See the full Post </a>
-							</div>				
-						</div>	
-						@endforeach		
+					@if(Auth::user()->identifier == 1)
+					<div class="tab-pane" id="tab_1_2">
+						<div class="row">
+							@foreach($myActivities as $myActivity)
+							<div class="col-md-9">
+								<!-- BEGIN PORTLET -->
+								<div class="portlet light " style="background-color:white;">
+									<div class="portlet-body">
+										<div class="row">
+											<div class="col-md-9">
+												<div class="caption caption-md">
+													<span class="caption-subject font-blue-madison bold uppercase" style="font-size: 12px;">
+														{{$myActivity->identifier}} for {{$myActivity->post_title}}
+													</span>
+												</div>
+											</div>
+											<div class="col-md-3">
+												<small class="font-grey-cascade">
+													<i class="fa fa-calendar font-grey-cascade" style="font-size: 11px;"></i>
+													&nbsp;&nbsp;{{ date('M d, Y', strtotime($myActivity->time)) }}
+												</small>
+											</div>
+										</div>
+											Post ID: {{$myActivity->unique_id}}  
+											@if($myActivity->post_type == 'job')
+											<a class="myactivity-post taggedpost" href="/job/post/{{$myActivity->unique_id}}">See the full Post </a>
+											@elseif($myActivity->post_type == 'skill')
+											<a class="myactivity-post taggedpost" href="/skill/post/{{$myActivity->unique_id}}">See the full Post </a>
+											@endif
+									</div>
+								</div>
+								<!-- END PORTLET -->
+							</div>
+							
+							@endforeach		
+						</div>
 					</div>
+					@endif
 				</div>
-				@endif
 			</div>
 		</div>
 	</div>
 </div>
-<div class="col-md-3">
-	<div class="portlet box red-sunglo">
-		<div class="portlet-title">
-		</div>
-		<div class="portlet-body">
-			<ul>
-				<li>
-					 Lorem ipsum dolor sit amet
-				</li>
-											
-			</ul>
-		</div>
-	</div>
-</div>	
+	
 <div class="modal fade" id="myactivity-post" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog-new">
 		<div class="modal-content">

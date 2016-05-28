@@ -59,13 +59,18 @@ class FeedbackController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
-	{
+	public function store(){
 		$feedback = new Feedback();
 		$feedback->user_id = Auth::user()->id;
 		$feedback->experience = Input::get('experience');
 		$feedback->usability = Input::get('usability');
 		$feedback->comments = Input::get('comments');
+		$feedback->promotion = Input::get('promotion');
+		$feedback->device_info = Input::get('device_info');
+		if(Input::get('concerns') != null){
+			$feedback->concerns = implode(', ', Input::get('concerns'));
+		}
+		$feedback->refer = Input::get('refer');
 		$feedback->save();
 
 		Session::flash('message', 'Thanks for giving your valuable feedback!'); 

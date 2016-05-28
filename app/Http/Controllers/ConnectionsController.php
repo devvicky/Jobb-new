@@ -14,6 +14,7 @@ use Auth;
 use DB;
 use App\User;
 use App\Notification;
+use App\Group;
 
 class ConnectionsController extends Controller {
 
@@ -44,7 +45,7 @@ class ConnectionsController extends Controller {
 	public function create()
 	{
 		$title = 'links';
-		$user = Induser::where('id', '=', Auth::user()->induser_id)->first();
+		$user = Induser::with('user')->where('id', '=', Auth::user()->induser_id)->first();
 		$linksCount = Connections::where('user_id', '=', Auth::user()->induser_id)
 								 ->where('status', '=', 1)
 								 ->orWhere('connection_user_id', '=', Auth::user()->induser_id)
@@ -69,7 +70,14 @@ class ConnectionsController extends Controller {
 									   'corpusers.city', 
 									   'follows.corporate_id',
 									   'follows.individual_id']);
-		return view('pages.connections', compact('title', 'user', 'linkFollow', 'linksCount', 'linkrequestCount', 'followCount'));
+		$groups = Group::with('postsCount')->leftjoin('groups_users', 'groups_users.group_id', '=', 'groups.id')
+						->where('groups.rowStatus', '=', 0)					
+						->where('groups.admin_id', '=', Auth::user()->induser_id)
+						->orWhere('groups_users.user_id', '=', Auth::user()->induser_id)
+						->where('groups.rowStatus', '=', 0)
+						->groupBy('groups.id')
+						->get(['groups.id', 'groups.group_name', 'groups.admin_id', 'groups.created_at']);
+		return view('pages.connections', compact('title', 'user', 'linkFollow', 'linksCount', 'linkrequestCount', 'followCount', 'groups'));
 	}
 
 	/**
@@ -129,24 +137,27 @@ class ConnectionsController extends Controller {
 		return redirect('/links');
 	}
 
-	public function inviteFriend($id)
-	{
-		$connections = new Connections();
-		$connections->user_id = Auth::user()->induser_id;
-		$connections->connection_user_id = $id;
-		$connections->save();
+	public function inviteFriend($id){
+		$newLink = Connections::where('user_id', '=', Auth::user()->induser_id)
+								  ->where('connection_user_id', '=', $id)
+								  ->first();
+			if($newLink == null){
+				$connections = new Connections();
+				$connections->user_id = Auth::user()->induser_id;
+				$connections->connection_user_id = $id;
+				$connections->save();
 
-		// notification
-		$to_user = User::where('induser_id', '=', $id)->pluck('id');
-		if($to_user != null){
-			$notification = new Notification();
-			$notification->from_user = Auth::user()->id;
-			$notification->to_user = $to_user;
-			$notification->remark = 'has sent link request.';
-			$notification->operation = 'link request';
-			$notification->save();
-		}
-
+				// notification
+				$to_user = User::where('induser_id', '=', $id)->pluck('id');
+				if($to_user != null){
+					$notification = new Notification();
+					$notification->from_user = Auth::user()->id;
+					$notification->to_user = $to_user;
+					$notification->remark = 'has sent link request.';
+					$notification->operation = 'link request';
+					$notification->save();
+				}
+			}
 		return redirect('/links');
 	}
 
@@ -271,21 +282,27 @@ class ConnectionsController extends Controller {
 	public function newLink($id)
 	{
 		try{
-			$connections = new Connections();
-			$connections->user_id=Auth::user()->induser_id;
-			$connections->connection_user_id=$id;
-			$connections->save();
+			$newLink = Connections::where('user_id', '=', Auth::user()->induser_id)
+								  ->where('connection_user_id', '=', $id)
+								  ->first();
+			if($newLink == null){
+				$connections = new Connections();
+				$connections->user_id=Auth::user()->induser_id;
+				$connections->connection_user_id=$id;
+				$connections->save();
 
-			// notification
-			$to_user = User::where('induser_id', '=', $id)->pluck('id');
-			if($to_user != null){
-				$notification = new Notification();
-				$notification->from_user = Auth::user()->id;
-				$notification->to_user = $to_user;
-				$notification->remark = 'has sent link request.';
-				$notification->operation = 'link request';
-				$notification->save();
+				// notification
+				$to_user = User::where('induser_id', '=', $id)->pluck('id');
+				if($to_user != null){
+					$notification = new Notification();
+					$notification->from_user = Auth::user()->id;
+					$notification->to_user = $to_user;
+					$notification->remark = 'has sent link request.';
+					$notification->operation = 'link request';
+					$notification->save();
+				}
 			}
+			
 			
 		}catch (\Illuminate\Database\QueryException $e){
 		    $errorCode = $e->errorInfo[1];
@@ -346,10 +363,15 @@ class ConnectionsController extends Controller {
 	}
 
 	public function linkPageFollow($id){
-		$follow = new Follow();
-		$follow->corporate_id = $id;
-		$follow->individual_id = Auth::user()->induser_id;
-		$follow->save();
+		$linkfollow = Follow::where('corporate_id', '=', $id)
+							->where('individual_id', '=', Auth::user()->induser_id)
+							->first();
+		if($linkfollow == null){
+			$follow = new Follow();
+			$follow->corporate_id = $id;
+			$follow->individual_id = Auth::user()->induser_id;
+			$follow->save();
+		}
 		return redirect('/links');
 	}
 

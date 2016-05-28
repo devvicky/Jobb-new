@@ -275,3 +275,80 @@
   <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+
+<!-- CHANGE Account delete MODAL FORM-->
+<div class="modal fade" id="account-setting" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+     <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title">For Delete Account</h4>
+      </div>
+      <form class="form-horizontal" id="pass-change" role="form" method="POST" action="/accountsetting/delete#tab_1_4">
+      <div class="modal-body">
+          @if (count($errors) > 0)
+            <div class="alert alert-danger">
+              <ul>
+                @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                @endforeach
+              </ul>
+            </div>
+          @endif          
+          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+          <div class="form-group" style="margin-bottom:15px">
+            <label class="col-md-4 control-label" style="font-size: 13px;padding: 7px 10px;">Enter Login Password</label>
+            <div class="col-md-8">
+              <div class="input-icon right ">
+                <i class="fa"></i>
+                <input type="password" class="form-control" name="password" required>
+              </div>
+            </div>
+          </div>
+      </div>
+      <?php $rand = rand(11111,99999);?>
+      <input type="hidden" name="account_id" value="{{$rand}}">
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-sm btn-success">Submit</button>
+        <button type="button" class="btn btn-sm default" data-dismiss="modal">Close</button>
+      </div>      
+      </form>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- END account delete MODAL FORM -->
+
+<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+<div class="modal fade" id="create-group" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 300px;">
+      <div class="modal-content">
+        <form action="/group/store" class="horizontal-form" method="post">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+              <h4 class="modal-title">New Group</h4>
+           </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon">
+                <i class="fa fa-users" style="color:darkcyan;"></i>
+              </span>
+              <input type="text" name="group_name" maxlength="20" class="form-control" placeholder="Enter Group name">
+            </div>
+          </div>            
+          </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Create</button>
+          <button type="button" class="btn default" data-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+      <!-- /.modal-content -->
+  </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

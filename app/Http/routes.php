@@ -12,6 +12,9 @@ Route::post('welcome/post', 'WelcomeController@welcomeSearch');
 Route::post('welcome/postdetails', 'WelcomeController@postDetails');
 Route::post('/contact', 'WelcomeController@contactUs');
 
+Route::get('feedback/welcome', 'WelcomeController@feedbackWelcome');
+Route::post('feedback/welcome/store', 'WelcomeController@feedbackWelcomeStore');
+
 Route::get('email-test', 'PagesController@emailUITest');
 
 Route::get('welcome/job/post/{id}', 'WelcomeController@welcomeJobPost');
@@ -68,6 +71,8 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::post('magicmatch/detail', 'PagesController@magicMatch');
 	Route::post('mypostmagicmatch/detail', 'PagesController@mypostmagicMatch');
 
+	Route::post('mypost/contact/status', 'JobController@mypostContactStatus');
+
 	Route::post('user/detail', 'PagesController@userDetails');
 
 	Route::get('job/post/{id}', 'PagesController@singleJobPost');
@@ -83,10 +88,16 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::get('individual', 'UserController@index');
 	Route::get('individual/create', 'UserController@create');
 	// Route::get('individual/edit', 'UserController@edit');
-	Route::post('individual/update/{id}', 'UserController@update');
-	Route::post('individual/basicupdate', 'UserController@basicUpdate');
-	Route::post('individual/privacyUpdate/{id}', 'UserController@privacyUpdate');
-	Route::post('individual/preferenceUpdate/{id}', 'UserController@preferenceUpdate');
+	
+	Route::post('personal/info', 'UserController@personalInfo');
+	Route::post('contact/info', 'UserController@contactInfo');
+	Route::post('address/update', 'UserController@addressUpdate');
+	Route::post('professional/update', 'UserController@professionalUpdate');
+	Route::post('preference/update', 'UserController@preferenceUpdate');
+	Route::post('privacy/update', 'UserController@privacyUpdate');
+
+	Route::post('firm/update', 'CorporateController@firmUpdate');
+	Route::post('otherdetails/update', 'CorporateController@otherdetailsUpdate');
 
 	Route::get('corporate', 'CorporateController@index');
 	Route::get('corporate/create', 'CorporateController@create');
@@ -118,6 +129,13 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::post('job/extended', 'JobController@postExtended');
 	Route::post('job/expire', 'JobController@postExpire');
 	Route::post('job/newskill', 'JobController@addNewSkills');
+
+	Route::get('job/edit/{id}', 'JobController@edit');
+	Route::post('job/update/{id}', 'JobController@update');
+	Route::get('skill/edit/{id}', 'SkillController@edit');
+	Route::post('skill/update/{id}', 'SkillController@update');
+
+	Route::get('post/delete/{id}', 'PagesController@postDelete');
 
 	Route::get('skill', 'SkillController@index');
 	Route::get('skill/create', 'SkillController@create');
@@ -160,6 +178,8 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::post('feedback/update', 'FeedbackController@update');
 	Route::post('feedback/home', 'FeedbackController@report');
 
+	
+
 	Route::post('searchConnections', 'ConnectionsController@searchConnections');
 	Route::post('searchLinks', 'GroupController@searchLinks');
 
@@ -182,6 +202,8 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::post('verify-otp', 'UserController@verifyOTP');
 	Route::post('send-evc', 'UserController@sendEVC');
 	Route::post('verify-evc', 'UserController@verifyEVC');
+
+	Route::post('/resend-otp', 'UserController@OTPresend');
 
 	Route::get('favourite', 'PagesController@favourite');
 	Route::get('postbyuser/{utype}/{id}', 'PagesController@postByUser');
@@ -207,12 +229,21 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::get('home/job/{sort_by}', 'PagesController@homeSorting');
 	Route::get('home/skill/{sort_by_skill}', 'PagesController@homeskillSorting');
 
-	Route::get('mypost/post/{sort_by}', 'PagesController@myActivitySorting');
+	Route::get('mypost/post/{sort_by}/{id}', 'PagesController@myActivitySorting');
 	
-	Route::get('/mypost/single/{id}', 'PagesController@myPostSingle');
+	Route::get('mypost/single/{id}', 'PagesController@myPostSingle');
 
 	Route::get('home/contactus', 'PagesController@contactUs');
 	Route::get('login/aboutme', 'PagesController@aboutMe');
+
+	Route::post('delete', 'UserController@delete_me');
+	Route::post('delete-mobile', 'UserController@delete_mobile_me');
+	Route::post('delete-email', 'UserController@delete_email_me');
+
+	Route::get('accountsetting/', 'UserController@accountSetting');
+	Route::post('accountsetting/delete', 'UserController@accountDelete');
+
+	Route::post('account/setting', 'UserController@deleteProfileAccount');
 
 	// Admin Controller panel
 	Route::post('admin/role/upload', 'AdminController@updateRole');

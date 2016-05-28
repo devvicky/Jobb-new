@@ -13,28 +13,23 @@
 	      	</a>
 	     	@if($user->working_status == "Student")
                                 
-                 Student, {{ $user->city }}
+                 Student
             
             @elseif($user->working_status == "Searching Job")
             
-                 {{ $user->working_status }} in {{ $user->prof_category }}, {{ $user->city }}
+                 {{ $user->city }}
             
             @elseif($user->role != null && $user->working_status == "Freelanching")
             
-                 {{ $user->role }} {{ $user->working_status }}, {{ $user->city }}
+                 {{ $user->role }} <br/> {{ $user->city }}
             
             @elseif($user->role != null && $user->working_at !=null && $user->working_status == "Working")
             
-                 {{ $user->role }} @ {{ $user->working_at }} 
+                 {{ $user->role }} <br/> {{ $user->city }}
         
             @elseif($user->role != null && $user->working_at ==null && $user->working_status == "Working")
             
-                 {{ $user->role }}, {{ $user->city }}
-            
-            @elseif($user->role == null && $user->working_at !=null && $user->working_status == "Working")
-            
-                 {{ $user->woring_at }}, {{ $user->city }}
-            
+                 {{ $user->role }} <br/> {{ $user->city }}
             @elseif($user->role == null && $user->working_at ==null && $user->working_status == "Working")
             
                {{ $user->city }}

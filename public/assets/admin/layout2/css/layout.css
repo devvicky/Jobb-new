@@ -248,7 +248,8 @@ Page Header
   top: 0px;
   /*right: 3px;*/
   font-weight: 300;
-  padding: 3px 6px;
+  padding: 3px 5px;
+  font-size: 11px;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown > .dropdown-toggle:focus {
   background: none;
@@ -611,7 +612,7 @@ Page Header
   }
   .page-header.navbar .page-logo img {
     margin-left: 0px !important;
-    margin-top: 10px !important;
+    margin-top: 7px !important;
   }
   .page-header.navbar .menu-toggler.sidebar-toggler {
     display: none !important;
@@ -2518,15 +2519,15 @@ Page Loading
     display: block;
     width: 25px;
     padding: 0px;
-    margin: 0px;
+    /*margin: 0px;*/
   }
 }
 
 @media (min-width: 570px) {
  .big-logo {
     display: block;
-    width: 150px;
-    margin-top: 10px;
+    width: 135px;
+    margin-top: 6px;
     margin-right: 0;
     float: left;
 }

@@ -135,7 +135,16 @@
                                                             </div>
                                                             
                                                         </div>
-                                                        
+                                                        <div class="row"> 
+                                                            
+                                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                           
+                                                                    <label class="detail-label">Experience :</label>                                                                  
+                                                            </div>
+                                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
+                                                                    {{ $post->min_exp }} @if($post->max_exp != null) - {{$post->max_exp}} @endif
+                                                            </div>
+                                                            
+                                                        </div>
                                                          <div class="row">
                                                             <div class="col-md-6 col-sm-6 col-xs-6">
                                                                     <label class="detail-label">Salary (<i class="fa fa-rupee (alias)"></i>):</label>

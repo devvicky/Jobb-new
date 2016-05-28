@@ -185,7 +185,34 @@ $(function() {
 
 </script>
 
+<script type="text/javascript">
+$(document).ready(function () {
+    // toggleexpFields();
+    // toggleexpmaxFields();
+    $('#minexp').change(function () {
+    toggleexpFields();
+    });
+    $('#maxexp').change(function () {
+    toggleexpmaxFields();
+    });
+});
+function toggleexpFields() {
+    if($('#minexp').val() > $('#maxexp').val()){
+        $('.maxexp').css({'border-color':'#962626'});
+    }else{
+        $('.maxexp').css({'border-color':'#c4d5df'});
+    }
+}
 
+function toggleexpmaxFields() {
+    if($('#maxexp').val() < $('#minexp').val()){
+        $('.maxexp').css({'border-color':'#962626'});
+    }else{
+        $('.maxexp').css({'border-color':'#c4d5df'});
+    }
+}
+
+</script>
 <style type="text/css">
 /* required for preferred location */
 .pac-container {z-index:999999;}

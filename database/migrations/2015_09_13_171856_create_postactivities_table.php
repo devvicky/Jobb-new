@@ -29,8 +29,8 @@ class CreatePostactivitiesTable extends Migration {
             $table->string('share');
             $table->dateTime('share_dtTime');
             
-            $table->foreign('post_id')->references('id')->on('postjobs');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('post_id')->references('id')->on('postjobs')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 			$table->timestamps();
 		});
 	}

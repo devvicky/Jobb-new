@@ -19,7 +19,7 @@ class CreatePostPreferredLocationsTable extends Migration {
             $table->string('locality', 100);
             $table->string('city', 100);
             $table->string('state', 100);
-            $table->foreign('post_id')->references('id')->on('postjobs');
+            $table->foreign('post_id')->references('id')->on('postjobs')->onDelete('cascade');
 			$table->timestamps();
 		});
 	}

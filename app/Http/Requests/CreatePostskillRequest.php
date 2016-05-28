@@ -22,11 +22,12 @@ class CreatePostskillRequest extends Request {
 	public function rules()
 	{
 		return [
-			'post_title'	=>	'required',
-			'email_id'		=>  'email',
-			'alt_emailid'	=>	'email|unique:indusers|unique:corpusers',
-			'phone'			=>	'numeric',
-			'alt_phone'		=> 	'numeric'
+			'post_title'			=>	'required',
+			'email_id'				=>  'email',
+			'alt_emailid'			=>	'email|unique:indusers|unique:corpusers',
+			'phone'					=>	'numeric',
+			'alt_phone'				=> 	'numeric',
+			'g-recaptcha-response'  => 'required'
 		];
 	}
 

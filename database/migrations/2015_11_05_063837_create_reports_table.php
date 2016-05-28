@@ -18,7 +18,7 @@ class CreateReportsTable extends Migration {
 			$table->integer('post_report_id')->unsigned();
 			$table->integer('individual_report_id')->nullable();
 			$table->string('report_name')->nullable();
-			$table->foreign('post_report_id')->references('id')->on('postjobs');
+			$table->foreign('post_report_id')->references('id')->on('postjobs')->onDelete('cascade');
 			$table->timestamps();
 		});
 	}

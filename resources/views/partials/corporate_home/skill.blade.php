@@ -1,6 +1,4 @@
 
-@include('partials.corporate_home.skill-filter')
-
 @if (count($skillPosts) > 0)
 <?php $var = 1; ?>
 <div class="portlet light bordered" 
@@ -12,17 +10,9 @@
 				<?php $city = 'unspecified'; ?>
 				@if($post->preferLocations != '[]')
 					<?php $city = ''; ?>
-				@if(count($post->preferLocations) > 1)
-					@foreach($post->preferLocations as $pl)
-						
-						<?php $city = $city . $pl->city . ', '; ?>
-					@endforeach
-				@elseif(count($post->preferLocations) == 1)
-					@foreach($post->preferLocations as $pl)
-					
-						<?php $city = $city . $pl->city; ?>
-					@endforeach
-				@endif
+				@foreach($post->preferLocations as $pl)
+					<?php $city = $city . $pl->city .', '; ?>
+				@endforeach
 				@endif
 				@if($post->expired == 0)
 					@if($post->induser != null)	
@@ -38,21 +28,11 @@
 														'userId'		=>	$post->individual_id,
 														'postId'		=>	$post->unique_id,
 														'postType'		=>	$post->post_type,
-														'skill'			=>	$post->linked_skill])
+														'skill'			=>	$post->linked_skill,
+														'jobType'		=>	$post->time_for])
 					@elseif($post->corpuser != null)
 						@include('partials.corporate_home.post', ['userImgPath'	=>	$post->corpuser->logo_status, 
-														'userName'		=>	$post->corpuser->firm_name,
-														'postTitle'		=>	$post->post_title,
-														'expMin'		=>	$post->min_exp,
-														'expMax'		=>	$post->max_exp,
-														'city'			=>	$city,
-														'company'		=>	$post->post_compname,
-														'magicMatch'	=>	$post->magic_match,
-														'userType'		=>	'ind',
-														'userId'		=>	$post->individual_id,
-														'postId'		=>	$post->unique_id,
-														'postType'		=>	$post->post_type,
-														'skill'			=>	$post->linked_skill ])
+														'userName'		=>	$post->corpuser->firm_name ])
 					@endif
 				@elseif($post->expired == 1)
 					@if($post->induser != null)	
@@ -68,27 +48,19 @@
 														'userId'		=>	$post->individual_id,
 														'postId'		=>	$post->unique_id,
 														'postType'		=>	$post->post_type,
-														'skill'			=>	$post->linked_skill])
+														'skill'			=>	$post->linked_skill,
+														'jobType'		=>	$post->time_for])
 					@elseif($post->corpuser != null)
 						@include('partials.corporate_home.post-expired', ['userImgPath'	=>	$post->corpuser->logo_status, 
-																'userName'		=>	$post->corpuser->firm_name,
-																'postTitle'		=>	$post->post_title,
-																'expMin'		=>	$post->min_exp,
-																'expMax'		=>	$post->max_exp,
-																'city'			=>	$city,
-																'company'		=>	$post->post_compname,
-																'magicMatch'	=>	$post->magic_match,
-																'userType'		=>	'ind',
-																'userId'		=>	$post->individual_id,
-																'postId'		=>	$post->unique_id,
-																'postType'		=>	$post->post_type,
-																'skill'			=>	$post->linked_skill])
+														'userName'		=>	$post->corpuser->firm_name ])
 					@endif
 				@endif
 			@endforeach					 			
 			</div>
 		</div>
 	</div>
+	@else
+	No Skill Post
 @endif
 
 <div class="row">

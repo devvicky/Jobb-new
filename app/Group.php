@@ -17,7 +17,7 @@ class Group extends Model {
 
     public function admin()
     {
-        return $this->belongsTo('App\Induser', 'admin_id', 'id')->select('id', 'fname', 'lname');
+        return $this->belongsTo('App\Induser', 'admin_id', 'id')->select('id', 'fname', 'lname', 'profile_pic');
     }
 
     public function posts()

@@ -6,6 +6,7 @@
 <!--<![endif]-->
 <!-- BEGIN HEAD -->
 <head>
+  <!-- NO.Template1Jobtip.in -->
 <meta charset="utf-8"/>
 <title>Jobtip - where jobs follow you</title>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -57,27 +58,27 @@
 <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-editable/bootstrap-editable/css/bootstrap-editable.css"/>
 <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-editable/inputs-ext/address/address.css"/>
 
-<script src="/assets/global/plugins/pace/pace.min.js" type="text/javascript"></script>
-<link href="/assets/global/plugins/pace/themes/pace-theme-minimal.css" rel="stylesheet" type="text/css"/><!-- END PAGE LEVEL STYLES -->
+<!-- <script src="/assets/global/plugins/pace/pace.min.js" type="text/javascript"></script> -->
+<!-- <link href="/assets/global/plugins/pace/themes/pace-theme-minimal.css" rel="stylesheet" type="text/css"/> --><!-- END PAGE LEVEL STYLES -->
 
 <!-- BEGIN THEME STYLES -->
 <link href="/assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
 <link href="/assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
-<link href="/assets/admin/layout2/css/layout.css" rel="stylesheet" type="text/css"/>
-<link id="style_color" href="/assets/admin/layout2/css/themes/grey.css" rel="stylesheet" type="text/css"/>
-<link href="/assets/admin/layout2/css/custom.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/admin/layout3/css/layout.css" rel="stylesheet" type="text/css"/>
+<!-- <link id="style_color" href="/assets/admin/layout3/css/themes/grey.css" rel="stylesheet" type="text/css"/> -->
+<link href="/assets/admin/layout3/css/custom.css" rel="stylesheet" type="text/css"/>
 <link href="/assets/admin/pages/css/timeline.css" rel="stylesheet" type="text/css"/>
 <link href="/assets/global/plugins/ion.rangeslider/css/ion.rangeSlider.css" rel="stylesheet"/>
 <link href="/assets/global/plugins/ion.rangeslider/css/ion.rangeSlider.Metronic.css" rel="stylesheet"/>
 <link href="/assets/css/custom.css" rel="stylesheet"/>
 <link href="/assets/css/custom_new.css" rel="stylesheet"/>
-
+<link href="/assets/css/normalize-content.css" rel="stylesheet"/>
 <script src="/assets/global/plugins/autosize/autosize.min.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL STYLES -->
 
 <link href="/assets/global/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet"/>
 
-<!-- <link href="/assets/admin/pages/css/profile.css" rel="stylesheet" type="text/css"/> -->
+<link href="/assets/admin/pages/css/profile.css" rel="stylesheet" type="text/css"/>
 <link href="/assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
 <!-- <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" /> -->
 <link href="/assets/global/plugins/icheck/skins/all.css" rel="stylesheet"/>
@@ -85,7 +86,9 @@
 <link rel="stylesheet" href="/assets/pqselect.dev.css" /> 
 <link href="/assets/multiple-select.css" rel="stylesheet"/>
 <link href="/assets/jquery.nstSlider.css" rel="stylesheet"/>
-
+<link rel="stylesheet" href="/assets/css/css-stars.css">
+<link rel="stylesheet" href="/assets/css/fontawesome-stars.css">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 <link href="/assets/global/plugins/jcrop/css/jquery.Jcrop.min.css" rel="stylesheet"/>
 <link href="/assets/admin/pages/css/image-crop.css" rel="stylesheet"/>
  
@@ -94,6 +97,8 @@
 <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="/assets/component-btn.css"/>
+<!-- <link href="/assets/css/jplist.filter-toggle-bundle.min.css" rel="stylesheet" type="text/css" /> -->
+<!-- <link href="/assets/css/jplist.filter-dropdown-bundle.min.css" rel="stylesheet" type="text/css" /> -->
 @yield('css')
 
 <style type="css/text" rel="stylesheet">
@@ -228,10 +233,7 @@ body.page-boxed{
   box-shadow: none !important;
 }
 
-input:focus::-webkit-input-placeholder { color:white !important; }
-input:focus:-moz-placeholder { color:white !important; } /* FF 4-18 */
-input:focus::-moz-placeholder { color:white !important; } /* FF 19+ */
-input:focus:-ms-input-placeholder { color:white !important; } /* IE 10+ */
+
 
 </style>
 <!-- END THEME STYLES -->
@@ -249,11 +251,11 @@ input:focus:-ms-input-placeholder { color:white !important; } /* IE 10+ */
 <!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer -->
 <!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
 <!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
-<body class="page-boxed page-header-fixed page-container-bg-solid page-sidebar-closed-hide-logo ">
-
+<body class="page-boxed page-container-bg-solid page-sidebar-closed-hide-logo ">
+<div class="loader-show"></div>
 @include('includes.analyticstracking')
 
-@include('includes.header')
+@include('includes-update.header')
 
 <div class="clearfix"></div>
 
@@ -264,7 +266,6 @@ input:focus:-ms-input-placeholder { color:white !important; } /* IE 10+ */
     
     @include('includes.modal')
     
-    @include('includes.sidebar')
 
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
@@ -272,7 +273,7 @@ input:focus:-ms-input-placeholder { color:white !important; } /* IE 10+ */
 
         <!-- customizer -->
 
-        <div class="page-content-body" style="margin:0px;">
+        <div class="page-content-body" style="margin:8px;">
         @yield('content')
         </div>
 
@@ -300,10 +301,18 @@ input:focus:-ms-input-placeholder { color:white !important; } /* IE 10+ */
         <h4 class="modal-title"></h4>
       </div>
       <div class="modal-body">
+        @if(Auth::user()->identifier == 1)
          Your profile is {{Auth::user()->profile_status}}% completed. Please update it to get more job opportunities.
+        @elseif(Auth::user()->identifier == 2)
+         The profile is {{Auth::user()->profile_status}}% completed. Please Update about your firm.
+        @endif
       </div>
       <div class="modal-footer">
+        @if(Auth::user()->identifier == 1)
         <a href="/individual/edit" class="btn green" >Go to Edit Page</a>
+        @elseif(Auth::user()->identifier == 2)
+        <a href="/corporate/edit" class="btn green" >Go to Edit Page</a>
+        @endif
         <button type="button" class="btn blue" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -337,10 +346,11 @@ input:focus:-ms-input-placeholder { color:white !important; } /* IE 10+ */
 <script src="/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
 <script src="/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
+<script src="/assets/js/initial.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
 <script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>
-<script src="/assets/admin/layout2/scripts/layout.js" type="text/javascript"></script>
-<script src="/assets/admin/layout2/scripts/demo.js" type="text/javascript"></script>
+<script src="/assets/admin/layout3/scripts/layout.js" type="text/javascript"></script>
+<script src="/assets/admin/layout3/scripts/demo.js" type="text/javascript"></script>
 <script src="/assets/admin/pages/scripts/components-form-tools.js" type="text/javascript"></script>
 <script type="text/javascript" src="/assets/global/plugins/bootstrap-select/bootstrap-select.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
@@ -354,8 +364,6 @@ input:focus:-ms-input-placeholder { color:white !important; } /* IE 10+ */
 <script src="/assets/admin/pages/scripts/table-ajax.js"></script>
 
 <script src="/assets/admin/pages/scripts/components-editors.js"></script>
-<script type="text/javascript" src="/assets/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
-<script type="text/javascript" src="/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
 <script src="/assets/global/plugins/bootstrap-markdown/lib/markdown.js" type="text/javascript"></script>
 <script src="/assets/global/plugins/bootstrap-markdown/js/bootstrap-markdown.js" type="text/javascript"></script>
 <script src="/assets/global/plugins/bootstrap-summernote/summernote.min.js" type="text/javascript"></script>
@@ -377,7 +385,7 @@ input:focus:-ms-input-placeholder { color:white !important; } /* IE 10+ */
 <script type="text/javascript" src="/assets/global/plugins/bootstrap-editable/inputs-ext/wysihtml5/wysihtml5.js"></script>
 <script src="/assets/admin/pages/scripts/form-editable.js"></script>
 <script src="/assets/admin/pages/scripts/components-ion-sliders.js" type="text/javascript"></script>
-
+<script src="/assets/global/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js" type="text/javascript"></script>
 <script src="/assets/global/plugins/bootstrap-tabdrop/js/bootstrap-tabdrop.js" type="text/javascript"></script>
 <script src="/assets/global/plugins/ion.rangeslider/js/ion-rangeSlider/ion.rangeSlider.min.js" type="text/javascript"></script>
 <script src="/assets/admin/pages/scripts/components-jqueryui-sliders.js" type="text/javascript"></script>
@@ -416,12 +424,59 @@ input:focus:-ms-input-placeholder { color:white !important; } /* IE 10+ */
 <script src="/assets/js/justgage.js"></script>
 <script src="/assets/js/raphael-2.1.4.min.js"></script>
 <script data-cfasync='false' src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaopcFqNcx4rpHm6Z_iZOkrO8zcNn1GS8&libraries=places" type="text/javascript"></script>
-<script src="/assets/js/initial.js"></script>
 
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<script type="text/javascript" src="/assets/job-filter-options.js"></script>
+<script type="text/javascript" src="/assets/js/bootstrap-portfilter.js"></script>
+<script src="/assets/js/jplist.core.min.js"></script>
+<script src="/assets/js/jplist.textbox-filter.min.js"></script>
+<script src="/assets/js/jplist.filter-toggle-bundle.min.js"></script>
+
+<!-- <script src="https://www.google.com/recaptcha/api.js?onload=myCallBack&render=explicit" async defer></script> -->
+    <script>
+      var recaptcha1;
+      var recaptcha2;
+      var myCallBack = function() {
+        //Render the recaptcha1 on the element with ID "recaptcha1"
+        recaptcha1 = grecaptcha.render('recaptcha1', {
+          'sitekey' : '6Ld6UB0TAAAAAJEd1MycAu-5sg-WYCwUgIeIQ0h_', //Replace this with your Site key
+          'theme' : 'light'
+        });
+        
+        //Render the recaptcha2 on the element with ID "recaptcha2"
+        recaptcha2 = grecaptcha.render('recaptcha2', {
+          'sitekey' : '6Ld6UB0TAAAAAJEd1MycAu-5sg-WYCwUgIeIQ0h_', //Replace this with your Site key
+          'theme' : 'dark'
+        });
+      };
+    </script>
+    <script>
+    $('document').ready(function(){ 
+            
+        $('#demo').jplist({             
+            itemsBox: '.list' 
+            ,itemPath: '.list-item' 
+            ,panelPath: '.jplist-panel' 
+        });
+    });
+</script>
+<script type="text/javascript">
+// $(window).on('load', function() {
+//   $(".loader-show").fadeOut("slow");
+// });
+
+// $(window).on('load', function()
+
+  $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+});
+</script>
 <script type="text/javascript">
 $(document).ready(function(){
-$('.demo').initial({width:80,height:80});
-})
+$('.demo').initial({width:40,height:40});
+
+$('.demo-new').initial({width:110,height:110});
+});
 </script>
 <script>
 $(document).ready(function () {
@@ -510,10 +565,9 @@ $(document).ready(function () {
     FormValidation.init();    
     
 
-      // $('.toggle-display').click(function () {
-      //   $('#nav-display').hide();   
-      //   $('.page-content-wrapper').hide();
-      // });
+      $('.toggle-display').click(function () {  
+        // $('.page-content-wrapper').hide();
+      });
       // $(".toggle-disp").click(function () {
       //   $(".nav-disp").show(); 
       //   $('.page-content-wrapper').show();  
@@ -733,6 +787,49 @@ function fileSelectHandler() {
 
 </script>
 <script>
+$(document).ready(function () {            
+//validation rules
+    var form = $('#header-search');
+    var error = $('.alert-danger', form);
+    var success = $('.alert-success', form);
+    form.validate({
+        doNotHideMessage: true, //this option enables to show the error/success messages on tab switch.
+        errorElement: 'span', //default input error message container
+        errorClass: 'help-block help-block-error', // default input error message class
+        focusInvalid: false, // do not focus the last invalid input
+        rules: {
+           query: {
+              required: true
+            }
+        },
+            invalidHandler: function (event, validator) { //display error alert on form submit   
+            success.hide();
+            error.show();
+            Metronic.scrollTo(error, -200);
+        },
+
+             highlight: function(element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+            unhighlight: function(element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) { // render error placement for each input type
+                    var icon = $(element).parent('.input-icon').children('i');
+                    icon.removeClass('fa-check').addClass("fa-warning");  
+                    icon.attr("data-original-title", error.text()).tooltip({'placement': 'left'});
+                   
+                },
+            success: function (label, element) {
+                    var icon = $(element).parent('.input-icon').children('i');
+                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                    icon.removeClass("fa-warning").addClass("fa-check");
+                },
+    });
+});
+
 $(document).ready(function () {            
 //validation rules
     var form = $('#pass-change');

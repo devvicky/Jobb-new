@@ -1,237 +1,347 @@
-@extends('welcome')
+@extends('login')
 
 @section('content')
-<div class="row" style="margin:0;padding:0;">
-    <div class="col-md-8" style="text-align: center;margin: 5px 0 -15px 0;">
-        <h4 class="uppercase btn-success singlepost-title">
-            <label class="">{{$post->post_type}} Detail</label> ({{$post->unique_id}})
-        </h4>
-    </div>
-</div>
-<div class="portlet light bordered" 
- style="border: none !important; background:transparent; margin: 20px 0px;">                                     
-<div class="portlet-body form" id="posts">
-    <div class="form-body" id="post-items" style="padding:0;">                                          
-        <div class="row post-item" >
+
+     
+<div class="row" style="margin: 0;background-color: transparent;">
+    <div class="col-md-10" style="padding:0;">
+        <div class="col-md-8" style="padding-left: 6px;padding-right: 6px;">
+            <!-- BEGIN PORTLET -->
+            <div class="portlet light " style="background-color:white;">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject font-blue-madison bold uppercase" style="font-size: 15px;">{{$post->post_type}} Details</span>
                         
-                        <div class="col-md-8 home-post">
+                        <span style="position: absolute;right: 20px;">
+                            <a data-toggle="modal" href="/login">
+                                    <i class="fa fa-warning (alias)" style="color: #f3565d;font-size:17px;"></i>
+                            </a>
+                        </span>
+                        <span style="position: absolute;right:50px;">
 
-                            <div class="timeline" >
-                                <!-- TIMELINE ITEM -->
+                            <button class="btn fav-btn " type="button" 
+                                    style="background-color: transparent;padding:0 10px;border:0">
+                                <i class="fa fa-star" id="fav-btn-{{$post->id}}" style="font-size: 20px;color:rgb(183, 182, 182);"></i>
+                            </button>  
+                        </span>
+                        <br/>
+                        <span style="font-size: 11px;">Post Id: {{$post->unique_id}} &nbsp;&nbsp;<i class="fa fa-calendar" style="font-size: 11px;"></i> &nbsp;{{ date('d M y, h:m A', strtotime($post->created_at)) }}</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="position-header">
+                        <h1>    {{$post->post_title}} ({{ $post->min_exp }} yrs)
+                        </h1>
 
-                              
-                                <div class="timeline-item time-item">
-                               
-                                    <div class="timeline-badge badge-margin">
-                                        @if($post->induser != null && !empty($post->induser->profile_pic))
-                                        <img class="timeline-badge-userpic userpic-box" src="/img/profile/{{ $post->induser->profile_pic }}" title="{{ $post->induser->fname }}" style="width: 60px;border-radius: 35px;">
-                                        
-                                        @elseif($post->corpuser != null && !empty($post->corpuser->logo_status))
-                                        <img class="" src="/img/profile/{{ $post->corpuser->logo_status }}" title="{{ $post->corpuser->firm_name }}"  style="width: 60px;border-radius: 35px;">
-                                        
-                                        @elseif(empty($post->corpuser->logo_status) && $post->corpuser != null )
-                                        <img class="" src="/assets/images/corpnew.jpg"  style="width: 60px;border-radius: 35px;">
-                                        
-                                        @elseif(empty($post->induser->profile_pic) && $post->induser != null)
-                                        <img class="timeline-badge-userpic userpic-box" src="/assets/images/ab.png"  style="width: 60px;border-radius: 35px;">
-                                        
-                                        @endif
-                                    </div>
-                                    <div class="timeline-body ">
-                                        <div class="timeline-body-head">
-                                            <div class="timeline-body-head-caption" style="width:100%;margin:5px;">
-                                                @if($post->individual_id != null)
-                                            <div class="row">
-                                                <div class="col-md-12 col-sm-12 col-xs-12" itemprop="author" itemscope itemtype="http://schema.org/Person">
-                                                    <a href="/profile/ind/{{$post->individual_id}}" class="post-name-css" itemprop="name">
-                                                        {{ $post->induser->fname}} {{ $post->induser->lname}}
-                                                    </a>
-                                                </div>
-                                                
-                                                <div class="col-md-4 col-sm-4 col-xs-12 elipsis-code">
-                                                    <i class="fa fa-clock-o post-icon-color" style="font-size: 11px;"></i> 
-                                                    <small class="post-time-css" itemprop="datePublished" content="{{$post->created_at}}">
-                                                    {{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }}
-                                                    </small>
-                                                </div>
-                                            </div>
-                                            @elseif($post->corporate_id != null)
-                                            <div class="row">
-                                                <div class="col-md-12 col-sm-12 col-xs-12" itemprop="author" itemscope itemtype="http://schema.org/Person">
-                                                    <a href="/profile/corp/{{$post->corporate_id}}" class="post-name-css" itemprop="name">
-                                                        {{ $post->corpuser->firm_name}}
-                                                    </a>
-                                                </div>
-                                                <div class="col-md-4 col-md-4 col-xs-12">
-                                                    <span class="firm-type-left" style="margin: 2px 0;">{{ $post->corpuser->firm_type}}</span> 
-                                                       
-                                                </div>
-                                                <div class="col-md-4 col-sm-4 col-xs-12 elipsis-code">
-                                                    <i class="fa fa-clock-o post-icon-color" style="font-size: 11px;"></i> 
-                                                    <small class="post-time-css" itemprop="datePublished" content="{{$post->created_at}}">
-                                                    {{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }}
-                                                    </small>
-                                                </div>
-                                            </div>
-                                            @endif
-                                            </div>                                                      
+                        <h2>
+                            @if($post->post_compname != null)
+                            <a href="">
+                                {{$post->post_compname}}
+                            </a>
+                            &nbsp;&nbsp;
+                            @endif
+                           <small style="font-size:13px;color:#999 !important;"><i class="glyphicon glyphicon-map-marker post-icon-color"></i> {{$post->city}}</small>
+                        </h2>
+                        <div class=" capitalize" itemprop="name" style="font-size:13px;color:dimgrey !important;margin: 10px 0 0 0;">
+                        <label class="label-success job-type-skill-css">{{$post->time_for}}</label> <?php $skills = explode(',', $post->linked_skill) ?>                                                                                                                              
+                        @foreach($skills as $skill)
+                              <label class="label-success skill-label">{{$skill}}</label>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 15px;">
+                        @if($post->post_type == 'job') 
+                        <div class="col-md-5 col-sm-5 col-xs-5">
+                            <a data-toggle="modal" data-mpostid="{{$post->id}}" 
+                                class="magic-font magicmatch-posts" href="#magicmatch-posts"
+                                 style="color: white;line-height: 1.7;text-decoration: none;"> 
+                                 <div class="ribbon ribbon-shadow ribbon-color-excellent uppercase">
+                            <i class="icon-speedometer magic-font" style="font-size:10px;"></i> &nbsp;Magic Match</div>
+                            </a>
+                        </div>
+                        @else
+                        @endif
+                        <div class="col-md-4 col-sm-4 col-xs-5">
+                            <!-- Small button group -->
+                            <div class="btn-group">
+                                <button class="btn blue btn-sm view-detail-btn dropdown-toggle" type="button" data-toggle="dropdown" style="border-radius: 25px !important;">
+                                Share Post <i class="fa fa-angle-down"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-sharepost" role="menu">
+                                    <li style="text-align: center;border-bottom: 1px solid lightgray;">
+                                        <a href="#share-post" 
+                                            data-toggle="modal" 
+                                            class="jobtip sojt" 
+                                            id="sojt-{{$post->id}}" 
+                                            data-share-post-id="{{$post->id}}">
+                                            <img src="/assets/small-logo.png" style="width:10%;"> Jobtip
+                                        </a>
+                                    </li>
+                                    <li style="text-align: center;border-bottom: 1px solid lightgray;">
+                                        <a href="#share-by-email" data-toggle="modal" onclick="setPostId({{$post->id}})" 
+                                           class="jobtip sbmail" id="sbmail-{{$post->id}}" 
+                                           data-share-post-id="{{$post->id}}">
+                                            <!-- <button class="btn share-email-icon" style="line-height: 0.9;">
+                                                <i class="glyphicon glyphicon-envelope" style="font-size:22px;color:white;"></i>
+                                                </button> -->
+                                              <i class="glyphicon glyphicon-envelope" style="font-size:22px;color: #f3565d;"></i> <span> Email</span>
+                                        </a>
+                                    </li>
+                                    <li style="text-align: center;">
+                                        <span>Share on Social Media</span>
+                                        <div class="addthis_sharing_toolbox addthis_toolbox addthis_default_style addthis_20x20_style" 
+                                            data-url="http://jobtip.in/post/{{$post->unique_id}}/social" 
+                                            data-title="{{$post->post_title}}"
+                                            data-description="{{ $post->job_detail }}"
+                                            data-media="http://jobtip.in/jt_logo.png" style="">
                                         </div>
-                                    </div>
-                                    <div class="row post-postision" style="padding:0;">
-                                        <div class="col-md-12">
-                                            <div class="post-title-new capitalize">{{ $post->post_title }} </div>
-                                        </div>
-                                        @if($post->post_compname != null && $post->post_type == 'job')
-                                        <div class="col-md-12">
-                                            <div><small class="capitalize" style="font-size:13px;color:dimgrey !important;">Required at {{ $post->post_compname }}</small></div>
-                                        </div>
-                                            
-                                        @endif
-                                    </div>
-                                    <div class="row post-postision" style="padding:0;"> 
-                                        @if($post->min_exp != null)
-                                        <div class="col-md-4 col-sm-4 col-xs-4" style="">
-                                        <small style="font-size:13px;color:dimgrey !important;"> <i class="glyphicon glyphicon-briefcase post-icon-color"></i>&nbsp;: {{ $post->min_exp}}-{{ $post->max_exp}} Yr</small>
-                                        </div>
-                                        @endif
-                                        @if($post->city != null)
-                                        <div class="col-md-8 col-sm-8 col-xs-8 elipsis-code-city" style="padding:0 12px;">
-                                        <small style="font-size:13px;color:dimgrey !important;"> <i class="glyphicon glyphicon-map-marker post-icon-color"></i>&nbsp;: {{ $post->city }}</small>
-                                        </div>
-                                        @endif 
-                                    </div>
-
-                                    <div class="row" style="margin: 5px 0px; border-top: 1px solid whitesmoke;padding:0;">
-                                        <div class="col-md-12" style="margin: 3px -13px;">
-                                           
-                                            <div class="row" style="padding:0;">  
-                                                <div class="col-md-3 col-sm-3 col-xs-3">
-                                                    
-                                                    <div class="match" style="float: left; margin: 0px 3px;">      
-                                                        <a data-toggle="modal" data-mpostid="{{$post->id}}" class="magic-font magicmatch-posts" href="#magicmatch-posts" style="color: white;line-height: 1.7;text-decoration: none;"> 
-                                                            <button class="btn btn-success magic-match-css"><i class="icon-speedometer magic-font" style="font-size:12px;"></i> 
-                                                               
-                                                            </button>
-                                                            
-                                                        </a>
-                                                        
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-3" style="padding:0 8px;">                 
-                                                <button class="btn like-btn"  type="button" style="background-color: transparent;padding:3px;" title="Thanks">
-                                                    <i class="fa fa-thumbs-up thanks-icon" id="like-{{$post->id}}"></i>        
-                                                </button>
-                                                </div>
-                                                
-                                                <div  class="col-md-3 col-sm-3 col-xs-3" style="">
-                                                    <div class="dropup ">                                           
-                                                        <button class="btn dropdown-toggle" type="button" 
-                                                                data-toggle="dropdown" title="Share" 
-                                                                style="background-color: transparent;border: 0;margin: 0px;">
-                                                            <i class="fa fa-share-square-o" 
-                                                                style="font-size: 19px;color: darkslateblue;"></i>
-                                                        </button>
-                                                        <ul class="dropdown-menu dropdown-menu-share-home" role="menu" 
-                                                            style="min-width:0;box-shadow:0 0 !important;padding: 0;">
-                                                            <li style="border-bottom: 1px solid #ddd;">
-                                                                <a class="jobtip sojt" >
-                                                                    Share on Jobtip
-                                                                </a>
-                                                            </li>
-                                                            <li style="border-bottom: 1px solid #ddd;">
-                                                                <a class="jobtip sbmail">
-                                                                    Share by email
-                                                                </a>
-                                                            </li>
-                                                        </ul>                                                   
-                                                    </div>
-                                                    <div class="report-css">
-                                             
-                                                    <a href="/login">
-                                                        <button class="report-button-css">
-                                                            <i class="fa  fa-ellipsis-v" style="color:black;"></i>
-                                                        </button>
-                                                    </a>   
-                                                    </div>
-                                                </div>    
-                                            </div>                                          
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="row" style="margin:0;padding:0;">
-                                    <h4 class="skill-display">Details:</h4>
-                                    <div class="col-md-12">
-                                        <div class="row" style="padding:0;">
-                                            
-                                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                                    <label class="detail-label">Education :</label>     
-                                            </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                                @if($post->education == 'twelth')
-                                                    12th
-                                                @else
-                                                {{$post->education}} 
-                                                @endif    
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="row" style="padding:0;"> 
-                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-                                                    <label class="detail-label">Skills :</label>                                                                  
-                                            </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-                                                    {{$post->linked_skill}}
-                                                 
-                                            </div>
-                                        </div>
-                                        <div class="row" style="padding:0;"> 
-                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-                                                    <label class="detail-label">Job Type :</label>                                                                  
-                                            </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-                                                    {{ $post->time_for }}
-                                            </div>
-                                        </div>
-                                        <div class="row" style="padding:0;"> 
-                                            @if( $post->city !=null)
-                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                           
-                                                    <label class="detail-label">City :</label>                                                                  
-                                            </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-6">                                                                                                                                
-                                                    {{ $post->city }} 
-                                            </div>
-                                            
-                                        </div>
-                                        
-                                         <div class="row" style="padding:0;">
-                                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                                    <label class="detail-label">Salary (<i class="fa fa-rupee (alias)"></i>):</label>
-                                            </div>
-                                            @if($post->min_sal != null)
-                                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                                    {{ $post->min_sal }}-{{ $post->max_sal }}/{{ $post->salary_type }}
-                                            </div>
-                                            @else
-                                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                                    Not disclose
-                                            </div>
-                                            @endif
-                                        </div>
-                                        <div class="skill-display">Description : </div>
-                                        {{ $post->job_detail }}
-                                        
-                                        @if($post->post_type == 'job' && $post->reference_id != null)
-                                        <div class="skill-display">Reference Id&nbsp;: {{ $post->reference_id }} </div> 
-                                        @endif
-                                    </div>
-                                </div>
+                                    </li>
+                                </ul>
                             </div>
-                            <!-- END TIMELINE ITEM -->
-                        </div>                                  
-                </div>                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END PORTLET -->
+           
+            <!-- BEGIN PORTLET -->
+            <div class="portlet light " style="padding:0;">
+                <!-- <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject font-blue-madison bold uppercase">Portlet</span>
+                    </div>
+                </div> -->
+                <div class="portlet-body">
+                    <div class="table-scrollable" style="border: 0;margin: -8px 0 0px 0 !important;">
+                        <table class="table table-bordered table-bordered-detail table-hover">
+                            <tbody>
+                                <tr class="table-row-bg" style="border-top:0;">
+                                    <td style="border-top:0;">
+                                         Industry
+                                    </td>
+                                    <td style="border-top:0;">
+                                         {{ $post->industry }}
+                                    </td>
+                                    
+                                </tr>
+                                <tr class="table-row-bg">
+                                    <td>
+                                         Functional Area
+                                    </td>
+                                    <td>
+                                         {{ $post->functional_area }}
+                                    </td>
+                                   
+                                </tr>
+                                <tr class="table-row-bg">
+                                    <td>
+                                         Role
+                                    </td>
+                                    <td>
+                                         {{ $post->role }}
+                                    </td>
+                                    
+                                </tr>
+                                <tr class="table-row-bg">
+                                    <td>
+                                         Education
+                                    </td>
+                                    <td>
+                                         @if($post->education != null)
+                                            <?php $education = collect(explode(',', $post->education)); ?>
+                                             @if(count($education) > 0)
+                                                @foreach($education as $edu)
+                                                <?php $educ = explode('-', $edu);
+                                                      $name = $educ[0];
+                                                      $branch = $educ[1]; ?>
+
+                                                     {{ $name }} @if($branch != " ")- {{ $branch }} @endif,
+                                                @endforeach
+                                             @endif
+                                        @endif
+                                    </td>
+                                    
+                                </tr>
+                                <tr class="table-row-bg">
+                                    <td>
+                                         Salary
+                                    </td>
+                                    @if($post->min_sal != null)
+                                    <td>
+                                        <i class="fa fa-inr" style="font-size:12px;"></i> {{$post->min_sal}} / {{$post->salary_type}}
+                                    </td>
+                                    @else
+                                    <td>On Agreement</td>
+                                    @endif
+                                </tr>
+                                @if($post->candidate_availablity != null)
+                                <tr class="table-row-bg">
+                                    <td>
+                                        Joining Period
+                                    </td>
+                                    <td>
+                                        @if($post->candidate_availablity != null && $post->candidate_availablity != "0")
+                                        <span >in {{ $post->candidate_availablity }} days</span>
+                                        @elseif($post->candidate_availablity != null && $post->candidate_availablity == "0")
+                                        <!-- I am available Immediately available to work. -->  
+                                        <span>Immediately</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                                @endif
+                                <tr class="table-row-bg">
+                                    <td>
+                                         Job Agreement
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-inr" style="font-size:12px;"></i> {{$post->job_agreement}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- END PORTLET -->
+            <!-- BEGIN PORTLET -->
+            <div class="portlet light " style="background-color:white;">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject font-blue-madison bold uppercase">Description</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <p class="page-header-post-detail">{{$post->job_detail}}</p>
+                </div>
+            </div>
+            <!-- END PORTLET -->
+            <!-- BEGIN PORTLET -->
+            <div class="portlet light " style="background-color:white;">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject font-blue-madison bold uppercase">About Compnay</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <p class="page-header-post-detail">{{$post->about_company}}</p>
+                </div>
+            </div>
+            <!-- END PORTLET -->
+        </div>
+        @if($post->individual_id != null)
+        <div class="col-md-4" style="margin: 7px 0;">
+            <div class="company-card" style="background-color: white;">
+                <div class="company-card-image">
+                    <span>Posted By</span>
+                    @if($post->induser->profile_pic != null && $post->individual_id != null)
+                    <a href="">
+                        <img src="/img/profile/{{ $post->induser->profile_pic }}" alt="">
+                    </a>
+                    @elseif($post->induser->profile_pic == null && $post->individual_id != null)
+                    <div class=" badge-margin post-image-css">
+                        <i class="fa fa-user" style="font-size: 90px;margin: 52px 29px;color: #777;"></i> 
+                    </div>
+                    @endif
+
+                    <div class="welcome-profile-usertitle-name" style="margin: 10px 0px 5px 0;">
+                        {{$post->contact_person}}
+                    </div>
+                    <div class="welcome-profile-usertitle-job">
+                        @if($post->induser->role != null) {{$post->induser->role}} @endif 
+                    </div>
+                </div><!-- /.company-card-image -->
+                <div class="row" style="margin-top: -10px;margin-bottom: 10px;">
+                    <div class="col-md-6 col-sm-6 col-xs-6" style="text-align: right;">
+                        <button class="btn btn-icon-only like-btn btn-circle" id="like-button-{{$post->id}}"  type="button" title="Thanks" style="background-color: transparent;border: 1px solid;">                 
+                             <i class="icon-like"></i> 
+                        </button>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        @if($post->individual_id != null )
+                            <div class="puid-{{$post->individual_id}}" style="">
+                                <a href="/login" class="btn btn-icon-only btn-circle blue link-btn">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+                        @elseif($post->corporate_id != null )
+                            <div class="puid-{{$post->individual_id}}" style="">
+                                <a href="/login" class="btn btn-icon-only btn-circle blue link-btn">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+                <div class="company-card-data" style="text-align:center;">
+                    <a href="/login">
+                        <button class="btn contact-btn green btn-sm apply-contact-btn" 
+                                id="contact-btn-{{$post->id}}" type="button" style="margin: 0 auto;float:none;box-shadow: 1px 2px 3px black;font-size:16px;">Contact
+                        </button>
+                    </a>
+                </div>
+                <!-- /.company-card-data -->
             </div>
         </div>
-    </div>
+        @elseif($post->corporate_id != null)
+        <div class="col-md-4" style="margin: 7px 0;">
+            <div class="company-card">
+                <div class="company-card-image">
+                    <span>Posted By {{$post->corpuser->firm_type}}</span>
+                    @if($post->corpuser->logo_status != null)
+                    <a href="">
+                        <img src="/img/profile/{{ $post->corpuser->logo_status }}" alt="">
+                    </a>
+                    @elseif($post->corpuser->logo_status == null)
+                    <div class=" badge-margin post-image-css">
+                        <i class="fa fa-university" style="font-size: 55px;margin: 44px 25px;color: lightgray;"></i> 
+                    </div>
+                    @endif
 
+                    <div class="profile-usertitle-name" style="margin-top: 10px;">
+                        {{$post->corpuser->firm_name}}
+                    </div>
+
+                    <div class="profile-usertitle-job">
+                        @if($post->corpuser->slogan != null) {{$post->corpuser->slogan}} @endif 
+                    </div>
+                </div><!-- /.company-card-image -->
+                <div class="row" style="margin-top: -10px;margin-bottom: 10px;">
+                    <div class="col-md-6 col-sm-6 col-xs-6" style="text-align: right;">
+                        <button class="btn btn-icon-only like-btn btn-circle" id="like-button-{{$post->id}}"  type="button" title="Thanks" style="background-color: transparent;border: 1px solid;">                 
+                             <i class="icon-like"></i> 
+                        </button>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        @if($post->individual_id != null )
+                            <div class="puid-{{$post->individual_id}}" style="">
+                                <a href="/login" class="btn btn-icon-only btn-circle blue link-btn">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+                        @elseif($post->corporate_id != null )
+                            <div class="puid-{{$post->individual_id}}" style="">
+                                <a href="/login" class="btn btn-icon-only btn-circle blue link-btn">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+                <div class="company-card-data" style="text-align:center;">
+                    <a href="/login">
+                        <button class="btn contact-btn green btn-sm apply-contact-btn" 
+                                id="contact-btn-{{$post->id}}" type="button" style="margin: 0 auto;float:none;box-shadow: 1px 2px 3px black;font-size:16px;">Contact
+                        </button>
+                    </a>
+                </div>
+                <!-- /.company-card-data -->
+            </div>
+        </div>
+        @endif
+    </div>
+</div>
 @stop

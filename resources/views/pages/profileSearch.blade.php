@@ -105,7 +105,8 @@
 
 						  	@if(count($users) > 0)
 								@foreach($users as $user)
-									@if($user->user->email_verify == 1 || $user->user->mobile_verify == 1)
+									@if($user->user->inactive == '0')
+									@if( $user->user->email_verify == 1 || $user->user->mobile_verify == 1)
 								  	<div class="row" style="padding: 0 0 15px 0; margin: 0 0 15px 0;border-bottom: 1px solid #eee;">
 									    <div class="col-md-2 col-sm-3 col-xs-3">
 											<a href="#">
@@ -155,6 +156,7 @@
 									 	@endif
 								    </div>
 								    @endif
+								    @endif
 								@endforeach
 								<?php echo $users->render(); ?>
 							@else
@@ -165,6 +167,7 @@
 
 							@if(count($users) > 0)
 								@foreach($users as $user)
+									@if($user->user->inactive == '0')
 									@if($user->user->email_verify == 1 || $user->user->mobile_verify == 1)
 									  <div class="row" style="padding: 0 0 15px 0; margin: 0 0 15px 0;border-bottom: 1px solid #eee;">
 									    <div class="col-md-2 col-sm-3 col-xs-3">
@@ -200,7 +203,8 @@
 													
 											@endif
 									 	</div>
-									</div>  
+									</div> 
+									@endif 
 									@endif
 								@endforeach
 								<?php echo $users->render(); ?>

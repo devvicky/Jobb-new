@@ -5,7 +5,7 @@
 <div class="portlet light bordered" 
  style="border: none !important; background:transparent; padding:0 !important; margin: -20px 0px;">										
 <div class="portlet-body form" id="posts">
-	<div class="form-body" id="post-items" style="padding:0;">
+	<div class="form-body list" id="post-items" style="padding:0;">
 				
 			@foreach($jobPosts as $post)
 				<?php $city = 'unspecified'; ?>
@@ -60,7 +60,7 @@
 														'company'		=>	$post->post_compname,
 														'magicMatch'	=>	$post->magic_match,
 														'userType'		=>	'ind',
-														'userId'		=>	$post->individual_id,
+														'userId'		=>	$post->corporate_id,
 														'postId'		=>	$post->unique_id,
 														'postType'		=>	$post->post_type,
 														'skill'			=>	$post->linked_skill,
@@ -92,7 +92,7 @@
 														'company'		=>	$post->post_compname,
 														'magicMatch'	=>	$post->magic_match,
 														'userType'		=>	'ind',
-														'userId'		=>	$post->individual_id,
+														'userId'		=>	$post->corporate_id,
 														'postId'		=>	$post->unique_id,
 														'postType'		=>	$post->post_type,
 														'skill'			=>	$post->linked_skill,

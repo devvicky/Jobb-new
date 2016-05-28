@@ -2,7 +2,7 @@
 <form class="otp-verify-form" action="/verify" method="post" id="mobile-otp-form" 
 		style="display:none" id="verify-otp">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
-	<div class="row" style="margin: 35px -15px;">
+	<div class="row" style="margin: 35px 0px;">
 		<div class="col-md-2 col-sm-2"></div>
 		<div class="col-md-12 col-sm-6">
 			<h3 style="margin-bottom: 18px;color: #8A855D;font-size: 24px;">

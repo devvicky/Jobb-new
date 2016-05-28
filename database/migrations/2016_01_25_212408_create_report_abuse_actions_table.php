@@ -23,8 +23,8 @@ class CreateReportAbuseActionsTable extends Migration {
             $table->dateTime('post_inactivity_dtTime')->nullable();
             $table->integer('post_user_blocked')->default(0)->nullable();
             $table->dateTime('user_blocked_dtTime')->nullable();
-            $table->foreign('post')->references('id')->on('postjobs');
-            $table->foreign('action_taken_by')->references('id')->on('users');
+            $table->foreign('post')->references('id')->on('postjobs')->onDelete('cascade');
+            // $table->foreign('action_taken_by')->references('id')->on('users')->onDelete('cascade');
 			$table->timestamps();
 		});
 	}

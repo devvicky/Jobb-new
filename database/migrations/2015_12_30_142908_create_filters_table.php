@@ -27,7 +27,7 @@ class CreateFiltersTable extends Migration {
 			$table->string('posted_by')->nullable();
 			$table->string('expired')->nullable();
 			$table->timestamps();
-			$table->foreign('from_user')->references('id')->on('users');
+			$table->foreign('from_user')->references('id')->on('users')->onDelete('cascade');
 		});
 	}
 

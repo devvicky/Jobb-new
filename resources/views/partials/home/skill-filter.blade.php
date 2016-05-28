@@ -58,18 +58,64 @@
 							</div>
 						</div>
 					</div>
-					<div class="row" style="margin:0;">
-						<div class="col-md-12" style="margin:-5px 0;padding:0 10px;">
+					<div class="row">
+						<div class="col-md-6 col-sm-6 col-xs-6">
 							<div class="form-group">							
-								<label class=" control-label">Experience </label>&nbsp;: 
-										
-										<input type="text" readonly id="slider-range-exp1" name="min_exp" class="filter-range-experience" /> - 
-										<input type="text" readonly id="slider-range-exp2" name="max_exp" class="filter-range-experience" /> Years
-								<div id="experience" class="">
-									<div id="slider-range-exp" class="slider bg-gray"></div>
+								<label class=" control-label">Experience (Min)</label>
+								<div class="input-group">
+									<select class="form-control" id="minexp" name="min_exp">
+										<option>Select</option>
+										<option value="0">0</option>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+										<option value="10">10</option>
+										<option value="11">11</option>
+										<option value="12">12</option>
+										<option value="13">13</option>
+										<option value="14">14</option>
+										<option value="15">15</option>
+									</select>
+									<span class="input-group-addon">
+										Years
+									</span>
 								</div>
 							</div>
-							
+						</div>
+						<div class="col-md-6 col-sm-6 col-xs-6">
+							<div class="form-group">							
+								<label class=" control-label">Experience (Max)</label>
+								<div class="input-group">
+									<select class="form-control maxexp" id="maxexp" name="max_exp">
+										<option>Select</option>
+										<option value="0">0</option>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+										<option value="10">10</option>
+										<option value="11">11</option>
+										<option value="12">12</option>
+										<option value="13">13</option>
+										<option value="14">14</option>
+										<option value="15">15</option>
+									</select>
+									<span class="input-group-addon">
+										Years
+									</span>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div class="row" style="margin: 15px 0 0 0;">
@@ -88,7 +134,7 @@
 					<div class="row" style="margin:0;">
 						<!-- <div class="col-md-12"> -->
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
-								 <div class="btn-group" data-toggle="buttons">
+								 <div class="btn-group job-type-checkbox" data-toggle="buttons">
 					                <label class="btn default btn-filter " style="padding:0;">
 					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
 					                    <input type="checkbox" name="time_for[]" class="toggle">
@@ -101,7 +147,7 @@
 					            </div>
 							</div>
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
-								<div class="btn-group" data-toggle="buttons">
+								<div class="btn-group job-type-checkbox" data-toggle="buttons">
 					                <label class="btn default btn-filter" style="padding:0;">
 					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
 					                    <input type="checkbox" name="time_for[]" class="toggle">
@@ -114,7 +160,7 @@
 					            </div>
 							</div>
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
-								<div class="btn-group" data-toggle="buttons">
+								<div class="btn-group job-type-checkbox" data-toggle="buttons">
 					                <label class="btn default btn-filter" style="padding:0;">
 					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
 					                    <input type="checkbox" name="time_for[]" class="toggle">
@@ -128,7 +174,7 @@
 					            </div>
 							</div>
 							<div class="col-md-3 col-sm-3 col-xs-3" style="padding:0;">
-								<div class="btn-group" data-toggle="buttons">
+								<div class="btn-group job-type-checkbox" data-toggle="buttons">
 					                <label class="btn default btn-filter" style="padding:0;">
 					                	<span class="checkicon"><i class="icon-check" style="font-size:15px"></i></span>
 					                    <input type="checkbox" name="time_for[]" class="toggle">
