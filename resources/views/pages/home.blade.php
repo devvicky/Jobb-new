@@ -435,6 +435,33 @@ $(document).ready(function(){
     padding: 10px 0;
 }
 </style>
+<script type="text/javascript">
+    // ajax post filter
+    function filterPosts(){         
+        event.preventDefault();
+        var post_id = $(this).parent().data('id');
+
+        var formData = $('#jtFilter').serialize(); 
+        var formAction = $('#jtFilter').attr('action');
+       
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+          url: formAction,
+          type: "post",
+          data: formData,
+          cache : false,
+          success: function(data){
+            $(".profile-content").html(data);
+          }
+        }); 
+        return false;
+  }
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-infinitescroll/2.1.0/jquery.infinitescroll.min.js" type="text/javascript"></script>
 <!-- <script src="/assets/js/jquery.infinitescroll.js"></script> -->
 <script src="/assets/js/myinfinite.js"></script>

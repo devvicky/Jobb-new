@@ -6,11 +6,11 @@
 			<div class="portlet light profile-sidebar-portlet" style="padding: 0 !important;background-color: transparent;">
 				<div class="profile-usertitle" style="margin-top: 10px;">
 					<div class="profile-usertitle-name" style="height:40px;">
-						  <div class="btn-group" style="">
-					            <a class="btn post-button" data-toggle="modal" href="#job-skill-post">
-					              <i class="fa fa-edit (alias)"></i> Post Free Ad
-					            </a>
-					        </div>
+					  	<div class="btn-group" style="">
+				            <a class="btn post-button" data-toggle="modal" href="#job-skill-post">
+				              <i class="fa fa-edit (alias)"></i> Post Free Ad
+				            </a>
+				        </div>
 					</div>
 				</div>
 			</div>
@@ -23,7 +23,7 @@
 				<div class="col-md-6 col-sm-6 col-xs-6" style="padding:0;text-align:right;">
 					<div class="btn-group">
 						<button class="btn btn-default btn-sm dropdown-toggle capitalize" type="button" data-toggle="dropdown" style="border: 0;color:#8c8c8c;background:transparent;">
-						<i class="glyphicon glyphicon-sort"></i> <i class="fa fa-angle-down"></i>
+							<i class="glyphicon glyphicon-sort"></i> @if($sort_by != " ") {{$sort_by}} @else Date @endif<i class="fa fa-angle-down"></i>
 						</button>
 						<ul class="dropdown-menu dropdown-menu-sort" role="menu" style="min-width: 130px;margin: 4px -25px;">
 							<li>
@@ -42,57 +42,52 @@
 					</div>	
 				</div>
 			</div>
+
+			<!-- Filter -->
+			<form id="jtFilter" method="post" action="post/filter">
+
 			<div class="portlet light profile-sidebar-portlet filter-show" style="padding: 0 !important;">
-				<div class="profile-usertitle" style="    border-bottom: 1px solid lightgrey; margin-bottom: 10px;margin-top: -7px;">
-					<div class="profile-usertitle-name">
-						 Filter
-					</div>
+				<div class="profile-usertitle" style="border-bottom: 1px solid lightgrey; margin-bottom: 10px;margin-top: -7px;">
+					<div class="profile-usertitle-name">Filter</div>
 				</div>
 				<div class="input-group">
 					<div class="icheck-inline">
 						<label>
-							<input type="checkbox" data-toggle="portfilter" checked data-target="all" >
+							<input type="checkbox" name="time_for[]" checked value="all" onchange="filterPosts()">
 							All
 						</label>
 						<label>
-							<input type="checkbox" data-toggle="portfilter" data-target="Full Time" >
+							<input type="checkbox" name="time_for[]" value="Full Time" onchange="filterPosts()">
 							 Full Time
 						</label>
 						<label>
-							<input type="checkbox" data-toggle="portfilter" data-target="Part Time" >
+							<input type="checkbox" name="time_for[]" value="Part Time" onchange="filterPosts()">
 							Part Time 
 						</label>
 						<label>
-							<input type="checkbox" data-toggle="portfilter" data-target="Work from Home" > 
+							<input type="checkbox" name="time_for[]" value="Work from Home" onchange="filterPosts()"> 
 							Work From Home
 						</label>
 						<label>
-							<input type="checkbox" data-toggle="portfilter" data-target="Freelancer" > 
+							<input type="checkbox" name="time_for[]" value="Freelancer" onchange="filterPosts()"> 
 							Freelancer
 						</label>
 					</div>
 				</div>
 			</div>
 			<div class="portlet light filter-show">
-				<input 
-							  data-path=".post-title-new" 
-							  type="text" 
-							  value="" 
-							  placeholder="Filter by Title" 
-							  data-control-type="textbox" 
-							  data-control-name="title-filter" 
-							  data-control-action="filter"
-							  class="form-control"
-						   />
+				<input
+				  type="text" 
+				  name="jobTitle" onkeyup="filterPosts()"
+				  placeholder="Filter by Title"
+				  class="form-control" />
 			</div>
 			<div class="portlet light filter-show">
 				<div class="row">
-					<div class="col-md-12 col-sm-12 col-xs-12">
-						
+					<div class="col-md-12 col-sm-12 col-xs-12">						
 						<div class="form-group">							
-							<label class=" control-label">Experience (in yrs)</label>
-							
-								<select class="form-control" name="experience">
+							<label class=" control-label">Experience (in yrs)</label>							
+								<select class="form-control" name="experience" onchange="filterPosts()">
 									<option value="">Select</option>
 									<option value="0">0</option>
 									<option value="1">1</option>
@@ -124,7 +119,7 @@
 								<div style="position:relative;" id="job-skill-wrapper">
 									<input type="text" name="name" id="newskill-job" class="form-control" placeholder="Search skill...">		
 								</div>
-								{!! Form::select('linked_skill_id[]', $skills, null, ['id'=>'linked_skill_id', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Skills', 'multiple']) !!}
+								{!! Form::select('linked_skill_id[]', $skills, null, ['name'=>'jobSkill[]', 'onchange'=>'filterPosts()', 'id'=>'linked_skill_id', 'aria-hidden'=>'true', 'class'=>'form-control', 'placeholder'=>'Skills', 'multiple']) !!}
 							</div>
 						</div>
 					</div>
@@ -135,7 +130,7 @@
 					<div class="col-md-12 col-sm-12 col-xs-12">
 						<div class="form-group">
 							<label>Industry</label>
-							<select class=" form-control" name="industry">
+							<select class="form-control" name="industry" onchange="filterPosts()">
 								<option value="">Select</option>
                                 <option value="Automotive/ Ancillaries">Automotive/ Ancillaries</option>
                                 <option value="Banking/ Financial Services">Banking/ Financial Services</option>
@@ -195,6 +190,10 @@
 					</div>
 				</div>
 			</div>
+
+			</form>
+			<!-- Filter -->
+
 		</div>
 		<div class="profile-content">
 			<div class="row">
@@ -230,3 +229,4 @@
 
 	
 <!-- END TIMELINE ITEM -->
+

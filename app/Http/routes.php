@@ -53,7 +53,7 @@ Route::post('profile/reset/password', 'UserController@adminProfileResetPassword'
 
 Route::group(array('middleware' => 'auth'), function(){
 
-
+	Route::post('post/filter', 'PagesController@postFilter');
 
 	Route::post('home', 'PagesController@homeFilter');
 	Route::post('home/skill', 'PagesController@homeskillFilter');
