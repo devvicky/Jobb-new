@@ -332,7 +332,7 @@
 																				@if($user->email_verify == 1)readonly @endif>
 																		
 																		<span class="input-group-addon email-mobile-edit-btn">
-																			<a href=".edit-me-modal" data-toggle="modal" data-type="email" class="change-me" style="color:white !important;text-decoration:none;">
+																			<a href="#edit-email-modal" data-toggle="modal" data-type="email" class="change-email" style="color:white !important;text-decoration:none;">
 																				Edit
 																			</a>
 																		</span>
@@ -342,7 +342,7 @@
 
 																@else
 																<div style="margin: 25px 0;">
-																	<a href="#edit-me-modal" data-toggle="modal" data-type="email" class="change-me">
+																	<a href="#edit-email-modal" data-toggle="modal" data-type="email" class="change-mail">
 																				<i class="fa fa-plus"></i> Add Email Id
 																			</a>
 																		</div>
@@ -725,51 +725,6 @@
 		                                                            </div>
 		                                                        </div>
 		                                                    </div>
-		                                                    <div class="col-md-6 col-sm-6">
-		                                                        <div class="form-group" style="">
-		                                                            <label class="control-label">Upload Resume <small style="font-weight: 400; font-size: 12px;color: #949494;">(Optional) only pdf or word format</small></label>&nbsp;
-		                                                            @if($user->induser->resume != null)
-		                                                            <div class="">
-		                                                                <div class="fileinput fileinput-new" data-provides="fileinput">
-		                                                                    <span class="btn btn-default btn-file" style=" background-color: #44b6ae;  color: white;">
-		                                                                        <i class="icon-paper-clip" style="color: white;"></i>
-		                                                                        <span class="fileinput-new">Upload New Resume </span> 
-		                                                                        <span class="fileinput-exists">Select Other </span>
-		                                                                        <input type="file" name="resume" accept="application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf">
-		                                                                    </span>
-		                                                                    <br>
-		                                                                    <span class="fileinput-new"></span>
-		                                                                    <span class="fileinput-filename"></span>&nbsp; 
-		                                                                    <a href="javascript:;" class="close fileinput-exists" data-dismiss="fileinput"></a>
-		                                                                </div>
-		                                                            </div>
-		                                                            <div class="col-md-12" style="padding:0;">
-		                                                            <label class="resume-file"> {{$user->induser->resume}}</label>
-		                                                            <a class="" style="margin:3.5px 10px;position: absolute;">
-		                                                            	<i class="icon-close" style="color:#FF050D;font-size:16px;"></i>
-		                                                            </a>
-		                                                           	</div>
-		                                                           	<div class="col-md-12" style="padding:0;">
-		                                                           	<label style="font-size: 11px;color: #949494;">Updated On: {{ date('d M - Y, h:m A', strtotime($user->induser->resume_dtTime)) }}</label>
-		                                                           	</div>
-		                                                           @else
-		                                                            <div class="">
-		                                                                <div class="fileinput fileinput-new" data-provides="fileinput">
-		                                                                    <span class="btn btn-default btn-file" style=" background-color: #44b6ae;  color: white;">
-		                                                                        <i class="icon-paper-clip" style="color: white;"></i>
-		                                                                        <span class="fileinput-new">Select File </span> 
-		                                                                        <span class="fileinput-exists">Upload New Resume </span>
-		                                                                        <input type="file" name="resume" accept="application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf">
-		                                                                    </span>
-		                                                                    <br>
-		                                                                    <span class="fileinput-new"></span>
-		                                                                    <span class="fileinput-filename"></span>&nbsp; 
-		                                                                    <a href="javascript:;" class="close fileinput-exists" data-dismiss="fileinput"></a>
-		                                                                </div>
-		                                                            </div>
-		                                                            @endif
-		                                                        </div>
-		                                                    </div>
 		                                                </div>
 		                                                <div class="form-actions">
 															<button type="button" data-userid="{{$user->induser->id}}" class="btn btn-sm green professional-update">Update</button>
@@ -779,6 +734,7 @@
 												</div>
 											</form>
 											</div>
+											
 											<div class="col-md-12">
 												<form action="/preference/update" id="preference-validation-{{$user->induser->id}}" 
 													class="horizontal-form prof_detail" method="post" enctype="multipart/form-data">
@@ -903,9 +859,77 @@
 													</div>
 												</div>
 											</form>
+											<div class="col-md-12">
+												<!-- BEGIN PORTLET -->
+												<div class="portlet light " style="background-color:white;">
+													<div class="portlet-title">
+														<div class="caption caption-md">
+															<i class="icon-bar-chart theme-font hide"></i>
+															<span class="caption-subject font-blue-madison bold uppercase">Upload Resume</span>
+														</div>
+													</div>
+													<div class="portlet-body">
+														<form action="/update/resume/{{Auth::user()->induser_id}}" id="preference-validation-{{$user->induser->id}}" 
+															class="horizontal-form prof_detail" method="post" enctype="multipart/form-data">
+															<input type="hidden" name="_token" value="{{ csrf_token() }}">
+															<div class="row">
+																<div class="col-md-6 col-sm-6">
+			                                                        <div class="form-group" style="">
+			                                                            <label class="control-label">Upload Resume <small style="font-weight: 400; font-size: 12px;color: #949494;">(Optional) only pdf or word format</small></label>&nbsp;
+			                                                            @if($user->induser->resume != null)
+			                                                            <div class="">
+			                                                                <div class="fileinput fileinput-new" data-provides="fileinput">
+			                                                                    <span class="btn btn-default btn-file" style=" background-color: #44b6ae;  color: white;">
+			                                                                        <i class="icon-paper-clip" style="color: white;"></i>
+			                                                                        <span class="fileinput-new">Upload New Resume </span> 
+			                                                                        <span class="fileinput-exists">Select Other </span>
+			                                                                        <input type="file" name="resume" accept="application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf">
+			                                                                    </span>
+			                                                                    <br>
+			                                                                    <span class="fileinput-new"></span>
+			                                                                    <span class="fileinput-filename"></span>&nbsp; 
+			                                                                    <a href="javascript:;" class="close fileinput-exists" data-dismiss="fileinput"></a>
+			                                                                </div>
+			                                                            </div>
+			                                                            <div class="col-md-12" style="padding:0;">
+			                                                            <label class="resume-file"> {{$user->induser->resume}}</label>
+			                                                            <a href="/remove/resume/{{Auth::user()->induser_id}}" class="" style="margin:3.5px 10px;position: absolute;">
+			                                                            	<i class="icon-close" style="color:#FF050D;font-size:16px;"></i>
+			                                                            </a>
+			                                                           	</div>
+			                                                           	<div class="col-md-12" style="padding:0;">
+			                                                           	<label style="font-size: 11px;color: #949494;">Updated On: {{ date('d M - Y, h:m A', strtotime($user->induser->resume_dtTime)) }}</label>
+			                                                           	</div>
+			                                                           @else
+			                                                            <div class="">
+			                                                                <div class="fileinput fileinput-new" data-provides="fileinput">
+			                                                                    <span class="btn btn-default btn-file" style=" background-color: #44b6ae;  color: white;">
+			                                                                        <i class="icon-paper-clip" style="color: white;"></i>
+			                                                                        <span class="fileinput-new">Select File </span> 
+			                                                                        <span class="fileinput-exists">Upload New Resume </span>
+			                                                                        <input type="file" name="resume" accept="application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf">
+			                                                                    </span>
+			                                                                    <br>
+			                                                                    <span class="fileinput-new"></span>
+			                                                                    <span class="fileinput-filename"></span>&nbsp; 
+			                                                                    <a href="javascript:;" class="close fileinput-exists" data-dismiss="fileinput"></a>
+			                                                                </div>
+			                                                            </div>
+			                                                            @endif
+			                                                        </div>
+			                                                    </div>
+															</div>
+															<div class="form-actions">
+																<button type="submit" class="btn btn-sm green">Upload</button>
+																<a href="/profile/ind/{{Auth::user()->induser_id}}" class="btn btn-sm default">Cancel</a>
+															</div>
+														</form>
+													</div>
+												</div>
+												<!-- END PORTLET -->
+											</div>
 										</div>
 									</div>
-								</form>
 							<!-- </div> -->
 						<!-- END FORM-->
 							</div>
@@ -1110,12 +1134,25 @@
 	<!-- END PROFILE CONTENT -->
 </div>
 
-<!-- Mobile/Email verification -->
+<!-- Mobile verification -->
 <div class="modal fade bs-modal-sm" id="edit-me-modal" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-sm">
 		<div class="modal-content" id="edit-me-content">
 			<div id="edit-me-content-inner">
 				@include('pages.mobile_email_modal')
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- Email verification -->
+<div class="modal fade bs-modal-sm" id="edit-email-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content" id="edit-me-content">
+			<div id="edit-me-content-inner">
+				@include('pages.email-edit-modal')
 			</div>
 		</div>
 		<!-- /.modal-content -->

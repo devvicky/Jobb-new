@@ -11,7 +11,7 @@
 	</li>
 </ul>
 <!-- END PAGE BREADCRUMB -->
-<div class="row margin-top-10">
+<div class="row">
 	<div class="col-md-12">
 		<!-- BEGIN PROFILE SIDEBAR -->
 		<div class="profile-sidebar" style="width: 250px;">
@@ -140,7 +140,7 @@
 							<ul class="nav nav-tabs ">
 								<li class="active">
 									<a href="#tab_15_1" data-toggle="tab" style="font-size: 14px;">
-									Active Post</a>
+									Active Post </a>
 								</li>
 								<li>
 									<a href="#tab_15_2" data-toggle="tab" style="font-size: 14px;">
@@ -498,7 +498,8 @@
 											</div>
 										</div>
 										<!-- END PORTLET -->
-									</div>		
+									</div>	
+									@else	
 									@endif
 									@endforeach	
 									@else
@@ -538,9 +539,9 @@
 										</div>
 											Post ID: {{$myActivity->unique_id}}  
 											@if($myActivity->post_type == 'job')
-											<a class="myactivity-post taggedpost" href="/job/post/{{$myActivity->unique_id}}">See the full Post </a>
+											<a class="taggedpost" href="/job/post/{{$myActivity->unique_id}}" target="_blank">See the full Post </a>
 											@elseif($myActivity->post_type == 'skill')
-											<a class="myactivity-post taggedpost" href="/skill/post/{{$myActivity->unique_id}}">See the full Post </a>
+											<a class="taggedpost" href="/skill/post/{{$myActivity->unique_id}}" target="_blank">See the full Post </a>
 											@endif
 									</div>
 								</div>

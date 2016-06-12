@@ -96,8 +96,12 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::post('preference/update', 'UserController@preferenceUpdate');
 	Route::post('privacy/update', 'UserController@privacyUpdate');
 
+	Route::post('update/resume/{id}', 'UserController@updateResume');
+	Route::get('remove/resume/{id}', 'UserController@removeResume');
+
 	Route::post('firm/update', 'CorporateController@firmUpdate');
-	Route::post('otherdetails/update', 'CorporateController@otherdetailsUpdate');
+	Route::resource('other/update', 'CorporateController@otherUpdate');
+	Route::post('address/corporate/update', 'CorporateController@addresscorporateUpdate');
 
 	Route::get('corporate', 'CorporateController@index');
 	Route::get('corporate/create', 'CorporateController@create');
@@ -168,6 +172,7 @@ Route::group(array('middleware' => 'auth'), function(){
 	Route::post('group/deleteuser', 'GroupController@deleteUser');
 	Route::post('group/leavegroup', 'GroupController@leavegroup');
 	Route::post('group/adminchange/{id}', 'GroupController@changeAdmin');
+	Route::post('group/search/adduser', 'GroupController@addSearchUser');
 
 	Route::post('user/imgUpload', 'UserController@imgUpload');	
 	Route::post('corporate/imgUpload', 'CorporateController@imgUpload');	

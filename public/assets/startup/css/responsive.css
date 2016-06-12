@@ -1,9 +1,9 @@
 @media (min-width: 320px) and (max-width: 480px) {
   .section-title {
-    font-size: 30px;
+    font-size: 36px;
   }
   .navbar-collapse {
-    background: rgba(137, 196, 244, 0.39);
+    background: #222;
     padding-bottom: 16px;
     overflow-y: scroll;
     max-height: 200px;

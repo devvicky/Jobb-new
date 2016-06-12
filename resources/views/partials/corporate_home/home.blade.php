@@ -171,7 +171,7 @@
 									<a href="#skill" data-toggle="tab" class="job-skill-tab">Promoting Skills</a>
 								</li>
 								<li class=" home-tab-width-job" >
-									<a href="#job" data-toggle="tab" class="job-skill-tab">Offering Jobs</a>
+									<a href="#job" data-toggle="tab" class="job-skill-tab">Profile Search</a>
 								</li>
 							</ul>
 						</div>

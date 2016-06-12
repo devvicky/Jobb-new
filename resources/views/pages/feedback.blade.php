@@ -25,17 +25,18 @@
 				<h3 class="page-title">
 					<label class="feedback-title">We value your Feedback/Suggestion</label> <br/><small style="font-size: 14px;">[ help us making <a href="http://jobtip.in" class="feedback-caption">jobtip.in</a> better ]</small>
 				</h3>
-				@if(Session::has('message'))
-				<p class=" feedback-notification alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
-				@endif
+				<div id="feedback-msg-box" style="display:none">
+					<div id="feedback-text"></div>
+				</div>
 			</div>
 		</div>
 		<!-- END PORTLET -->
 	</div>
 </div>
 <div class="row">
-	<form action="/feedback/store" class="horizontal-form" method="post">
+	<form action="/feedback/store" id="feedback-form-{{Auth::user()->id}}" class="horizontal-form" method="post">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
+			<input type="hidden" name="userid" value="{{Auth::user()->id}}">
 		<div class="col-md-10" id="feedback-tab-1">
 			<!-- BEGIN PORTLET -->
 			<div class="portlet light " style="background-color:white;">
@@ -195,7 +196,7 @@
 			</div>
 			<!-- END PORTLET -->
 			<div class="form-actions" style="text-align: center;">
-				<button id="feedback-btn-next" type="button" class="btn btn-sm blue">Next</button>
+				<button id="feedback-btn-next" type="button" class="btn blue">Next</button>
 			</div>
 		</div>
 		<div class="col-md-10" id="feedback-tab-2">
@@ -268,8 +269,8 @@
 			</div>
 			<!-- END PORTLET -->
 			<div class="form-actions" style="text-align: center;">
-				<button id="feedback-btn-back" type="button" class="btn btn-sm grey">Back</button>
-				<button type="submit" class="btn btn-sm green"><i class="fa fa-check"></i> Submit</button>
+				<button id="feedback-btn-back"  type="button" class="btn btn-sm grey">Back</button>
+				<button type="submit" data-userid="{{Auth::user()->id}}" class="btn btn-sm green feedback-submit"><i class="fa fa-check"></i> Submit</button>
 			</div>
 		</div>
 	</form>
@@ -277,7 +278,78 @@
 @stop
 
 @section('javascript')
+<script type="text/javascript">
+$('.feedback-submit').on('click',function(event){  	    
+	  	event.preventDefault();
+	  	var userid = $(this).data('userid');
 
+	  	var formData = $('#feedback-form-'+userid).serialize(); 
+	    var formAction = $('#feedback-form-'+userid).attr('action');
+	    
+	    $.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+
+	    $.ajax({
+	      url: formAction,
+	      type: "post",
+	      data: formData,
+	      cache : false,
+
+	      success: function(data){
+	     		// console.log(data);
+	      	if(data.success == 'success'){
+				displayToast("Feedback Submited successfully.");
+				$('#feedback-form-'+userid).hide();
+				$('#feedback-msg-box').show();
+				$('#feedback-msg-box').removeClass('alert alert-danger');
+	            $('#feedback-msg-box').addClass('alert alert-success').fadeIn(1000, function(){
+	                $('#feedback-text').text('Thankyou for your valuable feedback. Feedback successfully submitted.');
+	            });
+	        }else if(data.success == 'fail'){
+	        	// console.log(data);
+	        	displayToast("Something Wrong! Not Submited...");
+	        	$('#feedback-msg-box').show();
+				$('#feedback-msg-box').removeClass('alert alert-success');
+	            $('#feedback-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
+	                $('#feedback-text').text('Something went Wrong. Feedback Not Submitted.');
+	            });
+	        }
+	      },
+	      error: function (request, status, error) {
+		        displayToast("Something Wrong! Not Submited...");
+		        $('#feedback-msg-box').show();
+				$('#feedback-msg-box').removeClass('alert alert-success');
+	            $('#feedback-msg-box').addClass('alert alert-danger').fadeIn(1000, function(){
+	                $('#feedback-text').text('Something went Wrong. Feedback Not Submitted.');
+	            });
+		    }
+	    }); 
+	    return false;
+	  });
+</script>
+<script>
+// displayToast
+
+function displayToast($msg) {
+    $.bootstrapGrowl($msg, {
+        ele: 'body', // which element to append to
+        type: 'info', // (null, 'info', 'danger', 'success', 'warning')
+        offset: {
+            from: 'bottom',
+            amount: 10
+        }, // 'top', or 'bottom'
+        align: 'center', // ('left', 'right', or 'center')
+        width: 'auto', // (integer, or 'auto')
+        height: 'auto',
+        // delay: 3000, // Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
+        allow_dismiss: false, // If true then will display a cross to close the popup.
+        stackup_spacing: 10 // spacing between consecutively stacked growls.
+    });
+}
+</script>
 <script>
 	$(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip(); 

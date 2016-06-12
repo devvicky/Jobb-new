@@ -59,25 +59,26 @@ class FeedbackController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(){
+	public function store(Request $request){
 		$feedback = new Feedback();
 		$feedback->user_id = Auth::user()->id;
-		$feedback->experience = Input::get('experience');
-		$feedback->usability = Input::get('usability');
-		$feedback->comments = Input::get('comments');
-		$feedback->promotion = Input::get('promotion');
-		$feedback->device_info = Input::get('device_info');
-		if(Input::get('concerns') != null){
-			$feedback->concerns = implode(', ', Input::get('concerns'));
+		$feedback->experience = $request['experience'];
+		$feedback->usability = $request['usability'];
+		$feedback->comments = $request['comments'];
+		$feedback->promotion = $request['promotion'];
+		$feedback->device_info = $request['device_info'] ;
+		if($request['concerns'] != null){
+			$feedback->concerns = implode(', ', $request['concerns']);
 		}
-		$feedback->refer = Input::get('refer');
+		$feedback->refer = $request['refer'];
 		$feedback->save();
 
 		Session::flash('message', 'Thanks for giving your valuable feedback!'); 
 		Session::flash('alert-class', 'alert-success'); 
 
-		return redirect('/feedback/create');
+		return response()->json(['success'=>'success']);
 	}
+
 
 	/**
 	 * Display the specified resource.

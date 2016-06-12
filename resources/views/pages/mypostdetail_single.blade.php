@@ -16,16 +16,24 @@
 @endforeach
 @endif
 @endif
+
 <?php $postSkills = []; 
-    $postSkillArr = array_map('trim', explode(',', $post->linked_skill));
-    $userSkillArr = array_map('trim', explode(',', Auth::user()->induser->linked_skill));
+    if(Auth::user()->identifier == 1){
+        $postSkillArr = array_map('trim', explode(',', $post->linked_skill));
+        $userSkillArr = array_map('trim', explode(',', Auth::user()->induser->linked_skill));
+    }
+    
 ?>
 
 
-<?php $groupsTagged = array(); ?>
+<?php if(Auth::user()->identifier == 1){
+        $groupsTagged = array();
+    }  ?>
+    @if(Auth::user()->identifier == 1)
 @foreach($post->groupTagged as $gt)
     <?php $groupsTagged[] = $gt->group_id; ?>
 @endforeach
+@endif
 <?php 
     // $strNew = '+'.$post->post_duration.' day';
     // $strOld = $post->created_at;
@@ -341,7 +349,7 @@
                     </div>
                 </div>
                 <div class="portlet-body">
-                    <p class="page-header-post-detail">{{$post->job_detail}}</p>
+                    <p class="page-header-post-detail">{{$post->about_company}}</p>
                 </div>
             </div>
             <!-- END PORTLET -->
@@ -465,37 +473,34 @@
 										<table class="table table-hover table-light">
 										<thead>
 											<tr class="uppercase">
-												<th width="15%">
+												<th width="10%">
 													 Match
 												</th>
-												<th colspan="2" width="15%">
+												<th colspan="2" width="10%">
 													 Name
 												</th>
-												<th width="20%">
+												<th width="10%">
 													 Contact
 												</th>
-												<th width="15%">
+												<th width="10%">
 													 Applied On
 												</th>
-												<th width="15%">
+												<th width="25%">
 													 Status
 												</th>
 											</tr>
 											<tr role="row" class="filter">
 												<td >
-													<input type="text" class="form-control form-filter input-sm">
+													<!-- <input type="text" class="form-control form-filter input-sm"> -->
 												</td>
 												<td colspan="2">
-													<input type="text" class="form-control form-filter input-sm" name="order_id">
+													<!-- <input type="text" class="form-control form-filter input-sm" name="order_id"> -->
 												</td>
 												<td>
-													<input type="text" class="form-control form-filter input-sm">
+													<!-- <input type="text" class="form-control form-filter input-sm"> -->
 												</td>
 												<td>
-													<input type="text" class="form-control form-filter input-sm">
-												</td>
-												<td>
-													<input type="text" class="form-control form-filter input-sm">
+													<!-- <input type="text" class="form-control form-filter input-sm"> -->
 												</td>
 											</tr>
 										</thead>
@@ -535,17 +540,32 @@
 											</a>
 											</td>
 											<td>
-												@if($pa->user->induser->email != null)
-	                                            <i class="fa fa-envelope"></i> {{$pa->user->induser->email}}<br/>
-	                                            @endif
-	                                            @if($pa->user->induser->mobile != null)
-	                                            <i class="fa fa-phone-square"></i> {{$pa->user->induser->mobile}}<br/>
-	                                            @endif
-	                                            @if($pa->user->induser->resume != null)
-	                                            <i class="fa fa-file-text"></i> <a href="/resume/{{$pa->user->induser->resume}}" target="_blank">
-	                                                    {{$pa->user->induser->resume}}
-	                                                </a>
-	                                            @endif
+                                                <div class="btn-toolbar margin-bottom-10">
+                                                    <div class="btn-group dropup">
+                                                            <button class="btn btn-sm blue dropdown-toggle" type="button" data-toggle="dropdown">
+                                                            Contact
+                                                            </button>
+                                                            <ul class="dropdown-menu dropdown-menu-link" role="menu" style="text-align:center;">
+                                                                 <li>
+                                                                @if($pa->user->induser->email != null)
+                                                                <i class="fa fa-envelope"></i> {{$pa->user->induser->email}}<br/>
+                                                                @endif
+                                                                </li>
+                                                                <li>
+                                                                    @if($pa->user->induser->mobile != null)
+                                                                    <i class="fa fa-phone-square"></i> {{$pa->user->induser->mobile}}<br/>
+                                                                    @endif
+                                                                </li>
+                                                                <li>
+                                                                    @if($pa->user->induser->resume != null)
+                                                                    <i class="fa fa-file-text"></i> <a href="/resume/{{$pa->user->induser->resume}}" target="_blank">
+                                                                            {{$pa->user->induser->resume}}
+                                                                        </a>
+                                                                    @endif
+                                                                </li>
+                                                            </ul>
+                                                        </div>  
+                                                </div>
 												
 											</td>
 											<td>

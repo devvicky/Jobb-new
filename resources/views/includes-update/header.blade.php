@@ -61,7 +61,7 @@
 	                            <span class="subject">
 	                            <span class="from" style="color: #61B7FF;">
 	                            {{$not->user->name}}</span>
-	                            <span class="time" style="color:aliceblue;">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($not->thanks_dtTime))->diffForHumans() }} </span>
+	                            <span class="time" style="color:aliceblue;">{{ date('d M y', strtotime($not->thanks_dtTime)) }}</span>
 	                            </span>
 	                            <span class="message" style="color:whitesmoke;">
 	                            has thanked your post : {{$not->unique_id}} </span>

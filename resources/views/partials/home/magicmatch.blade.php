@@ -1,5 +1,7 @@
 <?php 
-    $tempMatch = 0;
+    $tempMatchExp = 0;
+    $tempMatchRole = 0;
+    $tempMatchType = 0;
     if($post->min_exp <= Auth::user()->induser->experience && $post->max_exp >= Auth::user()->induser->experience){
         $tempMatch = $tempMatch + 1;
     }
@@ -25,6 +27,19 @@
     }
 
  ?>
+<!-- 
+ if ((skill %=>65) && (exp=T) && (Location=T) && (Jobrole=T) && (jobtype=T)) {
+    echo "Excellent Match";
+}
+else if ((skill%=>65) && (exp=T) && (Jobrole=T) && (Location=F) && (jobtype=F)) {
+    echo "Good Match";
+}
+else if ((skill%=>33<64) && (exp=T) && (Location=T) && (Jobrole=T)) {
+    echo "Good Match";
+}
+else {
+    echo "Quick Check";
+} -->
 <div class="modal-body modal-body-new">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
     <div class="portlet light bordered" style="border: none !important;background:transparent;padding:0 !important;">                                     
@@ -290,7 +305,7 @@
                                 </tr>
                                 <tr class="magic-match-title-head">
                                     <td colspan="2" class="matching-criteria-align" style="padding:4px 0 0 0;">
-                                        @if($post->time_for == Auth::user()->induser->prefered_jobtype || ($post->time_for == 'Part Time' && Auth::user()->induser->prefered_jobtype == 'Full Time'))
+                                        @if($post->time_for == Auth::user()->induser->prefered_jobtype )
                                         <i class="fa fa-check-circle magic-match-icon-color"></i> <label class="title-color">Job Type</label>
                                         @else
                                         <i class="fa fa-times-circle"></i> <label class="title-color">Job Type</label>

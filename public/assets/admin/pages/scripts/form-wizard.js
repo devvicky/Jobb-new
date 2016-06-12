@@ -83,6 +83,9 @@ var FormWizard = function () {
                     website_redirect_url: {
                         required:true
                     },
+                    job_agreement:{
+                        required:true
+                    },
                     email_id: {
                         email: true,
                         require_from_group: [1, '.group']
@@ -117,6 +120,9 @@ var FormWizard = function () {
                 },
                 role: {
                     required: "Select Job Role"
+                },
+                job_agreement:{
+                    required: "Select Job Agreement"
                 },
                 'education[]': {
                     required: "Select Required Education"

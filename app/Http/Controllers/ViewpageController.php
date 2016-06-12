@@ -131,6 +131,8 @@ class ViewpageController extends Controller {
 								->count('id');
 			$educationList = Education::orderBy('level')->orderBy('name')->where('name', '!=', '0')->get();
 			$location = Induser::where('id', '=', Auth::user()->induser_id)->first(['prefered_location']);
+
+			// $loc = explode(',', $location);
 			$farearoleList = Functional_area_role_mapping::orderBy('id')->get();
 
 			$acc_id = "";
@@ -203,7 +205,8 @@ class ViewpageController extends Controller {
 			$title = 'corpprofile_edit';
 			$user = User::where('id', '=', Auth::user()->id)->with('corpuser')->first();
 			$skills = Skills::lists('name', 'name');
-			return view('pages.firm_details', compact('user', 'title', 'skills'));
+			$acc_id = "";
+			return view('pages.firm_details', compact('user', 'title', 'skills', 'acc_id'));
 		}
 	}
 

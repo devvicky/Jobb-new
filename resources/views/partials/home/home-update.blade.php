@@ -23,7 +23,7 @@
 				<div class="col-md-6 col-sm-6 col-xs-6" style="padding:0;text-align:right;">
 					<div class="btn-group">
 						<button class="btn btn-default btn-sm dropdown-toggle capitalize" type="button" data-toggle="dropdown" style="border: 0;color:#8c8c8c;background:transparent;">
-						<i class="glyphicon glyphicon-sort"></i> @if($sort_by != " ") {{$sort_by}} @else Date @endif<i class="fa fa-angle-down"></i>
+						<i class="glyphicon glyphicon-sort"></i> <i class="fa fa-angle-down"></i>
 						</button>
 						<ul class="dropdown-menu dropdown-menu-sort" role="menu" style="min-width: 130px;margin: 4px -25px;">
 							<li>

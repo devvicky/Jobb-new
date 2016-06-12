@@ -14,7 +14,7 @@
 	</ul>
 </div>
 <!-- END PAGE BREADCRUMB -->
-<div class="row margin-top-10">
+<div class="row">
 	<div class="col-md-12">
 		<!-- BEGIN PROFILE SIDEBAR -->
 		<div class="profile-sidebar" style="width: 250px;">
@@ -63,14 +63,14 @@
 				<!-- END MENU -->
 				<!-- PORTLET MAIN -->
 			</div>
-			<div class="portlet light">
+			<!-- <div class="portlet light"> -->
 				<!-- <div class="row list-separated profile-stat">
 					<label>Note :</label>
 				</div>
 				<div class="row list-separated profile-stat">
 					<label><span class="required">*</span> Click on Group Name to see the details</label>
 				</div> -->
-			</div>
+			<!-- </div> -->
 			<!-- END PORTLET MAIN -->
 		</div>
 		<div class="profile-content">
@@ -99,7 +99,7 @@
 							<!-- END PORTLET -->
 						</div>
 					</div>
-					<div class="row clearfix" style="margin-bottom:10px">	
+					<div class="row clearfix" style="">	
 						<!-- BEGIN ADVANCED SEARCH -->
 						<div class="col-md-9 col-sm-8">
 							<!-- BEGIN PORTLET -->
@@ -272,7 +272,7 @@
 																      </small>
 																</div>
 																<div class="col-md-3 col-sm-3 col-xs-2" style="margin:7px 0">	
-																	<div class="btn-group">
+																	<div class="btn-group dropup">
 																		<button class="btn blue dropdown-toggle link-icon-css" type="button" data-toggle="dropdown">
 																		<i class="fa  fa-ellipsis-v"></i> 
 																		</button>
@@ -515,7 +515,7 @@
 													</div>
 													<div class="col-md-3 col-sm-3 col-xs-3" style="margin:7px -7px;">
 														
-														<div class="btn-group">
+														<div class="btn-group dropup">
 															<button class="btn blue dropdown-toggle link-icon-css" type="button" data-toggle="dropdown">
 															<i class="fa  fa-ellipsis-v"></i> 
 															</button>

@@ -19,7 +19,7 @@
 </div>
 <!-- END PAGE BREADCRUMB -->
 <?php $selected = 'selected'; ?> 
-<div class="row margin-top-10">
+<div class="row">
 	<div class="col-md-12">
 		<!-- BEGIN PROFILE SIDEBAR -->
 		<div class="profile-sidebar" style="width: 250px;">
@@ -32,7 +32,7 @@
 	                      <div class="hover-image"><i class="fa fa-camera"></i> Add</div>
 	                    @endif      
 	                    @if($user->corpuser->logo_status != null)
-	                      <img src="/img/profile/{{ $user->corpuser->logo_status }}" class="img-responsive">
+	                      <img src="/img/profile/{{ $user->corpuser->logo_status }}" class="img-responsive" style="border-radius:0 !important;">
 	                      <div class="hover-image"><i class="glyphicon glyphicon-edit"></i>Edit</div>
 	                    @else
 	                      <img src="/img/profile/{{ $user->corpuser->logo_status }}" class="demo-new" data-name="{{$user->corpuser->firm_name}}">
@@ -55,7 +55,7 @@
 				<div class="profile-usermenu">
 					<ul class="nav" style="padding:0;">
 						<li>
-							<a href="/profile/corp/{{$user->id}}">
+							<a href="/profile/corp/{{$user->corpuser->id}}">
 							<i class="icon-home"></i>
 							Overview </a>
 						</li>
@@ -212,8 +212,8 @@
 									</div>
 								</div>
 								<div class="portlet-body">
-									<form action="/otherdetails/update" id="otherdetails-validation-{{$user->corpuser->id}}" 
-													class="horizontal-form prof_detail" method="post" enctype="multipart/form-data">
+									<form action="/other/update" id="other-validation-{{$user->corpuser->id}}" 
+													class="horizontal-form prof_detail" method="post">
 														<input type="hidden" name="_token" value="{{ csrf_token() }}">
 														<input type="hidden" name="userid" value="{{$user->corpuser->id}}">
 									<div class="row">
@@ -325,18 +325,21 @@
 										<!--/span-->
 									</div>
 									<div class="form-actions">
-										<button type="button" data-userid="{{$user->corpuser->id}}" class="btn btn-sm green otherdetails-update">Update</button>
+										<button type="button" data-userid="{{$user->corpuser->id}}" class="btn btn-sm green other-update">Update</button>
 									</div>
 								</form>
 								</div>
 							</div>
 							<!-- END PORTLET -->
+							<form action="/address/corporate/update" id="address-validation-{{$user->corpuser->id}}" method="post">
+								<input type="hidden" name="_token" value="{{ csrf_token() }}">
+								<input type="hidden" name="userid" value="{{$user->corpuser->id}}">
 							<!-- BEGIN PORTLET -->
 							<div class="portlet light " style="background-color:white;">
 								<div class="portlet-title">
 									<div class="caption caption-md">
 										<i class="icon-bar-chart theme-font hide"></i>
-										<span class="caption-subject font-blue-madison bold uppercase">Address Details</span>
+										<span class="caption-subject font-blue-madison bold uppercase">Address</span>
 									</div>
 								</div>
 								<div class="portlet-body">
@@ -393,12 +396,13 @@
 										</div>
 									</div>
 									<div class="form-actions">
-										<button type="button" data-userid="{{$user->corpuser->id}}" class="btn btn-sm green corp-addressinfo-update">Update</button>
-										<a href="/profile/ind/{{Auth::user()->id}}" class="btn btn-sm default">Cancel</a>
+										<button type="button" data-userid="{{$user->corpuser->id}}" class="btn btn-sm green addressinfo-update">Update</button>
+										<a href="/profile/corp/{{Auth::user()->corpuser_id}}" class="btn btn-sm default">Cancel</a>
 									</div>
 								</div>
 							</div>
 							<!-- END PORTLET -->
+						</form>
 						</div>
 						<!-- Account Handler TAB -->
 						<div class="tab-pane" id="tab_1_2">
@@ -527,373 +531,170 @@
 						<!-- Account Setting TAB -->
 						<div class="tab-pane" id="tab_1_3">
 							<!-- BEGIN PORTLET -->
-										<div class="portlet light " style="background-color:white;">
-											<div class="portlet-title">
-												<div class="caption caption-md">
-													<i class="icon-bar-chart theme-font hide"></i>
-													<span class="caption-subject font-blue-madison bold uppercase">Change Password</span>
-												</div>
+							<div class="portlet light " style="background-color:white;">
+								<div class="portlet-title">
+									<div class="caption caption-md">
+										<i class="icon-bar-chart theme-font hide"></i>
+										<span class="caption-subject font-blue-madison bold uppercase">Privacy Setting</span>
+									</div>
+								</div>
+								<div class="portlet-body">
+									<form action="/corporate/privacyUpdate/{{Auth::user()->corpuser_id}}" id="privacy_validation" 
+										class="horizontal-form prof_detail" method="post" enctype="multipart/form-data">
+											<input type="hidden" name="_token" value="{{ csrf_token() }}">
+											<table class="table table-bordered table-striped">
+											<tr>
+												<td>
+													 Who can see account handler Email Address.
+												</td>
+												<td>
+													<label class="uniform-inline" style="width:100%;font-weight:500;">
+													<input type="radio" name="email_show" value="Everyone"
+													@if($user->corpuser->email_show == 'Everyone')
+														checked
+													@endif >
+													Everyone </label>
+													<label class="uniform-inline" style="width:100%;font-weight:500;">
+													<input type="radio" name="email_show" value="Follower"
+													@if($user->corpuser->email_show == 'Follower')
+														checked
+													@endif >
+													Follower </label>
+													<label class="uniform-inline" style="width:100%;font-weight:500;">
+													<input type="radio" name="email_show" value="None"
+													@if($user->corpuser->email_show == 'None')
+														checked
+													@endif >
+													None </label>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													 Who can see account handler Mobile No.
+												</td>
+												<td>
+													<label class="uniform-inline" style="width:100%;font-weight:500;">
+													<input type="radio" name="mobile_show" value="Everyone"
+													@if($user->corpuser->phone_show == 'Everyone')
+														checked
+													@endif >
+													Everyone </label>
+													<label class="uniform-inline" style="width:100%;font-weight:500;">
+													<input type="radio" name="mobile_show" value="Follower"
+													@if($user->corpuser->email_show == 'Follower')
+														checked
+													@endif >
+													Follower </label>
+													<label class="uniform-inline" style="width:100%;font-weight:500;">
+													<input type="radio" name="mobile_show" value="None"
+													@if($user->corpuser->phone_show == 'None')
+														checked
+													@endif >
+													None </label>
+												</td>
+											</tr>
+											</table>
+											<!--end profile-settings-->
+											<div class="margin-top-10">
+												<button type="submit" name="individual" value="Save" class="btn green">
+												<i class="fa fa-check"></i> Save Changes
+												</button>
+												<a href="/profile/ind/{{Auth::user()->corpuser_id}}" class="btn default">Cancel</a>
 											</div>
-											<div class="portlet-body">
-												<a  href="#change-password" data-toggle="modal" class="btn btn-sm green-haze">
-														Change </a>
+										</form>
+								</div>
+							</div>
+							<!-- END PORTLET -->
+							<div class="row">
+								<div class="col-md-12">
+									<!-- BEGIN PORTLET -->
+									<div class="portlet light " style="background-color:white;">
+										<div class="portlet-title">
+											<div class="caption caption-md">
+												<i class="icon-bar-chart theme-font hide"></i>
+												<span class="caption-subject font-blue-madison bold uppercase">Change Password</span>
 											</div>
 										</div>
-										<!-- END PORTLET -->
+										<div class="portlet-body">
+											<a  href="#change-password" data-toggle="modal" class="btn btn-sm green-haze">
+													Change </a>
+										</div>
+									</div>
+									<!-- END PORTLET -->
+								</div>
+								<div class="col-md-12">
+									<!-- BEGIN PORTLET -->
+									<div class="portlet light " style="background-color:white;">
+										<div class="portlet-title">
+											<div class="caption caption-md">
+												<i class="icon-bar-chart theme-font hide"></i>
+												<span class="caption-subject font-blue-madison bold uppercase">Account Delete</span>
+											</div>
+										</div>
+										<div class="portlet-body">
+											<label style="font-size: 12px;color: #C14046;margin: 0px 0 10px 0;">
+												<i class="fa fa-warning (alias)"></i> All your posts and applications will be removed, if you remove your account. Do you still want to proceed?</label><br/>
+											@if($acc_id == "")
+											<a data-toggle="modal" class="btn btn-sm red-haze" style="border-radius:4px !important;" href="#account-setting">
+												Delete</a>
+											@else
+											@endif
+											@if($acc_id == "")
+											@else
+											<div class="row" style="margin: 20px;">
+												<div class="col-md-12" style="border-bottom:1px solid lightgrey;margin: 10px 0;">
+													<label>Select Reason</label>
+												</div>
+												<form class="form-horizontal" id="pass-change" role="form" method="POST" action="/account/setting">
+													<input type="hidden" name="_token" value="{{ csrf_token() }}">
+													<div class="form-group">
+														<div class="col-md-12">
+															<div class="input-group">
+																<div class="icheck-inline">
+																	<label>
+																		<input type="radio" name="reason" value="I have got my desired job and my job search is over." checked class="icheck" data-radio="iradio_square-red">
+																		I have got my desired job and my job search is over. 
+																	</label><br/>
+																	<label>
+																		<input type="radio" name="reason" value="I receive too many email notification." class="icheck" data-radio="iradio_square-red">
+																		 I receive too many email notification. 
+																	</label><br/>
+																	<label>
+																		<input type="radio" name="reason" value="Inappropriate contents." class="icheck" data-radio="iradio_square-red">
+																		 Inappropriate contents. 
+																	</label><br/>
+																	<label>
+																		<input type="radio" name="reason" value="Most of the information/contents are either fake/incorrect." class="icheck" data-radio="iradio_square-red"> 
+																		Most of the information/contents are either fake/incorrect. 
+																	</label><br/>
+																	<label>
+																		<input type="radio" name="reason" value="I don't find jobtip.in useful." class="icheck" data-radio="iradio_square-red"> 
+																		I don't find jobtip.in useful.
+																	</label><br/>
+																	<label>
+																		<input type="radio" name="reason" value="Others" class="icheck" data-radio="iradio_square-red">
+																		 Others 
+																	</label>
+																</div>
+															</div>
+														</div>
+													</div>
+													<textarea class="form-control autosizeme" name="comments" rows="3" placeholder="Comments..."></textarea>
+													<button class="btn btn-sm btn-danger" type="submit">Delete</button>
+												</form>
+											</div>
+											@endif
+										</div>
+									</div>
+									<!-- END PORTLET -->
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>	
 	</div>
-</div>
-
-<div class="row profile-account" style="margin:15px;">
-	<div class="col-md-3">
-		<ul class="ver-inline-menu tabbable margin-bottom-10">
-			<li class="active">
-				<a data-toggle="tab" href="#firm_details">
-				<i class="fa fa-cog"></i> Firm Details </a>
-				<span class="after">
-				</span>
-			</li>
-			<li>
-				<a data-toggle="tab" href="#account_handler">
-				<i class="fa fa-lock"></i> Account Handler </a>
-			</li>
-			<li>
-				<a data-toggle="tab" href="#privacy_setting">
-				<i class="fa fa-eye"></i> Privacity Settings </a>
-			</li>
-		</ul>
-	</div>
-	<div class="col-md-8">
-		<div class="tab-content">
-			<div id="firm_details" class="tab-pane active">
-				<!-- BEGIN FORM-->
-				<form action="/corporate/basicupdate" id="corp_firm_validation" class="horizontal-form" method="post">
-					<input type="hidden" name="_token" value="{{ csrf_token() }}">
-					<div class="form-body">
-						<div class="row">
-							
-							<div class="col-md-12" style="">
-								<div class="row">
-									@if (count($errors) > 0)
-									<div class="alert alert-danger">
-										<ul>
-											@foreach ($errors->all() as $error)
-												<li>{{ $error }}</li>
-											@endforeach
-										</ul>
-									</div>
-									@endif
-									<div class="col-md-6 col-sm-6 col-xs-12">
-										<div class="form-group">
-											<label>Firm Name</label>
-											<div class="input-group">
-												<span class="input-group-addon">
-													<i class="glyphicon glyphicon-font" style="color:darkcyan;"></i>
-												</span>
-												<input type="text" name="firm_name" class="form-control" placeholder="Firm Name" value="{{ $user->corpuser->firm_name }}">
-											</div>
-										</div>
-									</div>
-									<!--/span-->
-									<div class="col-md-6 col-sm-6 col-xs-12">
-										<div class="form-group">								
-											<label>Slogan</label>										
-											<div class="input-group">
-												<span class="input-group-addon">
-													<i class="fa fa-comment-o" style="color:darkcyan;"></i>
-												</span>
-												<input type="text" name="slogan" class="form-control" value="{{ $user->corpuser->slogan }}" placeholder="Enter Company Slogan">
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-12 col-sm-12 col-xs-12">
-										<div class="form-group">								
-											<label>About Firm</label>										
-											<!-- <div class="input-group"> -->
-												<textarea id="textarea" rows="6" class="form-control " maxlength="500" name="about_firm" placeholder="write about your proffessional summary...">{{ $user->corpuser->about_firm }}</textarea>
-												<div id="textarea_feedback"></div>
-											<!-- </div> -->
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-6 col-sm-6 col-xs-12">
-										<div class="form-group">
-											<label>Firm Type</label>
-											<div class="input-group">
-													<div class="md-radio-inline">
-														<div class="md-radio">
-															<input type="radio" id="radio6" name="firm_type" value="company" class="md-radiobtn" 
-																@if($user->corpuser->firm_type == 'company')
-																	checked
-																@endif
-															>
-															<label for="radio6" style="">
-															<span></span>
-															<span class="check"></span>
-															<span class="box"></span>
-															Company </label>
-														</div>
-														<div class="md-radio">
-															<input type="radio" id="radio7" name="firm_type" value="consultancy" class="md-radiobtn" 
-															@if($user->corpuser->firm_type == 'consultancy')
-																checked
-															@endif
-															>
-															<label for="radio7" style="">
-															<span></span>
-															<span class="check"></span>
-															<span class="box"></span>
-															Consultancy </label>
-														</div>
-													</div>	
-													<div id="radio_error"></div>					<!-- /input-group -->
-												</div>
-										</div>
-									</div>
-									<!--/span-->
-									<div class="col-md-6 col-sm-6 col-xs-12">
-										<div class="form-group">
-											<label>Operating since</label>
-											<div class="input-group">
-												<span class="input-group-addon">
-												<i class="fa fa-cube"style="color:darkcyan;"></i>
-												</span>
-												<select name="operating_since" class="form-control" value="{{ $user->corpuser->operating_since }}">
-													<option value="">-- Select --</option>
-													<option @if($user->corpuser->operating_since == "Startup") {{ $selected }} @endif value="Startup">Startup</option>
-													<option @if($user->corpuser->operating_since == "1 - 2 Years") {{ $selected }} @endif value="1 - 2 Years">1 - 2 Years</option>
-													<option @if($user->corpuser->operating_since == "2 - 4 Years") {{ $selected }} @endif value="2 - 4 Years">2 - 4 Years</option>
-													<option @if($user->corpuser->operating_since == "4 - 7 Years") {{ $selected }} @endif value="4 - 7 Years">4 - 7 Years</option>
-													<option @if($user->corpuser->operating_since == "7 - 10 Years") {{ $selected }} @endif value="7 - 10 Years">7 - 10 Years</option>
-													<option @if($user->corpuser->operating_since == "10 + Years") {{ $selected }} @endif value="10 + Years">10 + Years</option>
-												</select>
-											</div>
-										</div>
-									</div>
-									<!--/span-->
-								</div>
-								
-								<div class="row">
-									<div class="col-md-12">
-										<div class="form-group">								
-											<label>Address</label>										
-												<textarea id="textarea_address" rows="3" class="form-control " minlength="20" maxlength="200" name="firm_address" placeholder="Enter your Address">{{ $user->corpuser->firm_address }}</textarea>
-												<div id="textarea_feedback_address"></div>
-										</div>
-									</div>
-								</div>
-								<div>
-								<div class="row">
-									<div class="col-md-6 col-sm-6 col-xs-12">
-										<div class="form-group">
-											<label>City <span class="required">
-													* </span></label>
-											<div class="input-group">
-												<span class="input-group-addon">
-													<i class="fa fa-map-marker"></i>
-												</span>
-												<input type="text" id="city" name="city" class="form-control" value="{{ $user->corpuser->city }}" placeholder="City">										
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						</div>
-						<div class="form-actions ">
-							<button type="submit" class="btn blue"><i class="fa fa-check"></i> Update</button>
-							<button type="button" class="btn default">Cancel</button>
-						</div>
-					</div>
-				</form>
-				<!-- END FORM-->
-			</div>
-			<div id="account_handler" class="tab-pane">
-				<form action="/corporate/update/{{Auth::user()->corpuser_id}}" id="corp_contact_validation" class="horizontal-form" method="post">
-					<input type="hidden" name="_token" value="{{ csrf_token() }}">
-					<div class="form-body">
-						<div class="row">
-							<div class="col-md-6 col-sm-6 col-xs-12">
-								<div class="form-group">
-									<label>Profile Handler Name</label>
-									<div class="input-group">
-										<span class="input-group-addon">
-											<i class="fa fa-user" style="color:darkcyan;"></i>
-										</span>
-										<input type="text" name="username" class="form-control" value="{{ $user->corpuser->username }}" placeholder="Handler Name">
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6 col-sm-6 col-xs-12">
-								<div class="form-group">
-									<label>Working As</label>
-									<div class="input-group">
-										<span class="input-group-addon">
-											<i class="fa fa-user" style="color:darkcyan;"></i>
-										</span>
-										<select name="working_as" class="form-control" value="{{ $user->corpuser->working_as }}">
-											<option value="">-- Select --</option>
-											<option @if($user->corpuser->working_as == "HR Recruiter") {{ $selected }} @endif value="HR Recruiter">HR Recruiter</option>
-											<option @if($user->corpuser->working_as == "Administrator") {{ $selected }} @endif value="Administrator">Administrator</option>
-											<option @if($user->corpuser->working_as == "Employee") {{ $selected }} @endif value="Employee">Employee</option>
-											<option @if($user->corpuser->working_as == "Other") {{ $selected }} @endif value="Other">Other</option>
-										</select>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							 <div class="col-md-6 col-sm-6 col-xs-12">
-		                        <div class="form-group">
-			                        <label>Phone 
-										@if($user->mobile != null && $user->mobile_verify == 1) 
-											<small class="verified-css">Verified</small>
-										@elseif($user->mobile != null && $user->mobile_verify == 0)
-											<small class="not-verified-css">Not Verified</small>
-										@elseif($user->mobile == null)
-										@endif
-									</label>
-		                            <div class="input-group">
-		                                <span class="input-group-addon">
-		                                    <i class="icon-call-end" style="color:darkcyan;"></i>
-		                                </span>
-		                                <input type="text" name="firm_phone" class="form-control" placeholder="Phone" value="{{ $user->mobile }}" @if($user->mobile_verify == 1)readonly @endif>
-		                            	<span class="input-group-addon">
-											@if($user->mobile != null && $user->mobile_verify == 0)
-												<i class="fa fa-exclamation-circle" 
-												style="color: #cb5a5e;font-size: 16px;"></i>
-											@elseif($user->mobile == null && $user->mobile_verify == 0)
-												<i class="fa fa-meh-o" style="color:dimgrey;font-size: 16px;"></i>
-											@elseif($user->mobile_verify == 1)
-												<i class="glyphicon glyphicon-ok-circle" style="color: #18B9B9;font-size: 16px;"></i>
-											@endif
-										</span>
-										<span class="input-group-addon">
-											<a href="#edit-me-modal" data-toggle="modal" data-type="mobile" class="change-me">
-												<i class="fa fa-pencil"></i>
-											</a>
-										</span>
-		                            </div>
-		                        </div>
-		                    </div>
-		                    <!--/span-->
-		                    <div class="col-md-6 col-sm-6 col-xs-12">
-		                        <div class="form-group">
-		                            <label>Email 
-										@if($user->email != null && $user->email_verify == 1) 
-											<small class="verified-css">Verified</small>
-										@elseif($user->email != null && $user->email_verify == 0)
-											<small class="not-verified-css">Not Verified</small>
-										@elseif($user->email == null)
-										@endif
-									</label>                               
-		                            <div class="input-group">
-		                                <span class="input-group-addon">
-		                                    <i class="icon-envelope" style="color:darkcyan;"></i>
-		                                </span>
-		                                <input type="text" name="firm_email_id" class="form-control" placeholder="Email" value="{{ $user->email }}" @if($user->email_verify == 1)readonly @endif>
-		                            	<span class="input-group-addon">
-											@if($user->email_verify == 0)
-											<a>
-												<i class="fa fa-exclamation-circle" 
-												style="color: #cb5a5e;font-size: 16px;"></i>
-											</a>
-											@elseif($user->email_verify == 1)
-												<i class="glyphicon glyphicon-ok-circle" style="color: #18B9B9;font-size: 16px;"></i>
-											@endif
-										</span>
-										<span class="input-group-addon">
-											<a href="#edit-me-modal" data-toggle="modal" data-type="email" class="change-me">
-											<i class="fa fa-pencil"></i>
-										</a>
-										</span>
-		                            </div>
-		                        </div>
-		                    </div>
-		                    <!--/span-->
-						</div>
-						<div class="form-actions ">
-							<button type="submit" class="btn blue"><i class="fa fa-check"></i> Update</button>
-							<button type="button" class="btn default">Cancel</button>
-						</div>
-					</div>
-				</form>
-			</div>
-			<div id="privacy_setting" class="tab-pane">
-				<form action="/corporate/privacyUpdate/{{Auth::user()->corpuser_id}}" id="privacy_validation" 
-				class="horizontal-form prof_detail" method="post" enctype="multipart/form-data">
-					<input type="hidden" name="_token" value="{{ csrf_token() }}">
-					<table class="table table-bordered table-striped">
-					<tr>
-						<td>
-							 Who can see account handler Email Address.
-						</td>
-						<td>
-							<label class="uniform-inline" style="width:100%;font-weight:500;">
-							<input type="radio" name="email_show" value="Everyone"
-							@if($user->corpuser->email_show == 'Everyone')
-								checked
-							@endif >
-							Everyone </label>
-							<label class="uniform-inline" style="width:100%;font-weight:500;">
-							<input type="radio" name="email_show" value="Follower"
-							@if($user->corpuser->email_show == 'Follower')
-								checked
-							@endif >
-							Follower </label>
-							<label class="uniform-inline" style="width:100%;font-weight:500;">
-							<input type="radio" name="email_show" value="None"
-							@if($user->corpuser->email_show == 'None')
-								checked
-							@endif >
-							None </label>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							 Who can see account handler Mobile No.
-						</td>
-						<td>
-							<label class="uniform-inline" style="width:100%;font-weight:500;">
-							<input type="radio" name="mobile_show" value="Everyone"
-							@if($user->corpuser->phone_show == 'Everyone')
-								checked
-							@endif >
-							Everyone </label>
-							<label class="uniform-inline" style="width:100%;font-weight:500;">
-							<input type="radio" name="mobile_show" value="Follower"
-							@if($user->corpuser->email_show == 'Follower')
-								checked
-							@endif >
-							Follower </label>
-							<label class="uniform-inline" style="width:100%;font-weight:500;">
-							<input type="radio" name="mobile_show" value="None"
-							@if($user->corpuser->phone_show == 'None')
-								checked
-							@endif >
-							None </label>
-						</td>
-					</tr>
-					</table>
-					<!--end profile-settings-->
-					<div class="margin-top-10">
-						<button type="submit" name="individual" value="Save" class="btn green">
-						<i class="fa fa-check"></i> Save Changes
-						</button>
-						<a href="/profile/ind/{{Auth::user()->corpuser_id}}" class="btn default">Cancel</a>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-	<!--end col-md-9-->
 </div>
 <!-- Mobile/Email verification -->
 <div class="modal fade bs-modal-sm" id="edit-me-modal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -952,151 +753,151 @@
 	}
    google.maps.event.addDomListener(window, 'load', initialize);   
 </script>
-<script type="text/javascript">
-	// Skill Details
-	var skillArray = [];
-	@if($user->corpuser->linked_skill != null)
-	<?php $array = explode(', ', $user->corpuser->linked_skill); ?> 
-	@if(count($array) > 0)
-	@foreach($array as $gt => $gta)
-		skillArray.push('<?php echo $gta; ?>');
-	@endforeach
-	@endif
-	@endif
-    var skillselect = $("#linked_skill_id").select2({ dataType: 'json', data: skillArray });
-    skillselect.val(skillArray).trigger("change");
-    
-$selectedSkills = $("#linked_skill_id").select2();
-$gotit = [];
-	$(function(){
+	<script type="text/javascript">
+		// Skill Details
+		var skillArray = [];
+		@if($user->corpuser->linked_skill != null)
+		<?php $array = explode(', ', $user->corpuser->linked_skill); ?> 
+		@if(count($array) > 0)
+		@foreach($array as $gt => $gta)
+			skillArray.push('<?php echo $gta; ?>');
+		@endforeach
+		@endif
+		@endif
+	    var skillselect = $("#linked_skill_id").select2({ dataType: 'json', data: skillArray });
+	    skillselect.val(skillArray).trigger("change");
+	    
+	$selectedSkills = $("#linked_skill_id").select2();
+	$gotit = [];
+		$(function(){
 
-	 	function split( val ) {
-	      return val.split( /,\s*/ );
-	    }
-	    function extractLast( term ) {
-	      return split( term ).pop();
-	    }
+		 	function split( val ) {
+		      return val.split( /,\s*/ );
+		    }
+		    function extractLast( term ) {
+		      return split( term ).pop();
+		    }
 
-		$( "#newskill" )
-		.bind( "keydown", function( event ) {
-			if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
-			  event.preventDefault();
-			}
-		})
-		.autocomplete({
-			source: function( request, response ) {
-				// $.getJSON( "/job/skillSearch", {
-				// 	term: extractLast( request.term )
-				// }, response );
+			$( "#newskill" )
+			.bind( "keydown", function( event ) {
+				if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
+				  event.preventDefault();
+				}
+			})
+			.autocomplete({
+				source: function( request, response ) {
+					// $.getJSON( "/job/skillSearch", {
+					// 	term: extractLast( request.term )
+					// }, response );
 
-				$.ajax({
-					url: '/job/skillSearch',
-					dataType: "json",
-					data: { term: extractLast( request.term ) },
-					success: function(data) {
-					if (data.length === 0) {
-						$('#add-new-skill').removeClass('hide');
-						$('#add-new-skill').addClass('show');
-					}else{
-						$('#add-new-skill').removeClass('show');
-						$('#add-new-skill').addClass('hide');
+					$.ajax({
+						url: '/job/skillSearch',
+						dataType: "json",
+						data: { term: extractLast( request.term ) },
+						success: function(data) {
+						if (data.length === 0) {
+							$('#add-new-skill').removeClass('hide');
+							$('#add-new-skill').addClass('show');
+						}else{
+							$('#add-new-skill').removeClass('show');
+							$('#add-new-skill').addClass('hide');
+						}
+						response(data);
+						}
+					});
+
+				},
+				search: function() {
+					var term = extractLast( this.value );
+					if ( term.length < 2 ) {
+						return false;
 					}
-					response(data);
-					}
-				});
+				},
+				focus: function() {
+					return false;
+				},
+				select: function(event, ui) {
+					var termsId = [];
 
-			},
-			search: function() {
-				var term = extractLast( this.value );
-				if ( term.length < 2 ) {
+					if($selectedSkills.val() != null){
+						termsId = $selectedSkills.val();
+					}
+
+					if(termsId.length != null){
+
+					}
+					termsId.push( ui.item.value );
+					$gotit.push( ui.item.value );
+
+					termsId.push( "" );
+					$selectedSkills.val(termsId).trigger("change"); 
+					$(this).val("");
 					return false;
 				}
-			},
-			focus: function() {
-				return false;
-			},
-			select: function(event, ui) {
-				var termsId = [];
-
-				if($selectedSkills.val() != null){
-					termsId = $selectedSkills.val();
-				}
-
-				if(termsId.length != null){
-
-				}
-				termsId.push( ui.item.value );
-				$gotit.push( ui.item.value );
-
-				termsId.push( "" );
-				$selectedSkills.val(termsId).trigger("change"); 
-				$(this).val("");
-				return false;
-			}
+			});
 		});
-	});
 
 
-	$(document).ready(function(){
-		$('#add-new-skill').on('click',function(event){  	    
-		  	event.preventDefault();
-		  	if (!$('#newskill').val()) {
-		  		alert('Please enter some skill to add.');
-		  		return false;
-		  	}else{
-			  	var name = $('#newskill').val(); 
-			    $.ajaxSetup({
-					headers: {
-						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-					}
-				});
-			    $.ajax({
-			      url: "/job/newskill",
-			      type: "POST",
-			      data: { name: name },
-			      cache : false,
-			      success: function(data){
-			        if(data > 0){
-			        	$newSkillList = new Array();
-
-			        	<?php $newSkillList = array(); ?>
-			        	@if(count($skills) > 0)
-						@foreach($skills as $skill)
-							$newSkillList.push('<?php echo $skill; ?>');
-						@endforeach
-						@endif
-			        	$newSkillList.push($('#newskill').val());
-			        	// console.log($newSkillList);
-			        	$("#linked_skill_id").select2({
-			        		dataType: 'json',
-			        		data: $newSkillList
-			        	});
-
-			        	var selectedSkillId = [];
-			        	$newSkill = $('#newskill').val();
-			        	$newSkillId = data;
-			        	// $selectedSkill = $('#linked_skill').val();
-			        	// console.log($gotit);
-			        	if($gotit != null){
-							selectedSkillId = $gotit;
+		$(document).ready(function(){
+			$('#add-new-skill').on('click',function(event){  	    
+			  	event.preventDefault();
+			  	if (!$('#newskill').val()) {
+			  		alert('Please enter some skill to add.');
+			  		return false;
+			  	}else{
+				  	var name = $('#newskill').val(); 
+				    $.ajaxSetup({
+						headers: {
+							'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 						}
-						
-			        	selectedSkillId.push($newSkill);
-			        	// console.log(selectedSkillId);
-			        	// $('#linked_skill').val($selectedSkill+""+$newSkill+", ");
-			        	$selectedSkills.val(selectedSkillId).trigger("change"); 
-			        	$('#newskill').val("");
-			        }
-			      },
-			      error: function(data) {
-			      	alert('some error occured...');
-			      }
-			    }); 
-			    return false;
-			}
-		});
-});
-</script>
+					});
+				    $.ajax({
+				      url: "/job/newskill",
+				      type: "POST",
+				      data: { name: name },
+				      cache : false,
+				      success: function(data){
+				        if(data > 0){
+				        	$newSkillList = new Array();
+
+				        	<?php $newSkillList = array(); ?>
+				        	@if(count($skills) > 0)
+							@foreach($skills as $skill)
+								$newSkillList.push('<?php echo $skill; ?>');
+							@endforeach
+							@endif
+				        	$newSkillList.push($('#newskill').val());
+				        	// console.log($newSkillList);
+				        	$("#linked_skill_id").select2({
+				        		dataType: 'json',
+				        		data: $newSkillList
+				        	});
+
+				        	var selectedSkillId = [];
+				        	$newSkill = $('#newskill').val();
+				        	$newSkillId = data;
+				        	// $selectedSkill = $('#linked_skill').val();
+				        	// console.log($gotit);
+				        	if($gotit != null){
+								selectedSkillId = $gotit;
+							}
+							
+				        	selectedSkillId.push($newSkill);
+				        	// console.log(selectedSkillId);
+				        	// $('#linked_skill').val($selectedSkill+""+$newSkill+", ");
+				        	$selectedSkills.val(selectedSkillId).trigger("change"); 
+				        	$('#newskill').val("");
+				        }
+				      },
+				      error: function(data) {
+				      	alert('some error occured...');
+				      }
+				    }); 
+				    return false;
+				}
+			});
+	});
+	</script>
 
 <script>
 	jQuery(document).ready(function() {
@@ -1349,12 +1150,12 @@ $('.firm-update').on('click',function(event){
 	    return false;
 	  });
 
-$('.otherdetails-update').on('click',function(event){  	    
+$('.other-update').on('click',function(event){  	    
 	  	event.preventDefault();
 	  	var userid = $(this).data('userid');
 
-	  	var formData = $('#otherdetails-validation-'+userid).serialize(); 
-	    var formAction = $('#otherdetails-validation-'+userid).attr('action');
+	  	var formData = $('#other-validation-'+userid).serialize(); 
+	    var formAction = $('#other-validation-'+userid).attr('action');
 	    
 	    $.ajaxSetup({
 			headers: {
@@ -1371,10 +1172,42 @@ $('.otherdetails-update').on('click',function(event){
 	      success: function(data){
 	     		// console.log(data);
 	      	if(data.success == 'success'){
-				displayToast("other Details Updated");
+				displayToast("Updated successfully.");
 	        }else if(data.success == 'fail'){
 	        	// console.log(data);
 	        	displayToast("Something Wrong! otherdetails not updated...");
+	        }
+	      }
+	    }); 
+	    return false;
+	  });
+
+$('.addressinfo-update').on('click',function(event){  	    
+	  	event.preventDefault();
+	  	var userid = $(this).data('userid');
+
+	  	var formData = $('#address-validation-'+userid).serialize(); 
+	    var formAction = $('#address-validation-'+userid).attr('action');
+	    
+	    $.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+
+	    $.ajax({
+	      url: formAction,
+	      type: "post",
+	      data: formData,
+	      cache : false,
+
+	      success: function(data){
+	     		// console.log(data);
+	      	if(data.success == 'success'){
+				displayToast("Address Updated");
+	        }else if(data.success == 'fail'){
+	        	// console.log(data);
+	        	displayToast("Something Wrong! Not updated...");
 	        }
 	      }
 	    }); 

@@ -290,7 +290,7 @@ $('.follow-btn').live('click', function(event) {
         success: function(data) {
             if(data == 'success'){
                 console.log(data);
-                 $(".pfid-"+puid).html('<a href="#links-follow" data-toggle="modal" class="user-link3" data-linked="no" data-utype="corp"><button class="btn btn-xs link-follow-icon-css"><i class="icon-check" style="color:#F7F7F7;font-size:10px;"></i> Following</button></a>');
+                 $(".pfid-"+puid).html('<a class="btn btn-icon-only btn-circle green "><i class="fa fa-check" style=""></i> </a>');
                 $('#links-follow').modal('hide');
                 displayToast("Following");
             }
@@ -940,19 +940,19 @@ $('.contact-btn').live('click',function(event){
             $('#contact-btn-'+post_id).html(contact);
             // $('#contact-btn-'+post_id).prop('disabled', true);
             // $('#contact-btn-'+post_id).text('Contacted');
-            var detail_show = '<div class="col-md-12 col-sm-12 col-xs-12"><label class="detail-label" style="font-size: 11px;"><span class="required">*</span>Your contact details have been shared to post owner.</label> </div>';
+            var detail_show = '<div class="col-md-12 col-sm-12 col-xs-12"><label class="detail-label" style="font-size: 11px;color:#eee;"><span class="required">*</span>Your contact details have been shared to post owner.</label> </div>';
             $('contact-note-shared').html(detail_show);
             $('#show-hide-contacts').addClass('show-hide-new');
             $('contact-note-shared').removeClass('contact-share');
             $('#contact-note').addClass('contact-share');
             displayToast("Your Contact details have been shared with post owner. ");
             if(data.data.show == "Public"){
-                var show = '<div class="row" style="margin: 0 0 10px 0;"><div class="col-md-12 col-sm-12 col-xs-12"><label class="detail-label"><i class="fa fa-envelope" style="font-size:15px;"></i>&nbsp;&nbsp;'+data.data.email+'</label> </div></div>';
-                show += '<div class="row" style="margin: 0 0 10px 0;"><div class="col-md-12 col-sm-12 col-xs-12"><label class="detail-label"><i class="fa fa-phone-square" style="font-size:16px;"></i>&nbsp;&nbsp;'+data.data.phone+'</label> </div></div>';  
+                var show = '<div class="row" style="margin: 0 0 10px 0;"><div class="col-md-12 col-sm-12 col-xs-12"><label class="detail-label" style="color:#eee;"><i class="fa fa-envelope" style="font-size:15px;color:#eee;"></i>&nbsp;&nbsp;'+data.data.email+'</label> </div></div>';
+                show += '<div class="row" style="margin: 0 0 10px 0;"><div class="col-md-12 col-sm-12 col-xs-12"><label class="detail-label" style="color:#eee;"><i class="fa fa-phone-square" style="font-size:16px;color:#eee;"></i>&nbsp;&nbsp;'+data.data.phone+'</label> </div></div>';  
                 
                 $("#post-user-contact-"+post_id).html(show);
             }else if(data.data.show == "Private"){
-                var show = '<div class="col-md-12 col-sm-12 col-xs-12"><label class="detail-label" style="color: #BB4E4E;font-size: 12px;">Post owner has kept contact details Private.</label></div>';
+                var show = '<div class="col-md-12 col-sm-12 col-xs-12"><label class="detail-label" style="color:#eee;font-size: 12px;">Post owner has kept contact details Private.</label></div>';
                 $("#post-user-contact-"+post_id).html(show);
             }
             
@@ -991,6 +991,33 @@ $('.apply-btn').live('click',function(event){
             $('#apply-btn-'+post_id).prop('disabled', true);
             $('#apply-btn-'+post_id).text('Applied');
             $('#show-hide-contacts').addClass('show-hide-new');
+
+            $('#apply-btn-'+post_id).removeClass('green');
+            $('#apply-btn-'+post_id).addClass('green');
+            $('#apply-btn-'+post_id).prop('disabled',true);
+            var contact = '<i class="glyphicon glyphicon-ok"></i><span style="color: white !important;"> Contacted</span>';
+            $('#apply-btn-'+post_id).html(contact);
+            // $('#contact-btn-'+post_id).prop('disabled', true);
+            // $('#contact-btn-'+post_id).text('Contacted');
+            var detail_show = '<div class="col-md-12 col-sm-12 col-xs-12"><label class="detail-label" style="font-size: 11px;color:#eee;"><span class="required">*</span>Your contact details have been shared to post owner.</label> </div>';
+            $('contact-note-shared').html(detail_show);
+            $('#show-hide-contacts').addClass('show-hide-new');
+            $('contact-note-shared').removeClass('contact-share');
+            $('#contact-note').addClass('contact-share');
+            displayToast("Your Contact details have been shared with post owner. ");
+            if(data.data.show == "Public"){
+                var show = '<div class="row" style="margin: 0 0 10px 0;"><div class="col-md-12 col-sm-12 col-xs-12"><label class="detail-label" style="color:#eee;"><i class="fa fa-envelope" style="font-size:15px;color:#eee;"></i>&nbsp;&nbsp;'+data.data.email+'</label> </div></div>';
+                show += '<div class="row" style="margin: 0 0 10px 0;"><div class="col-md-12 col-sm-12 col-xs-12"><label class="detail-label" style="color:#eee;"><i class="fa fa-phone-square" style="font-size:16px;color:#eee;"></i>&nbsp;&nbsp;'+data.data.phone+'</label> </div></div>';  
+                
+                $("#post-user-contact-"+post_id).html(show);
+            }else if(data.data.show == "Private"){
+                var show = '<div class="col-md-12 col-sm-12 col-xs-12"><label class="detail-label" style="color:#eee;font-size: 12px;">Post owner has kept contact details Private.</label></div>';
+                $("#post-user-contact-"+post_id).html(show);
+            }
+            
+            var dates = '<div class="col-md-12" style="text-align:center;"><i class="fa fa-calendar" style="font-size: 11px;color:dimgrey;"></i>'+data.data.date+'</div>';
+            $("#post-date-"+post_id).html(dates);
+            // console.log(data.data.date);
         }
       }
     }); 

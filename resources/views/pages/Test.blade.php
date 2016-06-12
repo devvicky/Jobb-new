@@ -1503,3 +1503,79 @@ public function sendOTP(){
                           @if($ua->role != null) {{$ua->role}} <br/>@endif 
                           @if($ua->city != null) <i class="fa fa-globe"></i> {{$ua->city}} @endif
                       </div>
+
+
+
+
+
+
+
+
+
+
+                      <div class="inner-feed">
+          <div class="row">
+            <div class="col-md-6">
+              <h2 class="feed-title-job">Registered Companies</h2>
+              @foreach($companyAccounts as $ua)
+              <div class="col-md-4" style="height:220px;padding: 0 14px 0 0px;margin: 10px 0;">
+                <div class="welcome-company-card">
+                  <div class="welcome-company-card-image" style="    width: 170px;padding: 0px 0px !important; ">
+                      
+                      @if($ua->logo_status != null)
+                      <a href="" style="padding: 0;display: block;overflow: visible;background: #fff;">
+                          <img src="/img/profile/{{ $ua->logo_status }}" alt="" style="height: 220px;">
+                      </a>
+                      @elseif($ua->logo_status == null)
+                      <div class=" badge-margin welcome-post-image-css">
+                          <i class="fa fa-user welcome-company-image" style=""></i> 
+                      </div>
+                      @endif
+                  </div>
+                  <div class="userprofile-column-company">
+                    <div class="profile-usertitle-name" style="color:white;">
+                           <span style="font-size: 16px;">{{$ua->firm_name}}</span><br/>
+                         @if($ua->slogan != null)<span style="font-size: 12px;"> {{$ua->slogan}} </span>@endif 
+                         
+                      </div>
+                  </div><!-- /.company-card-image -->
+                </div>
+              </div>
+              @endforeach
+            </div>
+            <div class="col-md-6">
+              <h2 class="feed-title-skill">Skilled Profiles</h2>
+              @foreach($userAccounts as $ua)
+              <div class="col-md-4" style="height:220px;padding: 0 14px 0 0px;">
+                <div class="welcome-company-card">
+                  <div class="welcome-company-card-image" style="    width: 170px;padding: 0px 0px !important; ">
+                      
+                      @if($ua->profile_pic != null)
+                      <a href="" style="padding: 0;display: block;overflow: visible;background: #fff;">
+                          <img src="/img/profile/{{ $ua->profile_pic }}" alt="" style="height: 220px;">
+                      </a>
+                      @elseif($ua->profile_pic == null)
+                      <div class=" badge-margin welcome-post-image-css">
+                          <i class="fa fa-user welcome-company-image" style=""></i> 
+                      </div>
+                      @endif
+
+                      
+                  </div>
+                  <div class="userprofile-column">
+                    <div class="profile-usertitle-name" style="color:white;">
+                           <span style="font-size: 16px;">{{$ua->fname}}</span><br/>
+                         @if($ua->role != null)<span style="font-size: 12px;"> {{$ua->role}} </span><br/>@endif 
+                          @if($ua->city != null) <span style="font-size: 12px;"><i class="fa fa-globe" style="font-size: 12px;"></i> {{$ua->city}}</span> @endif
+                      </div>
+                  </div><!-- /.company-card-image -->
+                </div>
+              </div>
+              @endforeach
+            </div>
+          </div>
+        </div>
+
+
+
+        

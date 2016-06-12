@@ -85,8 +85,7 @@ class JobController extends Controller {
 		}
 	}
 
-	public function captchaCheck()
-    {
+	public function captchaCheck(){
 
         $response = Input::get('g-recaptcha-response');
         $remoteip = $_SERVER['REMOTE_ADDR'];
@@ -111,12 +110,7 @@ class JobController extends Controller {
 	{
 
 
-		if($this->captchaCheck() == false)
-        {
-            return redirect()->back()
-                ->withErrors(['Wrong Captcha'])
-                ->withInput();
-        }
+		
 		        
 		if(Auth::user()->identifier == 1){
 			$request['individual_id'] = Auth::user()->induser_id;
@@ -124,6 +118,13 @@ class JobController extends Controller {
 		}else{
 			$request['corporate_id'] = Auth::user()->corpuser_id;
 		}
+
+		if($this->captchaCheck() == false)
+        {
+            return redirect()->back()
+                ->withErrors(['Wrong Captcha'])
+                ->withInput();
+        }
 		
 		$request['post_type'] = 'job';
 		$request['education'] = implode(',', $request['education']);
@@ -396,6 +397,111 @@ class JobController extends Controller {
 	}
 
 	public function postApply(Request $request){
+
+		$apply = Postactivity::where('post_id', '=', $request['apply'])
+							 ->where('user_id', '=', Auth::user()->id)
+							 ->first();		
+
+		$post_id = $request['apply'];
+		$postUser = Postjob::where('id', '=', $request['apply'])->first(['contact_person', 'email_id', 'phone', 'show_contact']);
+			$data = [];
+			if($postUser->show_contact == "Public"){
+
+				$data['contact'] = $postUser->contact_person;
+				$data['phone'] = $postUser->phone;
+				$data['email'] = $postUser->email_id;
+				$data['show'] = $postUser->show_contact;
+			}elseif($postUser->show_contact == "Private"){
+				$data['contact'] = "Private";
+				$data['phone'] = "Private";
+				$data['email'] = "Private";
+				$data['show'] = $postUser->show_contact;
+			}
+			
+
+		if($apply == null){
+			$apply = new Postactivity();
+			$apply->post_id = $post_id;
+
+			$apply->user_id = Auth::user()->id;	
+			
+			$apply->apply = 1;
+			$apply->apply_dtTime = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'));
+			$apply->save();
+			$data['date'] = $apply->apply_dtTime;
+			
+
+			// Notification entry
+			if($post_id != null){
+				$to_user = 0;
+				$post_user_info = Postjob::where('id', '=', $post_id)->first(['id', 'individual_id', 'corporate_id']);
+				if($post_user_info != null){
+
+					if($post_user_info->individual_id != null){
+						$to_user = User::where('induser_id', '=', $post_user_info->individual_id)->pluck('id');
+					}
+
+					if($post_user_info->corporate_id != null){
+						$to_user = User::where('corpuser_id', '=', $post_user_info->corporate_id)->pluck('id');
+					}
+
+					$post_unique_id = Postjob::where('id', '=', $post_id)->pluck('unique_id');
+					$notification = new Notification();
+					$notification->from_user = Auth::user()->id;
+					$notification->to_user = $to_user;
+					$notification->remark = 'has applied for your post id: '.$post_unique_id;
+					$notification->operation = 'job contact';
+					$notification->save();
+
+				}
+
+			}			
+			if(!empty($data) && $postUser != null){
+				return response()->json(['success'=>'success','data'=>$data, 'applied'=>'applied']);
+			}else{
+				return "applied";
+			}
+			
+		}elseif($apply != null && $apply->apply == 0){
+			$apply->apply = 1;
+			$apply->apply_dtTime = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'));
+			$apply->save();
+			$data['date'] = $apply->apply_dtTime;
+			// Notification entry
+			if($post_id != null){
+				$to_user = 0;
+				$post_user_info = Postjob::where('id', '=', $post_id)->first(['id', 'individual_id', 'corporate_id']);
+				if($post_user_info != null){
+
+					if($post_user_info->individual_id != null){
+						$to_user = User::where('induser_id', '=', $post_user_info->individual_id)->pluck('id');
+					}
+					
+					if($post_user_info->corporate_id != null){
+						$to_user = User::where('corpuser_id', '=', $post_user_info->corporate_id)->pluck('id');
+					}
+
+					$post_unique_id = Postjob::where('id', '=', $post_id)->pluck('unique_id');
+					$notification = new Notification();
+					$notification->from_user = Auth::user()->id;
+					$notification->to_user = $to_user;
+					$notification->remark = 'has applied for your post id: '.$post_unique_id;
+					$notification->operation = 'job contact';
+					$notification->save();
+
+				}
+
+			}
+
+			if(!empty($data) && $postUser != null){
+				return response()->json(['success'=>'success','data'=>$data, 'applied'=>'applied']);
+			}else{
+				return "applied";
+			}
+		}
+	}
+
+	public function postApplys(Request $request){
 		$apply = Postactivity::where('post_id', '=', $request['apply'])
 							->where('user_id', '=', Auth::user()->induser_id)
 							->first();
@@ -573,7 +679,6 @@ class JobController extends Controller {
 				return "contacted";
 			}
 		}
-
 	}
 
 	public function skillSearch(){

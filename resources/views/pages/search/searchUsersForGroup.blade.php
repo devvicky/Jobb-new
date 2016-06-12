@@ -34,7 +34,7 @@
 	 				<div class="btn btn-warning apply-ignore-font" style="padding:2px 5px;">Grouped</div>
 	 			@endif
 	 		@else
-	 			<form action="{{ url('/group/adduser') }}" method="post">
+	 			<form action="/group/search/adduser" method="post">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<input type="hidden" name="add_user_id" value="{{$user->id}}">
 					<input type="hidden" name="add_group_id" value="{{$groupId}}">

@@ -56,7 +56,8 @@ if(Auth::user()->identifier == 1){
     $elements = array_count_values($crossCheck); ?>
 
      <?php 
-                        $tempMatch = 0;
+     if(Auth::user()->identifier == 1){
+        $tempMatch = 0;
                         if($post->min_exp <= Auth::user()->induser->experience && $post->max_exp >= Auth::user()->induser->experience){
                             $tempMatch = $tempMatch + 1;
                         }
@@ -80,6 +81,8 @@ if(Auth::user()->identifier == 1){
                         }elseif($post->magic_match < 35){
                             $match = "QuickCheck";
                         }
+     }
+                        
 
                      ?>
 <div class="row" style="margin: 0;background-color: transparent;">
@@ -118,7 +121,7 @@ if(Auth::user()->identifier == 1){
                         </span>
                         @endif
                         <br/>
-                        <span style="font-size: 11px;">Post Id: {{$post->unique_id}} &nbsp;&nbsp;<i class="fa fa-calendar" style="font-size: 11px;"></i> &nbsp;{{ date('d M y, h:m A', strtotime($post->created_at)) }}</span>
+                        <span style="font-size: 11px;">Post Id: {{$post->unique_id}} &nbsp;&nbsp;<i class="fa fa-calendar" style="font-size: 11px;"></i> &nbsp;{{ date('d M y, h:m A', strtotime($post->created_at)) }} (Post View: {{$post->postview_count}})</span>
                     </div>
                 </div>
                 <div class="portlet-body">
@@ -205,32 +208,26 @@ if(Auth::user()->identifier == 1){
                                 Share Post <i class="fa fa-angle-down"></i>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-sharepost" role="menu">
-                                    <li style="text-align: center;border-bottom: 1px solid lightgray;">
+                                    
+                                    <li style="text-align: center;">
+                                        <!-- <span>Share on Social Media</span> -->
                                         <a href="#share-post" 
                                             data-toggle="modal" 
                                             class="jobtip sojt" 
                                             id="sojt-{{$post->id}}" 
-                                            data-share-post-id="{{$post->id}}">
-                                            <img src="/assets/small-logo.png" style="width:10%;"> Jobtip
+                                            data-share-post-id="{{$post->id}}" style="padding: 4px;">
+                                            <img src="/assets/small-logo.png" style="width: 31px;border: 1px solid #ddd;padding: 2px 2px;background-color: #fdfdfd;">
                                         </a>
-                                    </li>
-                                    <li style="text-align: center;border-bottom: 1px solid lightgray;">
                                         <a href="#share-by-email" data-toggle="modal" onclick="setPostId({{$post->id}})" 
                                            class="jobtip sbmail" id="sbmail-{{$post->id}}" 
-                                           data-share-post-id="{{$post->id}}">
-                                            <!-- <button class="btn share-email-icon" style="line-height: 0.9;">
-                                                <i class="glyphicon glyphicon-envelope" style="font-size:22px;color:white;"></i>
-                                                </button> -->
-                                              <i class="glyphicon glyphicon-envelope" style="font-size:22px;color: #f3565d;"></i> <span> Email</span>
+                                           data-share-post-id="{{$post->id}}" style="    line-height: 2px;">
+                                              <i class="glyphicon glyphicon-envelope email-hover" style="font-size:31px;color: #45b6af;"></i>
                                         </a>
-                                    </li>
-                                    <li style="text-align: center;">
-                                        <span>Share on Social Media</span>
                                         <div class="addthis_sharing_toolbox addthis_toolbox addthis_default_style addthis_20x20_style" 
                                             data-url="http://jobtip.in/post/{{$post->unique_id}}/social" 
                                             data-title="{{$post->post_title}}"
                                             data-description="{{ $post->job_detail }}"
-                                            data-media="http://jobtip.in/jt_logo.png" style="">
+                                            data-media="http://jobtip.in/jt_logo.png" style="width: 10px;margin: 0 auto;position: relative;right: 14px;">
                                         </div>
                                     </li>
                                 </ul>
@@ -271,38 +268,7 @@ if(Auth::user()->identifier == 1){
                         @else
                         <div class="col-md-4 col-sm-4 col-xs-5"></div>
                         @endif
-                        <div class="col-md-4 col-sm-4 col-xs-5">
-                            <!-- Small button group -->
-                            <div class="btn-group">
-                                <button class="btn blue btn-sm view-detail-btn dropdown-toggle" type="button" data-toggle="dropdown" style="border-radius: 25px !important;">
-                                Share Post <i class="fa fa-angle-down"></i>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-sharepost" role="menu">
-                                    
-                                    <li style="text-align: center;">
-                                        <!-- <span>Share on Social Media</span> -->
-                                        <a href="#share-post" 
-                                            data-toggle="modal" 
-                                            class="jobtip sojt" 
-                                            id="sojt-{{$post->id}}" 
-                                            data-share-post-id="{{$post->id}}">
-                                            <img src="/assets/small-logo.png" style="width:20%;">
-                                        </a>
-                                        <a href="#share-by-email" data-toggle="modal" onclick="setPostId({{$post->id}})" 
-                                           class="jobtip sbmail" id="sbmail-{{$post->id}}" 
-                                           data-share-post-id="{{$post->id}}">
-                                              <i class="glyphicon glyphicon-envelope" style="font-size:31px;color: #f3565d;"></i>
-                                        </a>
-                                        <div class="addthis_sharing_toolbox addthis_toolbox addthis_default_style addthis_20x20_style" 
-                                            data-url="http://jobtip.in/post/{{$post->unique_id}}/social" 
-                                            data-title="{{$post->post_title}}"
-                                            data-description="{{ $post->job_detail }}"
-                                            data-media="http://jobtip.in/jt_logo.png" style="width: 10px;margin: 0 auto;position: relative;right: 14px;">
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                        
                         <div class="col-md-6 col-sm-6 col-xs-6" style="    margin: 6px 0 0px 0;">
                             <i class="glyphicon glyphicon-ban-circle"></i> Post Expired
                         </div>
@@ -407,6 +373,16 @@ if(Auth::user()->identifier == 1){
                                         {{$post->job_agreement}}
                                     </td>
                                 </tr>
+                                @if($post->reference_id != null)
+                                <tr class="table-row-bg">
+                                    <td>
+                                         Job Reference Id
+                                    </td>
+                                    <td>
+                                        {{$post->reference_id}}
+                                    </td>
+                                </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -426,19 +402,21 @@ if(Auth::user()->identifier == 1){
                 </div>
             </div>
             <!-- END PORTLET -->
+            @if($post->post_type == 'job' && $post->about_company != null)
             <!-- BEGIN PORTLET -->
             <div class="portlet light " style="background-color:white;">
                 <div class="portlet-title">
                     <div class="caption caption-md">
                         <i class="icon-bar-chart theme-font hide"></i>
-                        <span class="caption-subject font-blue-madison bold uppercase">About Compnay</span>
+                        <span class="caption-subject font-blue-madison bold uppercase">About Company</span>
                     </div>
                 </div>
                 <div class="portlet-body">
-                    <p class="page-header-post-detail">{{$post->job_detail}}</p>
+                    <p class="page-header-post-detail">{{$post->about_company}}</p>
                 </div>
             </div>
             <!-- END PORTLET -->
+            @endif
         </div>
         @if($post->individual_id != null)
         <div class="col-md-4" style="margin: 7px 0;">
@@ -456,7 +434,7 @@ if(Auth::user()->identifier == 1){
                     @endif
 
                     <div class="profile-usertitle-name" style=" margin: 10px 0px;">
-                        {{$post->contact_person}}
+                        {{$post->induser->fname}}
                     </div>
                     <div class="profile-usertitle-job">
                         @if($post->induser->role != null) {{$post->induser->role}} @endif 
@@ -561,24 +539,24 @@ if(Auth::user()->identifier == 1){
                        @if($post->email_id != null)
                         <div class="row" style="margin: 0 0 10px 0;">
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <label class="detail-label"><i class="fa fa-envelope" style="font-size:15px;"></i>&nbsp;&nbsp;{{ $post->email_id }} </label>                                  
+                                <label class="detail-label" style="color:#eee;"><i class="fa fa-envelope" style="font-size:15px;color:#eee;"></i>&nbsp;&nbsp;{{ $post->email_id }} </label>                                  
                             </div> 
                         </div>
                         @endif
                         @if($post->phone != null)
                         <div class="row" style="margin: 0 0 10px 0;">
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <label class="detail-label"><i class="fa fa-phone-square" style="font-size:16px;"></i>&nbsp;&nbsp;+91 {{ $post->phone }} </label>                                  
+                                <label class="detail-label" style="color:#eee;"><i class="fa fa-phone-square" style="font-size:16px;color:#eee;"></i>&nbsp;&nbsp;+91 {{ $post->phone }} </label>                                  
                             </div>
                         </div>
                         @endif
                     @endif
                     @elseif($post->postactivity->where('user_id', Auth::user()->induser_id)->isEmpty() && $post->show_contact == "Private")
                     @elseif($post->postactivity->where('user_id', Auth::user()->induser_id)->first()->contact_view == 1 && $post->show_contact == "Private")
-                    <div class="skill-display">Contact Details : </div>
+                    
                     <div class="row" style="margin: 0 0 10px 0;">
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <label class="detail-label" style="color: #BB4E4E;font-size: 12px;">Post owner has kept contact details Private.</label>                                  
+                            <label class="detail-label" style="color: #eee;font-size: 12px;">Post owner has kept contact details Private.</label>                                  
                         </div>
                     </div>
                     @endif
@@ -677,6 +655,14 @@ if(Auth::user()->identifier == 1){
                                 </label>                                  
                             </div>
                         </div>
+                    @elseif($post->postactivity->where('user_id', Auth::user()->induser_id)->first()->apply == 1)
+                        <div id="contact-note-shared" class="row" style="margin: 0;">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <label class="detail-label" style="font-size: 11px;color: #eee;"><span class="required">*</span>
+                                    Your contact details have been shared to post owner.
+                                </label>                                  
+                            </div>
+                        </div>
                     @else
                         <div class="row" id="contact-note" style="margin: 0;">
                             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -701,7 +687,7 @@ if(Auth::user()->identifier == 1){
                     </a>
                     @elseif($post->corpuser->logo_status == null)
                     <div class=" badge-margin post-image-css">
-                        <i class="fa fa-university" style="font-size: 55px;margin: 44px 25px;color: lightgray;"></i> 
+                        <i class="fa fa-university" style="font-size: 60px;margin: 54px 32px;color: #999;"></i> 
                     </div>
                     @endif
 
@@ -860,7 +846,7 @@ if(Auth::user()->identifier == 1){
                     @if($post->postactivity->where('user_id', Auth::user()->induser_id)->isEmpty())
                         <div class="row" id="contact-note" style="margin: 0;">
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <label class="detail-label" style="font-size: 11px;"><span class="required">*</span>
+                                <label class="detail-label" style="font-size: 11px;color: #eee;"><span class="required">*</span>
                                     Your contact details will be shared to post owner on Apply / Contact.
                                 </label>                                  
                             </div>
@@ -868,7 +854,15 @@ if(Auth::user()->identifier == 1){
                     @elseif($post->postactivity->where('user_id', Auth::user()->induser_id)->first()->contact_view == 1)
                         <div id="contact-note-shared" class="row contact-share" style="margin: 0;">
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <label class="detail-label" style="font-size: 11px;"><span class="required">*</span>
+                                <label class="detail-label" style="font-size: 11px;color: #eee;"><span class="required">*</span>
+                                    Your contact details have been shared to post owner.
+                                </label>                                  
+                            </div>
+                        </div>
+                    @elseif($post->postactivity->where('user_id', Auth::user()->induser_id)->first()->apply == 1)
+                        <div id="contact-note-shared" class="row contact-share" style="margin: 0;">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <label class="detail-label" style="font-size: 11px;color: #eee;"><span class="required">*</span>
                                     Your contact details have been shared to post owner.
                                 </label>                                  
                             </div>
@@ -876,7 +870,7 @@ if(Auth::user()->identifier == 1){
                     @else
                         <div class="row" id="contact-note" style="margin: 0;">
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <label class="detail-label" style="font-size: 11px;"><span class="required">*</span>
+                                <label class="detail-label" style="font-size: 11px;color: #eee;"><span class="required">*</span>
                                     Your contact details will be shared to post owner on Apply / Contact.
                                 </label>                                  
                             </div>

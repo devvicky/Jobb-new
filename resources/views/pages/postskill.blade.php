@@ -5,7 +5,7 @@
 					  data-toggle="validator" role="form" class="form-horizontal">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">																
 <div class="row" style="margin:-5px;">
-		<div class="col-md-11" style="padding: 0;">
+		<div class="col-md-11" style="padding: 0 5px;">
 		<div class="portlet box" id="form_wizard_1">			
 			<div class="portlet-body form"  style="background-color: transparent;">
 				
@@ -51,7 +51,7 @@
 								</div> -->
 								<div class="tab-pane active" id="tab1">
 									<div class="row">
-		                                <div class="col-md-8">
+		                                <div class="col-md-8" style="padding: 0 8px 0 15px;">
 		                                    <!-- BEGIN PORTLET -->
 		                                    <div class="portlet light " style="background-color:white;">
 		                                        <div class="portlet-title">
@@ -251,11 +251,7 @@
 		                                                        <!-- <div class="input-group single-education" > -->
 		                                                            
 		                                                            <select class="form-control education-list" name="education[]" id="education_show" multiple style="border:1px solid #c4d5df">
-		                                                                @foreach ($education as $educ)
-		                                                                    @if($educ->branch == "-")
-		                                                                    <option value="{{$educ->name}}- -{{$educ->level}}" style="font-weight:600 !important;">{{$educ->name}}</option>
-		                                                                    @endif
-		                                                                @endforeach
+		                                                                
 		                                                                @foreach($education as $edu)
 		                                                                    @if($n != $edu->name && $edu->name != '0' && $edu->branch != "-")
 		                                                                        {{$n=$edu->name}}
@@ -337,7 +333,7 @@
 		                                    </div>
 		                                    <!-- END PORTLET -->
 		                                </div>
-		                                <div class="col-md-4" style="    margin: 7px 0 0px 0;">
+		                                <div class="col-md-4" style="margin: 7px 0 0px 0;padding: 0 15px 0 0px;">
 										    <div class="company-card" style="">
 										        <div class="company-card-image">
 										            <span>Posted By</span>
@@ -363,14 +359,14 @@
 		                                            
 										        	<div class="row show-apply-email" style="margin:0 10px">
 												        <div class="col-md-12 ">
-													        <div class="form-group">
-													            <label>Show Contact<span class="required">
+													        <div class="form-group" style="margin-bottom: 10px;">
+													            <label style="color:#eee;">Show Contact<span class="required">
 													                    * </span></label>
 													            <div class="input-group">
 													                <div class="md-radio-inline">
 													                    <div class="md-radio">
 													                        <input type="radio" checked id="radio6" data-title="Public" name="show_contact" value="Public" class="md-radiobtn">
-													                        <label for="radio6" style="">
+													                        <label for="radio6" style="color:#eee;">
 													                        <span></span>
 													                        <span class="check"></span>
 													                        <span class="box" style="border: 2px solid white;"></span>
@@ -378,7 +374,7 @@
 													                    </div>
 													                    <div class="md-radio">
 													                        <input type="radio" id="radio7" data-title="Private" name="show_contact" value="Private" class="md-radiobtn">
-													                        <label for="radio7" style="">
+													                        <label for="radio7" style="color:#eee;">
 													                        <span></span>
 													                        <span class="check"></span>
 													                        <span class="box" style="border: 2px solid white;"></span>
@@ -394,27 +390,27 @@
 													</div>
 													<div class="row show-apply-email" style="margin:0 10px">
 										                <div class="col-md-12 col-sm-12">
-										                    <div class="form-group">
-										                        <label>Email Id</label>
+										                    <div class="form-group" style="margin-bottom: 5px;">
+										                        <label style="color:#eee;">Email Id</label>
 										                        <div class="input-group">
 										                        <span class="input-group-addon" style="background-color: transparent;">
-										                        <i class="icon-envelope" style="color:#29DCDC;"></i>
+										                        <i class="icon-envelope" style="color:#eee;"></i>
 										                        
 										                        </span>
-										                        <input type="text" name="email_id" value="{{ Auth::user()->email }}" class="form-control group" placeholder="Email Id" style="color: white;">
+										                        <input type="text" name="email_id" value="{{ Auth::user()->email }}" class="form-control group other" placeholder="Email Id" style="color: white;">
 										                        </div>
 										                    </div>
 										                </div>
 										                <!--/span-->
 										                <!-- <div class="col-md-2"></div> -->
 										                <div class="col-md-12 col-sm-12">
-										                    <div class="form-group">
-										                        <label>Phone No</label>
+										                    <div class="form-group" style="margin-bottom: 0px;">
+										                        <label style="color:#eee;">Phone No</label>
 										                        <div class="input-group">
 										                        <span class="input-group-addon">
-										                        <i class="icon-call-end" style="color:#29DCDC;"></i>
+										                        <i class="icon-call-end" style="color:#eee;"></i>
 										                        </span>
-										                        <input type="text" name="phone" minlength="10" maxlength="10" value="{{ Auth::user()->mobile }}"  class="form-control group" placeholder="Phone No" style="color: white;">
+										                        <input type="text" name="phone" minlength="10" maxlength="10" value="{{ Auth::user()->mobile }}"  class="other form-control group" placeholder="Phone No" style="color: white;">
 										                        
 										                        </div>
 										                    </div>
@@ -429,7 +425,7 @@
 								
 								<div class="tab-pane" id="tab3">
 									<div class="row">
-		                                <div class="col-md-8">
+		                                <div class="col-md-8" style="padding: 0 8px 0 15px;">
 		                                    <!-- BEGIN PORTLET -->
 		                                    <div class="portlet light " style="background-color:white;">
 		                                        <div class="portlet-title">
@@ -479,7 +475,7 @@
 		                                            	<div class="col-md-6 col-sm-6 col-xs-12">
 		                                                    <div class="form-group">
 		                                                        
-		                                                        <label class=" control-label"> Salary</label>
+		                                                        <label class=" control-label">Expected Salary</label>
 		                                                        <div class="input-group">
 		                                                            <span class="input-group-addon">
 		                                                                <i class="fa fa-rupee (alias)"></i>
@@ -512,11 +508,7 @@
 		                                                <div class="col-md-12">
 		                                                    <div class="form-group">
 		                                                        <label>About Me</label>
-		                                                        <textarea id="textareas" rows="6" class="form-control autosizeme" name="about_company" maxlength="1000" >
-		                                                        	@if(Auth::user()->identifier == 1 && Auth::user()->induser->about_individual != null)
-		                                                        		{{Auth::user()->induser->about_individual}}
-		                                                        	@endif
-		                                                        </textarea>
+		                                                        <textarea id="textareas" rows="6" class="form-control autosizeme" name="about_company" maxlength="1000" >@if(Auth::user()->identifier == 1 && Auth::user()->induser->about_individual != null){{Auth::user()->induser->about_individual}}@endif</textarea>
 		                                                        <div id="textarea_feedback"></div>
 		                                                    </div>
 		                                                </div>
@@ -525,7 +517,7 @@
 		                                    </div>
 		                                    <!-- END PORTLET -->
 		                                </div>
-		                                <div class="col-md-4" style="    margin: 7px 0 0px 0;">
+		                                <div class="col-md-4" style="margin: 7px 0 0px 0;padding: 0 15px 0 0px;">
 										    <div class="company-card" style="background-color: white;">
 										        <div class="company-card-image">
 										            <span>Posted By</span>
@@ -550,8 +542,8 @@
 										        <div class="company-card-data">
 										        	<div class="row show-apply-email" style="margin:0 10px">
 												        <div class="col-md-12 ">
-													        <div class="form-group">
-													            <label>Show Contact:</label>
+													        <div class="form-group" style="margin-bottom: 0px;">
+													            <label style="color:#eee;">Show Contact:</label>
 													            <p class="form-control-static-msg" data-display-msg="show_contact"></p>
 													            
 													        </div>
@@ -559,16 +551,16 @@
 													</div>
 													<div class="row show-apply-email" style="margin:0 10px">
 										                <div class="col-md-12 col-sm-12">
-										                    <div class="form-group">
-										                        <label>Email Id: </label>
+										                    <div class="form-group" style="margin-bottom: 0px;">
+										                        <label style="color:#eee;">Email Id: </label>
 										                         <p class="form-control-static-msg" data-display-msg="email_id"></p>
 										                    </div>
 										                </div>
 										                <!--/span-->
 										                <!-- <div class="col-md-2"></div> -->
 										                <div class="col-md-12 col-sm-12">
-										                    <div class="form-group">
-										                        <label>Phone No: </label>
+										                    <div class="form-group" style="margin-bottom: 0px;">
+										                        <label style="color:#eee;">Phone No: </label>
 										                         <p class="form-control-static-msg" data-display-msg="phone"></p>
 										                    </div>
 										                </div>
@@ -584,7 +576,7 @@
 									<input type="hidden" name="post_type">
 										<div class="form-body">
 											<div class="row">																				
-												<div class="col-md-8" style="padding:0;">
+												<div class="col-md-8" style="padding: 0 8px 0 15px;">
 													<!-- BEGIN PORTLET -->
 													
 													<!-- END PORTLET -->
@@ -659,10 +651,10 @@
 										                                </tr>
 										                                <tr class="table-row-bg">
 										                                    <td>
-										                                         Salary
+										                                        Expected Salary
 										                                    </td>
 										                                    <td>
-										                                         <p class="form-control-static" data-display="min_sal"></p> (<p class="form-control-static" data-display="salary_type"></p>)
+										                                        <i class="fa fa-rupee (alias)"></i> <p class="form-control-static" data-display="min_sal"></p> (<p class="form-control-static" data-display="salary_type"></p>)
 										                                    </td>
 										                                </tr>
 										                            </tbody>
@@ -689,19 +681,16 @@
 										                <div class="portlet-title">
 										                    <div class="caption caption-md">
 										                        <i class="icon-bar-chart theme-font hide"></i>
-										                        <span class="caption-subject font-blue-madison bold uppercase">About Compnay</span>
+										                        <span class="caption-subject font-blue-madison bold uppercase">About Me</span>
 										                    </div>
 										                </div>
 										                <div class="portlet-body">
-										                	<p class="form-control-static" data-display="post_compname" style="font-size:16px;"></p><br/>
-										                	Reference Id - <p class="form-control-static" data-display="reference_id"></p><br/>
-										                    Details - <p class="form-control-static" data-display="about_company"></p>
+										                    <p class="form-control-static" data-display="about_company"></p>
 										                </div>
 										            </div>
-										            <!-- END PORTLET -->		
-													<div class="g-recaptcha" data-sitekey="{{ env('RE_CAP_SITE') }}" style="float: none;margin: 7px auto;display: table;"></div>	
+										            <!-- END PORTLET -->	
 												</div>
-												<div class="col-md-4" style="    margin: 7px 0 0px 0;">
+												<div class="col-md-4" style="margin: 7px 0 0px 0;padding: 0 15px 0 0px;">
 												    <div class="company-card" style="background-color: white;">
 												        <div class="company-card-image">
 												            <span>Posted By</span>
@@ -727,8 +716,8 @@
 												        	
 												        	<div class="row show-apply-email" style="margin:0 10px">
 														        <div class="col-md-12 ">
-															        <div class="form-group">
-															            <label>Show Contact: <span class="required">
+															        <div class="form-group" style="margin-bottom: 0px;">
+															            <label style="color:#eee;">Show Contact: <span class="required">
 															                    * </span></label>
 															            <p class="form-control-static" data-display="show_contact"></p>
 															            
@@ -737,16 +726,16 @@
 															</div>
 															<div class="row show-apply-email" style="margin:0 10px">
 												                <div class="col-md-12 col-sm-12">
-												                    <div class="form-group">
-												                        <label>Email Id: </label>
+												                    <div class="form-group" style="margin-bottom: 0px;">
+												                        <label style="color:#eee;">Email Id: </label>
 												                         <p class="form-control-static" data-display="email_id"></p>
 												                    </div>
 												                </div>
 												                <!--/span-->
 												                <!-- <div class="col-md-2"></div> -->
 												                <div class="col-md-12 col-sm-12">
-												                    <div class="form-group">
-												                        <label>Phone No: </label>
+												                    <div class="form-group" style="margin-bottom: 0px;">
+												                        <label style="color:#eee;">Phone No: </label>
 												                         <p class="form-control-static" data-display="phone"></p>
 												                    </div>
 												                </div>
@@ -757,6 +746,7 @@
 												</div>
 											</div>
 										</div>
+										<div class="g-recaptcha" data-callback="enableBtnskill" data-sitekey="{{ env('RE_CAP_SITE') }}" style="float: none;margin: 7px auto;display: table;"></div>	
 									</div>
 								</div>
 							<div class="form-actions">
@@ -770,7 +760,7 @@
 									<!-- <a href="javascript:;" class="btn green ">
 									Submit <i class="m-icon-swapright m-icon-white"></i>
 									</a> -->
-									<button type="submit" class=" btn blue button-submit">Submit</button>
+									<button type="submit" id="postjob_id" class=" btn blue button-submit">Submit</button>
 								</div>
 							</div>
 						</div>
@@ -795,6 +785,12 @@
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip(); 
 });
+
+document.getElementById("postjob_id").disabled = true;
+
+ function enableBtnskill(){
+    document.getElementById("postjob_id").disabled = false;
+   }
 </script>
 <script type="text/javascript">
 	$(".education-list").select2({

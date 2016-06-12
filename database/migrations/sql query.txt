@@ -126,3 +126,8 @@ ALTER TABLE `postactivities`
 ALTER TABLE `indusers`
 	ADD COLUMN `address_1` VARCHAR(255) NULL DEFAULT NULL AFTER `functional_area`,
 	ADD COLUMN `address_2` VARCHAR(255) NULL DEFAULT NULL AFTER `address_1`;
+
+
+ALTER TABLE `corpusers`
+	CHANGE COLUMN `firm_address` `address_1` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8_unicode_ci' AFTER `about_firm`,
+	ADD COLUMN `address_2` VARCHAR(255) NULL DEFAULT NULL AFTER `address_1`;

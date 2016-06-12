@@ -25,7 +25,7 @@
 	</ul>
 </div>
 <!-- END PAGE BREADCRUMB -->
-<div class="row margin-top-10">
+<div class="row">
 	<div class="col-md-12">
 		<!-- BEGIN PROFILE SIDEBAR -->
 		<div class="profile-sidebar" style="width: 250px;">
@@ -103,29 +103,36 @@
 							<i class="icon-home"></i>
 							Overview </a>
 						</li>
+
 						@if(Auth::user()->identifier == 1)
-						<li>
-							<a href="/individual/edit">
-							<i class="icon-settings"></i>
-							Profile Edit </a>
-						</li>
-						@else
-						<li>
-							<a href="/corporate/edit">
-							<i class="icon-settings"></i>
-							Profile Edit </a>
-						</li>
+							@if(Auth::user()->induser_id == $user->id)
+							<li>
+								<a href="/individual/edit">
+								<i class="icon-settings"></i>
+								Profile Edit </a>
+							</li>
+							@endif
+						@elseif(Auth::user()->identifier == 2)
+							@if(Auth::user()->corpuser_id == $user->id)
+							<li>
+								<a href="/corporate/edit">
+								<i class="icon-settings"></i>
+								Profile Edit </a>
+							</li>
+							@endif
 						@endif
+						@if(Auth::user()->corpuser_id == $user->id)
 						<li>
-							<a href="page_todo.html" target="_blank">
+							<a href="/mypost" target="_blank">
 							<i class="icon-check"></i>
 							Myactivity </a>
 						</li>
-						<li>
+						@endif
+						<!-- <li>
 							<a href="extra_profile_help.html">
 							<i class="icon-info"></i>
 							Help </a>
-						</li>
+						</li> -->
 					</ul>
 				</div>
 				<!-- END MENU -->
@@ -272,17 +279,15 @@
 				<!-- END STAT -->
 				
 				@if($utype == 'ind')
-				<div>
+				<div class="row">
 					@if($user->in_page != null)
-					<div class="margin-top-20 profile-desc-link">
-						<i class="fa fa-linkedin"></i>
-						<a href="{{$user->in_page}}">{{$user->in_page}}</a>
+					<div class="col-md-3 col-sm-3 col-xs-3 margin-top-10 profile-desc-link">
+						<a href="{{$user->in_page}}" target="_blank;"><i class="fa fa-linkedin" style="color:#00aced;"></i></a>
 					</div>
 					@endif
 					@if($user->fb_page != null)
-					<div class="margin-top-20 profile-desc-link">
-						<i class="fa fa-facebook"></i>
-						<a href="{{$user->fb_page}}">{{$user->fb_page}}</a>
+					<div class="col-md-3 col-sm-3 col-xs-3 margin-top-10 profile-desc-link">
+						<a href="{{$user->fb_page}}" target="_blank;"><i class="fa fa-facebook" style="color:#3b5998;"></i></a>
 					</div>
 					@endif
 				</div>
@@ -299,16 +304,14 @@
 						<i class="icon-like theme-font"></i>
 						<span class="caption-subject font-blue-madison bold uppercase">Thanks Received </span> <span class="thank-sidebar-badge">{{count($thanks)}}</span>
 					</div>
-					<script type="text/javascript">
-						$(".collapse").collapse('hide');
-					</script>
+
 					<div class="tools">
 						<a href="javascript:;" class="collapse collapsed" data-toggle="collapse" aria-expanded="false">
 						</a>
 					</div>
 				</div>
 				<div class="portlet-body">
-					<div class="scroller" style="height: 320px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+					<div class="scroller" style="height: 200px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
 						@foreach($thanks as $not)
 							
 							<div class="row" style="border-bottom: 1px solid #eee;padding: 5px 0 10px 0;">
@@ -339,7 +342,7 @@
 		</div>
 		<div class="profile-content">
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-6" style="padding: 0 0px 0 15px;">
 					<!-- BEGIN PORTLET -->
 					<div class="portlet light ">
 						<div class="portlet-title">
@@ -362,20 +365,18 @@
 								<div class="caption caption-md">
 									<i class="icon-bar-chart theme-font hide"></i>
 									<span class="caption-subject font-blue-madison bold uppercase">About Firm</span>
-									<span class="caption-helper hide">weekly stats...</span>
+									<span class="caption-helper capitalize"><span class="label-success" style="color: white;padding: 0 4px;font-size: 12px;border-radius: 3px;">{{ $user->firm_type}}</span></span>
 								</div>
-								<div class="capitalize"><span class="label-success" style="color:white;">{{ $user->firm_type}}</span></div>
 							 @else
 								<div class="caption caption-md">
 									<i class="icon-bar-chart theme-font hide"></i>
 									<span class="caption-subject font-blue-madison bold uppercase">About {{$user->firm_name}}</span>
-									<span class="caption-helper hide">weekly stats...</span>
+									<span class="caption-helper capitalize"><span class="label-success" style="color: white;padding: 0 4px;font-size: 12px;border-radius: 3px;">{{ $user->firm_type}}</span></span>
 								</div>
-								<div class="capitalize">{{ $user->firm_type }}</div>
 							 @endif
 							@endif
 						</div>
-						<div class="portlet-body">
+						<div class="portlet-body" >
 							<p style="margin-bottom: 25px;">
 								@if($utype == 'ind')
 									@if($user->about_individual != null)
@@ -480,7 +481,7 @@
 				</div>
 				@if($utype == 'ind')
 				
-				<div class="col-md-6">
+				<div class="col-md-6" style="padding: 0 15px 0 8px;">
 					<!-- BEGIN PORTLET -->
 					<div class="portlet light">
 						<div class="portlet-title tabbable-line">
@@ -489,15 +490,15 @@
 								<span class="caption-subject font-blue-madison bold uppercase">Professional Details</span>
 							</div>
 						</div>
-						<div class="portlet-body">
+						<div class="portlet-body" >
 							<div class="form-body">
-								@if($user->role != null || $user->resume != null || $user->linked_skill != null)
+								@if(Auth::user()->induser_id == $user->id && $user->role != null || $user->resume != null || $user->linked_skill != null)
 								<div class="row">
-									@if(Auth::user()->id == $user->id)
-									<div class="col-md-12 col-sm-12 col-xs-12" style="padding:0;">
-										<div class="form-group">
-											<label class="control-label col-md-6 col-xs-6" style="font-weight: 600;">Industry</label>							
-											<div class="col-md-6 col-xs-6"> 
+									@if(Auth::user()->induser_id == $user->id)
+									<div class="col-md-12 col-sm-12 col-xs-12" style="">
+										<div class="form-group" style="margin-bottom: 0;">
+											<label class="control-label " style="font-weight: 600;">Industry</label>							
+											<div class=""> 
 												<p class="form-control-static view-page">
 													@if($user->industry != null)
 													{{ $user->industry }}
@@ -509,10 +510,10 @@
 										</div>
 									</div>
 									@elseif($user->industry != null && Auth::user()->induser_id != $user->id)
-									<div class="col-md-12 col-sm-12 col-xs-12" style="padding:0;">
-										<div class="form-group">
-											<label class="control-label col-md-6 col-xs-6" style="font-weight: 600;">Industry</label>							
-											<div class="col-md-6 col-xs-6">
+									<div class="col-md-12 col-sm-12 col-xs-12" style="">
+										<div class="form-group" style="margin-bottom: 0;">
+											<label class="control-label " style="font-weight: 600;">Industry</label>							
+											<div class="">
 												<p class="form-control-static view-page">
 													@if($user->industry != null)
 													{{ $user->industry }}
@@ -527,10 +528,10 @@
 									@endif
 									<!--/span-->
 									@if(Auth::user()->induser_id == $user->id)
-									<div class="col-md-12 col-sm-12 col-xs-12" style="padding:0;">
-										<div class="form-group">
-											<label class="control-label col-md-6 col-xs-6" style="font-weight: 600;">Functional Area</label>
-											<div class="col-md-6 col-xs-6">
+									<div class="col-md-12 col-sm-12 col-xs-12" style="">
+										<div class="form-group" style="margin-bottom: 0;">
+											<label class="control-label " style="font-weight: 600;">Functional Area</label>
+											<div class="">
 												<p class="form-control-static view-page">
 													@if($user->functional_area != null)
 													{{$user->functional_area}}
@@ -542,10 +543,10 @@
 										</div>
 									</div>
 									@elseif($user->functional_area != null && Auth::user()->induser_id != $user->id)
-									<div class="col-md-12 col-sm-12 col-xs-12" style="padding:0;">
-										<div class="form-group">
-											<label class="control-label col-md-6 col-xs-6" style="font-weight: 600;">Functional Area</label>
-											<div class="col-md-6 col-xs-6">
+									<div class="col-md-12 col-sm-12 col-xs-12" style="">
+										<div class="form-group" style="margin-bottom: 0;">
+											<label class="control-label " style="font-weight: 600;">Functional Area</label>
+											<div class="">
 												<p class="form-control-static view-page">
 													@if($user->functional_area != null)
 													{{$user->functional_area}}
@@ -563,10 +564,10 @@
 								<!--/row-->
 								<div class="row">
 									@if(Auth::user()->induser_id == $user->id)
-									<div class="col-md-12 col-sm-12 col-xs-12" style="padding:0;">
-										<div class="form-group">
-											<label class="control-label col-md-6 col-xs-6" style="font-weight: 600;">Role</label>
-											<div class="col-md-6 col-xs-6">
+									<div class="col-md-12 col-sm-12 col-xs-12" style="">
+										<div class="form-group" style="margin-bottom: 0;">
+											<label class="control-label" style="font-weight: 600;">Role</label>
+											<div class="">
 												<p class="form-control-static view-page">
 													@if($user->role != null)
 													{{ $user->role }}
@@ -578,10 +579,10 @@
 										</div>
 									</div>
 									@elseif($user->role != null && Auth::user()->induser_id != $user->id)
-									<div class="col-md-12 col-sm-12 col-xs-12" style="padding:0;">
-										<div class="form-group">
-											<label class="control-label col-md-6 col-xs-6" style="font-weight: 600;">Role</label>
-											<div class="col-md-6 col-xs-6">
+									<div class="col-md-12 col-sm-12 col-xs-12" style="">
+										<div class="form-group" style="margin-bottom: 0;">
+											<label class="control-label" style="font-weight: 600;">Role</label>
+											<div class="">
 												<p class="form-control-static view-page">
 													@if($user->role != null)
 													{{ $user->role }}
@@ -600,10 +601,10 @@
 								<!--/row-->
 								<div class="row" style="margin-bottom: 20px;">
 									@if(Auth::user()->induser_id == $user->id)
-									<div class="col-md-12 col-sm-12 col-xs-12" style="padding:0;">
-										<div class="form-group">
-											<label class="control-label col-md-6 col-xs-6" style="font-weight: 600;">Skills</label>
-											<div class="col-md-6 col-xs-6">
+									<div class="col-md-12 col-sm-12 col-xs-12" style="">
+										<div class="form-group" style="margin-bottom: 0;">
+											<label class="control-label" style="font-weight: 600;">Skills</label>
+											<div class="">
 												<p class="form-control-static view-page">
 													
 													@if($user->linked_skill != null)
@@ -616,10 +617,10 @@
 										</div>
 									</div>
 									@elseif($user->linked_skill != null && Auth::user()->induser_id != $user->id)
-									<div class="col-md-12 col-sm-12 col-xs-12" style="padding:0;">
-										<div class="form-group">
-											<label class="control-label col-md-6 col-xs-6" style="font-weight: 600;">Skills</label>
-											<div class="col-md-6 col-xs-6">
+									<div class="col-md-12 col-sm-12 col-xs-12" style="">
+										<div class="form-group" style="margin-bottom: 0;">
+											<label class="control-label" style="font-weight: 600;">Skills</label>
+											<div class="">
 												<p class="form-control-static view-page">
 													
 													@if($user->linked_skill != null)
@@ -635,7 +636,13 @@
 									<!--/span-->
 								</div>
 									<!-- /row -->
-								@else
+								@elseif(Auth::user()->induser_id == $user->id && $user->role == null || $user->resume == null || $user->linked_skill == null)
+								<div class="row">
+									<div class="col-md-12">
+										Please add add Professional Details.
+									</div>
+								</div>
+								@elseif(Auth::user()->induser_id != $user->id && $user->role == null || $user->resume == null || $user->linked_skill == null)
 								<div class="row">
 									<div class="col-md-12">
 										{{$user->fname}} has not added any Professional Details.
@@ -648,7 +655,8 @@
 					</div>
 					<!-- END PORTLET -->
 				</div>
-				<div class="col-md-6">
+				
+				<div class="col-md-6" style="padding: 0 0px 0 15px;">
 					<!-- BEGIN PORTLET -->
 					<div class="portlet light">
 						<div class="portlet-title tabbable-line">
@@ -657,7 +665,7 @@
 								<span class="caption-subject font-blue-madison bold uppercase">Preferences</span>
 							</div>
 						</div>
-						<div class="portlet-body">
+						<div class="portlet-body" >
 							<div class="form-body">
 								@if($user->prefered_jobtype != null || $user->prefered_location != null)
 								<div class="row">
@@ -698,18 +706,34 @@
 									</div>
 									@elseif($user->prefered_location != null && Auth::user()->induser_id != $user->id)
 									<div class="col-md-12 col-sm-12 col-xs-12">
-										<div class="form-group">
+										<div class="form-group" style="margin-bottom: 0;">
 											<p class="form-control-static view-page">
 												@if($user->prefered_jobtype != null)
-												Looking for {{ $user->prefered_jobtype }} Job in 
-													
+													Looking for <span class="static-details">{{ $user->prefered_jobtype }}</span> Job in 
 													@if($user->prefered_location != null)
-														{{$user->prefered_location}}
+														<span class="static-details">{{$user->prefered_location}}</span>.
 													@endif
 												@else
 												{{$user->fname}} has not added Preferred Location
 												 @endif
 											</p>
+										</div>
+									</div>
+									<div class="col-md-12 col-sm-12 col-xs-12">
+										<div class="form-group" style="margin-bottom: 38px;">
+											
+											<!-- <div class="col-md-12 col-xs-12"> -->
+												<p class="form-control-static view-page">
+													@if($user->candidate_availablity != null && $user->candidate_availablity != '0')
+													{{$user->fname}} can join in <span class="static-details">{{ $user->candidate_availablity }} days</span>.
+													@elseif($user->candidate_availablity != null && $user->candidate_availablity == '0')
+													<!-- I am available Immediately available to work. -->	
+													{{$user->fname}} can join <span class="static-details">Immediately</span>.
+													@else
+													 {{$user->fname}} has not added Preferred Location
+												 	@endif
+												</p>
+											<!-- </div> -->
 										</div>
 									</div>
 									@elseif($user->prefered_location == null && $user->prefered_jobtype != null && Auth::user()->induser_id != $user->id)
@@ -722,19 +746,25 @@
 									</div>
 									@endif
 								</div>
-								@elseif($user->prefered_jobtype == null && $user->prefered_location == null)
+								@elseif(Auth::user()->induser_id != $user->id && $user->prefered_jobtype == null && $user->prefered_location == null)
 								<div class="row">
-										<div class="col-md-12">
-											{{$user->fname}} has not added any Preferences.
-										</div>
+									<div class="col-md-12">
+										{{$user->fname}} has not added any Preferences.
 									</div>
+								</div>
+								@elseif(Auth::user()->induser_id == $user->id && $user->prefered_jobtype == null && $user->prefered_location == null)
+								<div class="row">
+									<div class="col-md-12">
+										Please add Preferences.
+									</div>
+								</div>
 								@endif
 							</div>
 						</div>
 					</div>
 					<!-- END PORTLET -->
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-6" style="padding: 0 15px 0 8px;">
 					<!-- BEGIN PORTLET -->
 					<div class="portlet light">
 						<div class="portlet-title tabbable-line">
@@ -743,7 +773,7 @@
 								<span class="caption-subject font-blue-madison bold uppercase">Contact</span>
 							</div>
 						</div>
-						<div class="portlet-body">
+						<div class="portlet-body" >
 							<!-- BEGIN FORM-->
 							<div class="form-body">
 								@if(Auth::user()->induser_id == $user->id)
@@ -753,7 +783,11 @@
 											<label class="control-label col-md-2 col-sm-2 col-xs-2" style="font-size:13px;"><i class="fa fa-envelope-o"></i></label>
 											<div class="col-md-10 col-sm-10 col-xs-10">
 												<p class="form-control-static view-page">
+													@if($user->user->email != null)
 													{{ $user->user->email }} 
+													@else
+													<a href="/individual/edit">Add Email Id</a>
+													@endif
 													@if($user->user->email_verify == 0 && $user->user->email != null)
 													<a>
 														<i class="fa fa-exclamation-circle" 
@@ -771,7 +805,11 @@
 											<label class="control-label col-md-2 col-sm-2 col-xs-2"><i class="icon-call-end"></i> </label>
 											<div class="col-md-10 col-sm-10 col-xs-10" >
 												<p class="form-control-static view-page">
+													@if($user->user->mobile != null)
 													{{ $user->user->mobile }} 
+													@else
+													<a href="/individual/edit">Add Phone No</a>
+													@endif
 													@if($user->user->mobile_verify == 0 && $user->user->mobile != null)
 													<a>
 														<i class="fa fa-exclamation-circle" 
@@ -798,9 +836,11 @@
 											</div>
 										</div>
 										<div class="row">
-											<a class="btn green contact-view">
-												<i class="glyphicon glyphicon-earphone" style="font-size:11px;"></i> Contact
-											</a>
+											<div class="col-md-12" style="margin-bottom: 34px;">
+												<a class="btn green contact-view">
+													<i class="glyphicon glyphicon-earphone" style="font-size:11px;"></i> Contact
+												</a>
+											</div>
 										</div>
 										@if(Auth::user()->induser_id != $user->id && $user->email_show == 'None' && $user->mobile_show == 'None')
 											<div class="form-group">
@@ -812,49 +852,7 @@
 												</div>
 											</div>
 										@endif
-										@if($connectionStatus == 'friend' && Auth::user()->induser_id != $user->id && $user->dob_show == 'Links')
-										<!-- <div class="col-md-12 col-sm-12 col-xs-12"> -->
-											<div class="form-group">
-												<label class="control-label col-md-2 col-sm-2 col-xs-2" style="font-size:13px;"><i class="fa fa-envelope-o"></i> </label>
-												<div class="col-md-10 col-sm-10 col-xs-10" >
-													<p class="form-control-static view-page">
-														{{ $user->user->email }} 
-														@if($user->user->email_verify == 0)
-														<a>
-															<i class="fa fa-exclamation-circle" 
-															style="color: #cb5a5e;"></i>
-														</a>
-														@elseif($user->user->email_verify == 1)
-															<i class="glyphicon glyphicon-ok-circle" style="color: #1EC71E;"></i>
-														@endif
-													</p>
-												</div>
-											</div>
-										<!-- </div> -->
-										@elseif(Auth::user()->induser_id != $user->id && $user->email_show == 'None')
-										@endif
-									<!--/span-->
-										@if($connectionStatus == 'friend' && Auth::user()->induser_id != $user->id && $user->dob_show == 'Links')
-										<!-- <div class="col-md-12 col-sm-12 col-xs-12"> -->
-											<div class="form-group">
-												<label class="control-label col-md-2 col-sm-2 col-xs-2"><i class="icon-call-end"></i> </label>
-												<div class="col-md-10 col-sm-10 col-xs-10">
-													<p class="form-control-static view-page">
-														{{ $user->user->mobile }} 
-														@if($user->user->mobile_verify == 0)
-														<a>
-															<i class="fa fa-exclamation-circle" 
-															style="color: #cb5a5e;font-size: 16px;"></i>
-														</a>
-														@elseif($user->user->mobile_verify == 1)
-															<i class="glyphicon glyphicon-ok-circle" style="color: #1EC71E;font-size: 16px;"></i>
-														@endif
-													</p>
-												</div>
-											</div>
-										@elseif(Auth::user()->induser_id != $user->id && $user->mobile_show == 'None' )
 										
-										@endif
 									@elseif(Auth::user()->induser_id != $user->id && $user->mobile_show == 'None' || $user->email_show == 'None')
 									{{$user->fname }} has made Contact Details Private
 									@endif
@@ -885,7 +883,7 @@
 					</div>
 					<!-- END PORTLET -->
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-6" style="padding: 0 0px 0 15px;">
 					<!-- BEGIN PORTLET -->
 					<div class="portlet light">
 						<div class="portlet-title tabbable-line">
@@ -977,7 +975,7 @@
 					<!-- END PORTLET -->
 				</div>
 				@if(Auth::user()->induser_id == $user->id && Auth::user()->identifier == 1 && $utype == 'ind')
-				<div class="col-md-6 col-sm-6">
+				<div class="col-md-6 col-sm-6" style="padding: 0 15px 0 8px;">
 					<!-- BEGIN PORTLET-->
 					<div class="portlet light">
 						<div class="portlet-title tabbable-line">
@@ -1010,11 +1008,11 @@
 													    $unmatchedPost = array_diff($taggedpostSkillArr, $userSkillArr);
 													?>
 													<label class="tagged-title" style="cursor: pointer;">@if($tp->post_type == 'job')
-														<small class="badge badge-success capitalize tagged-job-postype" style="font-size: 12px;border-radius: 3px;padding: 2px 5px; color: white;">
+														<small class="badge badge-success capitalize tagged-job-postype" style="font-size: 12px;border-radius: 3px;padding: 2px 5px; color: white;    background-color: #45B6AF;">
 																job
 															</small>
 															@elseif($tp->post_type == 'skill')
-															<small class="badge badge-primary capitalize tagged-skill-postype" style="font-size: 12px;border-radius: 3px;padding: 2px 5px; color: white;">
+															<small class="badge badge-primary capitalize tagged-skill-postype" style="font-size: 12px;border-radius: 3px;padding: 2px 5px; color: white;    background-color: #428bca;">
 																skill
 															</small>
 															@endif
@@ -1063,7 +1061,7 @@
 							<div class="form-body">
 								<div class="row">
 									@if($user->industry != null && Auth::user()->corpuser_id == $user->id)
-									<div class="col-md-6 col-sm-6 col-xs-12">
+									<div class="col-md-12 col-sm-12 col-xs-12" style="padding: 26px 0;">
 										<div class="form-group">
 											<label class="control-label col-md-4 col-xs-6">Industry:</label>
 											<div class="col-md-6 col-xs-6">
@@ -1078,7 +1076,7 @@
 										</div>
 									</div>
 									@elseif($user->industry != null && Auth::user()->corpuser_id != $user->id)
-									<div class="col-md-6 col-sm-6 col-xs-12">
+									<div class="col-md-12 col-sm-12 col-xs-12" style="padding: 26px 0;">
 										<div class="form-group">
 											<label class="control-label col-md-4 col-xs-6">Industry:</label>
 											<div class="col-md-6 col-xs-6">
@@ -1101,6 +1099,90 @@
 						</div>
 					</div>
 				</div>
+				<div class="col-md-6">
+					<!-- BEGIN PORTLET -->
+					<div class="portlet light">
+						<div class="portlet-title tabbable-line">
+							<div class="caption caption-md">
+								<i class="icon-globe theme-font hide"></i>
+								<span class="caption-subject font-blue-madison bold uppercase">Contact</span>
+							</div>
+						</div>
+						<div class="portlet-body">
+							<!-- BEGIN FORM-->
+							<div class="form-body">
+								@if(Auth::user()->corpuser_id == $user->id)
+								<div class="row" >
+									<!-- <div class="col-md-12 col-sm-12 col-xs-12"> -->
+										<div class="form-group">
+											<label class="control-label col-md-2 col-sm-2 col-xs-2" style="font-size:13px;"><i class="fa fa-envelope-o"></i></label>
+											<div class="col-md-10 col-sm-10 col-xs-10">
+												<p class="form-control-static view-page">
+													{{ $user->user->email }} 
+													@if($user->user->email_verify == 0 && $user->user->email != null)
+													<a>
+														<i class="fa fa-exclamation-circle" 
+														style="color: #cb5a5e;"></i>
+													</a>
+													@elseif($user->user->email_verify == 1)
+													<button type="button" class="btn btn-default" style="background-color:transparent;border:0;padding: 0;" data-toggle="tooltip" data-placement="top" title="Verified">
+														<i class="glyphicon glyphicon-ok-circle" style="color: #1EC71E;"></i>
+													</button>
+													@endif
+												</p>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-2 col-sm-2 col-xs-2"><i class="icon-call-end"></i> </label>
+											<div class="col-md-10 col-sm-10 col-xs-10" >
+												<p class="form-control-static view-page">
+													{{ $user->user->mobile }} 
+													@if($user->user->mobile_verify == 0 && $user->user->mobile != null)
+													<a>
+														<i class="fa fa-exclamation-circle" 
+														style="color: #cb5a5e;font-size: 16px;"></i>
+													</a>
+													@elseif($user->user->mobile_verify == 1)
+														<i class="glyphicon glyphicon-ok-circle" style="color: #1EC71E;font-size: 16px;"></i>
+													@endif
+												</p>
+											</div>
+										</div>
+									</div>
+									@endif
+									@if(Auth::user()->corpuser_id != $user->id && $user->email_show == 'Everyone' && $user->mobile_show == 'Everyone')
+										<div class="row show-contact" style="">
+									        <div class="col-md-8 col-sm-8 col-xs-12" style="padding:0 !important;margin: 5px 0;">
+												<i class="fa fa-envelope"></i> : {{$user->email}}<br>
+												<i class="fa fa-phone-square"></i> : {{$user->mobile}}
+											</div>
+										</div>
+										<div class="row">
+											<a class="btn green contact-view">
+												<i class="glyphicon glyphicon-earphone" style="font-size:11px;"></i> Contact
+											</a>
+										</div>
+										@if(Auth::user()->corpuser_id != $user->id && $user->email_show == 'None' && $user->mobile_show == 'None')
+											<div class="form-group">
+												<label class="control-label col-md-2 col-sm-2 col-xs-2" style="font-size:13px;"><i class="fa fa-envelope-o"></i> </label>
+												<div class="col-md-10 col-sm-10 col-xs-10" >
+													<p class="form-control-static view-page">
+														{{$user->fname}} {{$user->lname}} has kept Contact detail private.
+													</p>
+												</div>
+											</div>
+										@endif
+										
+									<!--/span-->
+										
+									@elseif(Auth::user()->corpuser_id != $user->id && $user->mobile_show == 'None' || $user->email_show == 'None')
+									{{$user->fname }} has made Contact Details Private
+									@endif
+							</div>
+						</div>
+					</div>
+					<!-- END PORTLET -->
+				</div>
 				@endif
 			</div>
 		</div>
@@ -1112,6 +1194,12 @@
 @javascript
 <script src="/assets/admin/pages/scripts/profile.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
+<script type="text/javascript">
+					// $('.collapse').collapse({
+					//   toggle: true
+					// });
+						// $(".collapse").collapse('hide');
+					</script>
 <script>
 jQuery(document).ready(function() {       
    // initiate layout and plugins

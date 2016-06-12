@@ -88,10 +88,11 @@ class SkillController extends Controller {
                 ->withInput();
         }
 		        
-		if(Auth::user()->identifier == 1)
+		if(Auth::user()->identifier == 1){
 			$request['individual_id'] = Auth::user()->induser_id;
-		else
-			$request['corporate_id'] = Auth::user()->corpuser_id;
+		}
+			
+		
 		$request['post_type'] = 'skill';
 		
 		// $skillIds = explode(',', $request['linked_skill_id']);

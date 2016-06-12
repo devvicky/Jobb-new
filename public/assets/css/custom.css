@@ -1448,7 +1448,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 
 .select2-container {
     width: 100% !important;
-    /*z-index: 99999999 !important;*/
+    /*z-index: 999999 !important;*/
 }
 
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
@@ -3087,15 +3087,16 @@ h3.page-header-post {
     border: 1px solid white !important;
 }
 
-
-.dropdown-menu-sharepost{
-    left: -28px !important;
+.dropdown-menu-sharepost {
+    left: 3px !important;
+    min-width: 90px;
+    background-color: #eee !important;
 }
 
 .dropdown > .dropdown-menu-sharepost:before, .dropdown-toggle > .dropdown-menu-sharepost:before, .btn-group > .dropdown-menu-sharepost:before {
     position: absolute;
     top: -8px;
-    left: 70px;
+    left: 47px;
     right: auto;
     display: inline-block !important;
     border-right: 8px solid transparent;
@@ -3107,7 +3108,7 @@ h3.page-header-post {
 .dropdown > .dropdown-menu-sharepost:after, .dropdown-toggle > .dropdown-menu-sharepost:after, .btn-group > .dropdown-menu-sharepost:after {
     position: absolute;
     top: -7px;
-    left: 70px;
+    left: 47px;
     right: auto;
     display: inline-block !important;
     border-right: 7px solid transparent;
@@ -3116,6 +3117,9 @@ h3.page-header-post {
     content: '';
 }
 
+i.email-hover:hover {
+    margin: -3px -5px;
+}
 
 .badge-like-detail {
     position: absolute !important;
@@ -3848,6 +3852,17 @@ a.collapse {
     color: #428bca;
 }
 
+.welcome-font-size {
+    /*font-size: 65px !important;*/
+    color: rgba(102, 102, 102, 0.71);
+    /*margin-top: 40px;*/
+}
+
+.welcome-font-size:hover {
+    color: #428bca;
+}
+
+
 .feature h2 {
     margin-top: 15px;
     margin-bottom: 25px;
@@ -4006,7 +4021,7 @@ label.tagged-company {
     border-left: 9px solid #428BCA;
     position: absolute;
     top: 16px;
-    left: 57.9px;
+    left: 56.9px;
 }
 
 .tagged-job-postype{
@@ -4125,3 +4140,29 @@ label {
     margin: -10px 0;
     /* border-radius: 100% !important; */
 }
+
+.form-control-static-msg {
+    margin: 2px 0;
+    display: inline-block;
+}
+.form-control-static-msg {
+    min-height: 34px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    margin-bottom: 0;
+}
+
+.other::-webkit-input-placeholder {  color: white !important; }
+.other::-moz-placeholder {  color: white !important; }
+.other:-ms-input-placeholder {  color: white !important; }
+.other:-moz-placeholder {  color: white !important; }
+
+.subscribe::-webkit-input-placeholder {  color: #a2abb7 !important; }
+.subscribe::-moz-placeholder {  color: #a2abb7 !important; }
+.subscribe:-ms-input-placeholder {  color: #a2abb7 !important; }
+.subscribe:-moz-placeholder {  color: #a2abb7 !important; }
+
+/*.other ::-webkit-input-placeholder { font-size: 12pt; color: red; }
+.other ::-moz-placeholder { font-size: 12pt; color: red; }
+.other :-ms-input-placeholder { font-size: 12pt; color: red; }
+.other input:-moz-placeholder { font-size: 12pt; color: red; }*/

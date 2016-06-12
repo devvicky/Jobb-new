@@ -28,8 +28,8 @@
 			<div class="col-md-3 col-sm-6 col-xs-12 footer-block">
 				<h2>Contacts</h2>
 				<address class="margin-bottom-40">
-				Phone:+91 8686 150 130<br>
-				 Email: <a href="mailto:info@metronic.com">info@jobtip.in</a>
+				Phone: <span style="color:#ddd;">+91 8686 150 130</span><br>
+				 Email: <a href="mailto:info@metronic.com" style="color:#ddd !important;">info@jobtip.in</a>
 				</address>
 			</div>
 		</div>

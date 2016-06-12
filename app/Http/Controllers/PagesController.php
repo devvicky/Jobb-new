@@ -41,16 +41,15 @@ class PagesController extends Controller {
 						   ->with('indUser', 'corpUser')
 						   ->where('post_type', '=', 'skill')->take(5)->get();
 		$companyAccounts = Corpuser::orderBy('id', 'desc')
-								   ->with('user')
 								   ->where('logo_status', '!=', 'null')
-								   ->take(6)->get();
+								   ->take(8)->get();
 		$userAccounts = Induser::orderBy('id', 'desc')
-								   ->with('user')
 								   ->where('profile_pic', '!=', 'null')
-								   ->take(3)->get();
+								   ->where('about_individual', '!=', 'null')
+								   ->take(2)->get();
 		// $jobPosts->get();
 		// $skillPosts->get();
-		return view('pages.index', compact('title', 'jobPosts', 'skillPosts', 'companyAccounts', 'userAccounts'));
+		return view('pages.welcome', compact('title', 'jobPosts', 'skillPosts', 'companyAccounts', 'userAccounts'));
 	}
 
 	public function about(){
@@ -457,20 +456,18 @@ class PagesController extends Controller {
   	public function notification($type, $utype, $id){
         $title = $type;
 
-
-        if($utype == 'ind'){
-	        if($type == 'notification'){
-	        	$notificationCount = Notification::where('to_user', '=', Auth::user()->id)->get();
+        $notificationList = Notification::with('fromUser', 'toUser')->where('to_user', '=', Auth::user()->id)
+										     ->orderBy('id', 'desc')->paginate(20);
+		$notificationCount = Notification::where('to_user', '=', Auth::user()->id)->get();
 				
 	        	foreach ($notificationCount as $not ) {
 	        		$not->view_status = 1;
 					$not->save();
 	        	}
 
-	            $notificationList = Notification::with('fromUser', 'toUser')->where('to_user', '=', Auth::user()->id)
-										     ->orderBy('id', 'desc')->paginate(20);
-				
-				
+        if($utype == 'ind'){
+	        if($type == 'notification'){
+	        	
 
 			}elseif($type == 'thanks'){
 	            $notificationList = Postactivity::with('user', 'post')
@@ -1470,16 +1467,12 @@ public function homecorpSkillFilter(){
 			$jobPosts = Postjob::orderBy('id', 'desc')							
 							->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 							->where('post_type', '=', 'job')
-							->where('individual_id', '!=', Auth::user()->induser_id)
-							->where('postjobs.inactive', '=', 0)
 							->whereRaw('id in (select post_id from postactivities where user_id = '.Auth::user()->id.' and fav_post = 1)')
 							->paginate(15);
 			
 			$skillPosts = Postjob::orderBy('id', 'desc')							
 							->with('indUser', 'corpUser', 'postActivity', 'taggedUser', 'taggedGroup')
 							->where('post_type', '=', 'skill')
-							->where('individual_id', '!=', Auth::user()->induser_id)
-							->where('postjobs.inactive', '=', 0)
 							->whereRaw('id in (select post_id from postactivities where user_id = '.Auth::user()->id.' and fav_post = 1)')
 							->paginate(15);	
 			
@@ -1723,7 +1716,9 @@ public function homecorpSkillFilter(){
 			}
 			
 			$skills = Skills::lists('name', 'id');			
-
+			$share_links ="";
+			$share_groups = "";
+			$groups = "";
 			if(Auth::user()->induser_id != null){
 				$following = DB::select('select id from corpusers 
 										 where corpusers.id in (
@@ -2216,7 +2211,7 @@ public function homecorpSkillFilter(){
 			$data = [];
 			$data['save_contact'] = $profileFav->save_contact;
 
-			if(!empty($data) && $profileFav->id > 0 && $profileUser != null){
+			if(!empty($data) && $profileFav->id > 0){
 				return response()->json(['success'=>'success','data'=>$data]);
 				// return $data;
 			}else{
@@ -2729,6 +2724,12 @@ public function homecorpSkillFilter(){
 								   ->get();
 				if($post != null){
 					$post = $post->first();
+				}
+
+				$postviewCount = Postjob::where('unique_id', '=', $id)->first();
+				if($postviewCount != null){
+					$postviewCount->postview_count = $postviewCount->postview_count + 1;
+					$postviewCount->save();
 				}
 
 				$postUser = Postjob::join('indusers', 'indusers.id', '=', 'postjobs.individual_id')

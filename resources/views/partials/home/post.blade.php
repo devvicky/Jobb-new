@@ -33,7 +33,7 @@
                         }
 
                      ?>
-<div class="row post-item " data-tag='{{$expMin}}'>
+<div class="row post-item ">
 	<div class="col-md-12 home-post">
 		<div class="timeline" >
 			<!-- TIMELINE ITEM -->

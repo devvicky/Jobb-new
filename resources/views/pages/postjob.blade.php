@@ -5,7 +5,7 @@
 					  data-toggle="validator" role="form" class="form-horizontal">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">																
 <div class="row" style="margin:-5px;">
-		<div class="col-md-11" style="padding: 0;">
+		<div class="col-md-11" style="padding: 0 5px;">
 		<div class="portlet box" id="form_wizard_1">			
 			<div class="portlet-body form"  style="background-color: transparent;">
 				
@@ -51,7 +51,7 @@
 								</div> -->
 								<div class="tab-pane active" id="tab1">
 									<div class="row">
-		                                <div class="col-md-8">
+		                                <div class="col-md-8" style="padding: 0 8px 0 15px;">
 		                                    <!-- BEGIN PORTLET -->
 		                                    <div class="portlet light " style="background-color:white;">
 		                                        <div class="portlet-title">
@@ -71,8 +71,7 @@
 		                                                      <span class="input-group-addon">
 		                                                        <i class="fa fa-flag" style="color:darkcyan;"></i>
 		                                                      </span>
-		                                                      <input type="text" name="post_title" class="form-control" 
-		                                                           placeholder="Job Title" required>
+		                                                      <input type="text" name="post_title" class="form-control" value="{{ old('post_title') }}" placeholder="Job Title" required>
 		                                                    </div>
 		                                                  </div>
 		                                                </div>
@@ -83,7 +82,7 @@
 		                                                  <div class="form-group">
 		                                                    <label>Industry <span class="required">*</span>
 		                                                    </label>
-		                                                    <select class="select2me form-control" name="industry">
+		                                                    <select class="select2me form-control" value="{{ old('industry') }}" name="industry">
 		                                                      <option value="">Select</option>
 		                                                      <option value="Automotive/ Ancillaries">Automotive/ Ancillaries</option>
 		                                                      <option value="Banking/ Financial Services">Banking/ Financial Services</option>
@@ -366,7 +365,7 @@
 		                                    </div>
 		                                    <!-- END PORTLET -->
 		                                </div>
-		                                <div class="col-md-4" style="    margin: 7px 0 0px 0;">
+		                                <div class="col-md-4" style="margin: 7px 0 0px 0;padding: 0 15px 0 0px;">
 										    <div class="company-card">
 										        <div class="company-card-image">
 										            <span>Posted By</span>
@@ -413,7 +412,7 @@
 		                                                    <div class="form-group" style="margin-bottom: 0;">
 		                                                        <label><input id="hide-apply" name="apply-check" type="checkbox"></label><label style="color: #eee;">&nbsp;Apply On Company Website</label>
 		                                                        <div  class="input-group show-apply">
-		                                                            <input type="text" name="website_redirect_url" class="form-control" value="" placeholder="http://">
+		                                                            <input type="text" name="website_redirect_url" class="form-control other" value="" placeholder="http://" style="color: white;">
 		                                                        </div>
 		                                                    </div>
 		                                                </div>
@@ -461,7 +460,7 @@
 										                        <i class="icon-envelope" style="color:#29DCDC;"></i>
 										                        
 										                        </span>
-										                        <input type="text" name="email_id" value="{{ Auth::user()->email }}" class="form-control group" placeholder="Email Id" style="color: white;">
+										                        <input type="text" name="email_id" value="{{ Auth::user()->email }}" class="form-control group other" placeholder="Email Id" style="color: white;">
 										                        </div>
 										                    </div>
 										                </div>
@@ -474,7 +473,7 @@
 										                        <span class="input-group-addon">
 										                        <i class="icon-call-end" style="color:#29DCDC;"></i>
 										                        </span>
-										                        <input type="text" name="phone" minlength="10" maxlength="10" value="{{ Auth::user()->mobile }}"  class="form-control group" placeholder="Phone No" style="color: white;">
+										                        <input type="text" name="phone" minlength="10" maxlength="10" value="{{ Auth::user()->mobile }}"  class="other form-control group" placeholder="Phone No" style="color: white;">
 										                        
 										                        </div>
 										                    </div>
@@ -488,8 +487,9 @@
 								</div>
 								
 								<div class="tab-pane" id="tab3">
+									<div class="form-body">
 									<div class="row">
-		                                <div class="col-md-8">
+		                                <div class="col-md-8" style="padding: 0 8px 0 15px;">
 		                                    <!-- BEGIN PORTLET -->
 		                                    <div class="portlet light " style="background-color:white;">
 		                                        <div class="portlet-title">
@@ -630,11 +630,7 @@
 		                                                <div class="col-md-12">
 		                                                    <div class="form-group">
 		                                                        <label>About Company</label>
-		                                                        <textarea id="textareas" rows="6" class="form-control autosizeme" name="about_company" maxlength="1000" >
-		                                                        	@if(Auth::user()->identifier == 2 && Auth::user()->corpuser->about_firm != null)
-		                                                        		{{Auth::user()->corpuser->about_firm}}
-		                                                        	@endif
-		                                                        </textarea>
+		                                                        <textarea id="textareas" rows="6" class="form-control autosizeme" name="about_company" maxlength="1000">@if(Auth::user()->identifier == 2 && Auth::user()->corpuser->about_firm != null){{Auth::user()->corpuser->about_firm}}@endif</textarea>
 		                                                        <div id="textarea_feedback"></div>
 		                                                    </div>
 		                                                </div>
@@ -643,7 +639,7 @@
 		                                    </div>
 		                                    <!-- END PORTLET -->
 		                                </div>
-		                                <div class="col-md-4" style="    margin: 7px 0 0px 0;">
+		                                <div class="col-md-4" style="margin: 7px 0 0px 0;padding: 0 15px 0 0px;">
 										    <div class="company-card">
 										        <div class="company-card-image">
 										            <span>Posted By</span>
@@ -683,50 +679,52 @@
 										            </div>
 										            @endif
 										        </div><!-- /.company-card-image -->
-										        
 										        <div class="company-card-data">
-										        	<div class="row apply-here" style="margin:0 10px">
-										        		<div class="col-md-12">
-										        			<div class="form-group">
-										        				<label>Apply here:</label>
-										        				<p class="form-control-static-msg" data-display-msg="website_redirect_url"></p>
-										        			</div>
-										        		</div>
-										        	</div>
-										        	<div class="row show-apply-email" style="margin:0 10px">
-												        <div class="col-md-12 ">
-													        <div class="form-group">
-													            <label>Show Contact:</label>
-													            <p class="form-control-static-msg" data-display-msg="show_contact"></p>
-													        </div>
-													    </div>
-													</div>
-													<div class="row show-apply-email" style="margin:0 10px">
-										                <div class="col-md-12 col-sm-12">
-										                    <div class="form-group">
-										                        <label><i class="fa fa-envelope"></i> </label>&nbsp;&nbsp; <p class="form-control-static-msg" data-display-msg="email_id"></p>
-										                    </div>
-										                </div>
-										                <!--/span-->
-										                <!-- <div class="col-md-2"></div> -->
-										                <div class="col-md-12 col-sm-12">
-										                    <div class="form-group">
-										                        <label><i class="fa fa-phone-square"></i> </label>&nbsp;&nbsp; <p class="form-control-static-msg" data-display-msg="phone"></p>
-										                    </div>
-										                </div>
-										                <!--/span-->
-										            </div>
-										        </div><!-- /.company-card-data -->
+												        	<div class="row apply-here" style="margin:0 10px">
+												        		<div class="col-md-12">
+												        			<div class="form-group">
+												        				<label style="color: #eee;">Apply here:</label>
+												        				<p class="form-control-static-msg" data-display-msg="website_redirect_url"></p>
+												        			</div>
+												        		</div>
+												        	</div>
+												        	<div class="row show-apply-email" style="margin:0 10px">
+														        <div class="col-md-12 ">
+															        <div class="form-group">
+															            <label style="color: #eee;">Show Contact: <span class="required">
+															                    * </span></label>
+															            <p class="form-control-static-msg" data-display-msg="show_contact"></p>
+															        </div>
+															    </div>
+															</div>
+															<div class="row show-apply-email" style="margin:0 10px">
+												                <div class="col-md-12 col-sm-12">
+												                    <div class="form-group">
+												                        <label style="color: #eee;">Email Id: </label> <p class="form-control-static-msg" data-display-msg="email_id"></p>
+												                    </div>
+												                </div>
+												                <!--/span-->
+												                <!-- <div class="col-md-2"></div> -->
+												                <div class="col-md-12 col-sm-12">
+												                    <div class="form-group">
+												                        <label style="color: #eee;">Phone No: </label> <p class="form-control-static-msg" data-display-msg="phone"></p>
+												                    </div>
+												                </div>
+												                <!--/span-->
+												            </div>
+												        </div><!-- /.company-card-data -->
+										        
 										    </div>
 										</div>
 		                            </div>
+		                        </div>
 								</div>
 								<div class="tab-pane" id="tab4">
 									
 									<input type="hidden" name="post_type">
 										<div class="form-body">
 											<div class="row">																				
-												<div class="col-md-8" style="padding:0;">												
+												<div class="col-md-8" style="padding: 0 8px 0 15px;">												
 													@if(Auth::user()->induser)
 													<!-- BEGIN PORTLET -->
 													<div class="portlet light " style="background-color:white;">
@@ -901,8 +899,8 @@
 										                    </div>
 										                </div>
 										                <div class="portlet-body">
-										                	<p class="form-control-static" data-display="post_compname" style="font-size:16px;"></p><br/>
-										                	Reference Id - <p class="form-control-static" data-display="reference_id"></p><br/>
+										                	<p class="form-control-static" data-display="post_compname" style="font-size:16px;"></p>
+										                	Reference Id - <p class="form-control-static" data-display="reference_id"></p>
 										                    Details - <p class="form-control-static" data-display="about_company"></p>
 										                </div>
 										            </div>
@@ -910,7 +908,7 @@
 															
 													
 												</div>
-												<div class="col-md-4" style="    margin: 7px 0 0px 0;">
+												<div class="col-md-4" style="margin: 7px 0 0px 0;padding: 0 15px 0 0px;">
 												    <div class="company-card">
 												        <div class="company-card-image">
 												            <span>Posted By</span>
@@ -955,7 +953,7 @@
 												        	<div class="row apply-here" style="margin:0 10px">
 												        		<div class="col-md-12">
 												        			<div class="form-group">
-												        				<label>Apply here:</label>
+												        				<label style="color: #eee;">Apply here:</label>
 												        				<p class="form-control-static" data-display="website_redirect_url"></p>
 												        			</div>
 												        		</div>
@@ -963,7 +961,7 @@
 												        	<div class="row show-apply-email" style="margin:0 10px">
 														        <div class="col-md-12 ">
 															        <div class="form-group">
-															            <label>Show Contact: <span class="required">
+															            <label style="color: #eee;">Show Contact: <span class="required">
 															                    * </span></label>
 															            <p class="form-control-static" data-display="show_contact"></p>
 															            
@@ -973,7 +971,7 @@
 															<div class="row show-apply-email" style="margin:0 10px">
 												                <div class="col-md-12 col-sm-12">
 												                    <div class="form-group">
-												                        <label>Email Id: </label>
+												                        <label style="color: #eee;">Email Id: </label>
 												                         <p class="form-control-static" data-display="email_id"></p>
 												                    </div>
 												                </div>
@@ -981,7 +979,7 @@
 												                <!-- <div class="col-md-2"></div> -->
 												                <div class="col-md-12 col-sm-12">
 												                    <div class="form-group">
-												                        <label>Phone No: </label>
+												                        <label style="color: #eee;">Phone No: </label>
 												                         <p class="form-control-static" data-display="phone"></p>
 												                    </div>
 												                </div>
@@ -992,7 +990,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="g-recaptcha" data-sitekey="{{ env('RE_CAP_SITE') }}" style="float: none;margin: 7px auto;display: table;"></div>	
+										<!-- <div class="g-recaptcha" data-callback="enableBtn" data-sitekey="{{ env('RE_CAP_SITE') }}" style="float: none;margin: 7px auto;display: table;"></div>	 -->
 									</div>
 								</div>
 							<div class="form-actions">
@@ -1007,7 +1005,7 @@
 									<!-- <a href="javascript:;" class="btn green ">
 									Submit <i class="m-icon-swapright m-icon-white"></i>
 									</a> -->
-									<button type="submit" class=" btn blue button-submit">Submit</button>
+									<button type="submit" id="postjob_id" class=" btn blue button-submit">Submit</button>
 								</div>
 							</div>
 						</div>
@@ -1037,6 +1035,12 @@
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip(); 
 });
+
+document.getElementById("postjob_id").disabled = true;
+
+ function enableBtn(){
+    document.getElementById("postjob_id").disabled = false;
+   }
 </script>
 <script type="text/javascript">
 	$(".education-list").select2({

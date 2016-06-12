@@ -2,12 +2,12 @@
 <div class="modal fade" id="profile-pic" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
+      
       @if(Auth::user()->induser_id !=null)
-      <?=Form::open(array('url' => URL::to('/user/imgUpload', array(), true), 'files'=> true, 'id'=> 'profile-img-upload-form', 'onsubmit'=>'return checkForm()' ))?>
+      {!! Form::open(array('url' => 'user/imgUpload', 'files'=> true, 'id'=> 'profile-img-upload-form', 'onsubmit'=>'return checkForm()')) !!}
       @elseif(Auth::user()->corpuser_id !=null)
-      <?=Form::open(array('url' => URL::to('/corporate/imgUpload', array(), true), 'files'=> true))?>
+      {!! Form::open(array('url' => 'corporate/imgUpload', 'files'=> true)) !!}
       @endif
-
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
         <h4 class="modal-title">Add profile image</h4>

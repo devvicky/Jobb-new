@@ -10,7 +10,7 @@
 			<i class="fa fa-angle-right"></i>
 		</li>
 		<li>
-			<a href="/link#tab_1_2">Groups</a>
+			<a href="/links#tab_1_2">Groups</a>
 			<i class="fa fa-angle-right"></i>
 		</li>
 		<li class="active">
@@ -19,7 +19,7 @@
 	</ul>
 </div>
 <!-- END PAGE BREADCRUMB -->
-<div class="row margin-top-10">
+<div class="row">
 	<div class="col-md-12">
 		<!-- BEGIN PROFILE SIDEBAR -->
 		<div class="profile-sidebar" style="width: 250px;">

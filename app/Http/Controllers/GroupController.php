@@ -274,8 +274,7 @@ class GroupController extends Controller {
 		return redirect('/group/'.$request['delete_id']);
 	}
 
-	public function changeAdmin($id)
-	{
+	public function changeAdmin($id){
 		$data = Group::where('id', '=', $id)->first();
 		if($data != null){
 			$data->admin_id = Input::get('admin_id');
@@ -284,6 +283,23 @@ class GroupController extends Controller {
 		}else{
 			return 'some error occured.';
 		}
+	}
+
+	public function addSearchUser(Request $request){
+		$group = Group::findOrFail($request['add_group_id']);
+		$group->users()->attach($request['add_user_id']);
+
+		$to_user = User::where('induser_id', '=', $request['add_user_id'])->pluck('id');
+		if($to_user != null){
+			$notification = new Notification();
+			$notification->from_user = Auth::user()->id;
+			$notification->to_user = $to_user;
+			$notification->remark = 'has added you to group: '.$group->group_name;
+			$notification->operation = 'group';
+			$notification->save();
+		}
+
+		return redirect('/group/'.$request['add_group_id']);
 	}
 
 }

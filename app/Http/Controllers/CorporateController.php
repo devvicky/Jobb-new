@@ -192,10 +192,8 @@ class CorporateController extends Controller {
 		if($data != null){
 		$data->username = Input::get('username');
 		$data->working_as = Input::get('working_as');
-		$data->firm_email_id = Input::get('firm_email_id');
-		$data->firm_phone = Input::get('firm_phone');
 		$data->save();
-		return redirect('/corporate/edit#privacy_setting');
+		return redirect('/corporate/edit');
 		}else{
 			return 'some error occured.'+Input::get('email');
 		}
@@ -229,7 +227,7 @@ class CorporateController extends Controller {
 			$data->firm_address = Input::get('firm_address');
 			$data->city = Input::get('city');
 			$data->save();
-			return redirect('/corporate/edit#account_handler');
+			return redirect('/corporate/edit');
 		}
 	}
 
@@ -282,17 +280,32 @@ class CorporateController extends Controller {
 		}
 	}
 
-	public function otherdetailsUpdate(Request $request){
-		$otherdetailsupdate = Corpuser::where('id', '=', $request['userid'])->first();
+	public function otherUpdate(Request $request){
+		$otherupdate = Corpuser::where('id', '=', $request['userid'])->first();
 
-		if($otherdetailsupdate != null){
-			$otherdetailsupdate->industry = $request['industry'];
-			$otherdetailsupdate->emp_count = $request['emp_count'];
+		if($otherupdate != null){
+			$otherupdate->industry = $request['industry'];
+			$otherupdate->emp_count = $request['emp_count'];
 			if($request['linked_skill'] != null){
-				$otherdetailsupdate->linked_skill = implode(', ', $request['linked_skill']);
+				$otherupdate->linked_skill = implode(', ', $request['linked_skill']);
 			}
-			$otherdetailsupdate->website_url = $request['website_url'];
-			$otherdetailsupdate->save();
+			$otherupdate->website_url = $request['website_url'];
+			$otherupdate->save();
+
+			return response()->json(['success'=>'success']);
+		}else{
+			return response()->json(['success'=>'fail']);
+		}
+	}
+
+	public function addresscorporateUpdate(Request $request){
+		$addressupdate = Corpuser::where('id', '=', $request['userid'])->first();
+
+		if($addressupdate != null){
+			$addressupdate->address_1 = $request['address_1'];
+			$addressupdate->address_2 = $request['address_2'];
+			$addressupdate->city = $request['city'];
+			$addressupdate->save();
 
 			return response()->json(['success'=>'success']);
 		}else{

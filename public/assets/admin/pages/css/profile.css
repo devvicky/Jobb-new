@@ -8,7 +8,7 @@ New Profile Page
 .profile-sidebar {
   float: left;
   width: 300px;
-  margin-right: 20px;
+  margin-right: 8px;
 }
 
 .profile-content {
@@ -137,7 +137,7 @@ New Profile Page
 
 .profile-desc-link i {
   /*width: 22px;*/
-  font-size: 12px !important;
+  font-size: 20px !important;
   color: #abb6c4;
   margin-right: 5px;
 }
@@ -160,7 +160,7 @@ New Profile Page
   }
 
   .profile-sidebar > .portlet {
-    margin-bottom: 20px;
+    margin-bottom: 8px;
   }
 
   .profile-content {

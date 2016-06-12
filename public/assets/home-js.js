@@ -278,7 +278,7 @@ $('.follow-btn').live('click', function(event) {
         success: function(data) {
             if(data == 'success'){
                 console.log(data);
-                 $(".pfid-"+puid).html('<a href="#links-follow" data-toggle="modal" class="user-link3" data-linked="no" data-utype="ind"><button class="btn btn-xs link-follow-icon-css"><i class="icon-check" style="color:#F7F7F7;font-size:10px;"></i> Following</button></a>');
+                 $(".pfid-"+puid).html('<a class="btn btn-icon-only btn-circle green "><i class="fa fa-check" style=""></i> </a>');
                 $('#links-follow').modal('hide');
             }
         }

@@ -240,11 +240,43 @@ class UserController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function updateResume($id)
 	{
-		
+		$data = Induser::where('id', '=', $id)->first();
+		if($data != null){
+			if(Input::file('resume') != null){
+				if(Input::file('resume')->isValid()) {
+					$destinationPath = 'resume/';
+					// $extension = Input::file('resume')->getClientOriginalExtension();
+					$date = new \DateTime();
+					// $date = new DateTime('2000-01-01');
+					$result = $date->format('Y-m-d');
+					$name = $result.'_'.Input::file('resume')->getClientOriginalName();
+					$fileName = $name;
+					$path = $destinationPath.$fileName;
+					Input::file('resume')->move($destinationPath, $fileName);
+
+				}			
+				$data->resume = $fileName;
+				$data->resume_dtTime  = \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'));
+			}
+		}
+		$data->save();
+		return redirect('individual/edit');
 	}
 
+	public function removeResume($id)
+	{
+		$remove = Induser::where('id', '=', $id)->first();
+		if($remove != null){
+			$remove->resume = null;
+			$remove->resume_dtTime = '0000-00-00 00:00:00';
+		}
+		$remove->save();
+		return redirect('/individual/edit')->withErrors([
+						'errors' => 'Resume successfully removed.',
+					]);
+	}
 
 	/**
 	 * Remove the specified resource from storage.
@@ -330,6 +362,8 @@ class UserController extends Controller {
 				$professionalupdate->linked_skill = implode(', ', $request['linked_skill_id']);
 			}
 			$professionalupdate->about_individual = $request['about_individual'];
+
+			
 			$professionalupdate->save();
 			return response()->json(['success'=>'success']);
 		}else{
@@ -416,7 +450,7 @@ class UserController extends Controller {
 					\File::delete($destinationPath.$oldProfilePic);
 					\File::delete($img);
 				}
-				return redirect('/home');
+				return redirect('/individual/edit');
 			// }
 			
 	    // }
@@ -964,61 +998,88 @@ class UserController extends Controller {
 	}
 		
 	public function accountDelete(){
-		$title = "AccountSetting";
-		$acc_id = Input::get('account_id');
-		$password = bcrypt(Input::get('password'));
-		$skills = Skills::lists('name', 'name');
-		$thanks = Postactivity::with('user', 'post')
-						      ->join('postjobs', 'postjobs.id', '=', 'postactivities.post_id')
-							  ->where('postjobs.individual_id', '=', Auth::user()->induser_id)
-							  ->where('postjobs.inactive', '=', 0)
-							  ->where('postactivities.thanks', '=', 1)
-						      ->orderBy('postactivities.id', 'desc')
-						      ->sum('postactivities.thanks');
-		$posts = Postjob::where('individual_id', '=', Auth::user()->induser_id)->count('id');
-		$linksCount = Connections::where('user_id', '=', Auth::user()->induser_id)
-							->where('status', '=', 1)
-							->orWhere('connection_user_id', '=', Auth::user()->induser_id)
-							->where('status', '=', 1)
-							->count('id');
-		$educationList = Education::orderBy('level')->orderBy('name')->where('name', '!=', '0')->get();
-		$location = Induser::where('id', '=', Auth::user()->induser_id)->first(['prefered_location']);
-		$farearoleList = Functional_area_role_mapping::orderBy('id')->get();
-		$userDetail = User::where('induser_id','=',Auth::user()->induser_id)->first();
-		$token = 'AD'.rand(11111,99999).rand(11111,99999);
+
+		if(Auth::user()->identifier == 1){
+			$title = "AccountSetting";
+			$acc_id = Input::get('account_id');
+			$password = bcrypt(Input::get('password'));
+			$skills = Skills::lists('name', 'name');
+			$thanks = Postactivity::with('user', 'post')
+							      ->join('postjobs', 'postjobs.id', '=', 'postactivities.post_id')
+								  ->where('postjobs.individual_id', '=', Auth::user()->induser_id)
+								  ->where('postjobs.inactive', '=', 0)
+								  ->where('postactivities.thanks', '=', 1)
+							      ->orderBy('postactivities.id', 'desc')
+							      ->sum('postactivities.thanks');
+			$posts = Postjob::where('individual_id', '=', Auth::user()->induser_id)->count('id');
+			$linksCount = Connections::where('user_id', '=', Auth::user()->induser_id)
+								->where('status', '=', 1)
+								->orWhere('connection_user_id', '=', Auth::user()->induser_id)
+								->where('status', '=', 1)
+								->count('id');
+			$educationList = Education::orderBy('level')->orderBy('name')->where('name', '!=', '0')->get();
+			$location = Induser::where('id', '=', Auth::user()->induser_id)->first(['prefered_location']);
+			$farearoleList = Functional_area_role_mapping::orderBy('id')->get();
+			$userDetail = User::where('induser_id','=',Auth::user()->induser_id)->first();
+			$token = 'AD'.rand(11111,99999).rand(11111,99999);
 			if( Hash::check(Input::get('password'), $userDetail->password) ){
 				$user = User::with('induser')->where('id', '=', Auth::user()->id)->first();
 				return view('pages.professional_page', compact('title', 'user', 'acc_id', 'skills', 'educationList', 'location', 'farearoleList', 'thanks', 'linksCount', 'posts'));
 			}else{
 				return redirect('/mypost');
 			}
+		}elseif(Auth::user()->identifier == 2){
+			$title = "AccountSetting";
+			$acc_id = Input::get('account_id');
+			$password = bcrypt(Input::get('password'));
+			$skills = Skills::lists('name', 'name');
+			$userDetail = User::where('corpuser_id','=',Auth::user()->corpuser_id)->first();
+			$token = 'AD'.rand(11111,99999).rand(11111,99999);
+			if( Hash::check(Input::get('password'), $userDetail->password) ){
+				$user = User::with('corpuser')->where('id', '=', Auth::user()->id)->first();
+				return view('pages.firm_details', compact('title', 'user', 'acc_id', 'skills'));
+			}else{
+				return redirect('/mypost');
+			}
+		}
 	}
 
 	public function deleteProfileAccount(){
 
-		$user = User::where('induser_id','=',Auth::user()->induser_id)->first();
-		$induser = Induser::where('id','=',Auth::user()->induser_id)->first();
-		$accountDetail = new Accountdetail();
+		if(Auth::user()->identifier == 1){
+			$user = User::where('induser_id','=',Auth::user()->induser_id)->first();
+			$induser = Induser::where('id','=',Auth::user()->induser_id)->first();
+			$accountDetail = new Accountdetail();
 
-		$accountDetail->name = $user->name;
-		$accountDetail->emailid = $user->email;
-		$accountDetail->mobile = $user->mobile;
-		$accountDetail->profile_created_date = $user->created_at;
-		$accountDetail->reason = Input::get('reason');
-		$accountDetail->comments = Input::get('comments');
-		$accountDetail->save();
-		if($accountDetail != null){
-			$user->delete();
-			$induser->delete();
-			// $userpost = Postjob::where('individual_id', '=', Auth::user()->induser_id)->get();
-			// foreach ($userpost as $up ) {
-			// 	$up->inactive = 1;
-			// 	$up->save();
-			// }
-			// $user->inactive = 1;
-			// $user->save();
+			$accountDetail->name = $user->name;
+			$accountDetail->emailid = $user->email;
+			$accountDetail->mobile = $user->mobile;
+			$accountDetail->profile_created_date = $user->created_at;
+			$accountDetail->reason = Input::get('reason');
+			$accountDetail->comments = Input::get('comments');
+			$accountDetail->save();
+			if($accountDetail != null){
+				$user->delete();
+				$induser->delete();
+			}
+		}elseif(Auth::user()->identifier == 2){
+			$user = User::where('corpuser_id','=',Auth::user()->corpuser_id)->first();
+			$corpuser = Corpuser::where('id','=',Auth::user()->corpuser_id)->first();
+			$accountDetail = new Accountdetail();
 
+			$accountDetail->name = $user->name;
+			$accountDetail->emailid = $user->email;
+			$accountDetail->mobile = $user->mobile;
+			$accountDetail->profile_created_date = $user->created_at;
+			$accountDetail->reason = Input::get('reason');
+			$accountDetail->comments = Input::get('comments');
+			$accountDetail->save();
+			if($accountDetail != null){
+				$user->delete();
+				$corpuser->delete();
+			}
 		}
+		
 		return redirect('/auth/logout');
 	}
 }
